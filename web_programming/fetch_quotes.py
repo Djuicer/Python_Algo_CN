@@ -1,8 +1,7 @@
 """
-This file fetches quotes from the " ZenQuotes API ".
-It does not require any API key as it uses free tier.
+本文件从 " ZenQuotes API " 获取引语。它使用免费层级，无需 API 密钥。
 
-For more details and premium features visit:
+有关更多详情和高级功能，请访问：
     https://zenquotes.io/
 """
 

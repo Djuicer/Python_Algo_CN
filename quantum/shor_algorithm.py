@@ -2,15 +2,13 @@ import math
 import random
 
 """
-Shor Algorithm is one of the basic quantum computing algorithm
-that is used in breaking the RSA cryptography protocol, by finding the
-prime numbers that are used to create the public key value, n
+Shor 算法是基础量子计算算法之一，可通过找出用于生成公钥值 n 的素数来破解
+RSA 密码协议。
 
-In this implementation, I have used a very simple construct without
-the use of qiskit or cirq to help understand how Shor algorithm's
-idea actually works.
+本实现采用非常简单的结构，不使用 qiskit 或 cirq，以帮助理解 Shor 算法思想
+的实际工作方式。
 
-Website referred for shor algorithm:
+Shor 算法参考网站：
 https://www.geeksforgeeks.org/shors-factorization-algorithm/
 
 """
@@ -19,7 +17,7 @@ https://www.geeksforgeeks.org/shors-factorization-algorithm/
 class Shor:
     def period_find(self, num: int, number: int) -> int:
         """
-        Find the period of a^x mod N.
+        求 a^x mod N 的周期。
 
         >>> shor = Shor()
         >>> shor.period_find(2, 15)
@@ -34,7 +32,7 @@ class Shor:
 
     def shor_algorithm(self, number: int) -> tuple[int, int]:
         """
-        Run Shor's algorithm to factor a number.
+        运行 Shor 算法分解一个数。
         >>> shor = Shor()
         >>> random.seed(0)
         >>> factors = shor.shor_algorithm(15)

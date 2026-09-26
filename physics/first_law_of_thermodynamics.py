@@ -1,43 +1,40 @@
 """
 ________________________________________________________________________________________
-The first law of thermodynamics states that, when energy passes into or out of a system
-(as work, heat, or matter), the system's internal energy changes in accordance with the
-law of conservation of energy. This also results in the observation that, in an
-externally isolated system, even with internal changes, the sum of all forms of energy
-must remain constant, as energy cannot be created or destroyed.
+热力学第一定律指出，当能量以功、热或物质的形式进入或离开系统时，系统内能
+依照能量守恒定律发生变化。由此也可知，在与外界隔离的系统中，即使内部发生
+变化，各种形式的能量总和仍保持不变，因为能量既不会产生也不会消灭。
 
-Check out the formula used to calculate this flux:
+计算公式为：
  --------------
  | Q = ΔU + W |
  --------------
 
-Q = heat added or removed from the system.
-ΔU = variation of internal energy of the system.
-W = work done by the system on its surroundings.
+Q = 系统吸收或释放的热量。
+ΔU = 系统内能的变化量。
+W = 系统对外界所做的功。
 
-OBS: All units must be equal to each other.
-(Description adapted from https://en.wikipedia.org/wiki/Laws_of_thermodynamics )
+注意：所有单位必须彼此一致。
+（说明改编自 https://en.wikipedia.org/wiki/Laws_of_thermodynamics ）
 """
 
 
 def __check_args(argument: float) -> None:
     """
-    Check that the arguments are valid.
+    检查参数是否有效。
     >>> __check_args("50")
     Traceback (most recent call last):
         ...
     TypeError: Invalid argument. Should be an integer or float.
     """
 
-    # Ensure valid instance
+    # 确保实例有效
     if not isinstance(argument, (int, float)):
         raise TypeError("Invalid argument. Should be an integer or float.")
 
 
 def __categorize_system(argument_value: float, argument_name: str) -> None:
     """
-    Categorizes the system based on the work done, heat added/removed,
-    and internal energy variation.
+    根据所做的功、吸收或释放的热量以及内能变化对系统进行分类。
     >>> __categorize_system(0, "work")
     The system is isochoric (constant volume).
     >>> __categorize_system(50, "heat")

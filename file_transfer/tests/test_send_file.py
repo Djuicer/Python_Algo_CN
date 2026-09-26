@@ -6,16 +6,16 @@ from file_transfer.send_file import send_file
 @patch("socket.socket")
 @patch("builtins.open")
 def test_send_file_running_as_expected(file, sock) -> None:
-    # ===== initialization =====
+    # ===== 初始化 =====
     conn = Mock()
     sock.return_value.accept.return_value = conn, Mock()
     f = iter([1, None])
     file.return_value.__enter__.return_value.read.side_effect = lambda _: next(f)
 
-    # ===== invoke =====
+    # ===== 调用 =====
     send_file(filename="mytext.txt", testing=True)
 
-    # ===== ensurance =====
+    # ===== 验证 =====
     sock.assert_called_once()
     sock.return_value.bind.assert_called_once()
     sock.return_value.listen.assert_called_once()

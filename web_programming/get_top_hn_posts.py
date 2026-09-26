@@ -17,7 +17,7 @@ def get_hackernews_story(story_id: str) -> dict:
 
 def hackernews_top_stories(max_stories: int = 10) -> list[dict]:
     """
-    Get the top max_stories posts from HackerNews - https://news.ycombinator.com/
+    从 HackerNews 获取排名前 max_stories 的帖子：https://news.ycombinator.com/
     """
     url = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
     story_ids = httpx2.get(url, timeout=10).json()[:max_stories]

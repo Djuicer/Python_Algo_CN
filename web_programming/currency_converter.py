@@ -1,5 +1,5 @@
 """
-This is used to convert the currency using the Amdoren Currency API
+使用 Amdoren Currency API 进行货币换算。
 https://www.amdoren.com
 """
 
@@ -17,7 +17,7 @@ import httpx2
 URL_BASE = "https://www.amdoren.com/api/currency.php"
 
 
-# Currency and their description
+# 货币及其说明
 list_of_currencies = """
 AED	United Arab Emirates Dirham
 AFN	Afghan Afghani
@@ -179,9 +179,9 @@ def convert_currency(
     from_: str = "USD", to: str = "INR", amount: float = 1.0, api_key: str = ""
 ) -> str:
     """https://www.amdoren.com/currency-api/"""
-    # Instead of manually generating parameters
+    # 无需手动生成参数
     params = locals()
-    # from is a reserved keyword
+    # from 是保留关键字
     params["from"] = params.pop("from_")
     res = httpx2.get(URL_BASE, params=params, timeout=10).json()
     return str(res["amount"]) if res["error"] == 0 else res["error_message"]

@@ -1,40 +1,35 @@
 """
-Title : Implementation of Boyle's law.
+标题：玻意耳定律的实现。
 
-Description :
-    Boyle's law, also referred to as the Boyle-Mariotte law, or Mariotte's law
-    (especially in France), is a gas law which states that the pressure exerted
-    by a gas of a fixed mass and temperature is inversely proportional to the
-    volume occupied by it.
+说明：
+    玻意耳定律又称 Boyle-Mariotte 定律或 Mariotte 定律（尤其在法国），指出
+    质量和温度固定的气体所产生的压强与其占据的体积成反比。
 
-    For a gas, the relationship between volume and pressure (at constant mass and
-    temperature) can be expressed mathematically as follows.
+    对于质量和温度恒定的气体，体积与压强的关系可表示为：
 
     P ∝ (1/V)
 
-    Where P is the pressure exerted by the gas and V is the volume occupied by it. This
-    proportionality can be converted into an equation by adding a constant, k.
+    其中 P 为气体产生的压强，V 为气体占据的体积。引入常数 k 可将该比例关系
+    转换为方程。
 
     P = k*(1/V) ⇒ PV = k
 
-    Boyle's law states that when the temperature of a given mass of confined gas is
-    constant,the product of its pressure and volume is also constant. When comparing the
-    same substance under two different sets of conditions, the law can be expressed as:
+    玻意耳定律指出，给定质量的密闭气体温度恒定时，其压强与体积的乘积也
+    保持恒定。比较同一物质在两组不同条件下的状态时，该定律可表示为：
 
     P1V1 = P2V2
 
-    Where,
+    其中：
 
-    P1 is the initial pressure exerted by the gas in Pascals (P)
-    V1 is the initial volume occupied by the gas Litres (L)
-    P2 is the final pressure exerted by the gas Pascals (P)
-    V2 is the final volume occupied by the gas Litres (L)
+    P1 为气体的初始压强，单位为帕斯卡 (P)
+    V1 为气体的初始体积，单位为升 (L)
+    P2 为气体的最终压强，单位为帕斯卡 (P)
+    V2 为气体的最终体积，单位为升 (L)
 
-    This equation can be used to predict the increase in the pressure exerted by a gas
-    on the walls of its container when the volume of its container is decreased
-    (and its quantity and absolute temperature remain unchanged).
+    当容器体积减小，而气体的量和绝对温度保持不变时，可用该方程预测气体
+    对容器壁压强的增加。
 
-Sources :
+来源：
     https://en.wikipedia.org/wiki/Boyle%27s_law
     https://byjus.com/chemistry/boyles-law/
 """
@@ -45,8 +40,7 @@ valid_variables: list[str] = ["v1", "v2", "p1", "p2"]
 def check_validity(values: dict[str, float]) -> None:
     """
 
-    Function takes dictionary as an input and returns nothing if the input
-    is valid
+    函数接收字典作为输入；若输入有效，则不返回任何内容。
 
     >>> check_validity({})
     Traceback (most recent call last):
@@ -81,9 +75,8 @@ def check_validity(values: dict[str, float]) -> None:
 def find_target_variable(values: dict[str, float]) -> str:
     """
 
-    Function is used to get the valid target variable whose value needs to be found
-    using Boyle's Law.
-    Function takes a dictionary as an input and returns a string
+    获取需要利用玻意耳定律求值的有效目标变量。
+    函数接收字典作为输入并返回字符串。
 
     >>> find_target_variable({})
     Traceback (most recent call last):
@@ -114,10 +107,8 @@ def find_target_variable(values: dict[str, float]) -> str:
 def boyles_law(values: dict[str, float]) -> dict[str, str]:
     """
 
-    Function calculates the the unknown pressure or volume using Boyle's law.
-    Function takes a dictionary as an input. It contains values for respective
-    pressure and volumes and computes the required value and returns it as
-    output
+    使用玻意耳定律计算未知的压强或体积。函数接收包含相应压强和体积值的
+    字典作为输入，计算并返回所需值。
 
     >>> boyles_law({'p1':2,'v2':1})
     Traceback (most recent call last):

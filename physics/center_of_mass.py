@@ -1,28 +1,20 @@
 """
-Calculating the center of mass for a discrete system of particles, given their
-positions and masses.
+根据离散粒子系统中各粒子的位置和质量计算质心。
 
-Description:
+说明：
 
-In physics, the center of mass of a distribution of mass in space (sometimes referred
-to as the barycenter or balance point) is the unique point at any given time where the
-weighted relative position of the distributed mass sums to zero. This is the point to
-which a force may be applied to cause a linear acceleration without an angular
-acceleration.
+在物理学中，空间质量分布的质心（有时称重心或平衡点）是在任意时刻使质量
+加权相对位置之和为零的唯一点。对该点施力可产生线加速度而不产生角加速度。
 
-Calculations in mechanics are often simplified when formulated with respect to the
-center of mass. It is a hypothetical point where the entire mass of an object may be
-assumed to be concentrated to visualize its motion. In other words, the center of mass
-is the particle equivalent of a given object for the application of Newton's laws of
-motion.
+以质心为参考建立力学公式通常能简化计算。质心是假想的质量集中点，便于
+描述物体运动。换言之，在应用牛顿运动定律时，质心是给定物体对应的等效粒子。
 
-In the case of a system of particles P_i, i = 1, ..., n , each with mass m_i that are
-located in space with coordinates r_i, i = 1, ..., n , the coordinates R of the center
-of mass corresponds to:
+对于粒子系统 P_i（i = 1, ..., n），各粒子质量为 m_i、空间坐标为 r_i，
+其质心坐标 R 为：
 
 R = (Σ(mi * ri) / Σ(mi))
 
-Reference: https://en.wikipedia.org/wiki/Center_of_mass
+参考资料：https://en.wikipedia.org/wiki/Center_of_mass
 """
 
 from collections import namedtuple
@@ -33,19 +25,17 @@ Coord3D = namedtuple("Coord3D", "x y z")  # noqa: PYI024
 
 def center_of_mass(particles: list[Particle]) -> Coord3D:
     """
-    Input Parameters
+    输入参数
     ----------------
     particles: list(Particle):
-    A list of particles where each particle is a tuple with it's (x, y, z) position and
-    it's mass.
+    粒子列表，每个粒子是包含其 (x, y, z) 位置和质量的元组。
 
-    Returns
+    返回
     -------
     Coord3D:
-    A tuple with the coordinates of the center of mass (Xcm, Ycm, Zcm) rounded to two
-    decimal places.
+    包含质心坐标 (Xcm, Ycm, Zcm) 的元组，保留两位小数。
 
-    Examples
+    示例
     --------
     >>> center_of_mass([
     ...     Particle(1.5, 4, 3.4, 4),

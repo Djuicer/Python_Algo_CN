@@ -1,7 +1,6 @@
 """
-In this problem, we want to rotate the matrix elements by 90, 180, 270
-(counterclockwise)
-Discussion in stackoverflow:
+本问题将矩阵元素逆时针旋转 90、180、270 度。
+Stack Overflow 上的讨论：
 https://stackoverflow.com/questions/42519/how-do-you-rotate-a-two-dimensional-array
 """
 
@@ -34,7 +33,7 @@ def rotate_90(matrix: list[list[int]]) -> list[list[int]]:
     """
 
     return reverse_row(transpose(matrix))
-    # OR.. transpose(reverse_column(matrix))
+    # 或者：transpose(reverse_column(matrix))
 
 
 def rotate_180(matrix: list[list[int]]) -> list[list[int]]:
@@ -46,7 +45,7 @@ def rotate_180(matrix: list[list[int]]) -> list[list[int]]:
     """
 
     return reverse_row(reverse_column(matrix))
-    # OR.. reverse_column(reverse_row(matrix))
+    # 或者：reverse_column(reverse_row(matrix))
 
 
 def rotate_270(matrix: list[list[int]]) -> list[list[int]]:
@@ -58,7 +57,7 @@ def rotate_270(matrix: list[list[int]]) -> list[list[int]]:
     """
 
     return reverse_column(transpose(matrix))
-    # OR.. transpose(reverse_row(matrix))
+    # 或者：transpose(reverse_row(matrix))
 
 
 def transpose(matrix: list[list[int]]) -> list[list[int]]:

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-Provide the current worldwide COVID-19 statistics.
-This data is being scrapped from 'https://www.worldometers.info/coronavirus/'.
+提供当前全球 COVID-19 统计数据。
+数据抓取自 'https://www.worldometers.info/coronavirus/'。
 """
 
 # /// script
@@ -21,7 +21,7 @@ def world_covid19_stats(
     url: str = "https://www.worldometers.info/coronavirus/",
 ) -> dict:
     """
-    Return a dict of current worldwide COVID-19 statistics
+    返回包含当前全球 COVID-19 统计数据的字典。
     """
     soup = BeautifulSoup(
         httpx2.get(url, timeout=10, follow_redirects=True).text, "html.parser"

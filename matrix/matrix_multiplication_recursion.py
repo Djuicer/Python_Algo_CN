@@ -4,11 +4,11 @@
 
 
 """
-Perform matrix multiplication using a recursive algorithm.
+使用递归算法执行矩阵乘法。
 https://en.wikipedia.org/wiki/Matrix_multiplication
 """
 
-# type Matrix = list[list[int]]  # psf/black currenttly fails on this line
+# type Matrix = list[list[int]]  # psf/black 当前无法处理此行
 Matrix = list[list[int]]
 
 matrix_1_to_4 = [
@@ -81,10 +81,10 @@ def matrix_multiply(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
 
 def matrix_multiply_recursive(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
     """
-    :param matrix_a: A square Matrix.
-    :param matrix_b: Another square Matrix with the same dimensions as matrix_a.
-    :return: Result of matrix_a * matrix_b.
-    :raises ValueError: If the matrices cannot be multiplied.
+    :param matrix_a: 方阵
+    :param matrix_b: 与 matrix_a 维数相同的另一个方阵
+    :return: matrix_a * matrix_b 的结果
+    :raises ValueError: 两个矩阵无法相乘时抛出
 
     >>> matrix_multiply_recursive([], [])
     []
@@ -112,10 +112,10 @@ def matrix_multiply_recursive(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
     ):
         raise ValueError("Invalid matrix dimensions")
 
-    # Initialize the result matrix with zeros
+    # 使用零初始化结果矩阵
     result = [[0] * len(matrix_b[0]) for _ in range(len(matrix_a))]
 
-    # Recursive multiplication of matrices
+    # 递归执行矩阵乘法
     def multiply(
         i_loop: int,
         j_loop: int,
@@ -125,12 +125,12 @@ def matrix_multiply_recursive(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
         result: Matrix,
     ) -> None:
         """
-        :param matrix_a: A square Matrix.
-        :param matrix_b: Another square Matrix with the same dimensions as matrix_a.
-        :param result: Result matrix
-        :param i: Index used for iteration during multiplication.
-        :param j: Index used for iteration during multiplication.
-        :param k: Index used for iteration during multiplication.
+        :param matrix_a: 方阵
+        :param matrix_b: 与 matrix_a 维数相同的另一个方阵
+        :param result: 结果矩阵
+        :param i: 乘法迭代中使用的索引
+        :param j: 乘法迭代中使用的索引
+        :param k: 乘法迭代中使用的索引
         >>> 0 > 1  # Doctests in inner functions are never run
         True
         """
@@ -143,7 +143,7 @@ def matrix_multiply_recursive(matrix_a: Matrix, matrix_b: Matrix) -> Matrix:
         result[i_loop][j_loop] += matrix_a[i_loop][k_loop] * matrix_b[k_loop][j_loop]
         return multiply(i_loop, j_loop, k_loop + 1, matrix_a, matrix_b, result)
 
-    # Perform the recursive matrix multiplication
+    # 执行递归矩阵乘法
     multiply(0, 0, 0, matrix_a, matrix_b, result)
     return result
 

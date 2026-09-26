@@ -1,29 +1,21 @@
 """
-Description : Centripetal force is the force acting on an object in
-curvilinear motion directed towards the axis of rotation
-or centre of curvature.
+说明：向心力是作用于曲线运动物体、方向指向旋转轴或曲率中心的力。
 
-The unit of centripetal force is newton.
+向心力的单位是牛顿。
 
-The centripetal force is always directed perpendicular to the
-direction of the object's displacement. Using Newton's second
-law of motion, it is found that the centripetal force of an object
-moving in a circular path always acts towards the centre of the circle.
-The Centripetal Force Formula is given as the product of mass (in kg)
-and tangential velocity (in meters per second) squared, divided by the
-radius (in meters) that implies that on doubling the tangential velocity,
-the centripetal force will be quadrupled. Mathematically it is written as:
+向心力的方向始终与物体位移方向垂直。根据牛顿第二定律，沿圆周运动的物体
+所受向心力始终指向圆心。向心力等于质量（kg）与切向速度（m/s）平方的
+乘积除以半径（m），因此切向速度加倍时，向心力变为四倍。数学表达式为：
 F = mv²/r
-Where, F is the Centripetal force, m is the mass of the object, v is the
-speed or velocity of the object and r is the radius.
+其中 F 为向心力，m 为物体质量，v 为物体速度，r 为半径。
 
-Reference: https://byjus.com/physics/centripetal-and-centrifugal-force/
+参考资料：https://byjus.com/physics/centripetal-and-centrifugal-force/
 """
 
 
 def centripetal(mass: float, velocity: float, radius: float) -> float:
     """
-    The Centripetal Force formula is given as: (m*v*v)/r
+    向心力公式为：(m*v*v)/r
 
     >>> round(centripetal(15.5,-30,10),2)
     1395.0

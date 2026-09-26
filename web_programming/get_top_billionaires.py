@@ -1,6 +1,6 @@
 """
-CAUTION: You may get a json.decoding error.
-This works for some of us but fails for others.
+注意：可能出现 json.decoding 错误。
+此代码在部分环境中可用，在其他环境中可能失败。
 """
 
 # /// script
@@ -29,17 +29,16 @@ API_URL = (
 
 def years_old(birth_timestamp: int, today: date | None = None) -> int:
     """
-    Calculate the age in years based on the given birth date.  Only the year, month,
-    and day are used in the calculation.  The time of day is ignored.
+    根据给定出生日期计算周岁。计算仅使用年、月、日，忽略一天中的具体时间。
 
-    Args:
-        birth_timestamp: The date of birth.
-        today: (useful for writing tests) or if None then datetime.date.today().
+    参数：
+        birth_timestamp: 出生日期。
+        today: 可用于编写测试；为 None 时使用 datetime.date.today()。
 
-    Returns:
-        int: The age in years.
+    返回：
+        int: 周岁年龄。
 
-    Examples:
+    示例：
     >>> today = date(2024, 1, 12)
     >>> years_old(birth_timestamp=datetime(1959, 11, 20).timestamp(), today=today)
     64
@@ -60,10 +59,10 @@ def years_old(birth_timestamp: int, today: date | None = None) -> int:
 
 def get_forbes_real_time_billionaires() -> list[dict[str, int | str]]:
     """
-    Get the top 10 real-time billionaires using Forbes API.
+    使用 Forbes API 获取实时排名前 10 的亿万富豪。
 
-    Returns:
-        List of top 10 realtime billionaires data.
+    返回：
+        实时排名前 10 的亿万富豪数据列表。
     """
     response_json = httpx2.get(API_URL, timeout=10).json()
     return [
@@ -81,10 +80,10 @@ def get_forbes_real_time_billionaires() -> list[dict[str, int | str]]:
 
 def display_billionaires(forbes_billionaires: list[dict[str, int | str]]) -> None:
     """
-    Display Forbes real-time billionaires in a rich table.
+    在 rich 表格中显示 Forbes 实时亿万富豪信息。
 
-    Args:
-        forbes_billionaires (list): Forbes top 10 real-time billionaires
+    参数：
+        forbes_billionaires (list): Forbes 实时排名前 10 的亿万富豪
     """
 
     table = rich_table.Table(

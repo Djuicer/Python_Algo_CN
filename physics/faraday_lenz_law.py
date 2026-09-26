@@ -1,41 +1,35 @@
 """
-According to Faraday's law, the emergence of electric currents depends on the change in
-magnetic flux. Therefore, we write that the time variation of the magnetic flux is
-equivalent to an electric potential measured in volts (V), which, for historical
-reasons, is called the induced electromotive force (ε). This relationship is expressed
-by the following formula:
+根据法拉第定律，电流的产生取决于磁通量的变化。因此，磁通量随时间的变化
+等价于以伏特 (V) 为单位的电势，历史上称为感应电动势 (ε)。关系式为：
 
 ---------------
 | ε = ΔΦ / Δt |
 ---------------
 
-ε --> induced electromotive force (V - volts)
+ε --> 感应电动势（V - 伏特）
 
-ΔΦ = ΦF - Φi - variation in magnetic flux (Wb)
+ΔΦ = ΦF - Φi - 磁通量变化 (Wb)
 
-Δt - time interval (s)
+Δt - 时间间隔 (s)
 
-Furthermore, due to the principle of conservation of energy, we need to add a negative
-sign to Faraday's law. This signal was introduced by Lenz's Law, which allows us to
-determine the direction of the electric current:
+此外，根据能量守恒原理，法拉第定律中需要加入负号。该符号由楞次定律引入，
+可用于确定电流方向：
 
-An electric current will always be formed in a direction such that the magnetic flux it
-produces opposes the magnetic flux that induced it.
+感应电流的方向总使其产生的磁通量反抗引起该电流的磁通量变化。
 
-The combination of these pieces of information gives rise to the Faraday-Lenz Law.
-Check it out:
+综合以上信息得到法拉第－楞次定律：
 
 -----------------
 | ε = - ΔΦ / Δt |
 -----------------
 
-(Description adapted from https://en.wikipedia.org/wiki/Faraday%27s_law_of_induction )
+（说明改编自 https://en.wikipedia.org/wiki/Faraday%27s_law_of_induction ）
 """
 
 
 def __check_args(final_flux: float, initinal_flux: float, time_interval: float) -> None:
     """
-    Check that the arguments are valid
+    检查参数是否有效。
     >>> __check_args(50, 10, -10)
     Traceback (most recent call last):
         ...
@@ -46,7 +40,7 @@ def __check_args(final_flux: float, initinal_flux: float, time_interval: float) 
     TypeError: Invalid final flux. Should be an integer or float.
     """
 
-    # Ensure valid instance
+    # 确保实例有效
     if not isinstance(final_flux, (int, float)):
         raise TypeError("Invalid final flux. Should be an integer or float.")
 
@@ -56,7 +50,7 @@ def __check_args(final_flux: float, initinal_flux: float, time_interval: float) 
     if not isinstance(time_interval, (int, float)):
         raise TypeError("Invalid time interval. Should be an integer or float.")
 
-    # Ensure valid time interval
+    # 确保时间间隔有效
     if time_interval < 0:
         raise ValueError("Invalid time interval. Should be a positive number.")
 

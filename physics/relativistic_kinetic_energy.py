@@ -1,42 +1,35 @@
 """
-Find the relativistic kinetic energy of a particle, given its rest mass and velocity.
+根据粒子的静止质量和速度求其相对论动能。
 
-Description: In special relativity, the kinetic energy of a particle is the extra
-energy it has due to its motion beyond the energy associated with its rest mass.
-It is defined as the difference between the total relativistic energy and the rest
-energy of the particle. After a force does work to accelerate a particle from rest
-to some high speed comparable to the speed of light, the particle carries this
-relativistic kinetic energy as long as its speed stays the same. The same amount of
-energy must be removed (for example, by an opposite force) to slow the particle
-back down to rest. Formally, relativistic kinetic energy appears in the relativistic
-energy momentum relation and depends on the Lorentz factor, which encodes how time
-and space change at high speeds.
+说明：在狭义相对论中，粒子动能是其因运动而在静止能量之外具有的额外能量，
+定义为相对论总能量与静止能量之差。力做功使粒子从静止加速到接近光速后，
+只要速度不变，粒子就保持这部分相对论动能；要使其减速至静止，必须移除
+同样多的能量。相对论动能出现在相对论能量－动量关系中，并取决于描述高速
+下时空变化的洛伦兹因子。
 
-In relativistic mechanics, the kinetic energy K of a particle with rest mass m
-moving at speed v is
+在相对论力学中，静止质量为 m、速度为 v 的粒子，其动能 K 为：
 
     K = (y - 1) m c^2,
 
-where c is the speed of light in vacuum and
+其中 c 为真空光速，并且：
 
     y = 1 / sqrt(1 - v^2 / c^2)
 
-is the Lorentz factor. At speeds much lower than c, this expression reduces to the
-classical formula K ≈ (1/2) m v^2, so the relativistic result agrees with Newtonian
-kinetic energy in the low-velocity limit. The standard unit of kinetic energy is the
-joule, while the English unit of kinetic energy is the foot-pound.
+即洛伦兹因子。当速度远低于 c 时，该表达式化为经典公式 K ≈ (1/2) m v^2，
+所以低速极限下相对论结果与牛顿力学动能一致。动能的标准单位为焦耳，英制
+单位为英尺磅。
 
-Reference: https://en.wikipedia.org/wiki/Kinetic_energy
+参考资料：https://en.wikipedia.org/wiki/Kinetic_energy
 """
 
 from math import sqrt
 
-from scipy.constants import c  # speed of light in vacuum (299792458 m/s)
+from scipy.constants import c  # 真空光速 (299792458 m/s)
 
 
 def relativistic_kinetic_energy(mass: float, velocity: float) -> float:
     """
-    Calculate relativistic kinetic energy.
+    计算相对论动能。
     mass --- kg
     velocity ---- m/s
     K.E ---- j

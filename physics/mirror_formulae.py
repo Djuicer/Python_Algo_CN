@@ -1,57 +1,39 @@
 """
-This module contains the functions to calculate the focal length, object distance
-and image distance of a mirror.
+本模块包含计算球面镜焦距、物距和像距的函数。
 
-The mirror formula is an equation that relates the object distance (u),
-image distance (v), and focal length (f) of a spherical mirror.
-It is commonly used in optics to determine the position and characteristics
-of an image formed by a mirror. It is expressed using the formulae :
+球面镜公式描述球面镜物距 (u)、像距 (v) 和焦距 (f) 之间的关系，常用于光学中
+确定镜面所成像的位置和特征。公式为：
 
 -------------------
 | 1/f = 1/v + 1/u |
 -------------------
 
-Where,
-f = Focal length of the spherical mirror (metre)
-v = Image distance from the mirror (metre)
-u = Object distance from the mirror (metre)
+其中：
+f = 球面镜焦距（米）
+v = 像到镜面的距离（米）
+u = 物体到镜面的距离（米）
 
 
-The signs of the distances are taken with respect to the sign convention.
-The sign convention is as follows:
-    1) Object is always placed to the left of mirror
-    2) Distances measured in the direction of the incident ray are positive
-    and the distances measured in the direction opposite to that of the incident
-    rays are negative.
-    3) All distances are measured from the pole of the mirror.
+距离的正负号遵循以下符号约定：
+    1) 物体始终置于镜面左侧。
+    2) 沿入射光线方向测量的距离为正，反向测量的距离为负。
+    3) 所有距离均从镜面顶点量起。
 
 
-There are a few assumptions that are made while using the mirror formulae.
-They are as follows:
-    1) Thin Mirror: The mirror is assumed to be thin, meaning its thickness is
-    negligible compared to its radius of curvature. This assumption allows
-    us to treat the mirror as a two-dimensional surface.
-    2) Spherical Mirror: The mirror is assumed to have a spherical shape. While this
-    assumption may not hold exactly for all mirrors, it is a reasonable approximation
-    for most practical purposes.
-    3) Small Angles: The angles involved in the derivation are assumed to be small.
-    This assumption allows us to use the small-angle approximation, where the tangent
-    of a small angle is approximately equal to the angle itself. It simplifies the
-    calculations and makes the derivation more manageable.
-    4) Paraxial Rays: The mirror formula is derived using paraxial rays, which are
-    rays that are close to the principal axis and make small angles with it. This
-    assumption ensures that the rays are close enough to the principal axis, making the
-    calculations more accurate.
-    5) Reflection and Refraction Laws: The derivation assumes that the laws of
-    reflection and refraction hold.
-    These laws state that the angle of incidence is equal to the angle of reflection
-    for reflection, and the incident and refracted rays lie in the same plane and
-    obey Snell's law for refraction.
+使用球面镜公式时作出以下假设：
+    1) 薄镜：镜面厚度相对于曲率半径可忽略，可将其视为二维表面。
+    2) 球面镜：假定镜面为球形。该假设未必对所有镜面严格成立，但对多数实际
+       用途是合理近似。
+    3) 小角度：推导涉及的角度较小，可使用小角近似，即小角的正切近似等于
+       角度本身，从而简化计算。
+    4) 近轴光线：推导使用靠近主轴且与主轴夹角很小的光线，这可提高计算精度。
+    5) 反射与折射定律：假定反射和折射定律成立；反射角等于入射角，入射光线
+       与折射光线位于同一平面，折射遵循斯涅尔定律。
 
-(Description and Assumptions adapted from
+（说明和假设改编自
 https://www.collegesearch.in/articles/mirror-formula-derivation)
 
-(Sign Convention adapted from
+（符号约定改编自
 https://www.toppr.com/ask/content/concept/sign-convention-for-mirrors-210189/)
 
 

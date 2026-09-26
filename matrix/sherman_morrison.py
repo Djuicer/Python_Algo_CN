@@ -6,14 +6,14 @@ from typing import Any
 class Matrix:
     """
     <class Matrix>
-    Matrix structure.
+    矩阵结构。
     """
 
     def __init__(self, row: int, column: int, default_value: float = 0) -> None:
         """
         <method Matrix.__init__>
-        Initialize matrix with given size and default value.
-        Example:
+        使用给定大小和默认值初始化矩阵。
+        示例：
         >>> a = Matrix(2, 3, 1)
         >>> a
         Matrix consist of 2 rows and 3 columns
@@ -27,20 +27,20 @@ class Matrix:
     def __str__(self) -> str:
         """
         <method Matrix.__str__>
-        Return string representation of this matrix.
+        返回此矩阵的字符串表示。
         """
 
-        # Prefix
+        # 前缀
         s = f"Matrix consist of {self.row} rows and {self.column} columns\n"
 
-        # Make string identifier
+        # 构造字符串标识符
         max_element_length = 0
         for row_vector in self.array:
             for obj in row_vector:
                 max_element_length = max(max_element_length, len(str(obj)))
         string_format_identifier = f"%{max_element_length}s"
 
-        # Make string and return
+        # 构造并返回字符串
         def single_line(row_vector: list[float]) -> str:
             nonlocal string_format_identifier
             line = "["
@@ -57,8 +57,8 @@ class Matrix:
     def validate_indices(self, loc: tuple[int, int]) -> bool:
         """
         <method Matrix.validate_indicies>
-        Check if given indices are valid to pick element from matrix.
-        Example:
+        检查给定索引是否可用于从矩阵中选取元素。
+        示例：
         >>> a = Matrix(2, 6, 0)
         >>> a.validate_indices((2, 7))
         False
@@ -75,8 +75,8 @@ class Matrix:
     def __getitem__(self, loc: tuple[int, int]) -> Any:
         """
         <method Matrix.__getitem__>
-        Return array[row][column] where loc = (row, column).
-        Example:
+        当 loc = (row, column) 时，返回 array[row][column]。
+        示例：
         >>> a = Matrix(3, 2, 7)
         >>> a[1, 0]
         7
@@ -87,8 +87,8 @@ class Matrix:
     def __setitem__(self, loc: tuple[int, int], value: float) -> None:
         """
         <method Matrix.__setitem__>
-        Set array[row][column] = value where loc = (row, column).
-        Example:
+        当 loc = (row, column) 时，设置 array[row][column] = value。
+        示例：
         >>> a = Matrix(2, 3, 1)
         >>> a[1, 2] = 51
         >>> a
@@ -102,8 +102,8 @@ class Matrix:
     def __add__(self, another: Matrix) -> Matrix:
         """
         <method Matrix.__add__>
-        Return self + another.
-        Example:
+        返回 self + another。
+        示例：
         >>> a = Matrix(2, 1, -4)
         >>> b = Matrix(2, 1, 3)
         >>> a+b
@@ -112,12 +112,12 @@ class Matrix:
         [-1]
         """
 
-        # Validation
+        # 验证
         assert isinstance(another, Matrix)
         assert self.row == another.row
         assert self.column == another.column
 
-        # Add
+        # 相加
         result = Matrix(self.row, self.column)
         for r in range(self.row):
             for c in range(self.column):
@@ -127,8 +127,8 @@ class Matrix:
     def __neg__(self) -> Matrix:
         """
         <method Matrix.__neg__>
-        Return -self.
-        Example:
+        返回 -self。
+        示例：
         >>> a = Matrix(2, 2, 3)
         >>> a[0, 1] = a[1, 0] = -2
         >>> -a
@@ -149,8 +149,8 @@ class Matrix:
     def __mul__(self, another: float | Matrix) -> Matrix:
         """
         <method Matrix.__mul__>
-        Return self * another.
-        Example:
+        返回 self * another。
+        示例：
         >>> a = Matrix(2, 3, 1)
         >>> a[0,2] = a[1,2] = 3
         >>> a * -2
@@ -159,13 +159,13 @@ class Matrix:
         [-2, -2, -6]
         """
 
-        if isinstance(another, (int, float)):  # Scalar multiplication
+        if isinstance(another, (int, float)):  # 标量乘法
             result = Matrix(self.row, self.column)
             for r in range(self.row):
                 for c in range(self.column):
                     result[r, c] = self[r, c] * another
             return result
-        elif isinstance(another, Matrix):  # Matrix multiplication
+        elif isinstance(another, Matrix):  # 矩阵乘法
             assert self.column == another.row
             result = Matrix(self.row, another.column)
             for r in range(self.row):
@@ -180,8 +180,8 @@ class Matrix:
     def transpose(self) -> Matrix:
         """
         <method Matrix.transpose>
-        Return self^T.
-        Example:
+        返回 self^T。
+        示例：
         >>> a = Matrix(2, 3)
         >>> for r in range(2):
         ...     for c in range(3):
@@ -203,14 +203,12 @@ class Matrix:
     def sherman_morrison(self, u: Matrix, v: Matrix) -> Any:
         """
         <method Matrix.sherman_morrison>
-        Apply Sherman-Morrison formula in O(n^2).
-        To learn this formula, please look this:
+        以 O(n^2) 的复杂度应用 Sherman-Morrison 公式。
+        该公式参见：
         https://en.wikipedia.org/wiki/Sherman%E2%80%93Morrison_formula
-        This method returns (A + uv^T)^(-1) where A^(-1) is self. Returns None if it's
-        impossible to calculate.
-        Warning: This method doesn't check if self is invertible.
-            Make sure self is invertible before execute this method.
-        Example:
+        本方法返回 (A + uv^T)^(-1)，其中 A^(-1) 为 self；若无法计算则返回 None。
+        警告：本方法不检查 self 是否可逆，请在执行前确保 self 可逆。
+        示例：
         >>> ainv = Matrix(3, 3, 0)
         >>> for i in range(3): ainv[i,i] = 1
         ...
@@ -225,21 +223,21 @@ class Matrix:
         [ -0.8571428571428571,  0.42857142857142855,  -0.0714285714285714]
         """
 
-        # Size validation
+        # 大小验证
         assert isinstance(u, Matrix)
         assert isinstance(v, Matrix)
-        assert self.row == self.column == u.row == v.row  # u, v should be column vector
-        assert u.column == v.column == 1  # u, v should be column vector
+        assert self.row == self.column == u.row == v.row  # u、v 应为列向量
+        assert u.column == v.column == 1  # u、v 应为列向量
 
-        # Calculate
+        # 计算
         v_t = v.transpose()
         numerator_factor = (v_t * self * u)[0, 0] + 1
         if numerator_factor == 0:
-            return None  # It's not invertible
+            return None  # 不可逆
         return self - ((self * u) * (v_t * self) * (1.0 / numerator_factor))
 
 
-# Testing
+# 测试
 if __name__ == "__main__":
 
     def test1() -> None:

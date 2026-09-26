@@ -23,23 +23,22 @@ headers = {
 
 def download_images_from_google_query(query: str = "dhaka", max_images: int = 5) -> int:
     """
-    Searches google using the provided query term and downloads the images in a folder.
+    使用给定查询词搜索 Google，并将图片下载到文件夹中。
 
-    Args:
-         query : The image search term to be provided by the user. Defaults to
-        "dhaka".
-        image_numbers : [description]. Defaults to 5.
+    参数：
+         query : 用户提供的图片搜索词，默认为 "dhaka"。
+        image_numbers : [说明]，默认为 5。
 
-    Returns:
-        The number of images successfully downloaded.
+    返回：
+        成功下载的图片数量。
 
-    # Comment out slow (4.20s call) doctests
+    # 注释掉运行缓慢（调用耗时 4.20 秒）的 doctest
     # >>> download_images_from_google_query()
     5
     # >>> download_images_from_google_query("potato")
     5
     """
-    max_images = min(max_images, 50)  # Prevent abuse!
+    max_images = min(max_images, 50)  # 防止滥用！
     params = {
         "q": query,
         "tbm": "isch",

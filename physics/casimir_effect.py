@@ -1,34 +1,25 @@
 """
-Title : Finding the value of magnitude of either the Casimir force, the surface area
-of one of the plates or distance between the plates provided that the other
-two parameters are given.
+标题：给定三个参数中的另外两个，求卡西米尔力的大小、其中一块板的表面积或
+两板间距。
 
-Description : In quantum field theory, the Casimir effect is a physical force
-acting on the macroscopic boundaries of a confined space which arises from the
-quantum fluctuations of the field. It is a physical force exerted between separate
-objects, which is due to neither charge, gravity, nor the exchange of particles,
-but instead is due to resonance of all-pervasive energy fields in the intervening
-space between the objects. Since the strength of the force falls off rapidly with
-distance it is only measurable when the distance between the objects is extremely
-small. On a submicron scale, this force becomes so strong that it becomes the
-dominant force between uncharged conductors.
+说明：在量子场论中，卡西米尔效应是由场的量子涨落产生、作用于受限空间
+宏观边界的物理力。这种分离物体之间的力既非由电荷、引力或粒子交换产生，
+而是由物体间空间中无处不在的能量场共振产生。力的强度随距离迅速衰减，
+因此仅在物体间距极小时可测。在亚微米尺度上，该力会强到成为无电荷导体间
+的主导作用力。
 
-Dutch physicist Hendrik B. G. Casimir first proposed the existence of the force,
-and he formulated an experiment to detect it in 1948 while participating in research
-at Philips Research Labs. The classic form of his experiment used a pair of uncharged
-parallel metal plates in a vacuum, and successfully demonstrated the force to within
-15% of the value he had predicted according to his theory.
+荷兰物理学家 Hendrik B. G. Casimir 首次提出这种力的存在，并于 1948 年在
+Philips Research Labs 参与研究时设计实验进行探测。经典实验在真空中使用
+一对不带电的平行金属板，测得结果与其理论预测值的偏差在 15% 以内。
 
-The Casimir force F for idealized, perfectly conducting plates of surface area
-A square meter and placed at a distance of a meter apart with vacuum between
-them is expressed as -
+在真空中，相距 a 米、表面积为 A 平方米的理想完全导电板之间的卡西米尔力
+F 表示为：
 
 F = - ((Reduced Planck Constant ℏ) * c * Pi^2 * A) / (240 * a^4)
 
-Here, the negative sign indicates the force is attractive in nature. For the ease
-of calculation, only the magnitude of the force is considered.
+负号表示该力具有吸引性质。为便于计算，此处仅考虑力的大小。
 
-Source :
+来源：
 - https://en.wikipedia.org/wiki/Casimir_effect
 - https://www.cs.mcgill.ca/~rwest/wikispeedia/wpcd/wp/c/Casimir_effect.htm
 - Casimir, H. B. ; Polder, D. (1948) "The Influence of Retardation on the
@@ -39,29 +30,27 @@ from __future__ import annotations
 
 from math import pi
 
-# Define the Reduced Planck Constant ℏ (H bar), speed of light C, value of
-# Pi and the function
-REDUCED_PLANCK_CONSTANT = 1.054571817e-34  # unit of ℏ : J * s
+# 定义约化普朗克常数 ℏ（H bar）、光速 C、Pi 的值及函数
+REDUCED_PLANCK_CONSTANT = 1.054571817e-34  # ℏ 的单位：J * s
 
-SPEED_OF_LIGHT = 3e8  # unit of c : m * s^-1
+SPEED_OF_LIGHT = 3e8  # c 的单位：m * s^-1
 
 
 def casimir_force(force: float, area: float, distance: float) -> dict[str, float]:
     """
-    Input Parameters
+    输入参数
     ----------------
-    force -> Casimir Force : magnitude in Newtons
+    force -> 卡西米尔力：大小，单位为牛顿
 
-    area -> Surface area of each plate : magnitude in square meters
+    area -> 每块板的表面积：单位为平方米
 
-    distance -> Distance between two plates : distance in Meters
+    distance -> 两块板之间的距离：单位为米
 
-    Returns
+    返回
     -------
-    result : dict name, value pair of the parameter having Zero as it's value
+    result : 字典，名称和值对应输入中值为零的参数
 
-    Returns the value of one of the parameters specified as 0, provided the values of
-    other parameters are given.
+    给定其他参数时，返回指定为 0 的那个参数的值。
     >>> casimir_force(force = 0, area = 4, distance = 0.03)
     {'force': 6.4248189174864216e-21}
 
@@ -113,7 +102,7 @@ def casimir_force(force: float, area: float, distance: float) -> dict[str, float
     raise ValueError("One and only one argument must be 0")
 
 
-# Run doctest
+# 运行 doctest
 if __name__ == "__main__":
     import doctest
 

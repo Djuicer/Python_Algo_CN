@@ -1,10 +1,10 @@
 """
-Snell's Law — Refraction Angle Calculation.
+斯涅尔定律——折射角计算。
 
-Calculates the angle of refraction when light passes between two
-media using Snell's Law: n1 * sin(theta1) = n2 * sin(theta2).
+使用斯涅尔定律 n1 * sin(theta1) = n2 * sin(theta2)，计算光在两种介质之间
+传播时的折射角。
 
-Reference: https://en.wikipedia.org/wiki/Snell%27s_law
+参考资料：https://en.wikipedia.org/wiki/Snell%27s_law
 """
 
 import math
@@ -16,27 +16,23 @@ def calculate_refraction_angle(
     incident_angle_degrees: float,
 ) -> float:
     """
-    Calculates the refraction angle of light passing from one medium to another.
-    The law states that, for a given pair of media, the ratio of the sines
-    of angle of incidence and angle of refraction s equal to the refractive
-    index of the second medium with regard to the first which is equal to the
-    ratio of the refractive indices of the two media, or equivalently, to the
-    ratio of the phase velocities in the two media.
+    计算光从一种介质进入另一种介质时的折射角。对于给定的两种介质，入射角
+    与折射角的正弦之比等于第二种介质相对于第一种介质的折射率，即两种介质
+    的折射率之比；等价地，也等于两种介质中相速度之比。
 
 
-    Formula: n1 * sin(theta1) = n2 * sin(theta2)
-    or     : (sin(theta1) / sin(theta2)) = (n2 / n1)
-    Where:
-        n1 = refractive index of the first medium
-        n2 = refractive index of the second medium
-        theta1 = angle of incidence
-        theta2 = angle of refraction
+    公式：n1 * sin(theta1) = n2 * sin(theta2)
+    或    ：(sin(theta1) / sin(theta2)) = (n2 / n1)
+    其中：
+        n1 = 第一种介质的折射率
+        n2 = 第二种介质的折射率
+        theta1 = 入射角
+        theta2 = 折射角
 
-    Note: Total Internal Reflection (TIR) occurs when light travels from a
-    denser medium to a rarer medium and the incident angle exceeds the
-    critical angle, making refraction impossible.
+    注意：当光从光密介质进入光疏介质，且入射角超过临界角时，会发生全反射
+    （Total Internal Reflection, TIR），此时无法发生折射。
 
-    Sources:
+    来源：
         - https://en.wikipedia.org/wiki/Snell%27s_law
 
     -----------------------------------------------------------------------------
@@ -61,8 +57,8 @@ def calculate_refraction_angle(
         incident_angle_radians
     )
 
-    # If the sine value is approximately 1.0 or -1.0, it's at the critical angle
-    # We use math.isclose to account for floating-point precision errors
+    # 若正弦值近似为 1.0 或 -1.0，则处于临界角
+    # 使用 math.isclose 处理浮点精度误差
     if math.isclose(refraction_sine, 1.0):
         return 90.0
     if math.isclose(refraction_sine, -1.0):

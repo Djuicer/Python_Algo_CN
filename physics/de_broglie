@@ -1,23 +1,22 @@
-PLANCK_CONSTANT_JS = 6.62607015e-34  # Planck's constant in Joule-seconds
-PLANCK_CONSTANT_EVS = 4.135667696e-15  # Planck's constant in eV-seconds
+PLANCK_CONSTANT_JS = 6.62607015e-34  # 普朗克常数，单位为焦耳秒
+PLANCK_CONSTANT_EVS = 4.135667696e-15  # 普朗克常数，单位为 eV 秒
 
 def de_broglie_wavelength(momentum: float, in_ev: bool = False) -> str:
     """
-    Calculates the de Broglie wavelength of a particle using the given momentum.
+    使用给定动量计算粒子的德布罗意波长。
 
-    Parameters:
-        momentum (float): Momentum of the particle.
-        in_ev (bool, optional): True if momentum is in eV·s.
-                                If False, momentum is in kg·m/s.
+    参数：
+        momentum (float): 粒子的动量。
+        in_ev (bool, optional): 动量单位为 eV·s 时取 True；为 False 时单位为
+                                kg·m/s。
 
-    Returns:
-        str: The calculated de Broglie wavelength of the particle in meters,
-        formatted in scientific notation.
+    返回：
+        str: 计算出的粒子德布罗意波长，单位为米，以科学计数法格式化。
 
-    Raises:
-        ValueError: If the momentum is zero or negative.
+    异常：
+        ValueError: 动量为零或负数时抛出。
 
-    Usage example:
+    用法示例：
     >>> de_broglie_wavelength(1e-24)
     '6.62607015e-10'
     >>> de_broglie_wavelength(1e-24, True)

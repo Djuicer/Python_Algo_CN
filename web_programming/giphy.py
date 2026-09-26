@@ -10,12 +10,12 @@
 import httpx2
 
 giphy_api_key = "YOUR API KEY"
-# Can be fetched from https://developers.giphy.com/dashboard/
+# 可从 https://developers.giphy.com/dashboard/ 获取
 
 
 def get_gifs(query: str, api_key: str = giphy_api_key) -> list:
     """
-    Get a list of URLs of GIFs based on a given query..
+    根据给定查询获取 GIF 的 URL 列表。
     """
     formatted_query = "+".join(query.split())
     url = f"https://api.giphy.com/v1/gifs/search?q={formatted_query}&api_key={api_key}"

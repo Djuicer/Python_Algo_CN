@@ -1,20 +1,19 @@
 """
-Testing here assumes that numpy and linalg is ALWAYS correct!!!!
+此处测试假定 numpy 和 linalg 始终正确！
 
-If running from PyCharm you can place the following line in "Additional Arguments" for
-the pytest run configuration
+若从 PyCharm 运行，可将下一行放入 pytest 运行配置的 "Additional Arguments" 中：
 -vv -m mat_ops -p no:cacheprovider
 """
 
 import logging
 
-# standard libraries
+# 标准库
 import sys
 
 import numpy as np
 import pytest
 
-# Custom/local libraries
+# 自定义/本地库
 from matrix import matrix_operation as matop
 
 mat_a = [[12, 10], [3, 9]]

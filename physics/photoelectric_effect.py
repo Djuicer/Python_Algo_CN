@@ -1,42 +1,36 @@
 """
-The photoelectric effect is the emission of electrons when electromagnetic radiation ,
-such as light, hits a material. Electrons emitted in this manner are called
-photoelectrons.
+光电效应是光等电磁辐射照射材料时电子逸出的现象，以这种方式逸出的电子称为
+光电子。
 
-In 1905, Einstein proposed a theory of the photoelectric effect using a concept that
-light consists of tiny packets of energy known as photons or light quanta. Each packet
-carries energy hv that is proportional to the frequency v of the corresponding
-electromagnetic wave. The proportionality constant h has become known as the
-Planck constant. In the range of kinetic energies of the electrons that are removed from
-their varying atomic bindings by the absorption of a photon of energy hv, the highest
-kinetic energy K_max is :
+1905 年，爱因斯坦基于光由称为光子或光量子的微小能量包组成这一概念提出了
+光电效应理论。每个能量包携带与相应电磁波频率 v 成正比的能量 hv，比例常数
+h 称为普朗克常数。电子吸收能量为 hv 的光子并摆脱原子束缚后，其最大动能
+K_max 为：
 
 K_max = hv-W
 
-Here, W is the minimum energy required to remove an electron from the surface of the
-material. It is called the work function of the surface
+其中 W 是使电子从材料表面逸出所需的最小能量，称为表面逸出功。
 
-Reference: https://en.wikipedia.org/wiki/Photoelectric_effect
+参考资料：https://en.wikipedia.org/wiki/Photoelectric_effect
 
 """
 
-PLANCK_CONSTANT_JS = 6.6261 * pow(10, -34)  # in SI (Js)
-PLANCK_CONSTANT_EVS = 4.1357 * pow(10, -15)  # in eVs
+PLANCK_CONSTANT_JS = 6.6261 * pow(10, -34)  # SI 单位 (Js)
+PLANCK_CONSTANT_EVS = 4.1357 * pow(10, -15)  # 单位为 eVs
 
 
 def maximum_kinetic_energy(
     frequency: float, work_function: float, in_ev: bool = False
 ) -> float:
     """
-    Calculates the maximum kinetic energy of emitted electron from the surface.
-    if the maximum kinetic energy is zero then no electron will be emitted
-    or given electromagnetic wave frequency is small.
+    计算从表面逸出电子的最大动能。若最大动能为零，则没有电子逸出，或给定
+    电磁波频率过低。
 
-    frequency (float): Frequency of electromagnetic wave.
-    work_function (float): Work function of the surface.
-    in_ev (optional)(bool): Pass True if values are in eV.
+    frequency (float): 电磁波频率。
+    work_function (float): 表面逸出功。
+    in_ev (optional)(bool): 数值单位为 eV 时传入 True。
 
-    Usage example:
+    用法示例：
     >>> maximum_kinetic_energy(1000000,2)
     0
     >>> maximum_kinetic_energy(1000000,2,True)

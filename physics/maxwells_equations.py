@@ -1,26 +1,25 @@
 """
-Maxwell's Equations Implementation
+麦克斯韦方程组实现
 
-This module provides implementations of Maxwell's four fundamental equations
-that describe the behavior of electric and magnetic fields in space and time.
+本模块实现麦克斯韦四个基本方程，用于描述电场和磁场在时空中的行为。
 
-The four equations are:
-1. Gauss's law for electricity: div(E) = rho/epsilon_0
-2. Gauss's law for magnetism: div(B) = 0
-3. Faraday's law of induction: curl(E) = -dB/dt
-4. Ampère-Maxwell law: curl(B) = mu_0(J + epsilon_0*dE/dt)
+四个方程为：
+1. 电场高斯定律：div(E) = rho/epsilon_0
+2. 磁场高斯定律：div(B) = 0
+3. 法拉第电磁感应定律：curl(E) = -dB/dt
+4. 安培－麦克斯韦定律：curl(B) = mu_0(J + epsilon_0*dE/dt)
 
-Reference: https://en.wikipedia.org/wiki/Maxwell%27s_equations
+参考资料：https://en.wikipedia.org/wiki/Maxwell%27s_equations
 
 Author: Implementation following TheAlgorithms/Python contribution guidelines
 """
 
 import math
 
-# Physical constants (SI units)
-VACUUM_PERMITTIVITY = 8.8541878128e-12  # epsilon_0 in F/m (farads per meter)
-VACUUM_PERMEABILITY = 4 * math.pi * 1e-7  # mu_0 in H/m (henries per meter)
-SPEED_OF_LIGHT = 299792458  # c in m/s
+# 物理常数（SI 单位）
+VACUUM_PERMITTIVITY = 8.8541878128e-12  # epsilon_0，单位 F/m（法拉每米）
+VACUUM_PERMEABILITY = 4 * math.pi * 1e-7  # mu_0，单位 H/m（亨利每米）
+SPEED_OF_LIGHT = 299792458  # c，单位 m/s
 
 
 def gauss_law_electric(
@@ -30,26 +29,25 @@ def gauss_law_electric(
     permittivity: float = VACUUM_PERMITTIVITY,
 ) -> bool:
     """
-    Gauss's law for electricity: div(E) = rho/epsilon_0
+    电场高斯定律：div(E) = rho/epsilon_0
 
-    In integral form: ∮E·dA = Q_enclosed/epsilon_0
+    积分形式：∮E·dA = Q_enclosed/epsilon_0
 
-    This law states that the electric flux through any closed surface is
-    proportional to the total electric charge enclosed within that surface.
+    该定律指出，穿过任意闭合曲面的电通量与曲面所包围的总电荷量成正比。
 
-    Args:
-        electric_field_magnitude: Magnitude of electric field (V/m or N/C)
-        surface_area: Area of the closed surface (m²)
-        enclosed_charge: Total charge enclosed by the surface (C - coulombs)
-        permittivity: Permittivity of the medium (F/m), defaults to vacuum
+    参数：
+        electric_field_magnitude: 电场强度大小 (V/m 或 N/C)
+        surface_area: 闭合曲面面积 (m²)
+        enclosed_charge: 曲面包围的总电荷量 (C - 库仑)
+        permittivity: 介质介电常数 (F/m)，默认为真空值
 
-    Returns:
-        bool: True if Gauss's law is satisfied within numerical tolerance
+    返回：
+        bool: 在数值容差内满足高斯定律时为 True
 
-    Raises:
-        ValueError: If surface_area is negative or permittivity is non-positive
+    异常：
+        ValueError: surface_area 为负或 permittivity 非正时抛出
 
-    Example:
+    示例：
         >>> gauss_law_electric(1000, 1.0, 8.854e-9)
         True
         >>> gauss_law_electric(500, 2.0, 8.854e-9)
@@ -62,13 +60,13 @@ def gauss_law_electric(
     if permittivity <= 0:
         raise ValueError("Permittivity must be positive")
 
-    # Calculate electric flux through surface
+    # 计算穿过曲面的电通量
     electric_flux = electric_field_magnitude * surface_area
 
-    # Calculate expected flux from Gauss's law
+    # 根据高斯定律计算预期通量
     expected_flux = enclosed_charge / permittivity
 
-    # Check if law is satisfied within numerical tolerance (1% error allowed)
+    # 检查是否在数值容差内满足定律（允许 1% 误差）
     tolerance = 0.01 * abs(expected_flux) if expected_flux != 0 else 1e-10
     return abs(electric_flux - expected_flux) <= tolerance
 
@@ -77,25 +75,24 @@ def gauss_law_magnetic(
     surface_area: float,
 ) -> bool:
     """
-    Gauss's law for magnetism: div(B) = 0
+    磁场高斯定律：div(B) = 0
 
-    In integral form: ∮B·dA = 0
+    积分形式：∮B·dA = 0
 
-    This law states that there are no magnetic monopoles - the magnetic flux
-    through any closed surface is always zero. Magnetic field lines always
-    form closed loops or extend to infinity.
+    该定律指出不存在磁单极子——穿过任意闭合曲面的磁通量始终为零。磁感线
+    总是形成闭合回路或延伸至无穷远。
 
-    Args:
-        surface_area: Area of the closed surface (m²)
+    参数：
+        surface_area: 闭合曲面面积 (m²)
 
-    Returns:
-        bool: Always True for physically realistic magnetic fields,
-              False if net flux is non-zero (indicating monopoles)
+    返回：
+        bool: 对物理上真实的磁场始终为 True；净通量非零（表明存在磁单极子）
+              时为 False
 
-    Raises:
-        ValueError: If surface_area is negative
+    异常：
+        ValueError: surface_area 为负时抛出
 
-    Example:
+    示例：
         >>> gauss_law_magnetic(2.0)
         True
         >>> gauss_law_magnetic(0.0)
@@ -106,12 +103,12 @@ def gauss_law_magnetic(
     if surface_area < 0:
         raise ValueError("Surface area must be non-negative")
 
-    # For a closed surface, magnetic flux should be zero (no monopoles)
-    # In practice, we check if the field forms closed loops
-    # For this simplified implementation, we assume field lines are closed
-    magnetic_flux = 0.0  # Always zero for closed surfaces in reality
+    # 对闭合曲面，磁通量应为零（不存在磁单极子）
+    # 实际中检查磁场是否形成闭合回路
+    # 此简化实现假定磁感线闭合
+    magnetic_flux = 0.0  # 真实情况下，闭合曲面的该值始终为零
 
-    # Small tolerance for numerical errors
+    # 数值误差的小容差
     tolerance = 1e-10
     return abs(magnetic_flux) <= tolerance
 
@@ -121,21 +118,21 @@ def faraday_law(
     magnetic_flux_change_rate: float,
 ) -> bool:
     """
-    Faraday's law of electromagnetic induction: curl(E) = -dB/dt
+    法拉第电磁感应定律：curl(E) = -dB/dt
 
-    In integral form: ∮E·dl = -dPhi_B/dt
+    积分形式：∮E·dl = -dPhi_B/dt
 
-    This law describes how a changing magnetic field induces an electric field.
-    The induced electric field opposes the change in magnetic flux (Lenz's law).
+    该定律描述变化的磁场如何产生感应电场。感应电场会反抗磁通量的变化
+    （楞次定律）。
 
-    Args:
-        electric_field_circulation: Line integral of E around closed loop (V)
-        magnetic_flux_change_rate: Rate of change of magnetic flux (Wb/s or V)
+    参数：
+        electric_field_circulation: E 沿闭合回路的线积分 (V)
+        magnetic_flux_change_rate: 磁通量变化率 (Wb/s 或 V)
 
-    Returns:
-        bool: True if Faraday's law is satisfied within numerical tolerance
+    返回：
+        bool: 在数值容差内满足法拉第定律时为 True
 
-    Example:
+    示例：
         >>> faraday_law(10.0, -10.0)
         True
         >>> faraday_law(-5.0, 5.0)
@@ -145,10 +142,10 @@ def faraday_law(
         >>> faraday_law(10.0, 10.0)
         False
     """
-    # According to Faraday's law: ∮E·dl = -dPhi_B/dt
+    # 根据法拉第定律：∮E·dl = -dPhi_B/dt
     expected_circulation = -magnetic_flux_change_rate
 
-    # Check if law is satisfied within numerical tolerance
+    # 检查是否在数值容差内满足定律
     tolerance = 0.01 * abs(expected_circulation) if expected_circulation != 0 else 1e-10
     return abs(electric_field_circulation - expected_circulation) <= tolerance
 
@@ -161,28 +158,27 @@ def ampere_maxwell_law(
     permittivity: float = VACUUM_PERMITTIVITY,
 ) -> bool:
     """
-    Ampère-Maxwell law: curl(B) = mu_0(J + epsilon_0*dE/dt)
+    安培－麦克斯韦定律：curl(B) = mu_0(J + epsilon_0*dE/dt)
 
-    In integral form: ∮B·dl = mu_0(I_enclosed + epsilon_0*dPhi_E/dt)
+    积分形式：∮B·dl = mu_0(I_enclosed + epsilon_0*dPhi_E/dt)
 
-    This law relates magnetic fields to electric currents and changing electric fields.
-    Maxwell's addition of the displacement current term (epsilon_0*dE/dt) was crucial
-    for predicting electromagnetic waves.
+    该定律将磁场与电流及变化的电场联系起来。麦克斯韦加入位移电流项
+    (epsilon_0*dE/dt)，这对预言电磁波至关重要。
 
-    Args:
-        magnetic_field_circulation: Line integral of B around closed loop (T·m)
-        enclosed_current: Current passing through surface bounded by loop (A)
-        electric_flux_change_rate: Rate of change of electric flux (V·m/s)
-        permeability: Permeability of the medium (H/m), defaults to vacuum
-        permittivity: Permittivity of the medium (F/m), defaults to vacuum
+    参数：
+        magnetic_field_circulation: B 沿闭合回路的线积分 (T·m)
+        enclosed_current: 穿过回路所围曲面的电流 (A)
+        electric_flux_change_rate: 电通量变化率 (V·m/s)
+        permeability: 介质磁导率 (H/m)，默认为真空值
+        permittivity: 介质介电常数 (F/m)，默认为真空值
 
-    Returns:
-        bool: True if Ampère-Maxwell law is satisfied within numerical tolerance
+    返回：
+        bool: 在数值容差内满足安培－麦克斯韦定律时为 True
 
-    Raises:
-        ValueError: If permeability or permittivity is non-positive
+    异常：
+        ValueError: permeability 或 permittivity 非正时抛出
 
-    Example:
+    示例：
         >>> ampere_maxwell_law(1.256e-6, 1.0, 0.0)
         True
         >>> ampere_maxwell_law(2.512e-6, 2.0, 0.0)
@@ -195,16 +191,16 @@ def ampere_maxwell_law(
     if permittivity <= 0:
         raise ValueError("Permittivity must be positive")
 
-    # Calculate displacement current
+    # 计算位移电流
     displacement_current = permittivity * electric_flux_change_rate
 
-    # Total current includes conduction current and displacement current
+    # 总电流包括传导电流和位移电流
     total_current = enclosed_current + displacement_current
 
-    # Expected circulation from Ampère-Maxwell law
+    # 根据安培－麦克斯韦定律计算预期环量
     expected_circulation = permeability * total_current
 
-    # Check if law is satisfied within numerical tolerance
+    # 检查是否在数值容差内满足定律
     tolerance = 0.01 * abs(expected_circulation) if expected_circulation != 0 else 1e-10
     return abs(magnetic_field_circulation - expected_circulation) <= tolerance
 
@@ -214,22 +210,22 @@ def electromagnetic_wave_speed(
     permittivity: float = VACUUM_PERMITTIVITY,
 ) -> float:
     """
-    Calculate the speed of electromagnetic waves in a medium.
+    计算电磁波在介质中的传播速度。
 
-    From Maxwell's equations: c = 1/sqrt(mu_0*epsilon_0) in vacuum
-    In a medium: v = 1/sqrt(mu*epsilon)
+    根据麦克斯韦方程组：真空中 c = 1/sqrt(mu_0*epsilon_0)
+    介质中：v = 1/sqrt(mu*epsilon)
 
-    Args:
-        permeability: Permeability of the medium (H/m)
-        permittivity: Permittivity of the medium (F/m)
+    参数：
+        permeability: 介质磁导率 (H/m)
+        permittivity: 介质介电常数 (F/m)
 
-    Returns:
-        float: Speed of electromagnetic waves in the medium (m/s)
+    返回：
+        float: 电磁波在介质中的速度 (m/s)
 
-    Raises:
-        ValueError: If permeability or permittivity is non-positive
+    异常：
+        ValueError: permeability 或 permittivity 非正时抛出
 
-    Example:
+    示例：
         >>> abs(electromagnetic_wave_speed() - 2.998e8) < 1e6
         True
         >>> speed = electromagnetic_wave_speed(
@@ -251,22 +247,21 @@ def electromagnetic_wave_impedance(
     permittivity: float = VACUUM_PERMITTIVITY,
 ) -> float:
     """
-    Calculate the impedance of electromagnetic waves in a medium.
+    计算电磁波在介质中的波阻抗。
 
-    The impedance Z_0 = sqrt(mu/epsilon) determines the ratio of electric to magnetic
-    field strength in an electromagnetic wave.
+    阻抗 Z_0 = sqrt(mu/epsilon) 决定电磁波中电场强度与磁场强度之比。
 
-    Args:
-        permeability: Permeability of the medium (H/m)
-        permittivity: Permittivity of the medium (F/m)
+    参数：
+        permeability: 介质磁导率 (H/m)
+        permittivity: 介质介电常数 (F/m)
 
-    Returns:
-        float: Wave impedance of the medium (Ω - ohms)
+    返回：
+        float: 介质的波阻抗 (Ω - 欧姆)
 
-    Raises:
-        ValueError: If permeability or permittivity is non-positive
+    异常：
+        ValueError: permeability 或 permittivity 非正时抛出
 
-    Example:
+    示例：
         >>> abs(electromagnetic_wave_impedance() - 376.73) < 0.01
         True
         >>> impedance = electromagnetic_wave_impedance(
@@ -289,23 +284,22 @@ def poynting_vector_magnitude(
     permeability: float = VACUUM_PERMEABILITY,
 ) -> float:
     """
-    Calculate the magnitude of the Poynting vector (electromagnetic power flow).
+    计算坡印廷矢量（电磁功率流）的大小。
 
-    The Poynting vector S = (1/mu_0) * E x B represents the directional energy
-    flux density of an electromagnetic field (power per unit area).
+    坡印廷矢量 S = (1/mu_0) * E x B 表示电磁场的定向能流密度（单位面积功率）。
 
-    Args:
-        electric_field: Magnitude of electric field (V/m)
-        magnetic_field: Magnitude of magnetic field (T)
-        permeability: Permeability of the medium (H/m)
+    参数：
+        electric_field: 电场强度大小 (V/m)
+        magnetic_field: 磁场强度大小 (T)
+        permeability: 介质磁导率 (H/m)
 
-    Returns:
-        float: Magnitude of Poynting vector (W/m²)
+    返回：
+        float: 坡印廷矢量大小 (W/m²)
 
-    Raises:
-        ValueError: If permeability is non-positive
+    异常：
+        ValueError: permeability 非正时抛出
 
-    Example:
+    示例：
         >>> abs(poynting_vector_magnitude(1000, 1e-6) - 795.8) < 1.0
         True
         >>> abs(poynting_vector_magnitude(377, 1.0) - 3.0e8) < 1e6
@@ -316,7 +310,7 @@ def poynting_vector_magnitude(
     if permeability <= 0:
         raise ValueError("Permeability must be positive")
 
-    # For perpendicular E and B fields: |S| = |E||B|/mu_0
+    # 对相互垂直的 E 和 B 场：|S| = |E||B|/mu_0
     return (electric_field * magnetic_field) / permeability
 
 
@@ -327,24 +321,24 @@ def energy_density_electromagnetic(
     permeability: float = VACUUM_PERMEABILITY,
 ) -> float:
     """
-    Calculate the energy density of an electromagnetic field.
+    计算电磁场的能量密度。
 
-    The energy density u = (1/2)*(epsilon_0*E^2 + B^2/mu_0) represents the
-    electromagnetic energy stored per unit volume.
+    能量密度 u = (1/2)*(epsilon_0*E^2 + B^2/mu_0) 表示单位体积中储存的
+    电磁能量。
 
-    Args:
-        electric_field: Magnitude of electric field (V/m)
-        magnetic_field: Magnitude of magnetic field (T)
-        permittivity: Permittivity of the medium (F/m)
-        permeability: Permeability of the medium (H/m)
+    参数：
+        electric_field: 电场强度大小 (V/m)
+        magnetic_field: 磁场强度大小 (T)
+        permittivity: 介质介电常数 (F/m)
+        permeability: 介质磁导率 (H/m)
 
-    Returns:
-        float: Energy density (J/m³)
+    返回：
+        float: 能量密度 (J/m³)
 
-    Raises:
-        ValueError: If permittivity or permeability is non-positive
+    异常：
+        ValueError: permittivity 或 permeability 非正时抛出
 
-    Example:
+    示例：
         >>> abs(energy_density_electromagnetic(1000, 1e-3) - 0.398) < 0.001
         True
         >>> abs(energy_density_electromagnetic(0, 1.0) - 397887) < 1
@@ -357,10 +351,10 @@ def energy_density_electromagnetic(
     if permeability <= 0:
         raise ValueError("Permeability must be positive")
 
-    # Electric field energy density: (1/2)*epsilon_0*E^2
+    # 电场能量密度：(1/2)*epsilon_0*E^2
     electric_energy_density = 0.5 * permittivity * electric_field**2
 
-    # Magnetic field energy density: (1/2)*B^2/mu_0
+    # 磁场能量密度：(1/2)*B^2/mu_0
     magnetic_energy_density = 0.5 * (magnetic_field**2) / permeability
 
     return electric_energy_density + magnetic_energy_density
@@ -372,23 +366,23 @@ if __name__ == "__main__":
     print("Testing Maxwell's equations implementation...")
     doctest.testmod(verbose=True)
 
-    # Additional demonstration
+    # 其他演示
     print("\n" + "=" * 50)
     print("Maxwell's Equations Demonstration")
     print("=" * 50)
 
-    # Demonstrate speed of light calculation
+    # 演示光速计算
     c = electromagnetic_wave_speed()
     print(f"Speed of light in vacuum: {c:.0f} m/s")
     print(f"Expected: {SPEED_OF_LIGHT} m/s")
 
-    # Demonstrate wave impedance
+    # 演示波阻抗
     z0 = electromagnetic_wave_impedance()
     print(f"Impedance of free space: {z0:.2f} Ω")
 
-    # Demonstrate Poynting vector for plane wave
-    E = 377  # V/m (chosen to make calculation simple)
-    B = 1e-6  # T (E/B = c in vacuum for plane waves)
+    # 演示平面波的坡印廷矢量
+    E = 377  # V/m（为简化计算而选取）
+    B = 1e-6  # T（真空中的平面波满足 E/B = c）
     S = poynting_vector_magnitude(E, B)
     print(f"Poynting vector magnitude: {S:.0f} W/m²")
 

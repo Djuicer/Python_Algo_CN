@@ -1,28 +1,27 @@
 """
-Calculate the buoyant force of any body completely or partially submerged in a static
-fluid.  This principle was discovered by the Greek mathematician Archimedes.
+计算完全或部分浸没在静止流体中的物体所受浮力。该原理由古希腊数学家
+阿基米德发现。
 
-Equation for calculating buoyant force:
+浮力计算公式：
 Fb = p * V * g
 
 https://en.wikipedia.org/wiki/Archimedes%27_principle
 """
 
-# Acceleration Constant on Earth (unit m/s^2)
-g = 9.80665  # Also available in scipy.constants.g
+# 地球重力加速度常量（单位 m/s^2）
+g = 9.80665  # 也可从 scipy.constants.g 获取
 
 
 def archimedes_principle(
     fluid_density: float, volume: float, gravity: float = g
 ) -> float:
     """
-    Args:
-        fluid_density: density of fluid (kg/m^3)
-        volume: volume of object/liquid being displaced by the object (m^3)
-        gravity: Acceleration from gravity. Gravitational force on the system,
-            The default is Earth Gravity
-    returns:
-        the buoyant force on an object in Newtons
+    参数：
+        fluid_density: 流体密度 (kg/m^3)
+        volume: 物体排开流体的体积 (m^3)
+        gravity: 重力加速度，默认值为地球重力加速度
+    返回：
+        物体所受浮力，单位为牛顿
 
     >>> archimedes_principle(fluid_density=500, volume=4, gravity=9.8)
     19600.0

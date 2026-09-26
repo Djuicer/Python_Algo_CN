@@ -1,12 +1,11 @@
 """
-Rainfall Intensity
+降雨强度
 ==================
-This module contains functions to calculate the intensity of
-a rainfall event for a given duration and return period.
+本模块包含根据给定持续时间和重现期计算降雨事件强度的函数。
 
-This function uses the Sherman intensity-duration-frequency curve.
+本函数使用 Sherman 强度－历时－频率曲线。
 
-References
+参考资料
 ----------
 - Aparicio, F. (1997): Fundamentos de Hidrología de Superficie.
     Balderas, México, Limusa. 303 p.
@@ -23,43 +22,43 @@ def rainfall_intensity(
     duration: float,
 ) -> float:
     """
-    Calculate the intensity of a rainfall event for a given duration and return period.
-    It's based on the Sherman intensity-duration-frequency curve:
+    根据给定持续时间和重现期计算降雨事件强度，计算基于 Sherman
+    强度－历时－频率曲线：
 
     I = k * T^a / (D + b)^c
 
-    where:
-        I = Intensity of the rainfall event [mm/h]
-        k, a, b, c = Coefficients obtained through statistical distribution adjust
-        T = Return period in years
-        D = Rainfall event duration in minutes
+    其中：
+        I = 降雨事件强度 [mm/h]
+        k, a, b, c = 通过统计分布拟合得到的系数
+        T = 重现期，单位为年
+        D = 降雨事件持续时间，单位为分钟
 
-    Parameters
+    参数
     ----------
     coefficient_k : float
-        Coefficient obtained through statistical distribution adjust.
+        通过统计分布拟合得到的系数。
     coefficient_a : float
-        Coefficient obtained through statistical distribution adjust.
+        通过统计分布拟合得到的系数。
     coefficient_b : float
-        Coefficient obtained through statistical distribution adjust.
+        通过统计分布拟合得到的系数。
     coefficient_c : float
-        Coefficient obtained through statistical distribution adjust.
+        通过统计分布拟合得到的系数。
     return_period : float
-        Return period in years.
+        重现期，单位为年。
     duration : float
-        Rainfall event duration in minutes.
+        降雨事件持续时间，单位为分钟。
 
-    Returns
+    返回
     -------
     intensity : float
-        Intensity of the rainfall event in mm/h.
+        降雨事件强度，单位为 mm/h。
 
-    Raises
+    异常
     ------
     ValueError
-        If any of the parameters are not positive.
+        任一参数不是正数时抛出。
 
-    Examples
+    示例
     --------
 
     >>> rainfall_intensity(1000, 0.2, 11.6, 0.81, 10, 60)

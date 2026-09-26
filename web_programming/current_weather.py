@@ -7,11 +7,11 @@
 
 import httpx2
 
-# Put your API key(s) here
+# 在此填写 API 密钥
 OPENWEATHERMAP_API_KEY = ""
 WEATHERSTACK_API_KEY = ""
 
-# Define the URL for the APIs with placeholders
+# 定义带占位符的 API URL
 OPENWEATHERMAP_URL_BASE = "https://api.openweathermap.org/data/2.5/weather"
 WEATHERSTACK_URL_BASE = "http://api.weatherstack.com/current"
 

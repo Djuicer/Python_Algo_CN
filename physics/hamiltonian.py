@@ -1,22 +1,19 @@
 """
-The Hamiltonian is a central concept in both classical and quantum mechanics.
-It represents the total energy of a system and is used to describe how that
-system evolves over time.
+哈密顿量（Hamiltonian）是经典力学和量子力学中的核心概念。它表示系统的
+总能量，用于描述系统随时间的演化。
 
-Classical mechanics:
+经典力学：
     H = T + V
-    where T is kinetic energy and V is potential energy.
+    其中 T 为动能，V 为势能。
 
-Quantum mechanics (1D, finite-difference form):
-    The time-independent Schrodinger equation, H|psi> = E|psi>, can be solved
-    numerically by discretizing space into points and approximating the second
-    derivative with the finite-difference method. This turns the continuous
-    Hamiltonian operator into a matrix:
+量子力学（一维有限差分形式）：
+    可将空间离散为点，并用有限差分法近似二阶导数，从而数值求解定态
+    Schrodinger 方程 H|psi> = E|psi>。这样可将连续的哈密顿算符转为矩阵：
 
         H[i][i]   = hbar^2 / (m * dx^2) + V(x_i)
         H[i][i+1] = H[i][i-1] = -hbar^2 / (2 * m * dx^2)
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Hamiltonian_mechanics
     - https://en.wikipedia.org/wiki/Hamiltonian_(quantum_mechanics)
     - https://en.wikipedia.org/wiki/Finite_difference_method
@@ -27,8 +24,7 @@ def classical_hamiltonian(
     mass: float, velocity: float, potential_energy: float
 ) -> float:
     """
-    Compute the classical Hamiltonian H = T + V for a particle,
-    where T = 0.5 * m * v^2 is the kinetic energy.
+    计算粒子的经典哈密顿量 H = T + V，其中 T = 0.5 * m * v^2 为动能。
 
     >>> classical_hamiltonian(2, 3, 5)
     14.0
@@ -56,9 +52,8 @@ def quantum_hamiltonian(
     dx: float = 1.0,
 ) -> list[list[float]]:
     """
-    Construct the Hamiltonian matrix for a particle in a 1D potential
-    using finite-difference discretization of the time-independent
-    Schrodinger equation.
+    使用定态 Schrodinger 方程的有限差分离散，构造粒子在一维势场中的
+    哈密顿矩阵。
 
     >>> quantum_hamiltonian(3, [0.0, 0.0, 0.0])
     [[1.0, -0.5, 0.0], [-0.5, 1.0, -0.5], [0.0, -0.5, 1.0]]

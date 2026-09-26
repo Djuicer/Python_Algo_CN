@@ -1,8 +1,7 @@
 """
-This script demonstrates fetching simple COVID-19 statistics from the
-Worldometers archive site using lxml. lxml is chosen over BeautifulSoup
-for its speed and convenience in Python web projects (such as Django or
-Flask).
+本脚本演示如何使用 lxml 从 Worldometers 归档站点获取简单的 COVID-19 统计
+数据。选择 lxml 而不是 BeautifulSoup，是因为它在 Python Web 项目（如 Django
+或 Flask）中速度更快、使用更方便。
 
 uv run --script web_programming/covid_stats_via_xpath.py
 """
@@ -57,7 +56,7 @@ def covid_stats(
 
 
 def main() -> None:
-    """CLI entry point."""
+    """CLI 入口点。"""
     parser = argparse.ArgumentParser(
         description="Fetch COVID-19 statistics from Worldometers (archived)."
     )

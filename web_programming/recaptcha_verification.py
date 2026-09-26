@@ -1,13 +1,12 @@
 """
-Recaptcha is a free captcha service offered by Google in order to secure websites and
-forms.  At https://www.google.com/recaptcha/admin/create you can create new recaptcha
-keys and see the keys that your have already created.
-* Keep in mind that recaptcha doesn't work with localhost
-When you create a recaptcha key, your will get two separate keys: ClientKey & SecretKey.
-ClientKey should be kept in your site's front end
-SecretKey should be kept in your site's  back end
+Recaptcha 是 Google 提供的免费验证码服务，用于保护网站和表单。可在
+https://www.google.com/recaptcha/admin/create 创建新的 Recaptcha 密钥，并
+查看已创建的密钥。
+* 请注意，Recaptcha 不适用于 localhost
+创建 Recaptcha 密钥时会得到两个独立密钥：ClientKey 和 SecretKey。
+ClientKey 应保存在站点前端，SecretKey 应保存在站点后端。
 
-# An example HTML login form with recaptcha tag is shown below
+# 下面展示带有 Recaptcha 标签的 HTML 登录表示例
 
     <form action="" method="post">
         <h2 class="text-center">Log in</h2>
@@ -28,8 +27,7 @@ SecretKey should be kept in your site's  back end
     <!-- Below is the recaptcha script to be kept inside html tag -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-Below a Django function for the views.py file contains a login form for demonstrating
-recaptcha verification.
+下面的 Django 函数用于 views.py 文件，包含一个演示 Recaptcha 验证的登录表单。
 """
 
 # /// script
@@ -49,26 +47,26 @@ except ImportError:
 
 
 def login_using_recaptcha(request):
-    # Enter your recaptcha secret key here
+    # 在此输入 Recaptcha 密钥
     secret_key = "secretKey"  # noqa: S105
     url = "https://www.google.com/recaptcha/api/siteverify"
 
-    # when method is not POST, direct user to login page
+    # 方法不是 POST 时，将用户转到登录页面
     if request.method != "POST":
         return render(request, "login.html")
 
-    # from the frontend, get username, password, and client_key
+    # 从前端获取 username、password 和 client_key
     username = request.POST.get("username")
     password = request.POST.get("password")
     client_key = request.POST.get("g-recaptcha-response")
 
-    # post recaptcha response to Google's recaptcha api
+    # 将 Recaptcha 响应发送到 Google Recaptcha API
     response = httpx2.post(
         url, data={"secret": secret_key, "response": client_key}, timeout=10
     )
-    # if the recaptcha api verified our keys
+    # Recaptcha API 验证密钥成功时
     if response.json().get("success", False):
-        # authenticate the user
+        # 验证用户身份
         user_in_database = authenticate(request, username=username, password=password)
         if user_in_database:
             login(request, user_in_database)

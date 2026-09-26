@@ -1,17 +1,16 @@
 """
-Title: Graham's Law of Effusion
+标题：格雷厄姆逸出定律
 
-Description: Graham's law of effusion states that the rate of effusion of a gas is
-inversely proportional to the square root of the molar mass of its particles:
+说明：格雷厄姆逸出定律指出，气体逸出速率与其粒子摩尔质量的平方根成反比：
 
 r1/r2 = sqrt(m2/m1)
 
-r1 = Rate of effusion for the first gas.
-r2 = Rate of effusion for the second gas.
-m1 = Molar mass of the first gas.
-m2 = Molar mass of the second gas.
+r1 = 第一种气体的逸出速率。
+r2 = 第二种气体的逸出速率。
+m1 = 第一种气体的摩尔质量。
+m2 = 第二种气体的摩尔质量。
 
-(Description adapted from https://en.wikipedia.org/wiki/Graham%27s_law)
+（说明改编自 https://en.wikipedia.org/wiki/Graham%27s_law）
 """
 
 from math import pow, sqrt  # noqa: A004
@@ -19,14 +18,14 @@ from math import pow, sqrt  # noqa: A004
 
 def validate(*values: float) -> bool:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    effusion_rate_1: Effustion rate of first gas (m^2/s, mm^2/s, etc.)
-    effusion_rate_2: Effustion rate of second gas (m^2/s, mm^2/s, etc.)
-    molar_mass_1: Molar mass of the first gas (g/mol, kg/kmol, etc.)
-    molar_mass_2: Molar mass of the second gas (g/mol, kg/kmol, etc.)
+    effusion_rate_1: 第一种气体的逸出速率 (m^2/s、mm^2/s 等)
+    effusion_rate_2: 第二种气体的逸出速率 (m^2/s、mm^2/s 等)
+    molar_mass_1: 第一种气体的摩尔质量 (g/mol、kg/kmol 等)
+    molar_mass_2: 第二种气体的摩尔质量 (g/mol、kg/kmol 等)
 
-    Returns:
+    返回：
     --------
     >>> validate(2.016, 4.002)
     True
@@ -41,12 +40,12 @@ def validate(*values: float) -> bool:
 
 def effusion_ratio(molar_mass_1: float, molar_mass_2: float) -> float | ValueError:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    molar_mass_1: Molar mass of the first gas (g/mol, kg/kmol, etc.)
-    molar_mass_2: Molar mass of the second gas (g/mol, kg/kmol, etc.)
+    molar_mass_1: 第一种气体的摩尔质量 (g/mol、kg/kmol 等)
+    molar_mass_2: 第二种气体的摩尔质量 (g/mol、kg/kmol 等)
 
-    Returns:
+    返回：
     --------
     >>> effusion_ratio(2.016, 4.002)
     1.408943
@@ -68,13 +67,13 @@ def first_effusion_rate(
     effusion_rate: float, molar_mass_1: float, molar_mass_2: float
 ) -> float | ValueError:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    effusion_rate: Effustion rate of second gas (m^2/s, mm^2/s, etc.)
-    molar_mass_1: Molar mass of the first gas (g/mol, kg/kmol, etc.)
-    molar_mass_2: Molar mass of the second gas (g/mol, kg/kmol, etc.)
+    effusion_rate: 第二种气体的逸出速率 (m^2/s、mm^2/s 等)
+    molar_mass_1: 第一种气体的摩尔质量 (g/mol、kg/kmol 等)
+    molar_mass_2: 第二种气体的摩尔质量 (g/mol、kg/kmol 等)
 
-    Returns:
+    返回：
     --------
     >>> first_effusion_rate(1, 2.016, 4.002)
     1.408943
@@ -104,13 +103,13 @@ def second_effusion_rate(
     effusion_rate: float, molar_mass_1: float, molar_mass_2: float
 ) -> float | ValueError:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    effusion_rate: Effustion rate of second gas (m^2/s, mm^2/s, etc.)
-    molar_mass_1: Molar mass of the first gas (g/mol, kg/kmol, etc.)
-    molar_mass_2: Molar mass of the second gas (g/mol, kg/kmol, etc.)
+    effusion_rate: 第二种气体的逸出速率 (m^2/s、mm^2/s 等)
+    molar_mass_1: 第一种气体的摩尔质量 (g/mol、kg/kmol 等)
+    molar_mass_2: 第二种气体的摩尔质量 (g/mol、kg/kmol 等)
 
-    Returns:
+    返回：
     --------
     >>> second_effusion_rate(1, 2.016, 4.002)
     0.709752
@@ -140,13 +139,13 @@ def first_molar_mass(
     molar_mass: float, effusion_rate_1: float, effusion_rate_2: float
 ) -> float | ValueError:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    molar_mass: Molar mass of the first gas (g/mol, kg/kmol, etc.)
-    effusion_rate_1: Effustion rate of first gas (m^2/s, mm^2/s, etc.)
-    effusion_rate_2: Effustion rate of second gas (m^2/s, mm^2/s, etc.)
+    molar_mass: 第一种气体的摩尔质量 (g/mol、kg/kmol 等)
+    effusion_rate_1: 第一种气体的逸出速率 (m^2/s、mm^2/s 等)
+    effusion_rate_2: 第二种气体的逸出速率 (m^2/s、mm^2/s 等)
 
-    Returns:
+    返回：
     --------
     >>> first_molar_mass(2, 1.408943, 0.709752)
     0.507524
@@ -176,13 +175,13 @@ def second_molar_mass(
     molar_mass: float, effusion_rate_1: float, effusion_rate_2: float
 ) -> float | ValueError:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    molar_mass: Molar mass of the first gas (g/mol, kg/kmol, etc.)
-    effusion_rate_1: Effustion rate of first gas (m^2/s, mm^2/s, etc.)
-    effusion_rate_2: Effustion rate of second gas (m^2/s, mm^2/s, etc.)
+    molar_mass: 第一种气体的摩尔质量 (g/mol、kg/kmol 等)
+    effusion_rate_1: 第一种气体的逸出速率 (m^2/s、mm^2/s 等)
+    effusion_rate_2: 第二种气体的逸出速率 (m^2/s、mm^2/s 等)
 
-    Returns:
+    返回：
     --------
     >>> second_molar_mass(2, 1.408943, 0.709752)
     1.970351

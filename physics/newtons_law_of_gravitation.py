@@ -1,50 +1,44 @@
 """
-Title : Finding the value of either Gravitational Force, one of the masses or distance
-provided that the other three parameters are given.
+标题：给定其他三个参数时，求引力、其中一个质量或距离。
 
-Description : Newton's Law of Universal Gravitation explains the presence of force of
-attraction between bodies having a definite mass situated at a distance. It is usually
-stated as that, every particle attracts every other particle in the universe with a
-force that is directly proportional to the product of their masses and inversely
-proportional to the square of the distance between their centers. The publication of the
-theory has become known as the "first great unification", as it marked the unification
-of the previously described phenomena of gravity on Earth with known astronomical
-behaviors.
+说明：牛顿万有引力定律解释了相距一定距离、具有确定质量的物体间为何存在
+吸引力。通常表述为：宇宙中每个粒子都吸引其他粒子，该力与两者质量的乘积
+成正比，与两者质心距离的平方成反比。这一理论的发表被称为“第一次大统一”，
+因为它统一了地球上的引力现象与已知天文行为。
 
-The equation for the universal gravitation is as follows:
+万有引力方程如下：
 F = (G * mass_1 * mass_2) / (distance)^2
 
-Source :
+来源：
 - https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation
 - Newton (1687) "Philosophiæ Naturalis Principia Mathematica"
 """
 
 from __future__ import annotations
 
-# Define the Gravitational Constant G and the function
-GRAVITATIONAL_CONSTANT = 6.6743e-11  # unit of G : m^3 * kg^-1 * s^-2
+# 定义引力常数 G 和函数
+GRAVITATIONAL_CONSTANT = 6.6743e-11  # G 的单位：m^3 * kg^-1 * s^-2
 
 
 def gravitational_law(
     force: float, mass_1: float, mass_2: float, distance: float
 ) -> dict[str, float]:
     """
-    Input Parameters
+    输入参数
     ----------------
-    force : magnitude in Newtons
+    force : 大小，单位为牛顿
 
-    mass_1 : mass in Kilograms
+    mass_1 : 质量，单位为千克
 
-    mass_2 : mass in Kilograms
+    mass_2 : 质量，单位为千克
 
-    distance : distance in Meters
+    distance : 距离，单位为米
 
-    Returns
+    返回
     -------
-    result : dict name, value pair of the parameter having Zero as it's value
+    result : 字典，名称和值对应输入中值为零的参数
 
-    Returns the value of one of the parameters specified as 0, provided the values of
-    other parameters are given.
+    给定其他参数时，返回指定为 0 的那个参数的值。
     >>> gravitational_law(force=0, mass_1=5, mass_2=10, distance=20)
     {'force': 8.342875e-12}
 
@@ -92,7 +86,7 @@ def gravitational_law(
     raise ValueError("One and only one argument must be 0")
 
 
-# Run doctest
+# 运行 doctest
 if __name__ == "__main__":
     import doctest
 

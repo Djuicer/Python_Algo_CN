@@ -1,27 +1,22 @@
 """
-Lorentz transformations describe the transition between two inertial reference
-frames F and F', each of which is moving in some direction with respect to the
-other. This code only calculates Lorentz transformations for movement in the x
-direction with no spatial rotation (i.e., a Lorentz boost in the x direction).
-The Lorentz transformations are calculated here as linear transformations of
-four-vectors [ct, x, y, z] described by Minkowski space. Note that t (time) is
-multiplied by c (the speed of light) in the first entry of each four-vector.
+洛伦兹变换描述两个彼此相对运动的惯性参考系 F 和 F' 之间的转换。本代码仅
+计算沿 x 方向运动且无空间旋转的洛伦兹变换（即 x 方向的洛伦兹推进）。
+这里将洛伦兹变换计算为 Minkowski 空间四维矢量 [ct, x, y, z] 的线性变换。
+注意，每个四维矢量的首项中，t（时间）要乘以 c（光速）。
 
-Thus, if X = [ct; x; y; z] and X' = [ct'; x'; y'; z'] are the four-vectors for
-two inertial reference frames and X' moves in the x direction with velocity v
-with respect to X, then the Lorentz transformation from X to X' is X' = BX,
-where
+若 X = [ct; x; y; z] 和 X' = [ct'; x'; y'; z'] 是两个惯性参考系的四维矢量，
+且 X' 相对于 X 以速度 v 沿 x 方向运动，则从 X 到 X' 的洛伦兹变换为 X' = BX，
+其中：
 
     | y  -γβ  0  0|
 B = |-γβ  y   0  0|
     | 0   0   1  0|
     | 0   0   0  1|
 
-is the matrix describing the Lorentz boost between X and X',
-y = 1 / √(1 - v²/c²) is the Lorentz factor, and β = v/c is the velocity as
-a fraction of c.
+该矩阵描述 X 与 X' 之间的洛伦兹推进；y = 1 / √(1 - v²/c²) 为洛伦兹因子，
+β = v/c 为速度与 c 的比值。
 
-Reference: https://en.wikipedia.org/wiki/Lorentz_transformation
+参考资料：https://en.wikipedia.org/wiki/Lorentz_transformation
 """
 
 from math import sqrt
@@ -29,18 +24,18 @@ from math import sqrt
 import numpy as np
 from sympy import symbols
 
-# Coefficient
-# Speed of light (m/s)
+# 系数
+# 光速 (m/s)
 c = 299792458
 
-# Symbols
+# 符号
 ct, x, y, z = symbols("ct x y z")
 
 
-# Vehicle's speed divided by speed of light (no units)
+# 物体速度除以光速（无量纲）
 def beta(velocity: float) -> float:
     """
-    Calculates β = v/c, the given velocity as a fraction of c
+    计算 β = v/c，即给定速度与 c 的比值。
     >>> beta(c)
     1.0
     >>> beta(199792458)
@@ -55,7 +50,7 @@ def beta(velocity: float) -> float:
     if velocity > c:
         raise ValueError("Speed must not exceed light speed 299,792,458 [m/s]!")
     if velocity < 1:
-        # Usually the speed should be much higher than 1 (c order of magnitude)
+        # 通常速度应远大于 1（与 c 同一数量级）
         raise ValueError("Speed must be greater than or equal to 1!")
 
     return velocity / c
@@ -63,7 +58,7 @@ def beta(velocity: float) -> float:
 
 def gamma(velocity: float) -> float:
     """
-    Calculate the Lorentz factor y = 1 / √(1 - v²/c²) for a given velocity
+    计算给定速度对应的洛伦兹因子 y = 1 / √(1 - v²/c²)。
     >>> gamma(4)
     1.0000000000000002
     >>> gamma(1e5)
@@ -88,14 +83,14 @@ def gamma(velocity: float) -> float:
 
 def transformation_matrix(velocity: float) -> np.ndarray:
     """
-    Calculate the Lorentz transformation matrix for movement in the x direction:
+    计算沿 x 方向运动的洛伦兹变换矩阵：
 
     | y  -γβ  0  0|
     |-γβ  y   0  0|
     | 0   0   1  0|
     | 0   0   0  1|
 
-    where y is the Lorentz factor and β is the velocity as a fraction of c
+    其中 y 为洛伦兹因子，β 为速度与 c 的比值。
     >>> transformation_matrix(29979245)
     array([[ 1.00503781, -0.10050378,  0.        ,  0.        ],
            [-0.10050378,  1.00503781,  0.        ,  0.        ],
@@ -136,11 +131,9 @@ def transformation_matrix(velocity: float) -> np.ndarray:
 
 def transform(velocity: float, event: np.ndarray | None = None) -> np.ndarray:
     """
-    Calculate a Lorentz transformation for movement in the x direction given a
-    velocity and a four-vector for an inertial reference frame
+    根据速度和惯性参考系的四维矢量，计算沿 x 方向运动的洛伦兹变换。
 
-    If no four-vector is given, then calculate the transformation symbolically
-    with variables
+    若未给出四维矢量，则使用变量进行符号变换。
     >>> transform(29979245, np.array([1, 2, 3, 4]))
     array([ 3.01302757e+08, -3.01302729e+07,  3.00000000e+00,  4.00000000e+00])
     >>> transform(29979245)
@@ -160,11 +153,11 @@ def transform(velocity: float, event: np.ndarray | None = None) -> np.ndarray:
       ...
     ValueError: Speed must be greater than or equal to 1!
     """
-    # Ensure event is not empty
+    # 确保 event 非空
     if event is None:
-        event = np.array([ct, x, y, z])  # Symbolic four vector
+        event = np.array([ct, x, y, z])  # 符号四维矢量
     else:
-        event[0] *= c  # x0 is ct (speed of light * time)
+        event[0] *= c  # x0 为 ct（光速 * 时间）
 
     return transformation_matrix(velocity) @ event
 
@@ -174,7 +167,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Example of symbolic vector:
+    # 符号矢量示例：
     four_vector = transform(29979245)
     print("Example of four vector: ")
     print(f"ct' = {four_vector[0]}")
@@ -182,7 +175,7 @@ if __name__ == "__main__":
     print(f"y' = {four_vector[2]}")
     print(f"z' = {four_vector[3]}")
 
-    # Substitute symbols with numerical values
+    # 用数值替换符号
     sub_dict = {ct: c, x: 1, y: 1, z: 1}
     numerical_vector = [four_vector[i].subs(sub_dict) for i in range(4)]
 

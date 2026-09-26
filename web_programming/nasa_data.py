@@ -10,8 +10,8 @@ import httpx2
 
 def get_apod_data(api_key: str) -> dict:
     """
-    Get the APOD(Astronomical Picture of the day) data
-    Get your API Key from: https://api.nasa.gov/
+    获取 APOD（每日天文图片）数据。
+    从 https://api.nasa.gov/ 获取 API 密钥。
     """
     url = "https://api.nasa.gov/planetary/apod"
     return httpx2.get(url, params={"api_key": api_key}, timeout=10).json()
@@ -31,7 +31,7 @@ def save_apod(api_key: str, path: str = ".") -> dict:
 
 def get_archive_data(query: str) -> dict:
     """
-    Get the data of a particular query from NASA archives
+    从 NASA 归档中获取特定查询的数据。
     """
     url = "https://images-api.nasa.gov/search"
     return httpx2.get(url, params={"q": query}, timeout=10).json()

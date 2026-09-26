@@ -1,62 +1,56 @@
 """
-The root-mean-square, average and most probable speeds of gas molecules are
-derived from the Maxwell-Boltzmann distribution. The Maxwell-Boltzmann
-distribution is a probability distribution that describes the distribution of
-speeds of particles in an ideal gas.
+气体分子的均方根速率、平均速率和最概然速率均由 Maxwell-Boltzmann 分布
+导出。Maxwell-Boltzmann 分布是描述理想气体粒子速率分布的概率分布。
 
-The distribution is given by the following equation::
+该分布由以下方程给出：
 
         -------------------------------------------------
         | f(v) = (M/2πRT)^(3/2) * 4πv^2 * e^(-Mv^2/2RT) |
         -------------------------------------------------
 
-where:
-    * ``f(v)`` is the fraction of molecules with a speed ``v``
-    * ``M`` is the molar mass of the gas in kg/mol
-    * ``R`` is the gas constant
-    * ``T`` is the absolute temperature
+其中：
+    * ``f(v)`` 是速率为 ``v`` 的分子比例
+    * ``M`` 是气体摩尔质量，单位为 kg/mol
+    * ``R`` 是气体常数
+    * ``T`` 是绝对温度
 
-More information about the Maxwell-Boltzmann distribution can be found here:
+有关 Maxwell-Boltzmann 分布的更多信息见：
 https://en.wikipedia.org/wiki/Maxwell%E2%80%93Boltzmann_distribution
 
-The average speed can be calculated by integrating the Maxwell-Boltzmann distribution
-from 0 to infinity and dividing by the total number of molecules. The result is::
+对 Maxwell-Boltzmann 分布从 0 到无穷积分，再除以分子总数，可计算平均速率。
+结果为：
 
         ----------------------
         | v_avg = √(8RT/πM)  |
         ----------------------
 
-The most probable speed is the speed at which the Maxwell-Boltzmann distribution
-is at its maximum. This can be found by differentiating the Maxwell-Boltzmann
-distribution with respect to ``v`` and setting the result equal to zero. The result is::
+最概然速率是 Maxwell-Boltzmann 分布达到最大值时的速率。对该分布关于 ``v``
+求导并令结果为零即可求得：
 
         ----------------------
         | v_mp = √(2RT/M)    |
         ----------------------
 
-The root-mean-square speed is another measure of the average speed
-of the molecules in a gas. It is calculated by taking the square root
-of the average of the squares of the speeds of the molecules. The result is::
+均方根速率是衡量气体分子平均速率的另一指标，等于分子速率平方平均值的
+平方根。结果为：
 
         ----------------------
         | v_rms = √(3RT/M)   |
         ----------------------
 
-Here we have defined functions to calculate the average and
-most probable speeds of molecules in a gas given the
-temperature and molar mass of the gas.
+这里定义函数，根据气体温度和摩尔质量计算分子的平均速率和最概然速率。
 """
 
-# import the constants R and pi from the scipy.constants library
+# 从 scipy.constants 库导入常数 R 和 pi
 from scipy.constants import R, pi
 
 
 def avg_speed_of_molecule(temperature: float, molar_mass: float) -> float:
     """
-    Takes the temperature (in K) and molar mass (in kg/mol) of a gas
-    and returns the average speed of a molecule in the gas (in m/s).
+    接收气体温度（单位 K）和摩尔质量（单位 kg/mol），返回气体分子的平均
+    速率（单位 m/s）。
 
-    Examples:
+    示例：
 
     >>> avg_speed_of_molecule(273, 0.028) # nitrogen at 273 K
     454.3488755062257
@@ -81,10 +75,10 @@ def avg_speed_of_molecule(temperature: float, molar_mass: float) -> float:
 
 def mps_speed_of_molecule(temperature: float, molar_mass: float) -> float:
     """
-    Takes the temperature (in K) and molar mass (in kg/mol) of a gas
-    and returns the most probable speed of a molecule in the gas (in m/s).
+    接收气体温度（单位 K）和摩尔质量（单位 kg/mol），返回气体分子的最概然
+    速率（单位 m/s）。
 
-    Examples:
+    示例：
 
     >>> mps_speed_of_molecule(273, 0.028) # nitrogen at 273 K
     402.65620702280023

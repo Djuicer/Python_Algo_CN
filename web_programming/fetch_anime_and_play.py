@@ -15,10 +15,9 @@ BASE_URL = "https://ww7.gogoanime2.org"
 
 
 def search_scraper(anime_name: str) -> list:
-    """[summary]
+    """[摘要]
 
-    Take an url and
-    return list of anime after scraping the site.
+    接收 URL，抓取站点后返回动漫列表。
 
     >>> type(search_scraper("demon_slayer"))
     <class 'list'>
@@ -33,27 +32,27 @@ def search_scraper(anime_name: str) -> list:
         [list]: [List of animes]
     """
 
-    # concat the name to form the search url.
+    # 拼接名称以构造搜索 URL
     search_url = f"{BASE_URL}/search?keyword={anime_name}"
 
     response = httpx2.get(
         search_url, headers={"UserAgent": UserAgent().chrome}, timeout=10
-    )  # request the url.
+    )  # 请求 URL
 
-    # Is the response ok?
+    # 响应是否正常？
     response.raise_for_status()
 
-    # parse with soup.
+    # 使用 soup 解析
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # get list of anime
+    # 获取动漫列表
     anime_ul = soup.find("ul", {"class": "items"})
     if anime_ul is None or isinstance(anime_ul, NavigableString):
         msg = f"Could not find and anime with name {anime_name}"
         raise ValueError(msg)
     anime_li = anime_ul.children
 
-    # for each anime, insert to list. the name and url.
+    # 将每部动漫的名称和 URL 加入列表
     anime_list = []
     for anime in anime_li:
         if isinstance(anime, Tag):
@@ -70,11 +69,9 @@ def search_scraper(anime_name: str) -> list:
 
 
 def search_anime_episode_list(episode_endpoint: str) -> list:
-    """[summary]
+    """[摘要]
 
-    Take an url and
-    return list of episodes after scraping the site
-    for an url.
+    接收 URL，抓取站点后返回该 URL 对应的剧集列表。
 
     >>> type(search_anime_episode_list("/anime/kimetsu-no-yaiba"))
     <class 'list'>
@@ -98,7 +95,7 @@ def search_anime_episode_list(episode_endpoint: str) -> list:
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # With this id. get the episode list.
+    # 使用此 id 获取剧集列表
     episode_page_ul = soup.find("ul", {"id": "episode_related"})
     if episode_page_ul is None or isinstance(episode_page_ul, NavigableString):
         msg = f"Could not find any anime eposiodes with name {anime_name}"
@@ -123,9 +120,9 @@ def search_anime_episode_list(episode_endpoint: str) -> list:
 
 
 def get_anime_episode(episode_endpoint: str) -> list:
-    """[summary]
+    """[摘要]
 
-    Get click url and download url from episode url
+    从剧集 URL 获取点击 URL 和下载 URL。
 
     >>> type(get_anime_episode("/watch/kimetsu-no-yaiba/1"))
     <class 'list'>

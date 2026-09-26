@@ -1,24 +1,21 @@
 """
-The ideal gas law, also called the general gas equation, is the
-equation of state of a hypothetical ideal gas. It is a good approximation
-of the behavior of many gases under many conditions, although it has
-several limitations. It was first stated by Benoît Paul Émile Clapeyron
-in 1834 as a combination of the empirical Boyle's law, Charles's law,
-Avogadro's law, and Gay-Lussac's law.[1] The ideal gas law is often written
-in an empirical form:
+理想气体定律又称通用气体方程，是假想理想气体的状态方程。尽管存在一些
+局限，它在许多条件下都能很好地近似多种气体的行为。Benoît Paul Émile
+Clapeyron 于 1834 年首次将经验性的 Boyle 定律、Charles 定律、Avogadro
+定律和 Gay-Lussac 定律结合起来表述该定律。[1] 理想气体定律通常写作：
  ------------
  | PV = nRT |
  ------------
-P	=	Pressure (Pa)
-V	=	Volume (m^3)
-n	=	Amount of substance (mol)
-R	=	Universal gas constant
-T	=	Absolute temperature (Kelvin)
+P	=	压强 (Pa)
+V	=	体积 (m^3)
+n	=	物质的量 (mol)
+R	=	通用气体常数
+T	=	绝对温度 (Kelvin)
 
-(Description adapted from https://en.wikipedia.org/wiki/Ideal_gas_law )
+（说明改编自 https://en.wikipedia.org/wiki/Ideal_gas_law ）
 """
 
-UNIVERSAL_GAS_CONSTANT = 8.314462  # Unit - J mol-1 K-1
+UNIVERSAL_GAS_CONSTANT = 8.314462  # 单位 - J mol-1 K-1
 
 
 def pressure_of_gas_system(moles: float, kelvin: float, volume: float) -> float:

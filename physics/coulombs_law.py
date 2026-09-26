@@ -1,24 +1,21 @@
 """
-Coulomb's law states that the magnitude of the electrostatic force of attraction
-or repulsion between two point charges is directly proportional to the product
-of the magnitudes of charges and inversely proportional to the square of the
-distance between them.
+库仑定律指出，两个点电荷之间静电吸引力或排斥力的大小与电荷量绝对值的
+乘积成正比，与它们之间距离的平方成反比。
 
 F = k * q1 * q2 / r^2
 
-k is Coulomb's constant and equals 1/(4π*ε0)
-q1 is charge of first body (C)
-q2 is charge of second body (C)
-r is distance between two charged bodies (m)
+k 为库仑常数，等于 1/(4π*ε0)
+q1 为第一个物体的电荷量 (C)
+q2 为第二个物体的电荷量 (C)
+r 为两个带电物体之间的距离 (m)
 
-Reference: https://en.wikipedia.org/wiki/Coulomb%27s_law
+参考资料：https://en.wikipedia.org/wiki/Coulomb%27s_law
 """
 
 
 def coulombs_law(q1: float, q2: float, radius: float) -> float:
     """
-    Calculate the electrostatic force of attraction or repulsion
-    between two point charges
+    计算两个点电荷之间的静电吸引力或排斥力。
 
     >>> coulombs_law(15.5, 20, 15)
     12382849136.06

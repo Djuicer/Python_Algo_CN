@@ -1,28 +1,21 @@
 r"""
-Description:
-    Newton's second law of motion pertains to the behavior of objects for which
-    all existing forces are not balanced.
-    The second law states that the acceleration of an object is dependent upon
-    two variables - the net force acting upon the object and the mass of the object.
-    The acceleration of an object depends directly
-    upon the net force acting upon the object,
-    and inversely upon the mass of the object.
-    As the force acting upon an object is increased,
-    the acceleration of the object is increased.
-    As the mass of an object is increased, the acceleration of the object is decreased.
+说明：
+    牛顿第二运动定律描述所受各力不平衡的物体。该定律指出，物体的加速度
+    取决于所受合力和物体质量：加速度与合力成正比，与质量成反比。合力增大
+    时加速度增大；质量增大时加速度减小。
 
-Source: https://www.physicsclassroom.com/class/newtlaws/Lesson-3/Newton-s-Second-Law
+来源：https://www.physicsclassroom.com/class/newtlaws/Lesson-3/Newton-s-Second-Law
 
-Formulation: F_net = m • a
+公式：F_net = m • a
 
-Diagrammatic Explanation::
+图示说明：
 
-              Forces are unbalanced
+                    力不平衡
                         |
                         |
                         |
                         V
-               There is acceleration
+                    存在加速度
                         /\
                        /  \
                       /    \
@@ -31,30 +24,30 @@ Diagrammatic Explanation::
                    /          \
                   /            \
     __________________      ____________________
-   | The acceleration |    | The acceleration   |
-   | depends directly |    | depends inversely  |
-   | on the net force |    | upon the object's  |
-   |                  |    | mass               |
+   |  加速度与合力    |    |  加速度与物体     |
+   |  成正比          |    |  质量成反比       |
+   |                  |    |                   |
+   |                  |    |                   |
    |__________________|    |____________________|
 
-Units: 1 Newton = 1 kg • meters/seconds^2
+单位：1 Newton = 1 kg • meters/seconds^2
 
-How to use?
+用法
 
-Inputs::
+输入：
 
     ______________ _____________________ ___________
-   | Name         | Units               | Type      |
+   | 名称         | 单位                | 类型      |
    |--------------|---------------------|-----------|
    | mass         | in kgs              | float     |
    |--------------|---------------------|-----------|
    | acceleration | in meters/seconds^2 | float     |
    |______________|_____________________|___________|
 
-Output::
+输出：
 
     ______________ _______________________ ___________
-   | Name         | Units                 | Type      |
+   | 名称         | 单位                  | 类型      |
    |--------------|-----------------------|-----------|
    | force        | in Newtons            | float     |
    |______________|_______________________|___________|
@@ -64,7 +57,7 @@ Output::
 
 def newtons_second_law_of_motion(mass: float, acceleration: float) -> float:
     """
-    Calculates force from `mass` and `acceleration`
+    根据 `mass` 和 `acceleration` 计算力。
 
     >>> newtons_second_law_of_motion(10, 10)
     100
@@ -82,10 +75,10 @@ def newtons_second_law_of_motion(mass: float, acceleration: float) -> float:
 if __name__ == "__main__":
     import doctest
 
-    # run doctest
+    # 运行 doctest
     doctest.testmod()
 
-    # demo
+    # 演示
     mass = 12.5
     acceleration = 10
     force = newtons_second_law_of_motion(mass, acceleration)

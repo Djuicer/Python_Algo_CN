@@ -1,5 +1,5 @@
 """
-Fetch the current price of a cryptocurrency in USD using CoinGecko API.
+使用 CoinGecko API 获取加密货币当前的 USD 价格。
 """
 
 # /// script
@@ -14,7 +14,7 @@ import httpx2
 
 def crypto_price(coin: str = "bitcoin") -> float:
     """
-    Return the current price of a cryptocurrency in USD using CoinGecko API.
+    使用 CoinGecko API 返回加密货币当前的 USD 价格。
 
     >>> isinstance(crypto_price("bitcoin"), float)
     True

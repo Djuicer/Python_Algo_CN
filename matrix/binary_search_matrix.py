@@ -1,9 +1,8 @@
 def binary_search(array: list, lower_bound: int, upper_bound: int, value: int) -> int:
     """
-    This function carries out Binary search on a 1d array and
-    return -1 if it do not exist
-    array: A 1d sorted array
-    value : the value meant to be searched
+    在一维数组上执行二分查找；若目标不存在则返回 -1。
+    array: 已排序的一维数组
+    value : 要查找的值
     >>> matrix = [1, 4, 7, 11, 15]
     >>> binary_search(matrix, 0, len(matrix) - 1, 1)
     0
@@ -24,10 +23,10 @@ def binary_search(array: list, lower_bound: int, upper_bound: int, value: int) -
 
 def mat_bin_search(value: int, matrix: list) -> list:
     """
-    This function loops over a 2d matrix and calls binarySearch on
-    the selected 1d array and returns [-1, -1] is it do not exist
-    value : value meant to be searched
-    matrix = a sorted 2d matrix
+    遍历二维矩阵，并对选定的一维数组调用 binarySearch；若目标不存在则返回
+    [-1, -1]。
+    value : 要查找的值
+    matrix = 已排序的二维矩阵
     >>> matrix = [[1, 4, 7, 11, 15],
     ...           [2, 5, 8, 12, 19],
     ...           [3, 6, 9, 16, 22],

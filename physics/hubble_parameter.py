@@ -1,28 +1,23 @@
 """
-Title : Calculating the Hubble Parameter
+标题：计算哈勃参数
 
-Description : The Hubble parameter H is the Universe expansion rate
-in any time. In cosmology is customary to use the redshift redshift
-in place of time, becausethe redshift is directily mensure
-in the light of galaxies moving away from us.
+说明：哈勃参数 H 表示宇宙在任意时刻的膨胀速率。宇宙学中通常以红移代替
+时间，因为远离我们的星系发出的光可直接测得红移。
 
-So, the general relation that we obtain is
+由此得到一般关系：
 
 H = hubble_constant*(radiation_density*(redshift+1)**4
                      + matter_density*(redshift+1)**3
                      + curvature*(redshift+1)**2 + dark_energy)**(1/2)
 
-where radiation_density, matter_density, dark_energy are the relativity
-(the percentage) energy densities that exist
-in the Universe today. Here, matter_density is the
-sum of the barion density and the
-dark matter. Curvature is the curvature parameter and can be written in term
-of the densities by the completeness
+其中 radiation_density、matter_density、dark_energy 是当今宇宙中各自的
+相对（百分比）能量密度。matter_density 为重子密度与暗物质密度之和。
+curvature 是曲率参数，可利用密度完备关系写为：
 
 
 curvature = 1 - (matter_density + radiation_density + dark_energy)
 
-Source :
+来源：
 https://www.sciencedirect.com/topics/mathematics/hubble-parameter
 """
 
@@ -35,23 +30,21 @@ def hubble_parameter(
     redshift: float,
 ) -> float:
     """
-    Input Parameters
+    输入参数
     ----------------
-    hubble_constant: Hubble constante is the expansion rate today usually
-    given in km/(s*Mpc)
+    hubble_constant: 哈勃常数，即当前膨胀速率，通常单位为 km/(s*Mpc)
 
-    radiation_density: relative radiation density today
+    radiation_density: 当前相对辐射密度
 
-    matter_density: relative mass density today
+    matter_density: 当前相对物质密度
 
-    dark_energy: relative dark energy density today
+    dark_energy: 当前相对暗能量密度
 
-    redshift: the light redshift
+    redshift: 光的红移
 
-    Returns
+    返回
     -------
-    result : Hubble parameter in and the unit km/s/Mpc (the unit can be
-    changed if you want, just need to change the unit of the Hubble constant)
+    result : 哈勃参数，单位为 km/s/Mpc（可通过改变哈勃常数的单位来更换单位）
 
     >>> hubble_parameter(hubble_constant=68.3, radiation_density=1e-4,
     ... matter_density=-0.3, dark_energy=0.7, redshift=1)
@@ -91,10 +84,10 @@ def hubble_parameter(
 if __name__ == "__main__":
     import doctest
 
-    # run doctest
+    # 运行 doctest
     doctest.testmod()
 
-    # demo LCDM approximation
+    # 演示 LCDM 近似
     matter_density = 0.3
 
     print(

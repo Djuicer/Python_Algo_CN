@@ -1,4 +1,4 @@
-"""Get the site emails from URL."""
+"""从 URL 获取站点的电子邮箱地址。"""
 
 # /// script
 # requires-python = ">=3.13"
@@ -31,22 +31,22 @@ class Parser(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         """
-        This function parse html to take takes url from tags
+        解析 HTML，并从标签中提取 URL。
         """
-        # Only parse the 'anchor' tag.
+        # 仅解析 'anchor' 标签
         if tag == "a":
-            # Check the list of defined attributes.
+            # 检查已定义的属性列表
             for name, value in attrs:
-                # If href is defined, not empty nor # print it and not already in urls.
+                # href 已定义、非空、不是 # 且不在 urls 中时处理
                 if name == "href" and value not in (*self.urls, "", "#"):
                     url = parse.urljoin(self.domain, value)
                     self.urls.append(url)
 
 
-# Get main domain name (example.com)
+# 获取主域名 (example.com)
 def get_domain_name(url: str) -> str:
     """
-    This function get the main domain name
+    获取主域名。
 
     >>> get_domain_name("https://a.b.c.d/e/f?g=h,i=j#k")
     'c.d'
@@ -56,7 +56,7 @@ def get_domain_name(url: str) -> str:
     return ".".join(get_sub_domain_name(url).split(".")[-2:])
 
 
-# Get sub domain name (sub.example.com)
+# 获取子域名 (sub.example.com)
 def get_sub_domain_name(url: str) -> str:
     """
     >>> get_sub_domain_name("https://a.b.c.d/e/f?g=h,i=j#k")
@@ -69,37 +69,37 @@ def get_sub_domain_name(url: str) -> str:
 
 def emails_from_url(url: str = "https://github.com") -> list[str]:
     """
-    This function takes url and return all valid urls
+    接收 url 并返回所有有效 URL。
     """
-    # Get the base domain from the url
+    # 从 url 获取基础域名
     domain = get_domain_name(url)
 
-    # Initialize the parser
+    # 初始化解析器
     parser = Parser(domain)
 
     try:
-        # Open URL
+        # 打开 URL
         r = httpx2.get(url, timeout=10, follow_redirects=True)
 
-        # pass the raw HTML to the parser to get links
+        # 将原始 HTML 交给解析器以获取链接
         parser.feed(r.text)
 
-        # Get links and loop through
+        # 获取并遍历链接
         valid_emails = set()
         for link in parser.urls:
-            # open URL.
-            # Check if the link is already absolute
+            # 打开 URL
+            # 检查链接是否已经是绝对 URL
             if not link.startswith("http://") and not link.startswith("https://"):
-                # Prepend protocol only if link starts with domain, normalize otherwise
+                # 链接以域名开头时仅补充协议，否则进行规范化
                 if link.startswith(domain):
                     link = f"https://{link}"
                 else:
                     link = parse.urljoin(f"https://{domain}", link)
             try:
                 read = httpx2.get(link, timeout=10, follow_redirects=True)
-                # Get the valid email.
+                # 获取有效电子邮箱地址
                 emails = re.findall("[a-zA-Z0-9]+@" + domain, read.text)
-                # If not in list then append it.
+                # 不在集合中时添加
                 for email in emails:
                     valid_emails.add(email)
             except ValueError:
@@ -107,7 +107,7 @@ def emails_from_url(url: str = "https://github.com") -> list[str]:
     except ValueError:
         raise SystemExit(1)
 
-    # Finally return a sorted list of email addresses with no duplicates.
+    # 最后返回排序且去重后的电子邮箱地址列表
     return sorted(valid_emails)
 
 

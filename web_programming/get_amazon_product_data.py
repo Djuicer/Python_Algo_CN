@@ -1,7 +1,6 @@
 """
-This file provides a function which will take a product name as input from the user,
-and fetch from Amazon information about products of this name or category.  The product
-information will include title, URL, price, ratings, and the discount available.
+本文件提供一个函数，接收用户输入的商品名称，并从 Amazon 获取该名称或类别
+的商品信息，包括标题、URL、价格、评分和可用折扣。
 """
 
 # /// script
@@ -22,8 +21,8 @@ from pandas import DataFrame
 
 def get_amazon_product_data(product: str = "laptop") -> DataFrame:
     """
-    Take a product name or category as input and return product information from Amazon
-    including title, URL, price, ratings, and the discount available.
+    接收商品名称或类别，并返回 Amazon 商品信息，包括标题、URL、价格、评分
+    和可用折扣。
     """
     url = f"https://www.amazon.in/laptop/s?k={product}"
     header = {
@@ -36,7 +35,7 @@ def get_amazon_product_data(product: str = "laptop") -> DataFrame:
     soup = BeautifulSoup(
         httpx2.get(url, headers=header, timeout=10).text, features="lxml"
     )
-    # Initialize a Pandas dataframe with the column titles
+    # 使用列标题初始化 Pandas dataframe
     data_frame = DataFrame(
         columns=[
             "Product Title",
@@ -47,7 +46,7 @@ def get_amazon_product_data(product: str = "laptop") -> DataFrame:
             "Discount",
         ]
     )
-    # Loop through each entry and store them in the dataframe
+    # 遍历每个条目并存入 dataframe
     for item, _ in zip_longest(
         soup.find_all(
             "div",

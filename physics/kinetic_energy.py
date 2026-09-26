@@ -1,28 +1,24 @@
 """
-Find the kinetic energy of an object, given its mass and velocity.
+根据物体的质量和速度求其动能。
 
-Description : In physics, the kinetic energy of an object is the energy that it
-possesses due to its motion.It is defined as the work needed to accelerate a body of a
-given mass from rest to its stated velocity.Having gained this energy during its
-acceleration, the body maintains this kinetic energy unless its speed changes.The same
-amount of work is done by the body when decelerating from its current speed to a state
-of rest.Formally, a kinetic energy is any term in a system's Lagrangian which includes
-a derivative with respect to time.
+说明：在物理学中，动能是物体因运动而具有的能量，定义为使给定质量的物体
+从静止加速到指定速度所需的功。物体在加速过程中获得这部分能量，只要速度
+不变就会保持该动能；从当前速度减速至静止时，物体会做同样大小的功。
+形式上，动能是系统拉格朗日量中包含时间导数的项。
 
-In classical mechanics, the kinetic energy of a non-rotating object of mass m traveling
-at a speed v is ½mv².In relativistic mechanics, this is a good approximation only when
-v is much less than the speed of light.The standard unit of kinetic energy is the
-joule, while the English unit of kinetic energy is the foot-pound.
+在经典力学中，质量为 m、速度为 v 的非旋转物体，其动能为 ½mv²。在相对论
+力学中，仅当 v 远小于光速时，该式才是良好近似。动能的标准单位是焦耳，
+英制单位是英尺磅。
 
-Reference : https://en.m.wikipedia.org/wiki/Kinetic_energy
+参考资料：https://en.m.wikipedia.org/wiki/Kinetic_energy
 """
 
 
 def kinetic_energy(mass: float, velocity: float) -> float:
     """
-    Calculate kinetic energy.
+    计算动能。
 
-    The kinetic energy of a non-rotating object of mass m traveling at a speed v is ½mv²
+    质量为 m、速度为 v 的非旋转物体，其动能为 ½mv²。
 
     >>> kinetic_energy(10,10)
     500.0

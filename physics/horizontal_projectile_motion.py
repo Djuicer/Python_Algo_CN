@@ -1,8 +1,7 @@
 """
-Horizontal Projectile Motion problem in physics.
+物理学中的斜抛运动问题。
 
-This algorithm solves a specific problem in which
-the motion starts from the ground as can be seen below::
+本算法求解从地面开始运动的特定问题，如下所示：
 
           (v = 0)
                    *  *
@@ -11,45 +10,45 @@ the motion starts from the ground as can be seen below::
           *                    *
         *                        *
        *                          *
-    GROUND                      GROUND
+     地面                        地面
 
-For more info: https://en.wikipedia.org/wiki/Projectile_motion
+更多信息：https://en.wikipedia.org/wiki/Projectile_motion
 """
 
-# Importing packages
+# 导入包
 from math import radians as deg_to_rad
 from math import sin
 
-# Acceleration Constant on Earth (unit m/s^2)
+# 地球重力加速度常量（单位 m/s^2）
 g = 9.80665
 
 
 def check_args(init_velocity: float, angle: float) -> None:
     """
-    Check that the arguments are valid
+    检查参数是否有效。
     """
 
-    # Ensure valid instance
+    # 确保实例有效
     if not isinstance(init_velocity, (int, float)):
         raise TypeError("Invalid velocity. Should be an integer or float.")
 
     if not isinstance(angle, (int, float)):
         raise TypeError("Invalid angle. Should be an integer or float.")
 
-    # Ensure valid angle
+    # 确保角度有效
     if angle > 90 or angle < 1:
         raise ValueError("Invalid angle. Range is 1-90 degrees.")
 
-    # Ensure valid velocity
+    # 确保速度有效
     if init_velocity < 0:
         raise ValueError("Invalid velocity. Should be a positive number.")
 
 
 def horizontal_distance(init_velocity: float, angle: float) -> float:
     r"""
-    Returns the horizontal distance that the object cover
+    返回物体运动的水平距离。
 
-    Formula:
+    公式：
         .. math::
             \frac{v_0^2 \cdot \sin(2 \alpha)}{g}
 
@@ -77,9 +76,9 @@ def horizontal_distance(init_velocity: float, angle: float) -> float:
 
 def max_height(init_velocity: float, angle: float) -> float:
     r"""
-    Returns the maximum height that the object reach
+    返回物体达到的最大高度。
 
-    Formula:
+    公式：
         .. math::
             \frac{v_0^2 \cdot \sin^2 (\alpha)}{2 g}
 
@@ -107,9 +106,9 @@ def max_height(init_velocity: float, angle: float) -> float:
 
 def total_time(init_velocity: float, angle: float) -> float:
     r"""
-    Returns total time of the motion
+    返回运动总时间。
 
-    Formula:
+    公式：
         .. math::
             \frac{2 v_0 \cdot \sin (\alpha)}{g}
 
@@ -137,7 +136,7 @@ def total_time(init_velocity: float, angle: float) -> float:
 
 def test_motion() -> None:
     """
-    Test motion
+    测试运动计算。
 
     >>> test_motion()
     """
@@ -152,13 +151,13 @@ if __name__ == "__main__":
 
     testmod()
 
-    # Get input from user
+    # 获取用户输入
     init_vel = float(input("Initial Velocity: ").strip())
 
-    # Get input from user
+    # 获取用户输入
     angle = float(input("angle: ").strip())
 
-    # Print results
+    # 输出结果
     print()
     print("Results: ")
     print(f"Horizontal Distance: {horizontal_distance(init_vel, angle)!s} [m]")

@@ -1,8 +1,8 @@
 """
-Title : Calculate altitude using Pressure
+标题：利用气压计算海拔
 
-Description :
-    The below algorithm approximates the altitude using Barometric formula
+说明：
+    以下算法使用气压公式估算海拔。
 
 
 """
@@ -10,19 +10,18 @@ Description :
 
 def get_altitude_at_pressure(pressure: float) -> float:
     """
-    This method calculates the altitude from Pressure wrt to
-    Sea level pressure as reference .Pressure is in Pascals
+    本方法以海平面气压为基准，根据气压计算海拔。气压单位为 Pa。
     https://en.wikipedia.org/wiki/Pressure_altitude
     https://community.bosch-sensortec.com/t5/Question-and-answers/How-to-calculate-the-altitude-from-the-pressure-sensor-data/qaq-p/5702
 
     H = 44330 * [1 - (P/p0)^(1/5.255) ]
 
-    Where :
-    H = altitude (m)
-    P = measured pressure
-    p0 = reference pressure at sea level 101325 Pa
+    其中：
+    H = 海拔 (m)
+    P = 测得的气压
+    p0 = 海平面参考气压 101325 Pa
 
-    Examples:
+    示例：
     >>> get_altitude_at_pressure(pressure=100_000)
     105.47836610778828
     >>> get_altitude_at_pressure(pressure=101_325)

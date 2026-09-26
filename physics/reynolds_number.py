@@ -1,32 +1,24 @@
 """
-Title : computing the Reynolds number to find
-        out the type of flow (laminar or turbulent)
+标题：计算雷诺数以判断流动类型（层流或湍流）
 
-Reynolds number is a dimensionless quantity that is used to determine
-the type of flow pattern as laminar or turbulent while flowing through a
-pipe. Reynolds number is defined by the ratio of inertial forces to that of
-viscous forces.
+雷诺数是用于判断管内流动属于层流还是湍流的无量纲量，定义为惯性力与黏性力
+之比。
 
-R = Inertial Forces / Viscous Forces
+R = 惯性力 / 黏性力
 R = (p * V * D)/μ
 
-where :
-p = Density of fluid (in Kg/m^3)
-D = Diameter of pipe through which fluid flows (in m)
-V = Velocity of flow of the fluid (in m/s)
-μ = Viscosity of the fluid (in Ns/m^2)
+其中：
+p = 流体密度 (Kg/m^3)
+D = 流体所经管道的直径 (m)
+V = 流体流速 (m/s)
+μ = 流体黏度 (Ns/m^2)
 
-If the Reynolds number calculated is high (greater than 2000), then the
-flow through the pipe is said to be turbulent. If Reynolds number is low
-(less than 2000), the flow is said to be laminar. Numerically, these are
-acceptable values, although in general the laminar and turbulent flows
-are classified according to a range. Laminar flow falls below Reynolds
-number of 1100 and turbulent falls in a range greater than 2200.
-Laminar flow is the type of flow in which the fluid travels smoothly in
-regular paths. Conversely, turbulent flow isn't smooth and follows an
-irregular path with lots of mixing.
+计算出的雷诺数较高（大于 2000）时，管内流动称为湍流；雷诺数较低（小于
+2000）时称为层流。这些数值可作为判据，不过通常按范围分类：雷诺数低于
+1100 为层流，高于 2200 为湍流。层流中流体沿规则路径平稳流动；湍流则不
+平稳，沿不规则路径运动并伴随大量混合。
 
-Reference : https://byjus.com/physics/reynolds-number/
+参考资料：https://byjus.com/physics/reynolds-number/
 """
 
 

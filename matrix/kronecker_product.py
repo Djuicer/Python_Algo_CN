@@ -3,7 +3,7 @@
 # @Date    : 13/10/2024
 
 """
-Perform Kronecker product of two matrices.
+计算两个矩阵的 Kronecker 积。
 https://en.wikipedia.org/wiki/Kronecker_product
 """
 
@@ -25,10 +25,10 @@ def kronecker_product(
     matrix_a: list[list[int]], matrix_b: list[list[int]]
 ) -> list[list[int]]:
     """
-    :param matrix_a: A 2-D Matrix with dimension m x n
-    :param matrix_b: Another 2-D Matrix with dimension p x q
-    :return: Result of matrix_a ⊗ matrix_b
-    :raises ValueError: If the matrices are not 2-D.
+    :param matrix_a: 维数为 m x n 的二维矩阵
+    :param matrix_b: 维数为 p x q 的另一个二维矩阵
+    :return: matrix_a ⊗ matrix_b 的结果
+    :raises ValueError: 矩阵不是二维时抛出
 
     >>> kronecker_product([[1, 2]], [[5, 6], [7, 8]])
     [[5, 6, 10, 12], [7, 8, 14, 16]]
@@ -42,7 +42,7 @@ def kronecker_product(
     ValueError: Input matrices must be 2-D.
     """
 
-    # Check if the input matrices are valid
+    # 检查输入矩阵是否有效
     if not all((is_2d(matrix_a), is_2d(matrix_b))):
         raise ValueError("Input matrices must be 2-D.")
 
@@ -52,7 +52,7 @@ def kronecker_product(
     rows_matrix_a, cols_matrix_a = len(matrix_a), len(matrix_a[0])
     rows_matrix_b, cols_matrix_b = len(matrix_b), len(matrix_b[0])
 
-    # Resultant matrix dimensions
+    # 结果矩阵的维数
     result = [
         [0] * (cols_matrix_a * cols_matrix_b)
         for _ in range(rows_matrix_a * rows_matrix_b)

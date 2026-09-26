@@ -1,17 +1,15 @@
 """
-Given a grid, where you start from the top left position [0, 0],
-you want to find how many paths you can take to get to the bottom right position.
+给定一个网格，从左上角位置 [0, 0] 出发，求到达右下角位置的路径数量。
 
-start here  ->   0  0  0  0
+从此处开始 ->   0  0  0  0
                  1  1  0  0
                  0  0  0  1
-                 0  1  0  0  <- finish here
-how many 'distinct' paths can you take to get to the finish?
-Using a recursive depth-first search algorithm below, you are able to
-find the number of distinct unique paths (count).
+                 0  1  0  0  <- 在此处结束
+可以通过多少条“不同的”路径到达终点？
+使用下方的递归深度优先搜索算法，可以求出不同路径的数量（count）。
 
-'*' will demonstrate a path
-In the example above, there are two distinct paths:
+'*' 表示一条路径。
+上例中有两条不同的路径：
 1.                2.
     *  *  *  0      *  *  *  *
     1  1  *  0      1  1  *  *
@@ -22,12 +20,11 @@ In the example above, there are two distinct paths:
 
 def depth_first_search(grid: list[list[int]], row: int, col: int, visit: set) -> int:
     """
-    Recursive Backtracking Depth First Search Algorithm
+    递归回溯深度优先搜索算法。
 
-    Starting from top left of a matrix, count the number of
-    paths that can reach the bottom right of a matrix.
-    1 represents a block (inaccessible)
-    0 represents a valid space (accessible)
+    从矩阵左上角出发，统计可到达矩阵右下角的路径数量。
+    1 表示障碍（不可访问）
+    0 表示有效空间（可访问）
 
     0  0  0  0
     1  1  0  0

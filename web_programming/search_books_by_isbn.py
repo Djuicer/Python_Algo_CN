@@ -1,5 +1,5 @@
 """
-Get book and author data from https://openlibrary.org
+从 https://openlibrary.org 获取图书和作者数据。
 
 ISBN: https://en.wikipedia.org/wiki/International_Standard_Book_Number
 """
@@ -18,17 +18,17 @@ import httpx2
 
 def get_openlibrary_data(olid: str = "isbn/0140328726") -> dict:
     """
-    Given an 'isbn/0140328726', return book data from Open Library as a Python dict.
-    Given an '/authors/OL34184A', return authors data as a Python dict.
-    This code must work for olids with or without a leading slash ('/').
+    给定 'isbn/0140328726'，以 Python 字典返回 Open Library 图书数据。
+    给定 '/authors/OL34184A'，以 Python 字典返回作者数据。
+    此代码必须同时支持带或不带前导斜杠 ('/') 的 olid。
 
-    # Comment out doctests if they take too long or have results that may change
+    # 若 doctest 耗时过长或结果可能变化，则将其注释掉
     # >>> get_openlibrary_data(olid='isbn/0140328726')  # doctest: +ELLIPSIS
     {'publishers': ['Puffin'], 'number_of_pages': 96, 'isbn_10': ['0140328726'], ...
     # >>> get_openlibrary_data(olid='/authors/OL7353617A')  # doctest: +ELLIPSIS
     {'name': 'Adrian Brisku', 'created': {'type': '/type/datetime', ...
     """
-    new_olid = olid.strip().strip("/")  # Remove leading/trailing whitespace & slashes
+    new_olid = olid.strip().strip("/")  # 移除首尾空白和斜杠
     if new_olid.count("/") != 1:
         msg = f"{olid} is not a valid Open Library olid"
         raise ValueError(msg)
@@ -39,7 +39,7 @@ def get_openlibrary_data(olid: str = "isbn/0140328726") -> dict:
 
 def summarize_book(ol_book_data: dict) -> dict:
     """
-    Given Open Library book data, return a summary as a Python dict.
+    给定 Open Library 图书数据，以 Python 字典返回摘要。
     """
     desired_keys = {
         "title": "Title",

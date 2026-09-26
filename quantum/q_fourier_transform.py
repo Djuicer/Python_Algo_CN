@@ -1,16 +1,12 @@
 """
-Build the quantum Fourier transform (QFT) for a desired
-number of qubits using the Qiskit framework.
+使用 Qiskit 框架为指定数量的量子比特构建量子 Fourier 变换（QFT）。
 
-This circuit can be used as a building block to design
-Shor's algorithm in quantum computing, as well as
-quantum phase estimation, among others.
+该电路可作为构建模块，用于设计量子计算中的 Shor 算法、量子相位估计等。
 
-The circuit is simulated with Qiskit's built-in, pure-Python
-``BasicSimulator`` (no compiled ``qiskit-aer`` backend required),
-so it runs anywhere Qiskit itself installs.
+该电路使用 Qiskit 内置的纯 Python ``BasicSimulator`` 模拟（无需编译后的
+``qiskit-aer`` 后端），因此可在任何能够安装 Qiskit 的环境中运行。
 
-References:
+参考资料：
 https://en.wikipedia.org/wiki/Quantum_Fourier_transform
 https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.QFT
 """
@@ -25,11 +21,11 @@ from qiskit.providers.basic_provider import BasicSimulator
 
 def quantum_fourier_transform(number_of_qubits: int = 3) -> qiskit.result.counts.Counts:
     """
-    Build and simulate the quantum Fourier transform applied to the all-zero
-    state ``|0...0>``.  The QFT maps ``|0...0>`` to a uniform superposition, so
-    every computational-basis outcome is (up to shot noise) equally likely.
+    构建并模拟作用于全零态 ``|0...0>`` 的量子 Fourier 变换。QFT 将
+    ``|0...0>`` 映射为均匀叠加态，因此每个计算基测量结果的概率相同
+    （忽略采样噪声）。
 
-    # quantum circuit for number_of_qubits = 3:
+    # number_of_qubits = 3 时的量子电路：
                                                ┌───┐
     qr_0: ──────■──────────────────────■───────┤ H ├─X─
                 │                ┌───┐ │P(π/2) └───┘ │
@@ -39,13 +35,13 @@ def quantum_fourier_transform(number_of_qubits: int = 3) -> qiskit.result.counts
           └───┘
     cr: 3/═════════════════════════════════════════════
 
-    Args:
-        number_of_qubits : number of qubits
+    参数：
+        number_of_qubits : 量子比特数量
 
-    Returns:
-        qiskit.result.counts.Counts: measurement counts over 10,000 shots.
+    返回：
+        qiskit.result.counts.Counts: 10,000 次采样得到的测量计数。
 
-    The simulation is seeded, so the set of observed outcomes is reproducible:
+    模拟设置了随机种子，因此观测结果集合可复现：
 
     >>> counts = quantum_fourier_transform(2)
     >>> sorted(counts)
@@ -113,11 +109,11 @@ def quantum_fourier_transform(number_of_qubits: int = 3) -> qiskit.result.counts
     for k in range(number_of_qubits // 2):
         quantum_circuit.swap(k, number_of_qubits - k - 1)
 
-    # measure all the qubits
+    # 测量所有量子比特
     quantum_circuit.measure(qr, cr)
 
-    # simulate with 10000 shots on the pure-Python BasicSimulator; seed the run
-    # so the observed outcomes are reproducible for the doctest above.
+    # 使用纯 Python BasicSimulator 模拟 10000 次；设置运行种子，确保上方
+    # doctest 的观测结果可复现。
     backend = BasicSimulator()
     transpiled_circuit = transpile(quantum_circuit, backend)
     job = backend.run(transpiled_circuit, shots=10_000, seed_simulator=42)

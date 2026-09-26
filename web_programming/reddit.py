@@ -29,17 +29,17 @@ def get_subreddit_data(
     wanted_data: list | None = None,
 ) -> dict:
     """
-    subreddit : Subreddit to query
-    limit : Number of posts to fetch
+    subreddit : 要查询的 Subreddit
+    limit : 要获取的帖子数量
     age : ["new", "top", "hot"]
-    wanted_data : Get only the required data in the list
+    wanted_data : 仅获取列表中需要的数据
     """
     wanted_data = wanted_data or []
     if invalid_search_terms := ", ".join(sorted(set(wanted_data) - valid_terms)):
         msg = f"Invalid search term: {invalid_search_terms}"
         raise ValueError(msg)
-    # raise_for_status() already raises httpx2.HTTPStatusError for any 4xx/5xx
-    # response (including 429), so no extra status check is needed here.
+    # raise_for_status() 已会对所有 4xx/5xx 响应（包括 429）抛出
+    # httpx2.HTTPStatusError，因此无需额外检查状态
     data = (
         httpx2.get(
             f"https://www.reddit.com/r/{subreddit}/{age}.json?limit={limit}",
@@ -61,5 +61,5 @@ def get_subreddit_data(
 
 
 if __name__ == "__main__":
-    # If you get Error 429, that means you are rate limited.Try after some time
+    # Error 429 表示受到速率限制，请稍后重试
     print(get_subreddit_data("learnpython", wanted_data=["title", "url", "selftext"]))

@@ -1,8 +1,7 @@
 """
-Given an matrix of numbers in which all rows and all columns are sorted in decreasing
-order, return the number of negative numbers in grid.
+给定一个所有行和列均按降序排列的数值矩阵，返回 grid 中负数的数量。
 
-Reference: https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix
+参考资料：https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix
 """
 
 
@@ -26,7 +25,7 @@ test_grids = (
 
 def validate_grid(grid: list[list[int]]) -> None:
     """
-    Validate that the rows and columns of the grid is sorted in decreasing order.
+    验证 grid 的行和列均按降序排列。
     >>> for grid in test_grids:
     ...     validate_grid(grid)
     """
@@ -36,7 +35,7 @@ def validate_grid(grid: list[list[int]]) -> None:
 
 def find_negative_index(array: list[int]) -> int:
     """
-    Find the smallest negative index
+    寻找最小的负数索引。
 
     >>> find_negative_index([0,0,0,0])
     4
@@ -62,7 +61,7 @@ def find_negative_index(array: list[int]) -> int:
     left = 0
     right = len(array) - 1
 
-    # Edge cases such as no values or all numbers are negative.
+    # 处理没有值或所有数均为负数等边界情况
     if not array or array[0] < 0:
         return 0
 
@@ -70,7 +69,7 @@ def find_negative_index(array: list[int]) -> int:
         mid = (left + right) // 2
         num = array[mid]
 
-        # Num must be negative and the index must be greater than or equal to 0.
+        # num 必须为负数，且索引必须大于等于 0
         if num < 0 and array[mid - 1] >= 0:
             return mid
 
@@ -78,14 +77,13 @@ def find_negative_index(array: list[int]) -> int:
             left = mid + 1
         else:
             right = mid - 1
-    # No negative numbers so return the last index of the array + 1 which is the length.
+    # 没有负数，因此返回数组末尾索引加 1，即数组长度
     return len(array)
 
 
 def count_negatives_binary_search(grid: list[list[int]]) -> int:
     """
-    An O(m logn) solution that uses binary search in order to find the boundary between
-    positive and negative numbers
+    使用二分查找寻找正数与负数边界的 O(m logn) 解法。
 
     >>> [count_negatives_binary_search(grid) for grid in test_grids]
     [8, 0, 0, 3, 1498500]
@@ -101,7 +99,7 @@ def count_negatives_binary_search(grid: list[list[int]]) -> int:
 
 def count_negatives_brute_force(grid: list[list[int]]) -> int:
     """
-    This solution is O(n^2) because it iterates through every column and row.
+    此解法会遍历每一行和每一列，因此复杂度为 O(n^2)。
 
     >>> [count_negatives_brute_force(grid) for grid in test_grids]
     [8, 0, 0, 3, 1498500]
@@ -111,8 +109,7 @@ def count_negatives_brute_force(grid: list[list[int]]) -> int:
 
 def count_negatives_brute_force_with_break(grid: list[list[int]]) -> int:
     """
-    Similar to the brute force solution above but uses break in order to reduce the
-    number of iterations.
+    与上方暴力解法类似，但使用 break 减少迭代次数。
 
     >>> [count_negatives_brute_force_with_break(grid) for grid in test_grids]
     [8, 0, 0, 3, 1498500]
@@ -127,7 +124,7 @@ def count_negatives_brute_force_with_break(grid: list[list[int]]) -> int:
 
 
 def benchmark() -> None:
-    """Benchmark our functions next to each other"""
+    """对各函数进行并列基准测试。"""
     from timeit import timeit
 
     print("Running benchmarks")
@@ -136,9 +133,9 @@ def benchmark() -> None:
         "count_negatives_brute_force, count_negatives_brute_force_with_break, grid"
     )
     for func in (
-        "count_negatives_binary_search",  # took 0.7727 seconds
-        "count_negatives_brute_force_with_break",  # took 4.6505 seconds
-        "count_negatives_brute_force",  # took 12.8160 seconds
+        "count_negatives_binary_search",  # 耗时 0.7727 秒
+        "count_negatives_brute_force_with_break",  # 耗时 4.6505 秒
+        "count_negatives_brute_force",  # 耗时 12.8160 秒
     ):
         time = timeit(f"{func}(grid=grid)", setup=setup, number=500)
         print(f"{func}() took {time:0.4f} seconds")

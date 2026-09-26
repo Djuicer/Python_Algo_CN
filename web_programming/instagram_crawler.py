@@ -22,7 +22,7 @@ headers = {"UserAgent": UserAgent().random}
 
 def extract_user_profile(script) -> dict:
     """
-    May raise json.decoder.JSONDecodeError
+    可能抛出 json.decoder.JSONDecodeError。
     """
     data = script.contents[0]
     info = json.loads(data[data.find('{"config"') : -1])
@@ -31,9 +31,9 @@ def extract_user_profile(script) -> dict:
 
 class InstagramUser:
     """
-    Class Instagram crawl instagram user information
+    抓取 Instagram 用户信息的类。
 
-    Usage: (doctest failing on GitHub Actions)
+    用法：（doctest 在 GitHub Actions 上失败）
     # >>> instagram_user = InstagramUser("github")
     # >>> instagram_user.is_verified
     True
@@ -47,7 +47,7 @@ class InstagramUser:
 
     def get_json(self) -> dict:
         """
-        Return a dict of user information
+        返回用户信息字典。
         """
         html = httpx2.get(self.url, headers=headers, timeout=10).text
         scripts = BeautifulSoup(html, "html.parser").find_all("script")
@@ -115,7 +115,7 @@ def test_instagram_user(username: str = "github") -> None:
     import os
 
     if os.environ.get("CI"):
-        return  # test failing on GitHub Actions
+        return  # 测试在 GitHub Actions 上失败
     instagram_user = InstagramUser(username)
     assert instagram_user.user_data
     assert isinstance(instagram_user.user_data, dict)

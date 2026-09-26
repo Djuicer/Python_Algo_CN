@@ -1,43 +1,37 @@
 """
-Question:
-Given a binary matrix mat of size n * m, find out the maximum size square
-sub-matrix with all 1s.
+问题：
+给定大小为 n * m 的二进制矩阵 mat，求全部由 1 组成的最大正方形子矩阵边长。
 
 ---
-Example 1:
+示例 1：
 
-Input:
+输入：
 n = 2, m = 2
 mat = [[1, 1],
        [1, 1]]
 
-Output:
+输出：
 2
 
-Explanation: The maximum size of the square
-sub-matrix is 2. The matrix itself is the
-maximum sized sub-matrix in this case.
+说明：正方形子矩阵的最大边长为 2；在此情形下，矩阵本身就是最大的子矩阵。
 ---
-Example 2
+示例 2
 
-Input:
+输入：
 n = 2, m = 2
 mat = [[0, 0],
        [0, 0]]
-Output: 0
+输出：0
 
-Explanation: There is no 1 in the matrix.
+说明：矩阵中没有 1。
 
 
-Approach:
-We initialize another matrix (dp) with the same dimensions
-as the original one initialized with all 0's.
+方法：
+初始化另一个与原矩阵维数相同且元素全为 0 的矩阵（dp）。
 
-dp_array(i,j) represents the side length of the maximum square whose
-bottom right corner is the cell with index (i,j) in the original matrix.
+dp_array(i,j) 表示以原矩阵中索引为 (i,j) 的单元格作为右下角的最大正方形边长。
 
-Starting from index (0,0), for every 1 found in the original matrix,
-we update the value of the current element as
+从索引 (0,0) 开始，每当在原矩阵中找到 1，就按下式更新当前元素的值：
 
 dp_array(i,j)=dp_array(dp(i-1,j),dp_array(i-1,j-1),dp_array(i,j-1)) + 1.
 """
@@ -47,10 +41,9 @@ def largest_square_area_in_matrix_top_down_approch(
     rows: int, cols: int, mat: list[list[int]]
 ) -> int:
     """
-    Function updates the largest_square_area[0], if recursive call found
-    square with maximum area.
+    若递归调用找到面积最大的正方形，则更新 largest_square_area[0]。
 
-    We aren't using dp_array here, so the time complexity would be exponential.
+    此处未使用 dp_array，因此时间复杂度为指数级。
 
     >>> largest_square_area_in_matrix_top_down_approch(2, 2, [[1,1], [1,1]])
     2
@@ -59,7 +52,7 @@ def largest_square_area_in_matrix_top_down_approch(
     """
 
     def update_area_of_max_square(row: int, col: int) -> int:
-        # BASE CASE
+    # 基本情况
         if row >= rows or col >= cols:
             return 0
 
@@ -83,10 +76,9 @@ def largest_square_area_in_matrix_top_down_approch_with_dp(
     rows: int, cols: int, mat: list[list[int]]
 ) -> int:
     """
-    Function updates the largest_square_area[0], if recursive call found
-    square with maximum area.
+    若递归调用找到面积最大的正方形，则更新 largest_square_area[0]。
 
-    We are using dp_array here, so the time complexity would be O(N^2).
+    此处使用 dp_array，因此时间复杂度为 O(N^2)。
 
     >>> largest_square_area_in_matrix_top_down_approch_with_dp(2, 2, [[1,1], [1,1]])
     2
@@ -125,7 +117,7 @@ def largest_square_area_in_matrix_bottom_up(
     rows: int, cols: int, mat: list[list[int]]
 ) -> int:
     """
-    Function updates the largest_square_area, using bottom up approach.
+    使用自底向上的方法更新 largest_square_area。
 
     >>> largest_square_area_in_matrix_bottom_up(2, 2, [[1,1], [1,1]])
     2
@@ -154,8 +146,7 @@ def largest_square_area_in_matrix_bottom_up_space_optimization(
     rows: int, cols: int, mat: list[list[int]]
 ) -> int:
     """
-    Function updates the largest_square_area, using bottom up
-    approach. with space optimization.
+    使用经过空间优化的自底向上方法更新 largest_square_area。
 
     >>> largest_square_area_in_matrix_bottom_up_space_optimization(2, 2, [[1,1], [1,1]])
     2

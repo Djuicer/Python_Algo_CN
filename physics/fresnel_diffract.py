@@ -1,24 +1,18 @@
 """
-Title: Fresnel Diffraction for Coherent and Monochromatic
-        Wave Fields
+标题：相干单色波场的菲涅耳衍射
 
-Fresnel Diffraction describes the behavior of a wave field as it
-moves through free space or interacts with an object under the
-small-angle approximation. It is particularly useful for near
-field diffraction.
+菲涅耳衍射描述在小角近似下，波场在自由空间中传播或与物体相互作用时的
+行为，尤其适用于近场衍射。
 
-The following algorithm is an adaptation of the 'transfer function'
-based approach contained in the reference. It is critically
-sampled when:
+以下算法改编自参考资料中基于“传递函数”的方法。满足下式时为临界采样：
 pixel_size = wavelength * prop_dist / side_length
 
-Or equivalently:
+等价地：
 pixel_size = sqrt(wavelength * prop_dist / pixel_num)
 
-Under and oversampling occur when the left-hand side is less
-than or greater than the right-hand side, respectively.
+左侧小于或大于右侧时，分别会发生欠采样或过采样。
 
-This code is adapted and modified from:
+本代码改编自：
 Computational Fourier Optics: A MATLAB Tutorial by David Voelz
 """
 
@@ -32,27 +26,23 @@ def fresnel_diffract(
     wavefunc_0: np.ndarray, pixel_size: float, wavelength: float, prop_dist: float
 ) -> np.ndarray:
     """
-    Fresnel Diffraction of 1D or 2D Wave Fields.
+    一维或二维波场的菲涅耳衍射。
 
-    This function calculates the Fresnel diffraction of a
-    given wave field, suitable for near-field diffraction. The
-    wave field is assumed to be coherent and monochromatic.
+    计算给定波场的菲涅耳衍射，适用于近场衍射。假定波场相干且为单色波。
 
-    Args:
-        wavefunc0 (np.ndarray): The initial wave field at the unpropagated plane.
-        pixel_size (float): The physical size of a pixel (or data point) at the
-        pixel_size (float): The physical size of a pixel (or data point) at the
-        unpropagated plane.
-        wavelength (float): The wavelength of the wave field.
-        prop_dist (float): The desired propagation distance.
+    参数：
+        wavefunc0 (np.ndarray): 未传播平面上的初始波场。
+        pixel_size (float): 未传播平面上一个像素（或数据点）的物理尺寸。
+        wavelength (float): 波场的波长。
+        prop_dist (float): 期望的传播距离。
 
-    Raises:
-        ValueError: If the input wave field is not 1D or 2D.
+    异常：
+        ValueError: 输入波场不是一维或二维时抛出。
 
-    Returns:
-        np.ndarray: The wave field at the propagated plane.
+    返回：
+        np.ndarray: 传播平面上的波场。
 
-    Examples:
+    示例：
         >>> import numpy as np
         >>> res = fresnel_diffract(np.ones(64), 1, 1, 1)
         >>> res.shape
@@ -101,21 +91,19 @@ def _fresnel_diffract_2d(
     wavefunc_0: np.ndarray, pixel_size: float, wavelength: float, prop_dist: float
 ) -> np.ndarray:
     """
-    Fresnel Diffraction of 2D Wave Fields.
-    This private function is called by 'fresnel_diffract' to handle the
-    fresnel diffraction of 2D wave fields specifically.
-    Args:
-        wavefunc_0 (np.ndarray): The initial 2D wave field at the unpropagated plane.
-        pixel_size (float): The physical size of a pixel (or data point) at the
-        unpropagated plane.
-        wavelength (float): The wavelength of the wave field.
-        prop_dist (float): The desired propagation distance.
+    二维波场的菲涅耳衍射。
+    此私有函数由 'fresnel_diffract' 调用，专门处理二维波场的菲涅耳衍射。
+    参数：
+        wavefunc_0 (np.ndarray): 未传播平面上的初始二维波场。
+        pixel_size (float): 未传播平面上一个像素（或数据点）的物理尺寸。
+        wavelength (float): 波场的波长。
+        prop_dist (float): 期望的传播距离。
 
-    Returns:
-        np.ndarray: The 2D wave field at the propagated plane.
+    返回：
+        np.ndarray: 传播平面上的二维波场。
 
 
-    Examples:
+    示例：
         >>> import numpy as np
         >>> res = _fresnel_diffract_2d(np.ones((64, 64)), 1, 1, 1)
         >>> res.shape
@@ -138,18 +126,18 @@ def _fresnel_diffract_2d(
     pixel_num, _ = wavefunc_0.shape
     side_length = pixel_num * pixel_size
 
-    # Coordinates in Fourier space are proportionate to 1 / pixel_size
+    # Fourier 空间中的坐标与 1 / pixel_size 成正比
     f_x = np.arange(-1 / (2 * pixel_size), 1 / (2 * pixel_size), 1 / side_length)
 
     f_x2d, f_y2d = np.meshgrid(f_x, f_x)
 
-    # Transfer function which models diffraction
+    # 模拟衍射的传递函数
     transferf = np.exp(-1j * np.pi * wavelength * prop_dist * (f_x2d**2 + f_y2d**2))
     transferf = fftshift(transferf)
 
-    # Fourier space wave function at the unpropagated plane
+    # 未传播平面上的 Fourier 空间波函数
     f_wavefunc_0 = fft2(fftshift(wavefunc_0))
-    # Wave function at the propagated, or 'z' plane
+    # 传播平面（即 'z' 平面）上的波函数
     wavefuncz = ifftshift(ifft2(transferf * f_wavefunc_0))
 
     return wavefuncz
@@ -159,21 +147,19 @@ def _fresnel_diffract_1d(
     wavefunc_0: np.ndarray, pixel_size: float, wavelength: float, prop_dist: float
 ) -> np.ndarray:
     """
-    Fresnel Diffraction of 1D Wave Fields.
-    This private function is called by 'fresnel_diffract' to handle the
-    fresnel diffraction of 1D wave fields specifically.
-    Args:
-        wavefunc0 (np.ndarray): The initial 1D wave field at the unpropagated plane.
-        pixel_size (float): The physical size of a pixel (or data point) at the
-        unpropagated plane.
-        wavelength (float): The wavelength of the wave field.
-        prop_dist (float): The desired propagation distance.
+    一维波场的菲涅耳衍射。
+    此私有函数由 'fresnel_diffract' 调用，专门处理一维波场的菲涅耳衍射。
+    参数：
+        wavefunc0 (np.ndarray): 未传播平面上的初始一维波场。
+        pixel_size (float): 未传播平面上一个像素（或数据点）的物理尺寸。
+        wavelength (float): 波场的波长。
+        prop_dist (float): 期望的传播距离。
 
-    Returns:
-        np.ndarray: The 1D wave field at the propagated plane.
+    返回：
+        np.ndarray: 传播平面上的一维波场。
 
 
-    Examples:
+    示例：
         >>> import numpy as np
         >>> res = _fresnel_diffract_1d(np.ones(64), 1, 1, 1)
         >>> res.shape

@@ -3,29 +3,28 @@ import math
 
 def escape_velocity(mass: float, radius: float) -> float:
     """
-    Calculates the escape velocity needed to break free from a celestial body's
-    gravitational field.
+    计算脱离天体引力场所需的逃逸速度。
 
-    The formula used is:
+    使用公式：
         v = sqrt(2 * G * M / R)
 
-    where:
-        v = escape velocity (m/s)
-        G = gravitational constant (6.67430 * 10^-11 m^3 kg^-1 s^-2)
-        M = mass of the celestial body (kg)
-        R = radius from the center of mass (m)
+    其中：
+        v = 逃逸速度 (m/s)
+        G = 引力常数 (6.67430 * 10^-11 m^3 kg^-1 s^-2)
+        M = 天体质量 (kg)
+        R = 到质心的距离 (m)
 
-    Source:
+    来源：
         https://en.wikipedia.org/wiki/Escape_velocity
 
-    Args:
-        mass (float): Mass of the celestial body in kilograms.
-        radius (float): Radius from the center of mass in meters.
+    参数：
+        mass (float): 天体质量，单位为千克。
+        radius (float): 到质心的距离，单位为米。
 
-    Returns:
-        float: Escape velocity in meters per second, rounded to 3 decimal places.
+    返回：
+        float: 逃逸速度，单位为米每秒，保留 3 位小数。
 
-    Examples:
+    示例：
         >>> escape_velocity(mass=5.972e24, radius=6.371e6)  # Earth
         11185.978
         >>> escape_velocity(mass=7.348e22, radius=1.737e6)  # Moon

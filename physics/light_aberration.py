@@ -1,9 +1,8 @@
 """
-Title : Calculate Light Aberration (astronomy)
+标题：计算光行差（天文学）
 
-Description :
-    The below algorithm calculates astronomical light aberration as obtained
-    using Special Relativity.
+说明：
+    以下算法使用狭义相对论计算天文光行差。
 
 """
 
@@ -12,22 +11,19 @@ from math import atan, sqrt, tan
 
 def get_aberration_angle(angle_rest: float, velocity_over_c: float) -> float:
     """
-    This method calculates astronomical light aberration.
-    The angle at rest 'angle_rest' is given in radians [rad]
-    and is in the range (-pi, pi).
-    The relative velocity of observer w.r.t. to the light emitting object is
-    expressed by 'velocity_over_c' that is given as ratio for velocity
-    w.r.t. the speed of light c and is in the range (0, 1).
+    本方法计算天文光行差。
+    静止参考系中的角度 'angle_rest' 以弧度 [rad] 给出，范围为 (-pi, pi)。
+    观察者相对于发光物体的速度用 'velocity_over_c' 表示，即该速度与光速 c
+    的比值，范围为 (0, 1)。
 
     https://en.wikipedia.org/wiki/Aberration_(astronomy)
 
     tan(phi/2) = sqrt((1 - v/c)/(1 + v/c)) * tan(theta/2)
 
-    Where v is the relative velocity, phi is the observed angle with respect to the
-    velocity vector (affected by light aberration), and theta is the angle observed
-    angle in the limit of veclocity being equal to 0.
+    其中 v 为相对速度，phi 为相对于速度矢量的观测角（受光行差影响），
+    theta 为速度趋于 0 时的观测角。
 
-    Examples:
+    示例：
     >>> get_aberration_angle(0.2, 0.1)
     0.18102
     >>> get_aberration_angle(0.2, 0)

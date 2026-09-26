@@ -1,46 +1,35 @@
 """
-Doppler's effect
+多普勒效应
 
-The Doppler effect (also Doppler shift) is the change in the frequency of a wave in
-relation to an observer who is moving relative to the source of the wave.  The Doppler
-effect is named after the physicist Christian Doppler.  A common example of Doppler
-shift is the change of pitch heard when a vehicle sounding a horn approaches and
-recedes from an observer.
+多普勒效应（又称多普勒频移）是观察者相对于波源运动时所观测到的波频率变化，
+以物理学家 Christian Doppler 命名。常见示例是鸣笛车辆接近和远离观察者时，
+听到的音调发生变化。
 
-The reason for the Doppler effect is that when the source of the waves is moving
-towards the observer, each successive wave crest is emitted from a position closer to
-the observer than the crest of the previous wave.  Therefore, each wave takes slightly
-less time to reach the observer than the previous wave. Hence, the time between the
-arrivals of successive wave crests at the observer is reduced, causing an increase in
-the frequency.  Similarly, if the source of waves is moving away from the observer,
-each wave is emitted from a position farther from the observer than the previous wave,
-so the arrival time between successive waves is increased, reducing the frequency.
+当波源向观察者移动时，后一个波峰的发射位置比前一个更接近观察者，因此
+到达观察者所需时间略短，相邻波峰的到达时间间隔缩短，频率升高。类似地，
+波源远离观察者时，后续波从更远的位置发出，到达间隔增大，频率降低。
 
-If the source of waves is stationary but the observer is moving with respect to the
-source, the transmission velocity of the waves changes (ie the rate at which the
-observer receives waves) even if the wavelength and frequency emitted from the source
-remain constant.
+若波源静止而观察者相对波源运动，即使波源发出的波长和频率不变，观察者接收
+波的速率也会改变。
 
-These results are all summarized by the Doppler formula:
+这些结果可由多普勒公式概括：
 
     f = (f0 * (v + v0)) / (v - vs)
 
-where:
-    f: frequency of the wave
-    f0: frequency of the wave when the source is stationary
-    v: velocity of the wave in the medium
-    v0: velocity of the observer, positive if the observer is moving towards the source
-    vs: velocity of the source, positive if the source is moving towards the observer
+其中：
+    f: 波的频率
+    f0: 波源静止时的波频率
+    v: 波在介质中的传播速度
+    v0: 观察者速度，向波源运动时为正
+    vs: 波源速度，向观察者运动时为正
 
-Doppler's effect has many applications in physics and engineering, such as radar,
-astronomy, medical imaging, and seismology.
+多普勒效应在物理和工程中应用广泛，例如雷达、天文学、医学成像和地震学。
 
-References:
+参考资料：
 https://en.wikipedia.org/wiki/Doppler_effect
 
-Now, we will implement a function that calculates the frequency of a wave as a function
-of the frequency of the wave when the source is stationary, the velocity of the wave
-in the medium, the velocity of the observer and the velocity of the source.
+下面实现一个函数，根据波源静止时的频率、波在介质中的速度、观察者速度和
+波源速度计算观测频率。
 """
 
 
@@ -48,18 +37,18 @@ def doppler_effect(
     org_freq: float, wave_vel: float, obs_vel: float, src_vel: float
 ) -> float:
     """
-    Input Parameters:
+    输入参数：
     -----------------
-    org_freq: frequency of the wave when the source is stationary
-    wave_vel: velocity of the wave in the medium
-    obs_vel: velocity of the observer, +ve if the observer is moving towards the source
-    src_vel: velocity of the source, +ve if the source is moving towards the observer
+    org_freq: 波源静止时的波频率
+    wave_vel: 波在介质中的传播速度
+    obs_vel: 观察者速度，向波源运动时为正
+    src_vel: 波源速度，向观察者运动时为正
 
-    Returns:
+    返回：
     --------
-    f: frequency of the wave as perceived by the observer
+    f: 观察者感知到的波频率
 
-    Docstring Tests:
+    Docstring 测试：
     >>> doppler_effect(100, 330, 10, 0)  # observer moving towards the source
     103.03030303030303
     >>> doppler_effect(100, 330, -10, 0)  # observer moving away from the source

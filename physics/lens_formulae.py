@@ -1,49 +1,36 @@
 """
-This module has functions which calculate focal length of lens, distance of
-image from the lens and distance of object from the lens.
-The above is calculated using the lens formula.
+本模块包含计算透镜焦距、像距和物距的函数，均使用透镜公式计算。
 
-In optics, the relationship between the distance of the image (v),
-the distance of the object (u), and
-the focal length (f) of the lens is given by the formula known as the Lens formula.
-The Lens formula is applicable for convex as well as concave lenses. The formula
-is given as follows:
+在光学中，像距 (v)、物距 (u) 与透镜焦距 (f) 之间的关系由透镜公式给出。
+该公式同时适用于凸透镜和凹透镜：
 
 -------------------
 | 1/f = 1/v + 1/u |
 -------------------
 
-Where
-    f = focal length of the lens in meters.
-    v = distance of the image from the lens in meters.
-    u = distance of the object from the lens in meters.
+其中：
+    f = 透镜焦距，单位为米。
+    v = 像到透镜的距离，单位为米。
+    u = 物体到透镜的距离，单位为米。
 
-To make our calculations easy few assumptions are made while deriving the formula
-which are important to keep in mind before solving this equation.
-The assumptions are as follows:
-    1. The object O is a point object lying somewhere on the principle axis.
-    2. The lens is thin.
-    3. The aperture of the lens taken must be small.
-    4. The angles of incidence and angle of refraction should be small.
+为简化计算，推导公式时作出以下假设，求解前应加以注意：
+    1. 物体 O 是位于主轴上的点物体。
+    2. 透镜为薄透镜。
+    3. 透镜孔径必须较小。
+    4. 入射角和折射角应较小。
 
-Sign convention is a set of rules to set signs for image distance, object distance,
-focal length, etc
-for mathematical analysis of image formation. According to it:
-    1. Object is always placed to the left of lens.
-    2. All distances are measured from the optical centre of the mirror.
-    3. Distances measured in the direction of the incident ray are positive and
-    the distances measured in the direction opposite
-    to that of the incident rays are negative.
-    4. Distances measured along y-axis above the principal axis are positive and
-    that measured along y-axis below the principal
-    axis are negative.
+符号约定是一组为像距、物距、焦距等确定正负号的规则，用于成像的数学分析：
+    1. 物体始终置于透镜左侧。
+    2. 所有距离均从光心量起。
+    3. 沿入射光线方向测量的距离为正，反向测量的距离为负。
+    4. 沿 y 轴、主轴上方测得的距离为正，主轴下方为负。
 
-Note: Sign convention can be reversed and will still give the correct results.
+注意：符号约定也可反转，仍会得到正确结果。
 
-Reference for Sign convention:
+符号约定参考资料：
 https://www.toppr.com/ask/content/concept/sign-convention-for-lenses-210246/
 
-Reference for assumptions:
+假设参考资料：
 https://testbook.com/physics/derivation-of-lens-maker-formula
 """
 
@@ -52,7 +39,7 @@ def focal_length_of_lens(
     object_distance_from_lens: float, image_distance_from_lens: float
 ) -> float:
     """
-    Doctests:
+    Doctest：
     >>> from math import isclose
     >>> isclose(focal_length_of_lens(10,4), 6.666666666666667)
     True
@@ -80,7 +67,7 @@ def object_distance(
     focal_length_of_lens: float, image_distance_from_lens: float
 ) -> float:
     """
-    Doctests:
+    Doctest：
     >>> from math import isclose
     >>> isclose(object_distance(10,40), -13.333333333333332)
     True
@@ -109,7 +96,7 @@ def image_distance(
     focal_length_of_lens: float, object_distance_from_lens: float
 ) -> float:
     """
-    Doctests:
+    Doctest：
     >>> from math import isclose
     >>> isclose(image_distance(50,40), 22.22222222222222)
     True

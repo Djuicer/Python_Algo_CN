@@ -4,11 +4,11 @@
 
 def cramers_rule_2x2(equation1: list[int], equation2: list[int]) -> tuple[float, float]:
     """
-    Solves the system of linear equation in 2 variables.
-    :param: equation1: list of 3 numbers
-    :param: equation2: list of 3 numbers
-    :return: String of result
-    input format : [a1, b1, d1], [a2, b2, d2]
+    求解含两个变量的线性方程组。
+    :param: equation1: 包含 3 个数的列表
+    :param: equation2: 包含 3 个数的列表
+    :return: 结果字符串
+    输入格式：[a1, b1, d1], [a2, b2, d2]
     determinant = [[a1, b1], [a2, b2]]
     determinant_x = [[d1, b1], [d2, b2]]
     determinant_y = [[a1, d1], [a2, d2]]
@@ -52,31 +52,31 @@ def cramers_rule_2x2(equation1: list[int], equation2: list[int]) -> tuple[float,
     ValueError: No solution. (Inconsistent system)
     """
 
-    # Check if the input is valid
+    # 检查输入是否有效
     if not len(equation1) == len(equation2) == 3:
         raise ValueError("Please enter a valid equation.")
     if equation1[0] == equation1[1] == equation2[0] == equation2[1] == 0:
         raise ValueError("Both a & b of two equations can't be zero.")
 
-    # Extract the coefficients
+    # 提取系数
     a1, b1, c1 = equation1
     a2, b2, c2 = equation2
 
-    # Calculate the determinants of the matrices
+    # 计算各矩阵的行列式
     determinant = a1 * b2 - a2 * b1
     determinant_x = c1 * b2 - c2 * b1
     determinant_y = a1 * c2 - a2 * c1
 
-    # Check if the system of linear equations has a solution (using Cramer's rule)
+    # 使用克拉默法则检查线性方程组是否有解
     if determinant == 0:
         if determinant_x == determinant_y == 0:
             raise ValueError("Infinite solutions. (Consistent system)")
         raise ValueError("No solution. (Inconsistent system)")
     if determinant_x == determinant_y == 0:
-        # Trivial solution (Inconsistent system)
+        # 平凡解（不相容方程组）
         return (0.0, 0.0)
     else:
         x = determinant_x / determinant
         y = determinant_y / determinant
-        # Non-Trivial Solution (Consistent system)
+    # 非平凡解（相容方程组）
         return (x, y)

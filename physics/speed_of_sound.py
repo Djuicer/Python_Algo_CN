@@ -1,32 +1,30 @@
 """
-Title : Calculating the speed of sound
+标题：计算声速
 
-Description :
-    The speed of sound (c) is the speed that a sound wave travels per unit time (m/s).
-    During propagation, the sound wave propagates through an elastic medium.
+说明：
+    声速 (c) 是声波在单位时间内传播的距离 (m/s)。声波在弹性介质中传播。
 
-    Sound propagates as longitudinal waves in liquids and gases and as transverse waves
-    in solids. This file calculates the speed of sound in a fluid based on its bulk
-    module and density.
+    声音在液体和气体中以纵波传播，在固体中以横波传播。本文件根据流体的
+    体积模量和密度计算其声速。
 
-    Equation for the speed of sound in a fluid:
+    流体中的声速方程：
     c_fluid = sqrt(K_s / p)
 
-    c_fluid: speed of sound in fluid
-    K_s: isentropic bulk modulus
-    p: density of fluid
+    c_fluid: 流体中的声速
+    K_s: 等熵体积模量
+    p: 流体密度
 
-Source : https://en.wikipedia.org/wiki/Speed_of_sound
+来源：https://en.wikipedia.org/wiki/Speed_of_sound
 """
 
 
 def speed_of_sound_in_a_fluid(density: float, bulk_modulus: float) -> float:
     """
-    Calculates the speed of sound in a fluid from its density and bulk modulus
+    根据流体的密度和体积模量计算声速。
 
-    Examples:
-    Example 1 --> Water 20°C: bulk_modulus= 2.15MPa, density=998kg/m³
-    Example 2 --> Mercury 20°C: bulk_modulus= 28.5MPa, density=13600kg/m³
+    示例：
+    示例 1 --> 20°C 的水：bulk_modulus= 2.15MPa, density=998kg/m³
+    示例 2 --> 20°C 的汞：bulk_modulus= 28.5MPa, density=13600kg/m³
 
     >>> speed_of_sound_in_a_fluid(bulk_modulus=2.15e9, density=998)
     1467.7563207952705

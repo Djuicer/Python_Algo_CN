@@ -1,30 +1,29 @@
 """
-Hooke's Law states that the force needed to extend or compress a spring
-is proportional to the distance of that extension or compression.
+胡克定律指出，拉伸或压缩弹簧所需的力与其伸长量或压缩量成正比。
 
     F = -k * x
 
-Where:
-    F = Force applied (in Newtons)
-    k = Spring constant (in Newtons per meter, N/m)
-    x = Displacement from equilibrium (in meters)
+其中：
+    F = 施加的力（单位：牛顿）
+    k = 弹簧常数（单位：牛顿每米，N/m）
+    x = 相对于平衡位置的位移（单位：米）
 
-The negative sign indicates the force is a restoring force (opposite to displacement).
+负号表示该力为恢复力（方向与位移相反）。
 
-Reference: https://en.wikipedia.org/wiki/Hooke%27s_law
+参考资料：https://en.wikipedia.org/wiki/Hooke%27s_law
 """
 
 
 def hookes_law(spring_constant: float, displacement: float) -> float:
     """
-    Calculate the restoring force of a spring using Hooke's Law.
+    使用胡克定律计算弹簧的恢复力。
 
-    Parameters:
-        spring_constant: stiffness of the spring in N/m (must be positive)
-        displacement: extension or compression in meters
+    参数：
+        spring_constant: 弹簧刚度，单位为 N/m（必须为正数）
+        displacement: 伸长量或压缩量，单位为米
 
-    Returns:
-        Restoring force in Newtons (negative means opposing displacement)
+    返回：
+        恢复力，单位为牛顿（负值表示方向与位移相反）
 
     >>> hookes_law(spring_constant=50, displacement=0.1)
     -5.0

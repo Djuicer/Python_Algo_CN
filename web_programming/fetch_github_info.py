@@ -3,16 +3,14 @@
 Created by sarathkaul on 14/11/19
 Updated by lawric1 on 24/11/20
 
-Authentication will be made via access token.
-To generate your personal access token visit https://github.com/settings/tokens.
+通过访问令牌进行身份验证。
+访问 https://github.com/settings/tokens 生成个人访问令牌。
 
-NOTE:
-Never hardcode any credential information in the code. Always use an environment
-file to store the private information and use the `os` module to get the information
-during runtime.
+注意：
+切勿在代码中硬编码凭据。应始终使用环境文件保存私密信息，并在运行时使用
+`os` 模块获取这些信息。
 
-Create a ".env" file in the root directory and write these two lines in that file
-with your token::
+在根目录创建 ".env" 文件，并将令牌写入以下两行：
 
 #!/usr/bin/env bash
 export USER_TOKEN=""
@@ -43,7 +41,7 @@ USER_TOKEN = os.environ.get("USER_TOKEN", "")
 
 def fetch_github_info(auth_token: str) -> dict[Any, Any]:
     """
-    Fetch GitHub info of a user using the httpx2 module
+    使用 httpx2 模块获取 GitHub 用户信息。
     """
     headers = {
         "Authorization": f"token {auth_token}",

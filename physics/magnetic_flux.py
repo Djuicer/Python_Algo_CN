@@ -1,19 +1,17 @@
 """
 ________________________________________________________________________________________
-Magnetic flux (Φ) is a scalar quantity that measures the number of magnetic field
-lines (B) that pass through a closed area (A). Furthermore, the magnetic flux depends
-on the angle formed between the magnetic field and the normal line (N) in area A.
-Check out the formula used to calculate this flux:
+磁通量 (Φ) 是衡量穿过闭合面积 (A) 的磁感线 (B) 数量的标量。此外，磁通量
+取决于磁场与面积 A 的法线 (N) 之间的夹角。计算公式为：
  ------------------
  | Φ = B.A.cos(θ) |
  ------------------
 
-Φ = magnetic flux (weber (Wb) or tesla square meter (T.m²))
-B = magnetic field (tesla (T))
-A = area (square meter (m²))
-θ = angle between magnetic field and normal line (degrees (°))
+Φ = 磁通量（韦伯 (Wb) 或特斯拉平方米 (T.m²)）
+B = 磁场（特斯拉 (T)）
+A = 面积（平方米 (m²)）
+θ = 磁场与法线之间的夹角（度 (°)）
 
-(Description adapted from https://en.wikipedia.org/wiki/Magnetic_flux )
+（说明改编自 https://en.wikipedia.org/wiki/Magnetic_flux ）
 """
 
 from math import cos, radians
@@ -21,7 +19,7 @@ from math import cos, radians
 
 def __check_args(magnetic_field: float, area: float, angle: float) -> None:
     """
-    Check that the arguments are valid
+    检查参数是否有效。
     >>> __check_args(10, 10, -10)
     Traceback (most recent call last):
         ...
@@ -36,7 +34,7 @@ def __check_args(magnetic_field: float, area: float, angle: float) -> None:
     ValueError: Invalid magnetic field. Should be a positive number.
     """
 
-    # Ensure valid instance
+    # 确保实例有效
     if not isinstance(magnetic_field, (int, float)):
         raise TypeError("Invalid magnetic field. Should be an integer or float.")
 
@@ -46,15 +44,15 @@ def __check_args(magnetic_field: float, area: float, angle: float) -> None:
     if not isinstance(angle, (int, float)):
         raise TypeError("Invalid angle. Should be an integer or float.")
 
-    # Ensure valid angle
+    # 确保角度有效
     if angle < 0 or angle > 180:
         raise ValueError("Invalid angle. Range is 0-180 degrees.")
 
-    # Ensure valid magnetic field
+    # 确保磁场有效
     if magnetic_field < 0:
         raise ValueError("Invalid magnetic field. Should be a positive number.")
 
-    # Ensure valid area
+    # 确保面积有效
     if area < 0:
         raise ValueError("Invalid area. Should be a positive number.")
 

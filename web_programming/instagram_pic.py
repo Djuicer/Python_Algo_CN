@@ -14,13 +14,13 @@ from bs4 import BeautifulSoup
 
 def download_image(url: str) -> str:
     """
-    Download an image from a given URL by scraping the 'og:image' meta tag.
+    通过抓取 'og:image' meta 标签，从给定 URL 下载图片。
 
-    Parameters:
-        url: The URL to scrape.
+    参数：
+        url: 要抓取的 URL。
 
-    Returns:
-        A message indicating the result of the operation.
+    返回：
+        表示操作结果的消息。
     """
     try:
         response = httpx2.get(url, timeout=10)

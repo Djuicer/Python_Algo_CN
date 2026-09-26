@@ -1,33 +1,30 @@
 """
-Matrix-Based Game Script
+基于矩阵的游戏脚本
 =========================
-This script implements a matrix-based game where players interact with a grid of
-elements. The primary goals are to:
-- Identify connected elements of the same type from a selected position.
-- Remove those elements, adjust the matrix by simulating gravity, and reorganize empty
-  columns.
-- Calculate and display the score based on the number of elements removed in each move.
+本脚本实现一个基于矩阵的游戏，玩家与元素网格进行交互。主要目标是：
+- 从所选位置识别类型相同的相连元素。
+- 移除这些元素，通过模拟重力调整矩阵，并重新排列空列。
+- 根据每一步移除的元素数量计算并显示分数。
 
-Functions:
+函数：
 -----------
-1. `find_repeat`: Finds all connected elements of the same type.
-2. `increment_score`: Calculates the score for a given move.
-3. `move_x`: Simulates gravity in a column.
-4. `move_y`: Reorganizes the matrix by shifting columns leftward when a column becomes
-    empty.
-5. `play`: Executes a single move, updating the matrix and returning the score.
+1. `find_repeat`：查找类型相同的所有相连元素。
+2. `increment_score`：计算给定移动的得分。
+3. `move_x`：模拟列中的重力。
+4. `move_y`：当一列变空时，通过将各列左移来重组矩阵。
+5. `play`：执行一次移动，更新矩阵并返回得分。
 
-Input Format:
+输入格式：
 --------------
-1. Matrix size (`lines`): Integer specifying the size of the matrix (N x N).
-2. Matrix content (`matrix`): Rows of the matrix, each consisting of characters.
-3. Number of moves (`movs`): Integer indicating the number of moves.
-4. List of moves (`movements`): A comma-separated string of coordinates for each move.
+1. 矩阵大小（`lines`）：指定矩阵大小（N x N）的整数。
+2. 矩阵内容（`matrix`）：矩阵的各行，每行由字符组成。
+3. 移动次数（`movs`）：表示移动次数的整数。
+4. 移动列表（`movements`）：以逗号分隔、表示各次移动坐标的字符串。
 
-(0,0) position starts from first left column to last right, and below row to up row
+(0,0) 位置从最左列到最右列、从下方行到上方行进行定位。
 
 
-Example Input:
+输入示例：
 ---------------
 4
 RRBG
@@ -37,15 +34,15 @@ XYGG
 2
 0 1,1 1
 
-Example (0,0) = X
+示例中 (0,0) = X
 
-Output:
+输出：
 --------
-The script outputs the total score after processing all moves.
+脚本在处理完所有移动后输出总分。
 
-Usage:
+用法：
 -------
-Run the script and provide the required inputs as prompted.
+运行脚本，并按提示提供所需输入。
 
 """
 
@@ -63,7 +60,7 @@ def validate_matrix_size(size: int) -> None:
 
 def validate_matrix_content(matrix: list[str], size: int) -> None:
     """
-    Validates that the number of elements in the matrix matches the given size.
+    验证矩阵中的元素数量是否与给定大小匹配。
 
     >>> validate_matrix_content(['aaaa', 'aaaa', 'aaaa', 'aaaa'], 3)
     Traceback (most recent call last):
@@ -129,7 +126,7 @@ def find_repeat(
     matrix_g: list[list[str]], row: int, column: int, size: int
 ) -> set[tuple[int, int]]:
     """
-    Finds all connected elements of the same type from a given position.
+    从给定位置查找类型相同的所有相连元素。
 
     >>> find_repeat([['A', 'B', 'A'], ['A', 'B', 'A'], ['A', 'A', 'A']], 0, 0, 3)
     {(1, 2), (2, 1), (0, 0), (2, 0), (0, 2), (2, 2), (1, 0)}
@@ -163,7 +160,7 @@ def find_repeat(
 
 def increment_score(count: int) -> int:
     """
-    Calculates the score for a move based on the number of elements removed.
+    根据一次移动所移除的元素数量计算得分。
 
     >>> increment_score(3)
     6
@@ -175,7 +172,7 @@ def increment_score(count: int) -> int:
 
 def move_x(matrix_g: list[list[str]], column: int, size: int) -> list[list[str]]:
     """
-    Simulates gravity in a specific column.
+    在指定列中模拟重力。
 
     >>> move_x([['-', 'A'], ['-', '-'], ['-', 'C']], 1, 2)
     [['-', '-'], ['-', 'A'], ['-', 'C']]
@@ -195,7 +192,7 @@ def move_x(matrix_g: list[list[str]], column: int, size: int) -> list[list[str]]
 
 def move_y(matrix_g: list[list[str]], size: int) -> list[list[str]]:
     """
-    Shifts all columns leftward when an entire column becomes empty.
+    当整列变空时，将所有列向左移动。
 
     >>> move_y([['-', 'A'], ['-', '-'], ['-', 'C']], 2)
     [['A', '-'], ['-', '-'], ['-', 'C']]
@@ -221,7 +218,7 @@ def play(
     matrix_g: list[list[str]], pos_x: int, pos_y: int, size: int
 ) -> tuple[list[list[str]], int]:
     """
-    Processes a single move, updating the matrix and calculating the score.
+    处理一次移动，更新矩阵并计算得分。
 
     >>> play([['R', 'G'], ['R', 'G']], 0, 0, 2)
     ([['G', '-'], ['G', '-']], 3)
@@ -241,15 +238,15 @@ def play(
 
 
 def process_game(size: int, matrix: list[str], moves: list[tuple[int, int]]) -> int:
-    """Processes the game logic for the given matrix and moves.
+    """处理给定矩阵和移动的游戏逻辑。
 
-    Args:
-        size (int): Size of the game board.
-        matrix (List[str]): Initial game matrix.
-        moves (List[Tuple[int, int]]): List of moves as (x, y) coordinates.
+    参数：
+        size (int): 游戏面板大小。
+        matrix (List[str]): 初始游戏矩阵。
+        moves (List[Tuple[int, int]]): 以 (x, y) 坐标表示的移动列表。
 
-    Returns:
-        int: The total score obtained.
+    返回：
+        int: 获得的总分。
     >>> process_game(3, ['aaa', 'bbb', 'ccc'], [(0, 0)])
     6
     """

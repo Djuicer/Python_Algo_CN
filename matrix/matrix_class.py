@@ -1,14 +1,12 @@
-# An OOP approach to representing and manipulating matrices
+# 使用面向对象方法表示和操作矩阵
 
 from __future__ import annotations
 
 
 class Matrix:
     """
-    Matrix object generated from a 2D array where each element is an array representing
-    a row.
-    Rows can contain type int or float.
-    Common operations and information available.
+    由二维数组生成的矩阵对象，其中每个元素是表示一行的数组。
+    行中可以包含 int 或 float 类型，并提供常用运算和信息。
     >>> rows = [
     ...     [1, 2, 3],
     ...     [4, 5, 6],
@@ -127,7 +125,7 @@ class Matrix:
         else:
             self.rows = []
 
-    # MATRIX INFORMATION
+    # 矩阵信息
     def columns(self) -> list[list[int]]:
         return [[row[i] for row in self.rows] for i in range(len(self.rows[0]))]
 
@@ -247,7 +245,7 @@ class Matrix:
             + "]"
         )
 
-    # MATRIX MANIPULATION
+    # 矩阵操作
     def add_row(self, row: list[int], position: int | None = None) -> None:
         type_error = TypeError("Row must be a list containing all ints and/or floats")
         if not isinstance(row, list):
@@ -285,7 +283,7 @@ class Matrix:
                 for i in range(self.num_rows)
             ]
 
-    # MATRIX OPERATIONS
+    # 矩阵运算
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Matrix):
             return NotImplemented

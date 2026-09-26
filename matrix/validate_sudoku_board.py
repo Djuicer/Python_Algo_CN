@@ -1,22 +1,19 @@
 """
-LeetCode 36. Valid Sudoku
+LeetCode 36：有效的数独
 https://leetcode.com/problems/valid-sudoku/
 https://en.wikipedia.org/wiki/Sudoku
 
-Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be
-validated according to the following rules:
+判断 9 x 9 数独面板是否有效。只需按照以下规则验证已填充的单元格：
 
-- Each row must contain the digits 1-9 without repetition.
-- Each column must contain the digits 1-9 without repetition.
-- Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9
-  without repetition.
+- 每行必须包含不重复的数字 1-9。
+- 每列必须包含不重复的数字 1-9。
+- 网格中的九个 3 x 3 子框均必须包含不重复的数字 1-9。
 
-Note:
+注意：
 
-A Sudoku board (partially filled) could be valid but is not necessarily
-solvable.
+部分填充的数独面板可能有效，但不一定有解。
 
-Only the filled cells need to be validated according to the mentioned rules.
+只需按照上述规则验证已填充的单元格。
 """
 
 from collections import defaultdict
@@ -27,8 +24,7 @@ EMPTY_CELL = "."
 
 def is_valid_sudoku_board(sudoku_board: list[list[str]]) -> bool:
     """
-    This function validates (but does not solve) a sudoku board.
-    The board may be valid but unsolvable.
+    验证数独面板，但不求解。面板可能有效但无解。
 
     >>> is_valid_sudoku_board([
     ...  ["5","3",".",".","7",".",".",".","."]

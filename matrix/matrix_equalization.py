@@ -3,9 +3,8 @@ from sys import maxsize
 
 def array_equalization(vector: list[int], step_size: int) -> int:
     """
-    This algorithm equalizes all elements of the input vector
-    to a common value, by making the minimal number of
-    "updates" under the constraint of a step size (step_size).
+    本算法在步长（step_size）约束下，通过最少次数的“更新”将输入向量的所有
+    元素调整为同一个值。
 
     >>> array_equalization([1, 1, 6, 2, 4, 6, 5, 1, 7, 2, 2, 1, 7, 2, 2], 4)
     4

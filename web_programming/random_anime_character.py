@@ -19,7 +19,7 @@ URL = "https://www.mywaifulist.moe/random"
 
 def save_image(image_url: str, image_title: str) -> None:
     """
-    Saves the image of anime character
+    保存动漫角色图片。
     """
     image = httpx2.get(image_url, headers=headers, timeout=10)
     with open(image_title, "wb") as file:
@@ -28,7 +28,7 @@ def save_image(image_url: str, image_title: str) -> None:
 
 def random_anime_character() -> tuple[str, str, str]:
     """
-    Returns the Title, Description, and Image Title of a random anime character .
+    返回随机动漫角色的标题、说明和图片标题。
     """
     soup = BeautifulSoup(
         httpx2.get(URL, headers=headers, timeout=10).text, "html.parser"

@@ -1,35 +1,27 @@
 from scipy.constants import g
 
 """
-Finding the gravitational potential energy of an object with reference
-to the earth,by taking its mass and height above the ground as input
+以地球为参考，根据物体质量和离地高度计算其重力势能。
 
 
-Description : Gravitational energy or gravitational potential energy
-is the potential energy a massive object has in relation to another
-massive object due to gravity. It is the potential energy associated
-with the gravitational field, which is released (converted into
-kinetic energy) when the objects fall towards each other.
-Gravitational potential energy increases when two objects
-are brought further apart.
+说明：引力势能或重力势能是有质量物体因重力而相对于另一有质量物体具有的
+势能。它与引力场相关，当物体相互靠近并下落时会释放（转化为动能）。
+两个物体相距更远时，引力势能增加。
 
-For two pairwise interacting point particles, the gravitational
-potential energy U is given by
+对于一对相互作用的点粒子，引力势能 U 为：
 U=-GMm/R
-where M and m are the masses of the two particles, R is the distance
-between them, and G is the gravitational constant.
-Close to the Earth's surface, the gravitational field is approximately
-constant, and the gravitational potential energy of an object reduces to
+其中 M 和 m 为两个粒子的质量，R 为两者间距，G 为引力常数。
+在地球表面附近，引力场近似恒定，物体的重力势能简化为：
 U=mgh
-where m is the object's mass, g=GM/R² is the gravity of Earth, and h is
-the height of the object's center of mass above a chosen reference level.
+其中 m 为物体质量，g=GM/R² 为地球重力加速度，h 为物体质心高于所选参考面
+的高度。
 
-Reference : "https://en.m.wikipedia.org/wiki/Gravitational_energy"
+参考资料："https://en.m.wikipedia.org/wiki/Gravitational_energy"
 """
 
 
 def potential_energy(mass: float, height: float) -> float:
-    # function will accept mass and height as parameters and return potential energy
+    # 函数接收质量和高度作为参数，并返回重力势能
     """
     >>> potential_energy(10,10)
     980.665
@@ -47,10 +39,10 @@ def potential_energy(mass: float, height: float) -> float:
     19613.3
     """
     if mass < 0:
-        # handling of negative values of mass
+        # 处理质量为负值的情况
         raise ValueError("The mass of a body cannot be negative")
     if height < 0:
-        # handling of negative values of height
+        # 处理高度为负值的情况
         raise ValueError("The height above the ground cannot be negative")
     return mass * g * height
 

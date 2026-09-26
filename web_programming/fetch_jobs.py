@@ -1,5 +1,5 @@
 """
-Scraping jobs given job title and location from indeed website
+根据职位名称和地点，从 Indeed 网站抓取职位信息。
 """
 
 # /// script
@@ -22,7 +22,7 @@ url = "https://www.indeed.co.in/jobs?q=mobile+app+development&l="
 
 def fetch_jobs(location: str = "mumbai") -> Generator[tuple[str, str]]:
     soup = BeautifulSoup(httpx2.get(url + location, timeout=10).content, "html.parser")
-    # This attribute finds out all the specifics listed in a job
+    # 此属性用于查找职位中列出的所有详细信息
     for job in soup.find_all("div", attrs={"data-tn-component": "organicJob"}):
         job_title = job.find("a", attrs={"data-tn-element": "jobTitle"}).text.strip()
         company_name = job.find("span", {"class": "company"}).text.strip()

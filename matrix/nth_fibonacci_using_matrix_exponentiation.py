@@ -1,18 +1,15 @@
 """
-Implementation of finding nth fibonacci number using matrix exponentiation.
-Time Complexity is about O(log(n)*8), where 8 is the complexity of matrix
-multiplication of size 2 by 2.
-And on the other hand complexity of bruteforce solution is O(n).
-As we know
+使用矩阵快速幂求第 n 个 Fibonacci 数的实现。
+时间复杂度约为 O(log(n)*8)，其中 8 是 2 x 2 矩阵乘法的复杂度；另一方面，
+暴力解法的复杂度为 O(n)。已知
     f[n] = f[n-1] + f[n-1]
-Converting to matrix,
+转换为矩阵形式：
     [f(n),f(n-1)] = [[1,1],[1,0]] * [f(n-1),f(n-2)]
 ->  [f(n),f(n-1)] = [[1,1],[1,0]]^2 * [f(n-2),f(n-3)]
     ...
     ...
 ->  [f(n),f(n-1)] = [[1,1],[1,0]]^(n-1) * [f(1),f(0)]
-So we just need the n times multiplication of the matrix [1,1],[1,0]].
-We can decrease the n times multiplication by following the divide and conquer approach.
+因此只需将矩阵 [1,1],[1,0] 相乘 n 次。使用分治方法可以减少这 n 次乘法。
 """
 
 

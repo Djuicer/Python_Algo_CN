@@ -1,5 +1,5 @@
 """
-Convert ETH to USD using real-time price data from CoinGecko.
+使用 CoinGecko 的实时价格数据将 ETH 换算为 USD。
 """
 
 # /// script
@@ -17,12 +17,12 @@ COINGECKO_URL = (
 
 
 def get_eth_price_usd() -> float:
-    """Fetch the current ETH price in USD."""
+    """获取当前以 USD 计价的 ETH 价格。"""
     return get(COINGECKO_URL, timeout=10).raise_for_status().json()["ethereum"]["usd"]
 
 
 def eth_to_usd(eth_amount: float) -> float:
-    """Convert ETH amount to USD."""
+    """将 ETH 数量换算为 USD。"""
     return eth_amount * get_eth_price_usd()
 
 

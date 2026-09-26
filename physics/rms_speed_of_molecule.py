@@ -1,23 +1,15 @@
 """
-The root-mean-square speed is essential in measuring the average speed of particles
-contained in a gas, defined as,
+均方根速率是衡量气体中粒子平均速率的重要指标，定义为：
  -----------------
  | Vrms = √3RT/M |
  -----------------
 
-In Kinetic Molecular Theory, gasified particles are in a condition of constant random
-motion; each particle moves at a completely different pace, perpetually clashing and
-changing directions consistently velocity is used to describe the movement of gas
-particles, thereby taking into account both speed and direction. Although the velocity
-of gaseous particles is constantly changing, the distribution of velocities does not
-change.
-We cannot gauge the velocity of every individual particle, thus we frequently reason
-in terms of the particles average behavior. Particles moving in opposite directions
-have velocities of opposite signs. Since gas particles are in random motion, it's
-plausible that there'll be about as several moving in one direction as within the other
-way, which means that the average velocity for a collection of gas particles equals
-zero; as this value is unhelpful, the average of velocities can be determined using an
-alternative method.
+在气体分子运动论中，气体粒子持续进行随机运动；各粒子的速率不同，不断
+碰撞并改变方向。速度同时考虑速率与方向，用于描述气体粒子的运动。尽管
+各粒子的速度不断变化，速度分布却保持不变。我们无法测量每个粒子的速度，
+因此通常研究粒子的平均行为。相反方向的速度符号相反；由于气体粒子随机
+运动，各方向上的粒子数量大致相同，所以粒子集合的平均速度为零。这个值
+意义有限，因此可使用另一种方法确定平均速率。
 """
 
 UNIVERSAL_GAS_CONSTANT = 8.3144598
@@ -40,10 +32,10 @@ def rms_speed_of_molecule(temperature: float, molar_mass: float) -> float:
 if __name__ == "__main__":
     import doctest
 
-    # run doctest
+    # 运行 doctest
     doctest.testmod()
 
-    # example
+    # 示例
     temperature = 300
     molar_mass = 28
     vrms = rms_speed_of_molecule(temperature, molar_mass)

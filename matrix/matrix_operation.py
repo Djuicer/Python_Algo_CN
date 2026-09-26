@@ -1,5 +1,5 @@
 """
-Functions for 2D matrix operations
+二维矩阵运算函数。
 """
 
 from __future__ import annotations
@@ -82,9 +82,9 @@ def multiply(matrix_a: list[list[int]], matrix_b: list[list[int]]) -> list[list[
 
 def identity(n: int) -> list[list[int]]:
     """
-    :param n: dimension for nxn matrix
+    :param n: nxn 矩阵的维数
     :type n: int
-    :return: Identity matrix of shape [n, n]
+    :return: 形状为 [n, n] 的单位矩阵
     >>> identity(3)
     [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     """

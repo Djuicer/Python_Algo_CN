@@ -1,13 +1,11 @@
 """
-The relativistic velocity summation formula calculates the combined velocity v2 of
-an object moving at speed v1 relative to a frame that is itself moving at velocity v
-relative to an observer. I take the last one to be strictly lower than the speed of
-light.
-The formula is v2 = (v1 + v)/(1 + v1 * v / c**2)
-v1 - speed of the object relative to a moving frame
-v - speed of the moving frame
-c - speed of light in a vacuum
-v2 - speed of the object relative to an observer
+相对论速度叠加公式用于计算合速度 v2：物体相对于某参考系以速度 v1 运动，
+而该参考系相对于观察者以速度 v 运动。这里假定后者严格小于光速。
+公式为 v2 = (v1 + v)/(1 + v1 * v / c**2)
+v1 - 物体相对于运动参考系的速度
+v - 运动参考系的速度
+c - 真空中的光速
+v2 - 物体相对于观察者的速度
 
 https://en.wikipedia.org/wiki/Velocity-addition_formula
 """

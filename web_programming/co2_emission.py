@@ -1,5 +1,5 @@
 """
-Get CO2 emission data from the UK CarbonIntensity API
+从英国 CarbonIntensity API 获取 CO2 排放数据。
 """
 
 # /// script
@@ -16,13 +16,13 @@ import httpx2
 BASE_URL = "https://api.carbonintensity.org.uk/intensity"
 
 
-# Emission in the last half hour
+# 最近半小时的排放量
 def fetch_last_half_hour() -> str:
     last_half_hour = httpx2.get(BASE_URL, timeout=10).json()["data"][0]
     return last_half_hour["intensity"]["actual"]
 
 
-# Emissions in a specific date range
+# 指定日期范围内的排放量
 def fetch_from_to(start, end) -> list:
     return httpx2.get(f"{BASE_URL}/{start}/{end}", timeout=10).json()["data"]
 

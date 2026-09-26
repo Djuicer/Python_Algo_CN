@@ -1,16 +1,16 @@
 """
-This implementation demonstrates how to generate the elements of a Pascal's triangle.
-The element havingva row index of r and column index of c can be derivedvas follows:
+本实现演示如何生成 Pascal 三角形的元素。行索引为 r、列索引为 c 的元素可由
+下式推导：
 triangle[r][c] = triangle[r-1][c-1]+triangle[r-1][c]
 
-A Pascal's triangle is a triangular array containing binomial coefficients.
+Pascal 三角形是由二项式系数组成的三角形数组。
 https://en.wikipedia.org/wiki/Pascal%27s_triangle
 """
 
 
 def print_pascal_triangle(num_rows: int) -> None:
     """
-    Print Pascal's triangle for different number of rows
+    输出具有不同给定行数的 Pascal 三角形。
     >>> print_pascal_triangle(5)
         1
        1 1
@@ -20,10 +20,10 @@ def print_pascal_triangle(num_rows: int) -> None:
     """
     triangle = generate_pascal_triangle(num_rows)
     for row_idx in range(num_rows):
-        # Print left spaces
+        # 输出左侧空格
         for _ in range(num_rows - row_idx - 1):
             print(end=" ")
-        # Print row values
+        # 输出行中的值
         for col_idx in range(row_idx + 1):
             if col_idx != row_idx:
                 print(triangle[row_idx][col_idx], end=" ")
@@ -34,7 +34,7 @@ def print_pascal_triangle(num_rows: int) -> None:
 
 def generate_pascal_triangle(num_rows: int) -> list[list[int]]:
     """
-    Create Pascal's triangle for different number of rows
+    创建具有不同给定行数的 Pascal 三角形。
     >>> generate_pascal_triangle(0)
     []
     >>> generate_pascal_triangle(1)
@@ -81,7 +81,7 @@ def populate_current_row(triangle: list[list[int]], current_row_idx: int) -> lis
     [1, 1]
     """
     current_row = [-1] * (current_row_idx + 1)
-    # first and last elements of current row are equal to 1
+        # 当前行的首尾元素均为 1
     current_row[0], current_row[-1] = 1, 1
     for current_col_idx in range(1, current_row_idx):
         calculate_current_element(
@@ -110,15 +110,13 @@ def calculate_current_element(
 
 def generate_pascal_triangle_optimized(num_rows: int) -> list[list[int]]:
     """
-    This function returns a matrix representing the corresponding pascal's triangle
-    according to the given input of number of rows of Pascal's triangle to be generated.
-    It reduces the operations done to generate a row by half
-    by eliminating redundant calculations.
+    根据给定的 Pascal 三角形行数，返回表示相应 Pascal 三角形的矩阵。
+    该函数通过消除冗余计算，将生成一行所需的运算量减半。
 
-    :param num_rows: Integer specifying the number of rows in the Pascal's triangle
-    :return: 2-D List (matrix) representing the Pascal's triangle
+    :param num_rows: 指定 Pascal 三角形行数的整数
+    :return: 表示 Pascal 三角形的二维列表（矩阵）
 
-    Return the Pascal's triangle of given rows
+    返回具有给定行数的 Pascal 三角形。
     >>> generate_pascal_triangle_optimized(3)
     [[1], [1, 1], [1, 2, 1]]
     >>> generate_pascal_triangle_optimized(1)
@@ -150,7 +148,7 @@ def generate_pascal_triangle_optimized(num_rows: int) -> list[list[int]]:
     for row_index in range(1, num_rows):
         temp_row = [0] + result[-1] + [0]
         row_length = row_index + 1
-        # Calculate the number of distinct elements in a row
+    # 计算一行中不同元素的数量
         distinct_elements = sum(divmod(row_length, 2))
         row_first_half = [
             temp_row[i - 1] + temp_row[i] for i in range(1, distinct_elements + 1)
@@ -165,7 +163,7 @@ def generate_pascal_triangle_optimized(num_rows: int) -> list[list[int]]:
 
 def benchmark() -> None:
     """
-    Benchmark multiple functions, with three different length int values.
+    使用三种不同长度的整数值对多个函数进行基准测试。
     """
     from collections.abc import Callable
     from timeit import timeit

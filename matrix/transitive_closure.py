@@ -6,14 +6,13 @@ https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 
 def transitive_closure(graph: list[list[int]]) -> list[list[int]]:
     """
-    Compute the transitive closure of a directed graph using the
-    Floyd-Warshall algorithm.
+    使用 Floyd-Warshall 算法计算有向图的传递闭包。
 
-    Args:
-        graph: Adjacency matrix representation of the graph.
+    参数：
+        graph: 图的邻接矩阵表示。
 
-    Returns:
-        Transitive closure matrix.
+    返回：
+        传递闭包矩阵。
 
     >>> graph = [
     ...     [0, 1, 1, 0],
@@ -30,16 +29,16 @@ def transitive_closure(graph: list[list[int]]) -> list[list[int]]:
     width = len(graph)
     ans = [[graph[i][j] for j in range(width)] for i in range(width)]
 
-    # Transitive closure of (i, i) will always be 1
+    # (i, i) 的传递闭包始终为 1
     for i in range(width):
         ans[i][i] = 1
 
-    # Apply Floyd-Warshall Algorithm
-    # For each intermediate node k
+    # 应用 Floyd-Warshall 算法
+    # 遍历每个中间节点 k
     for k in range(width):
         for i in range(width):
             for j in range(width):
-                # Check if a path exists from i to k and from k to j.
+                # 检查是否同时存在从 i 到 k 及从 k 到 j 的路径
                 if ans[i][k] == 1 and ans[k][j] == 1:
                     ans[i][j] = 1
 

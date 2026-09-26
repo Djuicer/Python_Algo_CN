@@ -1,24 +1,20 @@
 """
-Title : Computing the terminal velocity of an object falling
-        through a fluid.
+标题：计算物体在流体中下落时的终端速度。
 
-Terminal velocity is defined as the highest velocity attained by an
-object falling through a fluid. It is observed when the sum of drag force
-and buoyancy is equal to the downward gravity force acting on the
-object. The acceleration of the object is zero as the net force acting on
-the object is zero.
+终端速度定义为物体在流体中下落时达到的最高速度。当阻力与浮力之和等于
+物体所受向下的重力时，物体达到终端速度。此时合力为零，物体加速度也为零。
 
 Vt = ((2 * m * g)/(p * A * Cd))^0.5
 
-where :
-Vt = Terminal velocity (in m/s)
-m = Mass of the falling object (in Kg)
-g = Acceleration due to gravity (value taken : imported from scipy)
-p = Density of the fluid through which the object is falling (in Kg/m^3)
-A = Projected area of the object (in m^2)
-Cd = Drag coefficient (dimensionless)
+其中：
+Vt = 终端速度 (m/s)
+m = 下落物体的质量 (Kg)
+g = 重力加速度（取自 scipy）
+p = 物体下落所处流体的密度 (Kg/m^3)
+A = 物体的投影面积 (m^2)
+Cd = 阻力系数（无量纲）
 
-Reference : https://byjus.com/physics/derivation-of-terminal-velocity/
+参考资料：https://byjus.com/physics/derivation-of-terminal-velocity/
 """
 
 from scipy.constants import g

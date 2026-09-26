@@ -1,5 +1,5 @@
 """
-Checks if a system of forces is in static equilibrium.
+检查力系是否处于静力平衡状态。
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ def polar_force(
     magnitude: float, angle: float, radian_mode: bool = False
 ) -> list[float]:
     """
-    Resolves force along rectangular components.
+    将力分解为直角坐标分量。
     (force, angle) => (force_x, force_y)
     >>> import math
     >>> force = polar_force(10, 45)
@@ -35,8 +35,8 @@ def in_static_equilibrium(
     forces: NDArray[float64], location: NDArray[float64], eps: float = 10**-1
 ) -> bool:
     """
-    Check if a system is in equilibrium.
-    It takes two numpy.array objects.
+    检查系统是否处于平衡状态。
+    接收两个 numpy.array 对象。
     forces ==>  [
                         [force1_x, force1_y],
                         [force2_x, force2_y],
@@ -50,9 +50,9 @@ def in_static_equilibrium(
     >>> in_static_equilibrium(force, location)
     False
     """
-    # summation of moments is zero
-    # NumPy 2.x removed the 2-D cross product, so compute the scalar
-    # (z-axis) moment for each row directly: x_i * Fy_i - y_i * Fx_i.
+    # 力矩之和为零
+    # NumPy 2.x 移除了二维叉积，因此直接计算每一行的标量（z 轴）力矩：
+    # x_i * Fy_i - y_i * Fx_i。
     moments: NDArray[float64] = (
         location[:, 0] * forces[:, 1] - location[:, 1] * forces[:, 0]
     )
@@ -61,7 +61,7 @@ def in_static_equilibrium(
 
 
 if __name__ == "__main__":
-    # Test to check if it works
+    # 测试其能否正常工作
     forces = array(
         [
             polar_force(718.4, 180 - 30),
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     assert in_static_equilibrium(forces, location)
 
-    # Problem 1 in image_data/2D_problems.jpg
+    # image_data/2D_problems.jpg 中的问题 1
     forces = array(
         [
             polar_force(30 * 9.81, 15),
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     assert in_static_equilibrium(forces, location)
 
-    # Problem in image_data/2D_problems_1.jpg
+    # image_data/2D_problems_1.jpg 中的问题
     forces = array([[0, -2000], [0, -1200], [0, 15600], [0, -12400]])
 
     location = array([[0, 0], [6, 0], [10, 0], [12, 0]])

@@ -1,14 +1,12 @@
-"""Determine whether two square matrices are similar.
+"""判断两个方阵是否相似。
 
-Two square matrices :math:`A` and :math:`B` of the same size are similar if
-there exists an invertible matrix :math:`P` such that :math:`P^{-1} A P = B`.
-This implementation relies on SymPy to compute the Jordan canonical form of
-both matrices.  Two matrices are similar precisely when their Jordan forms are
-equal up to permutation of the Jordan blocks.
+若存在可逆矩阵 :math:`P`，使得 :math:`P^{-1} A P = B`，则大小相同的两个方阵
+:math:`A` 和 :math:`B` 相似。本实现依赖 SymPy 计算两个矩阵的 Jordan 标准形。
+当且仅当两个矩阵的 Jordan 标准形在 Jordan 块置换意义下相等时，它们相似。
 * https://en.wikipedia.org/wiki/Jordan_matrix
 * https://en.wikipedia.org/wiki/Jordan_normal_form
 
-Examples
+示例
 --------
 >>> are_similar_matrices([[3, 1], [0, 3]], [[3, 0], [0, 3]])
 False
@@ -44,22 +42,22 @@ type MatrixLike = Sequence[Sequence[Any]] | Matrix
 
 
 def _as_square_matrix(matrix: MatrixLike, *, simplify_entries: bool) -> Matrix:
-    """Return a SymPy matrix after validating that ``matrix`` is square.
+    """验证 ``matrix`` 为方阵后，返回 SymPy 矩阵。
 
-    Parameters
+    参数
     ----------
     matrix:
-        Nested sequences (or a SymPy matrix) describing the matrix entries.
+        描述矩阵元素的嵌套序列（或 SymPy 矩阵）。
     simplify_entries:
-        When ``True`` each entry is passed through :func:`sympy.nsimplify`
-        which helps treat values such as ``0.5`` and ``1/2`` as the same.
+        为 ``True`` 时，将每个元素传给 :func:`sympy.nsimplify`，从而把 ``0.5``
+        和 ``1/2`` 等值视为相同。
 
-    Raises
+    异常
     ------
     TypeError
-        If ``matrix`` cannot be converted into a SymPy matrix.
+        ``matrix`` 无法转换为 SymPy 矩阵时抛出。
     ValueError
-        If ``matrix`` is not square.
+        ``matrix`` 不是方阵时抛出。
     """
 
     try:
@@ -78,7 +76,7 @@ def _as_square_matrix(matrix: MatrixLike, *, simplify_entries: bool) -> Matrix:
 
 
 def _jordan_signature(matrix: Matrix) -> tuple[tuple[Any, tuple[int, ...]], ...]:
-    """Return a hashable representation of the Jordan form of ``matrix``."""
+    """返回 ``matrix`` 的 Jordan 标准形的可哈希表示。"""
 
     _, blocks = matrix.jordan_cells()
     summary: dict[Any, list[int]] = {}
@@ -104,24 +102,22 @@ def are_similar_matrices(
     *,
     simplify_entries: bool = True,
 ) -> bool:
-    """Return ``True`` if ``matrix_a`` and ``matrix_b`` are similar matrices.
+    """若 ``matrix_a`` 和 ``matrix_b`` 为相似矩阵，则返回 ``True``。
 
-    Parameters
+    参数
     ----------
     matrix_a, matrix_b:
-        Square matrices represented as nested sequences (or SymPy matrices).
+        以嵌套序列（或 SymPy 矩阵）表示的方阵。
     simplify_entries:
-        If ``True`` (default), the function attempts to simplify each entry so
-        that values that are algebraically equal are treated as such. Set this
-        to ``False`` to skip simplification when working with symbolic inputs
-        that should remain untouched.
+        为 ``True``（默认）时，函数会尝试化简每个元素，使代数上相等的值得到
+        相同处理。处理应保持不变的符号输入时，可设为 ``False`` 以跳过化简。
 
-    Raises
+    异常
     ------
     ValueError
-        If the matrices are not square or their dimensions do not match.
+        矩阵不是方阵或维数不匹配时抛出。
     TypeError
-        If either matrix cannot be interpreted as a numeric matrix.
+        任一矩阵无法解释为数值矩阵时抛出。
     """
 
     sympy_a = _as_square_matrix(matrix_a, simplify_entries=simplify_entries)

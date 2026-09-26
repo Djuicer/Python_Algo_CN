@@ -1,10 +1,9 @@
-# An island in matrix is a group of linked areas, all having the same value.
-# This code counts number of islands in a given matrix, with including diagonal
-# connections.
-class Matrix:  # Public class to implement a graph
+# 矩阵中的岛屿是由值相同的相连区域组成的集合
+# 本代码统计给定矩阵中的岛屿数量，包括对角线连接
+class Matrix:  # 用于实现图的公共类
     def __init__(self, graph: list[list[bool]]) -> None:
         """
-        Initialise matrix with number of rows, columns, and graph.
+        使用行数、列数和图初始化矩阵。
 
         >>> m = Matrix([[True, False, False, False],
         ...              [True, False, True, False],
@@ -48,7 +47,7 @@ class Matrix:  # Public class to implement a graph
 
     def diffs(self, i: int, j: int, visited: list[list[bool]]) -> None:
         """
-        Checking all 8 elements surrounding nth element.
+        检查第 n 个元素周围的全部 8 个元素。
 
         >>> visited = [[False, False, False],
         ...             [False, False, False],
@@ -62,9 +61,9 @@ class Matrix:  # Public class to implement a graph
          [False, True, False],
          [True, False, True]]
         """
-        row_nbr = [-1, -1, -1, 0, 0, 1, 1, 1]  # Coordinate order
+        row_nbr = [-1, -1, -1, 0, 0, 1, 1, 1]  # 坐标顺序
         col_nbr = [-1, 0, 1, -1, 1, -1, 0, 1]
-        visited[i][j] = True  # Make those cells visited
+        visited[i][j] = True  # 将这些单元格标记为已访问
         for k in range(8):
             if self.is_safe(i + row_nbr[k], j + col_nbr[k], visited):
                 self.diffs(i + row_nbr[k], j + col_nbr[k], visited)

@@ -1,9 +1,7 @@
 """
-Given an two dimensional binary matrix grid. An island is a group of 1's (representing
-land) connected 4-directionally (horizontal or vertical.) You may assume all four edges
-of the grid are surrounded by water.  The area of an island is the number of cells with
-a value 1 in the island. Return the maximum area of an island in a grid. If there is no
-island, return 0.
+给定二维二进制矩阵 grid。岛屿是由代表陆地的 1 沿四个方向（水平或垂直）相连
+形成的集合。可以假设网格四周均被水包围。岛屿面积是岛屿中值为 1 的单元格
+数量。返回网格中岛屿的最大面积；若不存在岛屿，则返回 0。
 """
 
 matrix = [
@@ -20,7 +18,7 @@ matrix = [
 
 def is_safe(row: int, col: int, rows: int, cols: int) -> bool:
     """
-    Checking whether coordinate (row, col) is valid or not.
+    检查坐标 (row, col) 是否有效。
 
     >>> is_safe(0, 0, 5, 5)
     True
@@ -32,7 +30,7 @@ def is_safe(row: int, col: int, rows: int, cols: int) -> bool:
 
 def depth_first_search(row: int, col: int, seen: set, mat: list[list[int]]) -> int:
     """
-    Returns the current area of the island
+    返回当前岛屿的面积。
 
     >>> depth_first_search(0, 0, set(), matrix)
     0
@@ -54,7 +52,7 @@ def depth_first_search(row: int, col: int, seen: set, mat: list[list[int]]) -> i
 
 def find_max_area(mat: list[list[int]]) -> int:
     """
-    Finds the area of all islands and returns the maximum area.
+    计算所有岛屿的面积并返回最大面积。
 
     >>> find_max_area(matrix)
     6
@@ -65,7 +63,7 @@ def find_max_area(mat: list[list[int]]) -> int:
     for row, line in enumerate(mat):
         for col, item in enumerate(line):
             if item == 1 and (row, col) not in seen:
-                # Maximizing the area
+    # 求最大面积
                 max_area = max(max_area, depth_first_search(row, col, seen, mat))
     return max_area
 
@@ -73,7 +71,7 @@ def find_max_area(mat: list[list[int]]) -> int:
 if __name__ == "__main__":
     import doctest
 
-    print(find_max_area(matrix))  # Output -> 6
+    print(find_max_area(matrix))  # 输出 -> 6
 
     """
     Explanation:

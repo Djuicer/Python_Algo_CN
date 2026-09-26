@@ -1,14 +1,10 @@
 """
-In physics and astronomy, a gravitational N-body simulation is a simulation of a
-dynamical system of particles under the influence of gravity. The system
-consists of a number of bodies, each of which exerts a gravitational force on all
-other bodies. These forces are calculated using Newton's law of universal
-gravitation. The Euler method is used at each time-step to calculate the change in
-velocity and position brought about by these forces. Softening is used to prevent
-numerical divergences when a particle comes too close to another (and the force
-goes to infinity).
-(Description adapted from https://en.wikipedia.org/wiki/N-body_simulation )
-(See also http://www.shodor.org/refdesk/Resources/Algorithms/EulersMethod/ )
+在物理学和天文学中，引力 N 体模拟用于模拟粒子在引力影响下组成的动力系统。
+系统包含若干天体，每个天体都对其他天体施加引力，这些力依据牛顿万有引力
+定律计算。每个时间步使用 Euler 法计算这些力引起的速度和位置变化。当一个
+粒子过于接近另一个粒子（使力趋于无穷大）时，使用软化技术防止数值发散。
+（说明改编自 https://en.wikipedia.org/wiki/N-body_simulation ）
+（另见 http://www.shodor.org/refdesk/Resources/Algorithms/EulersMethod/ ）
 """
 
 from __future__ import annotations
@@ -18,10 +14,10 @@ import random
 from matplotlib import animation
 from matplotlib import pyplot as plt
 
-# Frame rate of the animation
+# 动画帧率
 INTERVAL = 20
 
-# Time between time steps in seconds
+# 时间步之间的间隔，单位为秒
 DELTA_TIME = INTERVAL / 1000
 
 
@@ -37,8 +33,7 @@ class Body:
         color: str = "blue",
     ) -> None:
         """
-        The parameters "size" & "color" are not relevant for the simulation itself,
-        they are only used for plotting.
+        参数 "size" 和 "color" 与模拟本身无关，仅用于绘图。
         """
         self.position_x = position_x
         self.position_y = position_y
@@ -60,7 +55,7 @@ class Body:
         self, force_x: float, force_y: float, delta_time: float
     ) -> None:
         """
-        Euler algorithm for velocity
+        用于更新速度的 Euler 算法。
 
         >>> body_1 = Body(0.,0.,0.,0.)
         >>> body_1.update_velocity(1.,0.,1.)
@@ -85,7 +80,7 @@ class Body:
 
     def update_position(self, delta_time: float) -> None:
         """
-        Euler algorithm for position
+        用于更新位置的 Euler 算法。
 
         >>> body_1 = Body(0.,0.,1.,0.)
         >>> body_1.update_position(1.)
@@ -111,11 +106,9 @@ class Body:
 
 class BodySystem:
     """
-    This class is used to hold the bodies, the gravitation constant, the time
-    factor and the softening factor. The time factor is used to control the speed
-    of the simulation. The softening factor is used for softening, a numerical
-    trick for N-body simulations to prevent numerical divergences when two bodies
-    get too close to each other.
+    本类用于保存天体、引力常数、时间因子和软化因子。时间因子用于控制模拟
+    速度。软化因子用于软化，这是 N 体模拟中防止两个天体距离过近时发生
+    数值发散的技巧。
     """
 
     def __init__(
@@ -135,8 +128,8 @@ class BodySystem:
 
     def update_system(self, delta_time: float) -> None:
         """
-        For each body, loop through all other bodies to calculate the total
-        force they exert on it. Use that force to update the body's velocity.
+        对每个天体遍历其他所有天体，计算它们对该天体施加的合力，并用此力
+        更新天体速度。
 
         >>> body_system_1 = BodySystem([Body(0,0,0,0), Body(10,0,0,0)])
         >>> len(body_system_1)
@@ -162,11 +155,11 @@ class BodySystem:
                     dif_x = body2.position_x - body1.position_x
                     dif_y = body2.position_y - body1.position_y
 
-                    # Calculation of the distance using Pythagoras's theorem
-                    # Extra factor due to the softening technique
+                    # 使用勾股定理计算距离
+                    # 软化技术引入的额外因子
                     distance = (dif_x**2 + dif_y**2 + self.softening_factor) ** (1 / 2)
 
-                    # Newton's law of universal gravitation.
+                    # 牛顿万有引力定律
                     force_x += (
                         self.gravitation_constant * body2.mass * dif_x / distance**3
                     )
@@ -174,10 +167,10 @@ class BodySystem:
                         self.gravitation_constant * body2.mass * dif_y / distance**3
                     )
 
-            # Update the body's velocity once all the force components have been added
+            # 累加所有力分量后更新天体速度
             body1.update_velocity(force_x, force_y, delta_time * self.time_factor)
 
-        # Update the positions only after all the velocities have been updated
+        # 仅在所有速度更新后再更新位置
         for body in self.bodies:
             body.update_position(delta_time * self.time_factor)
 
@@ -186,7 +179,7 @@ def update_step(
     body_system: BodySystem, delta_time: float, patches: list[plt.Circle]
 ) -> None:
     """
-    Updates the body-system and applies the change to the patch-list used for plotting
+    更新天体系统，并将变化应用到绘图使用的图形块列表。
 
     >>> body_system_1 = BodySystem([Body(0,0,0,0), Body(10,0,0,0)])
     >>> patches_1 = [plt.Circle((body.position_x, body.position_y), body.size,
@@ -202,10 +195,10 @@ def update_step(
     >>> patches_2[0].center
     (-9.0, 0.0)
     """
-    # Update the positions of the bodies
+    # 更新天体位置
     body_system.update_system(delta_time)
 
-    # Update the positions of the patches
+    # 更新图形块位置
     for patch, body in zip(patches, body_system.bodies):
         patch.center = (body.position_x, body.position_y)
 
@@ -219,17 +212,17 @@ def plot(
     y_end: float = 1,
 ) -> None:
     """
-    Utility function to plot how the given body-system evolves over time.
-    No doctest provided since this function does not have a return value.
+    绘制给定天体系统随时间演化过程的工具函数。
+    本函数没有返回值，因此未提供 doctest。
     """
     fig = plt.figure()
     fig.canvas.manager.set_window_title(title)
     ax = plt.axes(
         xlim=(x_start, x_end), ylim=(y_start, y_end)
-    )  # Set section to be plotted
-    plt.gca().set_aspect("equal")  # Fix aspect ratio
+    )  # 设置绘图区域
+    plt.gca().set_aspect("equal")  # 固定纵横比
 
-    # Each body is drawn as a patch by the plt-function
+    # plt 函数将每个天体绘制为一个图形块
     patches = [
         plt.Circle((body.position_x, body.position_y), body.size, fc=body.color)
         for body in body_system.bodies
@@ -238,7 +231,7 @@ def plot(
     for patch in patches:
         ax.add_patch(patch)
 
-    # Function called at each step of the animation
+    # 动画每一步调用的函数
     def update(frame: int) -> list[plt.Circle]:  # noqa: ARG001
         update_step(body_system, DELTA_TIME, patches)
         return patches
@@ -252,10 +245,9 @@ def plot(
 
 def example_1() -> BodySystem:
     """
-    Example 1: figure-8 solution to the 3-body-problem
-    This example can be seen as a test of the implementation: given the right
-    initial conditions, the bodies should move in a figure-8.
-    (initial conditions taken from http://www.artcompsci.org/vol_1/v1_web/node56.html)
+    示例 1：三体问题的 8 字形解。
+    此示例可视为对实现的测试：给定正确初始条件，天体应沿 8 字形运动。
+    （初始条件取自 http://www.artcompsci.org/vol_1/v1_web/node56.html）
     >>> body_system = example_1()
     >>> len(body_system)
     3
@@ -276,12 +268,11 @@ def example_1() -> BodySystem:
 
 def example_2() -> BodySystem:
     """
-    Example 2: Moon's orbit around the earth
-    This example can be seen as a test of the implementation: given the right
-    initial conditions, the moon should orbit around the earth as it actually does.
-    (mass, velocity and distance taken from https://en.wikipedia.org/wiki/Earth
-    and https://en.wikipedia.org/wiki/Moon)
-    No doctest provided since this function does not have a return value.
+    示例 2：月球绕地球运行的轨道。
+    此示例可视为对实现的测试：给定正确初始条件，月球应像实际情况一样绕
+    地球运行。（质量、速度和距离取自 https://en.wikipedia.org/wiki/Earth
+    和 https://en.wikipedia.org/wiki/Moon）
+    本函数没有返回值，因此未提供 doctest。
     """
 
     moon_mass = 7.3476e22
@@ -290,8 +281,7 @@ def example_2() -> BodySystem:
     earth_moon_distance = 384399000
     gravitation_constant = 6.674e-11
 
-    # Calculation of the respective velocities so that total impulse is zero,
-    # i.e. the two bodies together don't move
+    # 计算各自的速度，使总动量为零，即两个天体整体不移动
     moon_velocity = earth_mass * velocity_dif / (earth_mass + moon_mass)
     earth_velocity = moon_velocity - velocity_dif
 
@@ -302,8 +292,8 @@ def example_2() -> BodySystem:
 
 def example_3() -> BodySystem:
     """
-    Example 3: Random system with many bodies.
-    No doctest provided since this function does not have a return value.
+    示例 3：包含多个天体的随机系统。
+    本函数没有返回值，因此未提供 doctest。
     """
 
     bodies = []
@@ -311,8 +301,7 @@ def example_3() -> BodySystem:
         velocity_x = random.uniform(-0.5, 0.5)
         velocity_y = random.uniform(-0.5, 0.5)
 
-        # Bodies are created pairwise with opposite velocities so that the
-        # total impulse remains zero
+        # 成对创建速度相反的天体，使总动量保持为零
         bodies.append(
             Body(
                 random.uniform(-0.5, 0.5),

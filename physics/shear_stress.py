@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 """
-Shear stress is a component of stress that is coplanar to the material cross-section.
-It arises due to a shear force, the component of the force vector parallel to the
-material cross-section.
+剪应力是与材料横截面共面的应力分量。它由剪切力产生，剪切力是平行于材料
+横截面的力矢量分量。
 
 https://en.wikipedia.org/wiki/Shear_stress
 """
@@ -15,12 +14,11 @@ def shear_stress(
     area: float,
 ) -> tuple[str, float]:
     """
-    This function can calculate any one of the three -
-    1. Shear Stress
-    2. Tangential Force
-    3. Cross-sectional Area
-    This is calculated from the other two provided values
-    Examples -
+    本函数可以根据给出的另外两个值，计算以下三者中的任意一个：
+    1. 剪应力
+    2. 切向力
+    3. 横截面积
+    示例：
     >>> shear_stress(stress=25, tangential_force=100, area=0)
     ('area', 4.0)
     >>> shear_stress(stress=0, tangential_force=1600, area=200)
