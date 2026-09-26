@@ -3,18 +3,18 @@ from PIL import Image
 
 def change_brightness(img: Image.Image, level: float) -> Image.Image:
     """
-    Change the brightness of a PIL Image to a given level.
+    将 PIL 图像的亮度调整到给定级别。
 
-    Args:
-        img: PIL Image to adjust
-        level: Brightness level adjustment (-255.0 to 255.0)
-               Negative values darken, positive values brighten
+    参数：
+        img: 待调整的 PIL 图像
+        level: 亮度调整级别（-255.0 到 255.0）
+               负值使图像变暗，正值使图像变亮
 
-    Returns:
-        New PIL Image with adjusted brightness
+    返回：
+        调整亮度后的新 PIL 图像
 
-    Raises:
-        ValueError: If level is not in range [-255.0, 255.0]
+    异常：
+        ValueError: level 不在 [-255.0, 255.0] 范围内时抛出
 
     >>> from PIL import Image
     >>> import numpy as np
@@ -35,8 +35,7 @@ def change_brightness(img: Image.Image, level: float) -> Image.Image:
 
     def brightness(c: int) -> float:
         """
-        Fundamental Transformation/Operation that'll be performed on
-        every bit.
+        对每一位执行的基本图像变换/操作。
         """
         return 128 + level + (c - 128)
 
@@ -46,8 +45,8 @@ def change_brightness(img: Image.Image, level: float) -> Image.Image:
 
 
 if __name__ == "__main__":
-    # Load image
+    # 加载图像
     with Image.open("image_data/lena.jpg") as img:
-        # Change brightness to 100
+        # 将亮度调整为 100
         brigt_img = change_brightness(img, 100)
         brigt_img.save("image_data/lena_brightness.png", format="png")

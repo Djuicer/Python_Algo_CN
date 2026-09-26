@@ -1,4 +1,4 @@
-"""Multiple image resizing techniques"""
+"""多种图像缩放技术"""
 
 import numpy as np
 from cv2 import destroyAllWindows, imread, imshow, waitKey
@@ -6,8 +6,8 @@ from cv2 import destroyAllWindows, imread, imshow, waitKey
 
 class NearestNeighbour:
     """
-    Simplest and fastest version of image resizing.
-    Source: https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation
+    最简单、最快的图像缩放方法。
+    来源：https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation
     """
 
     def __init__(self, img, dst_width: int, dst_height: int) -> None:
@@ -34,9 +34,9 @@ class NearestNeighbour:
 
     def get_x(self, x: int) -> int:
         """
-        Get parent X coordinate for destination X
-        :param x: Destination X coordinate
-        :return: Parent X coordinate based on `x ratio`
+        获取目标 X 坐标对应的原图 X 坐标
+        :param x: 目标 X 坐标
+        :return: 根据 `x ratio` 计算的原图 X 坐标
         >>> nn = NearestNeighbour(imread("digital_image_processing/image_data/lena.jpg",
         ...                              1), 100, 100)
         >>> nn.ratio_x = 0.5
@@ -47,9 +47,9 @@ class NearestNeighbour:
 
     def get_y(self, y: int) -> int:
         """
-        Get parent Y coordinate for destination Y
-        :param y: Destination X coordinate
-        :return: Parent X coordinate based on `y ratio`
+        获取目标 Y 坐标对应的原图 Y 坐标
+        :param y: 目标 Y 坐标
+        :return: 根据 `y ratio` 计算的原图 Y 坐标
         >>> nn = NearestNeighbour(imread("digital_image_processing/image_data/lena.jpg",
         ...                              1), 100, 100)
         >>> nn.ratio_y = 0.5

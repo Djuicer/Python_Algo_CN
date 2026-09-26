@@ -6,15 +6,14 @@ def get_neighbors_pixel(
     image: np.ndarray, x_coordinate: int, y_coordinate: int, center: int
 ) -> int:
     """
-    Comparing local neighborhood pixel value with threshold value of centre pixel.
-    Exception is required when neighborhood value of a center pixel value is null.
-    i.e. values present at boundaries.
+    将局部邻域像素值与中心像素的阈值比较。
+    当中心像素的邻域值为空（即位于边界）时，需要进行异常处理。
 
-    :param image: The image we're working with
-    :param x_coordinate: x-coordinate of the  pixel
-    :param y_coordinate: The y coordinate of the pixel
-    :param center: center pixel value
-    :return: The value of the pixel is being returned.
+    :param image: 当前处理的图像
+    :param x_coordinate: 像素的 x 坐标
+    :param y_coordinate: 像素的 y 坐标
+    :param center: 中心像素值
+    :return: 像素值
     """
 
     try:
@@ -25,24 +24,21 @@ def get_neighbors_pixel(
 
 def local_binary_value(image: np.ndarray, x_coordinate: int, y_coordinate: int) -> int:
     """
-    It takes an image, an x and y coordinate, and returns the
-    decimal value of the local binary patternof the pixel
-    at that coordinate
+    接收图像及 x、y 坐标，返回该坐标处像素局部二值模式的十进制值。
 
-    :param image: the image to be processed
-    :param x_coordinate: x coordinate of the pixel
-    :param y_coordinate: the y coordinate of the pixel
-    :return: The decimal value of the binary value of the pixels
-    around the center pixel.
+    :param image: 待处理图像
+    :param x_coordinate: 像素的 x 坐标
+    :param y_coordinate: 像素的 y 坐标
+    :return: 中心像素周围各像素二进制值对应的十进制值
     """
     center = image[x_coordinate][y_coordinate]
     powers = [1, 2, 4, 8, 16, 32, 64, 128]
 
-    # skip get_neighbors_pixel if center is null
+    # 中心值为空时跳过 get_neighbors_pixel
     if center is None:
         return 0
 
-    # Starting from the top right, assigning value to pixels clockwise
+    # 从右上角开始，按顺时针方向为像素赋值
     binary_values = [
         get_neighbors_pixel(image, x_coordinate - 1, y_coordinate + 1, center),
         get_neighbors_pixel(image, x_coordinate, y_coordinate + 1, center),
@@ -54,23 +50,22 @@ def local_binary_value(image: np.ndarray, x_coordinate: int, y_coordinate: int) 
         get_neighbors_pixel(image, x_coordinate - 1, y_coordinate - 1, center),
     ]
 
-    # Converting the binary value to decimal.
+    # 将二进制值转换为十进制
     return sum(
         binary_value * power for binary_value, power in zip(binary_values, powers)
     )
 
 
 if __name__ == "__main__":
-    # Reading the image and converting it to grayscale.
+    # 读取图像并转换为灰度图
     image = cv2.imread(
         "digital_image_processing/image_data/lena.jpg", cv2.IMREAD_GRAYSCALE
     )
 
-    # Create a numpy array as the same height and width of read image
+    # 创建与读取图像高度和宽度相同的 NumPy 数组
     lbp_image = np.zeros((image.shape[0], image.shape[1]))
 
-    # Iterating through the image and calculating the
-    # local binary pattern value for each pixel.
+    # 遍历图像并计算每个像素的局部二值模式值
     for i in range(image.shape[0]):
         for j in range(image.shape[1]):
             lbp_image[i][j] = local_binary_value(image, i, j)

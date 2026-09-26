@@ -1,5 +1,5 @@
 """
-Implementation of gaussian filter algorithm
+高斯滤波（Gaussian Filter）算法的实现。
 """
 
 from itertools import product
@@ -17,37 +17,37 @@ def gen_gaussian_kernel(k_size, sigma):
 
 def gaussian_filter(image, k_size, sigma):
     height, width = image.shape[0], image.shape[1]
-    # dst image height and width
+    # 目标图像的高度和宽度
     dst_height = height - k_size + 1
     dst_width = width - k_size + 1
 
-    # im2col, turn the k_size*k_size pixels into a row and np.vstack all rows
+    # im2col：将 k_size*k_size 个像素转为一行，再用 np.vstack 堆叠所有行
     image_array = zeros((dst_height * dst_width, k_size * k_size))
     for row, (i, j) in enumerate(product(range(dst_height), range(dst_width))):
         window = ravel(image[i : i + k_size, j : j + k_size])
         image_array[row, :] = window
 
-    #  turn the kernel into shape(k*k, 1)
+    # 将卷积核转换为形状 (k*k, 1)
     gaussian_kernel = gen_gaussian_kernel(k_size, sigma)
     filter_array = ravel(gaussian_kernel)
 
-    # reshape and get the dst image
+    # 重塑并得到目标图像
     dst = dot(image_array, filter_array).reshape(dst_height, dst_width).astype(uint8)
 
     return dst
 
 
 if __name__ == "__main__":
-    # read original image
+    # 读取原始图像
     img = imread(r"../image_data/lena.jpg")
-    # turn image in gray scale value
+    # 将图像转换为灰度值
     gray = cvtColor(img, COLOR_BGR2GRAY)
 
-    # get values with two different mask size
+    # 使用两种不同掩码大小获取结果
     gaussian3x3 = gaussian_filter(gray, 3, sigma=1)
     gaussian5x5 = gaussian_filter(gray, 5, sigma=0.8)
 
-    # show result images
+    # 显示结果图像
     imshow("gaussian filter with 3x3 mask", gaussian3x3)
     imshow("gaussian filter with 5x5 mask", gaussian5x5)
     waitKey()

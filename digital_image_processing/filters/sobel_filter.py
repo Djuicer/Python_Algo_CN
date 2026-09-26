@@ -13,7 +13,7 @@ def sobel_filter(image):
 
     dst_x = np.abs(img_convolve(image, kernel_x))
     dst_y = np.abs(img_convolve(image, kernel_y))
-    # modify the pix within [0, 255]
+    # 将像素值限制在 [0, 255] 范围内
     dst_x = dst_x * 255 / np.max(dst_x)
     dst_y = dst_y * 255 / np.max(dst_y)
 
@@ -26,14 +26,14 @@ def sobel_filter(image):
 
 
 if __name__ == "__main__":
-    # read original image
+    # 读取原始图像
     img = imread("../image_data/lena.jpg")
-    # turn image in gray scale value
+    # 将图像转换为灰度值
     gray = cvtColor(img, COLOR_BGR2GRAY)
 
     sobel_grad, sobel_theta = sobel_filter(gray)
 
-    # show result images
+    # 显示结果图像
     imshow("sobel filter", sobel_grad)
     imshow("sobel theta", sobel_theta)
     waitKey(0)

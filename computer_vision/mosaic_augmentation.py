@@ -8,9 +8,9 @@ from string import ascii_lowercase, digits
 import cv2
 import numpy as np
 
-# Parameters
-OUTPUT_SIZE = (720, 1280)  # Height, Width
-SCALE_RANGE = (0.4, 0.6)  # if height or width lower than this scale, drop it.
+# 参数
+OUTPUT_SIZE = (720, 1280)  # 高度、宽度
+SCALE_RANGE = (0.4, 0.6)  # 高度或宽度低于此比例时丢弃
 FILTER_TINY_SCALE = 1 / 100
 LABEL_DIR = ""
 IMG_DIR = ""
@@ -20,9 +20,9 @@ NUMBER_IMAGES = 250
 
 def main() -> None:
     """
-    Get images list and annotations list from input dir.
-    Update new images and annotations.
-    Save images and annotations in output dir.
+    从输入目录获取图像列表和标注列表。
+    更新新图像及其标注。
+    将图像和标注保存到输出目录。
     """
     img_paths, annos = get_dataset(LABEL_DIR, IMG_DIR)
     for index in range(NUMBER_IMAGES):
@@ -36,7 +36,7 @@ def main() -> None:
             filter_scale=FILTER_TINY_SCALE,
         )
 
-        # Get random string code: '7b7ad245cdff75241935e4dd860f3bad'
+        # 获取随机字符串代码：'7b7ad245cdff75241935e4dd860f3bad'
         letter_code = random_chars(32)
         file_name = path.split(os.sep)[-1].rsplit(".", 1)[0]
         file_root = f"{OUTPUT_DIR}/{file_name}_MOSAIC_{letter_code}"
@@ -56,9 +56,9 @@ def main() -> None:
 
 def get_dataset(label_dir: str, img_dir: str) -> tuple[list, list]:
     """
-    - label_dir <type: str>: Path to label include annotation of images
-    - img_dir <type: str>: Path to folder contain images
-    Return <type: list>: List of images path and labels
+    - label_dir <type: str>：包含图像标注的标签路径
+    - img_dir <type: str>：包含图像的文件夹路径
+    返回 <type: list>：图像路径和标签的列表
     """
     img_paths = []
     labels = []
@@ -93,16 +93,16 @@ def update_image_and_anno(
     filter_scale: float = 0.0,
 ) -> tuple[list, list, str]:
     """
-    - all_img_list <type: list>: list of all images
-    - all_annos <type: list>: list of all annotations of specific image
-    - idxs <type: list>: index of image in list
-    - output_size <type: tuple>: size of output image (Height, Width)
-    - scale_range <type: tuple>: range of scale image
-    - filter_scale <type: float>: the condition of downscale image and bounding box
-    Return:
-        - output_img <type: narray>: image after resize
-        - new_anno <type: list>: list of new annotation after scale
-        - path[0] <type: string>: get the name of image file
+    - all_img_list <type: list>：所有图像的列表
+    - all_annos <type: list>：指定图像的所有标注列表
+    - idxs <type: list>：图像在列表中的索引
+    - output_size <type: tuple>：输出图像尺寸（高度、宽度）
+    - scale_range <type: tuple>：图像缩放范围
+    - filter_scale <type: float>：缩小图像和边界框的筛选条件
+    返回：
+        - output_img <type: narray>：调整大小后的图像
+        - new_anno <type: list>：缩放后的新标注列表
+        - path[0] <type: string>：图像文件名
     """
     output_img = np.zeros([output_size[0], output_size[1], 3], dtype=np.uint8)
     scale_x = scale_range[0] + random.random() * (scale_range[1] - scale_range[0])
@@ -117,7 +117,7 @@ def update_image_and_anno(
         path_list.append(path)
         img_annos = all_annos[index]
         img = cv2.imread(path)
-        if i == 0:  # top-left
+        if i == 0:  # 左上
             img = cv2.resize(img, (divid_point_x, divid_point_y))
             output_img[:divid_point_y, :divid_point_x, :] = img
             for bbox in img_annos:
@@ -126,7 +126,7 @@ def update_image_and_anno(
                 xmax = bbox[3] * scale_x
                 ymax = bbox[4] * scale_y
                 new_anno.append([bbox[0], xmin, ymin, xmax, ymax])
-        elif i == 1:  # top-right
+        elif i == 1:  # 右上
             img = cv2.resize(img, (output_size[1] - divid_point_x, divid_point_y))
             output_img[:divid_point_y, divid_point_x : output_size[1], :] = img
             for bbox in img_annos:
@@ -135,7 +135,7 @@ def update_image_and_anno(
                 xmax = scale_x + bbox[3] * (1 - scale_x)
                 ymax = bbox[4] * scale_y
                 new_anno.append([bbox[0], xmin, ymin, xmax, ymax])
-        elif i == 2:  # bottom-left
+        elif i == 2:  # 左下
             img = cv2.resize(img, (divid_point_x, output_size[0] - divid_point_y))
             output_img[divid_point_y : output_size[0], :divid_point_x, :] = img
             for bbox in img_annos:
@@ -144,7 +144,7 @@ def update_image_and_anno(
                 xmax = bbox[3] * scale_x
                 ymax = scale_y + bbox[4] * (1 - scale_y)
                 new_anno.append([bbox[0], xmin, ymin, xmax, ymax])
-        else:  # bottom-right
+        else:  # 右下
             img = cv2.resize(
                 img, (output_size[1] - divid_point_x, output_size[0] - divid_point_y)
             )
@@ -158,7 +158,7 @@ def update_image_and_anno(
                 ymax = scale_y + bbox[4] * (1 - scale_y)
                 new_anno.append([bbox[0], xmin, ymin, xmax, ymax])
 
-    # Remove bounding box small than scale of filter
+    # 移除小于筛选比例的边界框
     if filter_scale > 0:
         new_anno = [
             anno
@@ -171,8 +171,8 @@ def update_image_and_anno(
 
 def random_chars(number_char: int) -> str:
     """
-    Automatic generate random 32 characters.
-    Get random string code: '7b7ad245cdff75241935e4dd860f3bad'
+    自动生成 32 个随机字符。
+    获取随机字符串代码：'7b7ad245cdff75241935e4dd860f3bad'
     >>> len(random_chars(32))
     32
     """

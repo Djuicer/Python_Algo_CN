@@ -1,14 +1,14 @@
 from PIL import Image
 
 """
-Mean thresholding algorithm for image processing
+用于图像处理的均值阈值算法。
 https://en.wikipedia.org/wiki/Thresholding_(image_processing)
 """
 
 
 def mean_threshold(image: Image.Image) -> Image.Image:
     """
-    image: is a grayscale PIL image object
+    image：PIL 灰度图像对象
     """
     height, width = image.size
     mean = 0

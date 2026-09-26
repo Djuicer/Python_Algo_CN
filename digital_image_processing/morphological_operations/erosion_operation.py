@@ -6,7 +6,7 @@ from PIL import Image
 
 def rgb_to_gray(rgb: np.ndarray) -> np.ndarray:
     """
-    Return gray image from rgb image
+    将 RGB 图像转换为灰度图像
 
     >>> rgb_to_gray(np.array([[[127, 255, 0]]]))
     array([[187.6453]])
@@ -23,7 +23,7 @@ def rgb_to_gray(rgb: np.ndarray) -> np.ndarray:
 
 def gray_to_binary(gray: np.ndarray) -> np.ndarray:
     """
-    Return binary image from gray image
+    将灰度图像转换为二值图像
 
     >>> gray_to_binary(np.array([[127, 255, 0]]))
     array([[False,  True, False]])
@@ -41,7 +41,7 @@ def gray_to_binary(gray: np.ndarray) -> np.ndarray:
 
 def erosion(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     """
-    Return eroded image
+    返回腐蚀后的图像
 
     >>> erosion(np.array([[True, True, False]]), np.array([[0, 1, 0]]))
     array([[False, False, False]])
@@ -53,10 +53,10 @@ def erosion(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
         (image.shape[0] + kernel.shape[0] - 1, image.shape[1] + kernel.shape[1] - 1)
     )
 
-    # Copy image to padded image
+    # 将图像复制到填充后的图像中
     image_padded[kernel.shape[0] - 2 : -1 :, kernel.shape[1] - 2 : -1 :] = image
 
-    # Iterate over image & apply kernel
+    # 遍历图像并应用卷积核
     for x in range(image.shape[1]):
         for y in range(image.shape[0]):
             summation = (
@@ -67,16 +67,16 @@ def erosion(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
 
 
 if __name__ == "__main__":
-    # read original image
+    # 读取原始图像
     lena_path = Path(__file__).resolve().parent / "image_data" / "lena.jpg"
     lena = np.array(Image.open(lena_path))
 
-    # kernel to be applied
+    # 待应用的结构元素
     structuring_element = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
 
-    # Apply erosion operation to a binary image
+    # 对二值图像执行腐蚀操作
     output = erosion(gray_to_binary(rgb_to_gray(lena)), structuring_element)
 
-    # Save the output image
+    # 保存输出图像
     pil_img = Image.fromarray(output).convert("RGB")
     pil_img.save("result_erosion.png")

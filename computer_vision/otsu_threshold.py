@@ -2,22 +2,22 @@ import numpy as np
 from PIL import Image
 
 """
-Otsu thresholding algorithm for image processing
+用于图像处理的 Otsu 阈值算法。
 https://en.wikipedia.org/wiki/Otsu%27s_method
 """
 
 
 def otsu_threshold(image: Image.Image) -> Image.Image:
     """
-    Applies Otsu's thresholding method to a grayscale image.
+    对灰度图像应用 Otsu 阈值处理方法。
 
-    Parameters:
-    image (PIL.Image.Image): A grayscale PIL image object.
+    参数：
+    image (PIL.Image.Image)：PIL 灰度图像对象。
 
-    Returns:
-    PIL.Image.Image: A binary image after applying Otsu's thresholding.
+    返回：
+    PIL.Image.Image：应用 Otsu 阈值处理后的二值图像。
 
-    Example:
+    示例：
     >>> from PIL import Image
     >>> import numpy as np
     >>> image_array = np.array(
@@ -32,17 +32,17 @@ def otsu_threshold(image: Image.Image) -> Image.Image:
            [  0,   0,   0,   0],
            [255, 255, 255, 255]], dtype=uint8)
     """
-    # Convert the image to numpy array
+    # 将图像转换为 NumPy 数组
     pixel_array = np.array(image)
 
-    # Compute histogram
+    # 计算直方图
     hist, _ = np.histogram(pixel_array, bins=256, range=(0, 256))
 
-    # Compute between class variance
+    # 计算类间方差
     total_pixels = pixel_array.size
-    current_max, threshold = 0.0, 0  # Ensure current_max is a float
-    sum_total, sum_foreground = 0.0, 0.0  # Ensure these are floats
-    weight_background, weight_foreground = 0.0, 0.0  # Ensure these are floats
+    current_max, threshold = 0.0, 0  # 确保 current_max 为浮点数
+    sum_total, sum_foreground = 0.0, 0.0  # 确保这些值为浮点数
+    weight_background, weight_foreground = 0.0, 0.0  # 确保这些值为浮点数
 
     for i in range(256):
         sum_total += i * hist[i]
@@ -69,9 +69,9 @@ def otsu_threshold(image: Image.Image) -> Image.Image:
             current_max = between_class_variance
             threshold = i
 
-    # Apply threshold to the image
+    # 对图像应用阈值
     binary_image = pixel_array > threshold
     binary_image = binary_image.astype(np.uint8) * 255
 
-    # Convert numpy array back to PIL image
+    # 将 NumPy 数组转换回 PIL 图像
     return Image.fromarray(binary_image)

@@ -9,10 +9,9 @@ import numpy.typing as npt
 
 
 def root_mean_square_error(original: np.ndarray, reference: np.ndarray) -> float:
-    """Simple implementation of Root Mean Squared Error
-    for two N dimensional numpy arrays.
+    """计算两个 N 维 NumPy 数组均方根误差的简单实现。
 
-    Examples:
+    示例：
         >>> root_mean_square_error(np.array([1, 2, 3]), np.array([1, 2, 3]))
         0.0
         >>> root_mean_square_error(np.array([1, 2, 3]), np.array([2, 2, 2]))
@@ -27,17 +26,16 @@ def normalize_image(
     image: np.ndarray, cap: float = 255.0, data_type: npt.DTypeLike = np.uint8
 ) -> np.ndarray:
     """
-    Normalizes image in Numpy 2D array format, between ranges 0-cap,
-    as to fit uint8 type.
+    将 NumPy 二维数组格式的图像归一化到 0-cap 范围，以适配 uint8 类型。
 
-    Args:
-        image: 2D numpy array representing image as matrix, with values in any range
-        cap: Maximum cap amount for normalization
-        data_type: numpy data type to set output variable to
-    Returns:
-        return 2D numpy array of type uint8, corresponding to limited range matrix
+    参数：
+        image: 以矩阵表示图像的二维 NumPy 数组，值可处于任意范围
+        cap: 归一化的最大上限
+        data_type: 输出变量使用的 NumPy 数据类型
+    返回：
+        返回 uint8 类型的二维 NumPy 数组，对应范围受限的矩阵
 
-    Examples:
+    示例：
         >>> normalize_image(np.array([[1, 2, 3], [4, 5, 10]]),
         ...                 cap=1.0, data_type=np.float64)
         array([[0.        , 0.11111111, 0.22222222],
@@ -51,15 +49,15 @@ def normalize_image(
 
 
 def normalize_array(array: np.ndarray, cap: float = 1) -> np.ndarray:
-    """Normalizes a 1D array, between ranges 0-cap.
+    """将一维数组归一化到 0-cap 范围。
 
-    Args:
-        array: List containing values to be normalized between cap range.
-        cap: Maximum cap amount for normalization.
-    Returns:
-        return 1D numpy array, corresponding to limited range array
+    参数：
+        array: 包含待归一化到上限范围内数值的列表。
+        cap: 归一化的最大上限。
+    返回：
+        返回一维 NumPy 数组，对应范围受限的数组
 
-    Examples:
+    示例：
         >>> normalize_array(np.array([2, 3, 5, 7]))
         array([0. , 0.2, 0.6, 1. ])
         >>> normalize_array(np.array([[5], [7], [11], [13]]))
@@ -74,10 +72,9 @@ def normalize_array(array: np.ndarray, cap: float = 1) -> np.ndarray:
 
 def grayscale(image: np.ndarray) -> np.ndarray:
     """
-    Uses luminance weights to transform RGB channel to greyscale, by
-    taking the dot product between the channel and the weights.
+    通过计算通道与亮度权重的点积，将 RGB 通道转换为灰度图。
 
-    Example:
+    示例：
         >>> grayscale(np.array([[[108, 201, 72], [255, 11,  127]],
         ...                     [[56,  56,  56], [128, 255, 107]]]))
         array([[158,  97],
@@ -88,10 +85,9 @@ def grayscale(image: np.ndarray) -> np.ndarray:
 
 def binarize(image: np.ndarray, threshold: float = 127.0) -> np.ndarray:
     """
-    Binarizes a grayscale image based on a given threshold value,
-    setting values to 1 or 0 accordingly.
+    根据给定阈值对灰度图像进行二值化，将数值相应设为 1 或 0。
 
-    Examples:
+    示例：
         >>> binarize(np.array([[128, 255], [101, 156]]))
         array([[1, 1],
                [0, 1]])
@@ -106,21 +102,19 @@ def transform(
     image: np.ndarray, kind: str, kernel: np.ndarray | None = None
 ) -> np.ndarray:
     """
-    Simple image transformation using one of two available filter functions:
-    Erosion and Dilation.
+    使用腐蚀（Erosion）或膨胀（Dilation）两种滤波函数之一进行简单图像变换。
 
-    Args:
-        image: binarized input image, onto which to apply transformation
-        kind: Can be either 'erosion', in which case the :func:np.max
-              function is called, or 'dilation', when :func:np.min is used instead.
-        kernel: n x n kernel with shape < :attr:image.shape,
-              to be used when applying convolution to original image
+    参数：
+        image: 要应用变换的二值化输入图像
+        kind: 可以是 'erosion'，此时调用 :func:np.max；也可以是
+              'dilation'，此时改用 :func:np.min。
+        kernel: 形状小于 :attr:image.shape 的 n x n 卷积核，
+              用于对原始图像应用卷积
 
-    Returns:
-        returns a numpy array with same shape as input image,
-        corresponding to applied binary transformation.
+    返回：
+        返回与输入图像形状相同的 NumPy 数组，对应所应用的二值变换。
 
-    Examples:
+    示例：
         >>> img = np.array([[1, 0.5], [0.2, 0.7]])
         >>> img = binarize(img, threshold=0.5)
         >>> transform(img, 'erosion')
@@ -142,8 +136,7 @@ def transform(
 
     center_x, center_y = (x // 2 for x in kernel.shape)
 
-    # Use padded image when applying convolution
-    # to not go out of bounds of the original the image
+    # 应用卷积时使用填充图像，避免越过原图边界
     transformed = np.zeros(image.shape, dtype=np.uint8)
     padded = np.pad(image, 1, "constant", constant_values=constant)
 
@@ -152,7 +145,7 @@ def transform(
             center = padded[
                 x - center_x : x + center_x + 1, y - center_y : y + center_y + 1
             ]
-            # Apply transformation method to the centered section of the image
+            # 对图像的中心区域应用变换方法
             transformed[x - center_x, y - center_y] = apply(center[kernel == 1])
 
     return transformed
@@ -160,10 +153,9 @@ def transform(
 
 def opening_filter(image: np.ndarray, kernel: np.ndarray | None = None) -> np.ndarray:
     """
-    Opening filter, defined as the sequence of
-    erosion and then a dilation filter on the same image.
+    开运算滤波器：依次对同一图像执行腐蚀和膨胀滤波。
 
-    Examples:
+    示例：
         >>> img = np.array([[1, 0.5], [0.2, 0.7]])
         >>> img = binarize(img, threshold=0.5)
         >>> opening_filter(img)
@@ -178,10 +170,9 @@ def opening_filter(image: np.ndarray, kernel: np.ndarray | None = None) -> np.nd
 
 def closing_filter(image: np.ndarray, kernel: np.ndarray | None = None) -> np.ndarray:
     """
-    Opening filter, defined as the sequence of
-    dilation and then erosion filter on the same image.
+    闭运算滤波器：依次对同一图像执行膨胀和腐蚀滤波。
 
-    Examples:
+    示例：
         >>> img = np.array([[1, 0.5], [0.2, 0.7]])
         >>> img = binarize(img, threshold=0.5)
         >>> closing_filter(img)
@@ -197,12 +188,11 @@ def binary_mask(
     image_gray: np.ndarray, image_map: np.ndarray
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    Apply binary mask, or thresholding based
-    on bit mask value (mapping mask is binary).
+    应用二值掩码，或根据位掩码值执行阈值处理（映射掩码为二值）。
 
-    Returns the mapped true value mask and its complementary false value mask.
+    返回映射后的真值掩码及其互补的假值掩码。
 
-    Example:
+    示例：
         >>> img = np.array([[[108, 201, 72], [255, 11,  127]],
         ...                 [[56,  56,  56], [128, 255, 107]]])
         >>> gray = grayscale(img)
@@ -222,14 +212,12 @@ def binary_mask(
 
 def matrix_concurrency(image: np.ndarray, coordinate: tuple[int, int]) -> np.ndarray:
     """
-    Calculate sample co-occurrence matrix based on input image
-    as well as selected coordinates on image.
+    根据输入图像及图像上选定的坐标计算样本共生矩阵。
 
-    Implementation is made using basic iteration,
-    as function to be performed (np.max) is non-linear and therefore
-    not callable on the frequency domain.
+    由于要执行的函数（np.max）是非线性的，无法在频域调用，
+    因此本实现使用基本迭代。
 
-    Example:
+    示例：
         >>> img = np.array([[[108, 201, 72], [255, 11,  127]],
         ...                 [[56,  56,  56], [128, 255, 107]]])
         >>> gray = grayscale(img)
@@ -255,18 +243,16 @@ def matrix_concurrency(image: np.ndarray, coordinate: tuple[int, int]) -> np.nda
 
 
 def haralick_descriptors(matrix: np.ndarray) -> list[float]:
-    """Calculates all 8 Haralick descriptors based on co-occurrence input matrix.
-    All descriptors are as follows:
-    Maximum probability, Inverse Difference, Homogeneity, Entropy,
-    Energy, Dissimilarity, Contrast and Correlation
+    """根据输入的共生矩阵计算全部 8 个 Haralick 描述子：
+    最大概率、逆差、同质性、熵、能量、非相似性、对比度和相关性。
 
-    Args:
-        matrix: Co-occurrence matrix to use as base for calculating descriptors.
+    参数：
+        matrix: 用作描述子计算基础的共生矩阵。
 
-    Returns:
-        Reverse ordered list of resulting descriptors
+    返回：
+        逆序排列的描述子结果列表
 
-    Example:
+    示例：
         >>> img = np.array([[[108, 201, 72], [255, 11,  127]],
         ...                 [[56,  56,  56], [128, 255, 107]]])
         >>> gray = grayscale(img)
@@ -277,17 +263,16 @@ def haralick_descriptors(matrix: np.ndarray) -> list[float]:
         >>> [float(f) for f in haralick_descriptors(concurrency)]
         [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     """
-    # Function np.indices could be used for bigger input types,
-    # but np.ogrid works just fine
+    # 对于更大的输入类型可以使用 np.indices，但 np.ogrid 已足够
     i, j = np.ogrid[0 : matrix.shape[0], 0 : matrix.shape[1]]  # np.indices()
 
-    # Pre-calculate frequent multiplication and subtraction
+    # 预先计算频繁使用的乘法和减法
     prod = np.multiply(i, j)
     sub = np.subtract(i, j)
 
-    # Calculate numerical value of Maximum Probability
+    # 计算最大概率的数值
     maximum_prob = np.max(matrix)
-    # Using the definition for each descriptor individually to calculate its matrix
+    # 根据每个描述子的定义分别计算其矩阵
     correlation = prod * matrix
     energy = np.power(matrix, 2)
     contrast = matrix * np.power(sub, 2)
@@ -297,8 +282,8 @@ def haralick_descriptors(matrix: np.ndarray) -> list[float]:
     homogeneity = matrix / (1 + np.power(sub, 2))
     entropy = -(matrix[matrix > 0] * np.log(matrix[matrix > 0]))
 
-    # Sum values for descriptors ranging from the first one to the last,
-    # as all are their respective origin matrix and not the resulting value yet.
+    # 对从第一个到最后一个描述子的值求和，因为此时各项仍是各自的原始矩阵，
+    # 尚未得到最终数值
     return [
         maximum_prob,
         correlation.sum(),
@@ -315,10 +300,9 @@ def get_descriptors(
     masks: tuple[np.ndarray, np.ndarray], coordinate: tuple[int, int]
 ) -> np.ndarray:
     """
-    Calculate all Haralick descriptors for a sequence of
-    different co-occurrence matrices, given input masks and coordinates.
+    根据输入掩码和坐标，计算一系列不同共生矩阵的全部 Haralick 描述子。
 
-    Example:
+    示例：
         >>> img = np.array([[[108, 201, 72], [255, 11,  127]],
         ...                 [[56,  56,  56], [128, 255, 107]]])
         >>> gray = grayscale(img)
@@ -331,17 +315,15 @@ def get_descriptors(
         [haralick_descriptors(matrix_concurrency(mask, coordinate)) for mask in masks]
     )
 
-    # Concatenate each individual descriptor into
-    # one single list containing sequence of descriptors
+    # 将各个描述子连接成一个包含描述子序列的列表
     return np.concatenate(descriptors, axis=None)
 
 
 def euclidean(point_1: np.ndarray, point_2: np.ndarray) -> float:
     """
-    Simple method for calculating the euclidean distance between two points,
-    with type np.ndarray.
+    计算两个 np.ndarray 类型点之间欧氏距离的简单方法。
 
-    Example:
+    示例：
         >>> a = np.array([1, 0, -2])
         >>> b = np.array([2, -1, 1])
         >>> euclidean(a, b)
@@ -352,20 +334,17 @@ def euclidean(point_1: np.ndarray, point_2: np.ndarray) -> float:
 
 def get_distances(descriptors: np.ndarray, base: int) -> list[tuple[int, float]]:
     """
-    Calculate all Euclidean distances between a selected base descriptor
-    and all other Haralick descriptors
-    The resulting comparison is return in decreasing order,
-    showing which descriptor is the most similar to the selected base.
+    计算选定基准描述子与其他所有 Haralick 描述子之间的欧氏距离。
+    比较结果按降序返回，以显示哪个描述子与选定基准最相似。
 
-    Args:
-        descriptors: Haralick descriptors to compare with base index
-        base: Haralick descriptor index to use as base when calculating respective
-        euclidean distance to other descriptors.
+    参数：
+        descriptors: 要与基准索引比较的 Haralick 描述子
+        base: 计算与其他描述子欧氏距离时用作基准的 Haralick 描述子索引。
 
-    Returns:
-        Ordered distances between descriptors
+    返回：
+        描述子之间排好序的距离
 
-    Example:
+    示例：
         >>> index = 1
         >>> img = np.array([[[108, 201, 72], [255, 11,  127]],
         ...                 [[56,  56,  56], [128, 255, 107]]])
@@ -382,7 +361,7 @@ def get_distances(descriptors: np.ndarray, base: int) -> list[tuple[int, float]]
     distances = np.array(
         [euclidean(descriptor, descriptors[base]) for descriptor in descriptors]
     )
-    # Normalize distances between range [0, 1]
+    # 将距离归一化到 [0, 1] 范围
     normalized_distances: list[float] = normalize_array(distances, 1).tolist()
     enum_distances = list(enumerate(normalized_distances))
     enum_distances.sort(key=lambda tup: tup[1], reverse=True)
@@ -390,16 +369,15 @@ def get_distances(descriptors: np.ndarray, base: int) -> list[tuple[int, float]]
 
 
 if __name__ == "__main__":
-    # Index to compare haralick descriptors to
+    # 用于比较 Haralick 描述子的索引
     index = int(input())
     q_value_list = [int(value) for value in input().split()]
     q_value = (q_value_list[0], q_value_list[1])
 
-    # Format is the respective filter to apply,
-    # can be either 1 for the opening filter or else for the closing
+    # 格式表示要应用的相应滤波器：1 表示开运算滤波器，其他值表示闭运算
     parameters = {"format": int(input()), "threshold": int(input())}
 
-    # Number of images to perform methods on
+    # 要执行这些方法的图像数量
     b_number = int(input())
 
     files, descriptors = [], []
@@ -408,8 +386,7 @@ if __name__ == "__main__":
         file = input().rstrip()
         files.append(file)
 
-        # Open given image and calculate morphological filter,
-        # respective masks and correspondent Harralick Descriptors.
+        # 打开给定图像，计算形态学滤波、相应掩码和对应的 Haralick 描述子
         image = imageio.imread(file).astype(np.float32)
         gray = grayscale(image)
         threshold = binarize(gray, parameters["threshold"])
@@ -422,13 +399,12 @@ if __name__ == "__main__":
         masks = binary_mask(gray, morphological)
         descriptors.append(get_descriptors(masks, q_value))
 
-    # Transform ordered distances array into a sequence of indexes
-    # corresponding to original file position
+    # 将排好序的距离数组转换为与原文件位置对应的索引序列
     distances = get_distances(np.array(descriptors), index)
     indexed_distances = np.array(distances).astype(np.uint8)[:, 0]
 
-    # Finally, print distances considering the Haralick descriptions from the base
-    # file to all other images using the morphology method of choice.
+    # 最后，使用所选形态学方法，输出基准文件的 Haralick 描述子与其他所有
+    # 图像之间的距离
     print(f"Query: {files[index]}")
     print("Ranking:")
     for idx, file_idx in enumerate(indexed_distances):

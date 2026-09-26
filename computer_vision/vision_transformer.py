@@ -1,16 +1,15 @@
 """
-Vision Transformer (ViT) for Image Classification
+用于图像分类的视觉 Transformer（Vision Transformer，ViT）
 
-This module implements the Vision Transformer architecture as described in the paper
+本模块实现以下论文所述的视觉 Transformer 架构：
 "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale"
-by Dosovitskiy et al. (2020)
+Dosovitskiy 等人（2020）
 
 Paper: https://arxiv.org/abs/2010.11929
 
-The Vision Transformer splits an image into fixed-size patches, linearly embeds each
-patch, adds position embeddings, and feeds the resulting sequence of vectors to a
-standard Transformer encoder. For classification, a learnable classification token
-is prepended to the sequence.
+视觉 Transformer 将图像划分为固定大小的图块，对每个图块进行线性嵌入，
+加入位置嵌入，再将所得向量序列送入标准 Transformer 编码器。
+执行分类时，会在序列前添加一个可学习的分类标记。
 
 Author: devvratpathak
 """
@@ -22,18 +21,18 @@ def create_patches(
     image: np.ndarray, patch_size: int = 16
 ) -> tuple[np.ndarray, tuple[int, int]]:
     """
-    Split an image into non-overlapping patches.
+    将图像划分为互不重叠的图块。
 
-    Args:
-        image: Input image array of shape (height, width, channels)
-        patch_size: Size of each square patch (default: 16)
+    参数：
+        image: 形状为 (height, width, channels) 的输入图像数组
+        patch_size: 每个正方形图块的大小（默认值：16）
 
-    Returns:
+    返回：
         A tuple containing:
-        - patches: Array of shape (num_patches, patch_size, patch_size, channels)
-        - grid_size: Tuple (height_patches, width_patches) representing the grid
+        - patches: 形状为 (num_patches, patch_size, patch_size, channels) 的数组
+        - grid_size: 表示网格的元组 (height_patches, width_patches)
 
-    Examples:
+    示例：
         >>> img = np.random.rand(32, 32, 3)
         >>> patches, grid = create_patches(img, patch_size=16)
         >>> patches.shape
@@ -61,17 +60,17 @@ def create_patches(
         )
         raise ValueError(msg)
 
-    # Calculate number of patches in each dimension
+    # 计算各维度的图块数量
     num_patches_h = height // patch_size
     num_patches_w = width // patch_size
 
-    # Reshape image into patches
+    # 将图像重塑为图块
     patches = image.reshape(
         num_patches_h, patch_size, num_patches_w, patch_size, channels
     )
-    # Transpose to get patches in sequence
+    # 转置以得到图块序列
     patches = patches.transpose(0, 2, 1, 3, 4)
-    # Reshape to (num_patches, patch_size, patch_size, channels)
+    # 重塑为 (num_patches, patch_size, patch_size, channels)
     patches = patches.reshape(-1, patch_size, patch_size, channels)
 
     return patches, (num_patches_h, num_patches_w)
@@ -79,17 +78,17 @@ def create_patches(
 
 def patch_embedding(patches: np.ndarray, embedding_dim: int = 768) -> np.ndarray:
     """
-    Linearly project flattened patches to embedding dimension.
+    将展平后的图块线性投影到嵌入维度。
 
-    Args:
-        patches: Array of patches with shape
+    参数：
+        patches: 图块数组，形状为
             (num_patches, patch_size, patch_size, channels)
-        embedding_dim: Dimension of the embedding space (default: 768)
+        embedding_dim: 嵌入空间维度（默认值：768）
 
-    Returns:
-        Embedded patches of shape (num_patches, embedding_dim)
+    返回：
+        形状为 (num_patches, embedding_dim) 的嵌入图块
 
-    Examples:
+    示例：
         >>> patches = np.random.rand(4, 16, 16, 3)
         >>> embeddings = patch_embedding(patches, embedding_dim=768)
         >>> embeddings.shape
@@ -101,11 +100,11 @@ def patch_embedding(patches: np.ndarray, embedding_dim: int = 768) -> np.ndarray
         (196, 512)
     """
     num_patches = patches.shape[0]
-    # Flatten each patch
+    # 展平每个图块
     flattened = patches.reshape(num_patches, -1)
 
-    # Linear projection (simplified - in practice this is a learned weight matrix)
-    # For demonstration, we use random projection
+    # 线性投影（简化实现；实际应用中这是学习得到的权重矩阵）
+    # 此处使用随机投影进行演示
     patch_dim = flattened.shape[1]
     rng = np.random.default_rng()
     projection_matrix = rng.standard_normal((patch_dim, embedding_dim)) * 0.02
@@ -119,16 +118,16 @@ def add_positional_encoding(
     embeddings: np.ndarray, num_positions: int | None = None
 ) -> np.ndarray:
     """
-    Add learnable positional encodings to patch embeddings.
+    向图块嵌入添加可学习的位置编码。
 
-    Args:
-        embeddings: Embedded patches of shape (num_patches, embedding_dim)
-        num_positions: Number of positions (if None, uses num_patches + 1 for CLS token)
+    参数：
+        embeddings: 形状为 (num_patches, embedding_dim) 的嵌入图块
+        num_positions: 位置数量（若为 None，则为 CLS 标记使用 num_patches + 1）
 
-    Returns:
-        Embeddings with positional encoding of shape (num_positions, embedding_dim)
+    返回：
+        形状为 (num_positions, embedding_dim) 的带位置编码嵌入
 
-    Examples:
+    示例：
         >>> embeddings = np.random.rand(4, 768)
         >>> pos_embeddings = add_positional_encoding(embeddings)
         >>> pos_embeddings.shape
@@ -142,20 +141,20 @@ def add_positional_encoding(
     num_patches, embedding_dim = embeddings.shape
 
     if num_positions is None:
-        # Add 1 for the CLS token
+    # 为 CLS 标记加 1
         num_positions = num_patches + 1
 
-    # Create learnable positional encodings (simplified - normally learned)
+    # 创建可学习的位置编码（简化实现；通常由训练获得）
     rng = np.random.default_rng()
     positional_encodings = rng.standard_normal((num_positions, embedding_dim)) * 0.02
 
-    # Prepend CLS token
+    # 在序列前添加 CLS 标记
     cls_token = rng.standard_normal((1, embedding_dim)) * 0.02
 
-    # Concatenate CLS token with patch embeddings
+    # 将 CLS 标记与图块嵌入连接
     embeddings_with_cls = np.vstack([cls_token, embeddings])
 
-    # Add positional encodings
+    # 添加位置编码
     embeddings_with_pos = embeddings_with_cls + positional_encodings
 
     return embeddings_with_pos
@@ -168,22 +167,22 @@ def attention_mechanism(
     mask: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    Compute scaled dot-product attention.
+    计算缩放点积注意力。
 
     Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V
 
-    Args:
-        query: Query matrix of shape (seq_len, d_k)
-        key: Key matrix of shape (seq_len, d_k)
-        value: Value matrix of shape (seq_len, d_v)
-        mask: Optional attention mask
+    参数：
+        query: 形状为 (seq_len, d_k) 的查询矩阵
+        key: 形状为 (seq_len, d_k) 的键矩阵
+        value: 形状为 (seq_len, d_v) 的值矩阵
+        mask: 可选的注意力掩码
 
-    Returns:
+    返回：
         A tuple containing:
-        - output: Attention output of shape (seq_len, d_v)
-        - attention_weights: Attention weights of shape (seq_len, seq_len)
+        - output: 形状为 (seq_len, d_v) 的注意力输出
+        - attention_weights: 形状为 (seq_len, seq_len) 的注意力权重
 
-    Examples:
+    示例：
         >>> q = np.random.rand(10, 64)
         >>> k = np.random.rand(10, 64)
         >>> v = np.random.rand(10, 64)
@@ -197,18 +196,18 @@ def attention_mechanism(
     """
     d_k = query.shape[-1]
 
-    # Compute attention scores: QK^T / sqrt(d_k)
+    # 计算注意力分数：QK^T / sqrt(d_k)
     scores = query @ key.T / np.sqrt(d_k)
 
-    # Apply mask if provided
+    # 若提供了掩码，则应用掩码
     if mask is not None:
         scores = np.where(mask, scores, -1e9)
 
-    # Apply softmax to get attention weights
+    # 应用 softmax 得到注意力权重
     exp_scores = np.exp(scores - np.max(scores, axis=-1, keepdims=True))
     attention_weights = exp_scores / np.sum(exp_scores, axis=-1, keepdims=True)
 
-    # Compute weighted sum of values
+    # 计算值的加权和
     output = attention_weights @ value
 
     return output, attention_weights
@@ -216,16 +215,16 @@ def attention_mechanism(
 
 def layer_norm(embeddings: np.ndarray, epsilon: float = 1e-6) -> np.ndarray:
     """
-    Apply Layer Normalization.
+    应用层归一化（Layer Normalization）。
 
-    Args:
-        embeddings: Input array of shape (seq_len, embedding_dim)
-        epsilon: Small constant for numerical stability (default: 1e-6)
+    参数：
+        embeddings: 形状为 (seq_len, embedding_dim) 的输入数组
+        epsilon: 用于保证数值稳定性的小常数（默认值：1e-6）
 
-    Returns:
-        Normalized array of same shape as input
+    返回：
+        与输入形状相同的归一化数组
 
-    Examples:
+    示例：
         >>> embeddings = np.random.rand(10, 768)
         >>> normalized = layer_norm(embeddings)
         >>> normalized.shape
@@ -242,18 +241,18 @@ def layer_norm(embeddings: np.ndarray, epsilon: float = 1e-6) -> np.ndarray:
 
 def feedforward_network(embeddings: np.ndarray, hidden_dim: int = 3072) -> np.ndarray:
     """
-    Apply position-wise feed-forward network.
+    应用逐位置前馈网络。
 
     FFN(x) = max(0, xW1 + b1)W2 + b2
 
-    Args:
-        embeddings: Input array of shape (seq_len, embedding_dim)
-        hidden_dim: Hidden dimension size (default: 3072, typically 4x embedding_dim)
+    参数：
+        embeddings: 形状为 (seq_len, embedding_dim) 的输入数组
+        hidden_dim: 隐藏维度大小（默认值：3072，通常为 embedding_dim 的 4 倍）
 
-    Returns:
-        Output array of shape (seq_len, embedding_dim)
+    返回：
+        形状为 (seq_len, embedding_dim) 的输出数组
 
-    Examples:
+    示例：
         >>> embeddings = np.random.rand(10, 768)
         >>> output = feedforward_network(embeddings, hidden_dim=3072)
         >>> output.shape
@@ -267,16 +266,16 @@ def feedforward_network(embeddings: np.ndarray, hidden_dim: int = 3072) -> np.nd
     embedding_dim = embeddings.shape[1]
     rng = np.random.default_rng()
 
-    # First linear layer
+    # 第一个线性层
     w1 = rng.standard_normal((embedding_dim, hidden_dim)) * 0.02
     b1 = np.zeros(hidden_dim)
     hidden = embeddings @ w1 + b1
 
-    # GELU activation (approximation)
+    # GELU 激活函数（近似实现）
     gelu_factor = np.sqrt(2 / np.pi) * (hidden + 0.044715 * hidden**3)
     hidden = 0.5 * hidden * (1 + np.tanh(gelu_factor))
 
-    # Second linear layer
+    # 第二个线性层
     w2 = rng.standard_normal((hidden_dim, embedding_dim)) * 0.02
     b2 = np.zeros(embedding_dim)
     output = hidden @ w2 + b2
@@ -290,21 +289,21 @@ def transformer_encoder_block(
     hidden_dim: int = 3072,
 ) -> np.ndarray:
     """
-    Apply a single Transformer encoder block.
+    应用单个 Transformer 编码器块。
 
-    The block consists of:
-    1. Multi-head self-attention with residual connection and layer norm
-    2. Feed-forward network with residual connection and layer norm
+    该编码器块包括：
+    1. 带残差连接和层归一化的多头自注意力
+    2. 带残差连接和层归一化的前馈网络
 
-    Args:
-        embeddings: Input array of shape (seq_len, embedding_dim)
-        num_heads: Number of attention heads (default: 12, kept for API)
-        hidden_dim: Hidden dimension for FFN (default: 3072)
+    参数：
+        embeddings: 形状为 (seq_len, embedding_dim) 的输入数组
+        num_heads: 注意力头数量（默认值：12，为保持 API 而保留）
+        hidden_dim: FFN 的隐藏维度（默认值：3072）
 
-    Returns:
-        Output array of shape (seq_len, embedding_dim)
+    返回：
+        形状为 (seq_len, embedding_dim) 的输出数组
 
-    Examples:
+    示例：
         >>> embeddings = np.random.rand(197, 768)
         >>> output = transformer_encoder_block(
         ...     embeddings, num_heads=12, hidden_dim=3072
@@ -319,18 +318,18 @@ def transformer_encoder_block(
         >>> output.shape
         (50, 512)
     """
-    # Multi-head self-attention (simplified - using single head for demonstration)
-    # In practice, this would split into multiple heads
-    # num_heads parameter is kept for API compatibility
+    # 多头自注意力（简化实现；使用单个注意力头进行演示）
+    # 实际应用中会拆分为多个注意力头
+    # 保留 num_heads 参数以保持 API 兼容性
     attention_output, _ = attention_mechanism(embeddings, embeddings, embeddings)
 
-    # Add residual connection and apply layer norm
+    # 添加残差连接并应用层归一化
     embeddings = layer_norm(embeddings + attention_output)
 
-    # Feed-forward network
+    # 前馈网络
     ffn_output = feedforward_network(embeddings, hidden_dim)
 
-    # Add residual connection and apply layer norm
+    # 添加残差连接并应用层归一化
     embeddings = layer_norm(embeddings + ffn_output)
 
     return embeddings
@@ -346,28 +345,28 @@ def vision_transformer(
     num_classes: int = 1000,
 ) -> np.ndarray:
     """
-    Apply Vision Transformer for image classification.
+    应用视觉 Transformer 进行图像分类。
 
-    Architecture:
-    1. Split image into patches
-    2. Linear projection of flattened patches
-    3. Add positional embeddings
-    4. Pass through Transformer encoder layers
-    5. Extract CLS token and apply classification head
+    架构：
+    1. 将图像划分为图块
+    2. 对展平后的图块进行线性投影
+    3. 添加位置嵌入
+    4. 通过 Transformer 编码器层
+    5. 提取 CLS 标记并应用分类头
 
-    Args:
-        image: Input image array of shape (height, width, channels)
-        patch_size: Size of each patch (default: 16)
-        embedding_dim: Embedding dimension (default: 768)
-        num_layers: Number of Transformer layers (default: 12)
-        num_heads: Number of attention heads (default: 12)
-        hidden_dim: Hidden dimension in FFN (default: 3072)
-        num_classes: Number of output classes (default: 1000)
+    参数：
+        image: 形状为 (height, width, channels) 的输入图像数组
+        patch_size: 每个图块的大小（默认值：16）
+        embedding_dim: 嵌入维度（默认值：768）
+        num_layers: Transformer 层数（默认值：12）
+        num_heads: 注意力头数量（默认值：12）
+        hidden_dim: FFN 的隐藏维度（默认值：3072）
+        num_classes: 输出类别数量（默认值：1000）
 
-    Returns:
-        Class logits of shape (num_classes,)
+    返回：
+        形状为 (num_classes,) 的类别 logits
 
-    Examples:
+    示例：
         >>> img = np.random.rand(224, 224, 3)
         >>> logits = vision_transformer(img, patch_size=16, num_classes=10)
         >>> logits.shape
@@ -380,23 +379,23 @@ def vision_transformer(
         >>> logits.shape
         (100,)
     """
-    # Step 1: Create patches
+    # 步骤 1：创建图块
     patches, _ = create_patches(image, patch_size)
 
-    # Step 2: Embed patches
+    # 步骤 2：嵌入图块
     embeddings = patch_embedding(patches, embedding_dim)
 
-    # Step 3: Add positional encodings (includes CLS token)
+    # 步骤 3：添加位置编码（包括 CLS 标记）
     embeddings = add_positional_encoding(embeddings)
 
-    # Step 4: Pass through Transformer encoder layers
+    # 步骤 4：通过 Transformer 编码器层
     for _ in range(num_layers):
         embeddings = transformer_encoder_block(embeddings, num_heads, hidden_dim)
 
-    # Step 5: Extract CLS token (first token)
+    # 步骤 5：提取 CLS 标记（第一个标记）
     cls_token = embeddings[0]
 
-    # Step 6: Classification head (linear layer)
+    # 步骤 6：分类头（线性层）
     rng = np.random.default_rng()
     classifier_weights = rng.standard_normal((embedding_dim, num_classes)) * 0.02
     classifier_bias = np.zeros(num_classes)
@@ -410,16 +409,16 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Example usage
+    # 使用示例
     print("Vision Transformer Example")
     print("=" * 50)
 
-    # Create a sample image (224x224x3 for ImageNet-style input)
+    # 创建示例图像（ImageNet 风格输入为 224x224x3）
     rng = np.random.default_rng()
     sample_image = rng.random((224, 224, 3))
     print(f"Input image shape: {sample_image.shape}")
 
-    # Apply Vision Transformer
+    # 应用视觉 Transformer
     logits = vision_transformer(
         sample_image,
         patch_size=16,
@@ -433,7 +432,7 @@ if __name__ == "__main__":
     print(f"Output logits shape: {logits.shape}")
     print(f"Predicted class: {np.argmax(logits)}")
 
-    # Demonstrate patch creation
+    # 演示图块创建
     print("\n" + "=" * 50)
     print("Patch Creation Example")
     patches, grid = create_patches(sample_image, patch_size=16)

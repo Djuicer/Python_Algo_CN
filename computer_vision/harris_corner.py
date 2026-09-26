@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 """
-Harris Corner Detector
+Harris 角点检测器
 https://en.wikipedia.org/wiki/Harris_Corner_Detector
 """
 
@@ -10,8 +10,8 @@ https://en.wikipedia.org/wiki/Harris_Corner_Detector
 class HarrisCorner:
     def __init__(self, k: float, window_size: int) -> None:
         """
-        k : is an empirically determined constant in [0.04,0.06]
-        window_size : neighbourhoods considered
+        k：取值在 [0.04,0.06] 内的经验常数
+        window_size：考虑的邻域大小
         """
 
         if k in (0.04, 0.06):
@@ -25,9 +25,9 @@ class HarrisCorner:
 
     def detect(self, img_path: str) -> tuple[cv2.Mat, list[list[int]]]:
         """
-        Returns the image with corners identified
-        img_path  : path of the image
-        output : list of the corner positions, image
+        返回标识出角点的图像。
+        img_path：图像路径
+        output：角点位置列表、图像
         """
 
         img = cv2.imread(img_path, 0)
@@ -56,7 +56,7 @@ class HarrisCorner:
                 det = (wxx * wyy) - (wxy**2)
                 trace = wxx + wyy
                 r = det - k * (trace**2)
-                # Can change the value
+                # 可以调整该值
                 if r > 0.5:
                     corner_list.append([x, y, r])
                     color_img.itemset((y, x, 0), 0)

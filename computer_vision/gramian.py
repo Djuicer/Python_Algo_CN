@@ -1,5 +1,5 @@
 """
-Image style reconstruction with Gram matrices.
+使用 Gram 矩阵重建图像风格。
 
 https://en.wikipedia.org/wiki/Gram_matrix
 https://en.wikipedia.org/wiki/Neural_style_transfer
@@ -11,14 +11,14 @@ import numpy as np
 
 def gram_matrix(mat: np.ndarray) -> np.ndarray:
     """
-    Returns the Gram (Gramian) matrix of an image.
+    返回图像的 Gram 矩阵（Gramian Matrix）。
 
-    :param mat: matrix of shape (C, H, W); C = color channels, H = height, W = width.
+    :param mat: 形状为 (C, H, W) 的矩阵；C = 颜色通道数，H = 高度，W = 宽度。
     :type mat: np.ndarray
-    :return: matrix of shape (C, C).
+    :return: 形状为 (C, C) 的矩阵。
     :rtype: np.ndarray
 
-    Examples
+    示例
     --------
     >>> gram_matrix(np.ones((2,5,5)))
     array([[0.5, 0.5],
@@ -38,17 +38,16 @@ def gram_matrix(mat: np.ndarray) -> np.ndarray:
 
 def gram_loss(input_features: np.ndarray, reference_features: np.ndarray) -> np.float64:
     """
-    Calculates the squared Frobenius norm of the difference between
-    the Gram matrices of the input and reference image.
+    计算输入图像与参考图像 Gram 矩阵之差的 Frobenius 范数平方。
 
-    :param input_features: Feature map of shape (C, H, W)
+    :param input_features: 形状为 (C, H, W) 的特征图
     :type input_features: np.ndarray
-    :param reference_features: Feature map of shape (C, H, W)
+    :param reference_features: 形状为 (C, H, W) 的特征图
     :type reference_features: np.ndarray
-    :return: Gram loss between the two feature maps.
+    :return: 两个特征图之间的 Gram 损失。
     :rtype: float64
 
-    Examples
+    示例
     --------
     >>> a = np.random.randn(3,5,5)
     >>> gram_loss(a, a)

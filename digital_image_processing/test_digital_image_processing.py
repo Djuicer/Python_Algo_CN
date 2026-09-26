@@ -1,5 +1,5 @@
 """
-PyTest's for Digital Image Processing
+数字图像处理的 PyTest 测试
 """
 
 import numpy as np
@@ -23,17 +23,17 @@ img = imread(r"digital_image_processing/image_data/lena_small.jpg")
 gray = cvtColor(img, COLOR_BGR2GRAY)
 
 
-# Test: convert_to_negative()
+# 测试：convert_to_negative()
 def test_convert_to_negative() -> None:
     negative_img = cn.convert_to_negative(img)
-    # assert negative_img array for at least one True
+    # 断言 negative_img 数组中至少有一个 True
     assert negative_img.any()
 
 
-# Test: change_contrast()
+# 测试：change_contrast()
 def test_change_contrast() -> None:
     with Image.open("digital_image_processing/image_data/lena_small.jpg") as img:
-        # Work around assertion for response
+        # 对响应采用兼容性断言
         assert str(cc.change_contrast(img, 110)).startswith(
             "<PIL.Image.Image image mode=RGB size=100x100 at"
         )
@@ -42,17 +42,17 @@ def test_change_contrast() -> None:
 # canny.gen_gaussian_kernel()
 def test_gen_gaussian_kernel() -> None:
     resp = canny.gen_gaussian_kernel(9, sigma=1.4)
-    # Assert ambiguous array
+    # 断言数组的真值
     assert resp.all()
 
 
 # canny.py
 def test_canny() -> None:
     canny_img = imread("digital_image_processing/image_data/lena_small.jpg", 0)
-    # assert ambiguous array for all == True
+    # 断言数组所有元素均为 True
     assert canny_img.all()
     canny_array = canny.canny(canny_img)
-    # assert canny array for at least one True
+    # 断言 canny 数组中至少有一个 True
     assert canny_array.any()
 
 
@@ -62,7 +62,7 @@ def test_gen_gaussian_kernel_filter() -> None:
 
 
 def test_convolve_filter() -> None:
-    # laplace diagonals
+    # 拉普拉斯对角线
     laplace = array([[0.25, 0.5, 0.25], [0.5, -3, 0.5], [0.25, 0.5, 0.25]])
     res = conv.img_convolve(gray, laplace).astype(uint8)
     assert res.any()
@@ -100,19 +100,19 @@ def test_nearest_neighbour(
 
 
 def test_local_binary_pattern() -> None:
-    # pull request 10161 before:
+    # 拉取请求 10161 修改前：
     # "digital_image_processing/image_data/lena.jpg"
-    # after: "digital_image_processing/image_data/lena_small.jpg"
+    # 修改后："digital_image_processing/image_data/lena_small.jpg"
 
-    from os import getenv  # Speed up our Continuous Integration tests
+    from os import getenv  # 加快持续集成测试
 
     file_name = "lena_small.jpg" if getenv("CI") else "lena.jpg"
     file_path = f"digital_image_processing/image_data/{file_name}"
 
-    # Reading the image and converting it to grayscale
+    # 读取图像并将其转换为灰度图
     image = imread(file_path, 0)
 
-    # Test for get_neighbors_pixel function() return not None
+    # 测试 get_neighbors_pixel 函数的返回值不为 None
     x_coordinate = 0
     y_coordinate = 0
     center = image[x_coordinate][y_coordinate]
@@ -123,12 +123,11 @@ def test_local_binary_pattern() -> None:
 
     assert neighbors_pixels is not None
 
-    # Test for local_binary_pattern function()
-    # Create a numpy array as the same height and width of read image
+    # 测试 local_binary_pattern 函数
+    # 创建与读取图像等高、等宽的 NumPy 数组
     lbp_image = np.zeros((image.shape[0], image.shape[1]))
 
-    # Iterating through the image and calculating the local binary pattern value
-    # for each pixel.
+    # 遍历图像并计算每个像素的局部二值模式值。
     for i in range(image.shape[0]):
         for j in range(image.shape[1]):
             lbp_image[i][j] = lbp.local_binary_value(image, i, j)

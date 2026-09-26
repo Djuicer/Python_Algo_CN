@@ -19,9 +19,8 @@ from digital_image_processing.filters.gaussian_filter import gaussian_filter
 
 def my_laplacian(src: np.ndarray, ksize: int) -> np.ndarray:
     """
-    :param src: the source image, which should be a grayscale or color image.
-    :param ksize: the size of the kernel used to compute the Laplacian filter,
-                  which can be 1, 3, 5, or 7.
+    :param src: 源图像，应为灰度或彩色图像。
+    :param ksize: 用于计算 Laplacian 滤波的卷积核大小，可取 1、3、5 或 7。
 
     >>> my_laplacian(src=np.array([]), ksize=0)
     Traceback (most recent call last):
@@ -56,23 +55,23 @@ def my_laplacian(src: np.ndarray, ksize: int) -> np.ndarray:
         msg = f"ksize must be in {tuple(kernels)}"
         raise ValueError(msg)
 
-    # Apply the Laplacian kernel using convolution
+    # 使用卷积应用 Laplacian 卷积核
     return filter2D(
         src, CV_64F, kernels[ksize], 0, borderType=BORDER_DEFAULT, anchor=(0, 0)
     )
 
 
 if __name__ == "__main__":
-    # read original image
+    # 读取原始图像
     img = imread(r"../image_data/lena.jpg")
 
-    # turn image in gray scale value
+    # 将图像转换为灰度值
     gray = cvtColor(img, COLOR_BGR2GRAY)
 
-    # Applying gaussian filter
+    # 应用高斯滤波
     blur_image = gaussian_filter(gray, 3, sigma=1)
 
-    # Apply multiple Kernel to detect edges
+    # 应用多个卷积核检测边缘
     laplacian_image = my_laplacian(ksize=3, src=blur_image)
 
     imshow("Original image", img)

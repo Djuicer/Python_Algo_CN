@@ -9,12 +9,12 @@ def get_rotation(
     img: np.ndarray, pt1: np.ndarray, pt2: np.ndarray, rows: int, cols: int
 ) -> np.ndarray:
     """
-    Get image rotation
+    获取旋转后的图像
     :param img: np.ndarray
     :param pt1: 3x2 list
     :param pt2: 3x2 list
-    :param rows: columns image shape
-    :param cols: rows image shape
+    :param rows: 图像列数
+    :param cols: 图像行数
     :return: np.ndarray
     """
     matrix = cv2.getAffineTransform(pt1, pt2)
@@ -22,22 +22,22 @@ def get_rotation(
 
 
 if __name__ == "__main__":
-    # read original image
+    # 读取原始图像
     image = cv2.imread(
         str(Path(__file__).resolve().parent.parent / "image_data" / "lena.jpg")
     )
-    # turn image in gray scale value
+    # 将图像转换为灰度值
     gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # get image shape
+    # 获取图像形状
     img_rows, img_cols = gray_img.shape
 
-    # set different points to rotate image
+    # 设置不同的点以旋转图像
     pts1 = np.array([[50, 50], [200, 50], [50, 200]], np.float32)
     pts2 = np.array([[10, 100], [200, 50], [100, 250]], np.float32)
     pts3 = np.array([[50, 50], [150, 50], [120, 200]], np.float32)
     pts4 = np.array([[10, 100], [80, 50], [180, 250]], np.float32)
 
-    # add all rotated images in a list
+    # 将所有旋转后的图像加入列表
     images = [
         gray_img,
         get_rotation(gray_img, pts1, pts2, img_rows, img_cols),
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         get_rotation(gray_img, pts2, pts4, img_rows, img_cols),
     ]
 
-    # plot different image rotations
+    # 绘制不同的图像旋转结果
     fig = plt.figure(1)
     titles = ["Original", "Rotation 1", "Rotation 2", "Rotation 3"]
     for i, image in enumerate(images):

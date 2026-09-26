@@ -20,9 +20,8 @@ def gen_gaussian_kernel(k_size, sigma):
 
 def suppress_non_maximum(image_shape, gradient_direction, sobel_grad):
     """
-    Non-maximum suppression. If the edge strength of the current pixel is the largest
-    compared to the other pixels in the mask with the same direction, the value will be
-    preserved. Otherwise, the value will be suppressed.
+    非极大值抑制：若当前像素的边缘强度在掩码内同方向像素中最大，
+    则保留该值；否则抑制该值。
     """
     destination = np.zeros(image_shape)
 
@@ -74,12 +73,9 @@ def detect_high_low_threshold(
     image_shape, destination, threshold_low, threshold_high, weak, strong
 ) -> None:
     """
-    High-Low threshold detection. If an edge pixel's gradient value is higher
-    than the high threshold value, it is marked as a strong edge pixel. If an
-    edge pixel's gradient value is smaller than the high threshold value and
-    larger than the low threshold value, it is marked as a weak edge pixel. If
-    an edge pixel's value is smaller than the low threshold value, it will be
-    suppressed.
+    高低阈值检测：若边缘像素的梯度值高于高阈值，则标记为强边缘像素；
+    若低于高阈值且高于低阈值，则标记为弱边缘像素；
+    若低于低阈值，则抑制该像素。
     """
     for row in range(1, image_shape[0] - 1):
         for col in range(1, image_shape[1] - 1):
@@ -93,10 +89,8 @@ def detect_high_low_threshold(
 
 def track_edge(image_shape, destination, weak, strong) -> None:
     """
-    Edge tracking. Usually a weak edge pixel caused from true edges will be connected
-    to a strong edge pixel while noise responses are unconnected. As long as there is
-    one strong edge pixel that is involved in its 8-connected neighborhood, that weak
-    edge point can be identified as one that should be preserved.
+    边缘跟踪：真实边缘产生的弱边缘像素通常与强边缘像素相连，而噪声响应
+    通常不相连。只要弱边缘像素的八连通邻域中存在强边缘像素，就应保留该点。
     """
     for row in range(1, image_shape[0]):
         for col in range(1, image_shape[1]):
@@ -119,7 +113,7 @@ def track_edge(image_shape, destination, weak, strong) -> None:
 def canny(image, threshold_low=15, threshold_high=30, weak=128, strong=255):
     # gaussian_filter
     gaussian_out = img_convolve(image, gen_gaussian_kernel(9, sigma=1.4))
-    # get the gradient and degree by sobel_filter
+    # 使用 sobel_filter 获取梯度和角度
     sobel_grad, sobel_theta = sobel_filter(gaussian_out)
     gradient_direction = PI + np.rad2deg(sobel_theta)
 
@@ -135,9 +129,9 @@ def canny(image, threshold_low=15, threshold_high=30, weak=128, strong=255):
 
 
 if __name__ == "__main__":
-    # read original image in gray mode
+    # 以灰度模式读取原始图像
     lena = cv2.imread(r"../image_data/lena.jpg", 0)
-    # canny edge detection
+    # Canny 边缘检测
     canny_destination = canny(lena)
     cv2.imshow("canny", canny_destination)
     cv2.waitKey(0)

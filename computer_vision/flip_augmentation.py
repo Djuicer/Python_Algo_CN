@@ -6,29 +6,29 @@ from string import ascii_lowercase, digits
 import cv2
 
 """
-Flip image and bounding box for computer vision task
+为计算机视觉任务翻转图像和边界框。
 https://paperswithcode.com/method/randomhorizontalflip
 """
 
-# Params
+# 参数
 LABEL_DIR = ""
 IMAGE_DIR = ""
 OUTPUT_DIR = ""
-FLIP_TYPE = 1  # (0 is vertical, 1 is horizontal)
+FLIP_TYPE = 1  #（0 表示垂直翻转，1 表示水平翻转）
 
 
 def main() -> None:
     """
-    Get images list and annotations list from input dir.
-    Update new images and annotations.
-    Save images and annotations in output dir.
+    从输入目录获取图像列表和标注列表。
+    更新新图像及其标注。
+    将图像和标注保存到输出目录。
     """
     img_paths, annos = get_dataset(LABEL_DIR, IMAGE_DIR)
     print("Processing...")
     new_images, new_annos, paths = update_image_and_anno(img_paths, annos, FLIP_TYPE)
 
     for index, image in enumerate(new_images):
-        # Get random string code: '7b7ad245cdff75241935e4dd860f3bad'
+        # 获取随机字符串代码：'7b7ad245cdff75241935e4dd860f3bad'
         letter_code = random_chars(32)
         file_name = paths[index].split(os.sep)[-1].rsplit(".", 1)[0]
         file_root = f"{OUTPUT_DIR}/{file_name}_FLIP_{letter_code}"
@@ -44,9 +44,9 @@ def main() -> None:
 
 def get_dataset(label_dir: str, img_dir: str) -> tuple[list, list]:
     """
-    - label_dir <type: str>: Path to label include annotation of images
-    - img_dir <type: str>: Path to folder contain images
-    Return <type: list>: List of images path and labels
+    - label_dir <type: str>：包含图像标注的标签路径
+    - img_dir <type: str>：包含图像的文件夹路径
+    返回 <type: list>：图像路径和标签的列表
     """
     img_paths = []
     labels = []
@@ -79,13 +79,13 @@ def update_image_and_anno(
     img_list: list, anno_list: list, flip_type: int = 1
 ) -> tuple[list, list, list]:
     """
-    - img_list <type: list>: list of all images
-    - anno_list <type: list>: list of all annotations of specific image
-    - flip_type <type: int>: 0 is vertical, 1 is horizontal
-    Return:
-        - new_imgs_list <type: narray>: image after resize
-        - new_annos_lists <type: list>: list of new annotation after scale
-        - path_list <type: list>: list the name of image file
+    - img_list <type: list>：所有图像的列表
+    - anno_list <type: list>：指定图像的所有标注列表
+    - flip_type <type: int>：0 表示垂直翻转，1 表示水平翻转
+    返回：
+        - new_imgs_list <type: narray>：调整大小后的图像
+        - new_annos_lists <type: list>：缩放后的新标注列表
+        - path_list <type: list>：图像文件名列表
     """
     new_annos_lists = []
     path_list = []
@@ -113,8 +113,8 @@ def update_image_and_anno(
 
 def random_chars(number_char: int = 32) -> str:
     """
-    Automatic generate random 32 characters.
-    Get random string code: '7b7ad245cdff75241935e4dd860f3bad'
+    自动生成 32 个随机字符。
+    获取随机字符串代码：'7b7ad245cdff75241935e4dd860f3bad'
     >>> len(random_chars(32))
     32
     """

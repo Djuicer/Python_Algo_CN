@@ -1,13 +1,13 @@
 """
-Implementation of Bilateral filter
+双边滤波（Bilateral Filter）的实现。
 
-Inputs:
-    img: A 2d image with values in between 0 and 1
-    varS: variance in space dimension.
-    varI: variance in Intensity.
-    N: Kernel size(Must be an odd number)
-Output:
-    img:A 2d zero padded image with values in between 0 and 1
+输入：
+    img: 数值位于 0 到 1 之间的二维图像
+    varS: 空间维度的方差。
+    varI: 强度维度的方差。
+    N: 卷积核大小（必须为奇数）
+输出：
+    img: 数值位于 0 到 1 之间、使用零填充的二维图像
 """
 
 import math
@@ -18,7 +18,7 @@ import numpy as np
 
 
 def vec_gaussian(img: np.ndarray, variance: float) -> np.ndarray:
-    # For applying gaussian function for each element in matrix.
+    # 对矩阵中的每个元素应用高斯函数
     sigma = math.sqrt(variance)
     cons = 1 / (sigma * math.sqrt(2 * math.pi))
     return cons * np.exp(-((img / sigma) ** 2) * 0.5)
@@ -30,7 +30,7 @@ def get_slice(img: np.ndarray, x: int, y: int, kernel_size: int) -> np.ndarray:
 
 
 def get_gauss_kernel(kernel_size: int, spatial_variance: float) -> np.ndarray:
-    # Creates a gaussian kernel of given dimension.
+    # 创建给定维度的高斯卷积核
     arr = np.zeros((kernel_size, kernel_size))
     for i in range(kernel_size):
         for j in range(kernel_size):

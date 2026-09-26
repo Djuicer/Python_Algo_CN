@@ -3,46 +3,43 @@
 # Coding date:  jan 2019
 # python/black: True
 
-# Imports
+# 导入
 import numpy as np
 
 
-# Class implemented to calculus the index
+# 用于计算指数的类
 class IndexCalculation:
     """
-    # Class Summary
-            This algorithm consists in calculating vegetation indices, these
-        indices can be used for precision agriculture for example (or remote
-        sensing). There are functions to define the data and to calculate the
-        implemented indices.
+    # 类概述
+        本算法用于计算植被指数，这些指数可用于精准农业或遥感等领域。
+        类中提供了定义数据和计算已实现指数的函数。
 
-    # Vegetation index
+    # 植被指数
         https://en.wikipedia.org/wiki/Vegetation_Index
-        A Vegetation Index (VI) is a spectral transformation of two or more bands
-        designed to enhance the contribution of vegetation properties and allow
-        reliable spatial and temporal inter-comparisons of terrestrial
-        photosynthetic activity and canopy structural variations
+        植被指数（Vegetation Index，VI）是对两个或更多波段进行的光谱变换，
+        用于增强植被属性的贡献，并可靠地比较陆地光合活动和冠层结构变化
+        在空间和时间上的差异。
 
-    # Information about channels (Wavelength range for each)
-        * nir - near-infrared
+    # 通道信息（各通道的波长范围）
+        * nir - 近红外
             https://www.malvernpanalytical.com/br/products/technology/near-infrared-spectroscopy
-            Wavelength Range 700 nm to 2500 nm
-        * Red Edge
+            波长范围：700 nm 到 2500 nm
+        * 红边
             https://en.wikipedia.org/wiki/Red_edge
-            Wavelength Range 680 nm to 730 nm
+            波长范围：680 nm 到 730 nm
         * red
             https://en.wikipedia.org/wiki/Color
-            Wavelength Range 635 nm to 700 nm
+            波长范围：635 nm 到 700 nm
         * blue
             https://en.wikipedia.org/wiki/Color
-            Wavelength Range 450 nm to 490 nm
+            波长范围：450 nm 到 490 nm
         * green
             https://en.wikipedia.org/wiki/Color
-            Wavelength Range 520 nm to 560 nm
+            波长范围：520 nm 到 560 nm
 
 
-    # Implemented index list
-            #"abbreviationOfIndexName" -- list of channels used
+    # 已实现的指数列表
+            #"abbreviationOfIndexName" -- 使用的通道列表
 
             #"ARVI2"            --  red, nir
             #"CCCI"             --  red, redEdge, nir
@@ -85,7 +82,7 @@ class IndexCalculation:
             #"TVI"              --  red, nir
             #"NDRE"               --  redEdge, nir
 
-    #list of all index implemented
+    # 所有已实现指数的列表
         #allIndex = ["ARVI2", "CCCI", "CVI", "GLI", "NDVI", "BNDVI", "redEdgeNDVI",
                     "GNDVI", "GBNDVI", "GRNDVI", "RBNDVI", "PNDVI", "ATSAVI",
                     "BWDRVI", "CIgreen", "CIrededge", "CI", "CTVI", "GDVI", "EVI",
@@ -93,14 +90,14 @@ class IndexCalculation:
                     "MRVI", "MSAVI", "NormG", "NormNIR", "NormR", "NGRDI", "RI",
                     "S", "IF", "DVI", "TVI", "NDRE"]
 
-    #list of index with not blue channel
+    # 不使用蓝色通道的指数列表
         #notBlueIndex = ["ARVI2", "CCCI", "CVI", "NDVI", "redEdgeNDVI", "GNDVI",
                          "GRNDVI", "ATSAVI", "CIgreen", "CIrededge", "CTVI", "GDVI",
                          "GEMI", "GOSAVI", "GSAVI", "IVI", "IPVI", "RVI", "MRVI",
                          "MSAVI", "NormG", "NormNIR", "NormR", "NGRDI", "RI", "DVI",
                          "TVI", "NDRE"]
 
-    #list of index just with RGB channels
+    # 仅使用 RGB 通道的指数列表
         #RGBIndex = ["GLI", "CI", "Hue", "I", "NGRDI", "RI", "S", "IF"]
     """
 
@@ -128,8 +125,8 @@ class IndexCalculation:
         self, index="", red=None, green=None, blue=None, red_edge=None, nir=None
     ):
         """
-        performs the calculation of the index with the values instantiated in the class
-        :str index: abbreviation of index name to perform
+        使用类中实例化的数值计算指数。
+        :str index: 要计算的指数名称缩写
         """
         self.set_matricies(red=red, green=green, blue=blue, red_edge=red_edge, nir=nir)
         funcs = {
@@ -183,18 +180,18 @@ class IndexCalculation:
 
     def arv12(self):
         """
-        Atmospherically Resistant Vegetation Index 2
+        抗大气植被指数 2（Atmospherically Resistant Vegetation Index 2）
         https://www.indexdatabase.de/db/i-single.php?id=396
-        :return: index
+        :return: 指数
             -0.18+1.17*(self.nir-self.red)/(self.nir+self.red)
         """
         return -0.18 + (1.17 * ((self.nir - self.red) / (self.nir + self.red)))
 
     def ccci(self):
         """
-        Canopy Chlorophyll Content Index
+        冠层叶绿素含量指数（Canopy Chlorophyll Content Index）
         https://www.indexdatabase.de/db/i-single.php?id=224
-        :return: index
+        :return: 指数
         """
         return ((self.nir - self.redEdge) / (self.nir + self.redEdge)) / (
             (self.nir - self.red) / (self.nir + self.red)
@@ -202,17 +199,17 @@ class IndexCalculation:
 
     def cvi(self):
         """
-        Chlorophyll vegetation index
+        叶绿素植被指数（Chlorophyll Vegetation Index）
         https://www.indexdatabase.de/db/i-single.php?id=391
-        :return: index
+        :return: 指数
         """
         return self.nir * (self.red / (self.green**2))
 
     def gli(self):
         """
-        self.green leaf index
+        绿叶指数（Green Leaf Index）
         https://www.indexdatabase.de/db/i-single.php?id=375
-        :return: index
+        :return: 指数
         """
         return (2 * self.green - self.red - self.blue) / (
             2 * self.green + self.red + self.blue
@@ -220,35 +217,34 @@ class IndexCalculation:
 
     def ndvi(self):
         """
-        Normalized Difference self.nir/self.red Normalized Difference Vegetation
-        Index, Calibrated NDVI - CDVI
+        self.nir/self.red 归一化差值植被指数（Normalized Difference Vegetation
+        Index），校准 NDVI（CDVI）
         https://www.indexdatabase.de/db/i-single.php?id=58
-        :return: index
+        :return: 指数
         """
         return (self.nir - self.red) / (self.nir + self.red)
 
     def bndvi(self):
         """
-            Normalized Difference self.nir/self.blue self.blue-normalized difference
-        vegetation index
+        self.nir/self.blue 蓝光归一化差值植被指数
         https://www.indexdatabase.de/db/i-single.php?id=135
-        :return: index
+        :return: 指数
         """
         return (self.nir - self.blue) / (self.nir + self.blue)
 
     def red_edge_ndvi(self):
         """
-        Normalized Difference self.rededge/self.red
+        self.redEdge/self.red 归一化差值指数
         https://www.indexdatabase.de/db/i-single.php?id=235
-        :return: index
+        :return: 指数
         """
         return (self.redEdge - self.red) / (self.redEdge + self.red)
 
     def gndvi(self):
         """
-        Normalized Difference self.nir/self.green self.green NDVI
+        self.nir/self.green 绿色归一化差值植被指数（Green NDVI）
         https://www.indexdatabase.de/db/i-single.php?id=401
-        :return: index
+        :return: 指数
         """
         return (self.nir - self.green) / (self.nir + self.green)
 
@@ -256,7 +252,7 @@ class IndexCalculation:
         """
         self.green-self.blue NDVI
         https://www.indexdatabase.de/db/i-single.php?id=186
-        :return: index
+        :return: 指数
         """
         return (self.nir - (self.green + self.blue)) / (
             self.nir + (self.green + self.blue)
@@ -266,7 +262,7 @@ class IndexCalculation:
         """
         self.green-self.red NDVI
         https://www.indexdatabase.de/db/i-single.php?id=185
-        :return: index
+        :return: 指数
         """
         return (self.nir - (self.green + self.red)) / (
             self.nir + (self.green + self.red)
@@ -276,15 +272,15 @@ class IndexCalculation:
         """
         self.red-self.blue NDVI
         https://www.indexdatabase.de/db/i-single.php?id=187
-        :return: index
+        :return: 指数
         """
         return (self.nir - (self.blue + self.red)) / (self.nir + (self.blue + self.red))
 
     def pndvi(self):
         """
-        Pan NDVI
+        全色 NDVI（Pan NDVI）
         https://www.indexdatabase.de/db/i-single.php?id=188
-        :return: index
+        :return: 指数
         """
         return (self.nir - (self.green + self.red + self.blue)) / (
             self.nir + (self.green + self.red + self.blue)
@@ -292,9 +288,9 @@ class IndexCalculation:
 
     def atsavi(self, x=0.08, a=1.22, b=0.03):
         """
-        Adjusted transformed soil-adjusted VI
+        调整型转换土壤调节植被指数
         https://www.indexdatabase.de/db/i-single.php?id=209
-        :return: index
+        :return: 指数
         """
         return a * (
             (self.nir - a * self.red - b)
@@ -303,58 +299,58 @@ class IndexCalculation:
 
     def bwdrvi(self):
         """
-        self.blue-wide dynamic range vegetation index
+        蓝光宽动态范围植被指数
         https://www.indexdatabase.de/db/i-single.php?id=136
-        :return: index
+        :return: 指数
         """
         return (0.1 * self.nir - self.blue) / (0.1 * self.nir + self.blue)
 
     def ci_green(self):
         """
-        Chlorophyll Index self.green
+        绿色叶绿素指数
         https://www.indexdatabase.de/db/i-single.php?id=128
-        :return: index
+        :return: 指数
         """
         return (self.nir / self.green) - 1
 
     def ci_rededge(self):
         """
-        Chlorophyll Index self.redEdge
+        红边叶绿素指数
         https://www.indexdatabase.de/db/i-single.php?id=131
-        :return: index
+        :return: 指数
         """
         return (self.nir / self.redEdge) - 1
 
     def ci(self):
         """
-        Coloration Index
+        着色指数（Coloration Index）
         https://www.indexdatabase.de/db/i-single.php?id=11
-        :return: index
+        :return: 指数
         """
         return (self.red - self.blue) / self.red
 
     def ctvi(self):
         """
-        Corrected Transformed Vegetation Index
+        校正转换植被指数（Corrected Transformed Vegetation Index）
         https://www.indexdatabase.de/db/i-single.php?id=244
-        :return: index
+        :return: 指数
         """
         ndvi = self.ndvi()
         return ((ndvi + 0.5) / (abs(ndvi + 0.5))) * (abs(ndvi + 0.5) ** (1 / 2))
 
     def gdvi(self):
         """
-        Difference self.nir/self.green self.green Difference Vegetation Index
+        self.nir/self.green 绿色差值植被指数
         https://www.indexdatabase.de/db/i-single.php?id=27
-        :return: index
+        :return: 指数
         """
         return self.nir - self.green
 
     def evi(self):
         """
-        Enhanced Vegetation Index
+        增强植被指数（Enhanced Vegetation Index）
         https://www.indexdatabase.de/db/i-single.php?id=16
-        :return: index
+        :return: 指数
         """
         return 2.5 * (
             (self.nir - self.red) / (self.nir + 6 * self.red - 7.5 * self.blue + 1)
@@ -362,9 +358,9 @@ class IndexCalculation:
 
     def gemi(self):
         """
-        Global Environment Monitoring Index
+        全球环境监测指数（Global Environment Monitoring Index）
         https://www.indexdatabase.de/db/i-single.php?id=25
-        :return: index
+        :return: 指数
         """
         n = (2 * (self.nir**2 - self.red**2) + 1.5 * self.nir + 0.5 * self.red) / (
             self.nir + self.red + 0.5
@@ -373,27 +369,27 @@ class IndexCalculation:
 
     def gosavi(self, y=0.16):
         """
-        self.green Optimized Soil Adjusted Vegetation Index
+        绿色优化土壤调节植被指数
         https://www.indexdatabase.de/db/i-single.php?id=29
-        mit Y = 0,16
-        :return: index
+        其中 Y = 0,16
+        :return: 指数
         """
         return (self.nir - self.green) / (self.nir + self.green + y)
 
     def gsavi(self, n=0.5):
         """
-        self.green Soil Adjusted Vegetation Index
+        绿色土壤调节植被指数
         https://www.indexdatabase.de/db/i-single.php?id=31
-        mit N = 0,5
-        :return: index
+        其中 N = 0,5
+        :return: 指数
         """
         return ((self.nir - self.green) / (self.nir + self.green + n)) * (1 + n)
 
     def hue(self):
         """
-        Hue
+        色相（Hue）
         https://www.indexdatabase.de/db/i-single.php?id=34
-        :return: index
+        :return: 指数
         """
         return np.arctan(
             ((2 * self.red - self.green - self.blue) / 30.5) * (self.green - self.blue)
@@ -401,51 +397,51 @@ class IndexCalculation:
 
     def ivi(self, a=None, b=None):
         """
-        Ideal vegetation index
+        理想植被指数（Ideal Vegetation Index）
         https://www.indexdatabase.de/db/i-single.php?id=276
-        b=intercept of vegetation line
-        a=soil line slope
-        :return: index
+        b=植被线截距
+        a=土壤线斜率
+        :return: 指数
         """
         return (self.nir - b) / (a * self.red)
 
     def ipvi(self):
         """
-        Infraself.red percentage vegetation index
+        红外百分比植被指数
         https://www.indexdatabase.de/db/i-single.php?id=35
-        :return: index
+        :return: 指数
         """
         return (self.nir / ((self.nir + self.red) / 2)) * (self.ndvi() + 1)
 
     def i(self):
         """
-        Intensity
+        强度（Intensity）
         https://www.indexdatabase.de/db/i-single.php?id=36
-        :return: index
+        :return: 指数
         """
         return (self.red + self.green + self.blue) / 30.5
 
     def rvi(self):
         """
-        Ratio-Vegetation-Index
+        比值植被指数（Ratio Vegetation Index）
         http://www.seos-project.eu/modules/remotesensing/remotesensing-c03-s01-p01.html
-        :return: index
+        :return: 指数
         """
         return self.nir / self.red
 
     def mrvi(self):
         """
-        Modified Normalized Difference Vegetation Index RVI
+        改进归一化差值植被指数 RVI
         https://www.indexdatabase.de/db/i-single.php?id=275
-        :return: index
+        :return: 指数
         """
         return (self.rvi() - 1) / (self.rvi() + 1)
 
     def m_savi(self):
         """
-        Modified Soil Adjusted Vegetation Index
+        改进土壤调节植被指数
         https://www.indexdatabase.de/db/i-single.php?id=44
-        :return: index
+        :return: 指数
         """
         return (
             (2 * self.nir + 1)
@@ -454,51 +450,49 @@ class IndexCalculation:
 
     def norm_g(self):
         """
-        Norm G
+        归一化 G
         https://www.indexdatabase.de/db/i-single.php?id=50
-        :return: index
+        :return: 指数
         """
         return self.green / (self.nir + self.red + self.green)
 
     def norm_nir(self):
         """
-        Norm self.nir
+        归一化 self.nir
         https://www.indexdatabase.de/db/i-single.php?id=51
-        :return: index
+        :return: 指数
         """
         return self.nir / (self.nir + self.red + self.green)
 
     def norm_r(self):
         """
-        Norm R
+        归一化 R
         https://www.indexdatabase.de/db/i-single.php?id=52
-        :return: index
+        :return: 指数
         """
         return self.red / (self.nir + self.red + self.green)
 
     def ngrdi(self):
         """
-            Normalized Difference self.green/self.red Normalized self.green self.red
-        difference index, Visible Atmospherically Resistant Indices self.green
-        (VIself.green)
+        self.green/self.red 归一化差值指数，即绿色可见光抗大气指数（VIself.green）
         https://www.indexdatabase.de/db/i-single.php?id=390
-        :return: index
+        :return: 指数
         """
         return (self.green - self.red) / (self.green + self.red)
 
     def ri(self):
         """
-        Normalized Difference self.red/self.green self.redness Index
+        self.red/self.green 归一化差值红度指数
         https://www.indexdatabase.de/db/i-single.php?id=74
-        :return: index
+        :return: 指数
         """
         return (self.red - self.green) / (self.red + self.green)
 
     def s(self):
         """
-        Saturation
+        饱和度（Saturation）
         https://www.indexdatabase.de/db/i-single.php?id=77
-        :return: index
+        :return: 指数
         """
         max_value = np.max([np.max(self.red), np.max(self.green), np.max(self.blue)])
         min_value = np.min([np.min(self.red), np.min(self.green), np.min(self.blue)])
@@ -506,26 +500,25 @@ class IndexCalculation:
 
     def _if(self):
         """
-        Shape Index
+        形状指数（Shape Index）
         https://www.indexdatabase.de/db/i-single.php?id=79
-        :return: index
+        :return: 指数
         """
         return (2 * self.red - self.green - self.blue) / (self.green - self.blue)
 
     def dvi(self):
         """
-        Simple Ratio self.nir/self.red Difference Vegetation Index, Vegetation Index
-        Number (VIN)
+        self.nir/self.red 简单比值差值植被指数，即植被指数数值（VIN）
         https://www.indexdatabase.de/db/i-single.php?id=12
-        :return: index
+        :return: 指数
         """
         return self.nir / self.red
 
     def tvi(self):
         """
-        Transformed Vegetation Index
+        转换植被指数（Transformed Vegetation Index）
         https://www.indexdatabase.de/db/i-single.php?id=98
-        :return: index
+        :return: 指数
         """
         return (self.ndvi() + 0.5) ** (1 / 2)
 
@@ -534,33 +527,32 @@ class IndexCalculation:
 
 
 """
-# genering a random matrices to test this class
+# 生成随机矩阵以测试此类
 red     = np.ones((1000,1000, 1),dtype="float64") * 46787
 green   = np.ones((1000,1000, 1),dtype="float64") * 23487
 blue    = np.ones((1000,1000, 1),dtype="float64") * 14578
 redEdge = np.ones((1000,1000, 1),dtype="float64") * 51045
 nir     = np.ones((1000,1000, 1),dtype="float64") * 52200
 
-# Examples of how to use the class
+# 此类的使用示例
 
-# instantiating the class
+# 实例化该类
 cl = IndexCalculation()
 
-# instantiating the class with the values
+# 使用给定值实例化该类
 #cl = indexCalculation(red=red, green=green, blue=blue, redEdge=redEdge, nir=nir)
 
-# how set the values after instantiate the class cl, (for update the data or when don't
-# instantiating the class with the values)
+# 实例化 cl 后如何设置值（用于更新数据，或未使用给定值实例化该类时）
 cl.setMatrices(red=red, green=green, blue=blue, redEdge=redEdge, nir=nir)
 
-# calculating the indices for the instantiated values in the class
-    # Note: the CCCI index can be changed to any index implemented in the class.
+# 计算类中已实例化数据的指数
+    # 注意：可将 CCCI 换成此类实现的任意指数。
 indexValue_form1    = cl.calculation("CCCI", red=red, green=green, blue=blue,
                                      redEdge=redEdge, nir=nir).astype(np.float64)
 indexValue_form2    = cl.CCCI()
 
-# calculating the index with the values directly -- you can set just the values
-# preferred  note: the *calculation* function performs the function *setMatrices*
+# 直接使用给定值计算指数——只需设置所需的值
+# 注意：*calculation* 函数会调用 *setMatrices*
 indexValue_form3    = cl.calculation("CCCI", red=red, green=green, blue=blue,
                                      redEdge=redEdge, nir=nir).astype(np.float64)
 
@@ -571,7 +563,7 @@ print("Form 2: "+np.array2string(indexValue_form2, precision=20, separator=', ',
 print("Form 3: "+np.array2string(indexValue_form3, precision=20, separator=', ',
       floatmode='maxprec_equal'))
 
-# A list of examples results for different type of data at NDVI
+# 不同数据类型下的 NDVI 示例结果列表
 # float16 ->    0.31567383              #NDVI (red = 50, nir = 100)
 # float32 ->    0.31578946              #NDVI (red = 50, nir = 100)
 # float64 ->    0.3157894736842105      #NDVI (red = 50, nir = 100)

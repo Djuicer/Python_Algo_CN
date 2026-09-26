@@ -24,25 +24,25 @@ def img_convolve(image, filter_kernel):
     height, width = image.shape[0], image.shape[1]
     k_size = filter_kernel.shape[0]
     pad_size = k_size // 2
-    # Pads image with the edge values of array.
+    # 使用数组边缘值填充图像
     image_tmp = pad(image, pad_size, mode="edge")
 
-    # im2col, turn the k_size*k_size pixels into a row and np.vstack all rows
+    # im2col：将 k_size*k_size 个像素转为一行，再用 np.vstack 堆叠所有行
     image_array = im2col(image_tmp, (k_size, k_size))
 
-    #  turn the kernel into shape(k*k, 1)
+    # 将卷积核转换为形状 (k*k, 1)
     kernel_array = ravel(filter_kernel)
-    # reshape and get the dst image
+    # 重塑并得到目标图像
     dst = dot(image_array, kernel_array).reshape(height, width)
     return dst
 
 
 if __name__ == "__main__":
-    # read original image
+    # 读取原始图像
     img = imread(r"../image_data/lena.jpg")
-    # turn image in gray scale value
+    # 将图像转换为灰度值
     gray = cvtColor(img, COLOR_BGR2GRAY)
-    # Laplace operator
+    # Laplace 算子
     Laplace_kernel = array([[0, 1, 0], [1, -4, 1], [0, 1, 0]])
     out = img_convolve(gray, Laplace_kernel).astype(uint8)
     imshow("Laplacian", out)

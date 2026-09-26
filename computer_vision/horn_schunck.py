@@ -1,10 +1,8 @@
 """
-The Horn-Schunck method estimates the optical flow for every single pixel of
-a sequence of images.
-It works by assuming brightness constancy between two consecutive frames
-and smoothness in the optical flow.
+Horn-Schunck 方法估计图像序列中每个像素的光流（Optical Flow）。
+它假设相邻两帧之间亮度恒定，且光流具有平滑性。
 
-Useful resources:
+参考资料：
 Wikipedia: https://en.wikipedia.org/wiki/Horn%E2%80%93Schunck_method
 Paper: http://image.diku.dk/imagecanon/material/HornSchunckOptical_Flow.pdf
 """
@@ -19,16 +17,15 @@ def warp(
     image: np.ndarray, horizontal_flow: np.ndarray, vertical_flow: np.ndarray
 ) -> np.ndarray:
     """
-    Warps the pixels of an image into a new image using the horizontal and vertical
-    flows.
-    Pixels that are warped from an invalid location are set to 0.
+    使用水平和垂直光流场将图像像素变换到新图像中。
+    从无效位置变换而来的像素设为 0。
 
-    Parameters:
-        image: Grayscale image
-        horizontal_flow: Horizontal flow
-        vertical_flow: Vertical flow
+    参数：
+        image: 灰度图像
+        horizontal_flow: 水平光流
+        vertical_flow: 垂直光流
 
-    Returns: Warped image
+    返回：变换后的图像
 
     >>> warp(np.array([[0, 1, 2], [0, 3, 0], [2, 2, 2]]), \
     np.array([[0, 1, -1], [-1, 0, 0], [1, 1, 1]]), \
@@ -39,20 +36,19 @@ def warp(
     """
     flow = np.stack((horizontal_flow, vertical_flow), 2)
 
-    # Create a grid of all pixel coordinates and subtract the flow to get the
-    # target pixels coordinates
+    # 创建所有像素坐标的网格，并减去光流以得到目标像素坐标
     grid = np.stack(
         np.meshgrid(np.arange(0, image.shape[1]), np.arange(0, image.shape[0])), 2
     )
     grid = np.round(grid - flow).astype(np.int32)
 
-    # Find the locations outside of the original image
+    # 找出位于原图之外的位置
     invalid = (grid < 0) | (grid >= np.array([image.shape[1], image.shape[0]]))
     grid[invalid] = 0
 
     warped = image[grid[:, :, 1], grid[:, :, 0]]
 
-    # Set pixels at invalid locations to 0
+    # 将无效位置的像素设为 0
     warped[invalid[:, :, 0] | invalid[:, :, 1]] = 0
 
     return warped
@@ -65,17 +61,16 @@ def horn_schunck(
     alpha: float | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    This function performs the Horn-Schunck algorithm and returns the estimated
-    optical flow. It is assumed that the input images are grayscale and
-    normalized to be in [0, 1].
+    本函数执行 Horn-Schunck 算法并返回估计光流。
+    假设输入图像为灰度图，且已归一化到 [0, 1]。
 
-    Parameters:
-        image0: First image of the sequence
-        image1: Second image of the sequence
-        alpha: Regularization constant
-        num_iter: Number of iterations performed
+    参数：
+        image0: 序列中的第一幅图像
+        image1: 序列中的第二幅图像
+        alpha: 正则化常数
+        num_iter: 执行的迭代次数
 
-    Returns: estimated horizontal & vertical flow
+    返回：估计的水平和垂直光流
 
     >>> np.round(horn_schunck(np.array([[0, 0, 2], [0, 0, 2]]), \
     np.array([[0, 2, 0], [0, 2, 0]]), alpha=0.1, num_iter=110)).\
@@ -89,11 +84,11 @@ def horn_schunck(
     if alpha is None:
         alpha = 0.1
 
-    # Initialize flow
+    # 初始化光流
     horizontal_flow = np.zeros_like(image0)
     vertical_flow = np.zeros_like(image0)
 
-    # Prepare kernels for the calculation of the derivatives and the average velocity
+    # 准备用于计算导数和平均速度的卷积核
     kernel_x = np.array([[-1, 1], [-1, 1]]) * 0.25
     kernel_y = np.array([[-1, -1], [1, 1]]) * 0.25
     kernel_t = np.array([[1, 1], [1, 1]]) * 0.25
@@ -101,7 +96,7 @@ def horn_schunck(
         [[1 / 12, 1 / 6, 1 / 12], [1 / 6, 0, 1 / 6], [1 / 12, 1 / 6, 1 / 12]]
     )
 
-    # Iteratively refine the flow
+    # 迭代细化光流
     for _ in range(num_iter):
         warped_image = warp(image0, horizontal_flow, vertical_flow)
         derivative_x = convolve(warped_image, kernel_x) + convolve(image1, kernel_x)
@@ -111,7 +106,7 @@ def horn_schunck(
         avg_horizontal_velocity = convolve(horizontal_flow, kernel_laplacian)
         avg_vertical_velocity = convolve(vertical_flow, kernel_laplacian)
 
-        # This updates the flow as proposed in the paper (Step 12)
+        # 按论文提出的方法更新光流（步骤 12）
         update = (
             derivative_x * avg_horizontal_velocity
             + derivative_y * avg_vertical_velocity
