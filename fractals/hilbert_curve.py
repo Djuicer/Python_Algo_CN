@@ -1,24 +1,22 @@
 """
 Author Atharva Date | atharvad931@gmail.com | git/Atharva9621
 
-The Hilbert Curve (also known as the Hilbert Space Filling Curve) is a continuous
-fractal space-filling curve and is a variant of the space-filling Peano curves.
+希尔伯特曲线（Hilbert Curve，也称希尔伯特空间填充曲线）是一条连续的分形空间
+填充曲线，也是空间填充皮亚诺曲线的一种变体。
 
-Because it is space-filling, its Hausdorff dimension is 2. Precisely, its image
-is the unit square, whose dimension is 2 in any definition of dimension. Its
-graph is a compact set homeomorphic to the closed unit interval, with Hausdorff
-dimension 1.
+由于它能填充空间，其豪斯多夫维数为 2。准确地说，其像是单位正方形，在任何维数
+定义下维数均为 2。它的图像是与闭单位区间同胚的紧集，豪斯多夫维数为 1。
 
-Credits:
-    description adapted from
+致谢：
+    说明改编自
     https://en.wikipedia.org/wiki/Hilbert_curve
 
-    also see
+    另请参阅
     https://youtu.be/3s7h2MHQtxc?si=_qIusAJFHYfXIOKn
         (3b1b - Hilbert's Curve: Is infinite math useful?)
     https://dl.acm.org/doi/pdf/10.1145/290200.290219
 
-Requirements (pip):
+依赖（pip）：
     - matplotlib
 """
 
@@ -29,27 +27,24 @@ def rotate_pnts(
     pnts: list[tuple[float, float]], angle: int
 ) -> list[tuple[float, float]]:
     """
-    Rotates a list of points by a given angle (in multiples of 90 degrees).
+    将点列表旋转给定角度（角度为 90 度的倍数）。
 
-    Since the rotation is limited to multiples of 90 degrees (90, 180, 270, 360),
-    this function simply reorders the list of points accordingly. The rotation in
-    each quadrant is achieved  by adjusting the starting index of the list
-    and wrapping around.
+    由于旋转仅限于 90 度的倍数（90、180、270、360），此函数只需相应地重新排列
+    点列表。每个象限中的旋转通过调整列表起始索引并循环回绕来实现。
 
-    Parameters:
+    参数：
     -----------
     pnts : List[Tuple[float, float]]
-        A list of tuples, where each tuple represents a point (x, y).
+        元组列表，每个元组表示一个点 (x, y)。
     angle : int
-        The angle of rotation, should be a multiple of 90 degrees
-        (e.g., 90, 180, 270, 360).
+        旋转角度，应为 90 度的倍数（例如 90、180、270、360）。
 
-    Returns:
+    返回值：
     --------
     List[Tuple[float, float]]
-        A reordered list of points, rotated by the specified angle.
+        按指定角度旋转后重新排序的点列表。
 
-    Example:
+    示例：
     --------
     >>> rotate_pnts([(1, 1), (0, 1), (0, 0), (1, 0)], 90)
     [(0, 1), (0, 0), (1, 0), (1, 1)]
@@ -62,22 +57,22 @@ def hilbert_curve(
     center: tuple[float, float], level: int, side: float = 1, angle: int = 90
 ) -> list[tuple[float, float]]:
     """
-    Params:
+    参数：
     ------
-        center: Tuple[float, float]- The (x, y) center coordinate of the subsection.
-        level: int- The recursion depth or subdivision level of the Hilbert curve.
+        center: Tuple[float, float]- 子区域的中心坐标 (x, y)。
+        level: int- 希尔伯特曲线的递归深度或细分层级。
         side : float, optional
-                The length of the side of the square region in which the curve is drawn.
+                绘制曲线的正方形区域边长。
         angle : int, optional
-                The initial rotation angle of the curve in degrees.
-                It should be a multiple of 90 degrees. (default=90)
+                曲线的初始旋转角度，单位为度。
+                应为 90 度的倍数。（default=90）
 
-    Returns:
+    返回值：
     ------
         pts: List[Tuple[float, float]] -
-            A list of points (x, y) representing the Hilbert curve for the given level.
+            表示给定层级希尔伯特曲线的点 (x, y) 列表。
 
-    Example:
+    示例：
     --------
     >>> hilbert_curve((0, 0), 1, angle=0)
     [(0.25, 0.25), (-0.25, 0.25), (-0.25, -0.25), (0.25, -0.25)]
@@ -105,9 +100,9 @@ def hilbert_curve(
 
 def plot_hilbert_curve(points: list[tuple[float, float]]) -> None:
     """
-    Plots the hilbert curve using mtplotlib
+    使用 matplotlib 绘制希尔伯特曲线。
 
-    Example
+    示例
     --------
     >>> plot_hilbert_curve([(-0.25, 0.25), (-0.25, -0.25), (0.25, -0.25), (0.25, 0.25)])
     """
@@ -115,7 +110,7 @@ def plot_hilbert_curve(points: list[tuple[float, float]]) -> None:
     y_coords = [p[1] for p in points]
 
     plt.plot(x_coords, y_coords, marker="o", linestyle="-")
-    plt.gca().set_aspect("equal", adjustable="box")  # Make the plot square
+    plt.gca().set_aspect("equal", adjustable="box")  # 使绘图区为正方形
     plt.title("Hilbert Curve")
     plt.show()
 
@@ -123,8 +118,8 @@ def plot_hilbert_curve(points: list[tuple[float, float]]) -> None:
 if __name__ == "__main__":
     import doctest
 
-    # Run doctests
+    # 运行 doctest
     doctest.testmod()
 
-    # Plotting Hilbert Curve
+    # 绘制希尔伯特曲线
     plot_hilbert_curve(hilbert_curve((0, 0), 4))

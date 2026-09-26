@@ -1,44 +1,38 @@
-# source - The ARRL Handbook for Radio Communications
+# 来源 - The ARRL Handbook for Radio Communications
 # https://en.wikipedia.org/wiki/RL_circuit
 
 """
-Description
+说明
 -----------
-Inductor is a passive electronic device which stores energy but unlike capacitor, it
-stores energy in its 'magnetic field' or 'magnetostatic field'.
+电感器是一种无源电子器件。与电容器不同，它将能量储存在“磁场”或“静磁场”中。
 
-When inductor is connected to 'DC' current source nothing happens it just works like a
-wire because it's real effect cannot be seen while 'DC' is connected, its not even
-going to store energy. Inductor stores energy only when it is working on 'AC' current.
+电感器接入 'DC' 电流源时，其表现类似导线，无法观察到实际效应，也不会储存能量。
+电感器仅在 'AC' 电流下工作时储存能量。
 
-Connecting a inductor in series with a resistor(when R = 0) to a 'AC' potential source,
-from zero to a finite value causes a sudden voltage to induced in inductor which
-opposes the current. which results in initially slowly current rise. However it would
-cease if there is no further changes in current. With resistance zero current will never
-stop rising.
+将电感器与电阻串联后接入 'AC' 电源，电流从零变为有限值时，电感器中会突然产生
+阻碍电流变化的感应电压，导致电流在初始阶段缓慢上升。如果电流不再变化，感应
+电压也会消失。电阻为零时，电流将持续上升。
 
-'Resistance(ohms) / Inductance(henrys)' is known as RL-timeconstant. It also represents
-as τ (tau). While the charging of a inductor with a resistor results in
-a exponential function.
+'Resistance(ohms) / Inductance(henrys)' 称为 RL 时间常数，也可表示为 τ (tau)。
+电感器与电阻组成电路时，其充电过程呈指数函数关系。
 
-when inductor is connected across 'AC' potential source. It starts to store the energy
-in its 'magnetic field'.with the help 'RL-time-constant' we can find current at any time
-in inductor while it is charging.
+电感器接入 'AC' 电源后，会开始在“磁场”中储存能量。利用“RL 时间常数”，可以求出
+电感器充电过程中任意时刻的电流。
 """
 
-from math import exp  # value of exp = 2.718281828459…
+from math import exp  # exp 的值 = 2.718281828459…
 
 
 def charging_inductor(
-    source_voltage: float,  # source_voltage should be in volts.
-    resistance: float,  # resistance should be in ohms.
-    inductance: float,  # inductance should be in henrys.
-    time: float,  # time should in seconds.
+    source_voltage: float,  # source_voltage 的单位应为 volts。
+    resistance: float,  # resistance 的单位应为 ohms。
+    inductance: float,  # inductance 的单位应为 henrys。
+    time: float,  # time 的单位应为 seconds。
 ) -> float:
     """
-    Find inductor current at any nth second after initiating its charging.
+    求电感器开始充电后任意第 n 秒的电流。
 
-    Examples
+    示例
     --------
     >>> charging_inductor(source_voltage=5.8,resistance=1.5,inductance=2.3,time=2)
     2.817

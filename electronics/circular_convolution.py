@@ -1,15 +1,12 @@
 # https://en.wikipedia.org/wiki/Circular_convolution
 
 """
-Circular convolution, also known as cyclic convolution,
-is a special case of periodic convolution, which is the convolution of two
-periodic functions that have the same period. Periodic convolution arises,
-for example, in the context of the discrete-time Fourier transform (DTFT).
-In particular, the DTFT of the product of two discrete sequences is the periodic
-convolution of the DTFTs of the individual sequences. And each DTFT is a periodic
-summation of a continuous Fourier transform function.
+圆周卷积（Circular Convolution）也称循环卷积，是周期卷积的一种特殊情况，
+即两个具有相同周期的周期函数之间的卷积。例如，周期卷积会出现在离散时间
+傅里叶变换（DTFT）中。具体而言，两个离散序列乘积的 DTFT，等于这两个序列
+各自 DTFT 的周期卷积。每个 DTFT 又是连续傅里叶变换函数的周期求和。
 
-Source: https://en.wikipedia.org/wiki/Circular_convolution
+来源：https://en.wikipedia.org/wiki/Circular_convolution
 """
 
 import doctest
@@ -20,12 +17,12 @@ import numpy as np
 
 class CircularConvolution:
     """
-    This class stores the first and second signal and performs the circular convolution
+    此类存储第一路和第二路信号，并执行圆周卷积。
     """
 
     def __init__(self) -> None:
         """
-        First signal and second signal are stored as 1-D array
+        第一路和第二路信号以一维数组形式存储。
         """
 
         self.first_signal = [2, 1, 2, -1]
@@ -33,10 +30,9 @@ class CircularConvolution:
 
     def circular_convolution(self) -> list[float]:
         """
-        This function performs the circular convolution of the first and second signal
-        using matrix method
+        使用矩阵法对第一路和第二路信号执行圆周卷积。
 
-        Usage:
+        用法：
         >>> convolution = CircularConvolution()
         >>> convolution.circular_convolution()
         [10.0, 10.0, 6.0, 14.0]
@@ -63,17 +59,17 @@ class CircularConvolution:
 
         max_length = max(length_first_signal, length_second_signal)
 
-        # create a zero matrix of max_length x max_length
+        # 创建 max_length × max_length 的零矩阵
         matrix = [[0] * max_length for i in range(max_length)]
 
-        # fills the smaller signal with zeros to make both signals of same length
+        # 用零填充较短的信号，使两路信号长度相同
         if length_first_signal < length_second_signal:
             self.first_signal += [0] * (max_length - length_first_signal)
         elif length_first_signal > length_second_signal:
             self.second_signal += [0] * (max_length - length_second_signal)
 
         """
-        Fills the matrix in the following way assuming 'x' is the signal of length 4
+        假设 'x' 是长度为 4 的信号，按以下方式填充矩阵：
         [
             [x[0], x[3], x[2], x[1]],
             [x[1], x[0], x[3], x[2]],
@@ -87,10 +83,10 @@ class CircularConvolution:
             for j, item in enumerate(rotated_signal):
                 matrix[i][j] += item
 
-        # multiply the matrix with the first signal
+        # 将矩阵与第一路信号相乘
         final_signal = np.matmul(np.transpose(matrix), np.transpose(self.first_signal))
 
-        # rounding-off to two decimal places
+        # 四舍五入到小数点后两位
         return [float(round(i, 2)) for i in final_signal]
 
 

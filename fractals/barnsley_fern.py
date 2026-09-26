@@ -1,47 +1,44 @@
 """
-The Barnsley fern is a fractal that resembles the black spleenwort fern.  It was
-described by the British mathematician Michael Barnsley in his 1988 book
-*Fractals Everywhere* and is a classic example of an iterated function system
-(IFS).
+巴恩斯利蕨（Barnsley Fern）是一种形似铁角蕨的分形。英国数学家 Michael Barnsley
+在 1988 年出版的 *Fractals Everywhere* 一书中对其进行了描述；它是迭代函数系统
+（IFS）的经典示例。
 
-An IFS builds a fractal by repeatedly applying a small set of affine
-transformations, each chosen at random with a fixed probability.  Starting from
-the point ``(0, 0)`` the fern uses four transformations:
+IFS 通过反复应用一小组仿射变换来构造分形，每次按固定概率随机选择一种变换。
+从点 ``(0, 0)`` 开始，该蕨形使用四种变换：
 
 ===============  ===========================================  ============
-Transformation   Effect                                       Probability
+变换             效果                                         概率
 ===============  ===========================================  ============
-Stem             collapse onto the y-axis                     1%
-Successive leaf  the main self-similar copy of the fern       85%
-Left leaflet     a smaller rotated/reflected copy             7%
-Right leaflet    another smaller rotated/reflected copy       7%
+茎               收缩到 y 轴                                  1%
+连续叶片         蕨形的主要自相似副本                         85%
+左侧小叶         较小的旋转/反射副本                          7%
+右侧小叶         另一个较小的旋转/反射副本                   7%
 ===============  ===========================================  ============
 
-Because the whole picture is produced by chance the doctests below seed Python's
-random generator so that the results are reproducible.  Plotting the points with
-matplotlib is optional and only happens when the module is run directly.
+由于整幅图像由随机过程生成，下面的 doctest 会为 Python 随机数生成器设置种子，
+以使结果可复现。使用 matplotlib 绘制这些点是可选操作，仅在直接运行模块时进行。
 
-Reference: https://en.wikipedia.org/wiki/Barnsley_fern
+参考资料：https://en.wikipedia.org/wiki/Barnsley_fern
 """
 
 import random
 
-# Each row is (a, b, c, d, e, f) for the affine map
+# 每行是仿射映射的 (a, b, c, d, e, f)
 #   x' = a*x + b*y + e
 #   y' = c*x + d*y + f
-# and the running cumulative probabilities used to pick a transformation.
+# 以及用于选择变换的累计概率。
 TRANSFORMATIONS: tuple[tuple[float, float, float, float, float, float], ...] = (
-    (0.00, 0.00, 0.00, 0.16, 0.00, 0.00),  # stem
-    (0.85, 0.04, -0.04, 0.85, 0.00, 1.60),  # successive smaller leaflets
-    (0.20, -0.26, 0.23, 0.22, 0.00, 1.60),  # left-hand leaflet
-    (-0.15, 0.28, 0.26, 0.24, 0.00, 0.44),  # right-hand leaflet
+    (0.00, 0.00, 0.00, 0.16, 0.00, 0.00),  # 茎
+    (0.85, 0.04, -0.04, 0.85, 0.00, 1.60),  # 连续的小叶
+    (0.20, -0.26, 0.23, 0.22, 0.00, 1.60),  # 左侧小叶
+    (-0.15, 0.28, 0.26, 0.24, 0.00, 0.44),  # 右侧小叶
 )
 CUMULATIVE_PROBABILITIES: tuple[float, ...] = (0.01, 0.86, 0.93, 1.00)
 
 
 def transform(point: tuple[float, float], index: int) -> tuple[float, float]:
     """
-    Apply the affine transformation ``index`` to ``point`` and return the image.
+    对 ``point`` 应用索引为 ``index`` 的仿射变换，并返回像点。
 
     >>> transform((0.0, 0.0), 0)
     (0.0, 0.0)
@@ -66,8 +63,7 @@ def transform(point: tuple[float, float], index: int) -> tuple[float, float]:
 
 def choose_transformation(sample: float) -> int:
     """
-    Map a value ``sample`` from ``[0, 1)`` to a transformation index using the
-    cumulative probabilities of the fern.
+    使用蕨形的累积概率，将 ``[0, 1)`` 中的 ``sample`` 映射到变换索引。
 
     >>> choose_transformation(0.0)
     0
@@ -88,10 +84,9 @@ def generate_fern(
     iterations: int, seed: int | None = None
 ) -> list[tuple[float, float]]:
     """
-    Generate ``iterations`` points of the Barnsley fern, starting at ``(0, 0)``.
+    从 ``(0, 0)`` 开始生成巴恩斯利蕨的 ``iterations`` 个点。
 
-    Passing a ``seed`` makes the (otherwise random) output reproducible, which is
-    what keeps the doctests deterministic.
+    传入 ``seed`` 可使原本随机的输出可复现，从而保证 doctest 的确定性。
 
     >>> points = generate_fern(5, seed=0)
     >>> len(points)
@@ -102,7 +97,7 @@ def generate_fern(
     [(0.0, 0.0), (0.0, 1.6), (0.064, 2.96),
      (0.1728, 4.11344), (0.3114176, 5.089512)]
 
-    Every fern point lives inside the well known bounding box.
+    每个蕨形点都位于这个已知的边界框内。
 
     >>> cloud = generate_fern(2000, seed=42)
     >>> all(-2.182 <= x <= 2.6558 for x, _ in cloud)

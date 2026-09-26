@@ -1,18 +1,17 @@
 """
-Sharpe Ratio for measuring risk-adjusted returns in investment portfolios.
+用于衡量投资组合风险调整后收益的夏普比率（Sharpe Ratio）。
 
-The Sharpe Ratio is a measure of risk-adjusted return developed by Nobel laureate
-William F. Sharpe. It calculates the excess return per unit of risk (standard deviation)
-and is widely used to compare the performance of investment portfolios.
+夏普比率是诺贝尔奖得主 William F. Sharpe 提出的风险调整后收益指标。它计算每单位
+风险（标准差）对应的超额收益，广泛用于比较投资组合的表现。
 
-Wikipedia Reference: https://en.wikipedia.org/wiki/Sharpe_ratio
+维基百科参考资料：https://en.wikipedia.org/wiki/Sharpe_ratio
 Investopedia: https://www.investopedia.com/terms/s/sharperatio.asp
 
-The Sharpe Ratio is used for:
-- Comparing performance of different investment strategies
-- Evaluating mutual funds and hedge funds
-- Portfolio optimization and risk management
-- Assessing risk-adjusted returns in trading strategies
+夏普比率用于：
+- 比较不同投资策略的表现
+- 评估共同基金和对冲基金
+- 投资组合优化和风险管理
+- 评估交易策略的风险调整后收益
 """
 
 from __future__ import annotations
@@ -20,20 +19,20 @@ from __future__ import annotations
 
 def sharpe_ratio(returns: list[float], risk_free_rate: float = 0.0) -> float:
     """
-    Calculate the Sharpe Ratio for a series of returns.
+    计算一系列收益率的夏普比率。
 
-    The Sharpe Ratio formula:
+    夏普比率公式：
     S = (R - Rf) / std_dev
 
-    Where:
-    S = Sharpe Ratio
-    R = Average return of the investment
-    Rf = Risk-free rate of return
-    std_dev = Standard deviation of returns (volatility)
+    其中：
+    S = 夏普比率
+    R = 投资的平均收益率
+    Rf = 无风险收益率
+    std_dev = 收益率的标准差（波动率）
 
-    :param returns: List of periodic returns (e.g., daily, monthly)
-    :param risk_free_rate: Risk-free rate of return per period, default 0.0
-    :return: Sharpe Ratio
+    :param returns: 周期收益率列表（例如日收益率、月收益率）
+    :param risk_free_rate: 每期无风险收益率，默认为 0.0
+    :return: 夏普比率
 
     >>> round(sharpe_ratio([0.1, 0.2, 0.15, 0.05, 0.12]), 4)
     2.2164
@@ -59,17 +58,17 @@ def sharpe_ratio(returns: list[float], risk_free_rate: float = 0.0) -> float:
     if len(returns) < 2:
         raise ValueError("returns list must contain at least 2 values")
 
-    # Calculate mean return
+    # 计算平均收益率
     mean_return = sum(returns) / len(returns)
 
-    # Calculate excess return
+    # 计算超额收益率
     excess_return = mean_return - risk_free_rate
 
-    # Calculate standard deviation (using sample standard deviation with n-1)
+    # 计算标准差（使用分母为 n-1 的样本标准差）
     variance = sum((r - mean_return) ** 2 for r in returns) / (len(returns) - 1)
     std_dev = variance**0.5
 
-    # Handle zero volatility case
+    # 处理波动率为零的情形
     if std_dev == 0:
         return float("inf") if excess_return > 0 else 0.0
 
@@ -80,21 +79,21 @@ def annualized_sharpe_ratio(
     returns: list[float], risk_free_rate: float = 0.0, periods_per_year: int = 252
 ) -> float:
     """
-    Calculate the annualized Sharpe Ratio for a series of periodic returns.
+    计算一系列周期收益率的年化夏普比率。
 
-    The annualized Sharpe Ratio accounts for the time period of returns:
+    年化夏普比率考虑收益率的时间周期：
     S_annual = S_periodic * sqrt(periods_per_year)
 
-    Common periods_per_year values:
-    - Daily returns: 252 (trading days)
-    - Weekly returns: 52
-    - Monthly returns: 12
-    - Quarterly returns: 4
+    常用 periods_per_year 值：
+    - 日收益率：252（交易日）
+    - 周收益率：52
+    - 月收益率：12
+    - 季度收益率：4
 
-    :param returns: List of periodic returns
-    :param risk_free_rate: Risk-free rate per period, default 0.0
-    :param periods_per_year: Number of periods in a year, default 252 (daily)
-    :return: Annualized Sharpe Ratio
+    :param returns: 周期收益率列表
+    :param risk_free_rate: 每期无风险收益率，默认为 0.0
+    :param periods_per_year: 每年的周期数，默认为 252（日频）
+    :return: 年化夏普比率
 
     >>> round(annualized_sharpe_ratio(
     ...     [0.001, 0.002, 0.0015, 0.0005, 0.0012], 0.0, 252), 4)
@@ -121,7 +120,7 @@ def annualized_sharpe_ratio(
 
     periodic_sharpe = sharpe_ratio(returns, risk_free_rate)
 
-    # Annualize by multiplying by square root of periods
+    # 乘以周期数的平方根进行年化
     if periodic_sharpe == float("inf"):
         return float("inf")
 
@@ -133,9 +132,9 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Example: Calculate Sharpe Ratio for a series of monthly returns
+    # 示例：计算一系列月收益率的夏普比率
     monthly_returns = [0.02, 0.03, -0.01, 0.04, 0.01, 0.02, -0.02, 0.03, 0.02, 0.01]
-    risk_free = 0.002  # 0.2% monthly risk-free rate
+    risk_free = 0.002  # 月无风险利率为 0.2%
 
     sharpe = sharpe_ratio(monthly_returns, risk_free)
     annualized = annualized_sharpe_ratio(monthly_returns, risk_free, 12)

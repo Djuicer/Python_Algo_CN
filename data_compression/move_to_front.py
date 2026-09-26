@@ -1,18 +1,16 @@
 """
-Move-to-front transform.
+前移变换（Move-to-front Transform）。
 
-The move-to-front transform encodes each symbol as its current index in an
-ordered alphabet, then moves that symbol to the front of the alphabet.
-It is commonly used after the Burrows-Wheeler transform in lossless
-compression pipelines.
+前移变换将每个符号编码为其在有序字母表中的当前索引，然后将该符号移到
+字母表最前端。它通常用于无损压缩流程中的 Burrows-Wheeler 变换之后。
 
-Reference: https://en.wikipedia.org/wiki/Move-to-front_transform
+参考资料：https://en.wikipedia.org/wiki/Move-to-front_transform
 """
 
 
 def _validated_alphabet(alphabet: str) -> list[str]:
     """
-    Return a mutable alphabet list after validating uniqueness.
+    验证字符唯一性后，返回可变的字母表列表。
 
     >>> _validated_alphabet("abc")
     ['a', 'b', 'c']
@@ -30,7 +28,7 @@ def _validated_alphabet(alphabet: str) -> list[str]:
 
 def move_to_front_encode(text: str, alphabet: str) -> list[int]:
     """
-    Encode text using the move-to-front transform.
+    使用前移变换编码文本。
 
     >>> move_to_front_encode("banana", "abcdefghijklmnopqrstuvwxyz")
     [1, 1, 13, 1, 1, 1]
@@ -63,7 +61,7 @@ def move_to_front_encode(text: str, alphabet: str) -> list[int]:
 
 def move_to_front_decode(encoded_text: list[int], alphabet: str) -> str:
     """
-    Decode a move-to-front encoded list of indexes.
+    解码经过前移变换编码的索引列表。
 
     >>> move_to_front_decode([1, 1, 13, 1, 1, 1], "abcdefghijklmnopqrstuvwxyz")
     'banana'

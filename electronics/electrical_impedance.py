@@ -1,7 +1,6 @@
-"""Electrical impedance is the measure of the opposition that a
-circuit presents to a current when a voltage is applied.
-Impedance extends the concept of resistance to alternating current (AC) circuits.
-Source: https://en.wikipedia.org/wiki/Electrical_impedance
+"""电阻抗用于衡量施加电压时电路对电流的阻碍程度。
+阻抗将电阻的概念扩展到了交流（AC）电路。
+来源：https://en.wikipedia.org/wiki/Electrical_impedance
 """
 
 from __future__ import annotations
@@ -13,9 +12,8 @@ def electrical_impedance(
     resistance: float, reactance: float, impedance: float
 ) -> dict[str, float]:
     """
-    Apply Electrical Impedance formula, on any two given electrical values,
-    which can be resistance, reactance, and impedance, and then in a Python dict
-    return name/value pair of the zero value.
+    对 resistance、reactance 和 impedance 中任意两个给定电气量应用电阻抗公式，
+    并在 Python 字典中返回取零参数的名称/数值对。
 
     >>> electrical_impedance(3,4,0)
     {'impedance': 5.0}

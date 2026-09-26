@@ -1,41 +1,37 @@
 """
-Assumption:
-    - The values to compress are assumed to be comparable,
-      values can be sorted and compared with '<' and '>' operators.
+假设：
+    - 待压缩的值可以相互比较，即可排序并使用 '<' 和 '>' 运算符比较。
 """
 
 
 class CoordinateCompressor:
     """
-    A class for coordinate compression.
+    用于坐标压缩的类。
 
-    This class allows you to compress and decompress a list of values.
+    此类可对值列表进行压缩和解压缩。
 
-    Mapping:
-    In addition to compression and decompression, this class maintains a mapping
-    between original values and their compressed counterparts using two data
-    structures: a dictionary `coordinate_map` and a list `reverse_map`:
-    - `coordinate_map`: A dictionary that maps original values to their compressed
-      coordinates. Keys are original values, and values are compressed coordinates.
-    - `reverse_map`: A list used for reverse mapping, where each index corresponds
-      to a compressed coordinate, and the value at that index is the original value.
+    映射：
+    除压缩和解压缩外，此类还使用字典 `coordinate_map` 和列表 `reverse_map`
+    维护原始值与压缩值之间的映射：
+    - `coordinate_map`：将原始值映射到压缩坐标的字典，键为原始值，值为压缩坐标。
+    - `reverse_map`：用于反向映射的列表，每个索引对应一个压缩坐标，
+      该索引处的值为原始值。
 
-    Example of mapping:
-    Original: 10, Compressed: 0
-    Original: 52, Compressed: 1
-    Original: 83, Compressed: 2
-    Original: 100, Compressed: 3
+    映射示例：
+    原始值：10，压缩值：0
+    原始值：52，压缩值：1
+    原始值：83，压缩值：2
+    原始值：100，压缩值：3
 
-    This mapping allows for efficient compression and decompression of values within
-    the list.
+    此映射可以高效压缩和解压缩列表中的值。
     """
 
     def __init__(self, arr: list[int | float | str]) -> None:
         """
-        Initialize the CoordinateCompressor with a list.
+        使用列表初始化 CoordinateCompressor。
 
-        Args:
-        arr: The list of values to be compressed.
+        参数：
+        arr: 待压缩的值列表。
 
         >>> arr = [100, 10, 52, 83]
         >>> cc = CoordinateCompressor(arr)
@@ -47,19 +43,19 @@ class CoordinateCompressor:
         52
         """
 
-        # A dictionary to store compressed coordinates
+        # 存储压缩坐标的字典
         self.coordinate_map: dict[int | float | str, int] = {}
 
-        # A list to store reverse mapping
+        # 存储反向映射的列表
         self.reverse_map: list[int | float | str] = [-1] * len(arr)
 
-        self.arr = sorted(arr)  # The input list
-        self.n = len(arr)  # The length of the input list
+        self.arr = sorted(arr)  # 输入列表
+        self.n = len(arr)  # 输入列表的长度
         self.compress_coordinates()
 
     def compress_coordinates(self) -> None:
         """
-        Compress the coordinates in the input list.
+        压缩输入列表中的坐标。
 
         >>> arr = [100, 10, 52, 83]
         >>> cc = CoordinateCompressor(arr)
@@ -81,16 +77,16 @@ class CoordinateCompressor:
 
     def compress(self, original: float | str) -> int:
         """
-        Compress a single value.
+        压缩单个值。
 
-        Args:
-        original: The value to compress.
+        参数：
+        original: 待压缩的值。
 
-        Returns:
-        The compressed integer.
+        返回：
+        压缩后的整数。
 
-        Raises:
-        KeyError: If ``original`` was not part of the input list.
+        异常：
+        KeyError: ``original`` 不在输入列表中时引发。
 
         >>> arr = [100, 10, 52, 83]
         >>> cc = CoordinateCompressor(arr)
@@ -105,16 +101,16 @@ class CoordinateCompressor:
 
     def decompress(self, num: int) -> int | float | str:
         """
-        Decompress a single integer.
+        解压缩单个整数。
 
-        Args:
-        num: The compressed integer to decompress.
+        参数：
+        num: 待解压缩的压缩整数。
 
-        Returns:
-        The original value.
+        返回：
+        原始值。
 
-        Raises:
-        IndexError: If ``num`` is not a valid compressed coordinate.
+        异常：
+        IndexError: ``num`` 不是有效压缩坐标时引发。
 
         >>> arr = [100, 10, 52, 83]
         >>> cc = CoordinateCompressor(arr)

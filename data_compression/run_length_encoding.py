@@ -3,7 +3,7 @@
 
 def run_length_encode(text: str) -> list:
     """
-    Performs Run Length Encoding
+    执行游程编码（Run-Length Encoding）。
     >>> run_length_encode("AAAABBBCCDAA")
     [('A', 4), ('B', 3), ('C', 2), ('D', 1), ('A', 2)]
     >>> run_length_encode("A")
@@ -28,7 +28,7 @@ def run_length_encode(text: str) -> list:
 
 def run_length_decode(encoded: list) -> str:
     """
-    Performs Run Length Decoding
+    执行游程解码。
     >>> run_length_decode([('A', 4), ('B', 3), ('C', 2), ('D', 1), ('A', 2)])
     'AAAABBBCCDAA'
     >>> run_length_decode([('A', 1)])

@@ -1,33 +1,31 @@
-# source - The ARRL Handbook for Radio Communications
+# 来源 - The ARRL Handbook for Radio Communications
 # https://en.wikipedia.org/wiki/RC_time_constant
 
 """
-Description
+说明
 -----------
-When a capacitor is connected with a potential source (AC or DC). It starts to charge
-at a general speed but when a resistor is connected in the  circuit with in series to
-a capacitor then the capacitor charges slowly means it will take more time than usual.
-while the capacitor is being charged, the voltage is in exponential function with time.
+电容器连接电源（AC 或 DC）后会开始充电。如果电路中有一个电阻与电容器串联，
+电容器的充电速度会降低，所需时间比通常情况更长。
+电容器充电时，其电压随时间按指数函数变化。
 
-'resistance(ohms) * capacitance(farads)' is called RC-timeconstant which may also be
-represented as τ (tau).  By using this RC-timeconstant we can find the voltage at any
-time 't' from the initiation of charging a capacitor with the help of the exponential
-function containing RC.  Both at charging and discharging of a capacitor.
+'resistance(ohms) * capacitance(farads)' 称为 RC 时间常数，也可表示为 τ (tau)。
+利用该 RC 时间常数以及包含 RC 的指数函数，可以求出电容器从开始充电起任意时刻
+'t' 的电压。这一关系同时适用于电容器的充电和放电过程。
 """
 
-from math import exp  # value of exp = 2.718281828459…
+from math import exp  # exp 的值 = 2.718281828459…
 
 
 def charging_capacitor(
-    source_voltage: float,  # voltage in volts.
-    resistance: float,  # resistance in ohms.
-    capacitance: float,  # capacitance in farads.
-    time_sec: float,  # time in seconds after charging initiation of capacitor.
+    source_voltage: float,  # 电压，单位为 volts。
+    resistance: float,  # 电阻，单位为 ohms。
+    capacitance: float,  # 电容，单位为 farads。
+    time_sec: float,  # 电容器开始充电后经过的时间，单位为 seconds。
 ) -> float:
     """
-    Find capacitor voltage at any nth second after initiating its charging.
+    求电容器开始充电后任意第 n 秒的电压。
 
-    Examples
+    示例
     --------
     >>> charging_capacitor(source_voltage=.2,resistance=.9,capacitance=8.4,time_sec=.5)
     0.013

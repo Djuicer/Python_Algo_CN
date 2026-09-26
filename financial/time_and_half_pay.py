@@ -1,13 +1,13 @@
 """
-Calculate time and a half pay
+计算 1.5 倍加班工资。
 """
 
 
 def pay(hours_worked: float, pay_rate: float, hours: float = 40) -> float:
     """
-    hours_worked = The total hours worked
-    pay_rate = Amount of money per hour
-    hours = Number of hours that must be worked before you receive time and a half
+    hours_worked = 总工作时数
+    pay_rate = 每小时工资
+    hours = 开始获得 1.5 倍工资前必须工作的时数
 
     >>> pay(41, 1)
     41.5
@@ -16,7 +16,7 @@ def pay(hours_worked: float, pay_rate: float, hours: float = 40) -> float:
     >>> pay(10, 1)
     10.0
     """
-    # Check that all input parameters are float or integer
+    # 检查所有输入参数是否为浮点数或整数
     assert isinstance(hours_worked, (float, int)), (
         "Parameter 'hours_worked' must be of type 'int' or 'float'"
     )
@@ -34,7 +34,7 @@ def pay(hours_worked: float, pay_rate: float, hours: float = 40) -> float:
 
 
 if __name__ == "__main__":
-    # Test
+    # 测试
     import doctest
 
     doctest.testmod()

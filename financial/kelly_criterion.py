@@ -1,17 +1,16 @@
 """
-Kelly Criterion for optimal position sizing in betting and trading.
+用于确定投注和交易最优头寸规模的凯利准则（Kelly Criterion）。
 
-The Kelly Criterion is a formula used to determine the optimal size of a series of bets
-or investments to maximize logarithmic wealth over time. It was developed by John L.
-Kelly Jr. in 1956.
+凯利准则用于确定一系列投注或投资的最优规模，以最大化长期对数财富。该公式由
+John L. Kelly Jr. 于 1956 年提出。
 
-Wikipedia Reference: https://en.wikipedia.org/wiki/Kelly_criterion
+维基百科参考资料：https://en.wikipedia.org/wiki/Kelly_criterion
 Investopedia: https://www.investopedia.com/articles/trading/04/091504.asp
 
-The Kelly Criterion is widely used in:
-- Sports betting and gambling to determine optimal bet sizes
-- Investment portfolio management to size positions
-- Trading strategies to manage risk and maximize growth
+凯利准则广泛用于：
+- 在体育博彩和赌博中确定最优投注规模
+- 在投资组合管理中确定头寸规模
+- 在交易策略中管理风险并最大化增长
 """
 
 from __future__ import annotations
@@ -19,20 +18,20 @@ from __future__ import annotations
 
 def kelly_criterion(win_probability: float, win_loss_ratio: float) -> float:
     """
-    Calculate the optimal fraction of bankroll to bet using the Kelly Criterion.
+    使用凯利准则计算应投注资金的最优比例。
 
-    The Kelly Criterion formula:
+    凯利准则公式：
     f* = (p * b - q) / b
 
-    Where:
-    f* = fraction of bankroll to bet (Kelly fraction)
-    p = probability of winning
-    q = probability of losing (1 - p)
-    b = win/loss ratio (amount won per unit staked / amount lost per unit staked)
+    其中：
+    f* = 投注资金比例（凯利比例）
+    p = 获胜概率
+    q = 失败概率（1 - p）
+    b = 盈亏比（每单位投注的赢得金额 / 每单位投注的损失金额）
 
-    :param win_probability: Probability of winning (0 < p < 1)
-    :param win_loss_ratio: Ratio of win amount to loss amount (b > 0)
-    :return: Optimal fraction of bankroll to bet
+    :param win_probability: 获胜概率（0 < p < 1）
+    :param win_loss_ratio: 赢得金额与损失金额之比（b > 0）
+    :return: 应投注资金的最优比例
 
     >>> round(kelly_criterion(0.6, 2.0), 4)
     0.4
@@ -78,24 +77,23 @@ def kelly_criterion_extended(
     win_probability: float, win_amount: float, loss_amount: float
 ) -> float:
     """
-    Calculate the Kelly fraction using explicit win and loss amounts.
+    使用明确的赢得金额和损失金额计算凯利比例。
 
-    This is a more general form of the Kelly Criterion that accepts
-    absolute win and loss amounts rather than a ratio.
+    这是凯利准则更一般的形式，接受绝对赢得金额和损失金额，而非两者的比率。
 
-    Formula:
+    公式：
     f* = (p * W - q * L) / (W * L)
 
-    Where:
-    p = probability of winning
-    q = probability of losing (1 - p)
-    W = amount won per unit bet
-    L = amount lost per unit bet (positive value)
+    其中：
+    p = 获胜概率
+    q = 失败概率（1 - p）
+    W = 每单位投注的赢得金额
+    L = 每单位投注的损失金额（正值）
 
-    :param win_probability: Probability of winning (0 < p < 1)
-    :param win_amount: Amount won per unit bet (W > 0)
-    :param loss_amount: Amount lost per unit bet (L > 0)
-    :return: Optimal fraction of bankroll to bet
+    :param win_probability: 获胜概率（0 < p < 1）
+    :param win_amount: 每单位投注的赢得金额（W > 0）
+    :param loss_amount: 每单位投注的损失金额（L > 0）
+    :return: 应投注资金的最优比例
 
     >>> round(kelly_criterion_extended(0.6, 2.0, 1.0), 4)
     0.4
@@ -126,8 +124,8 @@ def kelly_criterion_extended(
         raise ValueError("loss_amount must be > 0")
 
     loss_probability = 1 - win_probability
-    # Convert to win/loss ratio format: b = win_amount / loss_amount
-    # Then apply Kelly formula: (p * b - q) / b
+    # 转换为盈亏比形式：b = win_amount / loss_amount
+    # 然后应用凯利公式：(p * b - q) / b
     win_loss_ratio = win_amount / loss_amount
     kelly_fraction = (win_probability * win_loss_ratio - loss_probability) / (
         win_loss_ratio
@@ -140,21 +138,20 @@ def fractional_kelly(
     win_probability: float, win_loss_ratio: float, fraction: float = 0.5
 ) -> float:
     """
-    Calculate a fractional Kelly bet size to reduce volatility.
+    计算分数凯利投注规模以降低波动性。
 
-    Many practitioners use a fraction of the Kelly Criterion (e.g., half-Kelly)
-    to reduce risk and volatility while still achieving good growth. This is
-    because the full Kelly can lead to large drawdowns.
+    许多实践者使用凯利比例的一部分（例如半凯利），在保持良好增长的同时降低风险
+    和波动性，因为完整凯利策略可能导致较大回撤。
 
-    Formula:
+    公式：
     f*_fractional = fraction * f*
 
-    Where f* is the Kelly Criterion optimal fraction.
+    其中 f* 为凯利准则给出的最优比例。
 
-    :param win_probability: Probability of winning (0 < p < 1)
-    :param win_loss_ratio: Ratio of win amount to loss amount (b > 0)
-    :param fraction: Fraction of Kelly to use (0 < fraction <= 1), default 0.5
-    :return: Fractional Kelly bet size
+    :param win_probability: 获胜概率（0 < p < 1）
+    :param win_loss_ratio: 赢得金额与损失金额之比（b > 0）
+    :param fraction: 使用的凯利比例份额（0 < fraction <= 1），默认为 0.5
+    :return: 分数凯利投注规模
 
     >>> round(fractional_kelly(0.6, 2.0, 0.5), 4)
     0.2
@@ -189,7 +186,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Example: A bet with 60% win probability and 2:1 odds
+    # 示例：获胜概率为 60%、赔率为 2:1 的投注
     win_prob = 0.6
     odds = 2.0
     full_kelly = kelly_criterion(win_prob, odds)

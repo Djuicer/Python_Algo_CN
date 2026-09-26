@@ -8,14 +8,13 @@ class Result(NamedTuple):
 
 def max_load_current(rf: float, rs: float, rl: float, vm: float) -> tuple:
     """
-    This function can calculate the maximum load current(Im)
-    in a full-wave rectifier circuit.
-    Im = maximum load current
-    rf = Forward Resistance of the diode
-    rs = Transformer secondary winding resistance
-    rl = load resistance
-    vm = maximum voltage or peak voltage
-    Cases:-
+    计算全波整流电路中的最大负载电流（Im）。
+    Im = 最大负载电流
+    rf = 二极管正向电阻
+    rs = 变压器次级绕组电阻
+    rl = 负载电阻
+    vm = 最大电压或峰值电压
+    情形：
     >>> max_load_current(rf=2 , rs=4 , rl=6 , vm=15 )
     Result(name='max_load_current', value=1.25)
     >>> max_load_current(rf=2 , rs=4 , rl=6 , vm=0 )
@@ -41,12 +40,11 @@ def max_load_current(rf: float, rs: float, rl: float, vm: float) -> tuple:
 
 def dc_current(im: float) -> tuple:
     """
-    This function can calculate the Average DC Current(Idc) in a circuit.
-    In all cases, a negative sign shows
-    the opposite direction of current or voltage.
-    Idc = average direct current (DC)
-    im = maximum current or peak current
-    cases:
+    计算电路中的平均直流电流（Idc）。
+    在所有情形下，负号表示电流或电压方向相反。
+    Idc = 平均直流电流（DC）
+    im = 最大电流或峰值电流
+    情形：
     >>> dc_current(im=2)
     Result(name='Idc', value=1.272)
     >>> dc_current(im=0)
@@ -57,12 +55,11 @@ def dc_current(im: float) -> tuple:
 
 def dc_voltage(vm: float) -> tuple:
     """
-    This function can calculate the Average DC Voltage(Vdc) in a circuit.
-    In all cases, a negative sign shows
-    the opposite direction of current or voltage.
-    Vdc = average direct current (DC)
-    vm = maximum voltage or peak voltage
-    cases:
+    计算电路中的平均直流电压（Vdc）。
+    在所有情形下，负号表示电流或电压方向相反。
+    Vdc = 平均直流电压（DC）
+    vm = 最大电压或峰值电压
+    情形：
     >>> dc_voltage(vm=2)
     Result(name='Vdc', value=1.272)
     >>> dc_voltage(vm=0)
@@ -73,12 +70,11 @@ def dc_voltage(vm: float) -> tuple:
 
 def max_current(vm: float, rl: float) -> tuple:
     """
-    This function can calculate the maximum current(Im) in a circuit.
-    In all cases, a negative sign shows the
-    opposite direction of current or voltage.
-    vm = maximum voltage or peak voltage
-    rl = load resistance
-    cases:
+    计算电路中的最大电流（Im）。
+    在所有情形下，负号表示电流或电压方向相反。
+    vm = 最大电压或峰值电压
+    rl = 负载电阻
+    情形：
     >>> max_current(vm=2, rl=5)
     Result(name='Max_current_Im', value=0.4)
     >>> max_current(vm=2, rl=-5)
@@ -94,12 +90,11 @@ def max_current(vm: float, rl: float) -> tuple:
 
 def rms_current(im: float) -> tuple:
     """
-    This function calculates the RMS(Root Mean Square) value of current(Irms).
-    In all cases, a negative sign shows
-    the opposite direction of current or voltage.
-    Irms = Root Mean Square Value of current
-    im = maximum current or peak current
-    cases:
+    计算电流的均方根（RMS）值（Irms）。
+    在所有情形下，负号表示电流或电压方向相反。
+    Irms = 电流的均方根值
+    im = 最大电流或峰值电流
+    情形：
     >>> rms_current(im=10)
     Result(name='Irms', value=7.069999999999999)
     >>> rms_current(im=0)
@@ -110,12 +105,11 @@ def rms_current(im: float) -> tuple:
 
 def rms_voltage(vm: float) -> tuple:
     """
-    This function calculates the RMS(Root Mean Square) value of voltage(Vrms).
-    In all cases, a negative sign shows
-    the opposite direction of current or voltage.
-    Vrms = Root Mean Square Value of voltage
-    vm = maximum voltage or peak voltage
-    cases:
+    计算电压的均方根（RMS）值（Vrms）。
+    在所有情形下，负号表示电流或电压方向相反。
+    Vrms = 电压的均方根值
+    vm = 最大电压或峰值电压
+    情形：
     >>> rms_voltage(vm=20)
     Result(name='Vrms', value=14.139999999999999)
     >>> rms_voltage(vm=0)

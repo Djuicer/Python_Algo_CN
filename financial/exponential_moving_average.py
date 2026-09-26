@@ -1,12 +1,11 @@
 """
-Calculate the exponential moving average (EMA) on the series of stock prices.
-Wikipedia Reference: https://en.wikipedia.org/wiki/Exponential_smoothing
+计算股票价格序列的指数移动平均值（EMA）。
+维基百科参考资料：https://en.wikipedia.org/wiki/Exponential_smoothing
 https://www.investopedia.com/terms/e/ema.asp#toc-what-is-an-exponential
 -moving-average-ema
 
-Exponential moving average is used in finance to analyze changes stock prices.
-EMA is used in conjunction with Simple moving average (SMA), EMA reacts to the
-changes in the value quicker than SMA, which is one of the advantages of using EMA.
+指数移动平均值在金融领域用于分析股票价格变化。EMA 常与简单移动平均值（SMA）
+配合使用；EMA 对数值变化的反应比 SMA 更快，这是使用 EMA 的优势之一。
 """
 
 from collections.abc import Iterator
@@ -16,46 +15,43 @@ def exponential_moving_average(
     stock_prices: Iterator[float], window_size: int
 ) -> Iterator[float]:
     """
-    Yields exponential moving averages of the given stock prices.
+    逐个生成给定股票价格的指数移动平均值。
     >>> tuple(exponential_moving_average(iter([2, 5, 3, 8.2, 6, 9, 10]), 3))
     (2, 3.5, 3.25, 5.725, 5.8625, 7.43125, 8.715625)
 
-    :param stock_prices: A stream of stock prices
-    :param window_size: The number of stock prices that will trigger a new calculation
-                        of the exponential average (window_size > 0)
-    :return: Yields a sequence of exponential moving averages
+    :param stock_prices: 股票价格流
+    :param window_size: 触发一次新指数平均值计算所需的股票价格数量
+                        （window_size > 0）
+    :return: 逐个生成指数移动平均值序列
 
-    Formula:
+    公式：
 
     st = alpha * xt + (1 - alpha) * st_prev
 
-    Where,
-    st : Exponential moving average at timestamp t
-    xt : stock price in from the stock prices at timestamp t
-    st_prev : Exponential moving average at timestamp t-1
-    alpha : 2/(1 + window_size) - smoothing factor
+    其中：
+    st : 时间戳 t 处的指数移动平均值
+    xt : 时间戳 t 处的股票价格
+    st_prev : 时间戳 t-1 处的指数移动平均值
+    alpha : 2/(1 + window_size) - 平滑因子
 
-    Exponential moving average (EMA) is a rule of thumb technique for
-    smoothing time series data using an exponential window function.
+    指数移动平均值（EMA）是一种使用指数窗口函数平滑时间序列数据的经验方法。
     """
 
     if window_size <= 0:
         raise ValueError("window_size must be > 0")
 
-    # Calculating smoothing factor
+    # 计算平滑因子
     alpha = 2 / (1 + window_size)
 
-    # Exponential average at timestamp t
+        # 时间戳 t 处的指数平均值
     moving_average = 0.0
 
     for i, stock_price in enumerate(stock_prices):
         if i <= window_size:
-            # Assigning simple moving average till the window_size for the first time
-            # is reached
+            # 首次达到 window_size 前使用简单移动平均值
             moving_average = (moving_average + stock_price) * 0.5 if i else stock_price
         else:
-            # Calculating exponential moving average based on current timestamp data
-            # point and previous exponential average value
+            # 根据当前时间戳的数据点和前一个指数平均值计算指数移动平均值
             moving_average = (alpha * stock_price) + ((1 - alpha) * moving_average)
         yield moving_average
 

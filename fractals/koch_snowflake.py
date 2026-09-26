@@ -1,21 +1,17 @@
 """
-Description
-    The Koch snowflake is a fractal curve and one of the earliest fractals to
-    have been described. The Koch snowflake can be built up iteratively, in a
-    sequence of stages. The first stage is an equilateral triangle, and each
-    successive stage is formed by adding outward bends to each side of the
-    previous stage, making smaller equilateral triangles.
-    This can be achieved through the following steps for each line:
-        1. divide the line segment into three segments of equal length.
-        2. draw an equilateral triangle that has the middle segment from step 1
-        as its base and points outward.
-        3. remove the line segment that is the base of the triangle from step 2.
-    (description adapted from https://en.wikipedia.org/wiki/Koch_snowflake )
-    (for a more detailed explanation and an implementation in the
-    Processing language, see  https://natureofcode.com/book/chapter-8-fractals/
+说明
+    科赫雪花（Koch Snowflake）是一条分形曲线，也是最早被描述的分形之一。科赫
+    雪花可分阶段迭代构造。第一阶段是等边三角形，此后每一阶段都在上一阶段的
+    每条边上添加向外的弯折，形成更小的等边三角形。
+    对每条线段执行以下步骤即可实现：
+        1. 将线段等分为三段。
+        2. 以步骤 1 的中间线段为底边，向外绘制一个等边三角形。
+        3. 删除步骤 2 中作为三角形底边的线段。
+    （说明改编自 https://en.wikipedia.org/wiki/Koch_snowflake ）
+    （更详细的说明和 Processing 语言实现参见 https://natureofcode.com/book/chapter-8-fractals/
     #84-the-koch-curve-and-the-arraylist-technique )
 
-Requirements (pip):
+依赖（pip）：
     - matplotlib
     - numpy
 """
@@ -25,21 +21,20 @@ from __future__ import annotations
 import matplotlib.pyplot as plt
 import numpy as np
 
-# initial triangle of Koch snowflake
+# 科赫雪花的初始三角形
 VECTOR_1 = np.array([0, 0])
 VECTOR_2 = np.array([0.5, 0.8660254])
 VECTOR_3 = np.array([1, 0])
 INITIAL_VECTORS = [VECTOR_1, VECTOR_2, VECTOR_3, VECTOR_1]
 
-# uncomment for simple Koch curve instead of Koch snowflake
+# 取消注释可改为简单科赫曲线，而非科赫雪花
 # INITIAL_VECTORS = [VECTOR_1, VECTOR_3]
 
 
 def iterate(initial_vectors: list[np.ndarray], steps: int) -> list[np.ndarray]:
     """
-    Go through the number of iterations determined by the argument "steps".
-    Be careful with high values (above 5) since the time to calculate increases
-    exponentially.
+    执行参数 "steps" 指定次数的迭代。较大值（5 以上）需谨慎使用，因为计算时间
+    会呈指数增长。
     >>> iterate([np.array([0, 0]), np.array([1, 0])], 1)
     [array([0, 0]), array([0.33333333, 0.        ]), array([0.5       , \
 0.28867513]), array([0.66666667, 0.        ]), array([1, 0])]
@@ -52,10 +47,8 @@ def iterate(initial_vectors: list[np.ndarray], steps: int) -> list[np.ndarray]:
 
 def iteration_step(vectors: list[np.ndarray]) -> list[np.ndarray]:
     """
-    Loops through each pair of adjacent vectors. Each line between two adjacent
-    vectors is divided into 4 segments by adding 3 additional vectors in-between
-    the original two vectors. The vector in the middle is constructed through a
-    60 degree rotation so it is bent outwards.
+    遍历每一对相邻向量。在原有两个向量之间添加 3 个向量，将相邻向量间的线段
+    分成 4 段。中间向量通过旋转 60 度构造，使线段向外弯折。
     >>> iteration_step([np.array([0, 0]), np.array([1, 0])])
     [array([0, 0]), array([0.33333333, 0.        ]), array([0.5       , \
 0.28867513]), array([0.66666667, 0.        ]), array([1, 0])]
@@ -76,8 +69,8 @@ def iteration_step(vectors: list[np.ndarray]) -> list[np.ndarray]:
 
 def rotate(vector: np.ndarray, angle_in_degrees: float) -> np.ndarray:
     """
-    Standard rotation of a 2D vector with a rotation matrix
-    (see https://en.wikipedia.org/wiki/Rotation_matrix )
+    使用旋转矩阵对二维向量进行标准旋转
+    （参见 https://en.wikipedia.org/wiki/Rotation_matrix ）
     >>> rotate(np.array([1, 0]), 60)
     array([0.5      , 0.8660254])
     >>> rotate(np.array([1, 0]), 90)
@@ -91,16 +84,15 @@ def rotate(vector: np.ndarray, angle_in_degrees: float) -> np.ndarray:
 
 def plot(vectors: list[np.ndarray]) -> None:
     """
-    Utility function to plot the vectors using matplotlib.pyplot
-    No doctest was implemented since this function does not have a return value
+    使用 matplotlib.pyplot 绘制向量的辅助函数。
+    由于此函数没有返回值，因此未实现 doctest。
     """
-    # avoid stretched display of graph
+    # 避免图形显示被拉伸
     axes = plt.gca()
     axes.set_aspect("equal")
 
-    # matplotlib.pyplot.plot takes a list of all x-coordinates and a list of all
-    # y-coordinates as inputs, which are constructed from the vector-list using
-    # zip()
+    # matplotlib.pyplot.plot 接受所有 x 坐标和所有 y 坐标的列表作为输入，
+    # 这两个列表使用 zip() 从向量列表构造
     x_coordinates, y_coordinates = zip(*vectors)
     plt.plot(x_coordinates, y_coordinates)
     plt.show()

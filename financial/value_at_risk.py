@@ -1,17 +1,14 @@
 """
-Value at Risk (VaR) via historical simulation.
+使用历史模拟法计算风险价值（Value at Risk, VaR）。
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Value_at_risk
 - https://www.investopedia.com/terms/v/var.asp
 
-Value at Risk measures the maximum loss a portfolio can suffer over a given
-period at a chosen confidence level. Historical simulation is a
-non-parametric method: it reuses the observed returns and reads the quantile
-from the empirical distribution, so no assumption is made about the shape of
-the loss distribution. The result is the negative of the corresponding return
-quantile, i.e. a positive loss magnitude when the tail of the distribution
-contains losses.
+风险价值衡量投资组合在给定期间和选定置信水平下可能遭受的最大损失。历史模拟是
+一种非参数方法：它重复使用观测收益率并从经验分布中读取分位数，因此不对损失
+分布的形状作任何假设。结果为相应收益率分位数的相反数；当分布尾部包含损失时，
+结果为正的损失幅度。
 """
 
 from collections.abc import Sequence
@@ -22,7 +19,7 @@ def _linear_interpolated_quantile(
     sorted_values: Sequence[float], quantile: float
 ) -> float:
     """
-    Linear interpolation between the closest ranks (NumPy default, type 7).
+    在最接近的秩之间进行线性插值（NumPy 默认方法，type 7）。
 
     >>> _linear_interpolated_quantile([-10.0, -5.0, -2.0, 1.0, 4.0], 0.05)
     -9.0
@@ -41,13 +38,12 @@ def _linear_interpolated_quantile(
 
 def value_at_risk(returns: Sequence[float], confidence_level: float = 0.95) -> float:
     """
-    Calculate the historical-simulation Value at Risk of a portfolio.
+    计算投资组合基于历史模拟的风险价值。
 
-    The confidence level is the probability that the loss will not exceed the
-    returned value. The default of 0.95 means that 95% of the observed returns
-    are better (higher) than the VaR threshold, and the remaining 5% are worse.
+    置信水平表示损失不超过返回值的概率。默认值 0.95 表示 95% 的观测收益率优于
+    （高于）VaR 阈值，其余 5% 更差。
 
-    Examples:
+    示例：
     >>> value_at_risk([-10, -5, -2, 1, 4], 0.95)
     9.0
     >>> value_at_risk([-2, -1, 0, 1, 2, 3], 0.90)
@@ -67,8 +63,8 @@ def value_at_risk(returns: Sequence[float], confidence_level: float = 0.95) -> f
     ...
     ValueError: returns must contain only finite numbers
 
-    Time complexity: O(n log n), where n = len(returns), for sorting.
-    Space complexity: O(n) for the sorted copy.
+    时间复杂度：排序需要 O(n log n)，其中 n = len(returns)。
+    空间复杂度：有序副本需要 O(n)。
     """
     if not returns:
         raise ValueError("returns must not be empty")

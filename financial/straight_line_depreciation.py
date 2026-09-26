@@ -1,31 +1,23 @@
 """
-In accounting, depreciation refers to the decreases in the value
-of a fixed asset during the asset's useful life.
-When an organization purchases a fixed asset,
-the purchase expenditure is not recognized as an expense immediately.
-Instead, the decreases in the asset's value are recognized as expenses
-over the years during which the asset is used.
+在会计中，折旧是指固定资产在使用寿命内的价值减少。组织购买固定资产时，购买
+支出不会立即确认为费用，而是将资产价值的减少在资产使用年限内逐年确认为费用。
 
-The following methods are widely used
-for depreciation calculation in accounting:
-- Straight-line method
-- Diminishing balance method
-- Units-of-production method
+会计中广泛使用以下折旧计算方法：
+- 直线法
+- 余额递减法
+- 工作量法
 
-The straight-line method is the simplest and most widely used.
-This method calculates depreciation by spreading the cost evenly
-over the asset's useful life.
+直线法最简单且应用最广。该方法将成本均匀分摊到资产的使用寿命内以计算折旧。
 
-The following formula shows how to calculate the yearly depreciation expense:
+年度折旧费用的计算公式如下：
 
 - annual depreciation expense =
     (purchase cost of asset - residual value) / useful life of asset(years)
 
-Further information on:
+更多信息：
 https://en.wikipedia.org/wiki/Depreciation
 
-The function, straight_line_depreciation, returns a list of
-the depreciation expenses over the given period.
+函数 straight_line_depreciation 返回给定期间内的折旧费用列表。
 """
 
 
@@ -35,11 +27,11 @@ def straight_line_depreciation(
     residual_value: float = 0.0,
 ) -> list[float]:
     """
-    Calculate the depreciation expenses over the given period
-    :param useful_years: Number of years the asset will be used
-    :param purchase_value: Purchase expenditure for the asset
-    :param residual_value: Residual value of the asset at the end of its useful life
-    :return: A list of annual depreciation expenses over the asset's useful life
+    计算给定期间内的折旧费用。
+    :param useful_years: 资产的使用年数
+    :param purchase_value: 资产的购买支出
+    :param residual_value: 资产使用寿命结束时的残值
+    :return: 资产使用寿命内的年度折旧费用列表
     >>> straight_line_depreciation(10, 1100.0, 100.0)
     [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]
     >>> straight_line_depreciation(6, 1250.0, 50.0)
@@ -70,11 +62,11 @@ def straight_line_depreciation(
     if purchase_value < residual_value:
         raise ValueError("Purchase value cannot be less than residual value")
 
-    # Calculate annual depreciation expense
+    # 计算年度折旧费用
     depreciable_cost = purchase_value - residual_value
     annual_depreciation_expense = depreciable_cost / useful_years
 
-    # List of annual depreciation expenses
+    # 年度折旧费用列表
     list_of_depreciation_expenses = []
     accumulated_depreciation_expense = 0.0
     for period in range(useful_years):

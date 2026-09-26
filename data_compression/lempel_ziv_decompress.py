@@ -1,5 +1,5 @@
 """
-One of the several implementations of Lempel-Ziv-Welch decompression algorithm
+Lempel-Ziv-Welch 解压缩算法的多种实现之一。
 https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
 """
 
@@ -9,7 +9,7 @@ import sys
 
 def read_file_binary(file_path: str) -> str:
     """
-    Reads given file as bytes and returns them as a long string
+    以字节形式读取给定文件，并将其作为长字符串返回。
     """
     result = ""
     try:
@@ -26,8 +26,7 @@ def read_file_binary(file_path: str) -> str:
 
 def decompress_data(data_bits: str) -> str:
     """
-    Decompresses given data_bits using Lempel-Ziv-Welch compression algorithm
-    and returns the result as a string
+    使用 Lempel-Ziv-Welch 算法解压缩给定的 data_bits，并以字符串返回结果。
     """
     lexicon = {"0": "0", "1": "1"}
     result, curr_string = "", ""
@@ -56,8 +55,7 @@ def decompress_data(data_bits: str) -> str:
 
 def write_file_binary(file_path: str, to_write: str) -> None:
     """
-    Writes given to_write string (should only consist of 0's and 1's) as bytes in the
-    file
+    将给定的 to_write 字符串（应仅由 0 和 1 组成）以字节形式写入文件。
     """
     byte_length = 8
     try:
@@ -83,8 +81,7 @@ def write_file_binary(file_path: str, to_write: str) -> None:
 
 def remove_prefix(data_bits: str) -> str:
     """
-    Removes size prefix, that compressed file should have
-    Returns the result
+    移除压缩文件应包含的大小前缀，并返回结果。
     """
     counter = 0
     for letter in data_bits:
@@ -99,7 +96,7 @@ def remove_prefix(data_bits: str) -> str:
 
 def compress(source_path: str, destination_path: str) -> None:
     """
-    Reads source file, decompresses it and writes the result in destination file
+    读取源文件，将其解压缩，并把结果写入目标文件。
     """
     data_bits = read_file_binary(source_path)
     data_bits = remove_prefix(data_bits)

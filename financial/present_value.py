@@ -1,11 +1,11 @@
 """
-Reference: https://www.investopedia.com/terms/p/presentvalue.asp
+参考资料：https://www.investopedia.com/terms/p/presentvalue.asp
 
-An algorithm that calculates the present value of a stream of yearly cash flows given...
-1. The discount rate (as a decimal, not a percent)
-2. An array of cash flows, with the index of the cash flow being the associated year
+此算法根据以下信息计算年度现金流的现值：
+1. 贴现率（用小数而非百分数表示）
+2. 现金流数组，其中现金流的索引表示对应年份
 
-Note: This algorithm assumes that cash flows are paid at the end of the specified year
+注意：此算法假设现金流在指定年份末支付。
 """
 
 

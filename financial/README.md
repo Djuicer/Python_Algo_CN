@@ -1,4 +1,4 @@
-# Interest
+# 利息
 
-* Compound Interest: "Compound interest is calculated by multiplying the initial principal amount by one plus the annual interest rate raised to the number of compound periods minus one." [Compound Interest](https://www.investopedia.com/)
-* Simple Interest: "Simple interest paid or received over a certain period is a fixed percentage of the principal amount that was borrowed or lent. " [Simple Interest](https://www.investopedia.com/)
+* 复利：复利的计算方法是，将初始本金乘以一加年利率的复利期数次幂，再减去初始本金。[复利](https://www.investopedia.com/)
+* 单利：在一定期间内支付或收取的单利，是借入或贷出本金的固定百分比。[单利](https://www.investopedia.com/)

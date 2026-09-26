@@ -2,18 +2,18 @@ from math import log
 
 from scipy.constants import Boltzmann, physical_constants
 
-T = 300  # TEMPERATURE (unit = K)
+T = 300  # 温度（单位 = K）
 
 
 def builtin_voltage(
-    donor_conc: float,  # donor concentration
-    acceptor_conc: float,  # acceptor concentration
-    intrinsic_conc: float,  # intrinsic concentration
+    donor_conc: float,  # 施主浓度
+    acceptor_conc: float,  # 受主浓度
+    intrinsic_conc: float,  # 本征载流子浓度
 ) -> float:
     """
-    This function can calculate the Builtin Voltage of a pn junction diode.
-    This is calculated from the given three values.
-    Examples -
+    计算 pn 结二极管的内建电势。
+    计算需要给定以下三个数值。
+    示例 -
     >>> builtin_voltage(donor_conc=1e17, acceptor_conc=1e17, intrinsic_conc=1e10)
     0.833370010652644
     >>> builtin_voltage(donor_conc=0, acceptor_conc=1600, intrinsic_conc=200)

@@ -1,25 +1,25 @@
 from __future__ import annotations
 
 """
-    Calculate the frequency and/or duty cycle of an astable 555 timer.
+    计算无稳态 555 定时器的频率和/或占空比。
     * https://en.wikipedia.org/wiki/555_timer_IC#Astable
 
-    These functions take in the value of the external resistances (in ohms)
-    and capacitance (in Microfarad), and calculates the following:
+    这些函数接收外部电阻（单位为 ohms）和电容（单位为 Microfarad）的值，
+    并计算以下内容：
 
     -------------------------------------
     | Freq = 1.44 /[( R1+ 2 x R2) x C1] |               ... in Hz
     -------------------------------------
-    where Freq is the frequency,
-          R1 is the first resistance in ohms,
-          R2 is the second resistance in ohms,
-          C1 is the capacitance in Microfarads.
+    其中 Freq 为频率，
+          R1 为第一个电阻，单位为 ohms，
+          R2 为第二个电阻，单位为 ohms，
+          C1 为电容，单位为 Microfarads。
 
     ------------------------------------------------
     | Duty Cycle = (R1 + R2) / (R1 + 2 x R2) x 100 |    ... in %
     ------------------------------------------------
-    where R1 is the first resistance in ohms,
-          R2 is the second resistance in ohms.
+    其中 R1 为第一个电阻，单位为 ohms，
+          R2 为第二个电阻，单位为 ohms。
 """
 
 
@@ -27,7 +27,7 @@ def astable_frequency(
     resistance_1: float, resistance_2: float, capacitance: float
 ) -> float:
     """
-    Usage examples:
+    用法示例：
     >>> astable_frequency(resistance_1=45, resistance_2=45, capacitance=7)
     1523.8095238095239
     >>> astable_frequency(resistance_1=356, resistance_2=234, capacitance=976)
@@ -49,7 +49,7 @@ def astable_frequency(
 
 def astable_duty_cycle(resistance_1: float, resistance_2: float) -> float:
     """
-    Usage examples:
+    用法示例：
     >>> astable_duty_cycle(resistance_1=45, resistance_2=45)
     66.66666666666666
     >>> astable_duty_cycle(resistance_1=356, resistance_2=234)

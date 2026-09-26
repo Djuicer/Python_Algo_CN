@@ -1,10 +1,10 @@
 """
-Program to calculate the amortization amount per month, given
-- Principal borrowed
-- Rate of interest per annum
-- Years to repay the loan
+根据以下信息计算每月摊还金额：
+- 借款本金
+- 年利率
+- 贷款偿还年限
 
-Wikipedia Reference: https://en.wikipedia.org/wiki/Equated_monthly_installment
+维基百科参考资料：https://en.wikipedia.org/wiki/Equated_monthly_installment
 """
 
 
@@ -12,10 +12,9 @@ def equated_monthly_installments(
     principal: float, rate_per_annum: float, years_to_repay: int
 ) -> float:
     """
-    Formula for amortization amount per month:
+    每月摊还金额公式：
     A = p * r * (1 + r)^n / ((1 + r)^n - 1)
-    where p is the principal, r is the rate of interest per month
-    and n is the number of payments
+    其中 p 为本金，r 为月利率，n 为付款次数。
 
     >>> equated_monthly_installments(25000, 0.12, 3)
     830.3577453212793
@@ -41,10 +40,10 @@ def equated_monthly_installments(
     if years_to_repay <= 0 or not isinstance(years_to_repay, int):
         raise Exception("Years to repay must be an integer > 0")
 
-    # Yearly rate is divided by 12 to get monthly rate
+    # 年利率除以 12 得到月利率
     rate_per_month = rate_per_annum / 12
 
-    # Years to repay is multiplied by 12 to get number of payments as payment is monthly
+    # 按月付款，因此还款年数乘以 12 得到付款次数
     number_of_payments = years_to_repay * 12
 
     return (

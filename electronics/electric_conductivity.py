@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-ELECTRON_CHARGE = 1.6021e-19  # units = C
+ELECTRON_CHARGE = 1.6021e-19  # 单位 = C
 
 
 def electric_conductivity(
@@ -9,12 +9,11 @@ def electric_conductivity(
     mobility: float,
 ) -> tuple[str, float]:
     """
-    This function can calculate any one of the three -
-    1. Conductivity
-    2. Electron Concentration
-    3. Electron Mobility
-    This is calculated from the other two provided values
-    Examples -
+    给定以下三项中的任意两项，计算剩余一项：
+    1. 电导率
+    2. 电子浓度
+    3. 电子迁移率
+    示例 -
     >>> electric_conductivity(conductivity=25, electron_conc=100, mobility=0)
     ('mobility', 1.5604519068722301e+18)
     >>> electric_conductivity(conductivity=0, electron_conc=1600, mobility=200)

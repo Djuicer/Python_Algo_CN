@@ -11,12 +11,11 @@ def carrier_concentration(
     intrinsic_conc: float,
 ) -> tuple:
     """
-    This function can calculate any one of the three -
-    1. Electron Concentration
-    2, Hole Concentration
-    3. Intrinsic Concentration
-    given the other two.
-    Examples -
+    给定以下三项中的任意两项，计算剩余一项：
+    1. 电子浓度
+    2. 空穴浓度
+    3. 本征载流子浓度
+    示例 -
     >>> carrier_concentration(electron_conc=25, hole_conc=100, intrinsic_conc=0)
     ('intrinsic_conc', 50.0)
     >>> carrier_concentration(electron_conc=0, hole_conc=1600, intrinsic_conc=200)

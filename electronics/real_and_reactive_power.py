@@ -3,9 +3,9 @@ import math
 
 def real_power(apparent_power: float, power_factor: float) -> float:
     """
-    Calculate real power from apparent power and power factor.
+    根据视在功率和功率因数计算有功功率。
 
-    Examples:
+    示例：
     >>> real_power(100, 0.9)
     90.0
     >>> real_power(0, 0.8)
@@ -24,9 +24,9 @@ def real_power(apparent_power: float, power_factor: float) -> float:
 
 def reactive_power(apparent_power: float, power_factor: float) -> float:
     """
-    Calculate reactive power from apparent power and power factor.
+    根据视在功率和功率因数计算无功功率。
 
-    Examples:
+    示例：
     >>> reactive_power(100, 0.9)
     43.58898943540673
     >>> reactive_power(0, 0.8)

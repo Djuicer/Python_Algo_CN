@@ -1,24 +1,20 @@
 """Author Alexandre De Zotti
 
-Draws Julia sets of quadratic polynomials and exponential maps.
- More specifically, this iterates the function a fixed number of times
- then plots whether the absolute value of the last iterate is greater than
- a fixed threshold (named "escape radius"). For the exponential map this is not
- really an escape radius but rather a convenient way to approximate the Julia
- set with bounded orbits.
+绘制二次多项式和指数映射的朱利亚集（Julia Set）。具体而言，将函数迭代固定次数，
+然后绘制最后一次迭代值的绝对值是否大于固定阈值（称为“逃逸半径”）。对于指数
+映射，这并非真正的逃逸半径，而是近似具有有界轨道的朱利亚集的一种便捷方法。
 
-The examples presented here are:
-- The Cauliflower Julia set, see e.g.
+此处给出的示例包括：
+- 花椰菜朱利亚集，例如参见
 https://en.wikipedia.org/wiki/File:Julia_z2%2B0,25.png
-- Other examples from https://en.wikipedia.org/wiki/Julia_set
-- An exponential map Julia set, ambiantly homeomorphic to the examples in
+- https://en.wikipedia.org/wiki/Julia_set 中的其他示例
+- 一个指数映射朱利亚集，在环境空间中与以下示例同胚
 https://www.math.univ-toulouse.fr/~cheritat/GalII/galery.html
  and
 https://ddd.uab.cat/pub/pubmat/02141493v43n1/02141493v43n1p27.pdf
 
-Remark: Some overflow runtime warnings are suppressed. This is because of the
- way the iteration loop is implemented, using numpy's efficient computations.
- Overflows and infinites are replaced after each step by a large number.
+备注：部分运行时溢出警告会被抑制，这是因为迭代循环使用了 numpy 的高效计算
+实现。每一步之后，溢出值和无穷值都会被一个大数替换。
 """
 
 import warnings
@@ -39,7 +35,7 @@ nb_pixels = 666
 
 def eval_exponential(c_parameter: complex, z_values: np.ndarray) -> np.ndarray:
     """
-    Evaluate $e^z + c$.
+    计算 $e^z + c$。
     >>> float(eval_exponential(0, 0))
     1.0
     >>> bool(abs(eval_exponential(1, np.pi*1.j)) < 1e-15)
@@ -66,9 +62,8 @@ def eval_quadratic_polynomial(c_parameter: complex, z_values: np.ndarray) -> np.
 
 def prepare_grid(window_size: float, nb_pixels: int) -> np.ndarray:
     """
-    Create a grid of complex values of size nb_pixels*nb_pixels with real and
-     imaginary parts ranging from -window_size to window_size (inclusive).
-    Returns a numpy array.
+    创建大小为 nb_pixels*nb_pixels 的复数网格，实部和虚部范围均为
+    -window_size 到 window_size（含端点）。返回 numpy 数组。
 
     >>> prepare_grid(1,3)
     array([[-1.-1.j, -1.+0.j, -1.+1.j],
@@ -90,11 +85,8 @@ def iterate_function(
     infinity: float | None = None,
 ) -> np.ndarray:
     """
-    Iterate the function "eval_function" exactly nb_iterations times.
-    The first argument of the function is a parameter which is contained in
-    function_params. The variable z_0 is an array that contains the initial
-    values to iterate from.
-    This function returns the final iterates.
+    将函数 "eval_function" 恰好迭代 nb_iterations 次。函数的第一个参数包含在
+    function_params 中。变量 z_0 是包含迭代初值的数组。本函数返回最终迭代值。
 
     >>> iterate_function(eval_quadratic_polynomial, 0, 3, np.array([0,1,2])).shape
     (3,)
@@ -131,9 +123,8 @@ def show_results(
     z_final: np.ndarray,
 ) -> None:
     """
-    Plots of whether the absolute value of z_final is greater than
-    the value of escape_radius. Adds the function_label and function_params to
-    the title.
+    绘制 z_final 的绝对值是否大于 escape_radius，并将 function_label 和
+    function_params 添加到标题中。
 
     >>> show_results('80', 0, 1, np.array([[0,1,.5],[.4,2,1.1],[.2,1,1.3]]))
     """
@@ -147,7 +138,7 @@ def show_results(
 
 def ignore_overflow_warnings() -> None:
     """
-    Ignore some overflow and invalid value warnings.
+    忽略部分溢出和无效值警告。
 
     >>> ignore_overflow_warnings()
     """
@@ -170,7 +161,7 @@ def ignore_overflow_warnings() -> None:
 if __name__ == "__main__":
     z_0 = prepare_grid(window_size, nb_pixels)
 
-    ignore_overflow_warnings()  # See file header for explanations
+    ignore_overflow_warnings()  # 说明参见文件头部
 
     nb_iterations = 24
     escape_radius = 2 * abs(c_cauliflower) + 1

@@ -1,5 +1,5 @@
 """
-Calculate price plus tax of a good or service given its price and a tax rate.
+根据商品或服务的价格和税率计算含税价格。
 """
 
 

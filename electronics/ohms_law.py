@@ -4,8 +4,8 @@ from __future__ import annotations
 
 def ohms_law(voltage: float, current: float, resistance: float) -> dict[str, float]:
     """
-    Apply Ohm's Law, on any two given electrical values, which can be voltage, current,
-    and resistance, and then in a Python dict return name/value pair of the zero value.
+    对 voltage、current 和 resistance 中任意两个给定电气量应用欧姆定律，并在
+    Python 字典中返回取零参数的名称/数值对。
 
     >>> ohms_law(voltage=10, resistance=5, current=0)
     {'current': 2.0}

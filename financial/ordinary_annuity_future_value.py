@@ -1,21 +1,15 @@
 """
-An ordinary annuity means making or requiring payments at the end
-of each term during a given period.
-For example, if the given period is 3 terms long and the payment
-for each term is $1000, then the cash flow is as follows:
+普通年金是指在给定期间内，于每期期末支付或收取款项。
+例如，给定期间包含 3 期，每期付款 $1000，则现金流如下：
 
     0: no payment --- 1: $1000 --- 2: $1000 --- 3: $1000
 
-The function, ordinary_annuity_future_value, calculates the future value of
-the given ordinary annuity. In the example above, the function should return
-the sum of each payment's future value at the end of term 3,
-which means the sum is returned as soon as the last payment is made.
+函数 ordinary_annuity_future_value 计算指定普通年金的终值。在上述示例中，函数
+应返回每笔付款在第 3 期末的终值之和，即在最后一笔付款完成时返回该总和。
 
-More info on: https://www.investopedia.com/retirement/calculating-present-and-future-value-of-annuities
+更多信息：https://www.investopedia.com/retirement/calculating-present-and-future-value-of-annuities
 
-This function can help you understand how much you will receive if you make a
-regular deposit at the end of each term for saving with a fixed period and
-interest rate.
+对于期限和利率固定、每期期末定期存款的储蓄方案，此函数可帮助计算最终所得金额。
 """
 
 
@@ -23,13 +17,13 @@ def ordinary_annuity_future_value(
     term_payment: float, number_of_payments: int, term_interest_rate: float
 ) -> float:
     """
-    Calculate the future value of the given ordinary annuity
-    :param term_payment: payment made at the end of each term
-    :param number_of_payments: the number of payments
-    :param term_interest_rate: the interest rate for each term
-    :return: the future value (maturity value) of the given ordinary annuity
+    计算指定普通年金的终值。
+    :param term_payment: 每期期末支付的款项
+    :param number_of_payments: 付款次数
+    :param term_interest_rate: 每期利率
+    :return: 指定普通年金的终值（到期值）
 
-    Examples:
+    示例：
     >>> round(ordinary_annuity_future_value(500, 10, 0.05), 2)
     6288.95
     >>> round(ordinary_annuity_future_value(1000, 10, 0.05), 2)

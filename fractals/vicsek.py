@@ -1,15 +1,11 @@
 """Authors Bastien Capiaux & Mehdi Oudghiri
 
-The Vicsek fractal algorithm is a recursive algorithm that creates a
-pattern known as the Vicsek fractal or the Vicsek square.
-It is based on the concept of self-similarity, where the pattern at each
-level of recursion resembles the overall pattern.
-The algorithm involves dividing a square into 9 equal smaller squares,
-removing the center square, and then repeating this process on the remaining 8 squares.
-This results in a pattern that exhibits self-similarity and has a
-square-shaped outline with smaller squares within it.
+维切克分形（Vicsek Fractal）算法是一种递归算法，用于创建称为维切克分形或维切克
+方形的图案。它基于自相似概念，每一递归层级的图案都与整体图案相似。该算法将
+正方形分为 9 个相等的小正方形，移除中心正方形，然后对剩余 8 个正方形重复此
+过程，最终得到具有自相似性的方形轮廓，其中包含更小的正方形。
 
-Source: https://en.wikipedia.org/wiki/Vicsek_fractal
+来源：https://en.wikipedia.org/wiki/Vicsek_fractal
 """
 
 import turtle
@@ -17,7 +13,7 @@ import turtle
 
 def draw_cross(x: float, y: float, length: float) -> None:
     """
-    Draw a cross at the specified position and with the specified length.
+    在指定位置绘制指定长度的十字形。
     """
     turtle.up()
     turtle.goto(x - length / 2, y - length / 6)
@@ -36,8 +32,7 @@ def draw_cross(x: float, y: float, length: float) -> None:
 
 def draw_fractal_recursive(x: float, y: float, length: float, depth: float) -> None:
     """
-    Recursively draw the Vicsek fractal at the specified position, with the
-    specified length and depth.
+    在指定位置以指定长度和深度递归绘制维切克分形。
     """
     if depth == 0:
         draw_cross(x, y, length)
@@ -58,8 +53,7 @@ def draw_vicsek_fractal(
     x: float, y: float, length: float, depth: float, color="blue"
 ) -> None:
     """
-    Draw the Vicsek fractal at the specified position, with the specified
-    length and depth.
+    在指定位置以指定长度和深度绘制维切克分形。
     """
     turtle.speed(0)
     turtle.hideturtle()

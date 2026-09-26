@@ -12,8 +12,8 @@ def _reactive_power_difference(
     expected_power_factor: float,
 ) -> float:
     """
-    Validate the inputs and return the difference between the load's current and
-    expected reactive power (ΔQ), shared by the capacitor and inductor helpers.
+    验证输入并返回负载当前无功功率与预期无功功率之差（ΔQ）；电容器和电感器
+    辅助函数共用此计算。
 
     >>> round(_reactive_power_difference(60, 120, 4000, 0.8, 0.95), 6)
     1685.263579
@@ -44,8 +44,7 @@ def _reactive_power_difference(
     expected_reactive_power = (real_power / expected_power_factor) * math.sin(
         math.acos(expected_power_factor)
     )
-    # The difference between the old and new reactive powers is supplied by the
-    # parallel compensating element (capacitor or inductor).
+    # 新旧无功功率之差由并联补偿元件（电容器或电感器）提供。
     return current_reactive_power - expected_reactive_power
 
 
@@ -57,10 +56,9 @@ def shunt_capacitor_power_factor_correction(
     expected_power_factor: float,
 ) -> float:
     """
-    Calculate the shunt capacitance (in farads) to add in parallel with the load
-    in order to achieve the expected power factor.
+    计算为达到预期功率因数而需与负载并联的电容（单位为 farads）。
 
-    Examples:
+    示例：
     >>> shunt_capacitor_power_factor_correction(120,60,4000,0.8,0.95)
     0.00031043753362948597
     >>> shunt_capacitor_power_factor_correction(150,50,2000,0.6,0.87)
@@ -88,10 +86,9 @@ def shunt_inductor_power_factor_correction(
     expected_power_factor: float,
 ) -> float:
     """
-    Calculate the shunt inductance (in henries) to add in parallel with the load
-    in order to achieve the expected power factor.
+    计算为达到预期功率因数而需与负载并联的电感（单位为 henries）。
 
-    Examples:
+    示例：
     >>> shunt_inductor_power_factor_correction(120,60,4000,0.8,0.95)
     0.02266540783980564
     >>> shunt_inductor_power_factor_correction(120,60,4000,-0.8,-0.4)

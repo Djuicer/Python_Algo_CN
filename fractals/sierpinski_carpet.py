@@ -1,34 +1,29 @@
 """
-The Sierpinski carpet is a plane fractal first described by Wacław Sierpiński
-in 1916.  It is a two-dimensional generalisation of the Cantor set and a close
-relative of the Sierpinski triangle.
+谢尔宾斯基地毯（Sierpinski Carpet）是 Wacław Sierpiński 于 1916 年首次描述的平面
+分形。它是康托集的二维推广，与谢尔宾斯基三角形密切相关。
 
-Construction
-    Start from a filled square.  Divide it into a 3x3 grid of nine equal
-    sub-squares and remove the central one.  Then apply the same procedure
-    recursively to each of the eight remaining sub-squares, forever.
+构造方法
+    从实心正方形开始，将其划分为 3x3 网格中的九个相等子正方形，并移除中心
+    正方形。然后对剩余八个子正方形无限递归地执行相同步骤。
 
-A convenient way to decide whether a single cell of the ``3**n x 3**n`` grid is
-filled (part of the carpet) or empty (a hole) is to look at the base-3 digits
-of its row and column indices: the cell is a hole if and only if, at some
-level, both the row digit and the column digit are equal to ``1`` (the centre
-of that 3x3 block).
+判断 ``3**n x 3**n`` 网格中的单元格是填充状态（属于地毯）还是空洞的一种便捷
+方法，是查看其行列索引的三进制数字：当且仅当某一层的行数字和列数字都等于
+``1``（即该 3x3 块的中心）时，该单元格为空洞。
 
-This module builds the carpet purely with integer arithmetic, so every
-function is deterministic and can be verified with doctests -- no plotting or
-turtle graphics required.
+此模块完全使用整数运算构造地毯，因此每个函数都是确定性的，可使用 doctest
+验证，无需绘图或 turtle 图形。
 
-Reference: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_carpet
+参考资料：https://en.wikipedia.org/wiki/Sierpi%C5%84ski_carpet
 """
 
 
 def is_filled(row: int, col: int) -> bool:
     """
-    Return ``True`` when the cell at (``row``, ``col``) belongs to the carpet
-    and ``False`` when it falls inside one of the removed central squares.
+    当 (``row``, ``col``) 处的单元格属于地毯时返回 ``True``；当其位于某个被移除
+    的中心正方形内时返回 ``False``。
 
-    The result is independent of the fractal depth: a cell is a hole as soon as
-    any pair of matching base-3 digits equals ``(1, 1)``.
+    结果与分形深度无关：只要任意一对对应的三进制数字等于 ``(1, 1)``，该单元格
+    就是空洞。
 
     >>> is_filled(0, 0)
     True
@@ -41,7 +36,7 @@ def is_filled(row: int, col: int) -> bool:
     >>> [is_filled(1, col) for col in range(3)]
     [True, False, True]
 
-    Negative coordinates make no sense for a grid index.
+    网格索引不能使用负坐标。
 
     >>> is_filled(-1, 0)
     Traceback (most recent call last):
@@ -61,10 +56,9 @@ def is_filled(row: int, col: int) -> bool:
 
 def generate_carpet(depth: int, filled: str = "#", hole: str = " ") -> list[str]:
     """
-    Build the Sierpinski carpet of the given ``depth`` as a list of strings.
+    将给定 ``depth`` 的谢尔宾斯基地毯构造为字符串列表。
 
-    A depth of ``0`` is a single filled cell; each extra level multiplies the
-    side length by three.
+    深度 ``0`` 表示单个填充单元格；每增加一层，边长扩大为三倍。
 
     >>> generate_carpet(0)
     ['#']
@@ -101,10 +95,10 @@ def generate_carpet(depth: int, filled: str = "#", hole: str = " ") -> list[str]
 
 def count_filled_cells(depth: int) -> int:
     """
-    Return how many cells are filled in a carpet of the given ``depth``.
+    返回给定 ``depth`` 的地毯中填充单元格的数量。
 
-    Each level keeps eight of the nine sub-squares, so the count is ``8**depth``.
-    Verifying this closed form against a brute-force scan is a nice sanity check.
+    每层保留九个子正方形中的八个，因此数量为 ``8**depth``。用暴力扫描验证该
+    闭式结果是一项良好的健全性检查。
 
     >>> [count_filled_cells(depth) for depth in range(4)]
     [1, 8, 64, 512]

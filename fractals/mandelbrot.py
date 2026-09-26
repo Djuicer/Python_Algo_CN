@@ -1,18 +1,13 @@
 """
-The Mandelbrot set is the set of complex numbers "c" for which the series
-"z_(n+1) = z_n * z_n + c" does not diverge, i.e. remains bounded. Thus, a
-complex number "c" is a member of the Mandelbrot set if, when starting with
-"z_0 = 0" and applying the iteration repeatedly, the absolute value of
-"z_n" remains bounded for all "n > 0". Complex numbers can be written as
-"a + b*i": "a" is the real component, usually drawn on the x-axis, and "b*i"
-is the imaginary component, usually drawn on the y-axis. Most visualizations
-of the Mandelbrot set use a color-coding to indicate after how many steps in
-the series the numbers outside the set diverge. Images of the Mandelbrot set
-exhibit an elaborate and infinitely complicated boundary that reveals
-progressively ever-finer recursive detail at increasing magnifications, making
-the boundary of the Mandelbrot set a fractal curve.
-(description adapted from https://en.wikipedia.org/wiki/Mandelbrot_set )
-(see also https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set )
+曼德勃罗集（Mandelbrot Set）是使序列 "z_(n+1) = z_n * z_n + c" 不发散（即保持
+有界）的复数 "c" 的集合。因此，从 "z_0 = 0" 开始反复迭代时，如果对所有
+"n > 0"，"z_n" 的绝对值始终有界，则复数 "c" 属于曼德勃罗集。复数可写作
+"a + b*i"："a" 是实部，通常绘制在 x 轴上；"b*i" 是虚部，通常绘制在 y 轴上。
+大多数曼德勃罗集可视化使用颜色编码，表示集合外的数在序列迭代多少步后发散。
+曼德勃罗集图像具有精巧且无限复杂的边界；随着放大倍数增加，边界会逐渐展现
+更精细的递归细节，因此曼德勃罗集的边界是一条分形曲线。
+（说明改编自 https://en.wikipedia.org/wiki/Mandelbrot_set ）
+（另请参阅 https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set ）
 """
 
 import colorsys
@@ -22,9 +17,8 @@ from PIL import Image
 
 def get_distance(x: float, y: float, max_step: int) -> float:
     """
-    Return the relative distance (= step/max_step) after which the complex number
-    constituted by this x-y-pair diverges. Members of the Mandelbrot set do not
-    diverge so their distance is 1.
+    返回由此 x-y 对构成的复数发散时的相对距离（= step/max_step）。曼德勃罗集
+    中的成员不会发散，因此其距离为 1。
 
     >>> get_distance(0, 0, 50)
     1.0
@@ -40,8 +34,7 @@ def get_distance(x: float, y: float, max_step: int) -> float:
         b = 2 * a * b + y
         a = a_new
 
-        # divergence happens for all complex number with an absolute value
-        # greater than 4
+        # 所有绝对值大于 4 的复数都会发散
         if a * a + b * b > 4:
             break
     return step / (max_step - 1)
@@ -49,8 +42,7 @@ def get_distance(x: float, y: float, max_step: int) -> float:
 
 def get_black_and_white_rgb(distance: float) -> tuple:
     """
-    Black&white color-coding that ignores the relative distance. The Mandelbrot
-    set is black, everything else is white.
+    忽略相对距离的黑白颜色编码。曼德勃罗集为黑色，其余部分为白色。
 
     >>> get_black_and_white_rgb(0)
     (255, 255, 255)
@@ -67,8 +59,7 @@ def get_black_and_white_rgb(distance: float) -> tuple:
 
 def get_color_coded_rgb(distance: float) -> tuple:
     """
-    Color-coding taking the relative distance into account. The Mandelbrot set
-    is black.
+    考虑相对距离的颜色编码。曼德勃罗集为黑色。
 
     >>> get_color_coded_rgb(0)
     (255, 0, 0)
@@ -93,14 +84,11 @@ def get_image(
     use_distance_color_coding: bool = True,
 ) -> Image.Image:
     """
-    Function to generate the image of the Mandelbrot set. Two types of coordinates
-    are used: image-coordinates that refer to the pixels and figure-coordinates
-    that refer to the complex numbers inside and outside the Mandelbrot set. The
-    figure-coordinates in the arguments of this function determine which section
-    of the Mandelbrot set is viewed. The main area of the Mandelbrot set is
-    roughly between "-1.5 < x < 0.5" and "-1 < y < 1" in the figure-coordinates.
-
-    Commenting out tests that slow down pytest...
+    生成曼德勃罗集图像。使用两类坐标：表示像素的图像坐标，以及表示曼德勃罗集
+    内外复数的图形坐标。函数参数中的图形坐标决定查看曼德勃罗集的哪个区域。
+    在图形坐标中，曼德勃罗集的主要区域大致位于 "-1.5 < x < 0.5" 和
+    "-1 < y < 1" 之间。
+    注释掉会拖慢 pytest 的测试……
     # 13.35s call     fractals/mandelbrot.py::mandelbrot.get_image
     # >>> get_image().load()[0,0]
     (255, 0, 0)
@@ -111,17 +99,17 @@ def get_image(
     pixels = img.load()
     assert pixels is not None
 
-    # loop through the image-coordinates
+    # 遍历图像坐标
     for image_x in range(image_width):
         for image_y in range(image_height):
-            # determine the figure-coordinates based on the image-coordinates
+            # 根据图像坐标确定图形坐标
             figure_height = figure_width / image_width * image_height
             figure_x = figure_center_x + (image_x / image_width - 0.5) * figure_width
             figure_y = figure_center_y + (image_y / image_height - 0.5) * figure_height
 
             distance = get_distance(figure_x, figure_y, max_step)
 
-            # color the corresponding pixel based on the selected coloring-function
+            # 根据所选着色函数为对应像素着色
             if use_distance_color_coding:
                 pixels[image_x, image_y] = get_color_coded_rgb(distance)
             else:
@@ -135,17 +123,17 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # colored version, full figure
+    # 彩色版本，完整图形
     img = get_image()
 
-    # uncomment for colored version, different section, zoomed in
+    # 取消注释可查看彩色版本的另一放大区域
     # img = get_image(figure_center_x = -0.6, figure_center_y = -0.4,
     # figure_width = 0.8)
 
-    # uncomment for black and white version, full figure
+    # 取消注释可查看黑白版本的完整图形
     # img = get_image(use_distance_color_coding = False)
 
-    # uncomment to save the image
+    # 取消注释可保存图像
     # img.save("mandelbrot.png")
 
     img.show()

@@ -8,16 +8,16 @@ def ind_reactance(
     inductance: float, frequency: float, reactance: float
 ) -> dict[str, float]:
     """
-    Calculate inductive reactance, frequency or inductance from two given electrical
-    properties then return name/value pair of the zero value in a Python dict.
+    根据两个给定电气量计算感抗、频率或电感，并在 Python 字典中返回取零参数的
+    名称/数值对。
 
-    Parameters
+    参数
     ----------
-    inductance : float with units in Henries
+    inductance : float，单位为 Henries
 
-    frequency : float with units in Hertz
+    frequency : float，单位为 Hertz
 
-    reactance : float with units in Ohms
+    reactance : float，单位为 Ohms
 
     >>> ind_reactance(-35e-6, 1e3, 0)
     Traceback (most recent call last):

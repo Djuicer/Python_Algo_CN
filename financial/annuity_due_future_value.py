@@ -1,20 +1,15 @@
 """
-An annuity due means making or requiring payments at the beginning
-of each term during a given period.
-For example, if the given period consists of 3 terms and the payment
-for each term is $1000, then the cash flow is as follows:
+期初年金是指在给定期间内，于每期期初支付或收取款项。
+例如，给定期间包含 3 期，每期付款 $1000，则现金流如下：
 
     0: $1000 --- 1: $1000 --- 2: $1000 --- 3: no payment
 
-The following function, annuity_due_future_value, gives the future value of
-the given annuity due. In the example above, the function should return
-the sum of each payment's future value at the end of term 3.
+函数 annuity_due_future_value 给出指定期初年金的终值。在上述示例中，函数应返回
+每笔付款在第 3 期末的终值之和。
 
-More info on: https://www.investopedia.com/retirement/calculating-present-and-future-value-of-annuities
+更多信息：https://www.investopedia.com/retirement/calculating-present-and-future-value-of-annuities
 
-This function can help you understand how much you will receive
-if you make a regular deposit at the beginning of each term
-for saving with a fixed period and interest rate.
+对于期限和利率固定、每期期初定期存款的储蓄方案，此函数可帮助计算最终所得金额。
 """
 
 
@@ -22,13 +17,13 @@ def annuity_due_future_value(
     term_payment: float, number_of_payments: int, term_interest_rate: float
 ) -> float:
     """
-    Calculate the future value of the given annuity due
-    :param term_payment: payment made at the beginning of each term
-    :param number_of_payments: the number of payments
-    :param term_interest_rate: the interest rate for each term
-    :return: the future value (maturity value) of the given annuity due
+    计算指定期初年金的终值。
+    :param term_payment: 每期期初支付的款项
+    :param number_of_payments: 付款次数
+    :param term_interest_rate: 每期利率
+    :return: 指定期初年金的终值（到期值）
 
-    Examples:
+    示例：
     >>> round(annuity_due_future_value(500, 10, 0.05), 2)
     6603.39
     >>> round(annuity_due_future_value(1000, 10, 0.05), 2)

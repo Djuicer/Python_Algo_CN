@@ -6,18 +6,15 @@ def wheatstone_solver(
     resistance_1: float, resistance_2: float, resistance_3: float
 ) -> float:
     r"""
-    Calculate the unknown resistance (Rx) in a Wheatstone bridge circuit.
+    计算惠斯通电桥电路中的未知电阻（Rx）。
 
-    Wheatstone Bridge is an electrical circuit used to accurately measure
-    an unknown resistance by balancing two legs of a bridge circuit.
+    惠斯通电桥是一种通过平衡桥式电路两臂来精确测量未知电阻的电路。
 
-    This function calculates Rx when the three other resistances in the
-    bridge are known. The bridge is said to be balanced when no current
-    flows through the galvanometer connected between the midpoints of the
-    two voltage dividers.
+    已知电桥中的另外三个电阻时，此函数计算 Rx。当连接在两个分压器中点之间的
+    检流计中没有电流流过时，称电桥达到平衡。
     * # https://en.wikipedia.org/wiki/Wheatstone_bridge
 
-    Circuit Diagram:
+    电路图：
 
          R1         R2
       +--/\/\/--+--/\/\/--+
@@ -27,26 +24,26 @@ def wheatstone_solver(
       +--/\/\/--+--/\/\/--+
          R3        Rx
 
-    Balance condition:
+    平衡条件：
       R1 / R2 = R3 / R4
 
-    This solver uses the balanced bridge formula:
+    此求解器使用平衡电桥公式：
     Rx = (R2/R1) × R3
 
-    Args:
-        resistance_1 (R1): First known resistance
-        resistance_2 (R2): Second known resistance
-        resistance_3 (R3): Third known resistance
+    参数：
+        resistance_1 (R1): 第一个已知电阻
+        resistance_2 (R2): 第二个已知电阻
+        resistance_3 (R3): 第三个已知电阻
 
-    Returns:
-        float: The calculated unknown resistance (Rx)
+    返回值：
+        float: 计算得到的未知电阻（Rx）
 
-      Applications:
-      - Measurement of unknown resistance
-      - Strain gauge circuits
-      - Sensor calibration
+      应用：
+      - 测量未知电阻
+      - 应变计电路
+      - 传感器校准
 
-    Usage examples:
+    用法示例：
     >>> wheatstone_solver(resistance_1=2, resistance_2=4, resistance_3=5)
     10.0
     >>> wheatstone_solver(resistance_1=356, resistance_2=234, resistance_3=976)

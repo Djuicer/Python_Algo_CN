@@ -1,6 +1,6 @@
 """
-Calculate the Macaulay Duration of a bond.
-Reference: https://www.investopedia.com/terms/m/macaulayduration.asp
+计算债券的麦考利久期（Macaulay Duration）。
+参考资料：https://www.investopedia.com/terms/m/macaulayduration.asp
 """
 
 from __future__ import annotations
@@ -13,14 +13,13 @@ def macaulay_duration(
     yield_rate: float,
 ) -> float:
     """
-    Calculates the Macaulay Duration of a bond.
+    计算债券的麦考利久期。
 
-    :param face_value: The final payout amount of the bond.
-    :param coupon_rate: The annual interest rate paid by the bond.
-    :param periods: The number of years until the bond matures.
-    :param yield_rate: The current market interest rate used to discount
-                       future cash flows.
-    :return: The Macaulay Duration of the bond in years.
+    :param face_value: 债券最终支付金额。
+    :param coupon_rate: 债券支付的年利率。
+    :param periods: 距债券到期的年数。
+    :param yield_rate: 用于贴现未来现金流的当前市场利率。
+    :return: 债券的麦考利久期，单位为年。
 
     >>> round(macaulay_duration(1000.0, 0.05, 8, 0.04), 2)
     6.83

@@ -1,27 +1,18 @@
-"""Implementation of fractional differentiation from the book
-`Advances in Financial Machine Learning` by Marcos Lopez de Prado.
+"""实现 Marcos Lopez de Prado 所著 `Advances in Financial Machine Learning` 一书中的
+分数阶差分。
 
-Fractional differentiation is a technique to make time series stationary
-while preserving the memory of the original data.
+分数阶差分是一种在保留原始数据记忆性的同时使时间序列平稳化的技术。
 
-This implementation utilizes a fixed window size to calculate the
-fractional differentiation. Note that this implementation is a simplified
-version compared to the one presented in the book by Marcos Lopez de Prado.
-Here, we do not consider the weight loss. In the book, weight loss is
-calculated to account for the fact that the initial points in
-the series carry different amounts of information than the final points.
+此实现使用固定窗口大小计算分数阶差分。与 Marcos Lopez de Prado 书中介绍的方法
+相比，这是一个简化版本，不考虑权重损失。书中计算权重损失，是为了考虑序列
+起始数据点与末尾数据点所含信息量不同这一事实。
 
-In the calculation of fractional differentiation,
-the price is convolved with the weights to obtain the
-fractional differentiated series. This process enables the
-transformation of the time series into a stationary form while
-retaining the memory of the original data.
+计算分数阶差分时，将价格与权重进行卷积以获得分数阶差分序列。该过程可在保留
+原始数据记忆性的同时，将时间序列转换为平稳形式。
 
-To determine the optimal degree of differentiation,
-one needs to find the minimum value of the differentiation degree,
-a value between 0 and 1, that renders the time series stationary.
+为确定最佳差分阶数，需要在 0 到 1 之间找到可使时间序列平稳的最小差分阶数。
 
-Reference
+参考资料
 ---------
 https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086
 
@@ -34,26 +25,26 @@ from math import nan
 
 
 def calculate_weights(degree: float, length: int) -> list[float]:
-    r"""Calculate the weights for fractional differentiation.
+    r"""计算分数阶差分的权重。
 
     .. math::
 
         w_{0} = 1
         w_{k} = -w_{k-1} * (d - k + 1) / k
 
-    Parameters
+    参数
     ----------
     degree : float
-        The degree of differentiation.
+        差分阶数。
     length : int
-        The length of the weights.
+        权重长度。
 
-    Returns
+    返回值
     -------
     list[float]
-        The weights for fractional differentiation.
+        分数阶差分的权重。
 
-    Examples
+    示例
     --------
     >>> calculate_weights(0.5, 3)
     [1.0, -0.5, -0.125]
@@ -69,28 +60,28 @@ def calculate_weights(degree: float, length: int) -> list[float]:
 def fracdiff_fixedwindow(
     price_series: Sequence[float], degree: float, window_size: int
 ) -> list[float]:
-    """Calculate the fractional differentiation with a fixed window size.
+    """使用固定窗口大小计算分数阶差分。
 
-    Parameters
+    参数
     ----------
     price_series : Sequence[float]
-        The price series to calculate the fractional differentiation.
+        用于计算分数阶差分的价格序列。
     degree : float
-        The degree of differentiation.
+        差分阶数。
     window_size : int
-        The number of past observations used to compute each value.
+        计算每个值时使用的历史观测值数量。
 
-    Returns
+    返回值
     -------
     list[float]
-        The fractional differentiated series.
+        分数阶差分序列。
 
-    Raises
+    异常
     ------
     ValueError
-        If ``window_size`` is greater than the length of ``price_series``.
+        当 ``window_size`` 大于 ``price_series`` 的长度时引发。
 
-    Examples
+    示例
     --------
     >>> price_series = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     >>> fracdiff_fixedwindow(price_series, 0.5, 3)

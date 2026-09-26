@@ -1,9 +1,11 @@
-# Compression
+# 数据压缩
 
-Data compression is everywhere, you need it to store data without taking too much space.
-Either the compression loses some data (then we talk about lossy compression, such as .jpg) or it does not (and then it is lossless compression, such as .png)
+数据压缩随处可见，它能在不过度占用空间的情况下存储数据。
+压缩可能损失部分数据，此时称为有损压缩（如 .jpg）；也可能不损失数据，
+此时称为无损压缩（如 .png）。
 
-Lossless compression is mainly used for archive purpose as it allows storing data without losing information about the file archived. On the other hand, lossy compression is used for transfer of file where quality isn't necessarily what is required (i.e: images on Twitter).
+无损压缩主要用于归档，因为它可以在不丢失文件信息的情况下存储数据。
+有损压缩则用于传输对质量要求不高的文件，例如社交媒体平台上的图像。
 
 * <https://www.sciencedirect.com/topics/computer-science/compression-algorithm>
 * <https://en.wikipedia.org/wiki/Data_compression>

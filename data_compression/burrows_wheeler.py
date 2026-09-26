@@ -1,14 +1,11 @@
 """
 https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
 
-The Burrows-Wheeler transform (BWT, also called block-sorting compression)
-rearranges a character string into runs of similar characters. This is useful
-for compression, since it tends to be easy to compress a string that has runs
-of repeated characters by techniques such as move-to-front transform and
-run-length encoding. More importantly, the transformation is reversible,
-without needing to store any additional data except the position of the first
-original character. The BWT is thus a "free" method of improving the efficiency
-of text compression algorithms, costing only some extra computation.
+Burrows-Wheeler 变换（BWT，也称块排序压缩）将字符串重新排列，使相似字符
+连续出现。这有利于压缩，因为包含连续重复字符的字符串通常容易使用前移变换、
+游程编码等技术压缩。更重要的是，该变换可逆，除原字符串首字符的位置外，
+无需存储任何额外数据。因此，BWT 只增加一些计算量，便能“免费”提高文本压缩
+算法的效率。
 """
 
 from __future__ import annotations
@@ -23,10 +20,10 @@ class BWTTransformDict(TypedDict):
 
 def all_rotations(s: str) -> list[str]:
     """
-    :param s: The string that will be rotated len(s) times.
-    :return: A list with the rotations.
-    :raises TypeError: If s is not an instance of str.
-    Examples:
+    :param s: 将循环移位 len(s) 次的字符串。
+    :return: 包含各次循环移位结果的列表。
+    :raises TypeError: s 不是 str 实例时引发。
+    示例：
 
     >>> all_rotations("^BANANA|") # doctest: +NORMALIZE_WHITESPACE
     ['^BANANA|', 'BANANA|^', 'ANANA|^B', 'NANA|^BA', 'ANA|^BAN', 'NA|^BANA',
@@ -53,12 +50,12 @@ def all_rotations(s: str) -> list[str]:
 
 def bwt_transform(s: str) -> BWTTransformDict:
     """
-    :param s: The string that will be used at bwt algorithm
-    :return: the string composed of the last char of each row of the ordered
-    rotations and the index of the original string at ordered rotations list
-    :raises TypeError: If the s parameter type is not str
-    :raises ValueError: If the s parameter is empty
-    Examples:
+    :param s: BWT 算法使用的字符串
+    :return: 由排序后各循环移位行的末字符组成的字符串，以及原字符串在排序后
+        循环移位列表中的索引
+    :raises TypeError: 参数 s 的类型不是 str 时引发
+    :raises ValueError: 参数 s 为空时引发
+    示例：
 
     >>> bwt_transform("^BANANA")
     {'bwt_string': 'BNN^AAA', 'idx_original_string': 6}
@@ -81,8 +78,8 @@ def bwt_transform(s: str) -> BWTTransformDict:
         raise ValueError("The parameter s must not be empty.")
 
     rotations = all_rotations(s)
-    rotations.sort()  # sort the list of rotations in alphabetically order
-    # make a string composed of the last char of each rotation
+    rotations.sort()  # 按字母顺序对循环移位列表排序
+    # 构造由各循环移位结果的末字符组成的字符串
     response: BWTTransformDict = {
         "bwt_string": "".join([word[-1] for word in rotations]),
         "idx_original_string": rotations.index(s),
@@ -92,16 +89,14 @@ def bwt_transform(s: str) -> BWTTransformDict:
 
 def reverse_bwt(bwt_string: str, idx_original_string: int) -> str:
     """
-    :param bwt_string: The string returned from bwt algorithm execution
-    :param idx_original_string: A 0-based index of the string that was used to
-    generate bwt_string at ordered rotations list
-    :return: The string used to generate bwt_string when bwt was executed
-    :raises TypeError: If the bwt_string parameter type is not str
-    :raises ValueError: If the bwt_string parameter is empty
-    :raises TypeError: If the idx_original_string type is not int or if not
-    possible to cast it to int
-    :raises ValueError: If the idx_original_string value is lower than 0 or
-    greater than len(bwt_string) - 1
+    :param bwt_string: BWT 算法执行后返回的字符串
+    :param idx_original_string: 生成 bwt_string 的原字符串在排序后循环移位列表中
+        从 0 开始的索引
+    :return: 执行 BWT 时用于生成 bwt_string 的原字符串
+    :raises TypeError: 参数 bwt_string 的类型不是 str 时引发
+    :raises ValueError: 参数 bwt_string 为空时引发
+    :raises TypeError: idx_original_string 不是 int 且无法转换为 int 时引发
+    :raises ValueError: idx_original_string 小于 0 或大于 len(bwt_string) - 1 时引发
 
     >>> reverse_bwt("BNN^AAA", 6)
     '^BANANA'

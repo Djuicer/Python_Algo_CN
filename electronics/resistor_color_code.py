@@ -1,59 +1,47 @@
 """
-Title : Calculating the resistance of a n band resistor using the color codes
+标题：使用色环计算 n 环电阻器的阻值
 
-Description :
-    Resistors resist the flow of electrical current.Each one has a value that tells how
-    strongly it resists current flow.This value's unit is the ohm, often noted with the
-    Greek letter omega: Ω.
+说明：
+    电阻器会阻碍电流流动。每个电阻器都有一个表示其阻碍电流能力的阻值，
+    单位为 ohm，常用希腊字母 omega 表示：Ω。
 
-    The colored bands on a resistor can tell you everything you need to know about its
-    value and tolerance, as long as you understand how to read them. The order in which
-    the colors are arranged is very important, and each value of resistor has its own
-    unique combination.
+    掌握读取方法后，可以从电阻器的色环获知阻值和容差。颜色排列顺序非常重要，
+    不同阻值的电阻器具有各自独特的颜色组合。
 
-    The color coding for resistors is an international standard that is defined in IEC
-    60062.
+    电阻器色码是 IEC 60062 定义的国际标准。
 
-    The number of bands present in a resistor varies from three to six. These represent
-    significant figures, multiplier, tolerance, reliability, and temperature coefficient
-    Each color used for a type of band has a value assigned to it. It is read from left
-    to right.
-    All resistors will have significant figures and multiplier bands. In a three band
-    resistor first two bands from the left represent significant figures and the third
-    represents the multiplier band.
+    电阻器的色环数量为三至六个，分别表示有效数字、倍乘因子、容差、可靠性和温度
+    系数。每类色环中的每种颜色都有对应值，并按从左到右的顺序读取。
+    所有电阻器都有有效数字环和倍乘环。三环电阻器从左侧起前两个色环表示有效
+    数字，第三个色环表示倍乘因子。
 
-    Significant figures - The number of significant figures band in a resistor can vary
-    from two to three.
-    Colors and values associated with significant figure bands -
+    有效数字 - 电阻器的有效数字环数量可以是两个或三个。
+    有效数字环对应的颜色和值 -
     (Black = 0, Brown = 1, Red = 2, Orange = 3, Yellow = 4, Green = 5, Blue = 6,
     Violet = 7, Grey = 8, White = 9)
 
-    Multiplier - There will be one multiplier band in a resistor. It is multiplied with
-    the significant figures obtained from previous bands.
-    Colors and values associated with multiplier band -
+    倍乘因子 - 电阻器有一个倍乘环，其值与前面色环得到的有效数字相乘。
+    倍乘环对应的颜色和值 -
     (Black = 100, Brown = 10^1, Red = 10^2, Orange = 10^3, Yellow = 10^4, Green = 10^5,
     Blue = 10^6, Violet = 10^7, Grey = 10^8, White = 10^9, Gold = 10^-1, Silver = 10^-2)
-    Note that multiplier bands use Gold and Silver which are not used for significant
-    figure bands.
+    注意，倍乘环会使用 Gold 和 Silver，而有效数字环不使用这两种颜色。
 
-    Tolerance - The tolerance band is not always present. It can be seen in four band
-    resistors and above. This is a percentage by which the resistor value can vary.
-    Colors and values associated with tolerance band -
+    容差 - 容差环并非始终存在，它出现在四环及更多色环的电阻器中，表示阻值可变
+    动的百分比。
+    容差环对应的颜色和值 -
     (Brown = 1%, Red = 2%, Orange = 0.05%, Yellow = 0.02%, Green = 0.5%,Blue = 0.25%,
     Violet = 0.1%, Grey = 0.01%, Gold = 5%, Silver = 10%)
-    If no color is mentioned then by default tolerance is 20%
-    Note that tolerance band does not use Black and White colors.
+    未指定颜色时，默认容差为 20%。
+    注意，容差环不使用 Black 和 White。
 
-    Temperature Coeffecient - Indicates the change in resistance of the component as
-    a function of ambient temperature in terms of ppm/K.
-    It is present in six band resistors.
-    Colors and values associated with Temperature coeffecient -
+    温度系数 - 以 ppm/K 表示元件阻值随环境温度的变化，存在于六环电阻器中。
+    温度系数环对应的颜色和值 -
     (Black = 250 ppm/K, Brown = 100 ppm/K, Red = 50 ppm/K, Orange = 15 ppm/K,
     Yellow = 25 ppm/K, Green = 20 ppm/K, Blue = 10 ppm/K, Violet = 5 ppm/K,
     Grey = 1 ppm/K)
-    Note that temperature coeffecient band does not use White, Gold, Silver colors.
+    注意，温度系数环不使用 White、Gold 和 Silver。
 
-Sources :
+来源：
     https://www.calculator.net/resistor-calculator.html
     https://learn.parallax.com/support/reference/resistor-color-codes
     https://byjus.com/physics/resistor-colour-codes/
@@ -137,8 +125,7 @@ band_types: dict[int, dict[str, int]] = {
 
 def get_significant_digits(colors: list) -> str:
     """
-    Function returns the digit associated with the color. Function takes a
-    list containing colors as input and returns digits as string
+    返回颜色对应的数字。输入为包含颜色的列表，返回由数字组成的字符串。
 
     >>> get_significant_digits(['Black','Blue'])
     '06'
@@ -160,8 +147,7 @@ def get_significant_digits(colors: list) -> str:
 
 def get_multiplier(color: str) -> float:
     """
-    Function returns the multiplier value associated with the color.
-    Function takes color as input and returns multiplier value
+    返回颜色对应的倍乘值。输入为颜色，返回倍乘值。
 
     >>> get_multiplier('Gold')
     0.1
@@ -180,8 +166,7 @@ def get_multiplier(color: str) -> float:
 
 def get_tolerance(color: str) -> float:
     """
-    Function returns the tolerance value associated with the color.
-    Function takes color as input and returns tolerance value.
+    返回颜色对应的容差值。输入为颜色，返回容差值。
 
     >>> get_tolerance('Green')
     0.5
@@ -200,8 +185,7 @@ def get_tolerance(color: str) -> float:
 
 def get_temperature_coeffecient(color: str) -> int:
     """
-    Function returns the temperature coeffecient value associated with the color.
-    Function takes color as input and returns temperature coeffecient value.
+    返回颜色对应的温度系数值。输入为颜色，返回温度系数值。
 
     >>> get_temperature_coeffecient('Yellow')
     25
@@ -220,9 +204,8 @@ def get_temperature_coeffecient(color: str) -> int:
 
 def get_band_type_count(total_number_of_bands: int, type_of_band: str) -> int:
     """
-    Function returns the number of bands of a given type in a resistor with n bands
-    Function takes total_number_of_bands and type_of_band as input and returns
-    number of bands belonging to that type in the given resistor
+    返回 n 环电阻器中指定类型的色环数量。输入 total_number_of_bands 和
+    type_of_band，返回该电阻器中属于指定类型的色环数量。
 
     >>> get_band_type_count(3,'significant')
     2
@@ -259,9 +242,7 @@ def get_band_type_count(total_number_of_bands: int, type_of_band: str) -> int:
 
 def check_validity(number_of_bands: int, colors: list) -> bool:
     """
-    Function checks if the input provided is valid or not.
-    Function takes number_of_bands and colors as input and returns
-    True if it is valid
+    检查给定输入是否有效。输入 number_of_bands 和 colors，有效时返回 True。
 
     >>> check_validity(3, ["Black","Blue","Orange"])
     True
@@ -294,9 +275,8 @@ def check_validity(number_of_bands: int, colors: list) -> bool:
 
 def calculate_resistance(number_of_bands: int, color_code_list: list) -> dict:
     """
-    Function calculates the total resistance of the resistor using the color codes.
-    Function takes number_of_bands, color_code_list as input and returns
-    resistance
+    使用色码计算电阻器的总阻值。输入 number_of_bands 和 color_code_list，
+    返回 resistance。
 
     >>> calculate_resistance(3, ["Black","Blue","Orange"])
     {'resistance': '6000Ω ±20% '}

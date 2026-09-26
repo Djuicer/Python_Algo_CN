@@ -11,9 +11,8 @@ class Result(NamedTuple):
 
 def electric_power(voltage: float, current: float, power: float) -> tuple:
     """
-    This function can calculate any one of the three (voltage, current, power),
-    fundamental value of electrical system.
-    examples are below:
+    计算电气系统的三个基本量（voltage、current、power）中的任意一项。
+    示例如下：
     >>> electric_power(voltage=0, current=2, power=5)
     Result(name='voltage', value=2.5)
     >>> electric_power(voltage=2, current=2, power=0)

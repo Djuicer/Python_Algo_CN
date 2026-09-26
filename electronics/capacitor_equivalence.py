@@ -6,7 +6,7 @@ from __future__ import annotations
 def capacitor_parallel(capacitors: list[float]) -> float:
     """
     Ceq = C1 + C2 + ... + Cn
-    Calculate the equivalent resistance for any number of capacitors in parallel.
+    计算任意数量并联电容器的等效电容。
     >>> capacitor_parallel([5.71389, 12, 3])
     20.71389
     >>> capacitor_parallel([5.71389, 12, -3])

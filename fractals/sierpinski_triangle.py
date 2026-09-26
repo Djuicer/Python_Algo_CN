@@ -1,25 +1,22 @@
 """
 Author Anurag Kumar | anuragkumarak95@gmail.com | git/anuragkumarak95
 
-Simple example of fractal generation using recursion.
+使用递归生成分形的简单示例。
 
-What is the Sierpiński Triangle?
-    The Sierpiński triangle (sometimes spelled Sierpinski), also called the
-Sierpiński gasket or Sierpiński sieve, is a fractal attractive fixed set with
-the overall shape of an equilateral triangle, subdivided recursively into
-smaller equilateral triangles. Originally constructed as a curve, this is one of
-the basic examples of self-similar sets—that is, it is a mathematically
-generated pattern that is reproducible at any magnification or reduction. It is
-named after the Polish mathematician Wacław Sierpiński, but appeared as a
-decorative pattern many centuries before the work of Sierpiński.
+什么是谢尔宾斯基三角形？
+    谢尔宾斯基三角形（Sierpiński Triangle，有时拼作 Sierpinski）也称谢尔宾斯基
+垫片或谢尔宾斯基筛，是整体呈等边三角形、递归细分为更小等边三角形的分形吸引
+不动集。它最初被构造为曲线，是自相似集的基本示例之一；也就是说，这种数学
+生成的图案在任意放大或缩小尺度下都可以重现。它以波兰数学家 Wacław Sierpiński
+命名，但早在其研究前数百年就已作为装饰图案出现。
 
 
 Usage: python sierpinski_triangle.py <int:depth_for_fractal>
 
-Credits:
-    The above description is taken from
+致谢：
+    上述说明取自
     https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle
-    This code was written by editing the code from
+    此代码改编自
     https://www.riannetrujillo.com/blog/python-fractal/
 """
 
@@ -29,7 +26,7 @@ import turtle
 
 def get_mid(p1: tuple[float, float], p2: tuple[float, float]) -> tuple[float, float]:
     """
-    Find the midpoint of two points
+    求两点的中点。
 
     >>> get_mid((0, 0), (2, 2))
     (1.0, 1.0)
@@ -52,8 +49,7 @@ def triangle(
     depth: int,
 ) -> None:
     """
-    Recursively draw the Sierpinski triangle given the vertices of the triangle
-    and the recursion depth
+    根据三角形顶点和递归深度递归绘制谢尔宾斯基三角形。
     """
     my_pen.up()
     my_pen.goto(vertex1[0], vertex1[1])
@@ -81,6 +77,6 @@ if __name__ == "__main__":
     my_pen.speed(5)
     my_pen.pencolor("red")
 
-    vertices = [(-175, -125), (0, 175), (175, -125)]  # vertices of triangle
+    vertices = [(-175, -125), (0, 175), (175, -125)]  # 三角形的顶点
     triangle(vertices[0], vertices[1], vertices[2], int(sys.argv[1]))
     turtle.Screen().exitonclick()

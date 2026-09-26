@@ -1,16 +1,12 @@
 """
-Expected Shortfall (ES), also known as Conditional Value at Risk (CVaR),
-estimated with historical simulation.
+使用历史模拟法估算预期损失（Expected Shortfall, ES），又称条件风险价值（CVaR）。
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Expected_shortfall
 - https://www.investopedia.com/terms/c/conditional_value_at_risk.asp
 
-Expected Shortfall measures the average loss that occurs in the tail of the
-loss distribution beyond the Value at Risk threshold. Unlike Value at Risk,
-which only reports a quantile boundary, Expected Shortfall captures how bad
-the losses actually are when the worst cases happen, and it is a coherent
-risk measure.
+预期损失衡量损失分布尾部超过风险价值阈值部分的平均损失。风险价值仅报告分位数
+边界，而预期损失能反映最坏情形发生时的实际损失程度，并且是一致性风险度量。
 """
 
 from collections.abc import Sequence
@@ -21,7 +17,7 @@ def _linear_interpolated_quantile(
     sorted_values: Sequence[float], quantile: float
 ) -> float:
     """
-    Linear interpolation between the closest ranks (NumPy default, type 7).
+    在最接近的秩之间进行线性插值（NumPy 默认方法，type 7）。
 
     >>> _linear_interpolated_quantile([-10.0, -5.0, -2.0, 1.0, 4.0], 0.25)
     -5.0
@@ -40,15 +36,13 @@ def expected_shortfall(
     returns: Sequence[float], confidence_level: float = 0.95
 ) -> float:
     """
-    Calculate the historical-simulation Expected Shortfall of a portfolio.
+    计算投资组合基于历史模拟的预期损失。
 
-    The confidence level is the probability that the loss will not exceed the
-    corresponding Value at Risk threshold. The tail contains every observed
-    return at or below that threshold, and the result is the negative of the
-    average of that tail, i.e. a positive loss magnitude when the tail contains
-    losses.
+    置信水平表示损失不超过相应风险价值阈值的概率。尾部包含所有小于或等于该阈值
+    的观测收益率，结果为该尾部平均值的相反数；当尾部包含损失时，结果为正的
+    损失幅度。
 
-    Examples:
+    示例：
     >>> expected_shortfall([-10, -5, -2, 1, 4], 0.95)
     10.0
     >>> expected_shortfall([-10, -5, -2, 1, 4], 0.75)
@@ -66,8 +60,8 @@ def expected_shortfall(
     ...
     ValueError: returns must contain only finite numbers
 
-    Time complexity: O(n log n), where n = len(returns), for sorting.
-    Space complexity: O(n) for the sorted copy and the tail.
+    时间复杂度：排序需要 O(n log n)，其中 n = len(returns)。
+    空间复杂度：有序副本和尾部数据需要 O(n)。
     """
     if not returns:
         raise ValueError("returns must not be empty")

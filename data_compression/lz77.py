@@ -1,30 +1,28 @@
 """
-LZ77 compression algorithm
-- lossless data compression published in papers by Abraham Lempel and Jacob Ziv in 1977
-- also known as LZ1 or sliding-window compression
-- form the basis for many variations including LZW, LZSS, LZMA and others
+LZ77 压缩算法
+- Abraham Lempel 和 Jacob Ziv 于 1977 年在论文中发表的无损数据压缩算法
+- 也称为 LZ1 或滑动窗口压缩
+- 是 LZW、LZSS、LZMA 等多种变体的基础
 
-It uses a “sliding window” method. Within the sliding window we have:
-  - search buffer
-  - look ahead buffer
+它使用“滑动窗口”方法。滑动窗口包含：
+  - 搜索缓冲区
+  - 先行缓冲区
 len(sliding_window) = len(search_buffer) + len(look_ahead_buffer)
 
-LZ77 manages a dictionary that uses triples composed of:
-    - Offset into search buffer, it's the distance between the start of a phrase and
-      the beginning of a file.
-    - Length of the match, it's the number of characters that make up a phrase.
-    - The indicator is represented by a character that is going to be encoded next.
+LZ77 维护一个使用三元组的字典，三元组由以下部分组成：
+    - 搜索缓冲区中的偏移量，即短语起点与文件开头之间的距离。
+    - 匹配长度，即构成短语的字符数。
+    - 指示符，即下一个要编码的字符。
 
-As a file is parsed, the dictionary is dynamically updated to reflect the compressed
-data contents and size.
+解析文件时，字典会动态更新，以反映压缩数据的内容和大小。
 
-Examples:
+示例：
 "cabracadabrarrarrad" <-> [(0, 0, 'c'), (0, 0, 'a'), (0, 0, 'b'), (0, 0, 'r'),
                            (3, 1, 'c'), (2, 1, 'd'), (7, 4, 'r'), (3, 5, 'd')]
 "ababcbababaa" <-> [(0, 0, 'a'), (0, 0, 'b'), (2, 2, 'c'), (4, 3, 'a'), (2, 2, 'a')]
 "aacaacabcabaaac" <-> [(0, 0, 'a'), (1, 1, 'c'), (3, 4, 'b'), (3, 3, 'a'), (1, 2, 'c')]
 
-Sources:
+来源：
 en.wikipedia.org/wiki/LZ77_and_LZ78
 """
 
@@ -37,8 +35,8 @@ __author__ = "Lucia Harcekova"
 @dataclass
 class Token:
     """
-    Dataclass representing triplet called token consisting of length, offset
-    and indicator. This triplet is used during LZ77 compression.
+    表示 token 三元组的数据类，由长度、偏移量和指示符组成。
+    此三元组用于 LZ77 压缩。
     """
 
     offset: int
@@ -58,7 +56,7 @@ class Token:
 
 class LZ77Compressor:
     """
-    Class containing compress and decompress methods using LZ77 compression algorithm.
+    包含使用 LZ77 压缩算法进行压缩和解压缩的方法的类。
     """
 
     def __init__(self, window_size: int = 13, lookahead_buffer_size: int = 6) -> None:
@@ -68,13 +66,13 @@ class LZ77Compressor:
 
     def compress(self, text: str) -> list[Token]:
         """
-        Compress the given string text using LZ77 compression algorithm.
+        使用 LZ77 压缩算法压缩给定字符串 text。
 
-        Args:
-            text: string to be compressed
+        参数：
+            text: 待压缩字符串
 
-        Returns:
-            output: the compressed text as a list of Tokens
+        返回：
+            output: 以 Token 列表表示的压缩文本
 
         >>> lz77_compressor = LZ77Compressor()
         >>> str(lz77_compressor.compress("ababcbababaa"))
@@ -86,39 +84,38 @@ class LZ77Compressor:
         output = []
         search_buffer = ""
 
-        # while there are still characters in text to compress
+        # 当 text 中仍有待压缩字符时
         while text:
-            # find the next encoding phrase
-            # - triplet with offset, length, indicator (the next encoding character)
+            # 查找下一个编码短语
+            # - 由偏移量、长度、指示符（下一个编码字符）组成的三元组
             token = self._find_encoding_token(text, search_buffer)
 
-            # update the search buffer:
-            # - add new characters from text into it
-            # - check if size exceed the max search buffer size, if so, drop the
-            #   oldest elements
+            # 更新搜索缓冲区：
+            # - 将 text 中的新字符加入其中
+            # - 检查是否超过搜索缓冲区的最大大小，若超过则丢弃最早的元素
             search_buffer += text[: token.length + 1]
             if len(search_buffer) > self.search_buffer_size:
                 search_buffer = search_buffer[-self.search_buffer_size :]
 
-            # update the text
+            # 更新文本
             text = text[token.length + 1 :]
 
-            # append the token to output
+            # 将 token 添加到输出
             output.append(token)
 
         return output
 
     def decompress(self, tokens: list[Token]) -> str:
         """
-        Convert the list of tokens into an output string.
+        将 token 列表转换为输出字符串。
 
-        Args:
-            tokens: list containing triplets (offset, length, char)
+        参数：
+            tokens: 包含三元组（offset、length、char）的列表
 
-        Returns:
-            output: decompressed text
+        返回：
+            output: 解压缩后的文本
 
-        Tests:
+        测试：
             >>> lz77_compressor = LZ77Compressor()
             >>> lz77_compressor.decompress([Token(0, 0, 'c'), Token(0, 0, 'a'),
             ... Token(0, 0, 'b'), Token(0, 0, 'r'), Token(3, 1, 'c'),
@@ -142,9 +139,9 @@ class LZ77Compressor:
         return output
 
     def _find_encoding_token(self, text: str, search_buffer: str) -> Token:
-        """Finds the encoding token for the first character in the text.
+        """查找文本首字符的编码 token。
 
-        Tests:
+        测试：
             >>> lz77_compressor = LZ77Compressor()
             >>> lz77_compressor._find_encoding_token("abrarrarrad", "abracad").offset
             7
@@ -163,7 +160,7 @@ class LZ77Compressor:
         if not text:
             raise ValueError("We need some text to work with.")
 
-        # Initialise result parameters to default values
+        # 将结果参数初始化为默认值
         length, offset = 0, 0
 
         if not search_buffer:
@@ -173,8 +170,8 @@ class LZ77Compressor:
             found_offset = len(search_buffer) - i
             if character == text[0]:
                 found_length = self._match_length_from_index(text, search_buffer, 0, i)
-                # if the found length is bigger than the current or if it's equal,
-                # which means it's offset is smaller: update offset and length
+                # 如果找到的长度大于当前长度，或长度相等但偏移量更小，
+                # 则更新偏移量和长度
                 if found_length >= length:
                     offset, length = found_offset, found_length
 
@@ -183,19 +180,19 @@ class LZ77Compressor:
     def _match_length_from_index(
         self, text: str, window: str, text_index: int, window_index: int
     ) -> int:
-        """Calculate the longest possible match of text and window characters from
-        text_index in text and window_index in window.
+        """从 text 的 text_index 和 window 的 window_index 开始，
+        计算 text 与 window 字符间可能的最长匹配。
 
-        Args:
+        参数：
             text: _description_
-            window: sliding window
-            text_index: index of character in text
-            window_index: index of character in sliding window
+            window: 滑动窗口
+            text_index: 字符在 text 中的索引
+            window_index: 字符在滑动窗口中的索引
 
-        Returns:
-            The maximum match between text and window, from given indexes.
+        返回：
+            从给定索引开始，text 与 window 之间的最大匹配长度。
 
-        Tests:
+        测试：
             >>> lz77_compressor = LZ77Compressor(13, 6)
             >>> lz77_compressor._match_length_from_index("rarrad", "adabrar", 0, 4)
             5
@@ -214,10 +211,10 @@ if __name__ == "__main__":
     from doctest import testmod
 
     testmod()
-    # Initialize compressor class
+    # 初始化压缩器类
     lz77_compressor = LZ77Compressor(window_size=13, lookahead_buffer_size=6)
 
-    # Example
+    # 示例
     TEXT = "cabracadabrarrarrad"
     compressed_text = lz77_compressor.compress(TEXT)
     print(lz77_compressor.compress("ababcbababaa"))

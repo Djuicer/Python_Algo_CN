@@ -32,7 +32,7 @@ def resistor_series(resistors: list[float]) -> float:
     """
     Req = R1 + R2 + ... + Rn
 
-    Calculate the equivalent resistance for any number of resistors in parallel.
+    计算任意数量电阻器的等效电阻。
 
     >>> resistor_series([3.21389, 2, 3])
     8.21389

@@ -24,8 +24,7 @@ class TreeNode:
 
 def parse_file(file_path: str) -> list[Letter]:
     """
-    Read the file and build a dict of all letters and their
-    frequencies, then convert the dict into a list of Letters.
+    读取文件，构建所有字符及其频率的字典，再将字典转换为 Letter 列表。
     """
     chars: dict[str, int] = {}
     with open(file_path) as f:
@@ -39,8 +38,7 @@ def parse_file(file_path: str) -> list[Letter]:
 
 def build_tree(letters: list[Letter]) -> Letter | TreeNode:
     """
-    Run through the list of Letters and build the min heap
-    for the Huffman Tree.
+    遍历 Letter 列表，为霍夫曼树（Huffman Tree）构建最小堆。
     """
     response: list[Letter | TreeNode] = list(letters)
     while len(response) > 1:
@@ -55,8 +53,7 @@ def build_tree(letters: list[Letter]) -> Letter | TreeNode:
 
 def traverse_tree(root: Letter | TreeNode, bitstring: str) -> list[Letter]:
     """
-    Recursively traverse the Huffman Tree to set each
-    Letter's bitstring dictionary, and return the list of Letters
+    递归遍历霍夫曼树，设置每个 Letter 的位字符串字典，并返回 Letter 列表。
     """
     if isinstance(root, Letter):
         root.bitstring[root.letter] = bitstring
@@ -70,9 +67,8 @@ def traverse_tree(root: Letter | TreeNode, bitstring: str) -> list[Letter]:
 
 def huffman(file_path: str) -> None:
     """
-    Parse the file, build the tree, then run through the file
-    again, using the letters dictionary to find and print out the
-    bitstring for each letter.
+    解析文件并构建树，然后再次遍历文件，使用字符字典查找并打印每个字符的
+    位字符串。
     """
     letters_list = parse_file(file_path)
     root = build_tree(letters_list)
@@ -90,5 +86,5 @@ def huffman(file_path: str) -> None:
 
 
 if __name__ == "__main__":
-    # pass the file path to the huffman function
+    # 将文件路径传给 huffman 函数
     huffman(sys.argv[1])

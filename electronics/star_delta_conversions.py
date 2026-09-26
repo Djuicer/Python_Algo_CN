@@ -9,24 +9,24 @@ def star_to_delta(
 ) -> list[complex]:
     """
 
-    Convert's star impedance arrangement to delta
+    将星形阻抗网络转换为三角形网络。
 
-    Examples:
-    1.) Impedance with resistances and zero reactance
+    示例：
+    1.) 含电阻且电抗为零的阻抗
     >>> star_to_delta(complex(2,0),complex(1,0),complex(1,0))
     [(2.5+0j), (5+0j), (5+0j)]
 
-    2.) Impedance with resistance and reactance
+    2.) 同时含电阻和电抗的阻抗
     >>> star_to_delta(complex(2,0),complex(1,2),complex(1,6))
     [(-3.5+12j), (8.2+7.6j), (3.702702702702702+1.7837837837837838j)]
 
-    3.) Zero impedance
+    3.) 零阻抗
     >>> star_to_delta(complex(0,0),complex(1,2),complex(1,6))
     Traceback (most recent call last):
        ...
     ValueError: entered impedance value is zero
 
-    4.) Negative resistance
+    4.) 负电阻
     >>> star_to_delta(complex(12,0),complex(-1,2),complex(1,6))
     Traceback (most recent call last):
        ...
@@ -59,24 +59,24 @@ def delta_to_star(
 ) -> list[complex]:
     """
 
-    Convert's delta impedance arrangement to star
+    将三角形阻抗网络转换为星形网络。
 
-    Examples:
-    1.) Impedance with resistances and zero reactance
+    示例：
+    1.) 含电阻且电抗为零的阻抗
     >>> delta_to_star(complex(3,0),complex(5,0),complex(7,0))
     [(2.3333333333333335+0j), (1.4+0j), (1+0j)]
 
-    2.) Impedance with resistance and reactance
+    2.) 同时含电阻和电抗的阻抗
     >>> delta_to_star(complex(1,3),complex(2,0),complex(0,-3))
     [-2j, (3-1j), (0.6666666666666666+2j)]
 
-    3.) Zero impedance
+    3.) 零阻抗
     >>> delta_to_star(complex(0,0),complex(1,2),complex(1,6))
     Traceback (most recent call last):
       ...
     ValueError: entered impedance value is zero
 
-    4.) Negative resistance
+    4.) 负电阻
     >>> delta_to_star(complex(12,0),complex(-1,2),complex(1,6))
     Traceback (most recent call last):
       ...
