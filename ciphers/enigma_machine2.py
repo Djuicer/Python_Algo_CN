@@ -1,18 +1,17 @@
 """
 | Wikipedia: https://en.wikipedia.org/wiki/Enigma_machine
-| Video explanation: https://youtu.be/QwQVMqfoB2E
-| Also check out Numberphile's and Computerphile's videos on this topic
+| 视频说明：https://youtu.be/QwQVMqfoB2E
+| 另请参阅 Numberphile 和 Computerphile 关于此主题的视频
 
-This module contains function ``enigma`` which emulates
-the famous Enigma machine from WWII.
+本模块包含模拟二战著名恩尼格玛机（Enigma Machine）的 ``enigma`` 函数。
 
-Module includes:
+模块包括：
 
-- ``enigma`` function
-- showcase of function usage
-- ``9`` randomly generated rotors
-- reflector (aka static rotor)
-- original alphabet
+- ``enigma`` 函数
+- 函数用法演示
+- ``9`` 个随机生成的转子
+- 反射器（也称静态转子）
+- 原始字母表
 
 Created by TrapinchO
 """
@@ -23,16 +22,16 @@ RotorPositionT = tuple[int, int, int]
 RotorSelectionT = tuple[str, str, str]
 
 
-# used alphabet --------------------------
-# from string.ascii_uppercase
+# 使用的字母表 --------------------------
+# 来自 string.ascii_uppercase
 abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-# -------------------------- default selection --------------------------
-# rotors --------------------------
+# -------------------------- 默认选择 --------------------------
+# 转子 --------------------------
 rotor1 = "EGZWVONAHDCLFQMSIPJBYUKXTR"
 rotor2 = "FOBHMDKEXQNRAULPGSJVTYICZW"
 rotor3 = "ZJXESIUQLHAVRMDOYGTNFWPBKC"
-# reflector --------------------------
+# 反射器 --------------------------
 reflector = {
     "A": "N",
     "N": "A",
@@ -62,7 +61,7 @@ reflector = {
     "Z": "M",
 }
 
-# -------------------------- extra rotors --------------------------
+# -------------------------- 额外转子 --------------------------
 rotor4 = "RMDJXFUWGISLHVTCQNKYPBEZOA"
 rotor5 = "SGLCPQWZHKXAREONTFBVIYJUDM"
 rotor6 = "HVSICLTYKQUBXDWAJZOMFGPREN"

@@ -1,13 +1,11 @@
-"""Scytale (Skytale) transposition cipher.
+"""密码棒（Scytale/Skytale）换位密码。
 
-A classical transposition cipher used in ancient Greece. The sender wraps a
-strip of parchment around a rod (scytale) and writes the message along the rod.
-The recipient with a rod of the same diameter can read the message.
+这是古希腊使用的一种古典换位密码。发送者将羊皮纸条缠绕在密码棒上，沿棒书写
+消息；接收者使用直径相同的棒即可读取消息。
 
-Reference: https://en.wikipedia.org/wiki/Scytale
+参考资料：https://en.wikipedia.org/wiki/Scytale
 
-Functions here keep characters as-is (including spaces). The key is a positive
-integer representing the circumference count (number of rows).
+这里的函数保持字符原样（包括空格）。key 是表示周长计数（行数）的正整数。
 
 >>> encrypt("WE ARE DISCOVERED FLEE AT ONCE", 3)
 'WA SVEFETNERDCEDL  C EIOR EAOE'
@@ -37,9 +35,9 @@ from __future__ import annotations
 
 
 def encrypt(plaintext: str, key: int) -> str:
-    """Encrypt plaintext using Scytale transposition.
+    """使用密码棒换位法加密明文。
 
-    Write characters around a rod with `key` rows, then read off by rows.
+    将字符写在具有 `key` 行的棒上，再逐行读出。
 
     :param plaintext: Input message to encrypt
     :param key: Positive integer number of rows
@@ -56,9 +54,9 @@ def encrypt(plaintext: str, key: int) -> str:
 
 
 def decrypt(ciphertext: str, key: int) -> str:
-    """Decrypt Scytale ciphertext.
+    """解密密码棒密文。
 
-    Reconstruct rows by their lengths and interleave by columns.
+    按各行长度重建行，再逐列交错组合。
 
     :param ciphertext: Encrypted string
     :param key: Positive integer number of rows

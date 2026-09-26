@@ -2,11 +2,11 @@ from binascii import hexlify
 from hashlib import sha256
 from os import urandom
 
-# RFC 3526 - More Modular Exponential (MODP) Diffie-Hellman groups for
-# Internet Key Exchange (IKE) https://tools.ietf.org/html/rfc3526
+# RFC 3526——用于互联网密钥交换（IKE）的更多模幂（MODP）Diffie-Hellman 群
+# https://tools.ietf.org/html/rfc3526
 
 primes = {
-    # 1536-bit
+    # 1536 位
     5: {
         "prime": int(
             "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
@@ -21,7 +21,7 @@ primes = {
         ),
         "generator": 2,
     },
-    # 2048-bit
+    # 2048 位
     14: {
         "prime": int(
             "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
@@ -39,7 +39,7 @@ primes = {
         ),
         "generator": 2,
     },
-    # 3072-bit
+    # 3072 位
     15: {
         "prime": int(
             "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
@@ -62,7 +62,7 @@ primes = {
         ),
         "generator": 2,
     },
-    # 4096-bit
+    # 4096 位
     16: {
         "prime": int(
             "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"

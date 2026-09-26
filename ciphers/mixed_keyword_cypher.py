@@ -30,46 +30,44 @@ def mixed_keyword(
     plaintext = plaintext.upper()
     alphabet_set = set(alphabet)
 
-    # create a list of unique characters in the keyword - their order matters
-    # it determines how we will map plaintext characters to the ciphertext
+    # 创建关键字中不重复字符的列表——其顺序决定如何将明文字符映射到密文
     unique_chars = []
     for char in keyword:
         if char in alphabet_set and char not in unique_chars:
             unique_chars.append(char)
-    # the number of those unique characters will determine the number of rows
+    # 不重复字符的数量决定行数
     num_unique_chars_in_keyword = len(unique_chars)
 
-    # create a shifted version of the alphabet
+    # 创建字母表的移位版本
     shifted_alphabet = unique_chars + [
         char for char in alphabet if char not in unique_chars
     ]
 
-    # create a modified alphabet by splitting the shifted alphabet into rows
+    # 将移位后的字母表拆分为多行，创建修改后的字母表
     modified_alphabet = [
         shifted_alphabet[k : k + num_unique_chars_in_keyword]
         for k in range(0, 26, num_unique_chars_in_keyword)
     ]
 
-    # map the alphabet characters to the modified alphabet characters
-    # going 'vertically' through the modified alphabet - consider columns first
+    # 将字母表字符映射到修改后的字母表字符，纵向遍历修改后的字母表（先按列）
     mapping = {}
     letter_index = 0
     for column in range(num_unique_chars_in_keyword):
         for row in modified_alphabet:
-            # if current row (the last one) is too short, break out of loop
+            # 如果当前行（最后一行）过短，则退出循环
             if len(row) <= column:
                 break
 
-            # map current letter to letter in modified alphabet
+            # 将当前字母映射到修改后字母表中的字母
             mapping[alphabet[letter_index]] = row[column]
             letter_index += 1
 
     if verbose:
         print(mapping)
-    # create the encrypted text by mapping the plaintext to the modified alphabet
+    # 将明文映射到修改后的字母表，生成加密文本
     return "".join(mapping.get(char, char) for char in plaintext)
 
 
 if __name__ == "__main__":
-    # example use
+    # 用法示例
     print(mixed_keyword("college", "UNIVERSITY"))

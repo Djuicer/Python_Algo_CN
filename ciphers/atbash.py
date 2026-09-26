@@ -39,7 +39,7 @@ def atbash(sequence: str) -> str:
 
 
 def benchmark() -> None:
-    """Let's benchmark our functions side-by-side..."""
+    """并排对比两个函数的性能。"""
     from timeit import timeit
 
     print("Running performance benchmarks...")

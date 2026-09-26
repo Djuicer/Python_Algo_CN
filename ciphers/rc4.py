@@ -1,13 +1,12 @@
 """
-RC4 (Rivest Cipher 4) Stream Cipher Algorithm
+RC4（Rivest Cipher 4）流密码算法
 =============================================
 
-RC4 is a symmetric stream cipher designed by Ron Rivest in 1987 for RSA Security.
-It is famous for its simplicity and speed in software. It operates on bytes,
-encrypting and decrypting data one byte at a time by XORing the plaintext with
-a pseudorandom keystream.
+RC4 是 Ron Rivest 于 1987 年为 RSA Security 设计的对称流密码，以实现简单且软件
+运行速度快而著称。它按字节运行，通过将明文与伪随机密钥流进行 XOR，逐字节加密
+和解密数据。
 
-How it works:
+工作原理：
 -------------
 1. Key Scheduling Algorithm (KSA):
    Initializes and permutes a 256-byte state array (the S-box) based on the secret key.
@@ -39,17 +38,17 @@ from collections.abc import Generator
 
 def ksa(key: bytes) -> list[int]:
     """
-    Key Scheduling Algorithm (KSA)
+    密钥调度算法（KSA）
     ==============================
 
-    The KSA initializes the permutation in the array S (S-box) of size 256
-    with values from 0 to 255. Then, it shuffles the array using the secret key.
+    KSA 使用 0 到 255 初始化大小为 256 的数组 S（S-box）中的置换，再使用秘密
+    密钥打乱该数组。
 
-    Parameters:
+    参数：
     -----------
-    * `key`: The secret key used for encryption/decryption as a bytes object.
+    * `key`: 用于加密/解密的秘密密钥，类型为 bytes。
 
-    Returns:
+    返回值：
     --------
     * A list of 256 integers representing the permuted S-box.
 
@@ -69,11 +68,11 @@ def ksa(key: bytes) -> list[int]:
 
 def prga(s_box: list[int]) -> Generator[int]:
     """
-    Pseudo-Random Generation Algorithm (PRGA)
+    伪随机生成算法（PRGA）
     =========================================
 
-    The PRGA generates keystream bytes from the permuted S-box S.
-    For each iteration, it modifies the S-box and outputs one byte of the keystream.
+    PRGA 从置换后的 S-box S 生成密钥流字节。每次迭代都会修改 S-box，并输出一个
+    密钥流字节。
 
     Parameters:
     -----------
@@ -102,7 +101,7 @@ def prga(s_box: list[int]) -> Generator[int]:
 
 def encrypt(plaintext: bytes, key: bytes) -> bytes:
     """
-    Encrypts/Decrypts the plaintext bytes with a key using the RC4 stream cipher.
+    使用 RC4 流密码和密钥加密/解密明文字节。
 
     Parameters:
     -----------
@@ -149,9 +148,9 @@ def encrypt(plaintext: bytes, key: bytes) -> bytes:
 
 def decrypt(ciphertext: bytes, key: bytes) -> bytes:
     """
-    Decrypts the ciphertext bytes with a key using the RC4 stream cipher.
+    使用 RC4 流密码和密钥解密密文字节。
 
-    Since RC4 is symmetric, decryption is identical to encryption.
+    RC4 是对称密码，因此解密过程与加密过程相同。
 
     Parameters:
     -----------

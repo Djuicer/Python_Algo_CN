@@ -1,8 +1,7 @@
 """
-Cryptographic mathematics module for modular arithmetic operations.
+用于模运算的密码学数学模块。
 
-This module provides utilities for cryptographic computations,
-particularly modular multiplicative inverse.
+本模块提供密码学计算辅助工具，尤其用于计算模乘法逆元。
 """
 
 from maths.greatest_common_divisor import gcd_by_iterative
@@ -10,28 +9,28 @@ from maths.greatest_common_divisor import gcd_by_iterative
 
 def find_mod_inverse(a: int, m: int) -> int:
     """
-    Find the modular multiplicative inverse of a modulo m.
+    求 a 模 m 的模乘法逆元。
 
-    The modular multiplicative inverse of a modulo m is an integer x such that:
+    a 模 m 的模乘法逆元是满足以下条件的整数 x：
     (a * x) % m = 1
 
-    This function uses the Extended Euclidean Algorithm to find the inverse.
-    An inverse exists if and only if a and m are coprime (gcd(a, m) = 1).
+    此函数使用扩展欧几里得算法求逆元。当且仅当 a 与 m 互素
+    （gcd(a, m) = 1）时，逆元存在。
 
-    Args:
-        a: The integer to find the inverse of
-        m: The modulus
+    参数：
+        a: 要求逆元的整数
+        m: 模数
 
-    Returns:
-        The modular multiplicative inverse of a modulo m
+    返回值：
+        a 模 m 的模乘法逆元
 
-    Raises:
-        ValueError: If gcd(a, m) != 1 (inverse does not exist)
+    异常：
+        ValueError: 当 gcd(a, m) != 1（逆元不存在）时引发
 
-    Reference:
+    参考资料：
         https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
 
-    Examples:
+    示例：
     >>> find_mod_inverse(3, 7)
     5
     >>> (3 * 5) % 7  # Verify: 3 * 5 ≡ 1 (mod 7)

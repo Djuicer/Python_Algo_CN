@@ -2,20 +2,15 @@ B64_CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
 
 def base64_encode(data: bytes) -> bytes:
-    """Encodes data according to RFC4648.
+    """按照 RFC4648 编码数据。
 
-    The data is first transformed to binary and appended with binary digits so that its
-    length becomes a multiple of 6, then each 6 binary digits will match a character in
-    the B64_CHARSET string. The number of appended binary digits would later determine
-    how many "=" signs should be added, the padding.
-    For every 2 binary digits added, a "=" sign is added in the output.
-    We can add any binary digits to make it a multiple of 6, for instance, consider the
-    following example:
+    首先将数据转换为二进制，并追加二进制数字，使长度成为 6 的倍数；随后每 6 个
+    二进制数字对应 B64_CHARSET 字符串中的一个字符。追加的二进制数字数量决定
+    后续要添加多少个作为填充的 "=" 符号。每追加 2 个二进制数字，输出中就添加
+    一个 "=" 符号。可以追加任意二进制数字使长度成为 6 的倍数，例如：
     "AA" -> 0010100100101001 -> 001010 010010 1001
-    As can be seen above, 2 more binary digits should be added, so there's 4
-    possibilities here: 00, 01, 10 or 11.
-    That being said, Base64 encoding can be used in Steganography to hide data in these
-    appended digits.
+    如上所示，需要再添加 2 个二进制数字，因此有四种可能：00、01、10 或 11。
+    因此，可以在隐写术中利用 Base64 编码，将数据隐藏在这些追加数字中。
 
     >>> from base64 import b64encode
     >>> a = b"This pull request is part of Hacktoberfest20!"
@@ -32,7 +27,7 @@ def base64_encode(data: bytes) -> bytes:
       ...
     TypeError: a bytes-like object is required, not 'str'
     """
-    # Make sure the supplied data is a bytes-like object
+    # 确保给定数据是字节类对象
     if not isinstance(data, bytes):
         msg = f"a bytes-like object is required, not '{data.__class__.__name__}'"
         raise TypeError(msg)
@@ -42,16 +37,15 @@ def base64_encode(data: bytes) -> bytes:
     padding_needed = len(binary_stream) % 6 != 0
 
     if padding_needed:
-        # The padding that will be added later
+        # 稍后添加的填充
         padding = b"=" * ((6 - len(binary_stream) % 6) // 2)
 
-        # Append binary_stream with arbitrary binary digits (0's by default) to make its
-        # length a multiple of 6.
+        # 向 binary_stream 追加任意二进制数字（默认为 0），使其长度成为 6 的倍数
         binary_stream += "0" * (6 - len(binary_stream) % 6)
     else:
         padding = b""
 
-    # Encode every 6 binary digits to their corresponding Base64 character
+    # 将每 6 个二进制数字编码为对应的 Base64 字符
     return (
         "".join(
             B64_CHARSET[int(binary_stream[index : index + 6], 2)]
@@ -62,13 +56,11 @@ def base64_encode(data: bytes) -> bytes:
 
 
 def base64_decode(encoded_data: str) -> bytes:
-    """Decodes data according to RFC4648.
+    """按照 RFC4648 解码数据。
 
-    This does the reverse operation of base64_encode.
-    We first transform the encoded data back to a binary stream, take off the
-    previously appended binary digits according to the padding, at this point we
-    would have a binary stream whose length is multiple of 8, the last step is
-    to convert every 8 bits to a byte.
+    此函数执行 base64_encode 的逆操作。首先将编码数据转换回二进制流，再根据
+    填充移除先前追加的二进制数字。此时二进制流的长度是 8 的倍数，最后将每
+    8 位转换为一个字节。
 
     >>> from base64 import b64decode
     >>> a = "VGhpcyBwdWxsIHJlcXVlc3QgaXMgcGFydCBvZiBIYWNrdG9iZXJmZXN0MjAh"
@@ -85,7 +77,7 @@ def base64_decode(encoded_data: str) -> bytes:
       ...
     AssertionError: Incorrect padding
     """
-    # Make sure encoded_data is either a string or a bytes-like object
+    # 确保 encoded_data 是字符串或字节类对象
     if not isinstance(encoded_data, bytes) and not isinstance(encoded_data, str):
         msg = (
             "argument should be a bytes-like object or ASCII string, "
@@ -93,8 +85,7 @@ def base64_decode(encoded_data: str) -> bytes:
         )
         raise TypeError(msg)
 
-    # In case encoded_data is a bytes-like object, make sure it contains only
-    # ASCII characters so we convert it to a string object
+    # 如果 encoded_data 是字节类对象，确保它只包含 ASCII 字符，再转换为字符串对象
     if isinstance(encoded_data, bytes):
         try:
             encoded_data = encoded_data.decode("utf-8")
@@ -103,7 +94,7 @@ def base64_decode(encoded_data: str) -> bytes:
 
     padding = encoded_data.count("=")
 
-    # Check if the encoded string contains non base64 characters
+    # 检查编码字符串是否包含非 Base64 字符
     if padding:
         assert all(char in B64_CHARSET for char in encoded_data[:-padding]), (
             "Invalid base64 character(s) found."
@@ -113,11 +104,11 @@ def base64_decode(encoded_data: str) -> bytes:
             "Invalid base64 character(s) found."
         )
 
-    # Check the padding
+    # 检查填充
     assert len(encoded_data) % 4 == 0 and padding < 3, "Incorrect padding"
 
     if padding:
-        # Remove padding if there is one
+        # 如果存在填充，则将其移除
         encoded_data = encoded_data[:-padding]
 
         binary_stream = "".join(

@@ -1,4 +1,4 @@
-# Primality Testing with the Rabin-Miller Algorithm
+# 使用 Rabin-Miller 算法进行素性测试
 
 import random
 

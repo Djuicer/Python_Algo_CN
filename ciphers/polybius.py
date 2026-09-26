@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-A Polybius Square is a table that allows someone to translate letters into numbers.
+波利比奥斯方阵（Polybius Square）是一种将字母转换为数字的表格。
 
 https://www.braingle.com/brainteasers/codes/polybius.php
 """
@@ -23,8 +23,7 @@ class PolybiusCipher:
 
     def letter_to_numbers(self, letter: str) -> np.ndarray:
         """
-        Return the pair of numbers that represents the given letter in the
-        polybius square
+        返回给定字母在波利比奥斯方阵中对应的数字对。
         >>> np.array_equal(PolybiusCipher().letter_to_numbers('a'), [1,1])
         True
 
@@ -37,8 +36,7 @@ class PolybiusCipher:
 
     def numbers_to_letter(self, index1: int, index2: int) -> str:
         """
-        Return the letter corresponding to the position [index1, index2] in
-        the polybius square
+        返回波利比奥斯方阵中位置 [index1, index2] 对应的字母。
 
         >>> PolybiusCipher().numbers_to_letter(4, 5) == "u"
         True
@@ -50,7 +48,7 @@ class PolybiusCipher:
 
     def encode(self, message: str) -> str:
         """
-        Return the encoded version of message according to the polybius cipher
+        返回按照波利比奥斯密码编码后的 message。
 
         >>> PolybiusCipher().encode("test message") == "44154344 32154343112215"
         True
@@ -73,7 +71,7 @@ class PolybiusCipher:
 
     def decode(self, message: str) -> str:
         """
-        Return the decoded version of message according to the polybius cipher
+        返回按照波利比奥斯密码解码后的 message。
 
         >>> PolybiusCipher().decode("44154344 32154343112215") == "test message"
         True

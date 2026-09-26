@@ -9,23 +9,19 @@ def decrypt_caesar_with_chi_squared(
     case_sensitive: bool = False,
 ) -> tuple[int, float, str]:
     """
-    Basic Usage
+    基本用法
     ===========
 
-    Arguments:
-      * `ciphertext` (str): the text to decode (encoded with the caesar cipher)
+    参数：
+      * `ciphertext` (str): 待解码文本（使用凯撒密码编码）
 
-    Optional Arguments:
-      * `cipher_alphabet` (list): the alphabet used for the cipher (each letter is
-        a string separated by commas)
-      * `frequencies_dict` (dict): a dictionary of word frequencies where keys are
-        the letters and values are a percentage representation of the frequency as
-        a decimal/float
-      * `case_sensitive` (bool): a boolean value: ``True`` if the case matters during
-        decryption, ``False`` if it doesn't
+    可选参数：
+      * `cipher_alphabet` (list): 密码使用的字母表
+      * `frequencies_dict` (dict): 字母频率字典，键为字母，值为以小数表示的频率百分比
+      * `case_sensitive` (bool): 解密时区分大小写为 ``True``，否则为 ``False``
 
-    Returns:
-      * A tuple in the form of:
+    返回值：
+      * 以下形式的元组：
         (`most_likely_cipher`, `most_likely_cipher_chi_squared_value`,
         `decoded_most_likely_cipher`)
 
@@ -38,17 +34,15 @@ def decrypt_caesar_with_chi_squared(
             (decoded by the most_likely_cipher key)
 
 
-    The Chi-squared test
+    卡方检验
     ====================
 
-    The caesar cipher
+    凯撒密码
     -----------------
 
-    The caesar cipher is a very insecure encryption algorithm, however it has
-    been used since Julius Caesar. The cipher is a simple substitution cipher
-    where each character in the plain text is replaced by a character in the
-    alphabet a certain number of characters after the original character. The
-    number of characters away is called the shift or key. For example:
+    凯撒密码是一种安全性很低的加密算法，但自 Julius Caesar 时代起就已使用。
+    它是一种简单替换密码，将明文中的每个字符替换为字母表中向后相隔一定位置的
+    字符。相隔的位置数称为移位量或密钥。例如：
 
     | Plain text: ``hello``
     | Key: ``1``
@@ -59,7 +53,7 @@ def decrypt_caesar_with_chi_squared(
     decrypting ciphertext by brute-force is extremely easy even by hand. However
     one way to do that is the chi-squared test.
 
-    The chi-squared test
+    卡方检验
     --------------------
 
     Each letter in the english alphabet has a frequency, or the amount of times

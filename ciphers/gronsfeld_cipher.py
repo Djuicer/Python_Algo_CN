@@ -3,7 +3,7 @@ from string import ascii_uppercase
 
 def gronsfeld(text: str, key: str) -> str:
     """
-    Encrypt plaintext with the Gronsfeld cipher
+    使用 Gronsfeld 密码加密明文。
 
     >>> gronsfeld('hello', '412')
     'LFNPP'

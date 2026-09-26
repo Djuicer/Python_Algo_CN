@@ -8,9 +8,7 @@ dict1 = {char: i for i, char in enumerate(ascii_uppercase)}
 dict2 = dict(enumerate(ascii_uppercase))
 
 
-# This function generates the key in
-# a cyclic manner until it's length isn't
-# equal to the length of original text
+# 此函数以循环方式生成密钥，直至其长度与原文长度相等
 def generate_key(message: str, key: str) -> str:
     """
     >>> generate_key("THE GERMAN ATTACK","SECRET")
@@ -28,8 +26,7 @@ def generate_key(message: str, key: str) -> str:
     return key
 
 
-# This function returns the encrypted text
-# generated with the help of the key
+# 此函数返回使用密钥生成的加密文本
 def cipher_text(message: str, key_new: str) -> str:
     """
     >>> cipher_text("THE GERMAN ATTACK","SECRETSECRETSECRE")
@@ -47,8 +44,7 @@ def cipher_text(message: str, key_new: str) -> str:
     return cipher_text
 
 
-# This function decrypts the encrypted text
-# and returns the original text
+# 此函数解密加密文本并返回原文
 def original_text(cipher_text: str, key_new: str) -> str:
     """
     >>> original_text("BDC PAYUWL JPAIYI","SECRETSECRETSECRE")

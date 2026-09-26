@@ -1,5 +1,5 @@
 """
-Base32 encoding and decoding
+Base32 编码与解码
 
 https://en.wikipedia.org/wiki/Base32
 """

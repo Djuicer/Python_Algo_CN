@@ -1,18 +1,17 @@
-"""Columnar Transposition cipher.
+"""列换位密码（Columnar Transposition Cipher）。
 
-This classical cipher writes the plaintext in rows under a keyword and reads
-columns in the order of the alphabetical rank of the keyword letters.
+这种古典密码将明文逐行写在关键字下方，再按照关键字中字母的字母序读取各列。
 
-Reference: https://en.wikipedia.org/wiki/Transposition_cipher#Columnar_transposition
+参考资料：https://en.wikipedia.org/wiki/Transposition_cipher#Columnar_transposition
 
-We keep spaces and punctuation. Key must be alphabetic (case-insensitive).
+保留空格和标点。key 必须仅含字母（不区分大小写）。
 
 >>> pt = "WE ARE DISCOVERED. FLEE AT ONCE"
 >>> ct = encrypt(pt, "ZEBRAS")
 >>> decrypt(ct, "ZEBRAS") == pt
 True
 
-Edge cases:
+边界情况：
 >>> encrypt("HELLO", "A")
 'HELLO'
 >>> decrypt("HELLO", "A")
@@ -38,7 +37,7 @@ def _normalize_key(key: str) -> str:
 
 
 def _column_order(key: str) -> list[int]:
-    # Stable sort by character then original index to handle duplicates
+    # 先按字符、再按原始索引进行稳定排序，以处理重复字符
     indexed = list(enumerate(key))
     return [
         i
@@ -49,12 +48,12 @@ def _column_order(key: str) -> list[int]:
 
 
 def encrypt(plaintext: str, key: str) -> str:
-    """Encrypt using columnar transposition.
+    """使用列换位密码加密。
 
-    :param plaintext: Input text (any characters)
-    :param key: Alphabetic keyword
-    :return: Ciphertext
-    :raises ValueError: on invalid key
+    :param plaintext: 输入文本（可包含任意字符）
+    :param key: 仅含字母的关键字
+    :return: 密文
+    :raises ValueError: key 无效时引发
     """
     k = _normalize_key(key)
     cols = len(k)
@@ -63,11 +62,11 @@ def encrypt(plaintext: str, key: str) -> str:
 
     order = _column_order(k)
 
-    # Build ragged rows without padding
+    # 构造不使用填充的非等长行
     rows = (len(plaintext) + cols - 1) // cols
     grid: list[str] = [plaintext[i * cols : (i + 1) * cols] for i in range(rows)]
 
-    # Read columns in sorted order, skipping missing cells
+    # 按排序后的顺序读取各列，并跳过缺失单元格
     out: list[str] = []
     for col in order:
         for r in range(rows):
@@ -77,12 +76,12 @@ def encrypt(plaintext: str, key: str) -> str:
 
 
 def decrypt(ciphertext: str, key: str) -> str:
-    """Decrypt columnar transposition ciphertext.
+    """解密列换位密码的密文。
 
-    :param ciphertext: Encrypted text
-    :param key: Alphabetic keyword
-    :return: Decrypted plaintext
-    :raises ValueError: on invalid key
+    :param ciphertext: 加密文本
+    :param key: 仅含字母的关键字
+    :return: 解密后的明文
+    :raises ValueError: key 无效时引发
     """
     k = _normalize_key(key)
     cols = len(k)
@@ -94,7 +93,7 @@ def decrypt(ciphertext: str, key: str) -> str:
     rows = (text_len + cols - 1) // cols
     r = text_len % cols
 
-    # Column lengths based on ragged last row (no padding during encryption)
+    # 根据非等长的最后一行确定列长（加密时未使用填充）
     col_lengths: list[int] = []
     for c in range(cols):
         if r == 0:
@@ -102,7 +101,7 @@ def decrypt(ciphertext: str, key: str) -> str:
         else:
             col_lengths.append(rows if c < r else rows - 1)
 
-    # Slice ciphertext into columns following the sorted order
+    # 按排序后的顺序将密文切分为各列
     columns: list[str] = [""] * cols
     idx = 0
     for col in order:
@@ -110,7 +109,7 @@ def decrypt(ciphertext: str, key: str) -> str:
         columns[col] = ciphertext[idx : idx + ln]
         idx += ln
 
-    # Rebuild plaintext row-wise
+    # 逐行重建明文
     out: list[str] = []
     pointers = [0] * cols
     for _ in range(rows * cols):

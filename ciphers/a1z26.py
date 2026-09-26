@@ -1,6 +1,5 @@
 """
-Convert a string of characters to a sequence of numbers
-corresponding to the character's position in the alphabet.
+将字符串转换为数字序列，每个数字对应字符在字母表中的位置。
 
 https://www.dcode.fr/letter-number-cipher
 http://bestcodes.weebly.com/a1z26.html

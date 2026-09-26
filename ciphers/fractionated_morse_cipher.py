@@ -1,10 +1,8 @@
 """
-Python program for the Fractionated Morse Cipher.
+分式摩尔斯密码（Fractionated Morse Cipher）的 Python 程序。
 
-The Fractionated Morse cipher first converts the plaintext to Morse code,
-then enciphers fixed-size blocks of Morse code back to letters.
-This procedure means plaintext letters are mixed into the ciphertext letters,
-making it more secure than substitution ciphers.
+分式摩尔斯密码先将明文转换为摩尔斯电码，再把固定大小的摩尔斯电码块加密回字母。
+这一过程会将明文字母混合到密文字母中，使其比替换密码更安全。
 
 http://practicalcryptography.com/ciphers/fractionated-morse-cipher/
 """
@@ -77,15 +75,15 @@ REVERSE_DICT = {value: key for key, value in MORSE_CODE_DICT.items()}
 
 
 def encode_to_morse(plaintext: str) -> str:
-    """Encode a plaintext message into Morse code.
+    """将明文消息编码为摩尔斯电码。
 
     Args:
         plaintext: The plaintext message to encode.
 
-    Returns:
-        The Morse code representation of the plaintext message.
+    返回值：
+        明文消息的摩尔斯电码表示。
 
-    Example:
+    示例：
         >>> encode_to_morse("defend the east")
         '-..x.x..-.x.x-.x-..xx-x....x.xx.x.-x...x-'
     """
@@ -93,16 +91,16 @@ def encode_to_morse(plaintext: str) -> str:
 
 
 def encrypt_fractionated_morse(plaintext: str, key: str) -> str:
-    """Encrypt a plaintext message using Fractionated Morse Cipher.
+    """使用分式摩尔斯密码加密明文消息。
 
     Args:
         plaintext: The plaintext message to encrypt.
         key: The encryption key.
 
-    Returns:
-        The encrypted ciphertext.
+    返回值：
+        加密后的密文。
 
-    Example:
+    示例：
         >>> encrypt_fractionated_morse("defend the east","Roundtable")
         'ESOAVVLJRSSTRX'
 
@@ -127,16 +125,16 @@ def encrypt_fractionated_morse(plaintext: str, key: str) -> str:
 
 
 def decrypt_fractionated_morse(ciphertext: str, key: str) -> str:
-    """Decrypt a ciphertext message encrypted with Fractionated Morse Cipher.
+    """解密由分式摩尔斯密码加密的密文消息。
 
     Args:
         ciphertext: The ciphertext message to decrypt.
         key: The decryption key.
 
-    Returns:
-        The decrypted plaintext message.
+    返回值：
+        解密后的明文消息。
 
-    Example:
+    示例：
         >>> decrypt_fractionated_morse("ESOAVVLJRSSTRX","Roundtable")
         'DEFEND THE EAST'
     """
@@ -155,7 +153,7 @@ def decrypt_fractionated_morse(ciphertext: str, key: str) -> str:
 
 if __name__ == "__main__":
     """
-    Example usage of Fractionated Morse Cipher.
+    分式摩尔斯密码的用法示例。
     """
     plaintext = "defend the east"
     print("Plain Text:", plaintext)

@@ -1,11 +1,9 @@
 """
-The permutation cipher, also called the transposition cipher, is a simple encryption
-technique that rearranges the characters in a message based on a secret key. It
-divides the message into blocks and applies a permutation to the characters within
-each block according to the key. The key is a sequence of unique integers that
-determine the order of character rearrangement.
+置换密码（Permutation Cipher）也称换位密码，是一种根据秘密密钥重新排列消息字符
+的简单加密技术。它将消息分块，并按照密钥对每个块中的字符进行置换。密钥是一个
+由互不相同的整数组成的序列，用于确定字符重排顺序。
 
-For more info: https://www.nku.edu/~christensen/1402%20permutation%20ciphers.pdf
+更多信息：https://www.nku.edu/~christensen/1402%20permutation%20ciphers.pdf
 """
 
 import random
@@ -13,7 +11,7 @@ import random
 
 def generate_valid_block_size(message_length: int) -> int:
     """
-    Generate a valid block size that is a factor of the message length.
+    生成一个作为消息长度因数的有效块大小。
 
     Args:
         message_length (int): The length of the message.
@@ -36,7 +34,7 @@ def generate_valid_block_size(message_length: int) -> int:
 
 def generate_permutation_key(block_size: int) -> list[int]:
     """
-    Generate a random permutation key of a specified block size.
+    生成指定块大小的随机置换密钥。
 
     Args:
         block_size (int): The size of each permutation block.
@@ -58,7 +56,7 @@ def encrypt(
     message: str, key: list[int] | None = None, block_size: int | None = None
 ) -> tuple[str, list[int]]:
     """
-    Encrypt a message using a permutation cipher with block rearrangement using a key.
+    使用密钥按块重排，以置换密码加密消息。
 
     Args:
         message (str): The plaintext message to be encrypted.
@@ -93,7 +91,7 @@ def encrypt(
 
 def decrypt(encrypted_message: str, key: list[int]) -> str:
     """
-    Decrypt an encrypted message using a permutation cipher with block rearrangement.
+    使用按块重排的置换密码解密消息。
 
     Args:
         encrypted_message (str): The encrypted message.
@@ -123,7 +121,7 @@ def decrypt(encrypted_message: str, key: list[int]) -> str:
 
 def main() -> None:
     """
-    Driver function to pass message to get encrypted, then decrypted.
+    驱动函数：传入消息，依次进行加密和解密。
 
     Example:
     >>> main()

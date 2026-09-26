@@ -23,8 +23,7 @@ def main() -> None:
 
 def check_valid_key(key: str) -> None:
     """
-    Check if the key is valid (contains all 26 letters of the alphabet exactly once).
-    Exits the program if the key is invalid.
+    检查密钥是否有效（恰好包含字母表的全部 26 个字母各一次）。密钥无效时退出程序。
 
     >>> check_valid_key('LFWOAYUISVKMNXPBDCRJTQEGHZ')
     >>> check_valid_key('INVALIDKEY')
@@ -80,7 +79,7 @@ def translate_message(key: str, message: str, mode: str) -> str:
 
 def get_random_key() -> str:
     """
-    Generate a random substitution cipher key.
+    生成随机替换密码密钥。
 
     >>> random.seed(0)
     >>> get_random_key()

@@ -1,7 +1,6 @@
 """
-The trifid cipher uses a table to fractionate each plaintext letter into a trigram,
-mixes the constituents of the trigrams, and then applies the table in reverse to turn
-these mixed trigrams into ciphertext letters.
+Trifid 密码使用表格将每个明文字母分解为三元组，混合三元组的组成部分，再反向
+应用该表，将混合后的三元组转换为密文字母。
 
 https://en.wikipedia.org/wiki/Trifid_cipher
 """
@@ -22,8 +21,7 @@ TEST_NUMBER_TO_CHARACTER = {val: key for key, val in TEST_CHARACTER_TO_NUMBER.it
 
 def __encrypt_part(message_part: str, character_to_number: dict[str, str]) -> str:
     """
-    Arrange the triagram value of each letter of `message_part` vertically and join
-    them horizontally.
+    纵向排列 `message_part` 中每个字母的三元组值，再横向拼接。
 
     >>> __encrypt_part('ASK', TEST_CHARACTER_TO_NUMBER)
     '132111112'
@@ -41,8 +39,7 @@ def __decrypt_part(
     message_part: str, character_to_number: dict[str, str]
 ) -> tuple[str, str, str]:
     """
-    Convert each letter of the input string into their respective trigram values, join
-    them and split them into three equal groups of strings which are returned.
+    将输入字符串中的每个字母转换为对应三元组值，拼接后分成三个等长字符串并返回。
 
     >>> __decrypt_part('ABCDE', TEST_CHARACTER_TO_NUMBER)
     ('11111', '21131', '21122')
@@ -63,10 +60,8 @@ def __prepare(
     message: str, alphabet: str
 ) -> tuple[str, str, dict[str, str], dict[str, str]]:
     """
-    A helper function that generates the triagrams and assigns each letter of the
-    alphabet to its corresponding triagram and stores this in a dictionary
-    (`character_to_number` and `number_to_character`) after confirming if the
-    alphabet's length is ``27``.
+    辅助函数：确认字母表长度为 ``27`` 后生成三元组，将字母表中的每个字母分配给
+    对应三元组，并存入字典（`character_to_number` 和 `number_to_character`）。
 
     >>> test = __prepare('I aM a BOy','abCdeFghijkLmnopqrStuVwxYZ+')
     >>> expected = ('IAMABOY','ABCDEFGHIJKLMNOPQRSTUVWXYZ+',
@@ -128,8 +123,7 @@ def encrypt_message(
     encrypt_message
     ===============
 
-    Encrypts a message using the trifid_cipher. Any punctuatuion chars that
-    would be used should be added to the alphabet.
+    使用 trifid_cipher 加密消息。所有要使用的标点字符都应加入字母表。
 
     PARAMETERS
     ----------
@@ -173,7 +167,7 @@ def decrypt_message(
     decrypt_message
     ===============
 
-    Decrypts a trifid_cipher encrypted message.
+    解密由 trifid_cipher 加密的消息。
 
     PARAMETERS
     ----------

@@ -1,14 +1,12 @@
 """
 
-Hill Cipher:
-The 'HillCipher' class below implements the Hill Cipher algorithm which uses
-modern linear algebra techniques to encode and decode text using an encryption
-key matrix.
+Hill 密码：
+下面的 'HillCipher' 类实现 Hill 密码算法，使用现代线性代数技术和加密密钥矩阵
+编码与解码文本。
 
-Algorithm:
-Let the order of the encryption key be N (as it is a square matrix).
-Your text is divided into batches of length N and converted to numerical vectors
-by a simple mapping starting with A=0 and so on.
+算法：
+设加密密钥的阶数为 N（密钥是方阵）。文本被分为长度为 N 的批次，再通过从 A=0
+开始的简单映射转换为数值向量。
 
 The key is then multiplied with the newly created batch vector to obtain the
 encoded vector. After each multiplication modular 36 calculations are performed
@@ -55,7 +53,7 @@ class HillCipher:
 
     def __init__(self, encrypt_key: np.ndarray) -> None:
         """
-        encrypt_key is an NxN numpy array
+        encrypt_key 是 NxN numpy 数组。
         """
         self.encrypt_key = self.modulus(encrypt_key)  # mod36 calc's on the encrypt key
         self.check_determinant()  # validate the determinant of the encryption key

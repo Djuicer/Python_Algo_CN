@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-The Bifid Cipher uses a Polybius Square to encipher a message in a way that
-makes it fairly difficult to decipher without knowing the secret.
+Bifid 密码使用波利比奥斯方阵（Polybius Square）加密消息，使不知道秘密信息的
+人很难将其破解。
 
 https://www.braingle.com/brainteasers/codes/bifid.php
 """
@@ -24,8 +24,7 @@ class BifidCipher:
 
     def letter_to_numbers(self, letter: str) -> np.ndarray:
         """
-        Return the pair of numbers that represents the given letter in the
-        polybius square
+        返回给定字母在波利比奥斯方阵中对应的数字对。
 
         >>> np.array_equal(BifidCipher().letter_to_numbers('a'), [1,1])
         True
@@ -39,8 +38,7 @@ class BifidCipher:
 
     def numbers_to_letter(self, index1: int, index2: int) -> str:
         """
-        Return the letter corresponding to the position [index1, index2] in
-        the polybius square
+        返回波利比奥斯方阵中位置 [index1, index2] 对应的字母。
 
         >>> BifidCipher().numbers_to_letter(4, 5) == "u"
         True
@@ -53,7 +51,7 @@ class BifidCipher:
 
     def encode(self, message: str) -> str:
         """
-        Return the encoded version of message according to the polybius cipher
+        返回按照波利比奥斯密码编码后的 message。
 
         >>> BifidCipher().encode('testmessage') == 'qtltbdxrxlk'
         True
@@ -87,7 +85,7 @@ class BifidCipher:
 
     def decode(self, message: str) -> str:
         """
-        Return the decoded version of message according to the polybius cipher
+        返回按照波利比奥斯密码解码后的 message。
 
         >>> BifidCipher().decode('qtltbdxrxlk') == 'testmessage'
         True

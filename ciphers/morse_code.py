@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Python program to translate to and from Morse code.
+用于摩尔斯电码编码与解码的 Python 程序。
 
 https://en.wikipedia.org/wiki/Morse_code
 """
@@ -17,7 +17,7 @@ MORSE_CODE_DICT = {
     ":": "---...", ",": "--..--", ".": ".-.-.-", "'": ".----.", '"': ".-..-.",
     "?": "..--..", "/": "-..-.", "=": "-...-", "+": ".-.-.", "-": "-....-",
     "(": "-.--.", ")": "-.--.-", "!": "-.-.--", " ": "/"
-}  # Exclamation mark is not in ITU-R recommendation
+}  # 感叹号不在 ITU-R 建议中
 # fmt: on
 REVERSE_DICT = {value: key for key, value in MORSE_CODE_DICT.items()}
 

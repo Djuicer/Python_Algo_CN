@@ -3,11 +3,9 @@ author: Christian Bender
 date: 21.12.2017
 class: XORCipher
 
-This class implements the XOR-cipher algorithm and provides
-some useful methods for encrypting and decrypting strings and
-files.
+此类实现 XOR 密码算法，并提供加密和解密字符串及文件的实用方法。
 
-Overview about methods
+方法概览
 
 - encrypt : list of char
 - decrypt : list of char
@@ -23,11 +21,10 @@ from __future__ import annotations
 class XORCipher:
     def __init__(self, key: int = 0) -> None:
         """
-        simple constructor that receives a key or uses
-        default key = 0
+        简单构造函数：接收一个密钥，或使用默认 key = 0。
         """
 
-        # private field
+        # 私有字段
         self.__key = key
 
     def encrypt(self, content: str, key: int) -> list[str]:
@@ -54,13 +51,13 @@ class XORCipher:
         ['h', 'a', 'l', 'l', 'o', ' ', 'w', 'e', 'l', 't']
         """
 
-        # precondition
+        # 前置条件
         assert isinstance(key, int)
         assert isinstance(content, str)
 
         key = key or self.__key or 1
 
-        # make sure key is an appropriate size
+        # 确保密钥大小合适
         key %= 256
 
         return [chr(ord(ch) ^ key) for ch in content]

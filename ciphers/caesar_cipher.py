@@ -5,58 +5,54 @@ from string import ascii_letters
 
 def encrypt(input_string: str, key: int, alphabet: str | None = None) -> str:
     """
-    encrypt
+    加密
     =======
 
-    Encodes a given string with the caesar cipher and returns the encoded
-    message
+    使用凯撒密码（Caesar Cipher）编码给定字符串，并返回编码后的消息。
 
-    Parameters:
+    参数：
     -----------
 
-    *   `input_string`: the plain-text that needs to be encoded
-    *   `key`: the number of letters to shift the message by
+    *   `input_string`: 需要编码的明文
+    *   `key`: 消息要移位的字母数量
 
-    Optional:
+    可选参数：
 
-    *   `alphabet` (``None``): the alphabet used to encode the cipher, if not
-        specified, the standard english alphabet with upper and lowercase
-        letters is used
+    *   `alphabet` (``None``): 编码密码时使用的字母表；未指定时使用包含大小写字母的
+        标准英文字母表
 
-    Returns:
+    返回值：
 
-    *   A string containing the encoded cipher-text
+    *   包含编码后密文的字符串
 
-    More on the caesar cipher
+    关于凯撒密码
     =========================
 
-    The caesar cipher is named after Julius Caesar who used it when sending
-    secret military messages to his troops. This is a simple substitution cipher
-    where every character in the plain-text is shifted by a certain number known
-    as the "key" or "shift".
+    凯撒密码以 Julius Caesar 命名，他曾用这种密码向军队发送秘密军事消息。这是
+    一种简单替换密码，明文中的每个字符都移动一定数量的位置，该数量称为“密钥”
+    或“移位量”。
 
-    Example:
-    Say we have the following message:
+    示例：
+    假设有以下消息：
     ``Hello, captain``
 
-    And our alphabet is made up of lower and uppercase letters:
+    字母表由大小写字母组成：
     ``abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ``
 
-    And our shift is ``2``
+    移位量为 ``2``
 
-    We can then encode the message, one letter at a time. ``H`` would become ``J``,
-    since ``J`` is two letters away, and so on. If the shift is ever too large, or
-    our letter is at the end of the alphabet, we just start at the beginning
-    (``Z`` would shift to ``a`` then ``b`` and so on).
+    随后可逐字母编码消息。``H`` 会变为 ``J``，因为 ``J`` 与其相隔两个位置，
+    其余字母以此类推。如果移位超出字母表末尾，则从开头继续（``Z`` 会依次
+    移位到 ``a``、``b`` 等）。
 
-    Our final message would be ``Jgnnq, ecrvckp``
+    最终消息为 ``Jgnnq, ecrvckp``
 
-    Further reading
+    延伸阅读
     ===============
 
     *   https://en.m.wikipedia.org/wiki/Caesar_cipher
 
-    Doctests
+    Doctest
     ========
 
     >>> encrypt('The quick brown fox jumps over the lazy dog', 8)
@@ -68,21 +64,21 @@ def encrypt(input_string: str, key: int, alphabet: str | None = None) -> str:
     >>> encrypt('a lowercase alphabet', 5, 'abcdefghijklmnopqrstuvwxyz')
     'f qtbjwhfxj fqumfgjy'
     """
-    # Set default alphabet to lower and upper case english chars
+    # 将默认字母表设为大小写英文字母
     alpha = alphabet or ascii_letters
 
-    # The final result string
+    # 最终结果字符串
     result = ""
 
     for character in input_string:
         if character not in alpha:
-            # Append without encryption if character is not in the alphabet
+            # 如果字符不在字母表中，则不加密，直接追加
             result += character
         else:
-            # Get the index of the new key and make sure it isn't too large
+            # 获取新密钥的索引，并确保其不超出范围
             new_key = (alpha.index(character) + key) % len(alpha)
 
-            # Append the encoded character to the alphabet
+            # 追加编码后的字符
             result += alpha[new_key]
 
     return result
@@ -90,59 +86,54 @@ def encrypt(input_string: str, key: int, alphabet: str | None = None) -> str:
 
 def decrypt(input_string: str, key: int, alphabet: str | None = None) -> str:
     """
-    decrypt
+    解密
     =======
 
-    Decodes a given string of cipher-text and returns the decoded plain-text
+    解码给定密文字符串，并返回解码后的明文。
 
-    Parameters:
+    参数：
     -----------
 
-    *   `input_string`: the cipher-text that needs to be decoded
-    *   `key`: the number of letters to shift the message backwards by to decode
+    *   `input_string`: 需要解码的密文
+    *   `key`: 解码时消息向后移位的字母数量
 
-    Optional:
+    可选参数：
 
-    *   `alphabet` (``None``): the alphabet used to decode the cipher, if not
-        specified, the standard english alphabet with upper and lowercase
-        letters is used
+    *   `alphabet` (``None``): 解码密码时使用的字母表；未指定时使用包含大小写字母的
+        标准英文字母表
 
-    Returns:
+    返回值：
 
-    *   A string containing the decoded plain-text
+    *   包含解码后明文的字符串
 
-    More on the caesar cipher
+    关于凯撒密码
     =========================
 
-    The caesar cipher is named after Julius Caesar who used it when sending
-    secret military messages to his troops. This is a simple substitution cipher
-    where very character in the plain-text is shifted by a certain number known
-    as the "key" or "shift". Please keep in mind, here we will be focused on
-    decryption.
+    凯撒密码以 Julius Caesar 命名，他曾用这种密码向军队发送秘密军事消息。这是
+    一种简单替换密码，明文中的每个字符都移动一定数量的位置，该数量称为“密钥”
+    或“移位量”。此处重点介绍解密。
 
-    Example:
-    Say we have the following cipher-text:
+    示例：
+    假设有以下密文：
     ``Jgnnq, ecrvckp``
 
-    And our alphabet is made up of lower and uppercase letters:
+    字母表由大小写字母组成：
     ``abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ``
 
-    And our shift is ``2``
+    移位量为 ``2``
 
-    To decode the message, we would do the same thing as encoding, but in
-    reverse. The first letter, ``J`` would become ``H`` (remember: we are decoding)
-    because ``H`` is two letters in reverse (to the left) of ``J``. We would
-    continue doing this. A letter like ``a`` would shift back to the end of
-    the alphabet, and would become ``Z`` or ``Y`` and so on.
+    解码执行与编码相反的操作。首字母 ``J`` 会变为 ``H``，因为 ``H`` 位于 ``J``
+    向后（向左）两个位置。其余字母继续如此处理；``a`` 等字母向后移动时会绕到
+    字母表末尾，变为 ``Z``、``Y`` 等。
 
-    Our final message would be ``Hello, captain``
+    最终消息为 ``Hello, captain``
 
-    Further reading
+    延伸阅读
     ===============
 
     *   https://en.m.wikipedia.org/wiki/Caesar_cipher
 
-    Doctests
+    Doctest
     ========
 
     >>> decrypt('bpm yCqks jzwEv nwF rCuxA wDmz Bpm tiHG lwo', 8)
@@ -154,7 +145,7 @@ def decrypt(input_string: str, key: int, alphabet: str | None = None) -> str:
     >>> decrypt('f qtbjwhfxj fqumfgjy', 5, 'abcdefghijklmnopqrstuvwxyz')
     'a lowercase alphabet'
     """
-    # Turn on decode mode by making the key negative
+    # 将密钥取负以启用解码模式
     key *= -1
 
     return encrypt(input_string, key, alphabet)
@@ -162,44 +153,39 @@ def decrypt(input_string: str, key: int, alphabet: str | None = None) -> str:
 
 def brute_force(input_string: str, alphabet: str | None = None) -> dict[int, str]:
     """
-    brute_force
+    暴力破解
     ===========
 
-    Returns all the possible combinations of keys and the decoded strings in the
-    form of a dictionary
+    以字典形式返回所有可能的密钥组合及其对应的解码字符串。
 
-    Parameters:
+    参数：
     -----------
 
-    *   `input_string`: the cipher-text that needs to be used during brute-force
+    *   `input_string`: 暴力破解时使用的密文
 
-    Optional:
+    可选参数：
 
-    *   `alphabet` (``None``): the alphabet used to decode the cipher, if not
-        specified, the standard english alphabet with upper and lowercase
-        letters is used
+    *   `alphabet` (``None``): 解码密码时使用的字母表；未指定时使用包含大小写字母的
+        标准英文字母表
 
-    More about brute force
+    关于暴力破解
     ======================
 
-    Brute force is when a person intercepts a message or password, not knowing
-    the key and tries every single combination. This is easy with the caesar
-    cipher since there are only all the letters in the alphabet. The more
-    complex the cipher, the larger amount of time it will take to do brute force
+    暴力破解是指截获消息或密码后，在不知道密钥的情况下尝试所有组合。凯撒密码
+    只有字母表范围内的有限种组合，因此较易暴力破解；密码越复杂，暴力破解所需
+    时间越长。
 
-    Ex:
-    Say we have a ``5`` letter alphabet (``abcde``), for simplicity and we intercepted
-    the following message: ``dbc``,
-    we could then just write out every combination:
-    ``ecd``... and so on, until we reach a combination that makes sense:
+    示例：
+    为简化说明，假设字母表包含 ``5`` 个字母（``abcde``），截获消息 ``dbc``。
+    可以依次写出每种组合：``ecd``……直到得到有意义的组合：
     ``cab``
 
-    Further reading
+    延伸阅读
     ===============
 
     *   https://en.wikipedia.org/wiki/Brute_force
 
-    Doctests
+    Doctest
     ========
 
     >>> brute_force("jFyuMy xIH'N vLONy zILwy Gy!")[20]
@@ -209,15 +195,15 @@ def brute_force(input_string: str, alphabet: str | None = None) -> dict[int, str
     Traceback (most recent call last):
     TypeError: 'int' object is not iterable
     """
-    # Set default alphabet to lower and upper case english chars
+    # 将默认字母表设为大小写英文字母
     alpha = alphabet or ascii_letters
 
-    # To store data on all the combinations
+    # 存储所有组合的数据
     brute_force_data = {}
 
-    # Cycle through each combination
+    # 遍历每种组合
     for key in range(1, len(alpha) + 1):
-        # Decrypt the message and store the result in the data
+        # 解密消息并保存结果
         brute_force_data[key] = decrypt(input_string, key, alpha)
 
     return brute_force_data
@@ -228,10 +214,10 @@ if __name__ == "__main__":
         print(f"\n{'-' * 10}\n Menu\n{'-' * 10}")
         print(*["1.Encrypt", "2.Decrypt", "3.BruteForce", "4.Quit"], sep="\n")
 
-        # get user input
+        # 获取用户输入
         choice = input("\nWhat would you like to do?: ").strip() or "4"
 
-        # run functions based on what the user chose
+        # 根据用户选择运行相应函数
         if choice not in ("1", "2", "3", "4"):
             print("Invalid choice, please enter a valid choice")
         elif choice == "1":

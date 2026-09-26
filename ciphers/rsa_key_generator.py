@@ -26,13 +26,13 @@ def generate_key(key_size: int) -> tuple[tuple[int, int], tuple[int, int]]:
     q = rabin_miller.generate_large_prime(key_size)
     n = p * q
 
-    # Generate e that is relatively prime to (p - 1) * (q - 1)
+    # 生成与 (p - 1) * (q - 1) 互素的 e
     while True:
         e = random.randrange(2 ** (key_size - 1), 2 ** (key_size))
         if gcd_by_iterative(e, (p - 1) * (q - 1)) == 1:
             break
 
-    # Calculate d that is mod inverse of e
+    # 计算 e 的模逆元 d
     d = cryptomath_module.find_mod_inverse(e, (p - 1) * (q - 1))
 
     public_key = (n, e)

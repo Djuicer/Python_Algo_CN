@@ -5,11 +5,11 @@ https://en.wikipedia.org/wiki/Running_key_cipher
 
 def running_key_encrypt(key: str, plaintext: str) -> str:
     """
-    Encrypts the plaintext using the Running Key Cipher.
+    使用连续密钥密码（Running Key Cipher）加密明文。
 
-    :param key: The running key (long piece of text).
-    :param plaintext: The plaintext to be encrypted.
-    :return: The ciphertext.
+    :param key: 连续密钥（较长的文本）。
+    :param plaintext: 待加密的明文。
+    :return: 密文。
     """
     plaintext = plaintext.replace(" ", "").upper()
     key = key.replace(" ", "").upper()
@@ -28,11 +28,11 @@ def running_key_encrypt(key: str, plaintext: str) -> str:
 
 def running_key_decrypt(key: str, ciphertext: str) -> str:
     """
-    Decrypts the ciphertext using the Running Key Cipher.
+    使用连续密钥密码解密密文。
 
-    :param key: The running key (long piece of text).
-    :param ciphertext: The ciphertext to be decrypted.
-    :return: The plaintext.
+    :param key: 连续密钥（较长的文本）。
+    :param ciphertext: 待解密的密文。
+    :return: 明文。
     """
     ciphertext = ciphertext.replace(" ", "").upper()
     key = key.replace(" ", "").upper()

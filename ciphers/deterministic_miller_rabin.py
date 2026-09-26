@@ -4,27 +4,25 @@
 
 
 def miller_rabin(n: int, allow_probable: bool = False) -> bool:
-    """Deterministic Miller-Rabin algorithm for primes ~< 3.32e24.
+    """适用于约小于 3.32e24 的素数的确定性 Miller-Rabin 算法。
 
-    Uses numerical analysis results to return whether or not the passed number
-    is prime. If the passed number is above the upper limit, and
-    allow_probable is True, then a return value of True indicates that n is
-    probably prime. This test does not allow False negatives- a return value
-    of False is ALWAYS composite.
+    使用数值分析结果判断传入数字是否为素数。如果数字超过上限且 allow_probable
+    为 True，则返回 True 表示 n 可能是素数。此测试不会产生假阴性：返回 False
+    始终表示合数。
 
-    Parameters
+    参数
     ----------
     n : int
-        The integer to be tested. Since we usually care if a number is prime,
-        n < 2 returns False instead of raising a ValueError.
+        待测试的整数。由于通常关注数字是否为素数，n < 2 时返回 False，而不引发
+        ValueError。
     allow_probable: bool, default False
-        Whether or not to test n above the upper bound of the deterministic test.
+        是否测试超过确定性测试上限的 n。
 
-    Raises
+    异常
     ------
     ValueError
 
-    Reference
+    参考资料
     ---------
     https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
     """
@@ -32,7 +30,7 @@ def miller_rabin(n: int, allow_probable: bool = False) -> bool:
         return True
     if not n % 2 or n < 2:
         return False
-    if n > 5 and n % 10 not in (1, 3, 7, 9):  # can quickly check last digit
+    if n > 5 and n % 10 not in (1, 3, 7, 9):  # 可快速检查末位数字
         return False
     if n > 3_317_044_064_679_887_385_961_981 and not allow_probable:
         raise ValueError(
@@ -40,7 +38,7 @@ def miller_rabin(n: int, allow_probable: bool = False) -> bool:
             "Pass allow_probable=True to allow probabilistic test. "
             "A return value of True indicates a probable prime."
         )
-    # array bounds provided by analysis
+    # 分析得出的数组边界
     bounds = [
         2_047,
         1_373_653,
@@ -60,13 +58,11 @@ def miller_rabin(n: int, allow_probable: bool = False) -> bool:
     primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41]
     for idx, _p in enumerate(bounds, 1):
         if n < _p:
-            # then we have our last prime to check
+            # 此时得到最后一个需要检查的素数
             plist = primes[:idx]
             break
     d, s = n - 1, 0
-    # break up n -1 into a power of 2 (s) and
-    # remaining odd component
-    # essentially, solve for d * 2 ** s == n - 1
+    # 将 n - 1 分解为 2 的幂（s）和剩余奇数部分，即求解 d * 2 ** s == n - 1
     while d % 2 == 0:
         d //= 2
         s += 1
@@ -74,22 +70,20 @@ def miller_rabin(n: int, allow_probable: bool = False) -> bool:
         pr = False
         for r in range(s):
             m = pow(prime, d * 2**r, n)
-            # see article for analysis explanation for m
+            # m 的分析说明参见文章
             if (r == 0 and m == 1) or ((m + 1) % n == 0):
                 pr = True
-                # this loop will not determine compositeness
+                # 此循环不会判定合数性
                 break
         if pr:
             continue
-        # if pr is False, then the above loop never evaluated to true,
-        # and the n MUST be composite
+        # 如果 pr 为 False，则上述循环从未得到真值，n 必为合数
         return False
     return True
 
 
 def test_miller_rabin() -> None:
-    """Testing a nontrivial (ends in 1, 3, 7, 9) composite
-    and a prime in each range.
+    """在每个范围内测试一个非平凡（末位为 1、3、7、9）合数和一个素数。
     """
     assert not miller_rabin(561)
     assert miller_rabin(563)

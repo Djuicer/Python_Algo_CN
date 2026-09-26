@@ -1,13 +1,11 @@
 """
-XTEA (eXtended Tiny Encryption Algorithm) is a block cipher designed to
-correct weaknesses in TEA. It was published by David Wheeler and Roger
-Needham in 1997. XTEA operates on 64-bit blocks with a 128-bit key and
-uses a Feistel network with a recommended 64 rounds.
+XTEA（eXtended Tiny Encryption Algorithm）是一种用于改进 TEA 弱点的分组密码，
+由 David Wheeler 和 Roger Needham 于 1997 年发表。XTEA 使用 128 位密钥处理
+64 位分组，并采用建议执行 64 轮的 Feistel 网络。
 
-It's still found in embedded systems and game networking protocols due
-to its simplicity and small code footprint.
+由于实现简单且代码占用空间小，它仍用于嵌入式系统和游戏网络协议。
 
-Reference: https://en.wikipedia.org/wiki/XTEA
+参考资料：https://en.wikipedia.org/wiki/XTEA
 """
 
 import struct
@@ -18,12 +16,12 @@ MASK = 0xFFFFFFFF
 
 def xtea_encrypt(block: bytes, key: bytes, num_rounds: int = 64) -> bytes:
     """
-    Encrypt a single 64-bit block using XTEA.
+    使用 XTEA 加密单个 64 位分组。
 
-    :param block: 8 bytes of plaintext
-    :param key: 16 bytes (128-bit key)
-    :param num_rounds: number of Feistel rounds (default 64)
-    :return: 8 bytes of ciphertext
+    :param block: 8 字节明文
+    :param key: 16 字节（128 位密钥）
+    :param num_rounds: Feistel 轮数（默认 64）
+    :return: 8 字节密文
 
     >>> key = b'\\x00' * 16
     >>> plaintext = b'\\x00' * 8
@@ -65,14 +63,14 @@ def xtea_encrypt(block: bytes, key: bytes, num_rounds: int = 64) -> bytes:
 
 def xtea_decrypt(block: bytes, key: bytes, num_rounds: int = 64) -> bytes:
     """
-    Decrypt a single 64-bit block using XTEA.
+    使用 XTEA 解密单个 64 位分组。
 
-    :param block: 8 bytes of ciphertext
-    :param key: 16 bytes (128-bit key)
-    :param num_rounds: number of Feistel rounds (default 64)
-    :return: 8 bytes of plaintext
+    :param block: 8 字节密文
+    :param key: 16 字节（128 位密钥）
+    :param num_rounds: Feistel 轮数（默认 64）
+    :return: 8 字节明文
 
-    Roundtrip test -- encrypt then decrypt returns original plaintext:
+    往返测试——加密后再解密应返回原始明文：
     >>> key = b'\\x00' * 16
     >>> plaintext = b'\\x00' * 8
     >>> xtea_decrypt(xtea_encrypt(plaintext, key), key) == plaintext

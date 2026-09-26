@@ -6,13 +6,12 @@ import string
 
 class ShuffledShiftCipher:
     """
-    This algorithm uses the Caesar Cipher algorithm but removes the option to
-    use brute force to decrypt the message.
+    此算法使用凯撒密码算法，但移除了通过暴力破解解密消息的可能性。
 
-    The passcode is a random password from the selection buffer of
-    1. uppercase letters of the English alphabet
-    2. lowercase letters of the English alphabet
-    3. digits from 0 to 9
+    passcode 是从以下选择缓冲区生成的随机密码：
+    1. 英文字母表的大写字母
+    2. 英文字母表的小写字母
+    3. 数字 0 到 9
 
     Using unique characters from the passcode, the normal list of characters,
     that can be allowed in the plaintext, is pivoted and shuffled. Refer to docstring
@@ -30,9 +29,8 @@ class ShuffledShiftCipher:
 
     def __init__(self, passcode: str | None = None) -> None:
         """
-        Initializes a cipher object with a passcode as it's entity
-        Note: No new passcode is generated if user provides a passcode
-        while creating the object
+    使用 passcode 初始化密码对象。注意：如果用户创建对象时提供 passcode，
+    则不会生成新 passcode。
         """
         self.__passcode = passcode or self.__passcode_creator()
         self.__key_list = self.__make_key_list()
@@ -46,7 +44,7 @@ class ShuffledShiftCipher:
 
     def __neg_pos(self, iterlist: list[int]) -> list[int]:
         """
-        Mutates the list by changing the sign of each alternate element
+        通过交替改变元素符号来修改列表。
 
         :param iterlist: takes a list iterable
         :return: the mutated list
@@ -58,7 +56,7 @@ class ShuffledShiftCipher:
 
     def __passcode_creator(self) -> list[str]:
         """
-        Creates a random password from the selection buffer of
+        从选择缓冲区创建随机密码：
         1. uppercase letters of the English alphabet
         2. lowercase letters of the English alphabet
         3. digits from 0 to 9
@@ -126,7 +124,7 @@ class ShuffledShiftCipher:
 
     def decrypt(self, encoded_message: str) -> str:
         """
-        Performs shifting of the encoded_message w.r.t. the shuffled __key_list
+        根据打乱后的 __key_list 对 encoded_message 执行移位。
         to create the decoded_message
 
         >>> ssc = ShuffledShiftCipher('4PYIXyqeQZr44')
@@ -148,7 +146,7 @@ class ShuffledShiftCipher:
 
     def encrypt(self, plaintext: str) -> str:
         """
-        Performs shifting of the plaintext w.r.t. the shuffled __key_list
+        根据打乱后的 __key_list 对 plaintext 执行移位。
         to create the encoded_message
 
         >>> ssc = ShuffledShiftCipher('4PYIXyqeQZr44')

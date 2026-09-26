@@ -1,22 +1,17 @@
 """
-Python program for DES (Data Encryption Standard) using Electronic Codebook (ECB) mode.
+使用电子密码本（ECB）模式实现 DES（数据加密标准）的 Python 程序。
 
-DES is a symmetric-key block cipher that encrypts data in fixed-size blocks (64 bits).
-In ECB mode, the plaintext is divided into 64-bit blocks, and each block is encrypted
-independently using the same key. This makes ECB the simplest block cipher mode, but
-also one of the least secure, as identical plaintext blocks will produce identical
-ciphertext blocks.
+DES 是一种对称密钥分组密码，以固定大小的分组（64 位）加密数据。在 ECB 模式下，
+明文被分为 64 位分组，每个分组使用同一密钥独立加密。ECB 因此是最简单的分组
+密码模式之一，但也是最不安全的模式之一，因为相同明文分组会产生相同密文分组。
 
-This implementation of DES includes key scheduling, encryption, and decryption.
-It uses standard DES operations such as initial and final permutations, expansion,
-permutation, and S-box lookups. Padding is applied to ensure the plaintext length is
-a multiple of 64 bits.
+此 DES 实现包含密钥调度、加密和解密，使用初始/最终置换、扩展、置换和 S-box
+查找等标准 DES 操作，并通过填充确保明文长度为 64 位的倍数。
 
-Warning: ECB mode is not secure for most use cases due to its vulnerability to block
-repetition analysis. Consider using a more secure mode of operation, such as CBC
-(Cipher Block Chaining), for sensitive data encryption.
+警告：ECB 模式容易受到重复分组分析攻击，对大多数用途并不安全。加密敏感数据时，
+应考虑使用 CBC（Cipher Block Chaining）等更安全的工作模式。
 
-References:
+参考资料：
 - Handbook of Applied Cryptography (Algorithm 7.82)
 - Handbook of Applied Cryptography (Algorithm 7.83)
 - Handbook of Applied Cryptography (Algorithm 9.29)
@@ -27,7 +22,7 @@ import random
 
 # fmt: off
 
-# Initial Permutation Table
+# 初始置换表
 IP = [58, 50, 42, 34, 26, 18, 10, 2,
       60, 52, 44, 36, 28, 20, 12, 4,
       62, 54, 46, 38, 30, 22, 14, 6,
@@ -37,7 +32,7 @@ IP = [58, 50, 42, 34, 26, 18, 10, 2,
       61, 53, 45, 37, 29, 21, 13, 5,
       63, 55, 47, 39, 31, 23, 15, 7]
 
-# Final Permutation Table
+# 最终置换表
 IP_INV = [40, 8, 48, 16, 56, 24, 64, 32,
           39, 7, 47, 15, 55, 23, 63, 31,
           38, 6, 46, 14, 54, 22, 62, 30,
@@ -47,7 +42,7 @@ IP_INV = [40, 8, 48, 16, 56, 24, 64, 32,
           34, 2, 42, 10, 50, 18, 58, 26,
           33, 1, 41, 9, 49, 17, 57, 25]
 
-# Expansion Table
+# 扩展表
 E = [32, 1, 2, 3, 4, 5,
      4, 5, 6, 7, 8, 9,
      8, 9, 10, 11, 12, 13,
@@ -57,13 +52,13 @@ E = [32, 1, 2, 3, 4, 5,
      24, 25, 26, 27, 28, 29,
      28, 29, 30, 31, 32, 1]
 
-# Permutation Table
+# 置换表
 P = [16, 7, 20, 21, 29, 12, 28, 17,
      1, 15, 23, 26, 5, 18, 31, 10,
      2, 8, 24, 14, 32, 27, 3, 9,
      19, 13, 30, 6, 22, 11, 4, 25]
 
-# S-boxes (Substitution Boxes)
+# S-box（替换盒）
 S_BOXES = {
     "S1": [[14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7],
            [0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8],
@@ -132,7 +127,7 @@ class Operations:
     @staticmethod
     def string_to_bitset(string: str) -> list:
         """
-        Converts a string into a list of binary digits (bitset).
+        将字符串转换为二进制数字列表（位集）。
 
         Args:
             string (str): The input string to be converted.
@@ -201,7 +196,7 @@ class Operations:
     @staticmethod
     def bitset_to_hex(bitset: list) -> str:
         """
-        Converts a list of binary digits
+        转换二进制数字列表。
         into its 16 digit hexadecimal representation.
 
         Args:
@@ -224,7 +219,7 @@ class Operations:
     @staticmethod
     def hex_to_bitset(hex_string: str, left_pad: int) -> list:
         """
-        Converts a hexadecimal string to a bitset
+        将十六进制字符串转换为位集。
         and pads the bitset to a specified length.
 
         Args:
@@ -247,7 +242,7 @@ class Operations:
     @staticmethod
     def bitset_to_string(bitset: list) -> str:
         """
-        Converts a bitset into a string by interpreting every 8 bits as a character.
+        将每 8 位解释为一个字符，把位集转换为字符串。
 
         Args:
             bitset (list): The list of binary digits (bitset).
@@ -299,7 +294,7 @@ class Operations:
     @staticmethod
     def shift_left(bitset: list, position: int) -> list:
         """
-        Performs a rotated left shift on a bitset by `position` positions.
+        将位集循环左移 `position` 位。
 
         Args:
             bitset (list): The bitset to be shifted.
@@ -353,7 +348,7 @@ class Des:
     @staticmethod
     def generate_key() -> str:
         """
-        Generates a random hexadecimal key of 16 characters (64 bits).
+        生成 16 个字符（64 位）的随机十六进制密钥。
 
         Returns:
             str: A random hexadecimal key.
@@ -371,7 +366,7 @@ class Des:
     @staticmethod
     def key_schedule(key: str) -> list:
         """
-        Generates 16 subkeys (round keys) from a given
+        从给定密钥生成 16 个子密钥（轮密钥）。
         64-bit hexadecimal key using the DES key schedule.
 
         Args:
@@ -412,7 +407,7 @@ class Des:
     @staticmethod
     def des(keys: list, plain_bitset: list) -> list:
         """
-        Encrypts a plain bitset using the provided
+        使用给定密钥加密明文位集。
         subkeys with DES encryption algorithm.
 
         Args:
@@ -472,7 +467,7 @@ class Des:
     @staticmethod
     def encrypt(key: str, input_string: str) -> str:
         """
-        Encrypts a given input string using the DES encryption algorithm.
+        使用 DES 加密算法加密给定输入字符串。
 
         Args:
             key (str): A 16-character hexadecimal string representing a 64-bit key.
@@ -497,7 +492,7 @@ class Des:
     @staticmethod
     def decrypt(key: str, cipher_text: str) -> str:
         """
-        Decrypts the given cipher text using DES decryption.
+        使用 DES 解密给定密文。
 
         Args:
             key (str): A 16-character hexadecimal string representing a 64-bit key.

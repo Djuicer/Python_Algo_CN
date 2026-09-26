@@ -3,15 +3,15 @@ from __future__ import annotations
 
 def find_primitive(modulus: int) -> int | None:
     """
-    Find a primitive root modulo modulus, if one exists.
+    如果存在，求模 modulus 的一个原根。
 
-    Args:
-        modulus : The modulus for which to find a primitive root.
+    参数：
+        modulus : 要求原根的模数。
 
-    Returns:
-        The primitive root if one exists, or None if there is none.
+    返回值：
+        存在时返回原根，否则返回 None。
 
-    Examples:
+    示例：
     >>> find_primitive(7)  # Modulo 7 has primitive root 3
     3
     >>> find_primitive(11)  # Modulo 11 has primitive root 2

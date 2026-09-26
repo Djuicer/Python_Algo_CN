@@ -1,7 +1,6 @@
 def remove_duplicates(key: str) -> str:
     """
-    Removes duplicate alphabetic characters in a keyword (letter is ignored after its
-    first appearance).
+    移除关键字中重复的字母字符（字母首次出现后，其后重复项将被忽略）。
 
     :param key: Keyword to use
     :return: String with duplicates removed
@@ -19,7 +18,7 @@ def remove_duplicates(key: str) -> str:
 
 def create_cipher_map(key: str) -> dict[str, str]:
     """
-    Returns a cipher map given a keyword.
+    根据关键字返回密码映射。
 
     :param key: keyword to use
     :return: dictionary cipher map
@@ -45,7 +44,7 @@ def create_cipher_map(key: str) -> dict[str, str]:
 
 def encipher(message: str, cipher_map: dict[str, str]) -> str:
     """
-    Enciphers a message given a cipher map.
+    使用给定密码映射加密消息。
 
     :param message: Message to encipher
     :param cipher_map: Cipher map
@@ -59,7 +58,7 @@ def encipher(message: str, cipher_map: dict[str, str]) -> str:
 
 def decipher(message: str, cipher_map: dict[str, str]) -> str:
     """
-    Deciphers a message given a cipher map
+    使用给定密码映射解密消息。
 
     :param message: Message to decipher
     :param cipher_map: Dictionary mapping to use
@@ -76,7 +75,7 @@ def decipher(message: str, cipher_map: dict[str, str]) -> str:
 
 def main() -> None:
     """
-    Handles I/O
+    处理输入和输出。
 
     :return: void
     """

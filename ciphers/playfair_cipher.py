@@ -1,22 +1,22 @@
 """
 https://en.wikipedia.org/wiki/Playfair_cipher#Description
 
-The Playfair cipher was developed by Charles Wheatstone in 1854
-It's use was heavily promotedby Lord Playfair, hence its name
+Playfair 密码由 Charles Wheatstone 于 1854 年提出，Lord Playfair 大力推广了它，
+因此得名。
 
-Some features of the Playfair cipher are:
+Playfair 密码具有以下特点：
 
-1) It was the first literal diagram substitution cipher
-2) It is a manual symmetric encryption technique
-3) It is a multiple letter encryption cipher
+1) 它是第一种字面图表替换密码
+2) 它是一种手工对称加密技术
+3) 它是一种多字母加密密码
 
-The implementation in the code below encodes alphabets only.
+下面的代码实现仅编码字母。
 It removes spaces, special characters and numbers from the
 code.
 
 Playfair is no longer used by military forces because of known
 insecurities and of the advent of automated encryption devices.
-This cipher is regarded as insecure since before World War I.
+早在第一次世界大战前，这种密码就已被认为不安全。
 """
 
 import itertools
@@ -35,8 +35,7 @@ def chunker(seq: Iterable[str], size: int) -> Generator[tuple[str, ...]]:
 
 def prepare_input(dirty: str) -> str:
     """
-    Prepare the plaintext by up-casing it
-    and separating repeated letters with X's
+    将明文转换为大写，并使用 X 分隔重复字母。
     """
 
     dirty = "".join([c.upper() for c in dirty if c in string.ascii_letters])
@@ -82,8 +81,7 @@ def generate_table(key: str) -> list[str]:
 
 def encode(plaintext: str, key: str) -> str:
     """
-    Encode the given plaintext using the Playfair cipher.
-    Takes the plaintext and the key as input and returns the encoded string.
+    使用 Playfair 密码编码给定明文。输入明文和密钥，返回编码后的字符串。
 
     >>> encode("Hello", "MONARCHY")
     'CFSUPM'
@@ -120,7 +118,7 @@ def encode(plaintext: str, key: str) -> str:
 
 def decode(ciphertext: str, key: str) -> str:
     """
-    Decode the input string using the provided key.
+    使用给定密钥解码输入字符串。
 
     >>> decode("BMZFAZRZDH", "HAZARD")
     'FIREHAZARD'

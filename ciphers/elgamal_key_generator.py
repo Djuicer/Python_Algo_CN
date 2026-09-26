@@ -8,11 +8,10 @@ from . import rabin_miller
 min_primitive_root = 3
 
 
-# I have written my code naively same as definition of primitive root
-# however every time I run this program, memory exceeded...
-# so I used 4.80 Algorithm in
+# 我最初按照原根定义直接编写代码，但每次运行程序都会超出内存……
+# 因此改用以下资料中的算法 4.80：
 # Handbook of Applied Cryptography(CRC Press, ISBN : 0-8493-8523-7, October 1996)
-# and it seems to run nicely!
+# 其运行效果良好！
 def primitive_root(p_val: int) -> int:
     print("Generating primitive root of p")
     while True:

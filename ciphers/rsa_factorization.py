@@ -1,13 +1,12 @@
 """
-An RSA prime factor algorithm.
+RSA 素因数分解算法。
 
-The program can efficiently factor RSA prime number given the private key d and
-public key e.
+给定私钥 d 和公钥 e，本程序可高效分解 RSA 素数。
 
-| Source: on page ``3`` of https://crypto.stanford.edu/~dabo/papers/RSA-survey.pdf
-| More readable source: https://www.di-mgt.com.au/rsa_factorize_n.html
+| 来源：https://crypto.stanford.edu/~dabo/papers/RSA-survey.pdf 第 ``3`` 页
+| 更易读的资料：https://www.di-mgt.com.au/rsa_factorize_n.html
 
-large number can take minutes to factor, therefore are not included in doctest.
+大数分解可能耗时数分钟，因此未纳入 doctest。
 """
 
 from __future__ import annotations
@@ -18,15 +17,13 @@ import random
 
 def rsafactor(d: int, e: int, n: int) -> list[int]:
     """
-    This function returns the factors of N, where p*q=N
+    返回 N 的因数，其中 p*q=N。
 
-    Return: [p, q]
+    返回值：[p, q]
 
-    We call N the RSA modulus, e the encryption exponent, and d the decryption exponent.
-    The pair (N, e) is the public key. As its name suggests, it is public and is used to
-    encrypt messages.
-    The pair (N, d) is the secret key or private key and is known only to the recipient
-    of encrypted messages.
+    N 称为 RSA 模数，e 为加密指数，d 为解密指数。二元组 (N, e) 是公钥；顾名思义，
+    它是公开的，用于加密消息。二元组 (N, d) 是秘密密钥或私钥，仅加密消息的
+    接收者知晓。
 
     >>> rsafactor(3, 16971, 25777)
     [149, 173]
@@ -49,9 +46,9 @@ def rsafactor(d: int, e: int, n: int) -> list[int]:
                 if x > 1 and y > 1:
                     p = y
                     q = n // y
-                    break  # find the correct factors
+                    break  # 找到正确因数
             else:
-                break  # t is not divisible by 2, break and choose another g
+                break  # t 不能被 2 整除，退出并选择另一个 g
     return sorted([p, q])
 
 

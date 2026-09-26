@@ -5,7 +5,7 @@ class Onepad:
     @staticmethod
     def encrypt(text: str) -> tuple[list[int], list[int]]:
         """
-        Function to encrypt text using pseudo-random numbers
+        使用伪随机数加密文本。
         >>> Onepad().encrypt("")
         ([], [])
         >>> Onepad().encrypt([])
@@ -38,7 +38,7 @@ class Onepad:
     @staticmethod
     def decrypt(cipher: list[int], key: list[int]) -> str:
         """
-        Function to decrypt text using pseudo-random numbers.
+        使用伪随机数解密文本。
         >>> Onepad().decrypt([], [])
         ''
         >>> Onepad().decrypt([35], [])

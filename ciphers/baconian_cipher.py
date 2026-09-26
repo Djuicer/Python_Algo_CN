@@ -1,6 +1,6 @@
 """
-Program to encode and decode Baconian or Bacon's Cipher
-Wikipedia reference : https://en.wikipedia.org/wiki/Bacon%27s_cipher
+培根密码（Baconian Cipher，又称 Bacon's Cipher）的编码与解码程序。
+维基百科参考资料：https://en.wikipedia.org/wiki/Bacon%27s_cipher
 """
 
 encode_dict = {
@@ -39,7 +39,7 @@ decode_dict = {value: key for key, value in encode_dict.items()}
 
 def encode(word: str) -> str:
     """
-    Encodes to Baconian cipher
+    编码为培根密码。
 
     >>> encode("hello")
     'AABBBAABAAABABAABABAABBAB'
@@ -61,7 +61,7 @@ def encode(word: str) -> str:
 
 def decode(coded: str) -> str:
     """
-    Decodes from Baconian cipher
+    解码培根密码。
 
     >>> decode("AABBBAABAAABABAABABAABBAB BABAAABBABBAAAAABABAAAABB")
     'hello world'

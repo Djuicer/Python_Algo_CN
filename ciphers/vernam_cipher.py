@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     testmod()
 
-    # Example usage
+    # 用法示例
     plaintext = "HELLO"
     key = "KEY"
     encrypted_text = vernam_encrypt(plaintext, key)

@@ -3,9 +3,7 @@
 
 def encrypt(input_string: str, key: int) -> str:
     """
-    Shuffles the character of a string by placing each of them
-    in a grid (the height is dependent on the key) in a zigzag
-    formation and reading it left to right.
+    将字符串字符按之字形放入网格（高度取决于密钥），再从左向右读取，以此打乱字符。
 
     >>> encrypt("Hello World", 4)
     'HWe olordll'
@@ -40,9 +38,7 @@ def encrypt(input_string: str, key: int) -> str:
 
 def decrypt(input_string: str, key: int) -> str:
     """
-    Generates a template based on the key and fills it in with
-    the characters of the input string and then reading it in
-    a zigzag formation.
+    根据密钥生成模板，用输入字符串的字符填充，再按之字形读取。
 
     >>> decrypt("HWe olordll", 4)
     'Hello World'
@@ -85,7 +81,7 @@ def decrypt(input_string: str, key: int) -> str:
 
 
 def bruteforce(input_string: str) -> dict[int, str]:
-    """Uses decrypt function by guessing every key
+    """猜测每个密钥并调用 decrypt 函数。
 
     >>> bruteforce("HWe olordll")[4]
     'Hello World'

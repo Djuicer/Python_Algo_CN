@@ -1,5 +1,5 @@
 """
-Base85 (Ascii85) encoding and decoding
+Base85（Ascii85）编码与解码
 
 https://en.wikipedia.org/wiki/Ascii85
 """
