@@ -3,26 +3,26 @@ from math import cos, sin, sqrt, tau
 from audio_filters.iir_filter import IIRFilter
 
 """
-Create 2nd-order IIR filters with Butterworth design.
+使用巴特沃思（Butterworth）设计创建二阶 IIR 滤波器。
 
-Code based on https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html
-Alternatively you can use scipy.signal.butter, which should yield the same results.
+代码基于 https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html
+也可以使用 scipy.signal.butter，它应当得到相同的结果。
 
 https://en.wikipedia.org/wiki/Butterworth_filter
 
-Notation used throughout this module (from the RBJ Audio EQ Cookbook):
-    w0     -- normalised angular frequency, ``2 * pi * frequency / samplerate``
-    alpha  -- bandwidth parameter, ``sin(w0) / (2 * q_factor)``
-    b0..b2 -- feed-forward (numerator) coefficients of the biquad
-    a0..a2 -- feed-back (denominator) coefficients of the biquad
-The a/b coefficient names match ``IIRFilter.set_coefficients`` and the standard
-biquad transfer function, so they are kept consistent across every filter here.
+本模块统一使用以下符号（取自 RBJ Audio EQ Cookbook）：
+    w0     -- 归一化角频率，``2 * pi * frequency / samplerate``
+    alpha  -- 带宽参数，``sin(w0) / (2 * q_factor)``
+    b0..b2 -- 双二阶滤波器的前馈（分子）系数
+    a0..a2 -- 双二阶滤波器的反馈（分母）系数
+a/b 系数的命名与 ``IIRFilter.set_coefficients`` 及标准双二阶传递函数一致，
+因此本文件中的所有滤波器均沿用这些名称。
 """
 
 
 def _validate_frequency(frequency: int, samplerate: int, q_factor: float) -> None:
     """
-    Validate arguments shared by the Butterworth filter factories.
+    验证各巴特沃思滤波器工厂函数共用的参数。
 
     >>> _validate_frequency(1000, 48000, 1 / sqrt(2))
     >>> _validate_frequency(0, 48000, 1 / sqrt(2))
@@ -58,7 +58,7 @@ def make_lowpass(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a low-pass filter
+    创建低通滤波器。
 
     >>> filter = make_lowpass(1000, 48000)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -89,7 +89,7 @@ def make_highpass(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a high-pass filter
+    创建高通滤波器。
 
     >>> filter = make_highpass(1000, 48000)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -120,7 +120,7 @@ def make_bandpass(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a band-pass filter
+    创建带通滤波器。
 
     >>> filter = make_bandpass(1000, 48000)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -152,7 +152,7 @@ def make_allpass(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates an all-pass filter
+    创建全通滤波器。
 
     >>> filter = make_allpass(1000, 48000)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -181,7 +181,7 @@ def make_peak(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a peak filter
+    创建峰值滤波器。
 
     >>> filter = make_peak(1000, 48000, 6)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -214,7 +214,7 @@ def make_lowshelf(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a low-shelf filter
+    创建低架滤波器。
 
     >>> filter = make_lowshelf(1000, 48000, 6)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -252,7 +252,7 @@ def make_highshelf(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a high-shelf filter
+    创建高架滤波器。
 
     >>> filter = make_highshelf(1000, 48000, 6)
     >>> filter.a_coeffs + filter.b_coeffs  # doctest: +NORMALIZE_WHITESPACE
@@ -289,10 +289,9 @@ def make_notch(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a notch (band-reject) filter that strongly attenuates a narrow band
-    of frequencies around ``frequency`` while leaving the rest of the spectrum
-    unchanged. It is the complement of the band-pass filter and is commonly used
-    to remove a single tone such as 50/60 Hz mains hum.
+    创建陷波（带阻）滤波器，强烈衰减 ``frequency`` 附近的窄频带，
+    同时保持其余频谱不变。它是带通滤波器的互补形式，常用于消除
+    50/60 Hz 市电嗡声等单一音调。
 
     https://en.wikipedia.org/wiki/Band-stop_filter
 
@@ -301,19 +300,19 @@ def make_notch(
     [1.0922959556412573, -1.9828897227476208, 0.9077040443587427, 1.0,
      -1.9828897227476208, 1.0]
     """
-    w0 = tau * frequency / samplerate  # centre frequency, in radians/sample
+    w0 = tau * frequency / samplerate  # 中心频率，单位为弧度/采样点
     _sin = sin(w0)
     _cos = cos(w0)
-    alpha = _sin / (2 * q_factor)  # controls how narrow the rejected band is
+    alpha = _sin / (2 * q_factor)  # 控制阻带的窄度
 
-    # Feed-forward: a pair of zeros placed exactly on the notch frequency, so
-    # that frequency is fully cancelled while the rest of the spectrum passes.
+    # 前馈：将一对零点精确置于陷波频率上，使该频率被完全抵消，
+    # 而其余频谱得以通过。
     b0 = 1.0
     b1 = -2 * _cos
     b2 = 1.0
 
-    # Feed-back: matching poles just inside the unit circle keep the notch
-    # narrow and the surrounding gain flat.
+    # 反馈：在单位圆内侧放置匹配的极点，使陷波保持狭窄，
+    # 并使周围频率的增益保持平坦。
     a0 = 1 + alpha
     a1 = -2 * _cos
     a2 = 1 - alpha
@@ -329,12 +328,11 @@ def make_bandpass_peak(
     q_factor: float = 1 / sqrt(2),
 ) -> IIRFilter:
     """
-    Creates a band-pass filter with constant 0 dB peak gain.
+    创建峰值增益恒为 0 dB 的带通滤波器。
 
-    Unlike :func:`make_bandpass`, whose skirt (edge) gain is held constant so the
-    peak gain grows with ``q_factor``, this variant normalises the response so
-    the peak always reaches 0 dB regardless of the chosen ``q_factor``. Both
-    forms come from the RBJ Audio EQ Cookbook.
+    与 :func:`make_bandpass` 保持裙边（边缘）增益恒定、使峰值增益随
+    ``q_factor`` 增长不同，此变体会对响应进行归一化，因此无论选择何种
+    ``q_factor``，峰值始终达到 0 dB。两种形式均出自 RBJ Audio EQ Cookbook。
 
     https://en.wikipedia.org/wiki/Band-pass_filter
 

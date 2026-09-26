@@ -2,13 +2,13 @@
 Author  : Basuki Nath
 Date    : 2025-10-04
 
-Bit rotation helpers for 32-bit unsigned integers.
+用于 32 位无符号整数的位旋转辅助函数。
 """
 
 
 def rotate_left32(x: int, k: int) -> int:
     """
-    Rotate the lower 32 bits of x left by k and return result in 0..2**32-1.
+    将 x 的低 32 位循环左移 k 位，返回 0..2**32-1 范围内的结果。
 
     >>> rotate_left32(1, 1)
     2
@@ -38,7 +38,7 @@ def rotate_left32(x: int, k: int) -> int:
 
 def rotate_right32(x: int, k: int) -> int:
     """
-    Rotate the lower 32 bits of x right by k and return result in 0..2**32-1.
+    将 x 的低 32 位循环右移 k 位，返回 0..2**32-1 范围内的结果。
 
     >>> rotate_right32(2, 1)
     1

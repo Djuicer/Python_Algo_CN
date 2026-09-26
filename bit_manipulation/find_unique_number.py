@@ -1,7 +1,7 @@
 def find_unique_number(arr: list[int]) -> int:
     """
-    Given a list of integers where every element appears twice except for one,
-    this function returns the element that appears only once using bitwise XOR.
+    给定一个整数列表，其中除一个元素外，其余元素均出现两次；
+    此函数使用按位异或返回仅出现一次的元素。
 
     >>> find_unique_number([1, 1, 2, 2, 3])
     3

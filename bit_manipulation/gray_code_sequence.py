@@ -1,17 +1,13 @@
 def gray_code(bit_count: int) -> list[int]:
     """
-    Takes in an integer n and returns a n-bit
-    gray code sequence
-    An n-bit gray code sequence is a sequence of 2^n
-    integers where:
+    接收整数 n，返回 n 位格雷码序列。
+    n 位格雷码序列由 2^n 个整数组成，其中：
 
-    a) Every integer is between [0,2^n -1] inclusive
-    b) The sequence begins with 0
-    c) An integer appears at most one time in the sequence
-    d) The binary representation of every pair of integers differ
-       by exactly one bit
-    e) The binary representation of first and last bit also
-       differ by exactly one bit
+    a) 每个整数均位于闭区间 [0,2^n -1] 内
+    b) 序列以 0 开头
+    c) 每个整数在序列中至多出现一次
+    d) 每对相邻整数的二进制表示恰好有一位不同
+    e) 首尾两个整数的二进制表示也恰好有一位不同
 
     >>> gray_code(0)
     [0]
@@ -36,19 +32,18 @@ def gray_code(bit_count: int) -> list[int]:
     TypeError: unsupported operand type(s) for <<: 'int' and 'float'
     """
 
-    # bit count represents no. of bits in the gray code
+    # bit_count 表示格雷码的位数
     if bit_count < 0:
         raise ValueError("The given input must be positive")
 
-    # get the generated string sequence and convert them to integers
+    # 获取生成的字符串序列并将其转换为整数
     sequence = gray_code_sequence_string(bit_count)
     return [int(code, 2) for code in sequence]
 
 
 def gray_code_sequence_string(bit_count: int) -> list[str]:
     """
-    Will output the n-bit Gray code sequence as a
-    string of bits
+    以位字符串形式输出 n 位格雷码序列。
 
     >>> gray_code_sequence_string(0)
     ['0']
@@ -60,28 +55,28 @@ def gray_code_sequence_string(bit_count: int) -> list[str]:
     ['0', '1']
     """
 
-    # The approach is a recursive one
-    # Base case achieved when either n = 0 or n=1
+    # 使用递归方法
+    # n = 0 或 n = 1 时到达基本情况
     if bit_count == 0:
         return ["0"]
 
     if bit_count == 1:
         return ["0", "1"]
 
-    seq_len = 1 << bit_count  # defines the length of the sequence
-    # 1<< n is equivalent to 2^n
+    seq_len = 1 << bit_count  # 定义序列长度
+    # 1 << n 等价于 2^n
 
-    # recursive answer will generate answer for n-1 bits
+    # 递归生成 n - 1 位的结果
     smaller_sequence = gray_code_sequence_string(bit_count - 1)
 
     sequence: list[str] = []
 
-    # append 0 to first half of the smaller sequence generated
+    # 在生成的较短序列前半部分前添加 0
     for i in range(seq_len // 2):
         generated_no = "0" + smaller_sequence[i]
         sequence.append(generated_no)
 
-    # append 1 to second half ... start from the end of the list
+    # 从列表末尾开始，在后半部分前添加 1
     for i in reversed(range(seq_len // 2)):
         generated_no = "1" + smaller_sequence[i]
         sequence.append(generated_no)

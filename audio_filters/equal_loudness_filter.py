@@ -15,9 +15,8 @@ data = loads((Path(__file__).resolve().parent / "loudness_curve.json").read_text
 
 def _polystab(poly: np.ndarray) -> np.ndarray:
     """
-    Stabilize a polynomial by reflecting any roots that lie outside the unit
-    circle back inside it.  This keeps the resulting IIR filter stable without
-    changing its magnitude response.
+    将单位圆外的所有根反射到圆内，以使多项式稳定。这样可在不改变
+    幅频响应的情况下保持所得 IIR 滤波器的稳定性。
 
     https://en.wikipedia.org/wiki/Minimum_phase
 
@@ -42,8 +41,8 @@ def _numerator(
     impulse_response: np.ndarray, denominator: np.ndarray, numerator_order: int
 ) -> np.ndarray:
     """
-    Least-squares estimate of the numerator polynomial of a transfer function
-    given its impulse response and (already known) denominator polynomial.
+    给定传递函数的脉冲响应和已知分母多项式，使用最小二乘法估计
+    其分子多项式。
 
     >>> num = _numerator(np.array([1.0, 0.0, 0.0]), np.array([1.0, 0.0, 0.0]), 1)
     >>> np.round(num, 6)
@@ -61,19 +60,18 @@ def yulewalk(
     order: int, frequencies: np.ndarray, magnitudes: np.ndarray, npt: int = 512
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    Design a recursive (IIR) digital filter that approximates an arbitrary
-    frequency response using the modified Yule-Walker method.  This is a
-    dependency-free re-implementation of MATLAB/Octave's ``yulewalk`` so that
-    the equal-loudness filter below no longer relies on a third-party package.
+    使用改进的 Yule-Walker 方法设计逼近任意频率响应的递归（IIR）数字滤波器。
+    这是 MATLAB/Octave ``yulewalk`` 的无额外依赖实现，使下方的等响度滤波器
+    不再依赖第三方软件包。
 
     https://en.wikipedia.org/wiki/Autoregressive_model#Yule%E2%80%93Walker_equations
 
-    :param order: order of the filter to design
-    :param frequencies: sample points on ``[0, 1]`` where 1 is the Nyquist
-        frequency, in increasing order and starting at 0
-    :param magnitudes: desired (linear) magnitude at each point in ``frequencies``
-    :param npt: number of points used to estimate the frequency response
-    :return: ``(a_coeffs, b_coeffs)``, the denominator and numerator polynomials
+    :param order: 待设计滤波器的阶数
+    :param frequencies: ``[0, 1]`` 上的采样点，其中 1 表示奈奎斯特频率；
+        采样点从 0 开始并按递增顺序排列
+    :param magnitudes: ``frequencies`` 中各点所需的线性幅值
+    :param npt: 用于估计频率响应的点数
+    :return: ``(a_coeffs, b_coeffs)``，即分母多项式和分子多项式
 
     >>> a, b = yulewalk(4, np.array([0.0, 0.5, 1.0]), np.array([1.0, 0.5, 0.0]))
     >>> len(a), len(b)
@@ -81,7 +79,7 @@ def yulewalk(
     >>> bool(np.all(np.abs(np.roots(a)) < 1))  # the designed filter is stable
     True
 
-    Mismatched inputs and non-increasing frequencies are rejected:
+    输入长度不匹配或频率未按递增顺序排列时将被拒绝：
 
     >>> yulewalk(4, np.array([0.0, 1.0]), np.array([1.0]))
     Traceback (most recent call last):
@@ -102,8 +100,7 @@ def yulewalk(
         raise ValueError(msg)
 
     npt = npt + 1
-    # Linearly interpolate the target response onto a dense grid, then mirror it
-    # to build the full (symmetric) magnitude spectrum.
+    # 在密集网格上线性插值目标响应，再将其镜像，构建完整的对称幅度谱。
     response = np.interp(np.linspace(0, 1, npt), frequencies, magnitudes)
     response = np.concatenate([response, response[-2:0:-1]])
 
@@ -112,14 +109,14 @@ def yulewalk(
     window_len = 4 * order
     index = np.arange(window_len)
 
-    # Autocorrelation from the power spectrum, tapered with a Hamming window.
+    # 根据功率谱计算自相关，并使用汉明窗进行渐缩处理。
     correlation = np.real(np.fft.ifft(response * response))
     correlation = correlation[:window_len] * (
         0.54 + 0.46 * np.cos(np.pi * index / (window_len - 1))
     )
     cepstral_window = np.concatenate([[0.5], np.ones(half - 1), np.zeros(total - half)])
 
-    # Solve the Yule-Walker normal equations for the denominator coefficients.
+    # 求解 Yule-Walker 正规方程，得到分母系数。
     rmat = toeplitz(correlation[order : window_len - 1], correlation[order:0:-1])
     rhs = -correlation[order + 1 : window_len]
     denominator = np.concatenate([[1.0], np.linalg.lstsq(rmat, rhs, rcond=None)[0]])
@@ -145,21 +142,19 @@ def yulewalk(
 
 class EqualLoudnessFilter:
     r"""
-    An equal-loudness filter which compensates for the human ear's non-linear
-    response to sound.  This filter corrects this by cascading a Yule-Walker
-    filter and a Butterworth filter.
+    一种等响度滤波器，用于补偿人耳对声音的非线性响应。该滤波器通过级联
+    Yule-Walker 滤波器和巴特沃思滤波器进行校正。
 
-    Designed for use with samplerate of 44.1kHz and above. If you're using a
-    lower samplerate, use with caution.
+    设计用于 44.1 kHz 及以上的采样率。使用更低采样率时请谨慎。
 
-    Code based on the matlab implementation at https://bit.ly/3eqh2HU
-    (url shortened for ruff)
+    代码基于 https://bit.ly/3eqh2HU 中的 MATLAB 实现
+    （为满足 ruff 要求而缩短 URL）
 
-    Target curve: https://i.imgur.com/3g2VfaM.png
-    Yulewalk response: https://i.imgur.com/J9LnJ4C.png
-    Butterworth and overall response: https://i.imgur.com/3g2VfaM.png
+    目标曲线：https://i.imgur.com/3g2VfaM.png
+    Yulewalk 响应：https://i.imgur.com/J9LnJ4C.png
+    巴特沃思响应和总体响应：https://i.imgur.com/3g2VfaM.png
 
-    Images and original matlab implementation by David Robinson, 2001
+    图像及原始 MATLAB 实现由 David Robinson 于 2001 年创作
 
     https://en.wikipedia.org/wiki/Equal-loudness_contour
 
@@ -172,23 +167,23 @@ class EqualLoudnessFilter:
         self.yulewalk_filter = IIRFilter(10)
         self.butterworth_filter = make_highpass(150, samplerate)
 
-        # pad the data to nyquist
+        # 将数据填充到奈奎斯特频率
         curve_freqs = np.array(data["frequencies"] + [max(20000.0, samplerate / 2)])
         curve_gains = np.array(data["gains"] + [140])
 
-        # Convert to angular frequency
+        # 转换为角频率
         freqs_normalized = curve_freqs / samplerate * 2
-        # Invert the curve and normalize to 0dB
+        # 将曲线反转并归一化到 0 dB
         gains_normalized = np.power(10, (np.min(curve_gains) - curve_gains) / 20)
 
-        # Compute the coefficients using a least-squares fit to the curve with
-        # the built-in ``yulewalk`` implementation above (no third-party deps).
+        # 使用上方内置的 ``yulewalk`` 实现（无第三方依赖），
+        # 通过对曲线进行最小二乘拟合来计算系数。
         ya, yb = yulewalk(10, freqs_normalized, gains_normalized)
         self.yulewalk_filter.set_coefficients(ya.tolist(), yb.tolist())
 
     def process(self, sample: float) -> float:
         """
-        Process a single sample through both filters
+        使用两个滤波器处理单个采样点。
 
         >>> filt = EqualLoudnessFilter()
         >>> filt.process(0.0)

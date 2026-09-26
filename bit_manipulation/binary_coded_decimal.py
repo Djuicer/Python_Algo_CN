@@ -1,8 +1,8 @@
 def binary_coded_decimal(number: int) -> str:
     """
-    Find binary coded decimal (bcd) of integer base 10.
-    Each digit of the number is represented by a 4-bit binary.
-    Example:
+    求十进制整数的二进制编码十进制（Binary-Coded Decimal，BCD）表示。
+    数字的每一位均用 4 位二进制数表示。
+    示例：
     >>> binary_coded_decimal(-2)
     '0b0000'
     >>> binary_coded_decimal(-1)

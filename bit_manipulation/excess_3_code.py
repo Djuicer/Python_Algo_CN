@@ -1,7 +1,7 @@
 def excess_3_code(number: int) -> str:
     """
-    Find excess-3 code of integer base 10.
-    Add 3 to all digits in a decimal number then convert to a binary-coded decimal.
+    求十进制整数的余 3 码（Excess-3 Code）。
+    将十进制数的每一位加 3，再转换为二进制编码十进制数。
     https://en.wikipedia.org/wiki/Excess-3
 
     >>> excess_3_code(0)

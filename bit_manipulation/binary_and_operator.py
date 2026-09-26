@@ -1,7 +1,7 @@
-"""Bitwise AND helper.
+"""按位与辅助函数。
 
-Return a zero-padded binary string representing ``a & b`` where the width is the
-maximum bit length of the inputs. Only non-negative integers are accepted.
+返回表示 ``a & b`` 的补零二进制字符串，其宽度为输入值中的最大位数。
+仅接受非负整数。
 
 >>> binary_and(25, 32)
 '0b000000'
@@ -16,7 +16,7 @@ maximum bit length of the inputs. Only non-negative integers are accepted.
 >>> binary_and(256, 256)
 '0b100000000'
 
-Invalid inputs raise clear exceptions:
+无效输入会引发明确的异常：
 
 >>> binary_and(0, -1)
 Traceback (most recent call last):
@@ -37,9 +37,8 @@ TypeError: inputs must be integers
 
 def binary_and(a: int, b: int) -> str:
     """
-    Take in 2 integers, convert them to binary,
-    return a binary number that is the
-    result of a binary and operation on the integers provided.
+    接收两个整数并将其转换为二进制，返回对这两个整数执行按位与运算的结果，
+    结果以二进制数表示。
 
     >>> binary_and(25, 32)
     '0b000000'

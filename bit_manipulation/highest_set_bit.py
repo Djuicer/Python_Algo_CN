@@ -1,7 +1,7 @@
 def get_highest_set_bit_position(number: int) -> int:
     """
-    Returns position of the highest set bit of a number.
-    Ref - https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogObvious
+    返回一个数的最高置位比特所在位置。
+    参考资料：https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogObvious
     >>> get_highest_set_bit_position(25)
     5
     >>> get_highest_set_bit_position(37)

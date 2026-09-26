@@ -1,7 +1,7 @@
-"""Bitwise XOR helper.
+"""按位异或辅助函数。
 
-Return a zero-padded binary string representing ``a ^ b`` where the width is the
-maximum bit length of the inputs. Only non-negative integers are accepted.
+返回表示 ``a ^ b`` 的补零二进制字符串，其宽度为输入值中的最大位数。
+仅接受非负整数。
 
 >>> binary_xor(25, 32)
 '0b111001'
@@ -16,7 +16,7 @@ maximum bit length of the inputs. Only non-negative integers are accepted.
 >>> binary_xor(256, 256)
 '0b000000000'
 
-Invalid inputs raise clear exceptions:
+无效输入会引发明确的异常：
 
 >>> binary_xor(0, -1)
 Traceback (most recent call last):

@@ -2,13 +2,13 @@
 Author  : Basuki Nath
 Date    : 2025-10-04
 
-Utility to compute the next power of two greater than or equal to n.
+用于计算大于或等于 n 的最小 2 的幂的工具。
 """
 
 
 def next_power_of_two(n: int) -> int:
     """
-    Return the smallest power of two >= n for positive integers.
+    对于正整数 n，返回满足 >= n 的最小 2 的幂。
 
     >>> next_power_of_two(1)
     1
@@ -31,17 +31,17 @@ def next_power_of_two(n: int) -> int:
     """
     if n <= 0:
         raise ValueError("n must be positive")
-    # If already a power of two, return it
+    # 如果已经是 2 的幂，则直接返回
     if n & (n - 1) == 0:
         return n
-    # Otherwise, fill bits to the right
+    # 否则，将右侧各位填充为 1
     v = n - 1
     v |= v >> 1
     v |= v >> 2
     v |= v >> 4
     v |= v >> 8
     v |= v >> 16
-    # for very large ints, continue shifting using Python's arbitrary precision
+    # 对于非常大的整数，利用 Python 的任意精度继续移位
     shift = 32
     while (1 << shift) <= v:
         v |= v >> shift

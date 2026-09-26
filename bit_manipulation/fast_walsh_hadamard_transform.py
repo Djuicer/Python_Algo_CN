@@ -1,19 +1,18 @@
 """
-Fast Walsh-Hadamard Transform (FWHT) for Bitwise Convolutions.
+用于位卷积的快速沃尔什－阿达马变换（Fast Walsh-Hadamard Transform，FWHT）。
 
-Reference: https://en.wikipedia.org/wiki/Fast_Walsh%E2%80%93Hadamard_transform
-Reference: https://cp-algorithms.com/algebra/walsh-hadamard-transform.html
+参考资料：https://en.wikipedia.org/wiki/Fast_Walsh%E2%80%93Hadamard_transform
+参考资料：https://cp-algorithms.com/algebra/walsh-hadamard-transform.html
 
-Computes bitwise XOR, AND, and OR convolutions of two numeric sequences in O(N log N)
-time, where N is a positive power of 2.
+以 O(N log N) 时间计算两个数值序列的按位异或、与、或卷积，其中 N 为 2 的正整数次幂。
 """
 
 
 def fwht_xor(sequence: list[int], inverse: bool = False) -> list[int]:
     """
-    Perform Fast Walsh-Hadamard Transform (or inverse) for XOR operation.
+    对异或运算执行快速沃尔什－阿达马变换（或逆变换）。
 
-    Time Complexity: O(N log N)
+    时间复杂度：O(N log N)
 
     >>> fwht_xor([1, 2, 3, 4])
     [10, -2, -4, 0]
@@ -61,9 +60,9 @@ def fwht_xor(sequence: list[int], inverse: bool = False) -> list[int]:
 
 def xor_convolution(sequence_a: list[int], sequence_b: list[int]) -> list[int]:
     """
-    Compute bitwise XOR convolution C[k] = sum_{i ^ j = k} (A[i] * B[j]).
+    计算按位异或卷积 C[k] = sum_{i ^ j = k} (A[i] * B[j])。
 
-    Time Complexity: O(N log N)
+    时间复杂度：O(N log N)
 
     >>> xor_convolution([1, 2], [3, 4])
     [11, 10]
@@ -85,9 +84,9 @@ def xor_convolution(sequence_a: list[int], sequence_b: list[int]) -> list[int]:
 
 def fwht_or(sequence: list[int], inverse: bool = False) -> list[int]:
     """
-    Perform Fast Walsh-Hadamard Transform for OR operation.
+    对按位或运算执行快速沃尔什－阿达马变换。
 
-    Time Complexity: O(N log N)
+    时间复杂度：O(N log N)
 
     >>> fwht_or([1, 2])
     [1, 3]
@@ -121,9 +120,9 @@ def fwht_or(sequence: list[int], inverse: bool = False) -> list[int]:
 
 def or_convolution(sequence_a: list[int], sequence_b: list[int]) -> list[int]:
     """
-    Compute bitwise OR convolution C[k] = sum_{i | j = k} (A[i] * B[j]).
+    计算按位或卷积 C[k] = sum_{i | j = k} (A[i] * B[j])。
 
-    Time Complexity: O(N log N)
+    时间复杂度：O(N log N)
 
     >>> or_convolution([1, 2], [3, 4])
     [3, 18]
@@ -145,9 +144,9 @@ def or_convolution(sequence_a: list[int], sequence_b: list[int]) -> list[int]:
 
 def fwht_and(sequence: list[int], inverse: bool = False) -> list[int]:
     """
-    Perform Fast Walsh-Hadamard Transform for AND operation.
+    对按位与运算执行快速沃尔什－阿达马变换。
 
-    Time Complexity: O(N log N)
+    时间复杂度：O(N log N)
 
     >>> fwht_and([1, 2])
     [3, 2]
@@ -181,9 +180,9 @@ def fwht_and(sequence: list[int], inverse: bool = False) -> list[int]:
 
 def and_convolution(sequence_a: list[int], sequence_b: list[int]) -> list[int]:
     """
-    Compute bitwise AND convolution C[k] = sum_{i & j = k} (A[i] * B[j]).
+    计算按位与卷积 C[k] = sum_{i & j = k} (A[i] * B[j])。
 
-    Time Complexity: O(N log N)
+    时间复杂度：O(N log N)
 
     >>> and_convolution([1, 2], [3, 4])
     [13, 8]

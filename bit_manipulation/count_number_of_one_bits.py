@@ -3,7 +3,7 @@ from timeit import timeit
 
 def get_set_bits_count_using_brian_kernighans_algorithm(number: int) -> int:
     """
-    Count the number of set bits in a 32 bit integer
+    统计 32 位整数中置位比特的数量。
     >>> get_set_bits_count_using_brian_kernighans_algorithm(25)
     3
     >>> get_set_bits_count_using_brian_kernighans_algorithm(37)
@@ -34,7 +34,7 @@ def get_set_bits_count_using_brian_kernighans_algorithm(number: int) -> int:
 
 def get_set_bits_count_using_modulo_operator(number: int) -> int:
     """
-    Count the number of set bits in a 32 bit integer
+    统计 32 位整数中置位比特的数量。
     >>> get_set_bits_count_using_modulo_operator(25)
     3
     >>> get_set_bits_count_using_modulo_operator(37)
@@ -66,10 +66,10 @@ def get_set_bits_count_using_modulo_operator(number: int) -> int:
 
 def get_set_bits_count_using_lookup_table(number: int) -> int:
     """
-    Count the number of set bits in a 32-bit integer using a precomputed lookup table.
+    使用预先计算的查找表统计 32 位整数中置位比特的数量。
 
-    I see similar approach in GeeksforGeeks, but the implementation is different.
-    Link to Code:
+    GeeksforGeeks 中有类似方法，但实现不同。
+    代码链接：
     https://www.geeksforgeeks.org/dsa/count-set-bits-integer-using-lookup-table/
 
     >>> get_set_bits_count_using_lookup_table(25)
@@ -94,7 +94,7 @@ def get_set_bits_count_using_lookup_table(number: int) -> int:
     if number < 0:
         raise ValueError("the value of input must not be negative")
 
-    # Split 32-bit number into four 8-bit chunks and use lookup table
+    # 将 32 位数拆分为四个 8 位块，并使用查找表
     return (
         _lookup_table[number & 0xFF]
         + _lookup_table[(number >> 8) & 0xFF]
@@ -105,9 +105,9 @@ def get_set_bits_count_using_lookup_table(number: int) -> int:
 
 def benchmark() -> None:
     """
-    Benchmark code for comparing 3 functions, with different length int values.
-    Brian Kernighan's algorithm is consistently faster than using modulo_operator,
-    and the lookup table method is often the fastest for repeated calls.
+    使用不同位数的整数比较三个函数的基准测试代码。
+    Brian Kernighan 算法始终比 modulo_operator 更快，
+    对于重复调用，查找表法通常最快。
     """
 
     def do_benchmark(number: int) -> None:

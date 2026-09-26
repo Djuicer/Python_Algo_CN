@@ -1,6 +1,6 @@
 """
-Calculates the sum of two non-negative integers using bitwise operators
-Wikipedia explanation: https://en.wikipedia.org/wiki/Binary_number
+使用位运算符计算两个非负整数之和。
+Wikipedia 说明：https://en.wikipedia.org/wiki/Binary_number
 """
 
 

@@ -1,10 +1,10 @@
-# Information on 2's complement: https://en.wikipedia.org/wiki/Two%27s_complement
+# 二进制补码（Two's Complement）相关资料：https://en.wikipedia.org/wiki/Two%27s_complement
 
 
 def twos_complement(number: int) -> str:
     """
-    Take in a negative integer 'number'.
-    Return the two's complement representation of 'number'.
+    接收一个负整数 'number'。
+    返回 'number' 的二进制补码表示。
 
     >>> twos_complement(0)
     '0b0'

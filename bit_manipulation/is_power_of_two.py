@@ -2,22 +2,21 @@
 Author  : Alexander Pantyukhin
 Date    : November 1, 2022
 
-Task:
-Given a positive int number. Return True if this number is power of 2
-or False otherwise.
+任务：
+给定一个正整数。如果该数是 2 的幂，则返回 True，否则返回 False。
 
-Implementation notes: Use bit manipulation.
-For example if the number is the power of two it's bits representation:
+实现说明：使用位运算。
+例如，如果该数是 2 的幂，其二进制表示为：
 n     = 0..100..00
 n - 1 = 0..011..11
 
-n & (n - 1) - no intersections = 0
+n & (n - 1) 没有重合的置位比特，结果为 0
 """
 
 
 def is_power_of_two(number: int) -> bool:
     """
-    Return True if this number is power of 2 or False otherwise.
+    如果该数是 2 的幂，则返回 True，否则返回 False。
 
     >>> is_power_of_two(0)
     True

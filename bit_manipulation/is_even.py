@@ -1,9 +1,9 @@
 def is_even(number: int) -> bool:
-    """Return True if the input integer is even using a bitwise check.
+    """使用位运算检查输入整数是否为偶数，是则返回 True。
 
-    Explanation:
-    In binary, even numbers always have the least significant bit cleared (0),
-    while odd numbers have it set (1). Therefore, ``n & 1 == 0`` implies even.
+    说明：
+    在二进制表示中，偶数的最低有效位始终为 0，而奇数的最低有效位为 1。
+    因此，``n & 1 == 0`` 表示该数为偶数。
 
     >>> is_even(1)
     False
@@ -29,27 +29,27 @@ def is_even(number: int) -> bool:
     TypeError: input must be an integer
     """
     if not isinstance(number, int) or isinstance(number, bool):
-        # bool is a subclass of int; explicitly disallow it as a number here.
+        # bool 是 int 的子类；这里明确禁止将其作为数字传入。
         raise TypeError("input must be an integer")
     return (number & 1) == 0
 
 
 def is_even_using_shift_operator(number: int) -> bool:
     """
-    Returns True if the input integer is even.
+    如果输入整数为偶数，则返回 True。
 
-    Explanation:
-    In binary, even numbers end with 0, odd numbers end with 1.
-    Examples:
+    说明：
+    在二进制表示中，偶数以 0 结尾，奇数以 1 结尾。
+    示例：
     2  -> 10
     3  -> 11
     4  -> 100
     5  -> 101
 
-    For odd numbers, the last bit is always 1.
-    Using shift:
-    (n >> 1) << 1 removes the last bit.
-    If result equals n, n is even.
+    奇数的末位始终为 1。
+    使用移位运算：
+    (n >> 1) << 1 会移除末位。
+    如果结果等于 n，则 n 为偶数。
 
     >>> is_even_using_shift_operator(1)
     False

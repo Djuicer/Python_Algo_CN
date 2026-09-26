@@ -1,7 +1,7 @@
-"""Bitwise OR helper.
+"""按位或辅助函数。
 
-Return a zero-padded binary string representing ``a | b`` where the width is the
-maximum bit length of the inputs. Only non-negative integers are accepted.
+返回表示 ``a | b`` 的补零二进制字符串，其宽度为输入值中的最大位数。
+仅接受非负整数。
 
 >>> binary_or(25, 32)
 '0b111001'
@@ -16,7 +16,7 @@ maximum bit length of the inputs. Only non-negative integers are accepted.
 >>> binary_or(0, 256)
 '0b100000000'
 
-Invalid inputs raise clear exceptions:
+无效输入会引发明确的异常：
 
 >>> binary_or(0, -1)
 Traceback (most recent call last):

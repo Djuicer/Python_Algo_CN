@@ -1,7 +1,6 @@
 def binary_count_setbits(a: int) -> int:
     """
-    Take in 1 integer, return a number that is
-    the number of 1's in binary representation of that number.
+    接收一个整数，返回其二进制表示中 1 的数量。
 
     >>> binary_count_setbits(25)
     3

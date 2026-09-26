@@ -1,5 +1,5 @@
 """
-Plot the magnitude and phase response of an audio filter.
+绘制音频滤波器的幅频响应和相频响应。
 
 https://en.wikipedia.org/wiki/Frequency_response
 """
@@ -18,7 +18,7 @@ class FilterType(Protocol):
     @abstractmethod
     def process(self, sample: float) -> float:
         """
-        Calculate y[n]
+        计算 y[n]。
 
         >>> issubclass(FilterType, Protocol)
         True
@@ -29,7 +29,7 @@ def get_bounds(
     fft_results: np.ndarray, samplerate: int
 ) -> tuple[int | float, int | float]:
     """
-    Get bounds for printing fft results
+    获取显示 FFT 结果时使用的边界。
 
     >>> import numpy
     >>> array = numpy.linspace(-20.0, 20.0, 1000)
@@ -43,7 +43,7 @@ def get_bounds(
 
 def show_frequency_response(filter_type: FilterType, samplerate: int) -> None:
     """
-    Show frequency response of a filter
+    显示滤波器的频率响应。
 
     >>> from audio_filters.iir_filter import IIRFilter
     >>> filt = IIRFilter(4)
@@ -54,17 +54,17 @@ def show_frequency_response(filter_type: FilterType, samplerate: int) -> None:
     inputs = [1] + [0] * (size - 1)
     outputs = [filter_type.process(item) for item in inputs]
 
-    filler = [0] * (samplerate - size)  # zero-padding
+    filler = [0] * (samplerate - size)  # 补零
     outputs += filler
     fft_out = np.abs(np.fft.fft(outputs))
     fft_db = 20 * np.log10(fft_out)
 
-    # Frequencies on log scale from 24 to nyquist frequency
+    # 从 24 Hz 到奈奎斯特频率采用对数刻度
     plt.xlim(24, samplerate / 2 - 1)
     plt.xlabel("Frequency (Hz)")
     plt.xscale("log")
 
-    # Display within reasonable bounds
+    # 在合理的边界内显示
     bounds = get_bounds(fft_db, samplerate)
     plt.ylim(max([-80, bounds[0]]), min([80, bounds[1]]))
     plt.ylabel("Gain (dB)")
@@ -75,7 +75,7 @@ def show_frequency_response(filter_type: FilterType, samplerate: int) -> None:
 
 def show_phase_response(filter_type: FilterType, samplerate: int) -> None:
     """
-    Show phase response of a filter
+    显示滤波器的相位响应。
 
     >>> from audio_filters.iir_filter import IIRFilter
     >>> filt = IIRFilter(4)
@@ -86,11 +86,11 @@ def show_phase_response(filter_type: FilterType, samplerate: int) -> None:
     inputs = [1] + [0] * (size - 1)
     outputs = [filter_type.process(item) for item in inputs]
 
-    filler = [0] * (samplerate - size)  # zero-padding
+    filler = [0] * (samplerate - size)  # 补零
     outputs += filler
     fft_out = np.angle(np.fft.fft(outputs))
 
-    # Frequencies on log scale from 24 to nyquist frequency
+    # 从 24 Hz 到奈奎斯特频率采用对数刻度
     plt.xlim(24, samplerate / 2 - 1)
     plt.xlabel("Frequency (Hz)")
     plt.xscale("log")

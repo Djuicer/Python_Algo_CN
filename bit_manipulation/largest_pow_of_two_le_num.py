@@ -2,26 +2,26 @@
 Author  : Naman Sharma
 Date    : October 2, 2023
 
-Task:
-To Find the largest power of 2 less than or equal to a given number.
+任务：
+求小于或等于给定数的最大 2 的幂。
 
-Implementation notes: Use bit manipulation.
-We start from 1 & left shift the set bit to check if (res<<1)<=number.
-Each left bit shift represents a pow of 2.
+实现说明：使用位运算。
+从 1 开始，左移置位比特，并检查 (res << 1) <= number 是否成立。
+每次向左移一位都表示 2 的一个幂。
 
-For example:
+示例：
 number: 15
 res:    1   0b1
         2   0b10
         4   0b100
         8   0b1000
-        16  0b10000 (Exit)
+        16  0b10000（退出）
 """
 
 
 def largest_pow_of_two_le_num(number: int) -> int:
     """
-    Return the largest power of two less than or equal to a number.
+    返回小于或等于给定数的最大 2 的幂。
 
     >>> largest_pow_of_two_le_num(0)
     0

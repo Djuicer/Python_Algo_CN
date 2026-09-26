@@ -1,14 +1,14 @@
 def find_missing_number(nums: list[int]) -> int:
     """
-    Finds the missing number in a list of consecutive integers.
+    查找连续整数列表中缺失的数字。
 
-    Args:
-        nums: A list of integers.
+    参数：
+        nums: 整数列表。
 
-    Returns:
-        The missing number.
+    返回：
+        缺失的数字。
 
-    Example:
+    示例：
         >>> find_missing_number([0, 1, 3, 4])
         2
         >>> find_missing_number([4, 3, 1, 0])

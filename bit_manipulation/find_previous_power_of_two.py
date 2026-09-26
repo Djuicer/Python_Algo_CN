@@ -1,6 +1,6 @@
 def find_previous_power_of_two(number: int) -> int:
     """
-    Find the largest power of two that is less than or equal to a given integer.
+    求小于或等于给定整数的最大 2 的幂。
     https://stackoverflow.com/questions/1322510
 
     >>> [find_previous_power_of_two(i) for i in range(18)]
@@ -20,7 +20,7 @@ def find_previous_power_of_two(number: int) -> int:
         return 0
     power = 1
     while power <= number:
-        power <<= 1  # Equivalent to multiplying by 2
+        power <<= 1  # 等价于乘以 2
     return power >> 1 if number > 1 else 1
 
 

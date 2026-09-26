@@ -3,21 +3,21 @@ from __future__ import annotations
 
 class IIRFilter:
     r"""
-    N-Order IIR filter
-    Assumes working with float samples normalized on [-1, 1]
+    N 阶 IIR 滤波器。
+    假定处理的是归一化到 [-1, 1] 的浮点采样值。
 
     ---
 
-    Implementation details:
-    Based on the 2nd-order function from
+    实现细节：
+    基于以下页面中的二阶函数：
     https://en.wikipedia.org/wiki/Digital_biquad_filter,
-    this generalized N-order function was made.
+    将其推广为 N 阶函数。
 
-    Using the following transfer function
+    使用以下传递函数：
         .. math:: H(z)=\frac{b_{0}+b_{1}z^{-1}+b_{2}z^{-2}+...+b_{k}z^{-k}}
                   {a_{0}+a_{1}z^{-1}+a_{2}z^{-2}+...+a_{k}z^{-k}}
 
-    we can rewrite this to
+    可将其改写为：
         .. math:: y[n]={\frac{1}{a_{0}}}
                   \left(\left(b_{0}x[n]+b_{1}x[n-1]+b_{2}x[n-2]+...+b_{k}x[n-k]\right)-
                   \left(a_{1}y[n-1]+a_{2}y[n-2]+...+a_{k}y[n-k]\right)\right)
@@ -38,11 +38,11 @@ class IIRFilter:
 
     def set_coefficients(self, a_coeffs: list[float], b_coeffs: list[float]) -> None:
         """
-        Set the coefficients for the IIR filter.
-        These should both be of size `order` + 1.
-        :math:`a_0` may be left out, and it will use 1.0 as default value.
+        设置 IIR 滤波器的系数。
+        两组系数的长度都应为 `order` + 1。
+        可以省略 :math:`a_0`，此时默认值为 1.0。
 
-        This method works well with scipy's filter design functions
+        此方法可与 scipy 的滤波器设计函数配合使用。
 
         >>> # Make a 2nd-order 1000Hz butterworth lowpass filter
         >>> import scipy.signal
@@ -52,14 +52,14 @@ class IIRFilter:
         >>> filt = IIRFilter(2)
         >>> filt.set_coefficients(a_coeffs, b_coeffs)
 
-        The leading :math:`a_0` coefficient may be omitted and defaults to 1.0:
+        可以省略首项系数 :math:`a_0`，其默认值为 1.0：
 
         >>> filt = IIRFilter(2)
         >>> filt.set_coefficients([-1.9, 0.9], [1.0, -2.0, 1.0])
         >>> filt.a_coeffs
         [1.0, -1.9, 0.9]
 
-        Passing the wrong number of coefficients raises a ``ValueError``:
+        传入数量错误的系数会引发 ``ValueError``：
 
         >>> IIRFilter(2).set_coefficients([1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0])
         Traceback (most recent call last):
@@ -70,8 +70,8 @@ class IIRFilter:
             ...
         ValueError: Expected b_coeffs to have 3 elements for 2-order filter, got 2
 
-        A genuinely too-short ``a_coeffs`` is reported with its real length
-        rather than after the optional ``a_0`` has been filled in:
+        当 ``a_coeffs`` 的长度确实过短时，报告其实际长度，而不是补入可选的
+        ``a_0`` 后的长度：
 
         >>> IIRFilter(2).set_coefficients([1.0], [1.0, 2.0, 3.0])
         Traceback (most recent call last):
@@ -79,9 +79,8 @@ class IIRFilter:
         ValueError: Expected a_coeffs to have 3 elements for 2-order filter, got 1
         """
         if len(a_coeffs) == self.order:
-            # The leading a_0 coefficient is optional; default it to 1.0.
-            # Only a single missing coefficient is filled in this way, so that
-            # genuinely too-short inputs are reported with their real length.
+            # 首项系数 a_0 可省略；省略时使用默认值 1.0。
+            # 此方式只补入一个缺失系数，以便对长度确实过短的输入报告实际长度。
             a_coeffs = [1.0, *a_coeffs]
 
         if len(a_coeffs) != self.order + 1:
@@ -103,7 +102,7 @@ class IIRFilter:
 
     def process(self, sample: float) -> float:
         """
-        Calculate :math:`y[n]`
+        计算 :math:`y[n]`。
 
         >>> filt = IIRFilter(2)
         >>> filt.process(0)
@@ -111,7 +110,7 @@ class IIRFilter:
         """
         result = 0.0
 
-        # Start at index 1 and do index 0 at the end.
+        # 从索引 1 开始，最后处理索引 0。
         for i in range(1, self.order + 1):
             result += (
                 self.b_coeffs[i] * self.input_history[i - 1]

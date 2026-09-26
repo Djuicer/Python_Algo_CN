@@ -9,12 +9,10 @@ def show_bits(before: int, after: int) -> str:
 
 def swap_odd_even_bits(num: int) -> int:
     """
-    1. We use bitwise AND operations to separate the even bits (0, 2, 4, 6, etc.) and
-       odd bits (1, 3, 5, 7, etc.) in the input number.
-    2. We then right-shift the even bits by 1 position and left-shift the odd bits by
-       1 position to swap them.
-    3. Finally, we combine the swapped even and odd bits using a bitwise OR operation
-       to obtain the final result.
+    1. 使用按位与运算分离输入数字中的偶数位（0、2、4、6 等）和
+       奇数位（1、3、5、7 等）。
+    2. 将偶数位右移一位、奇数位左移一位，从而交换它们。
+    3. 最后，使用按位或运算合并交换后的偶数位和奇数位，得到最终结果。
     >>> print(show_bits(0, swap_odd_even_bits(0)))
         0: 00000000
         0: 00000000
@@ -40,13 +38,13 @@ def swap_odd_even_bits(num: int) -> int:
        23: 00010111
        43: 00101011
     """
-    # Get all even bits - 0xAAAAAAAA is a 32-bit number with all even bits set to 1
+    # 获取所有偶数位：0xAAAAAAAA 是所有偶数位均为 1 的 32 位数
     even_bits = num & 0xAAAAAAAA
 
-    # Get all odd bits - 0x55555555 is a 32-bit number with all odd bits set to 1
+    # 获取所有奇数位：0x55555555 是所有奇数位均为 1 的 32 位数
     odd_bits = num & 0x55555555
 
-    # Right shift even bits and left shift odd bits and swap them
+    # 将偶数位右移、奇数位左移，从而交换它们
     return even_bits >> 1 | odd_bits << 1
 
 

@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 
-"""Provide the functionality to manipulate a single bit."""
+"""提供操作单个位的功能。"""
 
 
 def set_bit(number: int, position: int) -> int:
     """
-    Set the bit at position to 1.
+    将 position 位置的位设为 1。
 
-    Details: perform bitwise or for given number and X.
-    Where X is a number with all the bits - zeroes and bit on given
-    position - one.
+    细节：对给定的 number 和 X 执行按位或运算。
+    X 的所有位均为 0，仅给定位置的位为 1。
 
     >>> set_bit(0b1101, 1) # 0b1111
     15
@@ -23,11 +22,10 @@ def set_bit(number: int, position: int) -> int:
 
 def clear_bit(number: int, position: int) -> int:
     """
-    Set the bit at position to 0.
+    将 position 位置的位设为 0。
 
-    Details: perform bitwise and for given number and X.
-    Where X is a number with all the bits - ones and bit on given
-    position - zero.
+    细节：对给定的 number 和 X 执行按位与运算。
+    X 的所有位均为 1，仅给定位置的位为 0。
 
     >>> clear_bit(0b10010, 1) # 0b10000
     16
@@ -39,11 +37,10 @@ def clear_bit(number: int, position: int) -> int:
 
 def flip_bit(number: int, position: int) -> int:
     """
-    Flip the bit at position.
+    翻转 position 位置的位。
 
-    Details: perform bitwise xor for given number and X.
-    Where X is a number with all the bits - zeroes and bit on given
-    position - one.
+    细节：对给定的 number 和 X 执行按位异或运算。
+    X 的所有位均为 0，仅给定位置的位为 1。
 
     >>> flip_bit(0b101, 1) # 0b111
     7
@@ -55,10 +52,10 @@ def flip_bit(number: int, position: int) -> int:
 
 def is_bit_set(number: int, position: int) -> bool:
     """
-    Is the bit at position set?
+    position 位置的位是否已置位？
 
-    Details: Shift the bit at position to be the first (smallest) bit.
-    Then check if the first bit is set by anding the shifted number with 1.
+    细节：将 position 位置的位移到第一位（最低位），
+    再将移位后的数与 1 执行按位与运算，检查第一位是否已置位。
 
     >>> is_bit_set(0b1010, 0)
     False
@@ -76,11 +73,11 @@ def is_bit_set(number: int, position: int) -> bool:
 
 def get_bit(number: int, position: int) -> int:
     """
-    Get the bit at the given position
+    获取给定位置的位。
 
-    Details: perform bitwise and for the given number and X,
-    Where X is a number with all the bits - zeroes and bit on given position - one.
-    If the result is not equal to 0, then the bit on the given position is 1, else 0.
+    细节：对给定的 number 和 X 执行按位与运算。
+    X 的所有位均为 0，仅给定位置的位为 1。
+    如果结果不等于 0，则给定位置的位为 1，否则为 0。
 
     >>> get_bit(0b1010, 0)
     0
@@ -96,11 +93,11 @@ def get_bit(number: int, position: int) -> int:
 
 def clear_least_significant_set_bit(number: int) -> int:
     """
-    Clear the least significant set bit (rightmost 1 bit).
+    清除最低有效置位比特（最右侧的 1）。
 
-    Subtracting 1 changes the rightmost 1 to 0 and the 0 bits to its right to 1.
-    ANDing the result with the original number therefore clears that set bit.
-    For negative integers, Python's infinite sign extension is used.
+    减 1 会将最右侧的 1 变为 0，并将其右侧的各个 0 变为 1。
+    因此，将所得结果与原数执行按位与运算即可清除该置位比特。
+    对于负整数，使用 Python 的无限符号扩展。
     https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
 
     >>> clear_least_significant_set_bit(0b101100)  # 0b101000

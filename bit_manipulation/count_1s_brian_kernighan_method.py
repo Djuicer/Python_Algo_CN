@@ -1,7 +1,7 @@
 def get_1s_count(number: int) -> int:
     """
-    Count the number of set bits in a 32 bit integer using Brian Kernighan's way.
-    Ref - https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+    使用 Brian Kernighan 方法统计 32 位整数中置位比特的数量。
+    参考资料：https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
     >>> get_1s_count(25)
     3
     >>> get_1s_count(37)
@@ -32,9 +32,8 @@ def get_1s_count(number: int) -> int:
 
     count = 0
     while number:
-        # This way we arrive at next set bit (next 1) instead of looping
-        # through each bit and checking for 1s hence the
-        # loop won't run 32 times it will only run the number of `1` times
+        # 此方法直接到达下一个置位比特（下一个 1），而不是遍历每一位并检查 1，
+        # 因此循环不会运行 32 次，而只会运行与 `1` 的数量相同的次数。
         number &= number - 1
         count += 1
     return count

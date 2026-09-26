@@ -2,18 +2,17 @@
 Author  : Alexander Pantyukhin
 Date    : November 30, 2022
 
-Task:
-Given two int numbers. Return True these numbers have opposite signs
-or False otherwise.
+任务：
+给定两个整数。如果它们的符号相反，则返回 True，否则返回 False。
 
-Implementation notes: Use bit manipulation.
-Use XOR for two numbers.
+实现说明：使用位运算。
+对两个数执行异或运算。
 """
 
 
 def different_signs(num1: int, num2: int) -> bool:
     """
-    Return True if numbers have opposite signs False otherwise.
+    如果两个数的符号相反，则返回 True，否则返回 False。
 
     >>> different_signs(1, -1)
     True

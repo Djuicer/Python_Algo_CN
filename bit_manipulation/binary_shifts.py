@@ -1,14 +1,14 @@
-# Information on binary shifts:
+# 二进制移位相关资料：
 # https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types
 # https://www.interviewcake.com/concept/java/bit-shift
 
 
 def logical_left_shift(number: int, shift_amount: int) -> str:
     """
-    Take in 2 positive integers.
-    'number' is the integer to be logically left shifted 'shift_amount' times.
-    i.e. (number << shift_amount)
-    Return the shifted binary representation.
+    接收两个正整数。
+    'number' 是要逻辑左移 'shift_amount' 位的整数，
+    即 (number << shift_amount)。
+    返回移位后的二进制表示。
 
     >>> logical_left_shift(0, 1)
     '0b00'
@@ -35,10 +35,10 @@ def logical_left_shift(number: int, shift_amount: int) -> str:
 
 def logical_right_shift(number: int, shift_amount: int) -> str:
     """
-    Take in positive 2 integers.
-    'number' is the integer to be logically right shifted 'shift_amount' times.
-    i.e. (number >>> shift_amount)
-    Return the shifted binary representation.
+    接收两个正整数。
+    'number' 是要逻辑右移 'shift_amount' 位的整数，
+    即 (number >>> shift_amount)。
+    返回移位后的二进制表示。
 
     >>> logical_right_shift(0, 1)
     '0b0'
@@ -67,10 +67,10 @@ def logical_right_shift(number: int, shift_amount: int) -> str:
 
 def arithmetic_right_shift(number: int, shift_amount: int) -> str:
     """
-    Take in 2 integers.
-    'number' is the integer to be arithmetically right shifted 'shift_amount' times.
-    i.e. (number >> shift_amount)
-    Return the shifted binary representation.
+    接收两个整数。
+    'number' 是要算术右移 'shift_amount' 位的整数，
+    即 (number >> shift_amount)。
+    返回移位后的二进制表示。
 
     >>> arithmetic_right_shift(0, 1)
     '0b00'
@@ -85,10 +85,10 @@ def arithmetic_right_shift(number: int, shift_amount: int) -> str:
     >>> arithmetic_right_shift(-1983, 4)
     '0b111110000100'
     """
-    if number >= 0:  # Get binary representation of positive number
+    if number >= 0:  # 获取正数的二进制表示
         binary_number = "0" + str(bin(number)).strip("-")[2:]
-    else:  # Get binary (2's complement) representation of negative number
-        binary_number_length = len(bin(number)[3:])  # Find 2's complement of number
+    else:  # 获取负数的二进制补码表示
+        binary_number_length = len(bin(number)[3:])  # 求该数的二进制补码
         binary_number = bin(abs(number) - (1 << binary_number_length))[3:]
         binary_number = (
             "1" + "0" * (binary_number_length - len(binary_number)) + binary_number

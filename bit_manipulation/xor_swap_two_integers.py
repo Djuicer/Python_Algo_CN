@@ -1,21 +1,20 @@
-# Information on XOR swap: https://en.wikipedia.org/wiki/Bitwise_operation#XOR
+# 异或交换相关资料：https://en.wikipedia.org/wiki/Bitwise_operation#XOR
 
-# Algorithm:
-# 1. Take two integers a and b.
-# 2. Apply XOR between a and b and store the result in a:
+# 算法：
+# 1. 接收两个整数 a 和 b。
+# 2. 对 a 和 b 执行异或运算，并将结果存入 a：
 #       a = a ^ b
-# 3. XOR the new value of a with b to get the original value of a and store it in b:
+# 3. 将 a 的新值与 b 异或，得到 a 的原值，并将其存入 b：
 #       b = a ^ b
-# 4. XOR the new value of a with the new value of b.
-#    This gives the original value of b, which we store in a:
+# 4. 将 a 的新值与 b 的新值异或，得到 b 的原值，并将其存入 a：
 #       a = a ^ b
-# 5. Return the swapped values (a, b).
-# This method swaps two numbers without using a temporary variable.
+# 5. 返回交换后的值 (a, b)。
+# 此方法无需使用临时变量即可交换两个数。
 
 
 def xor_swap(a: int, b: int) -> tuple[int, int]:
     """
-    Swap two integers using bitwise XOR operation and return the swapped values.
+    使用按位异或运算交换两个整数，并返回交换后的值。
 
     >>> xor_swap(5, 10)
     (10, 5)

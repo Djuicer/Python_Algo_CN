@@ -2,15 +2,15 @@
 Author  : Basuki Nath
 Date    : 2025-10-04
 
-Simple parity utility for integers.
+用于整数的简单奇偶校验工具。
 
-The parity is 1 when the number of set bits is odd, otherwise 0.
+当置位比特的数量为奇数时，奇偶校验值为 1，否则为 0。
 """
 
 
 def parity(number: int) -> int:
     """
-    Return 1 if `number` has an odd number of set bits, otherwise 0.
+    如果 `number` 的置位比特数量为奇数，则返回 1，否则返回 0。
 
     >>> parity(0)
     0
@@ -29,7 +29,7 @@ def parity(number: int) -> int:
     """
     if number < 0:
         raise ValueError("number must not be negative")
-    # Kernighan's algorithm toggling parity
+    # 使用 Kernighan 算法切换奇偶校验值
     p = 0
     while number:
         p ^= 1

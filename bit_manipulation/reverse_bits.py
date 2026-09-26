@@ -1,6 +1,6 @@
 def get_reverse_bit_string(number: int) -> str:
     """
-    Return the reverse bit string of a 32 bit integer
+    返回 32 位整数反转后的位字符串。
 
     >>> get_reverse_bit_string(9)
     '10010000000000000000000000000000'
@@ -30,7 +30,7 @@ def get_reverse_bit_string(number: int) -> str:
 
 def reverse_bit(number: int) -> int:
     """
-    Take in a 32 bit integer, reverse its bits, return a 32 bit integer result
+    接收一个 32 位整数，反转其各个位，返回 32 位整数结果。
 
     >>> reverse_bit(25)
     2550136832
@@ -67,15 +67,15 @@ def reverse_bit(number: int) -> int:
         raise ValueError("The value of input must be non-negative")
 
     result = 0
-    # iterator over [0 to 31], since we are dealing with a 32 bit integer
+    # 由于处理的是 32 位整数，因此遍历 [0, 31]
     for _ in range(32):
-        # left shift the bits by unity
+        # 将各位左移一位
         result <<= 1
-        # get the end bit
+        # 获取末位
         end_bit = number & 1
-        # right shift the bits by unity
+        # 将各位右移一位
         number >>= 1
-        # add that bit to our answer
+        # 将该位加入结果
         result |= end_bit
     return result
 
