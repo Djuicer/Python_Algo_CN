@@ -1,9 +1,9 @@
 """
 Problem source: https://www.hackerrank.com/challenges/the-power-sum/problem
-Find the number of ways that a given integer X, can be expressed as the sum
-of the Nth powers of unique, natural numbers. For example, if X=13 and N=2.
-We have to find all combinations of unique squares adding up to 13.
-The only solution is 2^2+3^2. Constraints: 1<=X<=1000, 2<=N<=10.
+求将给定整数 X 表示为若干互不相同的自然数的
+N 次幂之和的方案数。例如，X=13 且 N=2 时，
+需要找出所有互不相同的平方数之和为 13 的组合。
+唯一解为 2^2+3^2。约束：1<=X<=1000，2<=N<=10。
 """
 
 
@@ -31,20 +31,20 @@ def backtrack(
     (0, 64)
     """
     if current_sum == needed_sum:
-        # If the sum of the powers is equal to needed_sum, then we have a solution.
+        # 幂的总和等于 needed_sum 时，得到一个解。
         solutions_count += 1
         return current_sum, solutions_count
 
     i_to_n = current_number**power
     if current_sum + i_to_n <= needed_sum:
-        # If the sum of the powers is less than needed_sum, then continue adding powers.
+        # 幂的总和小于 needed_sum 时，继续累加幂。
         current_sum += i_to_n
         current_sum, solutions_count = backtrack(
             needed_sum, power, current_number + 1, current_sum, solutions_count
         )
         current_sum -= i_to_n
     if i_to_n < needed_sum:
-        # If the power of i is less than needed_sum, then try with the next power.
+        # i 的幂小于 needed_sum 时，尝试下一个数的幂。
         current_sum, solutions_count = backtrack(
             needed_sum, power, current_number + 1, current_sum, solutions_count
         )
@@ -82,7 +82,7 @@ def solve(needed_sum: int, power: int) -> int:
             "needed_sum must be between 1 and 1000, power between 2 and 10."
         )
 
-    return backtrack(needed_sum, power, 1, 0, 0)[1]  # Return the solutions_count
+    return backtrack(needed_sum, power, 1, 0, 0)[1]  # 返回 solutions_count
 
 
 if __name__ == "__main__":

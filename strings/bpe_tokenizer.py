@@ -1,6 +1,6 @@
 """
-Byte-Pair Encoding: Subword-based tokenization algorithm used by
-state-of-the-art language models.
+字节对编码（Byte-Pair Encoding）：一种基于子词的分词算法，
+用于先进的语言模型。
 
 Wikipedia: https://en.wikipedia.org/wiki/Byte_pair_encoding
 """
@@ -10,7 +10,7 @@ from collections import OrderedDict
 
 
 def get_byte_pair_counts(ids: list[int]) -> dict:
-    """Count consecutive byte-pairs of an encoded string.
+    """统计编码后字符串中连续字节对的频次。
 
     >>> ids = [73, 32, 97, 109, 32, 74, 111, 110, 83, 110, 111, 119, 46]
     >>> get_byte_pair_counts(ids)
@@ -26,8 +26,8 @@ def get_byte_pair_counts(ids: list[int]) -> dict:
 
 
 def merge(ids: list[int], pair: tuple, idx: int) -> list[int]:
-    """Replace most occurring byte pair with new byte that is not used
-    in the data. For utf-8 encoding, we start with 256 as the new byte
+    """将出现次数最多的字节对替换为数据中尚未使用的新字节。
+    对于 utf-8 编码，新字节编号从 256 开始
 
     >>> ids = [2, 3, 6, 2, 3, 6, 2, 5]
     >>> pair = (2, 3)
@@ -48,7 +48,7 @@ def merge(ids: list[int], pair: tuple, idx: int) -> list[int]:
 
 
 class Tokenizer:
-    """Tokenize a string using the byte-pair encoding algorithm"""
+    """使用字节对编码算法对字符串分词"""
 
     def __init__(self, num_merges: int = 20, verbose: bool = False) -> None:
         self.num_merges = num_merges
@@ -56,7 +56,7 @@ class Tokenizer:
         self.verbose = verbose
 
     def encode(self, text: str) -> list[int]:
-        """Convert a string to tokens (bytes)
+        """将字符串转换为词元（字节）
 
         >>> t = Tokenizer()
         >>> text = "I am JonSnow."
@@ -68,18 +68,18 @@ class Tokenizer:
         >>> t.encode(text)
         []
         """
-        text_b = text.encode("utf-8")  # raw bytes
-        tokens = list(map(int, text_b))  # convert to list of integers
+        text_b = text.encode("utf-8")  # 原始字节
+        tokens = list(map(int, text_b))  # 转换为整数列表
 
         if self.verbose:
             print(f"Input text: {text}")
             print(f"Tokens: {tokens}")
 
-        ids = list(tokens)  # create a copy of tokens
-        self.merges = OrderedDict()  # store a mapping of merges (int, int) -> int
+        ids = list(tokens)  # 创建 tokens 的副本
+        self.merges = OrderedDict()  # 保存合并映射 (int, int) -> int
         max_merges = len(tokens) - 1
         num_merges = min(self.num_merges, max_merges)
-        # start merging most frequently occurring byte pairs
+        # 开始合并出现次数最多的字节对
         for i in range(num_merges):
             counts = get_byte_pair_counts(ids)
             pair = max(counts, key=counts.__getitem__)
@@ -87,7 +87,7 @@ class Tokenizer:
             if counts[pair] == 1:
                 continue
 
-            idx = 256 + i  # create new token for every merge step
+            idx = 256 + i  # 每次合并都创建新词元
             if self.verbose:
                 print(f"Merging {pair} into a new token {idx}")
             ids = merge(ids, pair, idx)
@@ -96,7 +96,7 @@ class Tokenizer:
         return ids
 
     def decode(self, ids: list[int]) -> str:
-        """Convert a list of tokens to the original string
+        """将词元列表还原为原始字符串
 
         >>> t = Tokenizer()
         >>> ids = [73, 32, 97, 109, 32, 74, 111, 110, 83, 110, 111, 119, 46]
@@ -108,10 +108,10 @@ class Tokenizer:
         >>> t.decode(ids)
         ''
         """
-        vocab = {idx: bytes([idx]) for idx in range(256)}  # original vocabulary
-        # The iteration of items should be in the order of
-        # their insertion. This is the default behavior in Python 3
-        # but we use an OrderedDict explicitly here
+        vocab = {idx: bytes([idx]) for idx in range(256)}  # 原始词表
+        # 各项应按插入顺序
+        # 迭代。Python 3 默认如此，
+        # 但这里显式使用 OrderedDict
         for (p0, p1), idx in self.merges.items():
             vocab[idx] = vocab[p0] + vocab[p1]
 
@@ -119,8 +119,8 @@ class Tokenizer:
             print("Vocabulary (after merging): {vocab}")
 
         tokens = b"".join(vocab[idx] for idx in ids)
-        # handle UnicodeDecodeError by replacing the invalid
-        # start byte to conform to utf-8 format
+        # 通过替换无效的起始字节来处理 UnicodeDecodeError，
+        # 使其符合 utf-8 格式
         text = tokens.decode("utf-8", errors="replace")
         return text
 

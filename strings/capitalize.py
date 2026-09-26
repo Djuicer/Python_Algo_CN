@@ -1,6 +1,6 @@
 def capitalize(sentence: str) -> str:
     """
-    Capitalizes the first letter of a sentence or word.
+    将句子或单词的首字母转为大写。
 
     >>> capitalize("hello world")
     'Hello world'
@@ -14,9 +14,9 @@ def capitalize(sentence: str) -> str:
     ''
     """
 
-    # Capitalize the first character if it's a lowercase letter
-    # Concatenate the capitalized character with the rest of the string
-    # Slicing keeps this safe for empty strings.
+    # 首字符为小写字母时，将其转为大写
+    # 将大写首字符与字符串其余部分拼接
+    # 切片使空字符串也能安全处理。
     return sentence[:1].upper() + sentence[1:]
 
 

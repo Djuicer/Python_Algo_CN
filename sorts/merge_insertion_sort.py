@@ -1,13 +1,13 @@
 """
-This is a pure Python implementation of the merge-insertion sort algorithm
+归并插入排序（Merge-Insertion Sort）算法的纯 Python 实现
 Source: https://en.wikipedia.org/wiki/Merge-insertion_sort
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v merge_insertion_sort.py
-or
+或
 python -m doctest -v merge_insertion_sort.py
 
-For manual testing run:
+手动测试请运行：
 python3 merge_insertion_sort.py
 """
 
@@ -68,13 +68,13 @@ def sortlist_2d[T: Comparable](list_2d: list[list[T]]) -> list[list[T]]:
 
 
 def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
-    """Pure implementation of merge-insertion sort algorithm in Python
+    """归并插入排序算法的纯 Python 实现
 
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered by ascending
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> merge_insertion_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
 
@@ -84,7 +84,7 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
     >>> merge_insertion_sort([-2, -5, -45])
     [-45, -5, -2]
 
-    Testing with all permutations on range(0,5):
+    使用 range(0,5) 的所有排列进行测试：
     >>> import itertools
     >>> permutations = list(itertools.permutations([0, 1, 2, 3, 4]))
     >>> all(merge_insertion_sort(p) == [0, 1, 2, 3, 4] for p in permutations)
@@ -95,10 +95,10 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
         return collection
 
     """
-    Group the items into two pairs, and leave one element if there is a last odd item.
+    将元素两两分组；若元素数量为奇数，则留下最后一个元素。
 
-    Example: [999, 100, 75, 40, 10000]
-                -> [999, 100], [75, 40]. Leave 10000.
+    示例：[999, 100, 75, 40, 10000]
+                -> [999, 100], [75, 40]。留下 10000。
     """
     two_paired_list = []
     has_last_odd_item = False
@@ -107,9 +107,9 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
             has_last_odd_item = True
         else:
             """
-            Sort two-pairs in each groups.
+            对每组中的两个元素排序。
 
-            Example: [999, 100], [75, 40]
+            示例：[999, 100], [75, 40]
                         -> [100, 999], [40, 75]
             """
             if collection[i] < collection[i + 1]:
@@ -118,18 +118,18 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
                 two_paired_list.append([collection[i + 1], collection[i]])
 
     """
-    Sort two_paired_list.
+    对 two_paired_list 排序。
 
-    Example: [100, 999], [40, 75]
+    示例：[100, 999], [40, 75]
                 -> [40, 75], [100, 999]
     """
     sorted_list_2d = sortlist_2d(two_paired_list)
 
     """
-    40 < 100 is sure because it has already been sorted.
-    Generate the sorted_list of them so that you can avoid unnecessary comparison.
+    由于已经排序，可以确定 40 < 100。
+    据此生成 sorted_list，以避免不必要的比较。
 
-    Example:
+    示例：
            group0 group1
            40     100
            75     999
@@ -141,10 +141,10 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
     result = [i[0] for i in sorted_list_2d]
 
     """
-    100 < 999 is sure because it has already been sorted.
-    Put 999 in last of the sorted_list so that you can avoid unnecessary comparison.
+    由于已经排序，可以确定 100 < 999。
+    将 999 放到 sorted_list 末尾，以避免不必要的比较。
 
-    Example:
+    示例：
            group0 group1
            [40,   100]
            75     999
@@ -156,9 +156,9 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
     result.append(sorted_list_2d[-1][1])
 
     """
-    Insert the last odd item left if there is.
+    若有因总数为奇数而留下的最后一个元素，则将其插入。
 
-    Example:
+    示例：
            group0 group1
            [40,   100,   999]
            75
@@ -172,15 +172,15 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
         result = binary_search_insertion(result, pivot)
 
     """
-    Insert the remaining items.
-    In this case, 40 < 75 is sure because it has already been sorted.
-    Therefore, you only need to insert 75 into [100, 999, 10000],
-    so that you can avoid unnecessary comparison.
+    插入剩余元素。
+    此时由于已经排序，可以确定 40 < 75。
+    因此，只需将 75 插入 [100, 999, 10000]，
+    从而避免不必要的比较。
 
-    Example:
+    示例：
            group0 group1
            [40,   100,   999,   10000]
-            ^ You don't need to compare with this as 40 < 75 is already sure.
+            ^ 已确定 40 < 75，无需与此处比较。
            75
         ->
            [40,   75,    100,   999,   10000]
@@ -190,8 +190,8 @@ def merge_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
         if result[i] == collection[-1] and has_last_odd_item:
             is_last_odd_item_inserted_before_this_index = True
         pivot = sorted_list_2d[i][1]
-        # If last_odd_item is inserted before the item's index,
-        # you should forward index one more.
+        # 若 last_odd_item 插入到该元素索引之前，
+        # 则应将索引再向后移动一位。
         if is_last_odd_item_inserted_before_this_index:
             result = result[: i + 2] + binary_search_insertion(result[i + 2 :], pivot)
         else:

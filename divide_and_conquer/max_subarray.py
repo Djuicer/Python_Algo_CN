@@ -1,10 +1,10 @@
 """
-The maximum subarray problem is the task of finding the continuous subarray that has the
-maximum sum within a given array of numbers. For example, given the array
-[-2, 1, -3, 4, -1, 2, 1, -5, 4], the contiguous subarray with the maximum sum is
-[4, -1, 2, 1], which has a sum of 6.
+最大子数组问题是在给定的数值数组中，寻找
+元素和最大的连续子数组。例如，对于数组
+[-2, 1, -3, 4, -1, 2, 1, -5, 4]，元素和最大的连续子数组为
+[4, -1, 2, 1]，其和为 6。
 
-This divide-and-conquer algorithm finds the maximum subarray in O(n log n) time.
+该分治算法在 O(n log n) 时间内找到最大子数组。
 """
 
 from __future__ import annotations
@@ -20,12 +20,12 @@ def max_subarray(
     arr: Sequence[float], low: int, high: int
 ) -> tuple[int | None, int | None, float]:
     """
-    Solves the maximum subarray problem using divide and conquer.
-    :param arr:     the given array of numbers
-    :param low:     the start index
-    :param high:    the end index
-    :return:        the start index of the maximum subarray, the end index of the
-                    maximum subarray, and the maximum subarray sum
+    使用分治法求解最大子数组问题。
+    :param arr:     给定的数值数组
+    :param low:     起始索引
+    :param high:    结束索引
+    :return:        最大子数组的起始索引、结束索引，
+                    以及最大子数组的元素和
 
     >>> nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
     >>> max_subarray(nums, 0, len(nums) - 1)
@@ -106,7 +106,7 @@ def plot_runtimes() -> None:
 
 if __name__ == "__main__":
     """
-    A random simulation of this algorithm.
+    对该算法进行随机模拟。
     """
     from doctest import testmod
 

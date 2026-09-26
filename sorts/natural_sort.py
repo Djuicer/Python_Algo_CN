@@ -5,10 +5,10 @@ import re
 
 def natural_sort(input_list: list[str]) -> list[str]:
     """
-    Sort the given list of strings in the way that humans expect.
+    以符合人类习惯的方式对给定字符串列表排序。
 
-    The normal Python sort algorithm sorts lexicographically,
-    so you might not get the results that you expect...
+    Python 通常按字典序排序，
+    因此结果可能不符合预期……
 
     >>> example1 = ['2 ft 7 in', '1 ft 5 in', '10 ft 2 in', '2 ft 11 in', '7 ft 6 in']
     >>> sorted(example1)

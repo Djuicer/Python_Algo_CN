@@ -6,16 +6,16 @@ from heapq import merge
 from typing import Protocol
 
 """
-A pure Python implementation of the patience sort algorithm
+耐心排序（Patience Sort）算法的纯 Python 实现
 
 For more information: https://en.wikipedia.org/wiki/Patience_sorting
 
-This algorithm is based on the card game patience
+该算法基于纸牌游戏 patience
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v patience_sort.py
 
-For manual testing run:
+手动测试请运行：
 python3 patience_sort.py
 """
 
@@ -36,13 +36,13 @@ class Stack[T: Comparable](list[T]):
 
 
 def patience_sort[T: Comparable](collection: list[T]) -> list[T]:
-    """A pure implementation of patience sort algorithm in Python
+    """耐心排序（Patience Sort）算法的纯 Python 实现
 
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered by ascending
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> patience_sort([1, 9, 5, 21, 17, 6])
     [1, 5, 6, 9, 17, 21]
 
@@ -64,7 +64,7 @@ def patience_sort[T: Comparable](collection: list[T]) -> list[T]:
     TypeError: '<' not supported between instances of 'str' and 'int'
     """
     stacks: list[Stack] = []
-    # sort into stacks
+    # 将元素整理到各个栈中
     for element in collection:
         new_stacks = Stack([element])
         i = bisect_left(stacks, new_stacks)
@@ -73,7 +73,7 @@ def patience_sort[T: Comparable](collection: list[T]) -> list[T]:
         else:
             stacks.append(new_stacks)
 
-    # use a heap-based merge to merge stack efficiently
+    # 使用基于堆的归并，高效合并各个栈
     collection[:] = merge(*(reversed(stack) for stack in stacks))
     return collection
 

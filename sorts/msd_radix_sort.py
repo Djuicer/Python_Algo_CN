@@ -1,7 +1,7 @@
 """
-Python implementation of the MSD radix sort algorithm.
-It used the binary representation of the integers to sort
-them.
+最高位优先基数排序（MSD Radix Sort）算法的 Python 实现。
+根据整数的二进制表示
+进行排序。
 https://en.wikipedia.org/wiki/Radix_sort
 """
 
@@ -10,10 +10,10 @@ from __future__ import annotations
 
 def msd_radix_sort(list_of_ints: list[int]) -> list[int]:
     """
-    Implementation of the MSD radix sort algorithm. Only works
-    with positive integers
-    :param list_of_ints: A list of integers
-    :return: Returns the sorted list
+    最高位优先基数排序算法的实现，仅适用于
+    正整数
+    :param list_of_ints: 整数列表
+    :return: 返回排序后的列表
     >>> msd_radix_sort([40, 12, 1, 100, 4])
     [1, 4, 12, 40, 100]
     >>> msd_radix_sort([])
@@ -39,12 +39,12 @@ def msd_radix_sort(list_of_ints: list[int]) -> list[int]:
 
 def _msd_radix_sort(list_of_ints: list[int], bit_position: int) -> list[int]:
     """
-    Sort the given list based on the bit at bit_position. Numbers with a
-    0 at that position will be at the start of the list, numbers with a
-    1 at the end.
-    :param list_of_ints: A list of integers
-    :param bit_position: the position of the bit that gets compared
-    :return: Returns a partially sorted list
+    根据 bit_position 处的位对列表排序。该位为
+    0 的数放在列表前部，该位为
+    1 的数放在后部。
+    :param list_of_ints: 整数列表
+    :param bit_position: 待比较的位的位置
+    :return: 返回部分排序后的列表
     >>> _msd_radix_sort([45, 2, 32], 1)
     [2, 32, 45]
     >>> _msd_radix_sort([10, 4, 12], 2)
@@ -55,20 +55,20 @@ def _msd_radix_sort(list_of_ints: list[int], bit_position: int) -> list[int]:
 
     zeros = []
     ones = []
-    # Split numbers based on bit at bit_position from the right
+    # 根据从右侧起 bit_position 处的位划分整数
     for number in list_of_ints:
         if (number >> (bit_position - 1)) & 1:
-            # number has a one at bit bit_position
+            # 该整数在 bit_position 处为 1
             ones.append(number)
         else:
-            # number has a zero at bit bit_position
+            # 该整数在 bit_position 处为 0
             zeros.append(number)
 
-    # recursively split both lists further
+    # 递归进一步划分两个列表
     zeros = _msd_radix_sort(zeros, bit_position - 1)
     ones = _msd_radix_sort(ones, bit_position - 1)
 
-    # recombine lists
+    # 重新合并列表
     res = zeros
     res.extend(ones)
 
@@ -77,8 +77,8 @@ def _msd_radix_sort(list_of_ints: list[int], bit_position: int) -> list[int]:
 
 def msd_radix_sort_inplace(list_of_ints: list[int]) -> None:
     """
-    Inplace implementation of the MSD radix sort algorithm.
-    Sorts based on the binary representation of the integers.
+    最高位优先基数排序算法的原地实现。
+    根据整数的二进制表示排序。
     >>> lst = [1, 345, 23, 89, 0, 3]
     >>> msd_radix_sort_inplace(lst)
     >>> lst == sorted(lst)
@@ -113,9 +113,9 @@ def _msd_radix_sort_inplace(
     list_of_ints: list[int], bit_position: int, begin_index: int, end_index: int
 ) -> None:
     """
-    Sort the given list based on the bit at bit_position. Numbers with a
-    0 at that position will be at the start of the list, numbers with a
-    1 at the end.
+    根据 bit_position 处的位对列表排序。该位为
+    0 的数放在列表前部，该位为
+    1 的数放在后部。
     >>> lst = [45, 2, 32, 24, 534, 2932]
     >>> _msd_radix_sort_inplace(lst, 1, 0, 3)
     >>> lst == [32, 2, 45, 24, 534, 2932]
@@ -135,11 +135,11 @@ def _msd_radix_sort_inplace(
     while i <= j:
         changed = False
         if not (list_of_ints[i] >> bit_position) & 1:
-            # found zero at the beginning
+            # 在前部找到零
             i += 1
             changed = True
         if (list_of_ints[j] >> bit_position) & 1:
-            # found one at the end
+            # 在后部找到一
             j -= 1
             changed = True
 

@@ -1,15 +1,15 @@
 """
 Source: https://en.wikipedia.org/wiki/Odd%E2%80%93even_sort
 
-This is a non-parallelized implementation of odd-even transposition sort.
+奇偶交换排序（Odd-Even Transposition Sort）的非并行实现。
 
-Normally the swaps in each set happen simultaneously, without that the algorithm
-is no better than bubble sort.
+通常每组中的交换同时进行，若不并行，
+算法并不优于冒泡排序。
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v odd_even_transposition_single_threaded.py
 
-For manual testing run:
+手动测试请运行：
 python3 odd_even_transposition_single_threaded.py
 """
 
@@ -22,17 +22,17 @@ class Comparable(Protocol):
 
 def odd_even_transposition[T: Comparable](collection: list[T]) -> list[T]:
     """
-    Sort a list in place using the odd-even transposition sort algorithm.
+    使用奇偶交换排序算法原地排序列表。
 
-    The algorithm alternates between comparing-and-swapping even-indexed and
-    odd-indexed adjacent pairs until the collection is fully sorted.  Because
-    each pass compares a disjoint set of pairs, the passes can be parallelized;
-    this implementation walks the pairs sequentially.
+    交替比较并交换偶数索引和奇数索引开头的
+    相邻元素对，直到集合完全有序。由于
+    每轮比较的元素对互不重叠，各轮可以并行执行；
+    本实现按顺序处理这些元素对。
 
-    :param collection: a mutable ordered collection with comparable items
-    :return: the same collection, sorted in ascending order
+    :param collection: 元素可比较的可变有序集合
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> odd_even_transposition([5, 4, 3, 2, 1])
     [1, 2, 3, 4, 5]
     >>> odd_even_transposition([13, 11, 18, 0, -1]) == sorted([13, 11, 18, 0, -1])

@@ -1,6 +1,6 @@
 """
-smallest_range function takes a list of sorted integer lists and finds the smallest
-range that includes at least one number from each list, using a min heap for efficiency.
+smallest_range 接收由有序整数列表组成的列表，找出
+至少包含每个列表中一个数的最小区间，并使用最小堆提高效率。
 """
 
 from heapq import heappop, heappush
@@ -9,17 +9,17 @@ from sys import maxsize
 
 def smallest_range(nums: list[list[int]]) -> list[int]:
     """
-    Find the smallest range from each list in nums.
+    求覆盖 nums 中每个列表的最小区间。
 
-    Uses min heap for efficiency. The range includes at least one number from each list.
+    使用最小堆（Min Heap）提高效率。区间至少包含每个列表中的一个数。
 
     Args:
-        `nums`: List of k sorted integer lists.
+        `nums`: 由 k 个有序整数列表组成的列表。
 
     Returns:
-        list: Smallest range as a two-element list.
+        list: 以两个元素组成的列表表示最小区间。
 
-    Examples:
+    示例：
 
     >>> smallest_range([[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]])
     [20, 24]
@@ -46,7 +46,7 @@ def smallest_range(nums: list[list[int]]) -> list[int]:
         heappush(min_heap, (items[0], i, 0))
         current_max = max(current_max, items[0])
 
-    # Initialize smallest_range with large integer values
+    # 使用较大的整数初始化 smallest_range
     smallest_range = [-maxsize - 1, maxsize]
 
     while min_heap:

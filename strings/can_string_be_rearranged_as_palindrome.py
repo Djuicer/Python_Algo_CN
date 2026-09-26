@@ -3,17 +3,17 @@
 from collections import Counter
 from timeit import timeit
 
-# Problem Description:
-# Check if characters of the given string can be rearranged to form a palindrome.
-# Counter is faster for long strings and non-Counter is faster for short strings.
+# 问题描述：
+# 检查给定字符串的字符能否重新排列为回文。
+# 长字符串使用 Counter 更快，短字符串不使用 Counter 更快。
 
 
 def can_string_be_rearranged_as_palindrome_counter(
     input_str: str = "",
 ) -> bool:
     """
-    A Palindrome is a String that reads the same forward as it does backwards.
-    Examples of Palindromes mom, dad, malayalam
+    回文（Palindrome）是正读与反读相同的字符串。
+    回文示例：mom、dad、malayalam
     >>> can_string_be_rearranged_as_palindrome_counter("Momo")
     True
     >>> can_string_be_rearranged_as_palindrome_counter("Mother")
@@ -28,8 +28,8 @@ def can_string_be_rearranged_as_palindrome_counter(
 
 def can_string_be_rearranged_as_palindrome(input_str: str = "") -> bool:
     """
-    A Palindrome is a String that reads the same forward as it does backwards.
-    Examples of Palindromes mom, dad, malayalam
+    回文（Palindrome）是正读与反读相同的字符串。
+    回文示例：mom、dad、malayalam
     >>> can_string_be_rearranged_as_palindrome("Momo")
     True
     >>> can_string_be_rearranged_as_palindrome("Mother")
@@ -42,14 +42,14 @@ def can_string_be_rearranged_as_palindrome(input_str: str = "") -> bool:
     if len(input_str) == 0:
         return True
     lower_case_input_str = input_str.replace(" ", "").lower()
-    # character_freq_dict: Stores the frequency of every character in the input string
+    # character_freq_dict: 保存输入字符串中每个字符的频次
     character_freq_dict: dict[str, int] = {}
 
     for character in lower_case_input_str:
         character_freq_dict[character] = character_freq_dict.get(character, 0) + 1
     """
-    Above line of code is equivalent to:
-    1) Getting the frequency of current character till previous index
+    上面一行代码等价于：
+    1) 获取截至前一个索引时当前字符的频次
     >>> character_freq =  character_freq_dict.get(character, 0)
     2) Incrementing the frequency of current character by 1
     >>> character_freq = character_freq + 1
@@ -57,15 +57,15 @@ def can_string_be_rearranged_as_palindrome(input_str: str = "") -> bool:
     >>> character_freq_dict[character] = character_freq
     """
     """
-    OBSERVATIONS:
-    Even length palindrome
-    -> Every character appears even no.of times.
-    Odd length palindrome
-    -> Every character appears even no.of times except for one character.
-    LOGIC:
-    Step 1: We'll count number of characters that appear odd number of times i.e oddChar
-    Step 2:If we find more than 1 character that appears odd number of times,
-    It is not possible to rearrange as a palindrome
+    观察：
+    偶数长度的回文
+    -> 每个字符均出现偶数次。
+    奇数长度的回文
+    -> 除一个字符外，其余字符均出现偶数次。
+    逻辑：
+    第 1 步：统计出现奇数次的字符数量，即 oddChar
+    第 2 步：若有超过一个字符出现奇数次，
+    则无法重新排列为回文
     """
     odd_char = 0
 
@@ -77,7 +77,7 @@ def can_string_be_rearranged_as_palindrome(input_str: str = "") -> bool:
 
 def benchmark(input_str: str = "") -> None:
     """
-    Benchmark code for comparing above 2 functions
+    比较上述两个函数的基准测试代码
     """
     print("\nFor string = ", input_str, ":")
     print(

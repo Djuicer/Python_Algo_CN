@@ -1,66 +1,66 @@
 r"""
-Problem:
+问题：
 
-The n queens problem is: placing N queens on a N * N chess board such that no queen
-can attack any other queens placed on that chess board.  This means that one queen
-cannot have any other queen on its horizontal, vertical and diagonal lines.
+N 皇后（N-Queens）问题要求在 N * N 棋盘上放置 N 个皇后，
+使任意皇后都无法攻击其他皇后。也就是说，每个皇后
+所在的横线、竖线和对角线上都不能有其他皇后。
 
-Solution:
+解法：
 
-To solve this problem we will use simple math. First we know the queen can move in all
-the possible ways, we can simplify it in this: vertical, horizontal, diagonal left and
- diagonal right.
+使用简单的数学知识求解。皇后可以沿所有
+允许的方向移动，概括为：竖直、水平、左对角线和
+ 右对角线。
 
-We can visualize it like this:
+可以直观地表示为：
 
-left diagonal = \
-right diagonal = /
+左对角线 = \
+右对角线 = /
 
-On a chessboard vertical movement could be the rows and horizontal movement could be
-the columns.
+在棋盘上，竖直移动可以对应行的变化，水平移动可以对应
+列的变化。
 
-In programming we can use an array, and in this array each index could be the rows and
-each value in the array could be the column. For example:
+在程序中可以使用数组，每个索引表示行，
+每个值表示列。例如：
 
-    . Q . .     We have this chessboard with one queen in each column and each queen
-    . . . Q     can't attack to each other.
-    Q . . .     The array for this example would look like this: [1, 3, 0, 2]
+    . Q . .     此棋盘每列都有一个皇后，且皇后之间
+    . . . Q     不能互相攻击。
+    Q . . .     对应的数组为：[1, 3, 0, 2]
     . . Q .
 
-So if we use an array and we verify that each value in the array is different to each
-other we know that at least the queens can't attack each other in horizontal and
-vertical.
+若使用数组，并验证其中各值互不相同，
+就能保证皇后至少不会在水平和
+竖直方向上互相攻击。
 
-At this point we have it halfway completed and we will treat the chessboard as a
-Cartesian plane.  Hereinafter we are going to remember basic math, so in the school we
-learned this formula:
+至此已完成一半，接下来将棋盘视为
+笛卡尔坐标平面。回顾基础数学知识，
+可以用到以下公式：
 
-    Slope of a line:
+    直线斜率：
 
            y2 - y1
      m = ----------
           x2 - x1
 
-This formula allow us to get the slope. For the angles 45º (right diagonal) and 135º
-(left diagonal) this formula gives us m = 1, and m = -1 respectively.
+此公式可以求出斜率。对于 45º（右对角线）和 135º
+（左对角线），计算结果分别为 m = 1 和 m = -1。
 
-See::
+参见：
 https://www.enotes.com/homework-help/write-equation-line-that-hits-origin-45-degree-1474860
 
-Then we have this other formula:
+另有以下公式：
 
-Slope intercept:
+斜截式：
 
 y = mx + b
 
-b is where the line crosses the Y axis (to get more information see:
-https://www.mathsisfun.com/y_intercept.html), if we change the formula to solve for b
-we would have:
+b 表示直线与 Y 轴的交点纵坐标（更多信息见：
+https://www.mathsisfun.com/y_intercept.html），将公式改写为求 b，
+得到：
 
 y - mx = b
 
-And since we already have the m values for the angles 45º and 135º, this formula would
-look like this:
+已知 45º 和 135º 对应的 m 值，公式可写为
+如下形式：
 
 45º: y - (1)x = b
 45º: y - x = b
@@ -71,8 +71,8 @@ look like this:
 y = row
 x = column
 
-Applying these two formulas we can check if a queen in some position is being attacked
-for another one or vice versa.
+应用这两个公式，可以检查某个位置的皇后是否受到
+另一个皇后的攻击，反之亦然。
 
 """
 
@@ -95,32 +95,32 @@ def depth_first_search(
     ['. . Q . ', 'Q . . . ', '. . . Q ', '. Q . . ']
     """
 
-    # Get next row in the current board (possible_board) to fill it with a queen
+    # 获取当前棋盘（possible_board）中下一个待放置皇后的行
     row = len(possible_board)
 
-    # If row is equal to the size of the board it means there are a queen in each row in
-    # the current board (possible_board)
+    # 若 row 等于棋盘大小，则当前棋盘（possible_board）的每一行
+    # 都已有一个皇后
     if row == n:
-        # We convert the variable possible_board that looks like this: [1, 3, 0, 2] to
+        # 将 possible_board 从 [1, 3, 0, 2] 这样的形式转换为
         # this: ['. Q . . ', '. . . Q ', 'Q . . . ', '. . Q . ']
         boards.append([". " * i + "Q " + ". " * (n - 1 - i) for i in possible_board])
         return
 
-    # We iterate each column in the row to find all possible results in each row
+    # 遍历该行的每一列，以找出该行所有可能的放置结果
     for col in range(n):
-        # We apply that we learned previously. First we check that in the current board
-        # (possible_board) there are not other same value because if there is it means
-        # that there are a collision in vertical. Then we apply the two formulas we
-        # learned before:
+        # 应用前述知识。首先检查当前棋盘
+        # （possible_board）中是否存在相同值；如果存在，
+        # 就表示竖直方向上发生冲突。然后应用之前介绍的
+        # 两个公式：
         #
         # 45º: y - x = b or 45: row - col = b
         # 135º: y + x = b or row + col = b.
         #
-        # And we verify if the results of this two formulas not exist in their variables
-        # respectively.  (diagonal_right_collisions, diagonal_left_collisions)
+        # 检查这两个公式的结果是否分别不存在于
+        # 对应变量中。（diagonal_right_collisions, diagonal_left_collisions）
         #
-        # If any or these are True it means there is a collision so we continue to the
-        # next value in the for loop.
+        # 若任意一项为 True，说明存在冲突，因此继续处理
+        # for 循环中的下一个值。
         if (
             col in possible_board
             or row - col in diagonal_right_collisions
@@ -128,7 +128,7 @@ def depth_first_search(
         ):
             continue
 
-        # If it is False we call dfs function again and we update the inputs
+        # 若为 False，则更新输入并再次调用 dfs 函数
         depth_first_search(
             [*possible_board, col],
             [*diagonal_right_collisions, row - col],
@@ -142,7 +142,7 @@ def n_queens_solution(n: int) -> None:
     boards: list[list[str]] = []
     depth_first_search([], [], [], boards, n)
 
-    # Print all the boards
+    # 输出所有棋盘
     for board in boards:
         for column in board:
             print(column)

@@ -70,7 +70,7 @@ class Automaton:
         >>> A.search_in("whatever, err ... , wherever")
         {'what': [0], 'hat': [1], 'ver': [5, 25], 'er': [6, 10, 22, 26]}
         """
-        result: dict = {}  # returns a dict with keywords and list of its occurrences
+        result: dict = {}  # 返回字典，键为关键词，值为其出现位置的列表
         current_state = 0
         for i in range(len(string)):
             while (

@@ -1,16 +1,16 @@
 """
-Heap's (iterative) algorithm returns the list of all permutations possible from a list.
-It minimizes movement by generating each permutation from the previous one
-by swapping only two elements.
-More information:
+Heap 算法（Heap's Algorithm）的迭代版本返回列表的所有可能排列。
+每次只交换两个元素，从上一个排列生成下一个排列，
+以尽量减少元素移动。
+更多信息：
 https://en.wikipedia.org/wiki/Heap%27s_algorithm.
 """
 
 
 def heaps(arr: list) -> list:
     """
-    Pure python implementation of the iterative Heap's algorithm,
-    returning all permutations of a list.
+    Heap 算法的纯 Python 迭代实现，
+    返回列表的所有排列。
     >>> heaps([])
     [()]
     >>> heaps([0])

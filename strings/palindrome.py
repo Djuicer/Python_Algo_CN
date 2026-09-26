@@ -1,4 +1,4 @@
-# Algorithms to determine if a string is palindrome
+# 判断字符串是否为回文的算法
 
 from timeit import timeit
 
@@ -14,13 +14,13 @@ test_data = {
     "abcdba": False,
     "AB": False,
 }
-# Ensure our test data is valid
+# 确保测试数据有效
 assert all((key == key[::-1]) == value for key, value in test_data.items())
 
 
 def is_palindrome(s: str) -> bool:
     """
-    Return True if s is a palindrome otherwise return False.
+    s 是回文时返回 True，否则返回 False。
 
     >>> all(is_palindrome(key) == value for key, value in test_data.items())
     True
@@ -39,7 +39,7 @@ def is_palindrome(s: str) -> bool:
 
 def is_palindrome_traversal(s: str) -> bool:
     """
-    Return True if s is a palindrome otherwise return False.
+    s 是回文时返回 True，否则返回 False。
 
     >>> all(is_palindrome_traversal(key) == value for key, value in test_data.items())
     True
@@ -47,18 +47,18 @@ def is_palindrome_traversal(s: str) -> bool:
     end = len(s) // 2
     n = len(s)
 
-    # We need to traverse till half of the length of string
-    # as we can get access of the i'th last element from
-    # i'th index.
-    # eg: [0,1,2,3,4,5] => 4th index can be accessed
-    # with the help of 1st index (i==n-i-1)
-    # where n is length of string
+    # 只需遍历到字符串长度的一半，
+    # 因为可以通过第 i 个索引
+    # 访问倒数第 i 个元素。
+    # 例如：[0,1,2,3,4,5] 的第 4 个索引可借助
+    # 第 1 个索引访问（i==n-i-1），
+    # 其中 n 为字符串长度
     return all(s[i] == s[n - i - 1] for i in range(end))
 
 
 def is_palindrome_recursive(s: str) -> bool:
     """
-    Return True if s is a palindrome otherwise return False.
+    s 是回文时返回 True，否则返回 False。
 
     >>> all(is_palindrome_recursive(key) == value for key, value in test_data.items())
     True
@@ -73,7 +73,7 @@ def is_palindrome_recursive(s: str) -> bool:
 
 def is_palindrome_slice(s: str) -> bool:
     """
-    Return True if s is a palindrome otherwise return False.
+    s 是回文时返回 True，否则返回 False。
 
     >>> all(is_palindrome_slice(key) == value for key, value in test_data.items())
     True
@@ -83,8 +83,8 @@ def is_palindrome_slice(s: str) -> bool:
 
 def is_palindrome_ignore_case_and_spaces(s: str) -> bool:
     """
-    Return True if s is a palindrome, ignoring case, spaces, and punctuation.
-    Otherwise return False.
+    忽略大小写、空格和标点后，若 s 是回文则返回 True。
+    否则返回 False。
 
     >>> is_palindrome_ignore_case_and_spaces("A man a plan a canal Panama")
     True

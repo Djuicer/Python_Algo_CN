@@ -1,15 +1,15 @@
 def hamming_distance(string1: str, string2: str) -> int:
-    """Calculate the Hamming distance between two equal length strings
-    In information theory, the Hamming distance between two strings of equal
-    length is the number of positions at which the corresponding symbols are
-    different. https://en.wikipedia.org/wiki/Hamming_distance
+    """计算两个等长字符串之间的汉明距离（Hamming Distance）
+    在信息论中，两个等长字符串的汉明距离
+    是对应位置的符号
+    不同的位置数。https://en.wikipedia.org/wiki/Hamming_distance
 
     Args:
-        string1 (str): Sequence 1
-        string2 (str): Sequence 2
+        string1 (str): 序列 1
+        string2 (str): 序列 2
 
     Returns:
-        int: Hamming distance
+        int: 汉明距离
 
     >>> hamming_distance("python", "python")
     0

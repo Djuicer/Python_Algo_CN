@@ -7,7 +7,7 @@ def is_pangram(
     input_str: str = "The quick brown fox jumps over the lazy dog",
 ) -> bool:
     """
-    A Pangram String contains all the alphabets at least once.
+    全字母句（Pangram）至少包含字母表中的每个字母一次。
     >>> is_pangram("The quick brown fox jumps over the lazy dog")
     True
     >>> is_pangram("Waltz, bad nymph, for quick jigs vex.")
@@ -21,10 +21,10 @@ def is_pangram(
     >>> is_pangram()
     True
     """
-    # Declare frequency as a set to have unique occurrences of letters
+    # 将 frequency 声明为集合，以记录不同的字母
     frequency = set()
 
-    # Replace all the whitespace in our sentence
+    # 替换句子中的所有空白字符
     input_str = input_str.replace(" ", "")
     for alpha in input_str:
         if "a" <= alpha.lower() <= "z":
@@ -76,7 +76,7 @@ def is_pangram_fastest(
 
 def benchmark() -> None:
     """
-    Benchmark code comparing different version.
+    比较不同版本的基准测试代码。
     """
     from timeit import timeit
 

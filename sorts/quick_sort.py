@@ -1,10 +1,10 @@
 """
-A pure Python implementation of the quick sort algorithm
+快速排序（Quick Sort）算法的纯 Python 实现
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v quick_sort.py
 
-For manual testing run:
+手动测试请运行：
 python3 quick_sort.py
 """
 
@@ -19,12 +19,12 @@ class Comparable(Protocol):
 
 
 def quick_sort[T: Comparable](collection: list[T]) -> list[T]:
-    """A pure Python implementation of quicksort algorithm.
+    """快速排序算法的纯 Python 实现。
 
-    :param collection: a mutable collection of comparable items
-    :return: the same collection ordered in ascending order
+    :param collection: 元素可比较的可变集合
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> quick_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> quick_sort([])

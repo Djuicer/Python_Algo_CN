@@ -1,11 +1,11 @@
 """
-Boyer-Moore-Horspool string-search algorithm.
+Boyer-Moore-Horspool 字符串搜索算法。
 
-A simplification of the Boyer-Moore algorithm that keeps only the
-bad-character shift table (Horspool's variant).  It still runs in
-sub-linear time on average (roughly O(n / m) for random text) while
-worst case is O(n * m).  Memory is O(sigma) where sigma is the size
-of the alphabet that appears in the pattern.
+这是 Boyer-Moore 算法的简化版本，只保留
+坏字符位移表（Horspool 变体）。其平均运行时间仍为
+次线性（随机文本约为 O(n / m)），
+最坏为 O(n * m)。空间为 O(sigma)，其中 sigma 为
+模式中出现的字符集大小。
 
 Reference: https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm
 """
@@ -15,12 +15,12 @@ from __future__ import annotations
 
 def _build_shift_table(pattern: str) -> dict[str, int]:
     """
-    Build the bad-character shift table for ``pattern``.
+    构建 ``pattern`` 的坏字符位移表。
 
-    For every character in the pattern except the last one, the table
-    stores the distance from that character to the end of the pattern.
-    Characters that do not appear in the pattern fall back to ``len(pattern)``
-    at lookup time.
+    对于模式中除最后一个字符外的各个字符，
+    表中记录该字符到模式末尾的距离。
+    模式中未出现的字符在查询时
+    使用默认值 ``len(pattern)``。
 
     >>> _build_shift_table("abcab")
     {'a': 1, 'b': 3, 'c': 2}
@@ -40,11 +40,11 @@ def _build_shift_table(pattern: str) -> dict[str, int]:
 
 def boyer_moore_horspool_search(text: str, pattern: str) -> int:
     """
-    Return the index of the first occurrence of ``pattern`` in ``text``
-    or ``-1`` if the pattern does not appear.
+    返回 ``pattern`` 在 ``text`` 中第一次出现的索引，
+    未出现则返回 ``-1``。
 
-    An empty pattern matches at position ``0`` (the same convention used by
-    :py:meth:`str.find`).
+    空模式在位置 ``0`` 匹配（与
+    :py:meth:`str.find` 的约定一致）。
 
     >>> boyer_moore_horspool_search("ABAAABCD", "ABC")
     4
@@ -85,12 +85,12 @@ def boyer_moore_horspool_search(text: str, pattern: str) -> int:
 
 def boyer_moore_horspool_search_all(text: str, pattern: str) -> list[int]:
     """
-    Return every starting index where ``pattern`` occurs in ``text``.
+    返回 ``pattern`` 在 ``text`` 中所有出现位置的起始索引。
 
-    Overlapping matches are reported (e.g. ``"aaa"`` contains ``"aa"``
-    at indices ``0`` and ``1``).  An empty pattern matches at every
-    position from ``0`` to ``len(text)`` inclusive, mirroring
-    :py:meth:`str.find` and :py:func:`re.finditer` conventions.
+    包含重叠匹配（例如 ``"aaa"`` 中的 ``"aa"``
+    出现在索引 ``0`` 和 ``1``）。空模式在
+    ``0`` 到 ``len(text)``（包含两端）的所有位置匹配，与
+    :py:meth:`str.find` 和 :py:func:`re.finditer` 的约定一致。
 
     >>> boyer_moore_horspool_search_all("ababcabab", "ab")
     [0, 2, 5, 7]

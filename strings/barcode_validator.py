@@ -5,9 +5,9 @@ https://en.wikipedia.org/wiki/Check_digit#Algorithms
 
 def get_check_digit(barcode: int) -> int:
     """
-    Returns the last digit of barcode by excluding the last digit first
-    and then computing to reach the actual last digit from the remaining
-    12 digits.
+    先去掉条形码的最后一位，
+    再根据剩余的 12 位计算，
+    返回实际应有的最后一位。
 
     >>> get_check_digit(8718452538119)
     9
@@ -18,11 +18,11 @@ def get_check_digit(barcode: int) -> int:
     >>> [get_check_digit(x) for x in range(0, 100, 10)]
     [0, 7, 4, 1, 8, 5, 2, 9, 6, 3]
     """
-    barcode //= 10  # exclude the last digit
+    barcode //= 10  # 去掉最后一位
     checker = False
     s = 0
 
-    # extract and check each digit
+    # 提取并检查每一位
     while barcode != 0:
         mult = 1 if checker else 3
         s += mult * (barcode % 10)
@@ -34,8 +34,8 @@ def get_check_digit(barcode: int) -> int:
 
 def is_valid(barcode: int) -> bool:
     """
-    Checks for length of barcode and last-digit
-    Returns boolean value of validity of barcode
+    检查条形码长度及最后一位
+    返回表示条形码是否有效的布尔值
 
     >>> is_valid(8718452538119)
     True
@@ -55,7 +55,7 @@ def is_valid(barcode: int) -> bool:
 
 def get_barcode(barcode: str) -> int:
     """
-    Returns the barcode as an integer
+    以整数形式返回条形码
 
     >>> get_barcode("8718452538119")
     8718452538119
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
     """
-    Enter a barcode.
+    输入条形码。
 
     """
     barcode = get_barcode(input("Barcode: ").strip())

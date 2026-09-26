@@ -1,17 +1,17 @@
 """
-Smoothsort algorithm implementation.
+平滑排序（Smoothsort）算法实现。
 
-Smoothsort is an adaptive, in-place comparison sort invented by Edsger W. Dijkstra.
-It runs in O(n log n) worst-case and degrades gracefully to O(n) for nearly sorted data.
-It uses a forest of Leonardo heaps to achieve this adaptive behaviour.
+平滑排序由 Edsger W. Dijkstra 提出，是一种自适应的原地比较排序。
+最坏时间复杂度为 O(n log n)，对于近乎有序的数据可改善至 O(n)。
+通过莱昂纳多堆（Leonardo Heap）森林实现自适应行为。
 
 Reference:
     https://en.wikipedia.org/wiki/Smoothsort
     https://www.cs.utexas.edu/~EWD/ewd07xx/EWD796a.PDF
 """
 
-# Precomputed Leonardo numbers: L(0)=1, L(1)=1, L(k)=L(k-1)+L(k-2)+1.
-# 46 values comfortably cover all practical list sizes.
+# 预先计算的莱昂纳多数：L(0)=1、L(1)=1、L(k)=L(k-1)+L(k-2)+1。
+# 46 个值足以覆盖实际使用的列表规模。
 _LEONARDO: list[int] = [1, 1]
 while _LEONARDO[-1] < 2**31:
     _LEONARDO.append(_LEONARDO[-1] + _LEONARDO[-2] + 1)
@@ -19,22 +19,22 @@ while _LEONARDO[-1] < 2**31:
 
 def _sift(seq: list[int], root: int, order: int) -> None:
     """
-    Restore the max-heap property within a Leonardo tree of the given ``order``.
+    恢复给定 ``order`` 阶莱昂纳多树内部的最大堆性质。
 
-    Sifts ``seq[root]`` downward until the subtree satisfies the Leonardo
-    max-heap invariant: every node is >= both of its children.
-    Trees of order 0 or 1 are single nodes and already satisfy the invariant.
+    将 ``seq[root]`` 向下筛选，直到子树满足莱昂纳多
+    最大堆不变式：每个节点均 >= 其两个子节点。
+    0 阶和 1 阶树只有一个节点，已满足该不变式。
 
-    In a Leonardo tree of order k rooted at index ``root``:
-      - the right child root is at ``root - 1``
-      - the left  child root is at ``root - 1 - L(k-2)``
+    在根索引为 ``root`` 的 k 阶莱昂纳多树中：
+      - 右子树根位于 ``root - 1``
+      - 左子树根位于 ``root - 1 - L(k-2)``
 
     Args:
-        seq:   The list being sorted (mutated in-place).
-        root:  Index of the root of the Leonardo tree to fix.
-        order: Leonardo order of the tree rooted at ``root``.
+        seq:   待排序列表（原地修改）。
+        root:  待修复莱昂纳多树的根索引。
+        order: 以 ``root`` 为根的莱昂纳多树的阶。
 
-    Examples:
+    示例：
         >>> data = [3, 5, 4]
         >>> _sift(data, 2, 2)
         >>> data
@@ -56,8 +56,8 @@ def _sift(seq: list[int], root: int, order: int) -> None:
         [3, 1, 9, 5, 8]
     """
     while order > 1:
-        right = root - 1  # right child root
-        left = root - 1 - _LEONARDO[order - 2]  # left child root
+        right = root - 1  # 右子树根
+        left = root - 1 - _LEONARDO[order - 2]  # 左子树根
 
         if seq[left] >= seq[right] and seq[left] > seq[root]:
             seq[root], seq[left] = seq[left], seq[root]
@@ -78,21 +78,21 @@ def _trinkle(
     idx: int,
 ) -> None:
     """
-    Restore both the inter-heap root ordering and the intra-heap ordering.
+    同时恢复堆根之间和各堆内部的顺序。
 
-    Walks the value at ``pos`` leftwards through the forest-root chain as
-    long as the left-neighbour root is larger, then calls ``_sift`` to fix
-    the heap at the final resting position.
+    只要左邻堆根更大，就将 ``pos`` 处的值沿森林的根链
+    向左移动，然后调用 ``_sift``，修复
+    最终位置上的堆。
 
     Args:
-        seq:        The list being sorted (mutated in-place).
-        pos:        Index of the root being inserted or newly exposed.
-        heap_sizes: List of Leonardo orders for the current forest (left to
-                    right); ``heap_sizes[idx]`` is the order of the tree
-                    whose root is at ``pos``.
-        idx:        Position in ``heap_sizes`` for the tree rooted at ``pos``.
+        seq:        待排序列表（原地修改）。
+        pos:        正在插入或刚暴露的根索引。
+        heap_sizes: 当前森林中各莱昂纳多树的阶（从左到
+                    右）；``heap_sizes[idx]`` 是根位于
+                    ``pos`` 的树的阶。
+        idx:        以 ``pos`` 为根的树在 ``heap_sizes`` 中的位置。
 
-    Examples:
+    示例：
         >>> data = [1, 5, 3]
         >>> _trinkle(data, 2, [1, 1], 1)
         >>> data
@@ -107,8 +107,8 @@ def _trinkle(
         prev_root = pos - _LEONARDO[heap_sizes[idx]]
         if seq[pos] >= seq[prev_root]:
             break
-        # Only swap if prev_root is also >= its own children; otherwise
-        # moving it would break the heap on the left side.
+        # 仅当 prev_root 也 >= 自身子节点时交换，否则
+        # 移动它会破坏左侧的堆。
         if heap_sizes[idx] > 1:
             right = pos - 1
             left = pos - 1 - _LEONARDO[heap_sizes[idx] - 2]
@@ -123,20 +123,20 @@ def _trinkle(
 
 def smoothsort(seq: list[int]) -> list[int]:
     """
-    Sort a list in-place using the Smoothsort algorithm and return it.
+    使用平滑排序原地排序列表并返回该列表。
 
-    Smoothsort (Edsger W. Dijkstra, 1981) is an adaptive, in-place sort
-    with O(n log n) worst-case time and O(n) best-case time on already-sorted
-    input.  It improves on Heapsort by maintaining a forest of Leonardo heaps
-    whose structure mirrors the sorted prefix of the sequence.
+    平滑排序（Edsger W. Dijkstra，1981）是一种自适应原地排序，
+    最坏时间复杂度为 O(n log n)，输入已有序时的最好时间为
+    O(n)。通过维护莱昂纳多堆森林来改进堆排序，
+    森林结构反映序列中已排序的前缀。
 
     Args:
-        seq: A list of integers to sort.
+        seq: 待排序的整数列表。
 
     Returns:
-        The same list object, sorted in ascending order.
+        按升序排列后的同一个列表对象。
 
-    Examples:
+    示例：
         >>> smoothsort([4, 1, 3, 9, 7])
         [1, 3, 4, 7, 9]
         >>> smoothsort([])
@@ -156,14 +156,14 @@ def smoothsort(seq: list[int]) -> list[int]:
     if n < 2:
         return seq
 
-    # ``heap_sizes[i]`` is the Leonardo order of the i-th tree (left to right).
+    # ``heap_sizes[i]`` 为从左到右第 i 棵树的莱昂纳多阶。
     heap_sizes: list[int] = []
 
     # ------------------------------------------------------------------
-    # Phase 1 : Build the Leonardo heap forest over seq[0..n-1].
+    # 阶段 1：在 seq[0..n-1] 上构建莱昂纳多堆森林。
     # ------------------------------------------------------------------
     for i in range(n):
-        # If the two rightmost trees have consecutive orders, merge them.
+        # 若最右侧两棵树的阶连续，则合并它们。
         if len(heap_sizes) >= 2 and heap_sizes[-2] == heap_sizes[-1] + 1:
             heap_sizes.pop()
             heap_sizes[-1] += 1
@@ -175,12 +175,12 @@ def smoothsort(seq: list[int]) -> list[int]:
         _trinkle(seq, i, heap_sizes, len(heap_sizes) - 1)
 
     # ------------------------------------------------------------------
-    # Phase 2 : Extract maximum elements right-to-left.
+    # 阶段 2：从右向左取出最大元素。
     # ------------------------------------------------------------------
     for i in range(n - 1, -1, -1):
         order = heap_sizes.pop()
         if order > 1:
-            # Expose the two child roots and re-trinkle each.
+            # 暴露两个子树根，并分别重新执行 trinkle 调整。
             right_order = order - 2
             left_order = order - 1
             right_pos = i - 1

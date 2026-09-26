@@ -1,9 +1,9 @@
 """
-In this problem, we want to determine all possible subsequences
-of the given sequence. We use backtracking to solve this problem.
+本问题要求确定给定序列的
+所有可能子序列。使用回溯法（Backtracking）求解。
 
-Time complexity: O(2^n),
-where n denotes the length of the given sequence.
+时间复杂度：O(2^n)，
+其中 n 表示给定序列的长度。
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from typing import Any
 
 def generate_all_subsequences(sequence: list[Any]) -> None:
     """
-    Generate and print all possible subsequences of the given sequence.
+    生成并输出给定序列的所有可能子序列。
 
     >>> generate_all_subsequences([1, 2])
     []
@@ -34,15 +34,15 @@ def create_state_space_tree(
     sequence: list[Any], current_subsequence: list[Any], index: int
 ) -> None:
     """
-    Creates a state space tree to iterate through each branch using DFS.
-    We know that each state has exactly two children.
-    It terminates when it reaches the end of the given sequence.
+    创建状态空间树，使用深度优先搜索（DFS）遍历各分支。
+    每个状态恰有两个子节点。
+    到达给定序列末尾时终止。
 
-    :param sequence: The input sequence for which subsequences are generated.
-    :param current_subsequence: The current subsequence being built.
-    :param index: The current index in the sequence.
+    :param sequence: 待生成子序列的输入序列。
+    :param current_subsequence: 正在构建的当前子序列。
+    :param index: 序列中的当前索引。
 
-    Example:
+    示例：
     >>> sequence = [3, 2, 1]
     >>> current_subsequence = []
     >>> create_state_space_tree(sequence, current_subsequence, 0)

@@ -1,11 +1,11 @@
 """
-Implementation of iterative merge sort in Python
+归并排序（Merge Sort）的 Python 迭代实现
 Author: Aman Gupta
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v iterative_merge_sort.py
 
-For manual testing run:
+手动测试请运行：
 python3 iterative_merge_sort.py
 """
 
@@ -20,8 +20,8 @@ class Comparable(Protocol):
 
 def merge[T: Comparable](input_list: list[T], low: int, mid: int, high: int) -> list[T]:
     """
-    sorting left-half and right-half individually
-    then merging them into result
+    分别对左右两半排序，
+    然后将其合并为结果
     """
     result: list[T] = []
     left, right = input_list[low:mid], input_list[mid : high + 1]
@@ -31,10 +31,10 @@ def merge[T: Comparable](input_list: list[T], low: int, mid: int, high: int) -> 
     return input_list
 
 
-# iteration over the unsorted list
+# 遍历无序列表
 def iter_merge_sort[T: Comparable](input_list: list[T]) -> list[T]:
     """
-    Return a sorted copy of the input list
+    返回输入列表的已排序副本
 
     >>> iter_merge_sort([5, 9, 8, 7, 1, 2, 7])
     [1, 2, 5, 7, 7, 8, 9]
@@ -75,16 +75,16 @@ def iter_merge_sort[T: Comparable](input_list: list[T]) -> list[T]:
         return input_list
     input_list = list(input_list)
 
-    # iteration for two-way merging
+    # 进行两路归并的迭代
     p = 2
     while p <= len(input_list):
-        # getting low, high and middle value for merge-sort of single list
+        # 获取单个列表归并排序所需的 low、high 和 middle 值
         for i in range(0, len(input_list), p):
             low = i
             high = i + p - 1
             mid = (low + high + 1) // 2
             input_list = merge(input_list, low, mid, high)
-        # final merge of last two parts
+        # 最后两部分的最终合并
         if p * 2 >= len(input_list):
             mid = i
             input_list = merge(input_list, 0, mid, len(input_list) - 1)

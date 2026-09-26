@@ -1,13 +1,13 @@
 def actual_power(a: int, b: int) -> int:
     """
-    Function using divide and conquer to calculate a^b.
-    It only works for integer a,b.
+    使用分治法计算 a^b。
+    仅适用于整数 a、b。
 
-    :param a: The base of the power operation, an integer.
-    :param b: The exponent of the power operation, a non-negative integer.
-    :return: The result of a^b.
+    :param a: 幂运算的底数，为整数。
+    :param b: 幂运算的指数，为非负整数。
+    :return: a^b 的结果。
 
-    Examples:
+    示例：
     >>> actual_power(3, 2)
     9
     >>> actual_power(5, 3)
@@ -29,9 +29,9 @@ def actual_power(a: int, b: int) -> int:
 
 def power(a: int, b: int) -> float:
     """
-    :param a: The base (integer).
-    :param b: The exponent (integer).
-    :return: The result of a^b, as a float for negative exponents.
+    :param a: 底数（整数）。
+    :param b: 指数（整数）。
+    :return: a^b 的结果；指数为负时返回浮点数。
 
     >>> power(4,6)
     4096

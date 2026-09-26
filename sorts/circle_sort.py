@@ -1,10 +1,10 @@
 """
-This is a Python implementation of the circle sort algorithm
+圆圈排序（Circle Sort）算法的 Python 实现
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v circle_sort.py
 
-For manual testing run:
+手动测试请运行：
 python3 circle_sort.py
 """
 
@@ -19,12 +19,12 @@ class Comparable(Protocol):
 def circle_sort[T: Comparable](
     collection: MutableSequence[T],
 ) -> MutableSequence[T]:
-    """A pure Python implementation of circle sort algorithm
+    """圆圈排序算法的纯 Python 实现
 
-    :param collection: a mutable collection of comparable items in any order
-    :return: the same collection in ascending order
+    :param collection: 顺序任意、元素可比较的可变集合
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> circle_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> circle_sort([])

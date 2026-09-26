@@ -1,6 +1,6 @@
 """
-Introspective Sort is a hybrid sort (Quick Sort + Heap Sort + Insertion Sort)
-if the size of the list is under 16, use insertion sort
+内省排序（Introspective Sort）是一种混合排序（快速排序 + 堆排序 + 插入排序）
+列表大小小于 16 时使用插入排序
 https://en.wikipedia.org/wiki/Introsort
 """
 
@@ -45,14 +45,14 @@ def insertion_sort[T: Comparable](
 
 def heapify[T: Comparable](
     array: list[T], index: int, heap_size: int
-) -> None:  # Max Heap
+) -> None:  # 最大堆
     """
     >>> array = [4, 2, 6, 8, 1, 7, 8, 22, 14, 56, 27, 79, 23, 45, 14, 12]
     >>> heapify(array, len(array) // 2, len(array))
     """
     largest = index
-    left_index = 2 * index + 1  # Left Node
-    right_index = 2 * index + 2  # Right Node
+    left_index = 2 * index + 1  # 左子节点
+    right_index = 2 * index + 2  # 右子节点
 
     if left_index < heap_size and array[largest] < array[left_index]:
         largest = left_index
@@ -145,11 +145,11 @@ def partition[T: Comparable](array: list[T], low: int, high: int, pivot: T) -> i
 
 def sort[T: Comparable](array: list[T]) -> list[T]:
     """
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered by ascending
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> sort([4, 2, 6, 8, 1, 7, 8, 22, 14, 56, 27, 79, 23, 45, 14, 12])
     [1, 2, 4, 6, 7, 8, 8, 12, 14, 14, 22, 23, 27, 45, 56, 79]
     >>> sort([-1, -5, -3, -13, -44])

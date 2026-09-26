@@ -12,12 +12,12 @@ class Item:
     @property
     def ratio(self) -> float:
         """
-        Return the value-to-weight ratio for the item.
+        返回物品的价值与重量之比。
 
         Returns:
-            float: The value-to-weight ratio for the item.
+            float: 物品的价值与重量之比。
 
-        Examples:
+        示例：
         >>> Item(10, 65).ratio
         6.5
 
@@ -32,20 +32,20 @@ class Item:
 
 def fractional_cover(items: list[Item], capacity: int) -> float:
     """
-    Solve the Fractional Cover Problem.
+    求解分数覆盖问题（Fractional Cover Problem）。
 
     Args:
-        items: A list of items, where each item has weight and value attributes.
-        capacity: The maximum weight capacity of the knapsack.
+        items: 物品列表，每个物品都有 weight 和 value 属性。
+        capacity: 背包可承受的最大重量。
 
     Returns:
-        The maximum value that can be obtained by selecting fractions of items to cover
-        the knapsack's capacity.
+        通过选取物品的一部分来填充背包容量，
+        所能获得的最大价值。
 
     Raises:
-        ValueError: If capacity is negative.
+        ValueError: capacity 为负数时抛出。
 
-    Examples:
+    示例：
     >>> fractional_cover((Item(10, 60), Item(20, 100), Item(30, 120)), capacity=50)
     240.0
 
@@ -81,7 +81,7 @@ def fractional_cover(items: list[Item], capacity: int) -> float:
     total_value = 0.0
     remaining_capacity = capacity
 
-    # Sort the items by their value-to-weight ratio in descending order
+    # 按价值与重量之比降序排列物品
     for item in sorted(items, key=attrgetter("ratio"), reverse=True):
         if remaining_capacity == 0:
             break

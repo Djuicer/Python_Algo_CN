@@ -1,34 +1,34 @@
 """
-Implementation of regular expression matching with support for '.' and '*'.
-'.' Matches any single character.
-'*' Matches zero or more of the preceding element.
-The matching should cover the entire input string (not partial).
+实现支持 '.' 和 '*' 的正则表达式匹配。
+'.' 匹配任意单个字符。
+'*' 匹配前一个元素零次或多次。
+匹配应覆盖整个输入字符串，而非部分匹配。
 
 """
 
 
 def match_pattern(input_string: str, pattern: str) -> bool:
     """
-    uses bottom-up dynamic programming solution for matching the input
-    string with a given pattern.
+    使用自底向上的动态规划，匹配输入字符串
+    与给定模式。
 
-    Runtime: O(len(input_string)*len(pattern))
+    运行时间：O(len(input_string)*len(pattern))
 
     Arguments
     --------
-    input_string: str, any string which should be compared with the pattern
-    pattern: str, the string that represents a pattern and may contain
-    '.' for single character matches and '*' for zero or more of preceding character
-    matches
+    input_string: str，待与模式比较的任意字符串
+    pattern: str，表示模式的字符串，可以包含
+    匹配单个字符的 '.'，以及匹配前一个字符零次或多次的
+    '*'
 
     Note
     ----
-    the pattern cannot start with a '*',
-    because there should be at least one character before *
+    模式不能以 '*' 开头，
+    因为 * 前至少应有一个字符
 
     Returns
     -------
-    A Boolean denoting whether the given string follows the pattern
+    表示给定字符串是否匹配模式的布尔值
 
     Examples
     -------
@@ -57,25 +57,25 @@ def match_pattern(input_string: str, pattern: str) -> bool:
     len_string = len(input_string) + 1
     len_pattern = len(pattern) + 1
 
-    # dp is a 2d matrix where dp[i][j] denotes whether prefix string of
-    # length i of input_string matches with prefix string of length j of
-    # given pattern.
-    # "dp" stands for dynamic programming.
+    # dp 是二维矩阵，dp[i][j] 表示 input_string 的
+    # 长度为 i 的前缀，是否与给定 pattern 的长度为 j 的
+    # 前缀匹配。
+    # "dp" 表示动态规划。
     dp = [[0 for i in range(len_pattern)] for j in range(len_string)]
 
-    # since string of zero length match pattern of zero length
+    # 长度为零的字符串与长度为零的模式匹配
     dp[0][0] = 1
 
-    # since pattern of zero length will never match with string of non-zero length
+    # 长度为零的模式永远无法匹配非空字符串
     for i in range(1, len_string):
         dp[i][0] = 0
 
-    # since string of zero length will match with pattern where there
-    # is at least one * alternatively
+    # 长度为零的字符串可以匹配
+    # 含有交替出现的 * 的模式
     for j in range(1, len_pattern):
         dp[0][j] = dp[0][j - 2] if pattern[j - 1] == "*" else 0
 
-    # now using bottom-up approach to find for all remaining lengths
+    # 使用自底向上的方法求出其余所有长度的匹配结果
     for i in range(1, len_string):
         for j in range(1, len_pattern):
             if input_string[i - 1] == pattern[j - 1] or pattern[j - 1] == ".":
@@ -98,14 +98,14 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    # inputing the strings
+    # 输入字符串
     # input_string = input("input a string :")
     # pattern = input("input a pattern :")
 
     input_string = "aab"
     pattern = "c*a*b"
 
-    # using function to check whether given string matches the given pattern
+    # 使用函数检查给定字符串是否匹配给定模式
     if match_pattern(input_string, pattern):
         print(f"{input_string} matches the given pattern {pattern}")
     else:

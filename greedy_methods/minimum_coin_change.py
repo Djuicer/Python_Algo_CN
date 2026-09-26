@@ -1,5 +1,5 @@
 """
-Test cases:
+测试用例：
 Do you want to enter your denominations ? (Y/N) :N
 Enter the change you want to make in Indian Currency: 987
 Following is minimal  change for 987 :
@@ -43,7 +43,7 @@ Following is minimal   change for 456 :
 
 def find_minimum_change(denominations: list[int], value: str) -> list[int]:
     """
-    Find the minimum change from the given denominations and value
+    根据给定面额和金额，求最少硬币找零方案
     >>> find_minimum_change([1, 5, 10, 20, 50, 100, 200, 500, 1000,2000], 18745)
     [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 500, 200, 20, 20, 5]
     >>> find_minimum_change([1, 2, 5, 10, 20, 50, 100, 500, 2000], 987)
@@ -57,20 +57,20 @@ def find_minimum_change(denominations: list[int], value: str) -> list[int]:
     """
     total_value = int(value)
 
-    # Initialize Result
+    # 初始化结果
     answer = []
 
-    # Traverse through all denomination
+    # 遍历所有面额
     for denomination in reversed(denominations):
-        # Find denominations
+        # 寻找可用面额
         while int(total_value) >= int(denomination):
             total_value -= int(denomination)
-            answer.append(denomination)  # Append the "answers" array
+            answer.append(denomination)  # 追加到 "answers" 数组
 
     return answer
 
 
-# Driver Code
+# 主程序代码
 if __name__ == "__main__":
     denominations = []
     value = "0"
@@ -85,7 +85,7 @@ if __name__ == "__main__":
             denominations.append(int(input(f"Denomination {i}: ").strip()))
         value = input("Enter the change you want to make in Indian Currency: ").strip()
     else:
-        # All denominations of Indian Currency if user does not enter
+        # 用户未输入面额时，使用印度货币的所有面额
         denominations = [1, 2, 5, 10, 20, 50, 100, 500, 2000]
         value = input("Enter the change you want to make: ").strip()
 
@@ -95,6 +95,6 @@ if __name__ == "__main__":
     else:
         print(f"Following is minimal change for {value}: ")
         answer = find_minimum_change(denominations, value)
-        # Print result
+        # 输出结果
         for i in range(len(answer)):
             print(answer[i], end=" ")

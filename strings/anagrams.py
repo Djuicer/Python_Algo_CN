@@ -7,7 +7,7 @@ from pathlib import Path
 
 def signature(word: str) -> str:
     """
-    Return a word's frequency-based signature.
+    返回基于字符频次的单词签名。
 
     >>> signature("test")
     'e1s1t2'
@@ -24,7 +24,7 @@ def signature(word: str) -> str:
 
 def anagram(my_word: str) -> list[str]:
     """
-    Return every anagram of the given word from the dictionary.
+    从词典中返回给定单词的所有字母异位词（Anagram）。
 
     >>> anagram('test')
     ['sett', 'stet', 'test']

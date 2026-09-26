@@ -1,8 +1,8 @@
 """
-Python implementation of a sort algorithm.
-Best Case Scenario : O(n)
-Worst Case Scenario : O(n^2) because native Python functions:min, max and remove are
-already O(n)
+一种排序算法的 Python 实现。
+最好情况：O(n)
+最坏情况：O(n^2)，因为 Python 内置函数 min、max 和 remove
+本身已为 O(n)
 """
 
 from typing import Protocol
@@ -15,11 +15,11 @@ class Comparable(Protocol):
 def merge_sort[T: Comparable](collection: list[T]) -> list[T]:
     """Pure implementation of the fastest merge sort algorithm in Python
 
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: a collection ordered by ascending
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列的集合
 
-    Examples:
+    示例：
     >>> merge_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
 

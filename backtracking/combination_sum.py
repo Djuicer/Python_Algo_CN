@@ -1,14 +1,14 @@
 """
-In the Combination Sum problem, we are given a list consisting of distinct integers.
-We need to find all the combinations whose sum equals to target given.
-We can use an element more than one.
+组合总和（Combination Sum）问题给定一个由互不相同的整数组成的列表，
+要求找出所有元素和等于给定目标值的组合。
+每个元素可以使用多次。
 
-Time complexity(Average Case): O(n!)
+时间复杂度（平均情况）：O(n!)
 
-Constraints:
+约束：
 1 <= candidates.length <= 30
 2 <= candidates[i] <= 40
-All elements of candidates are distinct.
+candidates 中所有元素互不相同。
 1 <= target <= 40
 """
 
@@ -17,16 +17,16 @@ def backtrack(
     candidates: list, path: list, answer: list, target: int, previous_index: int
 ) -> None:
     """
-    A recursive function that searches for possible combinations. Backtracks in case
-    of a bigger current combination value than the target value.
+    递归搜索可能的组合。当当前组合的元素和
+    大于目标值时回溯。
 
     Parameters
     ----------
-    previous_index: Last index from the previous search
-    target: The value we need to obtain by summing our integers in the path list.
-    answer: A list of possible combinations
-    path: Current combination
-    candidates: A list of integers we can use.
+    previous_index: 上一次搜索的最后一个索引
+    target: path 列表中的整数相加需要得到的值。
+    answer: 可能的组合列表
+    path: 当前组合
+    candidates: 可以使用的整数列表。
     """
     if target == 0:
         answer.append(path.copy())

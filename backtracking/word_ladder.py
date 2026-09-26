@@ -1,10 +1,10 @@
 """
-Word Ladder is a classic problem in computer science.
-The problem is to transform a start word into an end word
-by changing one letter at a time.
-Each intermediate word must be a valid word from a given list of words.
-The goal is to find a transformation sequence
-from the start word to the end word.
+单词接龙（Word Ladder）是计算机科学中的经典问题。
+要求每次只修改一个字母，
+将起始单词转换为目标单词。
+每个中间单词都必须属于给定的有效单词列表。
+目标是找到从起始单词
+到目标单词的转换序列。
 
 Wikipedia: https://en.wikipedia.org/wiki/Word_ladder
 """
@@ -16,21 +16,21 @@ def backtrack(
     current_word: str, path: list[str], end_word: str, word_set: set[str]
 ) -> list[str]:
     """
-    Helper function to perform backtracking to find the transformation
-    from the current_word to the end_word.
+    使用回溯法寻找从 current_word 到 end_word
+    的转换序列的辅助函数。
 
     Parameters:
-    current_word (str): The current word in the transformation sequence.
-    path (list[str]): The list of transformations from begin_word to current_word.
-    end_word (str): The target word for transformation.
-    word_set (set[str]): The set of valid words for transformation.
+    current_word (str): 转换序列中的当前单词。
+    path (list[str]): 从 begin_word 到 current_word 的转换列表。
+    end_word (str): 转换的目标单词。
+    word_set (set[str]): 转换中可用的有效单词集合。
 
     Returns:
-    list[str]: The list of transformations from begin_word to end_word.
-               Returns an empty list if there is no valid
-                transformation from current_word to end_word.
+    list[str]: 从 begin_word 到 end_word 的转换列表。
+               若不存在从 current_word 到 end_word 的有效
+                转换，则返回空列表。
 
-    Example:
+    示例：
     >>> backtrack("hit", ["hit"], "cog", {"hot", "dot", "dog", "lot", "log", "cog"})
     ['hit', 'hot', 'dot', 'lot', 'log', 'cog']
 
@@ -44,42 +44,42 @@ def backtrack(
     ['game', 'came', 'cade', 'code']
     """
 
-    # Base case: If the current word is the end word, return the path
+    # 递归终止条件：当前单词为目标单词时，返回路径
     if current_word == end_word:
         return path
 
-    # Try all possible single-letter transformations
+    # 尝试所有可能的单字母转换
     for i in range(len(current_word)):
-        for c in string.ascii_lowercase:  # Try changing each letter
+        for c in string.ascii_lowercase:  # 尝试修改每个字母
             transformed_word = current_word[:i] + c + current_word[i + 1 :]
             if transformed_word in word_set:
                 word_set.remove(transformed_word)
-                # Recur with the new word added to the path
+                # 将新单词加入路径并递归
                 result = backtrack(
                     transformed_word, [*path, transformed_word], end_word, word_set
                 )
-                if result:  # valid transformation found
+                if result:  # 找到有效转换
                     return result
-                word_set.add(transformed_word)  # backtrack
+                word_set.add(transformed_word)  # 回溯
 
-    return []  # No valid transformation found
+    return []  # 未找到有效转换
 
 
 def word_ladder(begin_word: str, end_word: str, word_set: set[str]) -> list[str]:
     """
-    Solve the Word Ladder problem using Backtracking and return
-    the list of transformations from begin_word to end_word.
+    使用回溯法求解单词接龙问题，返回
+    从 begin_word 到 end_word 的转换列表。
 
     Parameters:
-    begin_word (str): The word from which the transformation starts.
-    end_word (str): The target word for transformation.
-    word_list (list[str]): The list of valid words for transformation.
+    begin_word (str): 转换开始的单词。
+    end_word (str): 转换的目标单词。
+    word_list (list[str]): 转换中可用的有效单词列表。
 
     Returns:
-    list[str]: The list of transformations from begin_word to end_word.
-               Returns an empty list if there is no valid transformation.
+    list[str]: 从 begin_word 到 end_word 的转换列表。
+               若不存在有效转换，则返回空列表。
 
-    Example:
+    示例：
     >>> word_ladder("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"])
     ['hit', 'hot', 'dot', 'lot', 'log', 'cog']
 
@@ -93,8 +93,8 @@ def word_ladder(begin_word: str, end_word: str, word_set: set[str]) -> list[str]
     ['game', 'came', 'cade', 'code']
     """
 
-    if end_word not in word_set:  # no valid transformation possible
+    if end_word not in word_set:  # 不存在有效转换
         return []
 
-    # Perform backtracking starting from the begin_word
+    # 从 begin_word 开始进行回溯搜索
     return backtrack(begin_word, [begin_word], end_word, word_set)

@@ -9,24 +9,24 @@ T = TypeVar("T", bound=Comparable)
 
 
 def bubble_sort_iterative[T: Comparable](collection: list[T]) -> list[T]:
-    """Pure implementation of the bubble sort algorithm in Python (iterative).
+    """冒泡排序（Bubble Sort）算法的纯 Python 实现（迭代版本）。
 
-    Bubble sort works by repeatedly stepping through the collection,
-    comparing each pair of adjacent elements and swapping them if they
-    are in the wrong order. This process repeats, with each full pass
-    "bubbling" the next-largest unsorted element into its correct
-    position at the end of the collection, until a full pass completes
-    with no swaps, at which point the collection is sorted.
+    冒泡排序反复遍历集合，
+    比较每对相邻元素，并在顺序
+    不正确时交换。每一轮完整遍历
+    都会将未排序部分中最大的元素“冒泡”到
+    集合末尾的正确位置，直到某一轮
+    没有发生交换，此时集合已排序。
 
-    Time complexity: O(n) best case (already sorted, thanks to the
-    early-exit optimization), O(n^2) average and worst case.
-    Space complexity: O(1) auxiliary (sorts in place).
+    时间复杂度：最好情况为 O(n)（已有序，通过
+    提前退出实现），平均和最坏情况为 O(n^2)。
+    辅助空间复杂度：O(1)（原地排序）。
 
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered in ascending order
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> bubble_sort_iterative([0, 5, 2, 3, 2])
     [0, 2, 2, 3, 5]
     >>> bubble_sort_iterative([])
@@ -78,29 +78,29 @@ def bubble_sort_iterative[T: Comparable](collection: list[T]) -> list[T]:
                 swapped = True
                 collection[j], collection[j + 1] = collection[j + 1], collection[j]
         if not swapped:
-            break  # Stop iteration if the collection is sorted.
+            break  # 集合已有序时停止迭代。
     return collection
 
 
 def bubble_sort_recursive[T: Comparable](collection: list[T]) -> list[T]:
-    """Pure implementation of the bubble sort algorithm in Python (recursive).
+    """冒泡排序算法的纯 Python 实现（递归版本）。
 
-    Functionally identical to the iterative version: each call makes a
-    single pass through the collection, comparing adjacent elements and
-    swapping any pair that is out of order. If any swap occurred during
-    the pass, the function calls itself again on the (partially sorted)
-    collection; once a pass completes with no swaps, the collection is
-    sorted and the recursion stops.
+    功能与迭代版本相同：每次调用完整遍历
+    集合一次，比较相邻元素，
+    交换顺序不正确的元素对。若本轮发生交换，
+    则对部分排序后的集合再次递归调用；
+    某一轮没有交换时，集合已排序，
+    递归停止。
 
-    Time complexity: O(n) best case (already sorted), O(n^2) average and
-    worst case.
-    Space complexity: O(1) auxiliary for the sort itself (sorts in place),
-    though the recursion adds O(n) call-stack frames in the worst case.
+    时间复杂度：最好情况为 O(n)（已有序），平均和
+    最坏情况为 O(n^2)。
+    排序本身的辅助空间复杂度为 O(1)（原地排序），
+    但递归在最坏情况下会增加 O(n) 个调用栈帧。
 
-    :param collection: mutable ordered sequence of elements
-    :return: the same list in ascending order
+    :param collection: 可变有序元素序列
+    :return: 按升序排列后的同一个列表
 
-    Examples:
+    示例：
     >>> bubble_sort_recursive([0, 5, 2, 3, 2])
     [0, 2, 2, 3, 5]
     >>> bubble_sort_recursive([])
@@ -157,7 +157,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Benchmark: Iterative seems slightly faster than recursive.
+    # 基准测试：迭代版本似乎略快于递归版本。
     num_runs = 10_000
     unsorted = sample(range(-50, 50), 100)
     timer_iterative = timeit(

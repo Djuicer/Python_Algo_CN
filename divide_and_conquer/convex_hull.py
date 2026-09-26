@@ -1,15 +1,15 @@
 """
-The convex hull problem is problem of finding all the vertices of convex polygon, P of
-a set of points in a plane such that all the points are either on the vertices of P or
-inside P. TH convex hull problem has several applications in geometrical problems,
-computer graphics and game development.
+凸包（Convex Hull）问题是在平面点集中，找出凸多边形 P 的所有顶点，
+使所有点都位于 P 的顶点上或
+P 的内部。凸包问题在几何问题、
+计算机图形学和游戏开发中有多种应用。
 
-Two algorithms have been implemented for the convex hull problem here.
-1. A brute-force algorithm which runs in O(n^3)
-2. A divide-and-conquer algorithm which runs in O(n log(n))
+此处实现了两种求解凸包问题的算法。
+1. 时间复杂度为 O(n^3) 的暴力算法
+2. 时间复杂度为 O(n log(n)) 的分治算法
 
-There are other several other algorithms for the convex hull problem
-which have not been implemented here, yet.
+凸包问题还有其他多种算法，
+此处尚未实现。
 
 """
 
@@ -20,12 +20,12 @@ from collections.abc import Iterable
 
 class Point:
     """
-    Defines a 2-d point for use by all convex-hull algorithms.
+    定义供所有凸包算法使用的二维点。
 
     Parameters
     ----------
-    x: an int or a float, the x-coordinate of the 2-d point
-    y: an int or a float, the y-coordinate of the 2-d point
+    x: int 或 float，二维点的 x 坐标
+    y: int 或 float，二维点的 y 坐标
 
     Examples
     --------
@@ -89,18 +89,18 @@ def _construct_points(
     list_of_tuples: list[Point] | list[list[float]] | Iterable[list[float]],
 ) -> list[Point]:
     """
-    constructs a list of points from an array-like object of numbers
+    从包含数值的类数组对象构造点列表
 
     Arguments
     ---------
 
-    list_of_tuples: array-like object of type numbers. Acceptable types so far
-    are lists, tuples and sets.
+    list_of_tuples: 包含数值的类数组对象。目前支持的类型
+    包括列表、元组和集合。
 
     Returns
     --------
-    points: a list where each item is of type Point. This contains only objects
-    which can be converted into a Point.
+    points: 每个元素均为 Point 类型的列表。仅包含
+    可转换为 Point 的对象。
 
     Examples
     -------
@@ -134,26 +134,26 @@ def _construct_points(
 
 def _validate_input(points: list[Point] | list[list[float]]) -> list[Point]:
     """
-    validates an input instance before a convex-hull algorithms uses it
+    在凸包算法使用输入实例之前对其进行验证
 
     Parameters
     ---------
-    points: array-like, the 2d points to validate before using with
-    a convex-hull algorithm. The elements of points must be either lists, tuples or
-    Points.
+    points: 类数组对象，使用凸包算法前待验证的
+    二维点。points 的元素必须是列表、元组或
+    Point。
 
     Returns
     -------
-    points: array_like, an iterable of all well-defined Points constructed passed in.
+    points: array_like，包含传入数据构造出的所有有效 Point 的可迭代对象。
 
 
     Exception
     ---------
-    ValueError: if points is empty or None, or if a wrong data structure like a scalar
-                 is passed
+    ValueError: points 为空或为 None，或者传入标量等不正确的
+                 数据结构时抛出
 
-    TypeError: if an iterable but non-indexable object (eg. dictionary) is passed.
-                The exception to this a set which we'll convert to a list before using
+    TypeError: 传入可迭代但无法按索引访问的对象（如字典）时抛出。
+                集合除外，使用前会将其转换为列表
 
 
     Examples
@@ -192,13 +192,13 @@ def _det(a: Point, b: Point, c: Point) -> float:
     A Positive value means c is above ab (to the left), while a negative value
     means c is below ab (to the right). 0 means all three points are on a straight line.
 
-    As a side note, 0.5 * abs|det| is the area of triangle abc
+    此外，0.5 * abs|det| 是三角形 abc 的面积
 
     Parameters
     ----------
-    a: point, the point on the left end of line segment ab
-    b: point, the point on the right end of line segment ab
-    c: point, the point for which the direction and location is desired.
+    a: point，线段 ab 左端的点
+    b: point，线段 ab 右端的点
+    c: point，待确定其方向和位置的点。
 
     Returns
     --------
@@ -222,23 +222,23 @@ def _det(a: Point, b: Point, c: Point) -> float:
 
 def convex_hull_bf(points: list[Point]) -> list[Point]:
     """
-    Constructs the convex hull of a set of 2D points using a brute force algorithm.
-    The algorithm basically considers all combinations of points (i, j) and uses the
-    definition of convexity to determine whether (i, j) is part of the convex hull or
-    not.  (i, j) is part of the convex hull if and only iff there are no points on both
-    sides of the line segment connecting the ij, and there is no point k such that k is
-    on either end of the ij.
+    使用暴力算法构造二维点集的凸包。
+    该算法考虑所有点对组合 (i, j)，并根据
+    凸性的定义判断 (i, j) 是否属于
+    凸包。当且仅当连接 i、j 的线段两侧不存在同时分布的点，
+    且不存在位于该线段任一端之外的点 k 时，
+    (i, j) 属于凸包。
 
-    Runtime: O(n^3) - definitely horrible
+    运行时间：O(n^3)，效率很低
 
     Parameters
     ---------
-    points: array-like of object of Points, lists or tuples.
-    The set of  2d points for which the convex-hull is needed
+    points: 由 Point、列表或元组组成的类数组对象。
+    需要求凸包的二维点集
 
     Returns
     ------
-    convex_set: list, the convex-hull of points sorted in non-decreasing order.
+    convex_set: list，按非递减顺序排列的凸包点集。
 
     See Also
     --------
@@ -274,10 +274,10 @@ def convex_hull_bf(points: list[Point]) -> list[Point]:
                         points_left_of_ij = True
                     elif det_k < 0:
                         points_right_of_ij = True
-                    # point[i], point[j], point[k] all lie on a straight line
-                    # if point[k] is to the left of point[i] or it's to the
-                    # right of point[j], then point[i], point[j] cannot be
-                    # part of the convex hull of A
+                    # point[i]、point[j]、point[k] 位于同一直线上
+                    # 如果 point[k] 位于 point[i] 左侧，或位于
+                    # point[j] 右侧，则 point[i]、point[j] 不能共同
+                    # 构成 A 的凸包边
                     elif points[k] < points[i] or points[k] > points[j]:
                         ij_part_of_convex_hull = False
                         break
@@ -294,22 +294,22 @@ def convex_hull_bf(points: list[Point]) -> list[Point]:
 
 def convex_hull_recursive(points: list[Point]) -> list[Point]:
     """
-    Constructs the convex hull of a set of 2D points using a divide-and-conquer strategy
-    The algorithm exploits the geometric properties of the problem by repeatedly
-    partitioning the set of points into smaller hulls, and finding the convex hull of
-    these smaller hulls.  The union of the convex hull from smaller hulls is the
-    solution to the convex hull of the larger problem.
+    使用分治策略构造二维点集的凸包
+    该算法利用问题的几何性质，反复
+    将点集划分为更小的凸包，并求出
+    这些较小凸包的凸包。较小凸包所得结果的并集，
+    就是较大问题的凸包解。
 
     Parameter
     ---------
-    points: array-like of object of Points, lists or tuples.
-    The set of  2d points for which the convex-hull is needed
+    points: 由 Point、列表或元组组成的类数组对象。
+    需要求凸包的二维点集
 
-    Runtime: O(n log n)
+    运行时间：O(n log n)
 
     Returns
     -------
-    convex_set: list, the convex-hull of points sorted in non-decreasing order.
+    convex_set: list，按非递减顺序排列的凸包点集。
 
     Examples
     ---------
@@ -328,18 +328,18 @@ def convex_hull_recursive(points: list[Point]) -> list[Point]:
     points = sorted(_validate_input(points))
     n = len(points)
 
-    # divide all the points into an upper hull and a lower hull
-    # the left most point and the right most point are definitely
-    # members of the convex hull by definition.
-    # use these two anchors to divide all the points into two hulls,
-    # an upper hull and a lower hull.
+    # 将所有点划分为上凸包和下凸包
+    # 根据定义，最左点和最右点一定
+    # 属于凸包。
+    # 以这两个点为基准，将所有点划分为
+    # 上凸包和下凸包。
 
-    # all points to the left (above) the line joining the extreme points belong to the
-    # upper hull
-    # all points to the right (below) the line joining the extreme points below to the
-    # lower hull
-    # ignore all points on the line joining the extreme points since they cannot be
-    # part of the convex hull
+    # 连接两个端点的直线左侧（上方）的所有点属于
+    # 上凸包
+    # 连接两个端点的直线右侧（下方）的所有点属于
+    # 下凸包
+    # 忽略连接两个端点的直线上的所有点，因为它们不能
+    # 成为凸包的顶点
 
     left_most_point = points[0]
     right_most_point = points[n - 1]
@@ -369,21 +369,21 @@ def _construct_hull(
 
     Parameters
     ---------
-    points: list or None, the hull of points from which to choose the next convex-hull
-        point
-    left: Point, the point to the left  of line segment joining left and right
-    right: The point to the right of the line segment joining left and right
-    convex_set: set, the current convex-hull. The state of convex-set gets updated by
-        this function
+    points: list 或 None，用于选择下一个凸包顶点的
+        点集
+    left: Point，连接 left 和 right 的线段左端点
+    right: 连接 left 和 right 的线段右端点
+    convex_set: set，当前凸包。此函数会更新
+        convex-set 的状态
 
     Note
     ----
-    For the line segment 'ab', 'a' is on the left and 'b' on the right.
-    but the reverse is true for the line segment 'ba'.
+    对于线段 'ab'，'a' 在左，'b' 在右。
+    对于线段 'ba' 则相反。
 
     Returns
     -------
-    Nothing, only updates the state of convex-set
+    无返回值，仅更新 convex-set 的状态
     """
     if points:
         extreme_point = None
@@ -408,23 +408,23 @@ def _construct_hull(
 
 def convex_hull_melkman(points: list[Point]) -> list[Point]:
     """
-    Constructs the convex hull of a set of 2D points using the melkman algorithm.
-    The algorithm works by iteratively inserting points of a simple polygonal chain
-    (meaning that no line segments between two consecutive points cross each other).
-    Sorting the points yields such a polygonal chain.
+    使用 Melkman 算法构造二维点集的凸包。
+    该算法依次插入简单折线上的点
+    （即连接相邻点的线段彼此不相交）。
+    对点排序可以得到这样的折线。
 
-    For a detailed description, see http://cgm.cs.mcgill.ca/~athens/cs601/Melkman.html
+    详细说明见 http://cgm.cs.mcgill.ca/~athens/cs601/Melkman.html
 
-    Runtime: O(n log n) - O(n) if points are already sorted in the input
+    运行时间：O(n log n)；输入点已排序时为 O(n)
 
     Parameters
     ---------
-    points: array-like of object of Points, lists or tuples.
-    The set of 2d points for which the convex-hull is needed
+    points: 由 Point、列表或元组组成的类数组对象。
+    需要求凸包的二维点集
 
     Returns
     ------
-    convex_set: list, the convex-hull of points sorted in non-decreasing order.
+    convex_set: list，按非递减顺序排列的凸包点集。
 
     See Also
     --------
@@ -462,7 +462,7 @@ def convex_hull_melkman(points: list[Point]) -> list[Point]:
             _det(convex_hull[0], convex_hull[-1], points[j]) > 0
             and _det(convex_hull[-1], convex_hull[0], points[1]) < 0
         ):
-            # The point lies within the convex hull
+            # 该点位于凸包内部
             continue
 
         convex_hull.insert(0, points[j])
@@ -472,7 +472,7 @@ def convex_hull_melkman(points: list[Point]) -> list[Point]:
         while _det(convex_hull[-1], convex_hull[-2], convex_hull[-3]) <= 0:
             del convex_hull[-2]
 
-    # `convex_hull` is contains the convex hull in circular order
+    # `convex_hull` 按环绕顺序保存凸包顶点
     return sorted(convex_hull[1:] if len(convex_hull) > 3 else convex_hull)
 
 
@@ -489,7 +489,7 @@ def main() -> None:
         (2, -4),
         (1, -3),
     ]
-    # the convex set of points is
+    # 凸包点集为
     # [(0, 0), (0, 3), (1, -3), (2, -4), (3, 0), (3, 3)]
     results_bf = convex_hull_bf(points)
 

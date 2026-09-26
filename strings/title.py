@@ -16,13 +16,13 @@ def to_title_case(word: str) -> str:
     """
 
     """
-    Convert the first character to uppercase if it's lowercase
+    首字符为小写时，将其转为大写
     """
     if "a" <= word[0] <= "z":
         word = chr(ord(word[0]) - 32) + word[1:]
 
     """
-    Convert the remaining characters to lowercase if they are uppercase
+    其余字符为大写时，将其转为小写
     """
     for i in range(1, len(word)):
         if "A" <= word[i] <= "Z":

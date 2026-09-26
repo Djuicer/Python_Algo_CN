@@ -1,35 +1,35 @@
 """
-This is a pure Python implementation of the greedy-merge-sort algorithm
+贪心归并排序算法的纯 Python 实现
 reference: https://www.geeksforgeeks.org/optimal-file-merge-patterns/
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v greedy_merge_sort.py
 
-Objective
-Merge a set of sorted files of different length into a single sorted file.
-We need to find an optimal solution, where the resultant file
-will be generated in minimum time.
+目标
+将一组长度不同的有序文件合并为一个有序文件。
+需要找到最优方案，
+以最短时间生成结果文件。
 
-Approach
-If the number of sorted files are given, there are many ways
-to merge them into a single sorted file.
-This merge can be performed pair wise.
-To merge a m-record file and a n-record file requires possibly m+n record moves
-the optimal choice being,
-merge the two smallest files together at each step (greedy approach).
+思路
+给定多个有序文件时，有多种方式
+可以将它们合并为一个有序文件。
+可以采用两两合并的方式。
+合并包含 m 条和 n 条记录的文件，可能需要移动 m+n 条记录，
+最优的选择是：
+每一步都合并最小的两个文件（贪心策略）。
 """
 
 
 def optimal_merge_pattern(files: list) -> float:
-    """Function to merge all the files with optimum cost
+    """以最优代价合并所有文件
 
     Args:
-        files [list]: A list of sizes of different files to be merged
+        files [list]: 待合并的各文件大小组成的列表
 
     Returns:
-        optimal_merge_cost [int]: Optimal cost to merge all those files
+        optimal_merge_cost [int]: 合并所有文件的最优代价
 
-    Examples:
+    示例：
     >>> optimal_merge_pattern([2, 3, 4])
     14
     >>> optimal_merge_pattern([5, 10, 20, 30, 30])
@@ -40,7 +40,7 @@ def optimal_merge_pattern(files: list) -> float:
     optimal_merge_cost = 0
     while len(files) > 1:
         temp = 0
-        # Consider two files with minimum cost to be merged
+        # 考虑合并代价最小的两个文件
         for _ in range(2):
             min_index = files.index(min(files))
             temp += files[min_index]

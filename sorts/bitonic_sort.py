@@ -1,7 +1,7 @@
 """
-Python program for Bitonic Sort.
+双调排序（Bitonic Sort）的 Python 程序。
 
-Note that this program works only when size of input is a power of 2.
+注意，此程序仅适用于输入大小为 2 的幂的情况。
 """
 
 from __future__ import annotations
@@ -16,12 +16,12 @@ class Comparable(Protocol):
 def comp_and_swap[T: Comparable](
     array: list[T], index1: int, index2: int, direction: int
 ) -> None:
-    """Compare the value at given index1 and index2 of the array and swap them as per
-    the given direction.
+    """比较数组中给定 index1 和 index2 位置的值，并根据
+    指定方向交换它们。
 
-    The parameter direction indicates the sorting direction, ASCENDING(1) or
-    DESCENDING(0); if (a[i] > a[j]) agrees with the direction, then a[i] and a[j] are
-    interchanged.
+    direction 参数指定排序方向：升序 ASCENDING(1) 或
+    降序 DESCENDING(0)。若 (a[i] > a[j]) 与指定方向一致，
+    则交换 a[i] 与 a[j]。
 
     >>> arr = [12, 42, -21, 1]
     >>> comp_and_swap(arr, 1, 2, 1)
@@ -50,10 +50,10 @@ def bitonic_merge[T: Comparable](
     array: list[T], low: int, length: int, direction: int
 ) -> None:
     """
-    It recursively sorts a bitonic sequence in ascending order, if direction = 1, and in
-    descending if direction = 0.
-    The sequence to be sorted starts at index position low, the parameter length is the
-    number of elements to be sorted.
+    递归排序双调序列：direction = 1 时为升序，
+    direction = 0 时为降序。
+    待排序序列从索引 low 开始，length 参数表示
+    待排序的元素数量。
 
     >>> arr = [12, 42, -21, 1]
     >>> bitonic_merge(arr, 0, 4, 1)
@@ -76,9 +76,9 @@ def bitonic_sort[T: Comparable](
     array: list[T], low: int, length: int, direction: int
 ) -> None:
     """
-    This function first produces a bitonic sequence by recursively sorting its two
-    halves in opposite sorting orders, and then calls bitonic_merge to make them in the
-    same order.
+    先将两个半区递归排成相反的顺序，生成
+    双调序列，再调用 bitonic_merge 将它们合并为
+    相同顺序。
 
     >>> arr = [12, 34, 92, -23, 0, -121, -167, 145]
     >>> bitonic_sort(arr, 0, 8, 1)

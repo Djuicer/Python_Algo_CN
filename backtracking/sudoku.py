@@ -1,20 +1,20 @@
 """
-Given a partially filled 9x9 2D array, the objective is to fill a 9x9
-square grid with digits numbered 1 to 9, so that every row, column, and
-and each of the nine 3x3 sub-grids contains all of the digits.
+给定一个部分填入数字的 9x9 二维数组，目标是在 9x9
+方格中填入 1 到 9，使每一行、每一列以及
+九个 3x3 子宫格都包含全部数字。
 
-This can be solved using Backtracking and is similar to n-queens.
-We check to see if a cell is safe or not and recursively call the
-function on the next column to see if it returns True. if yes, we
-have solved the puzzle. else, we backtrack and place another number
-in that cell and repeat this process.
+可使用回溯法求解，与 N 皇后问题类似。
+检查某个单元格能否安全放置数字，并递归调用
+函数处理下一列，检查是否返回 True。若返回 True，
+说明已解出谜题；否则回溯，在该单元格中放置另一个数字，
+重复此过程。
 """
 
 from __future__ import annotations
 
 Matrix = list[list[int]]
 
-# assigning initial values to the grid
+# 为网格赋初始值
 initial_grid: Matrix = [
     [3, 0, 6, 5, 0, 8, 4, 0, 0],
     [5, 2, 0, 0, 0, 0, 0, 0, 0],
@@ -27,7 +27,7 @@ initial_grid: Matrix = [
     [0, 0, 5, 2, 0, 6, 3, 0, 0],
 ]
 
-# a grid with no solution
+# 无解的网格
 no_solution: Matrix = [
     [5, 0, 6, 5, 0, 8, 4, 0, 3],
     [5, 2, 0, 0, 0, 0, 0, 0, 2],
@@ -43,10 +43,10 @@ no_solution: Matrix = [
 
 def is_safe(grid: Matrix, row: int, column: int, n: int) -> bool:
     """
-    This function checks the grid to see if each row,
-    column, and the 3x3 subgrids contain the digit 'n'.
-    It returns False if it is not 'safe' (a duplicate digit
-    is found) else returns True if it is 'safe'
+    检查网格中对应的行、
+    列以及 3x3 子宫格是否包含数字 'n'。
+    若不安全（发现重复数字），则返回 False，
+    否则返回 True，表示安全
     """
     for i in range(9):
         if n in {grid[row][i], grid[i][column]}:
@@ -62,8 +62,8 @@ def is_safe(grid: Matrix, row: int, column: int, n: int) -> bool:
 
 def find_empty_location(grid: Matrix) -> tuple[int, int] | None:
     """
-    This function finds an empty location so that we can assign a number
-    for that particular row and column.
+    寻找空位置，以便在对应的行列
+    位置填入数字。
     """
     for i in range(9):
         for j in range(9):
@@ -74,9 +74,9 @@ def find_empty_location(grid: Matrix) -> tuple[int, int] | None:
 
 def sudoku(grid: Matrix) -> Matrix | None:
     """
-    Takes a partially filled-in grid and attempts to assign values to
-    all unassigned locations in such a way to meet the requirements
-    for Sudoku solution (non-duplication across rows, columns, and boxes)
+    接收部分填好的网格，尝试为所有
+    未赋值的位置填入数字，使其满足数独的要求
+    （行、列和宫格内均无重复数字）
 
     >>> sudoku(initial_grid)  # doctest: +NORMALIZE_WHITESPACE
     [[3, 1, 6, 5, 7, 8, 4, 9, 2],
@@ -94,7 +94,7 @@ def sudoku(grid: Matrix) -> Matrix | None:
     if location := find_empty_location(grid):
         row, column = location
     else:
-        # If the location is ``None``, then the grid is solved.
+        # 若位置为 ``None``，说明网格已解出。
         return grid
 
     for digit in range(1, 10):
@@ -111,8 +111,8 @@ def sudoku(grid: Matrix) -> Matrix | None:
 
 def print_solution(grid: Matrix) -> None:
     """
-    A function to print the solution in the form
-    of a 9x9 grid
+    以 9x9 网格形式
+    输出解
     """
     for row in grid:
         for cell in row:
@@ -121,7 +121,7 @@ def print_solution(grid: Matrix) -> None:
 
 
 if __name__ == "__main__":
-    # make a copy of grid so that you can compare with the unmodified grid
+    # 复制 grid，以便与未修改的 grid 比较
     for example_grid in (initial_grid, no_solution):
         print("\nExample grid:\n" + "=" * 20)
         print_solution(example_grid)

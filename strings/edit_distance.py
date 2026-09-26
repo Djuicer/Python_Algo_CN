@@ -1,16 +1,16 @@
 def edit_distance(source: str, target: str) -> int:
     """
-    Edit distance algorithm is a string metric, i.e., it is a way of quantifying how
-    dissimilar two strings are to one another. It is measured by counting the minimum
-    number of operations required to transform one string into another.
+    编辑距离（Edit Distance）是一种字符串度量，用于量化
+    两个字符串的差异。通过计算将一个字符串转换为另一个字符串
+    所需的最少操作次数来度量。
 
-    This implementation assumes that the cost of operations (insertion, deletion and
-    substitution) is always 1
+    此实现假设插入、删除和替换操作的代价
+    始终为 1
 
     Args:
-    source: the initial string with respect to which we are calculating the edit
-        distance for the target
-    target: the target string, formed after performing n operations on the source string
+    source: 初始字符串，用于计算它与 target 之间的
+        编辑距离
+    target: 对 source 执行 n 次操作后得到的目标字符串
 
     >>> edit_distance("GATTIC", "GALTIC")
     1
@@ -34,7 +34,7 @@ def edit_distance(source: str, target: str) -> int:
     elif len(target) == 0:
         return len(source)
 
-    delta = int(source[-1] != target[-1])  # Substitution
+    delta = int(source[-1] != target[-1])  # 替换
     return min(
         edit_distance(source[:-1], target[:-1]) + delta,
         edit_distance(source, target[:-1]) + 1,

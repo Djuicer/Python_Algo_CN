@@ -1,27 +1,27 @@
 """
-PowerSort - An adaptive merge sort algorithm.
+PowerSort：一种自适应归并排序算法。
 
-PowerSort is an adaptive, stable sorting algorithm that efficiently handles
-partially ordered data by optimally merging existing runs (consecutive sequences
-of sorted elements) in the input. It was developed by J. Ian Munro and Sebastian
-Wild and has been integrated into Python's standard library since version 3.11.
+PowerSort 是一种自适应的稳定排序算法，通过以最优方式
+合并输入中已有的有序段（Run，即连续的
+有序元素序列），高效处理部分有序的数据。它由 J. Ian Munro 和 Sebastian
+Wild 提出，自 Python 3.11 起集成到标准库中。
 
-The algorithm works by:
-1. Detecting naturally occurring runs (ascending or descending sequences)
-2. Using a power-based merge strategy to determine optimal merge order
-3. Maintaining a stack of runs and merging based on calculated node powers
+算法步骤：
+1. 检测自然形成的有序段（升序或降序序列）
+2. 使用基于节点幂的归并策略确定最优合并顺序
+3. 维护有序段栈，根据计算出的节点幂进行合并
 
-Time Complexity: O(n log n) worst case, O(n) for nearly sorted data
-Space Complexity: O(n) for merge buffer
+时间复杂度：最坏为 O(n log n)，近乎有序数据为 O(n)
+空间复杂度：合并缓冲区需要 O(n)
 
 References:
 - https://en.wikipedia.org/wiki/Powersort
 - https://arxiv.org/abs/1805.04154 (Original paper by Munro and Wild)
 
-For doctests run:
+运行 doctest：
 python -m doctest -v power_sort.py
 
-For manual testing run:
+手动测试请运行：
 python power_sort.py
 """
 
@@ -35,22 +35,22 @@ def _find_run(
     arr: list, start: int, end: int, key: Callable[[Any], Any] | None = None
 ) -> int:
     """
-    Detect a run (ascending or descending sequence) starting at 'start'.
+    检测从 'start' 开始的有序段（升序或降序序列）。
 
 
-    If the run is descending, reverse it in-place to make it ascending.
-    Returns the end index (exclusive) of the detected run.
+    若为降序段，则原地反转为升序。
+    返回检测到的有序段的结束索引（不包含该位置）。
 
 
     Args:
-        arr: The list to search in
-        start: Starting index of the run
-        end: End index (exclusive) of the search range
-        key: Optional key function for comparisons
+        arr: 待搜索的列表
+        start: 有序段的起始索引
+        end: 搜索范围的结束索引（不包含该位置）
+        key: 可选的比较键函数
 
 
     Returns:
-        End index (exclusive) of the detected run
+        检测到的有序段的结束索引（不包含该位置）
 
 
     >>> arr = [3, 2, 1, 4, 5, 6]
@@ -70,15 +70,15 @@ def _find_run(
     key_func = key if key else lambda element: element
     run_end = start + 1
 
-    # Check if run is ascending or descending
+    # 检查有序段是升序还是降序
     if key_func(arr[run_end]) < key_func(arr[start]):
-        # Descending run
+        # 降序段
         while run_end < end and key_func(arr[run_end]) < key_func(arr[run_end - 1]):
             run_end += 1
-        # Reverse the descending run to make it ascending
+        # 反转降序段，使其升序
         arr[start:run_end] = reversed(arr[start:run_end])
     else:
-        # Ascending run
+        # 升序段
         while run_end < end and key_func(arr[run_end]) >= key_func(arr[run_end - 1]):
             run_end += 1
 
@@ -87,25 +87,25 @@ def _find_run(
 
 def _node_power(total_length: int, b1: int, n1: int, b2: int, n2: int) -> int:
     """
-    Calculate the node power for two adjacent runs.
+    计算两个相邻有序段的节点幂（Node Power）。
 
 
-    This determines the merge priority in the stack. The power is the smallest
-    integer p such that floor(a * 2^p) != floor(b * 2^p), where:
+    它决定栈中的合并优先级。节点幂为满足
+    floor(a * 2^p) != floor(b * 2^p) 的最小整数 p，其中：
     - a = (b1 + n1/2) / n
     - b = (b2 + n2/2) / n
 
 
     Args:
-        total_length: Total length of the array
-        b1: Start index of first run
-        n1: Length of first run
-        b2: Start index of second run
-        n2: Length of second run
+        total_length: 数组总长度
+        b1: 第一个有序段的起始索引
+        n1: 第一个有序段的长度
+        b2: 第二个有序段的起始索引
+        n2: 第二个有序段的长度
 
 
     Returns:
-        The calculated node power
+        计算出的节点幂
 
 
     >>> _node_power(100, 0, 25, 25, 25)
@@ -113,19 +113,19 @@ def _node_power(total_length: int, b1: int, n1: int, b2: int, n2: int) -> int:
     >>> _node_power(100, 0, 50, 50, 50)
     1
     """
-    # Calculate midpoints: a = (b1 + n1/2) / total_length,
+    # 计算中点：a = (b1 + n1/2) / total_length，
     # b = (b2 + n2/2) / total_length
-    # To avoid floating point, we work with a = (2*b1 + n1) / (2*total_length) and
+    # 为避免浮点运算，使用 a = (2*b1 + n1) / (2*total_length) 和
     # b = (2*b2 + n2) / (2*total_length)
-    # We want smallest p where floor(a * 2^p) != floor(b * 2^p)
-    # This is floor((2*b1 + n1) * 2^p / (2*total_length)) !=
+    # 要求满足 floor(a * 2^p) != floor(b * 2^p) 的最小 p
+    # 即 floor((2*b1 + n1) * 2^p / (2*total_length)) !=
     # floor((2*b2 + n2) * 2^p / (2*total_length))
 
     a = 2 * b1 + n1
     b = 2 * b2 + n2
     two_n = 2 * total_length
 
-    # Find smallest power p where floor(a * 2^p / two_n) !=
+    # 查找使下式成立的最小幂 p：floor(a * 2^p / two_n) !=
     # floor(b * 2^p / two_n)
     power = 0
     while (a * (1 << power)) // two_n == (b * (1 << power)) // two_n:
@@ -142,18 +142,18 @@ def _merge(
     key: Callable[[Any], Any] | None = None,
 ) -> None:
     """
-    Merge two adjacent sorted runs in-place using auxiliary space.
+    使用辅助空间，在原位置合并两个相邻有序段。
 
 
-    Merges arr[start1:end1] with arr[end1:end2].
+    合并 arr[start1:end1] 与 arr[end1:end2]。
 
 
     Args:
-        arr: The list containing the runs
-        start1: Start index of first run
-        end1: End index of first run (start of second run)
-        end2: End index of second run
-        key: Optional key function for comparisons
+        arr: 包含有序段的列表
+        start1: 第一个有序段的起始索引
+        end1: 第一个有序段的结束索引（第二个有序段的起始位置）
+        end2: 第二个有序段的结束索引
+        key: 可选的比较键函数
 
 
     >>> arr = [1, 3, 5, 2, 4, 6]
@@ -167,14 +167,14 @@ def _merge(
     """
     key_func = key if key else lambda element: element
 
-    # Copy the runs to temporary storage
+    # 将有序段复制到临时存储区
     left = arr[start1:end1]
     right = arr[end1:end2]
 
     i = j = 0
     k = start1
 
-    # Merge the two runs
+    # 合并两个有序段
     while i < len(left) and j < len(right):
         if key_func(left[i]) <= key_func(right[j]):
             arr[k] = left[i]
@@ -184,7 +184,7 @@ def _merge(
             j += 1
         k += 1
 
-    # Copy remaining elements
+    # 复制剩余元素
     while i < len(left):
         arr[k] = left[i]
         i += 1
@@ -203,28 +203,28 @@ def power_sort(
     reverse: bool = False,
 ) -> list:
     """
-    Sort a list using the PowerSort algorithm.
+    使用 PowerSort 算法对列表排序。
 
 
-    PowerSort is an adaptive merge sort that detects existing runs in the data
-    and uses a power-based merging strategy for optimal performance.
+    PowerSort 是一种自适应归并排序，检测数据中已有的有序段，
+    并使用基于节点幂的合并策略以获得最优性能。
 
 
     Args:
-        collection: A mutable ordered collection with comparable items
-        key: Optional function to extract comparison key from each element
-        reverse: If True, sort in descending order
+        collection: 元素可比较的可变有序集合
+        key: 可选函数，用于提取各元素的比较键
+        reverse: 为 True 时按降序排列
 
 
     Returns:
-        The same collection ordered according to the parameters
+        按参数指定顺序排列后的同一个集合
 
 
-    Time Complexity: O(n log n) worst case, O(n) for nearly sorted data
-    Space Complexity: O(n)
+    时间复杂度：最坏为 O(n log n)，近乎有序数据为 O(n)
+    空间复杂度：O(n)
 
 
-    Examples:
+    示例：
     >>> power_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> power_sort([])
@@ -261,11 +261,11 @@ def power_sort(
     if len(collection) <= 1:
         return collection
 
-    # Make a copy to avoid modifying the original if it's immutable
+    # 创建副本，以免修改不可变的原始输入
     arr = list(collection)
     total_length = len(arr)
 
-    # Adjust key function for reverse sorting
+    # 调整键函数以实现逆序排序
     needs_final_reverse = False
     if reverse:
         if key:
@@ -273,13 +273,13 @@ def power_sort(
 
             def reverse_key(element: Any) -> Any:
                 """
-                Reverse key function for numeric values.
+                用于数值的反向键函数。
 
                 Args:
-                    element: The element to process
+                    element: 待处理的元素
 
                 Returns:
-                    Negated value for numeric types, original value otherwise
+                    数值类型返回相反数，其他类型返回原值
 
                 >>> reverse_key(5)
                 -5
@@ -297,13 +297,13 @@ def power_sort(
 
             def reverse_cmp(element: Any) -> Any:
                 """
-                Reverse comparison function for numeric values.
+                用于数值的反向比较函数。
 
                 Args:
-                    element: The element to process
+                    element: 待处理的元素
 
                 Returns:
-                    Negated value for numeric types, original value otherwise
+                    数值类型返回相反数，其他类型返回原值
 
                 >>> reverse_cmp(10)
                 -10
@@ -317,16 +317,16 @@ def power_sort(
             key = reverse_cmp
             needs_final_reverse = True
 
-    # Stack to hold runs: each entry is (start_index, length, power)
+    # 保存有序段的栈：每项为 (start_index, length, power)
     stack: list[tuple[int, int, int]] = []
 
     start = 0
     while start < total_length:
-        # Find the next run
+        # 查找下一个有序段
         run_end = _find_run(arr, start, total_length, key)
         run_length = run_end - start
 
-        # Calculate power for this run
+        # 计算该有序段的节点幂
         if len(stack) == 0:
             power = 0
         else:
@@ -335,17 +335,17 @@ def power_sort(
                 total_length, prev_start, prev_length, start, run_length
             )
 
-        # Merge runs from stack based on power comparison
+        # 根据节点幂的比较结果，合并栈中的有序段
         while len(stack) > 0 and stack[-1][2] >= power:
-            # Merge the top run with the current run
+            # 合并栈顶有序段与当前有序段
             prev_start, prev_length, _ = stack.pop()
             _merge(arr, prev_start, prev_start + prev_length, run_end, key)
 
-            # Update current run to include the merged run
+            # 更新当前有序段，使其包含合并后的范围
             start = prev_start
             run_length = run_end - start
 
-            # Recalculate power
+            # 重新计算节点幂
             if len(stack) == 0:
                 power = 0
             else:
@@ -354,17 +354,17 @@ def power_sort(
                     total_length, prev_prev_start, prev_prev_length, start, run_length
                 )
 
-        # Push current run onto stack
+        # 将当前有序段压栈
         stack.append((start, run_length, power))
         start = run_end
 
-    # Merge all remaining runs on the stack
+    # 合并栈中所有剩余的有序段
     while len(stack) > 1:
         start2, length2, _ = stack.pop()
         start1, length1, _ = stack.pop()
         _merge(arr, start1, start1 + length1, start2 + length2, key)
 
-        # Recalculate power for merged run
+        # 为合并后的有序段重新计算节点幂
         if len(stack) == 0:
             power = 0
         else:
@@ -376,7 +376,7 @@ def power_sort(
 
         stack.append((start1, start2 + length2 - start1, power))
 
-    # Handle reverse sorting for non-numeric types
+    # 处理非数值类型的逆序排序
     if (
         reverse
         and needs_final_reverse
@@ -384,8 +384,8 @@ def power_sort(
         and len(arr) > 0
         and not isinstance(arr[0], int | float)
     ):
-        # For non-numeric types, we need to reverse the final result
-        # Check if we used numeric negation or not
+        # 对于非数值类型，需要反转最终结果
+        # 检查是否使用了数值取负
         arr.reverse()
 
     return arr
@@ -410,7 +410,7 @@ if __name__ == "__main__":
         sorted_list = power_sort(unsorted)
         print(f"Sorted:   {sorted_list}")
 
-        # Test reverse
+        # 测试逆序
         sorted_reverse = power_sort(unsorted, reverse=True)
         print(f"Reverse:  {sorted_reverse}")
 

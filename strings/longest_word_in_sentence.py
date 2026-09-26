@@ -1,6 +1,6 @@
 def longest_word(sentence: str) -> str:
     """
-    Finds the longest word in a sentence.
+    找出句子中最长的单词。
     >>> longest_word("The quick brown fox jumped over the lazy dog")
     'jumped'
     >>> longest_word("Python is amazing")

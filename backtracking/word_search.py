@@ -2,31 +2,31 @@
 Author  : Alexander Pantyukhin
 Date    : November 24, 2022
 
-Task:
-Given an m x n grid of characters board and a string word,
-return true if word exists in the grid.
+任务：
+给定 m x n 的字符网格 board 和字符串 word，
+若 word 存在于网格中，则返回 true。
 
-The word can be constructed from letters of sequentially adjacent cells,
-where adjacent cells are horizontally or vertically neighboring.
-The same letter cell may not be used more than once.
+单词可以由依次相邻的单元格中的字母组成，
+相邻指水平或竖直方向上的相邻。
+同一个字母单元格不得重复使用。
 
-Example:
+示例：
 
-Matrix:
+矩阵：
 ---------
 |A|B|C|E|
 |S|F|C|S|
 |A|D|E|E|
 ---------
 
-Word:
+单词：
 "ABCCED"
 
-Result:
+结果：
 True
 
-Implementation notes: Use a backtracking approach.
-At each point, check all neighbors to try to find the next letter of the word.
+实现说明：使用回溯法。
+在每个位置检查所有邻居，尝试找到单词的下一个字母。
 
 leetcode: https://leetcode.com/problems/word-search/
 
@@ -35,7 +35,7 @@ leetcode: https://leetcode.com/problems/word-search/
 
 def get_point_key(len_board: int, len_board_column: int, row: int, column: int) -> int:
     """
-    Returns the hash key of matrix indexes.
+    返回矩阵索引的哈希键。
 
     >>> get_point_key(10, 20, 1, 0)
     200
@@ -53,8 +53,8 @@ def exits_word(
     visited_points_set: set[int],
 ) -> bool:
     """
-    Return True if it's possible to search for the word suffix
-    starting from the word_index.
+    若能从 word_index 开始搜索到
+    单词后缀，则返回 True。
 
     >>> exits_word([["A"]], "B", 0, 0, 0, set())
     False
@@ -120,7 +120,7 @@ def validate_board_and_word(board: list[list[str]], word: str) -> None:
     ValueError: The board should be a non-empty matrix of single-character strings.
     """
 
-    # Validate board
+    # 验证 board
     msg = "The board should be a non-empty matrix of single-character strings."
     if not board or not isinstance(board, list):
         raise ValueError(msg)
@@ -133,7 +133,7 @@ def validate_board_and_word(board: list[list[str]], word: str) -> None:
             if not item or not isinstance(item, str):
                 raise ValueError(msg)
 
-    # Validate word
+    # 验证 word
     if not isinstance(word, str) or len(word) == 0:
         msg = "The word parameter should be a string of length greater than 0."
         raise ValueError(msg)
@@ -141,7 +141,7 @@ def validate_board_and_word(board: list[list[str]], word: str) -> None:
 
 def get_word_path(board: list[list[str]], word: str) -> list[tuple[int, int]] | None:
     """
-    Return the path of the word in the board if it exists; otherwise, return None.
+    若单词存在于网格中，则返回其路径，否则返回 None。
 
     >>> board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
     >>> get_word_path(board, "ABCCED")

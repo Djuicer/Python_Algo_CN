@@ -1,5 +1,5 @@
 """
-A pure Python implementation of the recursive bubble sort algorithm.
+递归冒泡排序（Bubble Sort）算法的纯 Python 实现。
 """
 
 from typing import Protocol
@@ -11,7 +11,7 @@ class Comparable(Protocol):
 
 def bubble_sort_recursive[T: Comparable](arr: list[T]) -> list[T]:
     """
-    Sorts a list of comparable items using the recursive Bubble Sort algorithm.
+    使用递归冒泡排序算法对可比较元素的列表排序。
 
     >>> bubble_sort_recursive([5, 1, 4, 2, 8])
     [1, 2, 4, 5, 8]

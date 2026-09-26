@@ -1,12 +1,12 @@
 """
-This is a pure Python implementation of the binary insertion sort algorithm
+二分插入排序（Binary Insertion Sort）算法的纯 Python 实现
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python -m doctest -v binary_insertion_sort.py
-or
+或
 python3 -m doctest -v binary_insertion_sort.py
 
-For manual testing run:
+手动测试请运行：
 python binary_insertion_sort.py
 """
 
@@ -22,12 +22,12 @@ T = TypeVar("T", bound=Comparable)
 
 def binary_insertion_sort[T: Comparable](collection: list[T]) -> list[T]:
     """
-    Sorts a list using the binary insertion sort algorithm.
+    使用二分插入排序算法对列表排序。
 
-    :param collection: A mutable ordered collection with comparable items.
-    :return: The same collection ordered in ascending order.
+    :param collection: 元素可比较的可变有序集合。
+    :return: 按升序排列后的同一个集合。
 
-    Examples:
+    示例：
     >>> binary_insertion_sort([0, 4, 1234, 4, 1])
     [0, 1, 4, 4, 1234]
     >>> binary_insertion_sort([]) == sorted([])

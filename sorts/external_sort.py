@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Sort large text files in a minimum amount of memory
+# 使用尽可能少的内存对大型文本文件排序
 #
 import argparse
 import os

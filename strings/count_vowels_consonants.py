@@ -1,16 +1,16 @@
 def count_vowels_and_consonants(text: str) -> tuple[int, int]:
     """
-        Count the number of vowels and consonants in a given string.
+        统计给定字符串中的元音和辅音数量。
 
-        This function ignores non-alphabetic characters.
+        忽略非字母字符。
 
         Args:
-            text (str): Input string.
+            text (str): 输入字符串。
 
         Returns:
-            tuple[int, int]: A tuple containing (vowel_count,
-    consonant_count).
-     Examples:
+            tuple[int, int]: 包含 (vowel_count,
+    consonant_count) 的元组。
+     示例：
         >>> count_vowels_and_consonants("Hello World")
         (3, 7)
         >>> count_vowels_and_consonants("AEIOU")

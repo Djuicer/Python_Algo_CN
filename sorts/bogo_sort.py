@@ -1,15 +1,15 @@
 """
-This is a pure Python implementation of the bogosort algorithm,
-also known as permutation sort, stupid sort, slowsort, shotgun sort, or monkey sort.
-Bogosort generates random permutations until it guesses the correct one.
+猴子排序（Bogosort）算法的纯 Python 实现，
+也称 permutation sort、stupid sort、slowsort、shotgun sort 或 monkey sort。
+随机生成排列，直到碰巧得到正确顺序。
 
 More info on: https://en.wikipedia.org/wiki/Bogosort
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python -m doctest -v bogo_sort.py
-or
+或
 python3 -m doctest -v bogo_sort.py
-For manual testing run:
+手动测试请运行：
 python bogo_sort.py
 """
 
@@ -22,11 +22,11 @@ class Comparable(Protocol):
 
 
 def bogo_sort[T: Comparable](collection: list[T]) -> list[T]:
-    """Pure implementation of the bogosort algorithm in Python
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered by ascending
-    Examples:
+    """猴子排序算法的纯 Python 实现
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
+    示例：
     >>> bogo_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> bogo_sort([])

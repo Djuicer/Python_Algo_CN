@@ -1,5 +1,5 @@
-"""A merge sort which accepts comparable items and recursively
-splits them in half, then sorts and combines the halves.
+"""一种归并排序，接收可比较元素并递归地
+将其分成两半，再排序并合并。
 
 https://en.wikipedia.org/wiki/Merge_sort
 """
@@ -13,10 +13,10 @@ class Comparable(Protocol):
 
 
 def merge[T: Comparable](collection: Iterable[T]) -> list[T]:
-    """Return a new list of ``collection`` sorted in ascending order.
+    """返回 ``collection`` 按升序排列的新列表。
 
-    The input is copied, so the original iterable is left unchanged.
-    Items must be mutually comparable with ``<``.
+    复制输入，因此不会改变原始可迭代对象。
+    元素之间必须能够使用 ``<`` 相互比较。
 
     >>> merge([10,9,8,7,6,5,4,3,2,1])
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -46,18 +46,18 @@ def merge[T: Comparable](collection: Iterable[T]) -> list[T]:
     """
     arr = list(collection)
     if len(arr) > 1:
-        middle_length = len(arr) // 2  # Finds the middle of the array
-        # Sort each half into a new list, then combine those halves in ``arr``.
+        middle_length = len(arr) // 2  # 查找数组中点
+        # 将每一半排成新列表，再将它们合并到 ``arr`` 中。
         left_array = merge(arr[:middle_length])
         right_array = merge(arr[middle_length:])
         left_size = len(left_array)
         right_size = len(right_array)
-        left_index = 0  # Left Counter
-        right_index = 0  # Right Counter
-        index = 0  # Position Counter
+        left_index = 0  # 左侧计数器
+        right_index = 0  # 右侧计数器
+        index = 0  # 位置计数器
         while (
             left_index < left_size and right_index < right_size
-        ):  # Runs until the lowers size of the left and right are sorted.
+        ):  # 持续合并，直到左右两半中较短的一半处理完毕。
             if left_array[left_index] < right_array[right_index]:
                 arr[index] = left_array[left_index]
                 left_index += 1
@@ -67,13 +67,13 @@ def merge[T: Comparable](collection: Iterable[T]) -> list[T]:
             index += 1
         while (
             left_index < left_size
-        ):  # Adds the left over elements in the left half of the array
+        ):  # 添加数组左半部分的剩余元素
             arr[index] = left_array[left_index]
             left_index += 1
             index += 1
         while (
             right_index < right_size
-        ):  # Adds the left over elements in the right half of the array
+        ):  # 添加数组右半部分的剩余元素
             arr[index] = right_array[right_index]
             right_index += 1
             index += 1

@@ -1,27 +1,27 @@
 class BoothsAlgorithm:
     """
-    Booth's Algorithm finds the lexicographically minimal rotation of a string.
+    Booth 算法寻找字符串在字典序下最小的循环移位。
 
-    Time Complexity: O(n) - Linear time where n is the length of input string
-    Space Complexity: O(n) - Linear space for failure function array
+    时间复杂度：O(n)，线性时间，n 为输入字符串长度
+    空间复杂度：O(n)，失配函数数组需要线性空间
 
     For More Visit - https://en.wikipedia.org/wiki/Booth%27s_multiplication_algorithm
     """
 
     def find_minimal_rotation(self, string: str) -> str:
         """
-        Find the lexicographically minimal rotation of the input string.
+        寻找输入字符串在字典序下最小的循环移位。
 
         Args:
-            string (str): Input string to find minimal rotation.
+            string (str): 待求最小循环移位的输入字符串。
 
         Returns:
-            str: Lexicographically minimal rotation of the input string.
+            str: 输入字符串在字典序下最小的循环移位。
 
         Raises:
-            ValueError: If the input is not a string or is empty.
+            ValueError: 输入不是字符串或为空时抛出。
 
-        Examples:
+        示例：
             >>> ba = BoothsAlgorithm()
             >>> ba.find_minimal_rotation("baca")
             'abac'
@@ -38,9 +38,9 @@ class BoothsAlgorithm:
             raise ValueError("Input must be a non-empty string")
 
         n = len(string)
-        s = string + string  # Double the string to handle all rotations
-        f = [-1] * (2 * n)  # Initialize failure function array with twice the length
-        k = 0  # Starting position of minimal rotation
+        s = string + string  # 将字符串重复一遍，以处理所有循环移位
+        f = [-1] * (2 * n)  # 初始化长度为原字符串两倍的失配函数数组
+        k = 0  # 最小循环移位的起始位置
 
         for j in range(1, 2 * n):
             sj = s[j]

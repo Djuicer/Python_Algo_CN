@@ -1,5 +1,5 @@
 """
-A pure Python implementation of the heap sort algorithm.
+堆排序（Heap Sort）算法的纯 Python 实现。
 """
 
 from typing import Protocol
@@ -11,9 +11,9 @@ class Comparable(Protocol):
 
 def heapify[T: Comparable](unsorted: list[T], index: int, heap_size: int) -> None:
     """
-    :param unsorted: unsorted list containing comparable items
-    :param index: index
-    :param heap_size: size of the heap
+    :param unsorted: 包含可比较元素的无序列表
+    :param index: 索引
+    :param heap_size: 堆的大小
     :return: None
     >>> unsorted = [1, 4, 3, 5, 2]
     >>> heapify(unsorted, 0, len(unsorted))
@@ -40,12 +40,12 @@ def heapify[T: Comparable](unsorted: list[T], index: int, heap_size: int) -> Non
 
 def heap_sort[T: Comparable](unsorted: list[T]) -> list[T]:
     """
-    A pure Python implementation of the heap sort algorithm.
+    堆排序算法的纯 Python 实现。
 
-    :param unsorted: a mutable collection of comparable items
-    :return: the same collection ordered by ascending
+    :param unsorted: 元素可比较的可变集合
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> heap_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> heap_sort([])

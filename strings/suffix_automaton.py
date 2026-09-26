@@ -1,11 +1,11 @@
 """
-Suffix Automaton (SAM) for String Processing.
+用于字符串处理的后缀自动机（Suffix Automaton，SAM）。
 
 Reference: https://en.wikipedia.org/wiki/Suffix_automaton
 Reference: https://cp-algorithms.com/string/suffix-automaton.html
 
-A Suffix Automaton is the minimal Deterministic Finite Automaton (DFA) that recognizes
-all suffixes (and substrings) of a given string in O(N) time and O(N) space.
+后缀自动机是识别给定字符串所有后缀（及子串）的最小确定有限自动机（DFA），
+时间复杂度为 O(N)，空间复杂度为 O(N)。
 """
 
 from dataclasses import dataclass, field
@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 @dataclass
 class State:
     """
-    State (node) in a Suffix Automaton.
+    后缀自动机中的状态（节点）。
     """
 
     length: int = 0
@@ -24,7 +24,7 @@ class State:
 
 class SuffixAutomaton:
     """
-    Suffix Automaton data structure.
+    后缀自动机数据结构。
 
     >>> sam = SuffixAutomaton("abacaba")
     >>> sam.contains("abac")
@@ -58,8 +58,8 @@ class SuffixAutomaton:
 
     def extend(self, char: str) -> None:
         """
-        Extend the Suffix Automaton by appending character char.
-        Time Complexity: O(1) amortized
+        通过追加字符 char 扩展后缀自动机。
+        均摊时间复杂度：O(1)
         """
         curr = len(self.states)
         self.states.append(State(length=self.states[self.last].length + 1))
@@ -99,7 +99,7 @@ class SuffixAutomaton:
 
     def contains(self, pattern: str) -> bool:
         """
-        Check if pattern exists as a substring in O(|pattern|) time.
+        在 O(|pattern|) 时间内检查 pattern 是否为子串。
 
         >>> sam = SuffixAutomaton("banana")
         >>> sam.contains("nan")
@@ -116,7 +116,7 @@ class SuffixAutomaton:
 
     def count_distinct_substrings(self) -> int:
         """
-        Compute total number of distinct substrings in O(N) time.
+        在 O(N) 时间内计算不同子串的总数。
 
         >>> sam = SuffixAutomaton("abc")
         >>> sam.count_distinct_substrings()
@@ -131,7 +131,7 @@ class SuffixAutomaton:
 
     def count_occurrences(self, pattern: str) -> int:
         """
-        Count occurrences of pattern as a substring in the text in O(N + |pattern|) time
+        在 O(N + |pattern|) 时间内统计 pattern 作为子串在文本中的出现次数
 
         >>> sam = SuffixAutomaton("banana")
         >>> sam.count_occurrences("an")
@@ -149,7 +149,7 @@ class SuffixAutomaton:
                 return 0
             curr = self.states[curr].next[char]
 
-        # Standard endpos size calculation via suffix link tree
+        # 通过后缀链接树进行标准的 endpos 集合大小计算
         occurrences = [0] * len(self.states)
         order = sorted(
             range(len(self.states)),
@@ -157,13 +157,13 @@ class SuffixAutomaton:
             reverse=True,
         )
 
-        # Mark initial end positions of prefix states
+        # 标记前缀状态的初始结束位置
         temp_last = 0
         for char in self.string:
             temp_last = self.states[temp_last].next[char]
             occurrences[temp_last] = 1
 
-        # Push endpos sizes up the suffix link tree
+        # 沿后缀链接树向上累加 endpos 集合大小
         for state_index in order:
             if self.states[state_index].link != -1:
                 occurrences[self.states[state_index].link] += occurrences[state_index]

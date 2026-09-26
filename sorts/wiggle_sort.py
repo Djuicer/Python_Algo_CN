@@ -1,20 +1,20 @@
 """
-Wiggle Sort.
+摆动排序（Wiggle Sort）。
 
-Given an unsorted array nums, reorder it such
-that nums[0] < nums[1] > nums[2] < nums[3]....
-For example:
-if input numbers = [3, 5, 2, 1, 6, 4]
-one possible Wiggle Sorted answer is [3, 5, 1, 6, 2, 4].
+给定无序数组 nums，重新排列，使其满足
+nums[0] < nums[1] > nums[2] < nums[3]....
+例如：
+输入 numbers = [3, 5, 2, 1, 6, 4] 时，
+一种可能的摆动排序结果为 [3, 5, 1, 6, 2, 4]。
 """
 
 
 def wiggle_sort(nums: list) -> list:
     """
-    Python implementation of wiggle sort.
-    Reorders an array such that nums[0] <= nums[1] >= nums[2] <= nums[3]...
+    摆动排序的 Python 实现。
+    重新排列数组，使 nums[0] <= nums[1] >= nums[2] <= nums[3]...
 
-    Example:
+    示例：
     >>> wiggle_sort([0, 5, 3, 2, 2])
     [0, 5, 2, 3, 2]
     >>> wiggle_sort([])

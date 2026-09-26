@@ -1,35 +1,35 @@
 """
-Find the pattern in the given text using the following rule.
+使用以下规则在给定文本中查找模式。
 
-The bad-character rule considers the mismatched character in Text.
-The next occurrence of that character to the left in Pattern is found,
+坏字符规则关注文本中的失配字符。
+查找模式中该字符在失配位置左侧的下一次出现，
 
-If the mismatched character occurs to the left in Pattern,
-a shift is proposed that aligns text block and pattern.
+若失配字符在模式左侧出现，
+则移动模式，使其与文本中的对应字符对齐。
 
-If the mismatched character does not occur to the left in Pattern,
-a shift is proposed that moves the entirety of Pattern past
-the point of mismatch in the text.
+若失配字符未在模式左侧出现，
+则将整个模式移动到文本中
+失配位置之后。
 
-If there is no mismatch, then the pattern matches the text block.
+若没有失配，则模式与该文本片段匹配。
 
-Time Complexity : O(n/m) average case with bad character heuristic
-    n=length of main string
-    m=length of pattern string
+时间复杂度：使用坏字符启发式时，平均为 O(n/m)
+    n=主字符串长度
+    m=模式字符串长度
 
-Note: The bad character shift requires a while loop so positions are
-    actually skipped. A for loop ignores loop-variable reassignment.
+注意：坏字符位移需要使用 while 循环，才能真正跳过
+    相应位置。for 循环不会采用重新赋值后的循环变量来推进迭代。
 """
 
 
 class BoyerMooreSearch:
     """
-    Example usage:
+    用法示例：
 
         bms = BoyerMooreSearch(text="ABAABA", pattern="AB")
         positions = bms.bad_character_heuristic()
 
-    where 'positions' contains the locations where the pattern was matched.
+    'positions' 包含模式匹配的位置。
     """
 
     def __init__(self, text: str, pattern: str) -> None:
@@ -38,14 +38,14 @@ class BoyerMooreSearch:
 
     def match_in_pattern(self, char: str) -> int:
         """
-        Finds the index of char in pattern in reverse order.
+        逆序查找 char 在 pattern 中的索引。
 
         Parameters :
-            char (chr): character to be searched
+            char (chr): 待搜索的字符
 
         Returns :
-            i (int): index of char from last in pattern
-            -1 (int): if char is not found in pattern
+            i (int): 从后向前找到的 char 在 pattern 中的索引
+            -1 (int): 在 pattern 中未找到 char 时返回
 
         >>> bms = BoyerMooreSearch(text="ABAABA", pattern="AB")
         >>> bms.match_in_pattern("B")
@@ -59,15 +59,15 @@ class BoyerMooreSearch:
 
     def mismatch_in_text(self, current_pos: int) -> int:
         """
-        Find the index of the mismatched character in text when compared with pattern
-        from the last.
+        从末尾开始与 pattern 比较，找出 text 中
+        失配字符的索引。
 
         Parameters :
-            current_pos (int): current index position of text
+            current_pos (int): text 中的当前索引位置
 
         Returns :
-            i (int): index of mismatched char from last in text
-            -1 (int): if there is no mismatch between pattern and text block
+            i (int): 从后向前找到的 text 中失配字符的索引
+            -1 (int): pattern 与文本片段完全匹配时返回
 
         >>> bms = BoyerMooreSearch(text="ABAABA", pattern="AB")
         >>> bms.mismatch_in_text(2)
@@ -81,10 +81,10 @@ class BoyerMooreSearch:
 
     def bad_character_heuristic(self) -> list[int]:
         """
-        Finds the positions of the pattern in text using the bad character
-        heuristic. A while loop is used so the shift actually skips
-        positions, achieving O(n/m) average performance instead of the
-        O(nm) brute-force that a for loop would produce.
+        使用坏字符启发式查找模式在文本中的
+        位置。使用 while 循环使位移真正跳过
+        相应位置，平均性能达到 O(n/m)，而非
+        for 循环产生的 O(nm) 暴力搜索。
 
         >>> bms = BoyerMooreSearch(text="ABAABA", pattern="AB")
         >>> bms.bad_character_heuristic()
@@ -120,7 +120,7 @@ class BoyerMooreSearch:
                 i += 1
             else:
                 match_index = self.match_in_pattern(self.text[mismatch_index])
-                # Use max to prevent shifting backwards
+                # 使用 max 避免向后移动
                 i = max(i + 1, mismatch_index - match_index)
         return positions
 

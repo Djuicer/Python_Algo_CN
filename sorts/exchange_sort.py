@@ -7,7 +7,7 @@ class Comparable(Protocol):
 
 def exchange_sort[T: Comparable](numbers: list[T]) -> list[T]:
     """
-    Uses exchange sort to sort a list of numbers.
+    使用交换排序（Exchange Sort）对数值列表排序。
     Source: https://en.wikipedia.org/wiki/Sorting_algorithm#Exchange_sort
     >>> exchange_sort([5, 4, 3, 2, 1])
     [1, 2, 3, 4, 5]

@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """
-Flash Sort Algorithm Implementation
+闪电排序（Flash Sort）算法实现
 
-Flash sort is a distribution sorting algorithm showing linear computational
-complexity O(n) for uniformly distributed datasets and relatively little
-additional memory requirement. The basic idea is to use the distribution
-of the values to be sorted to determine their approximate final positions
-directly, without comparing and moving each element through many intermediate
-positions as done by other algorithms.
+闪电排序是一种分布排序算法，对于均匀分布的数据集，
+其计算复杂度为线性的 O(n)，且额外内存
+需求较少。基本思想是利用待排序值的分布，
+直接确定它们大致的最终位置，
+避免像其他算法那样，反复比较并将元素
+移动到多个中间位置。
 
-The algorithm was developed by Karl-Dietrich Neubert in 1998 and builds upon
-the idea of bucket sort. It works by classifying elements into classes and
-then sorting each class.
+该算法由 Karl-Dietrich Neubert 于 1998 年提出，基于
+桶排序思想，先将元素划分为若干类，
+再对各类进行排序。
 
-Time Complexity:
-- Best Case: O(n) when data is uniformly distributed
-- Average Case: O(n + k) where k is the number of classes
-- Worst Case: O(n²) when data is not uniformly distributed
+时间复杂度：
+- 最好情况：数据均匀分布时为 O(n)
+- 平均情况：O(n + k)，其中 k 为类数
+- 最坏情况：数据分布不均匀时为 O(n²)
 
-Space Complexity: O(k) where k is the number of classes
+空间复杂度：O(k)，其中 k 为类数
 
 Source: https://en.wikipedia.org/wiki/Flashsort
 """
@@ -28,18 +28,18 @@ from __future__ import annotations
 
 def flash_sort(arr: list[int | float]) -> list[int | float]:
     """
-    Sorts a list using the Flash Sort algorithm.
+    使用闪电排序算法对列表排序。
 
-    Flash sort is particularly efficient for uniformly distributed data.
-    It uses the distribution of values to determine approximate positions.
+    闪电排序对均匀分布的数据尤其高效。
+    利用数值分布确定元素的大致位置。
 
     Args:
-        arr: List of integers or floats to be sorted
+        arr: 待排序的整数或浮点数列表
 
     Returns:
-        Sorted list in ascending order
+        按升序排列的列表
 
-    Examples:
+    示例：
     >>> flash_sort([4, 2, 7, 1, 9, 3])
     [1, 2, 3, 4, 7, 9]
     >>> flash_sort([])
@@ -70,25 +70,25 @@ def flash_sort(arr: list[int | float]) -> list[int | float]:
     if len(arr) <= 1:
         return arr.copy()
 
-    # Create a copy to avoid modifying the original array
+    # 创建副本，避免修改原数组
     result = arr.copy()
     n = len(result)
 
-    # Find min and max values
+    # 查找最小值和最大值
     min_val = min(result)
     max_val = max(result)
 
-    # If all elements are the same, return the array
+    # 所有元素相同时，直接返回数组
     if min_val == max_val:
         return result
 
-    # Number of classes (buckets) - typically n/10 to n/5 works well
+    # 类（桶）的数量，通常取 n/10 到 n/5 效果较好
     m = max(1, int(0.45 * n))
 
-    # Initialize class sizes array
+    # 初始化各类大小的数组
     class_sizes = [0] * m
 
-    # Calculate class sizes
+    # 计算各类大小
     c1 = (m - 1) / (max_val - min_val)
 
     for value in result:
@@ -97,13 +97,13 @@ def flash_sort(arr: list[int | float]) -> list[int | float]:
             class_index = m - 1
         class_sizes[class_index] += 1
 
-    # Calculate cumulative class sizes (positions)
+    # 计算各类的累计大小（位置）
     for i in range(1, m):
         class_sizes[i] += class_sizes[i - 1]
 
-    # Permutation phase: move every element into its class using cycle leaders.
-    # class_sizes[k] is now the (exclusive) end position of class k and is
-    # decremented as elements are placed at the end of their class.
+    # 置换阶段：使用循环领头元素，将每个元素移入所属的类。
+    # class_sizes[k] 此时为第 k 类的结束位置（不包含该位置），
+    # 元素放入所属类的末尾时递减该值。
     def class_of(value: float) -> int:
         return min(int(c1 * (value - min_val)), m - 1)
 
@@ -121,7 +121,7 @@ def flash_sort(arr: list[int | float]) -> list[int | float]:
             result[class_sizes[k]], flash = flash, result[class_sizes[k]]
             moves += 1
 
-    # Insertion sort for final sorting within classes
+    # 使用插入排序完成类内的最终排序
     for i in range(1, n):
         key = result[i]
         j = i - 1
@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
     testmod()
 
-    # Additional test cases
+    # 额外测试用例
     test_cases: list[list[int | float]] = [
         [64, 34, 25, 12, 22, 11, 90],
         [5, 2, 4, 6, 1, 3],

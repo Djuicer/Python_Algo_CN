@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
 """
-Illustrate how to implement bucket sort algorithm.
+演示桶排序（Bucket Sort）算法的实现。
 
 Author: OMKAR PATHAK
-This program will illustrate how to implement bucket sort algorithm
+本程序演示如何实现桶排序算法
 
-Wikipedia says: Bucket sort, or bin sort, is a sorting algorithm that works
-by distributing the elements of an array into a number of buckets.
-Each bucket is then sorted individually, either using a different sorting
-algorithm, or by recursively applying the bucket sorting algorithm. It is a
-distribution sort, and is a cousin of radix sort in the most to least
-significant digit flavour.
-Bucket sort is a generalization of pigeonhole sort. Bucket sort can be
-implemented with comparisons and therefore can also be considered a
-comparison sort algorithm. The computational complexity estimates involve the
-number of buckets.
+维基百科说明：桶排序又称 bin sort，通过将
+数组元素分配到若干桶中进行排序。
+然后分别对每个桶排序，可使用其他排序
+算法，也可递归使用桶排序。它属于
+分布排序，与从最高位到最低位进行处理的
+基数排序关系密切。
+桶排序是鸽巢排序的推广。桶排序可以
+使用比较操作实现，因此也可视为
+比较排序算法。计算复杂度的估计与
+桶的数量有关。
 
-Time Complexity of Solution:
-Worst case scenario occurs when all the elements are placed in a single bucket.
-The overall performance would then be dominated by the algorithm used to sort each
-bucket. In this case, O(n log n), because of TimSort
+解法的时间复杂度：
+最坏情况是所有元素都进入同一个桶。
+此时总体性能由桶内排序算法
+决定。这里使用 TimSort，因此为 O(n log n)
 
-Average Case O(n + (n^2)/k + k), where k is the number of buckets
+平均情况为 O(n + (n^2)/k + k)，其中 k 为桶数
 
-If k = O(n), time complexity is O(n)
+若 k = O(n)，则时间复杂度为 O(n)
 
 Source: https://en.wikipedia.org/wiki/Bucket_sort
 """

@@ -1,17 +1,17 @@
 """
-Given a list of stock prices calculate the maximum profit that can be made from a
-single buy and sell of one share of stock.  We only allowed to complete one buy
-transaction and one sell transaction but must buy before we sell.
+给定股票价格列表，计算只买卖一股股票一次
+所能获得的最大利润。只允许完成一次买入
+和一次卖出交易，且必须先买后卖。
 
-Example : prices = [7, 1, 5, 3, 6, 4]
-max_profit will return 5 - which is by buying at price 1 and selling at price 6.
+示例：prices = [7, 1, 5, 3, 6, 4]
+max_profit 返回 5，即以价格 1 买入、以价格 6 卖出。
 
-This problem can be solved using the concept of "GREEDY ALGORITHM".
+该问题可以使用贪心算法（Greedy Algorithm）求解。
 
-We iterate over the price array once, keeping track of the lowest price point
-(buy) and the maximum profit we can get at each point.  The greedy choice at each point
-is to either buy at the current price if it's less than our current buying price, or
-sell at the current price if the profit is more than our current maximum profit.
+只遍历价格数组一次，记录最低价格
+（买入价）以及截至每个位置可获得的最大利润。每一步的贪心选择是：
+如果当前价格低于已记录的买入价，就以当前价格买入；或者，
+如果当前卖出的利润超过已记录的最大利润，就以当前价格卖出。
 """
 
 

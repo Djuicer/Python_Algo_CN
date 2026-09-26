@@ -1,13 +1,13 @@
 """
-Stalin Sort algorithm: Removes elements that are out of order.
-Elements that are not greater than or equal to the previous element are discarded.
+斯大林排序（Stalin Sort）：移除顺序不正确的元素。
+不大于或等于前一个元素的元素会被丢弃。
 Reference: https://medium.com/@kaweendra/the-ultimate-sorting-algorithm-6513d6968420
 """
 
 
 def stalin_sort(sequence: list[int]) -> list[int]:
     """
-    Sorts a list using the Stalin sort algorithm.
+    使用斯大林排序算法对列表排序。
 
     >>> stalin_sort([4, 3, 5, 2, 1, 7])
     [4, 5, 7]

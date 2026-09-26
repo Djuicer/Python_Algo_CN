@@ -3,7 +3,7 @@ import re
 
 def indian_phone_validator(phone: str) -> bool:
     """
-    Determine whether the string is a valid phone number or not
+    判断字符串是否为有效的电话号码
     :param phone:
     :return: Boolean
     >>> indian_phone_validator("+91123456789")

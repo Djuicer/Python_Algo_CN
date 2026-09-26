@@ -3,7 +3,7 @@ import re
 
 def is_sri_lankan_phone_number(phone: str) -> bool:
     """
-    Determine whether the string is a valid sri lankan mobile phone number or not
+    判断字符串是否为有效的斯里兰卡手机号码
     References: https://aye.sh/blog/sri-lankan-phone-number-regex
 
     >>> is_sri_lankan_phone_number("+94773283048")

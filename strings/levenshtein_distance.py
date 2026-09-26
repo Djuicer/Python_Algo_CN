@@ -3,11 +3,11 @@ from collections.abc import Callable
 
 def levenshtein_distance(first_word: str, second_word: str) -> int:
     """
-    Implementation of the Levenshtein distance in Python.
-    :param first_word: the first word to measure the difference.
-    :param second_word: the second word to measure the difference.
-    :return: the levenshtein distance between the two words.
-    Examples:
+    莱文斯坦距离（Levenshtein Distance）的 Python 实现。
+    :param first_word: 第一个待度量差异的单词。
+    :param second_word: 第二个待度量差异的单词。
+    :return: 两个单词之间的莱文斯坦距离。
+    示例：
     >>> levenshtein_distance("planet", "planetary")
     3
     >>> levenshtein_distance("", "test")
@@ -23,7 +23,7 @@ def levenshtein_distance(first_word: str, second_word: str) -> int:
     >>> levenshtein_distance("orchestration", "container")
     10
     """
-    # The longer word should come first
+    # 较长的单词应放在前面
     if len(first_word) < len(second_word):
         return levenshtein_distance(second_word, first_word)
 
@@ -36,29 +36,29 @@ def levenshtein_distance(first_word: str, second_word: str) -> int:
         current_row = [i + 1]
 
         for j, c2 in enumerate(second_word):
-            # Calculate insertions, deletions, and substitutions
+            # 计算插入、删除和替换的代价
             insertions = previous_row[j + 1] + 1
             deletions = current_row[j] + 1
             substitutions = previous_row[j] + (c1 != c2)
 
-            # Get the minimum to append to the current row
+            # 取最小值并追加到当前行
             current_row.append(min(insertions, deletions, substitutions))
 
-        # Store the previous row
+        # 保存上一行
         previous_row = current_row
 
-    # Returns the last element (distance)
+    # 返回最后一个元素（距离）
     return previous_row[-1]
 
 
 def levenshtein_distance_optimized(first_word: str, second_word: str) -> int:
     """
-    Compute the Levenshtein distance between two words (strings).
-    The function is optimized for efficiency by modifying rows in place.
-    :param first_word: the first word to measure the difference.
-    :param second_word: the second word to measure the difference.
-    :return: the Levenshtein distance between the two words.
-    Examples:
+    计算两个单词（字符串）之间的莱文斯坦距离。
+    通过原地修改各行提高效率。
+    :param first_word: 第一个待度量差异的单词。
+    :param second_word: 第二个待度量差异的单词。
+    :return: 两个单词之间的莱文斯坦距离。
+    示例：
     >>> levenshtein_distance_optimized("planet", "planetary")
     3
     >>> levenshtein_distance_optimized("", "test")
@@ -98,9 +98,9 @@ def levenshtein_distance_optimized(first_word: str, second_word: str) -> int:
 
 def benchmark_levenshtein_distance(func: Callable) -> None:
     """
-    Benchmark the Levenshtein distance function.
-    :param str: The name of the function being benchmarked.
-    :param func: The function to be benchmarked.
+    对莱文斯坦距离函数进行基准测试。
+    :param str: 被测函数的名称。
+    :param func: 被测函数。
     """
     from timeit import timeit
 
@@ -112,14 +112,14 @@ def benchmark_levenshtein_distance(func: Callable) -> None:
 
 
 if __name__ == "__main__":
-    # Get user input for words
+    # 获取用户输入的单词
     first_word = input("Enter the first word for Levenshtein distance:\n").strip()
     second_word = input("Enter the second word for Levenshtein distance:\n").strip()
 
-    # Calculate and print Levenshtein distances
+    # 计算并输出莱文斯坦距离
     print(f"{levenshtein_distance(first_word, second_word) = }")
     print(f"{levenshtein_distance_optimized(first_word, second_word) = }")
 
-    # Benchmark the Levenshtein distance functions
+    # 对莱文斯坦距离函数进行基准测试
     benchmark_levenshtein_distance(levenshtein_distance)
     benchmark_levenshtein_distance(levenshtein_distance_optimized)

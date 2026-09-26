@@ -1,4 +1,4 @@
-# Frequency Finder
+# 字母频次查找
 
 import string
 
@@ -36,8 +36,8 @@ LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 def get_letter_count(message: str) -> dict[str, int]:
-    """get_letter_count() takes message as a parameter, which should be a string.
-    It returns a dictionary where the string is a key and an integer is a value."""
+    """get_letter_count() 接收应为字符串的 message 参数。
+    返回以字符串为键、整数为值的字典。"""
     letter_count = dict.fromkeys(string.ascii_uppercase, 0)
     for letter in message.upper():
         if letter in LETTERS:
@@ -47,13 +47,13 @@ def get_letter_count(message: str) -> dict[str, int]:
 
 
 def get_item_at_index_zero(x: tuple) -> str:
-    """Take a tuple x as a parameter and return a string."""
+    """接收元组 x，返回字符串。"""
     return x[0]
 
 
 def get_frequency_order(message: str) -> str:
     """
-    Get the frequency order of the letters in the given string
+    获取给定字符串中字母的频次顺序
     >>> get_frequency_order('Hello World')
     'LOWDRHEZQXJKVBPYGFMUCSNIAT'
     >>> get_frequency_order('Hello@')

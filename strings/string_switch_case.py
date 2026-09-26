@@ -1,21 +1,21 @@
 import re
 
 """
-general info:
+基本信息：
 https://en.wikipedia.org/wiki/Naming_convention_(programming)#Python_and_Ruby
 
-pascal case [ an upper Camel Case ]: https://en.wikipedia.org/wiki/Camel_case
+帕斯卡命名法（Pascal Case，即大驼峰命名法）：https://en.wikipedia.org/wiki/Camel_case
 
-camel case: https://en.wikipedia.org/wiki/Camel_case
+驼峰命名法（Camel Case）：https://en.wikipedia.org/wiki/Camel_case
 
-kebab case [ can be found in general info ]:
+短横线命名法（Kebab Case，参见基本信息）：
 https://en.wikipedia.org/wiki/Naming_convention_(programming)#Python_and_Ruby
 
-snake case: https://en.wikipedia.org/wiki/Snake_case
+蛇形命名法（Snake Case）：https://en.wikipedia.org/wiki/Snake_case
 """
 
 
-# assistant functions
+# 辅助函数
 def split_input(str_: str) -> list:
     """
     >>> split_input("one two 31235three4four")
@@ -43,14 +43,14 @@ def to_simple_case(str_: str) -> str:
 
 def to_complex_case(text: str, upper: bool, separator: str) -> str:
     """
-    Returns the string concatenated with the delimiter we provide.
+    返回使用指定分隔符连接后的字符串。
 
     Parameters:
-    @text: The string on which we want to perform operation
-    @upper: Boolean value to determine whether we want capitalized result or not
-    @separator: The delimiter with which we want to concatenate words
+    @text: 要执行操作的字符串
+    @upper: 决定是否将结果转为大写的布尔值
+    @separator: 连接单词所用的分隔符
 
-    Examples:
+    示例：
     >>> to_complex_case("one two 31235three4four", True, "_")
     'ONE_TWO_31235THREE4FOUR'
     >>> to_complex_case("one two 31235three4four", False, "-")
@@ -77,7 +77,7 @@ def to_complex_case(text: str, upper: bool, separator: str) -> str:
         return "not valid string"
 
 
-# main content
+# 主体内容
 def to_pascal_case(text: str) -> str:
     """
     >>> to_pascal_case("one two 31235three4four")

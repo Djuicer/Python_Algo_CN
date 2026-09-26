@@ -1,8 +1,8 @@
 """
-Calculate the minimum waiting time using a greedy algorithm.
+使用贪心算法计算最小等待时间。
 reference: https://www.youtube.com/watch?v=Sf3eiO12eJs
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python -m doctest -v minimum_waiting_time.py
 
 The minimum_waiting_time function uses a greedy algorithm to calculate the minimum
@@ -15,16 +15,16 @@ ensures that the function produces the correct output.
 
 def minimum_waiting_time(queries: list[int]) -> int:
     """
-    This function takes a list of query times and returns the minimum waiting time
-    for all queries to be completed.
+    接收查询耗时列表，返回完成所有查询所需的
+    最小总等待时间。
 
     Args:
-        queries: A list of queries measured in picoseconds
+        queries: 查询耗时列表，单位为皮秒
 
     Returns:
-        total_waiting_time: Minimum waiting time measured in picoseconds
+        total_waiting_time: 最小等待时间，单位为皮秒
 
-    Examples:
+    示例：
     >>> minimum_waiting_time([3, 2, 1, 2, 6])
     17
     >>> minimum_waiting_time([3, 2, 1])

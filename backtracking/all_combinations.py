@@ -1,8 +1,8 @@
 """
-In this problem, we want to determine all possible combinations of k
-numbers out of 1 ... n. We use backtracking to solve this problem.
+本问题要求从 1 ... n 中选出 k 个数的所有可能组合。
+使用回溯法（Backtracking）求解。
 
-Time complexity: O(C(n,k)) which is O(n choose k) = O((n!/(k! * (n - k)!))),
+时间复杂度：O(C(n,k))，即 O(n choose k) = O((n!/(k! * (n - k)!)))，
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ from itertools import combinations
 
 def combination_lists(n: int, k: int) -> list[list[int]]:
     """
-    Generates all possible combinations of k numbers out of 1 ... n using itertools.
+    使用 itertools 生成从 1 ... n 中选出 k 个数的所有可能组合。
 
     >>> combination_lists(n=4, k=2)
     [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
@@ -22,7 +22,7 @@ def combination_lists(n: int, k: int) -> list[list[int]]:
 
 def generate_all_combinations(n: int, k: int) -> list[list[int]]:
     """
-    Generates all possible combinations of k numbers out of 1 ... n using backtracking.
+    使用回溯法生成从 1 ... n 中选出 k 个数的所有可能组合。
 
     >>> generate_all_combinations(n=4, k=2)
     [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
@@ -69,7 +69,7 @@ def create_all_state(
     total_list: list[list[int]],
 ) -> None:
     """
-    Helper function to recursively build all combinations.
+    递归构建所有组合的辅助函数。
 
     >>> create_all_state(1, 4, 2, [], result := [])
     >>> result

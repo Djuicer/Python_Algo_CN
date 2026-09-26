@@ -1,10 +1,10 @@
 def match_word_pattern(pattern: str, input_string: str) -> bool:
     """
-    Determine if a given pattern matches a string using backtracking.
+    使用回溯法判断给定模式是否与字符串匹配。
 
-    pattern: The pattern to match.
-    input_string: The string to match against the pattern.
-    return: True if the pattern matches the string, False otherwise.
+    pattern: 待匹配的模式。
+    input_string: 要与模式匹配的字符串。
+    return: 模式与字符串匹配时返回 True，否则返回 False。
 
     >>> match_word_pattern("aba", "GraphTreesGraph")
     True

@@ -1,5 +1,5 @@
 """
-A recursive implementation of the insertion sort algorithm
+插入排序（Insertion Sort）算法的递归实现
 """
 
 from __future__ import annotations
@@ -17,11 +17,11 @@ T = TypeVar("T", bound=Comparable)
 
 def rec_insertion_sort[T](collection: MutableSequence[T], n: int) -> None:
     """
-    Given a collection of comparable elements and its length, sorts the
-    collection in place in ascending order.
+    给定可比较元素组成的集合及其长度，
+    对集合进行原地升序排序。
 
-    :param collection: A mutable collection of comparable elements
-    :param n: The length of collection
+    :param collection: 元素可比较的可变集合
+    :param n: collection 的长度
 
     >>> col = [1, 2, 1]
     >>> rec_insertion_sort(col, len(col))
@@ -43,7 +43,7 @@ def rec_insertion_sort[T](collection: MutableSequence[T], n: int) -> None:
     >>> col
     ['a', 'b', 'c', 'd', 'e']
     """
-    # Checks if the entire collection has been sorted
+    # 检查整个集合是否已排序
     if len(collection) <= 1 or n <= 1:
         return
 
@@ -53,7 +53,7 @@ def rec_insertion_sort[T](collection: MutableSequence[T], n: int) -> None:
 
 def insert_next[T](collection: MutableSequence[T], index: int) -> None:
     """
-    Inserts the '(index-1)th' element into place
+    将第 '(index-1)th' 个元素插入正确位置
 
     >>> col = [3, 2, 4, 2]
     >>> insert_next(col, 1)
@@ -70,11 +70,11 @@ def insert_next[T](collection: MutableSequence[T], index: int) -> None:
     >>> col
     []
     """
-    # Checks order between adjacent elements
+    # 检查相邻元素的顺序
     if index >= len(collection) or collection[index - 1] <= collection[index]:
         return
 
-    # Swaps adjacent elements since they are not in ascending order
+    # 相邻元素未按升序排列，因此交换它们
     collection[index - 1], collection[index] = (
         collection[index],
         collection[index - 1],

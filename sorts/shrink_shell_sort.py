@@ -1,12 +1,12 @@
 """
-This function implements the shell sort algorithm
-which is slightly faster than its pure implementation.
+实现希尔排序（Shell Sort）算法，
+比其基础实现略快。
 
-This shell sort is implemented using a gap, which
-shrinks by a certain factor each iteration. In this
-implementation, the gap is initially set to the
-length of the collection. The gap is then reduced by
-a certain factor (1.3) each iteration.
+此实现使用间隔进行希尔排序，
+每轮按固定因子缩小间隔。
+间隔最初设为
+集合长度，然后每轮
+按因子 1.3 缩小。
 
 For each iteration, the algorithm compares elements
 that are a certain number of positions apart
@@ -28,10 +28,10 @@ class Comparable(Protocol):
 
 
 def shell_sort[T: Comparable](collection: list[T]) -> list[T]:
-    """Implementation of shell sort algorithm in Python
-    :param collection:  Some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return:  the same collection ordered by ascending
+    """希尔排序算法的 Python 实现
+    :param collection:  可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return:  按升序排列后的同一个集合
 
     >>> shell_sort([3, 2, 1])
     [1, 2, 3]
@@ -49,19 +49,19 @@ def shell_sort[T: Comparable](collection: list[T]) -> list[T]:
     TypeError: ...
     """
 
-    # Choose an initial gap value
+    # 选择初始间隔值
     gap = len(collection)
 
-    # Set the gap value to be decreased by a factor of 1.3
-    # after each iteration
+    # 设置间隔在每轮之后
+    # 按因子 1.3 缩小
     shrink = 1.3
 
-    # Continue sorting until the gap is 1
+    # 持续排序，直到间隔为 1
     while gap > 1:
-        # Decrease the gap value
+        # 缩小间隔
         gap = int(gap / shrink)
 
-        # Sort the elements using insertion sort
+        # 使用插入排序处理元素
         for i in range(gap, len(collection)):
             temp = collection[i]
             j = i

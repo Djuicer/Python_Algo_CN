@@ -1,6 +1,6 @@
-# Python program to implement Pigeonhole Sorting in python
+# 实现鸽巢排序（Pigeonhole Sort）的 Python 程序
 
-# Algorithm for the pigeonhole sorting
+# 鸽巢排序算法
 
 
 def pigeonhole_sort(a) -> None:
@@ -15,22 +15,22 @@ def pigeonhole_sort(a) -> None:
     """
     if not a:
         return
-    # size of range of values in the list (ie, number of pigeonholes we need)
+    # 列表的值域大小（即所需的鸽巢数量）
 
-    min_val = min(a)  # min() finds the minimum value
-    max_val = max(a)  # max() finds the maximum value
+    min_val = min(a)  # min() 求最小值
+    max_val = max(a)  # max() 求最大值
 
-    size = max_val - min_val + 1  # size is difference of max and min values plus one
+    size = max_val - min_val + 1  # size 为最大值与最小值之差加一
 
-    # list of pigeonholes of size equal to the variable size
+    # 长度等于 size 的鸽巢列表
     holes = [0] * size
 
-    # Populate the pigeonholes.
+    # 填充鸽巢。
     for x in a:
         assert isinstance(x, int), "integers only please"
         holes[x - min_val] += 1
 
-    # Putting the elements back into the array in an order.
+    # 按顺序将元素放回数组。
     i = 0
     for count in range(size):
         while holes[count] > 0:

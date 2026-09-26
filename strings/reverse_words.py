@@ -1,7 +1,7 @@
 def reverse_words(sentence: str) -> str:
-    """Reverse the order of words in a given string.
+    """反转给定字符串中单词的顺序。
 
-    Extra whitespace between words is ignored.
+    忽略单词间多余的空白字符。
 
     >>> reverse_words("I love Python")
     'Python love I'

@@ -3,9 +3,9 @@
 
 def jaro_winkler(str1: str, str2: str) -> float:
     """
-    Jaro-Winkler distance is a string metric measuring an edit distance between two
-    sequences.
-    Output value is between 0.0 and 1.0.
+    Jaro-Winkler 距离是一种字符串度量，用于衡量两个
+    序列之间的编辑距离。
+    输出值介于 0.0 和 1.0 之间。
 
     >>> jaro_winkler("martha", "marhta")
     0.9611111111111111
@@ -39,12 +39,12 @@ def jaro_winkler(str1: str, str2: str) -> float:
 
         return "".join(matched)
 
-    # matching characters
+    # 匹配字符
     matching_1 = get_matched_characters(str1, str2)
     matching_2 = get_matched_characters(str2, str1)
     match_count = len(matching_1)
 
-    # transposition
+    # 换位
     transpositions = (
         len([(c1, c2) for c1, c2 in zip(matching_1, matching_2) if c1 != c2]) // 2
     )
@@ -62,7 +62,7 @@ def jaro_winkler(str1: str, str2: str) -> float:
             )
         )
 
-    # common prefix up to 4 characters
+    # 最多 4 个字符的公共前缀
     prefix_len = 0
     for c1, c2 in zip(str1[:4], str2[:4]):
         if c1 == c2:

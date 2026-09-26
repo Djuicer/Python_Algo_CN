@@ -5,9 +5,9 @@ def is_valid(
     puzzle: list[list[str]], word: str, row: int, col: int, vertical: bool
 ) -> bool:
     """
-    Check if a word can be placed at the given position.
-    A cell is valid if it is empty or already contains the correct letter
-    (enabling crossing/intersection between words).
+    检查能否在给定位置放置单词。
+    单元格为空或已有正确字母时有效
+    （允许单词交叉并共享字母）。
 
     >>> puzzle = [['', '', '', ''], ['', '', '', ''],
     ...           ['', '', '', ''], ['', '', '', '']]
@@ -36,7 +36,7 @@ def place_word(
     puzzle: list[list[str]], word: str, row: int, col: int, vertical: bool
 ) -> None:
     """
-    Place a word at the given position in the puzzle.
+    在字谜的给定位置放置单词。
 
     >>> puzzle = [['', '', '', ''], ['', '', '', ''],
     ...           ['', '', '', ''], ['', '', '', '']]
@@ -60,8 +60,8 @@ def remove_word(
     snapshot: list[list[str]],
 ) -> None:
     """
-    Remove a word from the puzzle, restoring only cells that were empty
-    before placement. Cells shared with crossing words are preserved.
+    从字谜中移除单词，仅恢复放置前为空的
+    单元格。保留与交叉单词共享的单元格。
 
     >>> puzzle = [['w', 'o', 'r', 'd'], ['', '', '', ''],
     ...           ['', '', '', ''], ['', '', '', '']]
@@ -79,9 +79,9 @@ def remove_word(
 
 def solve_crossword(puzzle: list[list[str]], words: list[str]) -> bool:
     """
-    Solve the crossword puzzle using backtracking.
-    Words are tried longest-first to prune the search space early.
-    Intersections between words (shared letters) are supported.
+    使用回溯法求解填字游戏。
+    优先尝试较长单词，以尽早缩小搜索空间。
+    支持单词交叉（共享字母）。
 
     >>> puzzle = [['', '', '', ''], ['', '', '', ''],
     ...           ['', '', '', ''], ['', '', '', '']]

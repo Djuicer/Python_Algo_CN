@@ -1,29 +1,29 @@
 """
-This is a pure Python implementation of the Cyclic Sort algorithm.
+循环排序（Cyclic Sort）算法的纯 Python 实现。
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python -m doctest -v cyclic_sort.py
-or
+或
 python3 -m doctest -v cyclic_sort.py
 
-For manual testing run:
+手动测试请运行：
 python cyclic_sort.py
-or
+或
 python3 cyclic_sort.py
 """
 
 
 def cyclic_sort(nums: list[int]) -> list[int]:
     """
-    Sorts the input list of n integers from 1 to n in-place
-    using the Cyclic Sort algorithm.
+    使用循环排序算法，对由 1 到 n 的 n 个整数
+    组成的输入列表进行原地排序。
 
-    :param nums: List of n integers from 1 to n to be sorted.
-    :return: The same list sorted in ascending order.
+    :param nums: 待排序的列表，包含 1 到 n 的 n 个整数。
+    :return: 按升序排列后的同一个列表。
 
-    Time complexity: O(n), where n is the number of integers in the list.
+    时间复杂度：O(n)，其中 n 为列表中的整数数量。
 
-    Examples:
+    示例：
     >>> cyclic_sort([])
     []
     >>> cyclic_sort([3, 5, 2, 1, 4])
@@ -40,7 +40,7 @@ def cyclic_sort(nums: list[int]) -> list[int]:
     ValueError: All numbers must be in range 1 to 2, got 5
     """
 
-    # Input validation
+    # 验证输入
     seen = set()
     n = len(nums)
 
@@ -55,7 +55,7 @@ def cyclic_sort(nums: list[int]) -> list[int]:
 
         seen.add(num)
 
-    # Perform cyclic sort
+    # 执行循环排序
     index = 0
     while index < len(nums):
         correct_index = nums[index] - 1

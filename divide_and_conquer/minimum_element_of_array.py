@@ -18,14 +18,14 @@ import random
 
 def partition(array: list, starting_index: int, ending_index: int) -> int:
     """
-    Partition the array.
+    划分数组。
     Args:
-        array: list of elements
-        starting_index: starting index of the array
-        ending_index: ending index of the array
+        array: 元素列表
+        starting_index: 数组的起始索引
+        ending_index: 数组的结束索引
 
     Returns:
-        index of the pivot
+        枢轴的索引
 
     >>> arr = [-2, 3, -10, 11, 99, 100000, 100, -200]
     >>> partition(arr, 0, len(arr) - 1)
@@ -43,14 +43,14 @@ def partition(array: list, starting_index: int, ending_index: int) -> int:
 
 def randomized_partition(array: list, starting_index: int, ending_index: int) -> int:
     """
-    Randomized partition of the array.
+    对数组进行随机划分。
     Args:
-        array: list of elements
-        starting_index: starting index of the array
-        ending_index: ending index of the array
+        array: 元素列表
+        starting_index: 数组的起始索引
+        ending_index: 数组的结束索引
 
     Returns:
-        call to partition function
+        调用 partition 函数的结果
 
     >>> arr = [-2, 3, -10, 11, 99, 100000, 100, -200]
     >>> arr1 = randomized_partition(arr, 0, len(arr) - 1)
@@ -68,15 +68,15 @@ def selection_sort(
 ) -> list | None:
     """
     Returns a list of sorted array elements using selection sort.
-    Using selection to find a minimum is O(n) overkill vs. a linear scan — the
-    value here is the DAC/partition demonstration.
+    相比线性扫描，用选择算法求最小值虽同为 O(n)，却显得复杂；
+    这里的价值在于演示分治和划分过程。
 
     Args:
-        array: list of elements
-        starting_index: starting index of the array
-        ending_index: ending index of the array
-        smallest_element: the ith smallest element of
-                          the array A[p: r], where 1 ≤ i ≤ r-p+1
+        array: 元素列表
+        starting_index: 数组的起始索引
+        ending_index: 数组的结束索引
+        smallest_element: 数组 A[p: r] 中第 i 小的元素，
+                          其中 1 ≤ i ≤ r-p+1
 
     Returns:
         sorted array
@@ -108,7 +108,7 @@ def selection_sort(
         return array
 
     if starting_index == ending_index:
-        # 1 <= i <= r - p + 1 when p == r means that i == 1
+        # 当 p == r 时，1 <= i <= r - p + 1 意味着 i == 1
         return array[starting_index]
 
     q = randomized_partition(array, starting_index, ending_index)
@@ -116,7 +116,7 @@ def selection_sort(
     k = q - starting_index + 1
 
     if smallest_element == k:
-        return array[q]  # the pivot value is the answer
+        return array[q]  # 枢轴值即为答案
     if smallest_element < k:
         return selection_sort(array, starting_index, q - 1, smallest_element)
     else:

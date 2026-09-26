@@ -9,25 +9,25 @@ def solve_maze(
     destination_column: int,
 ) -> list[list[int]]:
     """
-    This method solves the "rat in maze" problem.
+    求解老鼠走迷宫问题。
     Parameters :
-        - maze: A two dimensional matrix of zeros and ones.
-        - source_row: The row index of the starting point.
-        - source_column: The column index of the starting point.
-        - destination_row: The row index of the destination point.
-        - destination_column: The column index of the destination point.
+        - maze: 由零和一组成的二维矩阵。
+        - source_row: 起点的行索引。
+        - source_column: 起点的列索引。
+        - destination_row: 终点的行索引。
+        - destination_column: 终点的列索引。
     Returns:
-        - solution: A 2D matrix representing the solution path if it exists.
+        - solution: 若存在解，则为表示解路径的二维矩阵。
     Raises:
-        - ValueError: If no solution exists or if the source or
-            destination coordinates are invalid.
-    Description:
-        This method navigates through a maze represented as an n by n matrix,
-        starting from a specified source cell and
-        aiming to reach a destination cell.
-        The maze consists of walls (1s) and open paths (0s).
-        By providing custom row and column values, the source and destination
-        cells can be adjusted.
+        - ValueError: 不存在解，或者起点或
+            终点坐标无效时抛出。
+    说明：
+        在 n × n 矩阵表示的迷宫中，
+        从指定的起始单元格出发，
+        尝试到达目标单元格。
+        迷宫由墙壁（1）和可通行路径（0）组成。
+        可以通过自定义行列值，调整起点和终点的
+        单元格位置。
     >>> maze = [[0, 1, 0, 1, 1],
     ...         [0, 0, 0, 0, 0],
     ...         [1, 0, 1, 0, 1],
@@ -40,9 +40,9 @@ def solve_maze(
     [1, 1, 1, 0, 0],
     [1, 1, 1, 1, 0]]
 
-    Note:
-        In the output maze, the zeros (0s) represent one of the possible
-        paths from the source to the destination.
+    注意：
+        输出迷宫中的零（0）表示从起点到终点的
+        一条可能路径。
 
     >>> maze = [[0, 1, 0, 1, 1],
     ...         [0, 0, 0, 0, 0],
@@ -120,12 +120,12 @@ def solve_maze(
     ValueError: Invalid source or destination coordinates
     """
     size = len(maze)
-    # Check if source and destination coordinates are Invalid.
+    # 检查起点和终点坐标是否无效。
     if not (0 <= source_row <= size - 1 and 0 <= source_column <= size - 1) or (
         not (0 <= destination_row <= size - 1 and 0 <= destination_column <= size - 1)
     ):
         raise ValueError("Invalid source or destination coordinates")
-    # We need to create solution object to save path.
+    # 创建 solution 对象以保存路径。
     solutions = [[1 for _ in range(size)] for _ in range(size)]
     solved = run_maze(
         maze, source_row, source_column, destination_row, destination_column, solutions
@@ -145,33 +145,33 @@ def run_maze(
     solutions: list[list[int]],
 ) -> bool:
     """
-    This method is recursive starting from (i, j) and going in one of four directions:
-    up, down, left, right.
-    If a path is found to destination it returns True otherwise it returns False.
+    从 (i, j) 开始递归，向上、下、左、右
+    四个方向之一移动。
+    找到通往终点的路径时返回 True，否则返回 False。
     Parameters
-        maze: A two dimensional matrix of zeros and ones.
-        i, j : coordinates of matrix
-        solutions: A two dimensional matrix of solutions.
+        maze: 由零和一组成的二维矩阵。
+        i, j : 矩阵坐标
+        solutions: 解的二维矩阵。
     Returns:
-        Boolean if path is found True, Otherwise False.
+        布尔值，找到路径时为 True，否则为 False。
     """
     size = len(maze)
-    # Final check point.
+    # 最终检查点。
     if i == destination_row and j == destination_column and maze[i][j] == 0:
         solutions[i][j] = 0
         return True
 
-    lower_flag = (not i < 0) and (not j < 0)  # Check lower bounds
-    upper_flag = (i < size) and (j < size)  # Check upper bounds
+    lower_flag = (not i < 0) and (not j < 0)  # 检查下界
+    upper_flag = (i < size) and (j < size)  # 检查上界
 
     if lower_flag and upper_flag:
-        # check for already visited and block points.
+        # 检查已访问位置和障碍位置。
         block_flag = (solutions[i][j]) and (not maze[i][j])
         if block_flag:
-            # check visited
+            # 标记已访问
             solutions[i][j] = 0
 
-            # check for directions
+            # 检查各个方向
             if (
                 run_maze(maze, i + 1, j, destination_row, destination_column, solutions)
                 or run_maze(

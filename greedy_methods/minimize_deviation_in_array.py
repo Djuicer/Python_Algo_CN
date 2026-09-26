@@ -1,20 +1,20 @@
 """
-You are given an array nums of n positive integers.
+给定包含 n 个正整数的数组 nums。
 
-You can perform two types of operations on any
-element of the array any number of times:
+可以对数组中的任意元素执行以下两种操作，
+次数不限：
 
-If the element is even, divide it by 2.
-For example, if the array is [1,2,3,4], then you can do this operation
-on the last element, and the array will be [1,2,3,2].
-If the element is odd, multiply it by 2.
-For example, if the array is [1,2,3,4], then you can do this operation
-on the first element, and the array will be [2,2,3,4].
-The deviation of the array is the maximum difference between
-any two elements in the array.
+若元素为偶数，则将其除以 2。
+例如，数组为 [1,2,3,4] 时，可以对
+最后一个元素执行此操作，得到 [1,2,3,2]。
+若元素为奇数，则将其乘以 2。
+例如，数组为 [1,2,3,4] 时，可以对
+第一个元素执行此操作，得到 [2,2,3,4]。
+数组的偏差是任意两个元素之间
+差值的最大值。
 
-Return the minimum deviation the array can have after performing
-some number of operations.
+返回执行若干次操作后
+数组可以达到的最小偏差。
 """
 
 from heapq import heapify, heappop, heappush
@@ -23,15 +23,15 @@ from heapq import heapify, heappop, heappush
 class Solution:
     def minimum_deviation(self, nums: list[int]) -> int:
         """
-        Function to find the minimum deviation of an array after performing operations.
+        求执行操作后数组的最小偏差。
 
         Args:
-            nums (List[int]): A list of positive integers.
+            nums (List[int]): 正整数列表。
 
         Returns:
-            temp_mindeviation (int): The minimum deviation of array after operations.
+            temp_mindeviation (int): 操作后数组的最小偏差。
 
-        Examples:
+        示例：
             >>> solution = Solution()
             >>> solution.minimum_deviation([1, 2, 3, 4])
             1

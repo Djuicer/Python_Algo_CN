@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 def merge(left_half: list, right_half: list) -> list:
-    """Helper function for mergesort.
+    """归并排序（Merge Sort）的辅助函数。
 
     >>> left_half = [-2]
     >>> right_half = [-1]
@@ -31,9 +31,9 @@ def merge(left_half: list, right_half: list) -> list:
     """
     sorted_array = [None] * (len(right_half) + len(left_half))
 
-    pointer1 = 0  # pointer to current index for left Half
-    pointer2 = 0  # pointer to current index for the right Half
-    index = 0  # pointer to current index for the sorted array Half
+    pointer1 = 0  # 指向左半部分当前索引的指针
+    pointer2 = 0  # 指向右半部分当前索引的指针
+    index = 0  # 指向已排序数组当前索引的指针
 
     while pointer1 < len(left_half) and pointer2 < len(right_half):
         if left_half[pointer1] < right_half[pointer2]:
@@ -58,7 +58,7 @@ def merge(left_half: list, right_half: list) -> list:
 
 
 def merge_sort(array: list) -> list:
-    """Returns a list of sorted array elements using merge sort.
+    """使用归并排序，返回排序后的数组元素列表。
 
     >>> from random import shuffle
     >>> array = [-2, 3, -10, 11, 99, 100000, 100, -200]
@@ -93,13 +93,13 @@ def merge_sort(array: list) -> list:
     """
     if len(array) <= 1:
         return array
-    # the actual formula to calculate the middle element = left + (right - left) // 2
-    # this avoids integer overflow in case of large N
+    # 计算中间元素的公式为 left + (right - left) // 2
+    # 当 N 较大时，这可避免整数溢出
     middle = 0 + (len(array) - 0) // 2
 
-    # Split the array into halves till the array length becomes equal to One
-    # merge the arrays of single length returned by mergeSort function and
-    # pass them into the merge arrays function which merges the array
+    # 将数组分成两半，直到数组长度为 1
+    # 合并 mergeSort 函数返回的长度为 1 的数组，
+    # 将其传入数组合并函数完成合并
     left_half = array[:middle]
     right_half = array[middle:]
 

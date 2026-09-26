@@ -1,6 +1,6 @@
 def alternative_string_arrange(first_str: str, second_str: str) -> str:
     """
-    Return the alternative arrangements of the two strings.
+    返回交替排列两个字符串字符的结果。
     :param first_str:
     :param second_str:
     :return: String

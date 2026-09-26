@@ -1,5 +1,5 @@
 """
-Bead sort only works for sequences of non-negative integers.
+珠排序（Bead Sort）仅适用于非负整数序列。
 https://en.wikipedia.org/wiki/Bead_sort
 """
 

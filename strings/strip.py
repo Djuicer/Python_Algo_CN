@@ -1,16 +1,16 @@
 def strip(user_string: str, characters: str = " \t\n\r") -> str:
     """
-    Remove leading and trailing characters (whitespace by default) from a string.
+    移除字符串首尾的指定字符（默认为空白字符）。
 
     Args:
-        user_string (str): The input string to be stripped.
-        characters (str, optional): Optional characters to be removed
-                (default is whitespace).
+        user_string (str): 待去除首尾字符的输入字符串。
+        characters (str, optional): 可选的待移除字符
+                （默认为空白字符）。
 
     Returns:
-        str: The stripped string.
+        str: 去除首尾字符后的字符串。
 
-    Examples:
+    示例：
         >>> strip("   hello   ")
         'hello'
         >>> strip("...world...", ".")

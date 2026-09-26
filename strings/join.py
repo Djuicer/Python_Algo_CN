@@ -1,20 +1,20 @@
 """
-Program to join a list of strings with a separator
+使用分隔符连接字符串列表的程序
 """
 
 
 def join(separator: str, separated: list[str]) -> str:
     """
-    Joins a list of strings using a separator
-    and returns the result.
+    使用分隔符连接字符串列表，
+    并返回结果。
 
-    :param separator: Separator to be used
-                for joining the strings.
-    :param separated: List of strings to be joined.
+    :param separator: 用于连接字符串的
+                分隔符。
+    :param separated: 待连接的字符串列表。
 
-    :return: Joined string with the specified separator.
+    :return: 使用指定分隔符连接后的字符串。
 
-    Examples:
+    示例：
 
     >>> join("", ["a", "b", "c", "d"])
     'abcd'
@@ -27,44 +27,44 @@ def join(separator: str, separated: list[str]) -> str:
     >>> join(",", ["", "", ""])
     ',,'
 
-    This example should raise an
-    exception for non-string elements:
+    此示例应对非字符串元素
+    抛出异常：
     >>> join("#", ["a", "b", "c", 1])
     Traceback (most recent call last):
         ...
     Exception: join() accepts only strings
 
-    Additional test case with a different separator:
+    使用不同分隔符的额外测试用例：
     >>> join("-", ["apple", "banana", "cherry"])
     'apple-banana-cherry'
     """
 
-    # Check that all elements are strings
+    # 检查所有元素是否为字符串
     for word_or_phrase in separated:
-        # If the element is not a string, raise an exception
+        # 元素不是字符串时抛出异常
         if not isinstance(word_or_phrase, str):
             raise Exception("join() accepts only strings")
 
     joined: str = ""
     """
-    The last element of the list is not followed by the separator.
-    So, we need to iterate through the list and join each element
-    with the separator except the last element.
+    列表的最后一个元素之后没有分隔符。
+    因此，遍历列表时，需要将最后一个元素之外的
+    各元素与分隔符连接。
     """
     last_index: int = len(separated) - 1
     """
-    Iterate through the list and join each element with the separator.
-    Except the last element, all other elements are followed by the separator.
+    遍历列表，将各元素与分隔符连接。
+    除最后一个元素外，其他元素之后均有分隔符。
     """
     for word_or_phrase in separated[:last_index]:
-        # join the element with the separator.
+        # 使用分隔符连接元素。
         joined += word_or_phrase + separator
 
-    # If the list is not empty, join the last element.
+    # 列表非空时连接最后一个元素。
     if separated != []:
         joined += separated[last_index]
 
-    # Return the joined string.
+    # 返回连接后的字符串。
     return joined
 
 

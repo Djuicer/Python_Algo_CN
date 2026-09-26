@@ -1,21 +1,21 @@
 #!/usr/bin/env -S uv run --script
 
 """
-Benchmark several sorting algorithms on the same random datasets.
+在相同的随机数据集上对多种排序算法进行基准测试。
 
-This is a *reference* benchmark, not a rigorous one: it times each algorithm on a
-few shared, randomly generated integer datasets and prints a small comparison
-table.  It exists so that visitors can see the practical cost of the different
-strategies in this directory side by side, without embedding timing code inside
-the individual algorithm modules (which keeps those files clean, import-cheap,
-and focused on being readable reference implementations).
+这是用于参考的基准测试，而非严谨的性能评测：在少量共享的
+随机整数数据集上计时，输出简短的
+对比表，便于读者直观比较本目录中不同
+策略的实际开销，无需将计时代码嵌入
+各个算法模块（使这些文件保持简洁、导入开销小，
+并专注于提供易读的参考实现）。
 
-Run it from the repository root:
+从仓库根目录运行：
 
     python -m sorts.benchmark_sorts
 
-The individual algorithms are imported from their own modules, so this file never
-re-implements a sort.
+各算法从其对应模块导入，因此本文件
+不重复实现排序算法。
 """
 
 import random
@@ -37,7 +37,7 @@ from sorts.selection_sort import selection_sort
 from sorts.shell_sort import shell_sort
 from sorts.tim_sort import tim_sort
 
-# name -> callable.  Every callable accepts a list and returns the sorted list.
+# 名称 -> 可调用对象。每个对象接收列表并返回排序后的列表。
 SORTS: dict[str, Callable[[list[int]], Sequence[int]]] = {
     "bubble_sort": bubble_sort_iterative,
     "cocktail_shaker_sort": cocktail_shaker_sort,
@@ -55,7 +55,7 @@ SORTS: dict[str, Callable[[list[int]], Sequence[int]]] = {
 
 def is_sorted(collection: Sequence[int]) -> bool:
     """
-    Return True if every element is less than or equal to the next one.
+    若每个元素都小于或等于下一个元素，则返回 True。
 
     >>> is_sorted([1, 2, 2, 3])
     True
@@ -69,10 +69,10 @@ def is_sorted(collection: Sequence[int]) -> bool:
 
 def all_sorts_agree(data: list[int]) -> bool:
     """
-    Return True if every algorithm in ``SORTS`` sorts ``data`` correctly.
+    若 ``SORTS`` 中每个算法都能正确排序 ``data``，则返回 True。
 
-    Each algorithm is given a fresh copy of the data (some sort in place), and its
-    result is checked against Python's built-in ``sorted`` as the ground truth.
+    为每个算法提供新的数据副本（部分算法会原地排序），并将
+    结果与 Python 内置 ``sorted`` 的结果比较，以验证正确性。
 
     >>> all_sorts_agree([5, 1, 4.2, 2, 8.5, 0, 2])
     True
@@ -95,11 +95,11 @@ class Comparable(Protocol):
 
 def benchmark[T: Comparable](data: list[T], number: int = 1) -> dict[str, float]:
     """
-    Time every algorithm in ``SORTS`` on a copy of ``data``.
+    对 ``SORTS`` 中的每个算法在 ``data`` 副本上的执行进行计时。
 
-    Returns a mapping of algorithm name to the elapsed seconds for ``number``
-    repetitions.  Each timed call receives its own fresh copy so in-place sorts do
-    not hand an already-sorted list to the next repetition.
+    返回算法名到重复执行 ``number`` 次所耗秒数的映射。
+    每次计时调用都接收新的副本，避免原地排序算法
+    使下一次重复执行收到已经排好序的列表。
 
     >>> benchmark([])
     Traceback (most recent call last):
@@ -121,8 +121,8 @@ def benchmark[T: Comparable](data: list[T], number: int = 1) -> dict[str, float]
 
 
 def main() -> None:
-    # A couple of the imported algorithms (e.g. tim_sort) merge recursively, so
-    # give them headroom to sort the largest dataset without hitting the limit.
+    # 部分导入的算法（如 tim_sort）使用递归合并，因此
+    # 为它们留出足够的递归深度，避免排序最大数据集时达到上限。
     sys.setrecursionlimit(10_000)
     sizes = (100, 1_000, 3_000)
     random.seed(0)

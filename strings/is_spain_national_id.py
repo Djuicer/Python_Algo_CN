@@ -4,10 +4,10 @@ LOOKUP_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE"
 
 def is_spain_national_id(spanish_id: str) -> bool:
     """
-    Spain National Id is a string composed by 8 numbers plus a letter
-    The letter in fact is not part of the ID, it acts as a validator,
-    checking you didn't do a mistake when entering it on a system or
-    are giving a fake one.
+    西班牙身份证号码由 8 个数字和一个字母组成
+    该字母实际上用于校验，而非号码本身，
+    可检查输入系统时是否出错，
+    或是否提供了伪造号码。
 
     https://en.wikipedia.org/wiki/Documento_Nacional_de_Identidad_(Spain)#Number
 

@@ -1,19 +1,19 @@
 """
-Reversort is a sorting algorithm described in Google Code Jam 2021 Qualification Round.
+Reversort 是 Google Code Jam 2021 资格赛中描述的一种排序算法。
 
-Algorithm:
-1. For i from 1 to N-1:
-   a. Find the position j of the minimum element in the subarray from position i to N
-   b. Reverse the subarray from position i to j
+算法：
+1. i 从 1 遍历到 N-1：
+   a. 找出位置 i 到 N 的子数组中最小元素的位置 j
+   b. 反转位置 i 到 j 的子数组
 
-Time Complexity: O(n²) - For each position, we find the minimum and reverse
-Space Complexity: O(n) - Due to list slicing in Python
-                  (can be O(1) with in-place reversal)
+时间复杂度：O(n²)，每个位置都需查找最小值并反转
+空间复杂度：O(n)，由 Python 列表切片产生
+                  （使用原地反转可降至 O(1)）
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v reversort.py
 
-For manual testing run:
+手动测试请运行：
 python reversort.py
 """
 
@@ -26,16 +26,16 @@ class Comparable(Protocol):
 
 def reversort[T: Comparable](collection: list[T]) -> list[T]:
     """
-    Sort a list using the Reversort algorithm.
+    使用 Reversort 算法对列表排序。
 
-    Reversort works by repeatedly finding the minimum element in the unsorted
-    portion and reversing the subarray from the current position to where the
-    minimum element is located.
+    反复寻找未排序部分中的最小元素，
+    并反转从当前位置到最小元素
+    所在位置的子数组。
 
-    :param collection: A mutable ordered collection with comparable items
-    :return: The sorted collection in ascending order
+    :param collection: 元素可比较的可变有序集合
+    :return: 按升序排列的集合
 
-    Examples:
+    示例：
     >>> reversort([4, 2, 1, 3])
     [1, 2, 3, 4]
     >>> reversort([0, 5, 3, 2, 2])
@@ -87,17 +87,17 @@ def reversort[T: Comparable](collection: list[T]) -> list[T]:
         ...
     TypeError: '<' not supported between instances of 'str' and 'int'
     """
-    arr = collection[:]  # Create a copy to avoid modifying the original
+    arr = collection[:]  # 创建副本，避免修改原始输入
     n = len(arr)
 
     for i in range(n - 1):
-        # Find the position of the minimum element in arr[i:]
+        # 查找 arr[i:] 中最小元素的位置
         min_index = i
         for j in range(i + 1, n):
             if arr[j] < arr[min_index]:
                 min_index = j
 
-        # Reverse the subarray from position i to min_index
+        # 反转位置 i 到 min_index 的子数组
         if min_index != i:
             arr[i : min_index + 1] = arr[i : min_index + 1][::-1]
 
@@ -106,15 +106,15 @@ def reversort[T: Comparable](collection: list[T]) -> list[T]:
 
 def reversort_cost[T: Comparable](collection: list[T]) -> int:
     """
-    Calculate the cost of sorting using Reversort.
+    计算使用 Reversort 排序的代价。
 
-    The cost is defined as the sum of the lengths of all reversed segments.
-    This is based on the Google Code Jam 2021 problem.
+    代价定义为所有反转片段的长度之和。
+    此定义来自 Google Code Jam 2021 的题目。
 
-    :param collection: A mutable ordered collection with comparable items
-    :return: The total cost of sorting
+    :param collection: 元素可比较的可变有序集合
+    :return: 排序的总代价
 
-    Examples:
+    示例：
     >>> reversort_cost([4, 2, 1, 3])
     6
     >>> reversort_cost([1, 2])
@@ -132,21 +132,21 @@ def reversort_cost[T: Comparable](collection: list[T]) -> int:
         ...
     TypeError: '<' not supported between instances of 'str' and 'int'
     """
-    arr = collection[:]  # Create a copy to avoid modifying the original
+    arr = collection[:]  # 创建副本，避免修改原始输入
     n = len(arr)
     total_cost = 0
 
     for i in range(n - 1):
-        # Find the position of the minimum element in arr[i:]
+        # 查找 arr[i:] 中最小元素的位置
         min_index = i
         for j in range(i + 1, n):
             if arr[j] < arr[min_index]:
                 min_index = j
 
-        # Reverse the subarray from position i to min_index
+        # 反转位置 i 到 min_index 的子数组
         arr[i : min_index + 1] = arr[i : min_index + 1][::-1]
 
-        # Cost is the length of the reversed segment
+        # 代价为反转片段的长度
         total_cost += min_index - i + 1
 
     return total_cost
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     print(f"Sorted list: {reversort(unsorted)}")
     print(f"Sort cost: {reversort_cost(unsorted)}")
 
-    # Benchmark
+    # 基准测试
     num_runs = 1000
     test_arr = sample(range(-50, 50), 100)
     timer = timeit("reversort(test_arr[:])", globals=globals(), number=num_runs)

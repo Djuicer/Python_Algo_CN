@@ -5,7 +5,7 @@ from __future__ import annotations
 
 def get_valid_pos(position: tuple[int, int], n: int) -> list[tuple[int, int]]:
     """
-    Find all the valid positions a knight can move to from the current position.
+    找出骑士从当前位置可以移动到的所有有效位置。
 
     >>> get_valid_pos((1, 3), 4)
     [(2, 1), (0, 1), (3, 2)]
@@ -34,7 +34,7 @@ def get_valid_pos(position: tuple[int, int], n: int) -> list[tuple[int, int]]:
 
 def is_complete(board: list[list[int]]) -> bool:
     """
-    Check if the board (matrix) has been completely filled with non-zero values.
+    检查棋盘（矩阵）是否已全部填入非零值。
 
     >>> is_complete([[1]])
     True
@@ -50,7 +50,7 @@ def open_knight_tour_helper(
     board: list[list[int]], pos: tuple[int, int], curr: int
 ) -> bool:
     """
-    Helper function to solve knight tour problem.
+    求解骑士巡游（Knight's Tour）问题的辅助函数。
     """
 
     if is_complete(board):
@@ -70,8 +70,8 @@ def open_knight_tour_helper(
 
 def open_knight_tour(n: int) -> list[list[int]]:
     """
-    Find the solution for the knight tour problem for a board of size n. Raises
-    ValueError if the tour cannot be performed for the given size.
+    求解大小为 n 的棋盘上的骑士巡游问题。若给定大小的棋盘
+    无法完成巡游，则抛出 ValueError。
 
     >>> open_knight_tour(1)
     [[1]]

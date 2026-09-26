@@ -10,15 +10,15 @@ def quick_sort_3partition[T: Comparable](
     sorting: list[T], left: int, right: int
 ) -> None:
     """ "
-    Python implementation of the quicksort algorithm with 3-way partition.
-    The idea of 3-way quicksort is based on "Dutch National Flag algorithm".
+    采用三路划分的快速排序算法的 Python 实现。
+    三路快速排序的思想基于荷兰国旗算法。
 
-    :param sorting: sort list
-    :param left: left endpoint of sorting
-    :param right: right endpoint of sorting
+    :param sorting: 待排序列表
+    :param left: sorting 的左端点
+    :param right: sorting 的右端点
     :return: None
 
-    Examples:
+    示例：
     >>> array1 = [5, -1, -1, 5, 5, 24, 0]
     >>> quick_sort_3partition(array1, 0, 6)
     >>> array1
@@ -55,16 +55,16 @@ def quick_sort_lomuto_partition[T: Comparable](
     sorting: list[T], left: int, right: int
 ) -> None:
     """
-    A pure Python implementation of the quicksort algorithm(in-place)
-    with Lomuto partition scheme:
+    快速排序算法的纯 Python 原地实现，
+    采用 Lomuto 划分方案：
     https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme
 
-    :param sorting: sort list
-    :param left: left endpoint of sorting
-    :param right: right endpoint of sorting
+    :param sorting: 待排序列表
+    :param left: sorting 的左端点
+    :param right: sorting 的右端点
     :return: None
 
-    Examples:
+    示例：
     >>> nums1 = [0, 5, 3, 1, 2]
     >>> quick_sort_lomuto_partition(nums1, 0, 4)
     >>> nums1
@@ -86,7 +86,7 @@ def quick_sort_lomuto_partition[T: Comparable](
 
 def lomuto_partition[T: Comparable](sorting: list[T], left: int, right: int) -> int:
     """
-    Example:
+    示例：
     >>> lomuto_partition([1,5,7,6], 0, 3)
     2
     """
@@ -104,8 +104,8 @@ def hoare_partition_by_value[T: Comparable](
     array: list[T], pivot_value: T, start: int = 0, end: int | None = None
 ) -> int:
     """
-    Returns the starting index of the right subarray, which contains the
-    elements greater than or equal to `pivot_value`
+    返回右侧子数组的起始索引，该子数组包含
+    大于或等于 `pivot_value` 的元素
 
     >>> list_unsorted = [7, 3, 5, 4, 1, 8, 6]
     >>> array = list_unsorted.copy()
@@ -114,7 +114,7 @@ def hoare_partition_by_value[T: Comparable](
     >>> array
     [1, 3, 4, 5, 7, 8, 6]
 
-    Edge cases:
+    边界情况：
     >>> hoare_partition_by_value(list_unsorted.copy(), 0)
     0
     >>> hoare_partition_by_value(list_unsorted.copy(), 1)
@@ -135,34 +135,34 @@ def hoare_partition_by_value[T: Comparable](
 
     while True:
         """
-        In an intermediate iteration, state could look like this:
+        某次中间迭代的状态可能如下：
 
             lllluuuuuuuuuurrrrr
                 ^        ^
                 |        |
               left      right
 
-        Where the middle values are unknown (u), since they are not yet traversed.
-        `left-1` points to the end of the left subarray.
-        `right+1` points to the start of the right subarray.
+        中间部分尚未遍历，因此其值未知（u）。
+        `left-1` 指向左子数组末尾。
+        `right+1` 指向右子数组开头。
         """
 
         while array[left] < pivot_value:
             left += 1
             if left > end:
-                # Right subarray is empty.
-                # Signal it by returning an index out of bounds.
+                # 右侧子数组为空。
+                # 返回越界索引以表示这一情况。
                 return end + 1
         while array[right] >= pivot_value:
             right -= 1
             if right < start:
-                # Left subarray is empty
+                # 左侧子数组为空
                 return start
 
         if left > right:
             break
 
-        # Invariants:
+        # 不变式：
         assert all(i < pivot_value for i in array[start:left])
         assert all(i >= pivot_value for i in array[right + 1 : end])
         """
@@ -172,7 +172,7 @@ def hoare_partition_by_value[T: Comparable](
                 left   right
         """
 
-        # Swap
+        # 交换
         array[left], array[right] = array[right], array[left]
 
         left += 1
@@ -185,7 +185,7 @@ def hoare_partition_by_pivot[T: Comparable](
     array: list[T], pivot_index: int, start=0, end: int | None = None
 ) -> int:
     """
-    Returns the new pivot index after partitioning
+    返回划分后枢轴的新索引
 
     >>> array = [7, 3, 5, 4, 1, 8, 6]
     >>> array[3]
@@ -214,7 +214,7 @@ def quicksort_hoare[T: Comparable](
     array: list[T], start: int = 0, end: int | None = None
 ) -> None:
     """
-    Quicksort using the Hoare partition scheme:
+    使用 Hoare 划分方案的快速排序：
     - https://en.wikipedia.org/wiki/Quicksort#Hoare_partition_scheme
     - The Art of Computer Programming, Volume 3: Sorting and Searching
 
@@ -238,10 +238,10 @@ def quicksort_hoare[T: Comparable](
 
 def three_way_radix_quicksort[T: Comparable](sorting: list[T]) -> list[T]:
     """
-    Three-way radix quicksort:
+    三路基数快速排序：
     https://en.wikipedia.org/wiki/Quicksort#Three-way_radix_quicksort
-    First divide the list into three parts.
-    Then recursively sort the "less than" and "greater than" partitions.
+    先将列表分成三部分。
+    然后递归排序“小于”和“大于”枢轴的部分。
 
     >>> three_way_radix_quicksort([])
     []

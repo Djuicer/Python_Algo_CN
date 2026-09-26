@@ -1,11 +1,11 @@
 """
-Algorithm for calculating the most cost-efficient sequence for converting one string
-into another.
-The only allowed operations are
---- Cost to copy a character is copy_cost
---- Cost to replace a character is replace_cost
---- Cost to delete a character is delete_cost
---- Cost to insert a character is insert_cost
+计算将一个字符串转换为另一个字符串时
+总代价最低的操作序列。
+仅允许以下操作：
+--- 复制一个字符的代价为 copy_cost
+--- 替换一个字符的代价为 replace_cost
+--- 删除一个字符的代价为 delete_cost
+--- 插入一个字符的代价为 insert_cost
 """
 
 
@@ -18,8 +18,8 @@ def compute_transform_tables(
     insert_cost: int,
 ) -> tuple[list[list[int]], list[list[str]]]:
     """
-    Finds the most cost efficient sequence
-    for converting one string into another.
+    找出将一个字符串转换为另一个字符串时，
+    总代价最低的操作序列。
 
     >>> costs, operations = compute_transform_tables("cat", "cut", 1, 2, 3, 3)
     >>> costs[0][:4]
@@ -75,7 +75,7 @@ def compute_transform_tables(
 
 def assemble_transformation(ops: list[list[str]], i: int, j: int) -> list[str]:
     """
-    Assembles the transformations based on the ops table.
+    根据 ops 表组合转换步骤。
 
     >>> ops = [['0', 'Ic', 'Iu', 'It'],
     ...        ['Dc', 'Cc', 'Iu', 'It'],

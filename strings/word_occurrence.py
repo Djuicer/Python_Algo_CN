@@ -15,7 +15,7 @@ def word_occurrence(sentence: str) -> defaultdict[str, int]:
     {'Two': 1, 'spaces': 1}
     """
     occurrence: defaultdict[str, int] = defaultdict(int)
-    # Creating a dictionary containing count of each word
+    # 创建包含每个单词出现次数的字典
     for word in sentence.split():
         occurrence[word] += 1
     return occurrence

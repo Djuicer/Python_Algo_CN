@@ -9,7 +9,7 @@ import math
 
 def default_matrix_multiplication(a: list, b: list) -> list:
     """
-    Multiplication only for 2x2 matrices
+    仅用于 2x2 矩阵的乘法
     """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
@@ -36,8 +36,8 @@ def matrix_subtraction(matrix_a: list, matrix_b: list):
 
 def split_matrix(a: list) -> tuple[list, list, list, list]:
     """
-    Given an even-length matrix, returns the top_left, top_right, bot_left, bot_right
-    quadrant.
+    给定边长为偶数的矩阵，返回 top_left、top_right、bot_left、bot_right
+    四个象限。
 
     >>> split_matrix([[4,3,2,4],[2,3,1,1],[6,5,4,3],[8,4,1,6]])
     ([[4, 3], [2, 3]], [[2, 4], [1, 1]], [[6, 5], [8, 4]], [[4, 3], [1, 6]])
@@ -62,10 +62,10 @@ def split_matrix(a: list) -> tuple[list, list, list, list]:
     cols_left, cols_right = range(mid), range(mid, len(a))
 
     return (
-        extract_submatrix(rows_top, cols_left),  # Top-left
-        extract_submatrix(rows_top, cols_right),  # Top-right
-        extract_submatrix(rows_bot, cols_left),  # Bottom-left
-        extract_submatrix(rows_bot, cols_right),  # Bottom-right
+        extract_submatrix(rows_top, cols_left),  # 左上
+        extract_submatrix(rows_top, cols_right),  # 右上
+        extract_submatrix(rows_bot, cols_left),  # 左下
+        extract_submatrix(rows_bot, cols_right),  # 右下
     )
 
 
@@ -79,37 +79,37 @@ def print_matrix(matrix: list) -> None:
 
 def actual_strassen(matrix_a: list, matrix_b: list) -> list:
     """
-    Recursive function to calculate the product of two matrices, using the Strassen
-    Algorithm.
+    使用 Strassen 算法递归计算
+    两个矩阵的乘积。
 
-    Time complexity:
-        The recurrence is T(n) = 7 T(n/2) + \u0398(n^2), which solves to
-        T(n) = \u0398(n^{log_2 7}) \u2248 \u0398(n^{2.8074}). This is asymptotically
-        faster than the naive \u0398(n^3) algorithm for sufficiently large n.
+    时间复杂度：
+        递推式为 T(n) = 7 T(n/2) + \u0398(n^2)，解为
+        T(n) = \u0398(n^{log_2 7}) \u2248 \u0398(n^{2.8074})。当 n 足够大时，
+        其渐近复杂度优于朴素的 \u0398(n^3) 算法。
 
-    Space complexity:
-        Uses additional memory for temporary submatrices and padding; overall
-        space complexity is O(n^2).
+    空间复杂度：
+        临时子矩阵和填充需要额外内存；总体
+        空间复杂度为 O(n^2)。
 
-    Notes:
-        This function expects square matrices whose size is a power of two.
-        Matrices of other sizes are handled by `strassen` which pads to the
-        next power of two.
+    说明：
+        此函数要求方阵的边长为 2 的幂。
+        其他大小的矩阵由 `strassen` 处理，将其填充到
+        下一个 2 的幂。
 
-    It only supports square matrices of any size that is a power of 2.
+    仅支持边长为 2 的幂的方阵。
 
-    Strassen's algorithm reduces the number of recursive multiplications needed to
-    multiply two n x n matrices from the 8 required by the naive divide-and-conquer
-    approach down to 7, at the cost of a few extra matrix additions/subtractions
-    (which are cheaper, O(n^2), operations). Each matrix is split into four
-    (n/2) x (n/2) quadrants; 7 products of quadrant combinations are computed
-    recursively, and those products are combined with additions/subtractions to
-    form the four quadrants of the result.
+    Strassen 算法将两个 n x n 矩阵相乘所需的递归乘法次数，
+    从朴素分治法的 8 次
+    减少到 7 次，代价是增加少量矩阵加减法
+    （这些操作代价较低，为 O(n^2)）。每个矩阵分为四个
+    (n/2) x (n/2) 象限；递归计算象限组合的 7 个乘积，
+    然后通过加减法组合这些乘积，
+    形成结果矩阵的四个象限。
 
-    Time complexity: O(n^log2(7)) ~= O(n^2.807), an improvement over the O(n^3) of
-    the standard/naive matrix multiplication algorithm.
-    Space complexity: O(n^2) for storing the intermediate quadrant matrices, plus
-    O(log n) recursion stack depth.
+    时间复杂度：O(n^log2(7)) ~= O(n^2.807)，优于
+    标准朴素矩阵乘法算法的 O(n^3)。
+    空间复杂度：存储中间象限矩阵需要 O(n^2)，另有
+    深度为 O(log n) 的递归调用栈。
     """
     if matrix_dimensions(matrix_a) == (2, 2):
         return default_matrix_multiplication(matrix_a, matrix_b)
@@ -130,7 +130,7 @@ def actual_strassen(matrix_a: list, matrix_b: list) -> list:
     bot_left = matrix_addition(t3, t4)
     bot_right = matrix_subtraction(matrix_subtraction(matrix_addition(t1, t5), t3), t7)
 
-    # construct the new matrix from our 4 quadrants
+    # 由四个象限构造新矩阵
     new_matrix = []
     for i in range(len(top_right)):
         new_matrix.append(top_left[i] + top_right[i])
@@ -141,23 +141,23 @@ def actual_strassen(matrix_a: list, matrix_b: list) -> list:
 
 def strassen(matrix1: list, matrix2: list) -> list:
     """
-    Multiply two matrices using Strassen's divide-and-conquer algorithm.
+    使用 Strassen 分治算法计算两个矩阵的乘积。
 
-    Time complexity:
+    时间复杂度：
         \u0398(n^{log_2 7}) \u2248 \u0398(n^{2.8074})
-        (recurrence T(n) = 7 T(n/2) + \u0398(n^2)).
+        （递推式 T(n) = 7 T(n/2) + \u0398(n^2)）。
 
-    Space complexity:
-        O(n^2) due to padding and temporary matrices used during recursion.
+    空间复杂度：
+        填充和递归期间的临时矩阵使其为 O(n^2)。
 
-    Multiply two matrices using Strassen's algorithm, which runs in
-    O(n^log2(7)) ~= O(n^2.807) time, compared to O(n^3) for naive matrix
-    multiplication. This implementation pads both input matrices with zeros
-    until they are square matrices whose dimension is a power of 2 (required
-    by the divide-and-conquer recursion in actual_strassen), performs the
-    multiplication, then trims the padding back off the result.
+    使用 Strassen 算法计算两个矩阵的乘积，运行时间为
+    O(n^log2(7)) ~= O(n^2.807)，而朴素矩阵乘法的时间复杂度为
+    O(n^3)。本实现对两个输入矩阵补零，
+    使其成为边长为 2 的幂的方阵（这是
+    actual_strassen 中分治递归的要求），完成
+    乘法后，再去掉结果中的填充部分。
 
-    Examples:
+    示例：
 
     >>> strassen([[2,1,3],[3,4,6],[1,4,2],[7,6,7]], [[4,2,3,4],[2,1,1,1],[8,6,4,2]])
     [[34, 23, 19, 15], [68, 46, 37, 28], [28, 18, 15, 12], [96, 62, 55, 48]]
@@ -182,8 +182,8 @@ def strassen(matrix1: list, matrix2: list) -> list:
     new_matrix1 = matrix1
     new_matrix2 = matrix2
 
-    # Adding zeros to the matrices to convert them both into square matrices of equal
-    # dimensions that are a power of 2
+    # 为矩阵补零，使二者成为边长相同、
+    # 且边长为 2 的幂的方阵
     for i in range(maxim):
         if i < dimension1[0]:
             for _ in range(dimension1[1], maxim):
@@ -198,7 +198,7 @@ def strassen(matrix1: list, matrix2: list) -> list:
 
     final_matrix = actual_strassen(new_matrix1, new_matrix2)
 
-    # Removing the additional zeros
+    # 移除额外填充的零
     for i in range(maxim):
         if i < dimension1[0]:
             for _ in range(dimension2[1], maxim):

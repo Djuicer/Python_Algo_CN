@@ -1,7 +1,7 @@
 """
-Graph Coloring (also called the "m coloring problem") is the problem of
-assigning at most 'm' colors to the vertices of a graph such that
-no two adjacent vertices share the same color.
+图着色（Graph Coloring，也称 m 着色问题）要求
+用至多 'm' 种颜色为图的顶点着色，
+使任意两个相邻顶点的颜色不同。
 
 Wikipedia: https://en.wikipedia.org/wiki/Graph_coloring
 """
@@ -11,29 +11,29 @@ def valid_coloring(
     neighbours: list[int], colored_vertices: list[int], color: int
 ) -> bool:
     """
-    Check if a given vertex can be assigned the specified color
-    without violating the graph coloring constraints (i.e., no two adjacent vertices
-    have the same color).
+    检查能否为给定顶点分配指定颜色，
+    而不违反图着色约束（即任意两个相邻顶点
+    颜色不同）。
 
-    Procedure:
-    For each neighbour check if the coloring constraint is satisfied
-    If any of the neighbours fail the constraint return False
-    If all neighbours validate the constraint return True
+    步骤：
+    逐一检查邻居是否满足着色约束
+    若任意邻居不满足约束，则返回 False
+    若所有邻居均满足约束，则返回 True
 
     Parameters:
-    neighbours: The list representing which vertices
-                are adjacent to the current vertex.
-                1 indicates an edge between the current vertex
-                and the neighbour.
-    colored_vertices: List of current color assignments for all vertices
-                      (-1 means uncolored).
-    color: The color we are trying to assign to the current vertex.
+    neighbours: 表示哪些顶点与当前顶点
+                相邻的列表。
+                1 表示当前顶点与该邻居之间
+                存在边。
+    colored_vertices: 所有顶点当前颜色分配的列表
+                      （-1 表示未着色）。
+    color: 尝试分配给当前顶点的颜色。
 
     Returns:
-    True if the vertex can be safely colored with the given color,
-    otherwise False.
+    若可安全地为顶点分配给定颜色，则返回 True，
+    否则返回 False。
 
-    Examples:
+    示例：
     >>> neighbours = [0, 1, 0, 1, 0]
     >>> colored_vertices = [0, 2, 1, 2, 0]
     >>> color = 1
@@ -50,7 +50,7 @@ def valid_coloring(
     >>> valid_coloring(neighbors, colored_vertices, color)
     True
     """
-    # Check if any adjacent vertex has already been colored with the same color
+    # 检查是否有相邻顶点已使用相同颜色
     return not any(
         neighbour == 1 and colored_vertices[i] == color
         for i, neighbour in enumerate(neighbours)
@@ -61,34 +61,34 @@ def util_color(
     graph: list[list[int]], max_colors: int, colored_vertices: list[int], index: int
 ) -> bool:
     """
-    Recursive function to try and color the graph using backtracking.
+    使用回溯法尝试为图着色的递归函数。
 
-    Base Case:
-    1. Check if coloring is complete
-        1.1 If complete return True (meaning that we successfully colored the graph)
+    递归终止条件：
+    1. 检查是否已完成着色
+        1.1 若完成则返回 True（表示图已成功着色）
 
-    Recursive Step:
-    2. Iterates over each color:
-        Check if the current coloring is valid:
-            2.1. Color given vertex
-            2.2. Do recursive call, check if this coloring leads to a solution
-            2.4. if current coloring leads to a solution return
-            2.5. Uncolor given vertex
+    递归步骤：
+    2. 遍历每种颜色：
+        检查当前着色是否有效：
+            2.1. 为给定顶点着色
+            2.2. 递归调用，检查此着色能否导向一个解
+            2.4. 若当前着色导向一个解，则返回
+            2.5. 撤销给定顶点的着色
 
     Parameters:
-    graph: Adjacency matrix representing the graph.
-           graph[i][j] is 1 if there is an edge
-           between vertex i and j.
-    max_colors: Maximum number of colors allowed (m in the m-coloring problem).
-    colored_vertices: Current color assignments for each vertex.
-                      -1 indicates that the vertex has not been colored
-                      yet.
-    index: The current vertex index being processed.
+    graph: 表示图的邻接矩阵。
+           若顶点 i 与 j 之间存在边，
+           则 graph[i][j] 为 1。
+    max_colors: 允许使用的最多颜色数（m 着色问题中的 m）。
+    colored_vertices: 各顶点当前的颜色分配。
+                      -1 表示该顶点尚未
+                      着色。
+    index: 当前处理的顶点索引。
 
     Returns:
-    True if the graph can be colored using at most max_colors, otherwise False.
+    若使用至多 max_colors 种颜色可以完成着色，则返回 True，否则返回 False。
 
-    Examples:
+    示例：
     >>> graph = [[0, 1, 0, 0, 0],
     ...          [1, 0, 1, 0, 1],
     ...          [0, 1, 0, 1, 0],
@@ -105,42 +105,42 @@ def util_color(
     >>> util_color(graph, max_colors, colored_vertices, index)
     False
     """
-    # Base Case: If all vertices have been assigned a color, we have a valid solution
+    # 递归终止条件：所有顶点都已分配颜色，说明找到了有效解
     if index == len(graph):
         return True
 
-    # Try each color for the current vertex
+    # 为当前顶点尝试每种颜色
     for color in range(max_colors):
-        # Check if it's valid to color the current vertex with 'color'
+        # 检查为当前顶点分配 'color' 是否有效
         if valid_coloring(graph[index], colored_vertices, color):
-            colored_vertices[index] = color  # Assign color
-            # Recur to color the rest of the vertices
+            colored_vertices[index] = color  # 分配颜色
+            # 递归为其余顶点着色
             if util_color(graph, max_colors, colored_vertices, index + 1):
                 return True
-            # Backtrack if no solution found with the current assignment
+            # 当前分配无法得到解时回溯
             colored_vertices[index] = -1
 
-    return False  # Return False if no valid coloring is possible
+    return False  # 无法进行有效着色时返回 False
 
 
 def color(graph: list[list[int]], max_colors: int) -> list[int]:
     """
-    Attempt to color the graph with at most max_colors colors such that no two adjacent
-    vertices have the same color.
-    If it is possible, returns the list of color assignments;
-    otherwise, returns an empty list.
+    尝试使用至多 max_colors 种颜色为图着色，使任意两个相邻
+    顶点颜色不同。
+    若可行，返回颜色分配列表；
+    否则返回空列表。
 
     Parameters:
-    graph: Adjacency matrix representing the graph.
-    max_colors: Maximum number of colors allowed.
+    graph: 表示图的邻接矩阵。
+    max_colors: 允许使用的最多颜色数。
 
     Returns:
-    List of color assignments if the graph can be colored using max_colors.
-    Each index in the list represents the color assigned
-    to the corresponding vertex.
-    If coloring is not possible, returns an empty list.
+    若使用 max_colors 种颜色可以完成着色，则返回颜色分配列表。
+    列表中每个索引处的值表示
+    对应顶点所分配的颜色。
+    无法着色时返回空列表。
 
-    Examples:
+    示例：
     >>> graph = [[0, 1, 0, 0, 0],
     ...          [1, 0, 1, 0, 1],
     ...          [0, 1, 0, 1, 0],
@@ -176,11 +176,11 @@ def color(graph: list[list[int]], max_colors: int) -> list[int]:
     >>> color([[0, 1], [1, 0]], 2)  # 2 nodes, 2 colors (possible)
     [0, 1]
     """
-    # Initialize all vertices as uncolored (-1)
+    # 将所有顶点初始化为未着色（-1）
     colored_vertices = [-1] * len(graph)
 
-    # Use the utility function to try and color the graph starting from vertex 0
+    # 使用辅助函数，从顶点 0 开始尝试为图着色
     if util_color(graph, max_colors, colored_vertices, 0):
-        return colored_vertices  # The successful color assignment
+        return colored_vertices  # 成功的颜色分配
 
-    return []  # No valid coloring is possible
+    return []  # 无法进行有效着色

@@ -1,5 +1,5 @@
 """
-Functions for testing the validity of credit card numbers.
+检查信用卡号码有效性的函数。
 
 https://en.wikipedia.org/wiki/Luhn_algorithm
 """
@@ -7,7 +7,7 @@ https://en.wikipedia.org/wiki/Luhn_algorithm
 
 def validate_initial_digits(credit_card_number: str) -> bool:
     """
-    Function to validate initial digits of a given credit card number.
+    验证给定信用卡号码的起始数字。
     >>> valid = "4111111111111111 41111111111111 34 35 37 412345 523456 634567"
     >>> all(validate_initial_digits(cc) for cc in valid.split())
     True
@@ -20,7 +20,7 @@ def validate_initial_digits(credit_card_number: str) -> bool:
 
 def luhn_validation(credit_card_number: str) -> bool:
     """
-    Function to luhn algorithm validation for a given credit card number.
+    使用 Luhn 算法验证给定信用卡号码。
     >>> luhn_validation('4111111111111111')
     True
     >>> luhn_validation('36111111111111')
@@ -32,20 +32,20 @@ def luhn_validation(credit_card_number: str) -> bool:
     total = 0
     half_len = len(cc_number) - 2
     for i in range(half_len, -1, -2):
-        #  double the value of every second digit
+        # 将每隔一位的数字乘以 2
         digit = int(cc_number[i])
         digit *= 2
-        # If doubling of a number results in a two digit number
-        # i.e greater than 9(e.g., 6 x 2 = 12),
-        # then add the digits of the product (e.g., 12: 1 + 2 = 3, 15: 1 + 5 = 6),
-        # to get a single digit number.
+        # 若加倍后得到两位数，
+        # 即大于 9（例如 6 x 2 = 12），
+        # 则将乘积的各位相加（例如 12: 1 + 2 = 3，15: 1 + 5 = 6），
+        # 得到一位数。
         if digit > 9:
             digit %= 10
             digit += 1
         cc_number = cc_number[:i] + str(digit) + cc_number[i + 1 :]
         total += digit
 
-    # Sum up the remaining digits
+    # 累加其余数字
     for i in range(len(cc_number) - 1, -1, -2):
         total += int(cc_number[i])
 
@@ -54,7 +54,7 @@ def luhn_validation(credit_card_number: str) -> bool:
 
 def validate_credit_card_number(credit_card_number: str) -> bool:
     """
-    Function to validate the given credit card number.
+    验证给定信用卡号码。
     >>> validate_credit_card_number('4111111111111111')
     4111111111111111 is a valid credit card number.
     True

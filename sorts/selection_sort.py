@@ -8,25 +8,25 @@ class Comparable(Protocol):
 
 def selection_sort[T: Comparable](collection: MutableSequence[T]) -> MutableSequence[T]:
     """
-    Sorts a list in ascending order using the selection sort algorithm.
+    使用选择排序（Selection Sort）算法将列表按升序排列。
 
-    Selection sort divides the input list into a sorted and unsorted region.
-    It repeatedly finds the minimum element from the unsorted region and
-    places it at the end of the sorted region.
+    选择排序将输入列表划分为已排序区和未排序区，
+    反复查找未排序区中的最小元素，
+    将其放到已排序区末尾。
 
-    Time Complexity: O(n²) in all cases
-    Space Complexity: O(1)
+    时间复杂度：所有情况均为 O(n²)
+    空间复杂度：O(1)
 
-    :param collection: A mutable sequence of comparable items to be sorted.
-    :return: The same sequence sorted in ascending order.
+    :param collection: 待排序的可变序列，元素可比较。
+    :return: 按升序排列后的同一个序列。
 
 
-    Time Complexity: O(n^2) - Due to the nested loops, where n is the length
-        of the collection. The outer loop runs n-1 times, and the inner loop
-        runs n-i-1 times for each iteration.
-    Space Complexity: O(1) - Only a constant amount of extra space is used
-        for variables (length, i, min_index, k).
-    Examples:
+    时间复杂度：O(n^2)，由嵌套循环决定，其中 n 为集合
+        长度。外层循环执行 n-1 次，内层循环每轮
+        执行 n-i-1 次。
+    空间复杂度：O(1)，仅为变量
+        （length、i、min_index、k）使用常数大小的额外空间。
+    示例：
     >>> selection_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
 

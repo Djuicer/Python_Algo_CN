@@ -1,29 +1,29 @@
 def generate_parentheses_iterative(length: int) -> list[str]:
     """
-    Generate all valid combinations of parentheses (Iterative Approach).
+    生成所有有效的括号组合（迭代方法）。
 
-    The algorithm works as follows:
-    1. Initialize an empty list to store the combinations.
-    2. Initialize a stack to keep track of partial combinations.
-    3. Start with empty string and push it on stack along with
-       the counts of '(' and ')'.
-    4. While the stack is not empty:
-        a. Pop a partial combination and its open and close counts from the stack.
-        b. If the combination length is equal to 2*length, add it to the result.
-        c. If open count < length, push new combination with added '(' on stack.
-        d. If close count < open count, push new combination with added ')' on stack.
-    5. Return the result containing all valid combinations.
+    算法步骤如下：
+    1. 初始化一个空列表以保存组合。
+    2. 初始化一个栈以记录尚未完成的组合。
+    3. 从空字符串开始，将其与 '(' 和 ')'
+       的数量一起入栈。
+    4. 当栈非空时：
+        a. 从栈中弹出一个未完成组合及其左右括号数量。
+        b. 若组合长度等于 2*length，则将其加入结果。
+        c. 若左括号数 < length，则将添加 '(' 后的新组合入栈。
+        d. 若右括号数 < 左括号数，则将添加 ')' 后的新组合入栈。
+    5. 返回包含所有有效组合的结果。
 
     Args:
-        length: The desired length of the parentheses combinations
+        length: 期望的括号组合长度
 
     Returns:
-        A list of strings representing valid combinations of parentheses
+        表示有效括号组合的字符串列表
 
-    Time Complexity:
+    时间复杂度：
         O(2^(2*length))
 
-    Space Complexity:
+    空间复杂度：
         O(2^(2*length))
 
     >>> generate_parentheses_iterative(3)
@@ -41,7 +41,7 @@ def generate_parentheses_iterative(length: int) -> list[str]:
     result: list[str] = []
     stack: list[tuple[str, int, int]] = []
 
-    # Each element in stack is a tuple (current_combination, open_count, close_count)
+    # 栈中每个元素均为元组 (current_combination, open_count, close_count)
     stack.append(("", 0, 0))
 
     while stack:

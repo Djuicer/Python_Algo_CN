@@ -1,10 +1,10 @@
 """
-Slowsort is a sorting algorithm. It is of humorous nature and not useful.
-It's based on the principle of multiply and surrender,
-a tongue-in-cheek joke of divide and conquer.
-It was published in 1986 by Andrei Broder and Jorge Stolfi
-in their paper Pessimal Algorithms and Simplexity Analysis
-(a parody of optimal algorithms and complexity analysis).
+慢排序（Slowsort）是一种带有幽默性质、没有实用价值的排序算法。
+它基于“倍增并投降”（multiply and surrender）的原则，
+是对“分而治之”（divide and conquer）的戏仿。
+Andrei Broder 和 Jorge Stolfi 于 1986 年在论文
+Pessimal Algorithms and Simplexity Analysis 中发表了该算法
+（该论文戏仿了最优算法与复杂度分析）。
 
 Source: https://en.wikipedia.org/wiki/Slowsort
 """
@@ -22,10 +22,10 @@ def slowsort[T: Comparable](
     sequence: list[T], start: int | None = None, end: int | None = None
 ) -> None:
     """
-    Sorts sequence[start..end] (both inclusive) in-place.
-    start defaults to 0 if not given.
-    end defaults to len(sequence) - 1 if not given.
-    It returns None.
+    原地排序 sequence[start..end]（包含两端）。
+    未提供 start 时默认为 0。
+    未提供 end 时默认为 len(sequence) - 1。
+    返回 None。
     >>> seq = [1, 6, 2, 5, 3, 4, 4, 5]; slowsort(seq); seq
     [1, 2, 3, 4, 4, 5, 5, 6]
     >>> seq = ["c", "a", "b"]; slowsort(seq); seq

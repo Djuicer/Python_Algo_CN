@@ -1,25 +1,25 @@
-# Numbers of alphabet which we call base
+# 字符集大小，称为基数
 alphabet_size = 256
-# Modulus to hash a string
+# 对字符串计算哈希值时使用的模数
 modulus = 1000003
 
 
 def rabin_karp(pattern: str, text: str) -> bool:
     """
-    The Rabin-Karp Algorithm for finding a pattern within a piece of text
-    with complexity O(nm), most efficient when it is used with multiple patterns
-    as it is able to check if any of a set of patterns match a section of text in o(1)
-    given the precomputed hashes.
+    Rabin-Karp 算法用于在文本中寻找模式，
+    复杂度为 O(nm)，同时处理多个模式时最有效，
+    因为在预先计算哈希值后，能在 o(1) 时间内检查一组模式中
+    是否有模式与某段文本匹配。
 
-    This will be the simple version which only assumes one pattern is being searched
-    for but it's not hard to modify
+    这里是仅搜索单个模式的简单版本，
+    但修改并不困难
 
-    1) Calculate pattern hash
+    1) 计算模式的哈希值
 
-    2) Step through the text one character at a time passing a window with the same
-        length as the pattern
-        calculating the hash of the text within the window compare it with the hash
-        of the pattern. Only testing equality if the hashes match
+    2) 逐字符遍历文本，移动一个与模式
+        等长的窗口，
+        计算窗口中文本的哈希值，与模式哈希值比较。
+        仅在哈希值相同时检查内容是否相等
     """
     p_len = len(pattern)
     t_len = len(text)
@@ -30,7 +30,7 @@ def rabin_karp(pattern: str, text: str) -> bool:
     text_hash = 0
     modulus_power = 1
 
-    # Calculating the hash of pattern and substring of text
+    # 计算模式和文本子串的哈希值
     for i in range(p_len):
         p_hash = (ord(pattern[i]) + p_hash * alphabet_size) % modulus
         text_hash = (ord(text[i]) + text_hash * alphabet_size) % modulus
@@ -43,7 +43,7 @@ def rabin_karp(pattern: str, text: str) -> bool:
             return True
         if i == t_len - p_len:
             continue
-        # Calculate the https://en.wikipedia.org/wiki/Rolling_hash
+        # 计算滚动哈希：https://en.wikipedia.org/wiki/Rolling_hash
         text_hash = (
             (text_hash - ord(text[i]) * modulus_power) * alphabet_size
             + ord(text[i + p_len])
@@ -56,29 +56,29 @@ def test_rabin_karp() -> None:
     >>> test_rabin_karp()
     Success.
     """
-    # Test 1)
+    # 测试 1)
     pattern = "abc1abc12"
     text1 = "alskfjaldsabc1abc1abc12k23adsfabcabc"
     text2 = "alskfjaldsk23adsfabcabc"
     assert rabin_karp(pattern, text1)
     assert not rabin_karp(pattern, text2)
 
-    # Test 2)
+    # 测试 2)
     pattern = "ABABX"
     text = "ABABZABABYABABX"
     assert rabin_karp(pattern, text)
 
-    # Test 3)
+    # 测试 3)
     pattern = "AAAB"
     text = "ABAAAAAB"
     assert rabin_karp(pattern, text)
 
-    # Test 4)
+    # 测试 4)
     pattern = "abcdabcy"
     text = "abcxabcdabxabcdabcdabcy"
     assert rabin_karp(pattern, text)
 
-    # Test 5)
+    # 测试 5)
     pattern = "Lü"
     text = "Lüsai"
     assert rabin_karp(pattern, text)

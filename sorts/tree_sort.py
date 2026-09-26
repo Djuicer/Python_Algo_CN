@@ -1,6 +1,6 @@
 """
-Tree_sort algorithm.
-Build a Binary Search Tree and then iterate thru it to get a sorted list.
+树排序（Tree Sort）算法。
+构建二叉搜索树，再遍历得到有序列表。
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ class Node[T: Comparable]:
                 self.left = Node(val)
             else:
                 self.left.insert(val)
-        # Equal values go to the right so that duplicates are kept.
+        # 相等值放入右侧，以保留重复元素。
         elif self.right is None:
             self.right = Node(val)
         else:

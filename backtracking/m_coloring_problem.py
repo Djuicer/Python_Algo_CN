@@ -6,7 +6,7 @@ def is_safe(
     col: list[int],
 ) -> bool:
     """
-    Check if it is safe to assign a color to a node.
+    检查为节点分配某种颜色是否安全。
 
     >>> is_safe(0, 1, [[0,1],[1,0]], 2, [0,1])
     False
@@ -26,7 +26,7 @@ def solve(
     graph: list[list[int]],
 ) -> bool:
     """
-    Recursively try to color the graph using at most max_colors.
+    递归尝试使用至多 max_colors 种颜色为图着色。
 
     >>> solve(0, [0]*3, 3, 3, [[0,1,0],[1,0,1],[0,1,0]])
     True
@@ -46,7 +46,7 @@ def solve(
 
 def graph_coloring(graph: list[list[int]], max_colors: int, num_vertices: int) -> bool:
     """
-    Determine if the graph can be colored with at most max_colors.
+    判断能否使用至多 max_colors 种颜色为图着色。
 
     >>> graph_coloring([[0,1,1],[1,0,1],[1,1,0]], 3, 3)
     True

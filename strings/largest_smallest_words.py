@@ -1,15 +1,15 @@
 def find_smallest_and_largest_words(input_string: str) -> tuple:
     """
-    Find the smallest and largest words in a given input string based on their length.
+    按长度找出给定输入字符串中最短和最长的单词。
 
     Args:
-        input_string (str): The input string to analyze.
+        input_string (str): 待分析的输入字符串。
 
     Returns:
-        tuple: A tuple containing the smallest and largest words found.
-        If no words are found, both values in the tuple will be None.
+        tuple: 包含找到的最短和最长单词的元组。
+        若未找到单词，元组中的两个值均为 None。
 
-    Examples:
+    示例：
     >>> find_smallest_and_largest_words("My name is abc")
     ('My', 'name')
 
@@ -23,7 +23,7 @@ def find_smallest_and_largest_words(input_string: str) -> tuple:
     if not words:
         return None, None
 
-    # Handle punctuation and special characters
+    # 处理标点和特殊字符
     words = [word.strip(".,!?()[]{}") for word in words]
 
     smallest_word = min(words, key=len)

@@ -7,7 +7,7 @@ class Comparable(Protocol):
 
 def stooge_sort[T: Comparable](arr: list[T]) -> list[T]:
     """
-    Examples:
+    示例：
     >>> stooge_sort([18.1, 0, -7.1, -1, 2, 2])
     [-7.1, -1, 0, 2, 2, 18.1]
 
@@ -37,17 +37,17 @@ def stooge[T: Comparable](arr: list[T], i: int, h: int) -> None:
     if arr[h] < arr[i]:
         arr[i], arr[h] = arr[h], arr[i]
 
-    # If there are more than 2 elements in the array
+    # 数组中有超过 2 个元素时
     if h - i + 1 > 2:
         t = (int)((h - i + 1) / 3)
 
-        # Recursively sort first 2/3 elements
+        # 递归排序前 2/3 的元素
         stooge(arr, i, (h - t))
 
-        # Recursively sort last 2/3 elements
+        # 递归排序后 2/3 的元素
         stooge(arr, i + t, (h))
 
-        # Recursively sort first 2/3 elements
+        # 递归排序前 2/3 的元素
         stooge(arr, i, (h - t))
 
 

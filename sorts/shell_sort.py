@@ -10,13 +10,13 @@ class Comparable(Protocol):
 
 
 def shell_sort[T: Comparable](collection: list[T]) -> list[T]:
-    """Pure implementation of shell sort algorithm in Python.
+    """希尔排序（Shell Sort）算法的纯 Python 实现。
 
-    :param collection:  Some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return:  the same collection ordered by ascending
+    :param collection:  可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return:  按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> shell_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> shell_sort([])
@@ -32,7 +32,7 @@ def shell_sort[T: Comparable](collection: list[T]) -> list[T]:
     >>> shell_sort(["c", "a", "b"]) == sorted(["c", "a", "b"])
     True
     """
-    # Marcin Ciura's gap sequence
+    # Marcin Ciura 的间隔序列
     gaps = [701, 301, 132, 57, 23, 10, 4, 1]
     for gap in gaps:
         for i in range(gap, len(collection)):

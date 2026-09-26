@@ -1,10 +1,10 @@
 def is_polish_national_id(input_str: str) -> bool:
     """
-    Verification of the correctness of the PESEL number.
+    验证 PESEL 号码的正确性。
     www-gov-pl.translate.goog/web/gov/czym-jest-numer-pesel?_x_tr_sl=auto&_x_tr_tl=en
 
-    PESEL can start with 0, that's why we take str as input,
-    but convert it to int for some calculations.
+    PESEL 可以以 0 开头，因此输入使用 str，
+    部分计算时再转换为 int。
 
 
     >>> is_polish_national_id(123)
@@ -36,27 +36,27 @@ def is_polish_national_id(input_str: str) -> bool:
     False
     """
 
-    # check for invalid input type
+    # 检查输入类型是否无效
     if not isinstance(input_str, str):
         msg = f"Expected str as input, found {type(input_str)}"
         raise ValueError(msg)
 
-    # check if input can be converted to int
+    # 检查输入能否转换为 int
     try:
         input_int = int(input_str)
     except ValueError:
         msg = "Expected number as input"
         raise ValueError(msg)
 
-    # check number range
+    # 检查数值范围
     if not 10100000 <= input_int <= 99923199999:
         return False
 
-    # check month correctness
+    # 检查月份是否正确
     month = int(input_str[2:4])
 
     if (
-        month not in range(1, 13)  # year 1900-1999
+        month not in range(1, 13)  # 年份 1900-1999
         and month not in range(21, 33)  # 2000-2099
         and month not in range(41, 53)  # 2100-2199
         and month not in range(61, 73)  # 2200-2299
@@ -64,21 +64,21 @@ def is_polish_national_id(input_str: str) -> bool:
     ):
         return False
 
-    # check day correctness
+    # 检查日期是否正确
     day = int(input_str[4:6])
 
     if day not in range(1, 32):
         return False
 
-    # check the checksum
+    # 检查校验码
     multipliers = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
     subtotal = 0
 
-    digits_to_check = str(input_str)[:-1]  # cut off the checksum
+    digits_to_check = str(input_str)[:-1]  # 去掉校验码
 
     for index, digit in enumerate(digits_to_check):
-        # Multiply corresponding digits and multipliers.
-        # In case of a double-digit result, add only the last digit.
+        # 将对应数字与乘数相乘。
+        # 结果为两位数时，只累加最后一位。
         subtotal += (int(digit) * multipliers[index]) % 10
 
     checksum = 10 - subtotal % 10

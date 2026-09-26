@@ -7,8 +7,8 @@ from collections import defaultdict
 
 def check_anagrams(first_str: str, second_str: str) -> bool:
     """
-    Two strings are anagrams if they are made up of the same letters but are
-    arranged differently (ignoring the case).
+    若两个字符串由相同字母组成，但排列不同，
+    则互为字母异位词（Anagram），忽略大小写。
     >>> check_anagrams('Silent', 'Listen')
     True
     >>> check_anagrams('This is a string', 'Is this a string')
@@ -21,19 +21,19 @@ def check_anagrams(first_str: str, second_str: str) -> bool:
     first_str = first_str.lower().strip()
     second_str = second_str.lower().strip()
 
-    # Remove whitespace
+    # 移除空白字符
     first_str = first_str.replace(" ", "")
     second_str = second_str.replace(" ", "")
 
-    # Strings of different lengths are not anagrams
+    # 长度不同的字符串不互为字母异位词
     if len(first_str) != len(second_str):
         return False
 
-    # Default values for count should be 0
+    # count 的默认值应为 0
     count: defaultdict[str, int] = defaultdict(int)
 
-    # For each character in input strings,
-    # increment count in the corresponding
+    # 对于输入字符串中的每个字符，
+    # 增加其对应的计数
     for i in range(len(first_str)):
         count[first_str[i]] += 1
         count[second_str[i]] -= 1

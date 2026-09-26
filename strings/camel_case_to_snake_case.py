@@ -1,6 +1,6 @@
 def camel_to_snake_case(input_str: str) -> str:
     """
-    Transforms a camelCase (or PascalCase) string to snake_case
+    将 camelCase（或 PascalCase）字符串转换为 snake_case
 
     >>> camel_to_snake_case("someRandomString")
     'some_random_string'
@@ -21,7 +21,7 @@ def camel_to_snake_case(input_str: str) -> str:
 
     """
 
-    # check for invalid input type
+    # 检查输入类型是否无效
     if not isinstance(input_str, str):
         msg = f"Expected string as input, found {type(input_str)}"
         raise ValueError(msg)
@@ -32,22 +32,22 @@ def camel_to_snake_case(input_str: str) -> str:
         if char.isupper():
             snake_str += "_" + char.lower()
 
-        # if char is lowercase but proceeded by a digit:
+        # 若字符为小写字母，且前一个字符为数字：
         elif input_str[index - 1].isdigit() and char.islower():
             snake_str += "_" + char
 
-        # if char is a digit proceeded by a letter:
+        # 若字符为数字，且前一个字符为字母：
         elif input_str[index - 1].isalpha() and char.isnumeric():
             snake_str += "_" + char.lower()
 
-        # if char is not alphanumeric:
+        # 若字符不是字母或数字：
         elif not char.isalnum():
             snake_str += "_"
 
         else:
             snake_str += char
 
-    # remove leading underscore
+    # 移除开头的下划线
     if snake_str[0] == "_":
         snake_str = snake_str[1:]
 

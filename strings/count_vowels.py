@@ -1,11 +1,11 @@
 def count_vowels(s: str) -> int:
     """
-    Count the number of vowels in a given string.
+    统计给定字符串中的元音数量。
 
-    :param s: Input string to count vowels in.
-    :return: Number of vowels in the input string.
+    :param s: 待统计元音的输入字符串。
+    :return: 输入字符串中的元音数量。
 
-    Examples:
+    示例：
     >>> count_vowels("hello world")
     3
     >>> count_vowels("HELLO WORLD")

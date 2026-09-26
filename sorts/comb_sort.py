@@ -1,20 +1,20 @@
 """
-This is pure Python implementation of comb sort algorithm.
-Comb sort is a relatively simple sorting algorithm originally designed by Wlodzimierz
-Dobosiewicz in 1980.  It was rediscovered by Stephen Lacey and Richard Box in 1991.
-Comb sort improves on bubble sort algorithm.
-In bubble sort, distance (or gap) between two compared elements is always one.
-Comb sort improvement is that gap can be much more than 1, in order to prevent slowing
-down by small values at the end of a list.
+梳排序（Comb Sort）算法的纯 Python 实现。
+梳排序是一种较简单的排序算法，由 Wlodzimierz
+Dobosiewicz 于 1980 年设计，Stephen Lacey 和 Richard Box 于 1991 年重新发现。
+梳排序改进了冒泡排序。
+冒泡排序中，被比较元素的距离（间隔）始终为 1。
+梳排序允许间隔远大于 1，避免列表末尾的小值
+拖慢排序过程。
 
 More info on: https://en.wikipedia.org/wiki/Comb_sort
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python -m doctest -v comb_sort.py
-or
+或
 python3 -m doctest -v comb_sort.py
 
-For manual testing run:
+手动测试请运行：
 python comb_sort.py
 """
 
@@ -26,10 +26,10 @@ class Comparable(Protocol):
 
 
 def comb_sort[T: Comparable](data: list[T]) -> list[T]:
-    """Pure implementation of comb sort algorithm in Python
-    :param data: mutable collection with comparable items
-    :return: the same collection in ascending order
-    Examples:
+    """梳排序算法的纯 Python 实现
+    :param data: 元素可比较的可变集合
+    :return: 按升序排列后的同一个集合
+    示例：
     >>> comb_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> comb_sort([])
@@ -52,9 +52,9 @@ def comb_sort[T: Comparable](data: list[T]) -> list[T]:
     completed = False
 
     while not completed:
-        # Update the gap value for a next comb.  The gap is never allowed to drop
-        # below 1: a gap of 0 compares each element with itself, so no swap can
-        # ever happen and the loop would exit while the data is still unsorted.
+        # 更新下一轮梳理的间隔。间隔不能小于
+        # 1：间隔为 0 时，每个元素只与自身比较，不会发生交换，
+        # 从而可能在数据尚未有序时退出循环。
         gap = max(int(gap / shrink_factor), 1)
         if gap == 1:
             completed = True
@@ -62,7 +62,7 @@ def comb_sort[T: Comparable](data: list[T]) -> list[T]:
         index = 0
         while index + gap < len(data):
             if data[index + gap] < data[index]:
-                # Swap values
+                # 交换值
                 data[index], data[index + gap] = data[index + gap], data[index]
                 completed = False
             index += 1

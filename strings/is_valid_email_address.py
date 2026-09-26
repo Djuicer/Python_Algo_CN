@@ -1,5 +1,5 @@
 """
-Implements an is valid email address algorithm
+实现电子邮箱地址有效性验证算法
 
 @ https://en.wikipedia.org/wiki/Email_address
 """
@@ -42,65 +42,65 @@ MAX_DOMAIN_OCTETS = 255
 
 def is_valid_email_address(email: str) -> bool:
     """
-    Returns True if the passed email address is valid.
+    传入的邮箱地址有效时返回 True。
 
-    The local part of the email precedes the singular @ symbol and
-    is associated with a display-name. For example, "john.smith"
-    The domain is stricter than the local part and follows the @ symbol.
+    邮箱的本地部分位于唯一的 @ 符号之前，
+    与显示名称关联，例如 "john.smith"。
+    域名部分位于 @ 之后，其规则比本地部分更严格。
 
-    Global email checks:
-     1. There can only be one @ symbol in the email address. Technically if the
-        @ symbol is quoted in the local-part, then it is valid, however this
-        implementation ignores "" for now.
+    邮箱整体检查：
+     1. 邮箱地址只能有一个 @ 符号。严格来说，若本地部分的
+        @ 符号被引号包围，则也是有效的，但此
+        实现暂不处理 ""。
         (See https://en.wikipedia.org/wiki/Email_address#:~:text=If%20quoted,)
      2. The local-part and the domain are limited to a certain number of octets. With
         unicode storing a single character in one byte, each octet is equivalent to
         a character. Hence, we can just check the length of the string.
-    Checks for the local-part:
-     3. The local-part may contain: upper and lowercase latin letters, digits 0 to 9,
-        and printable characters (!#$%&'*+-/=?^_`{|}~)
-     4. The local-part may also contain a "." in any place that is not the first or
-        last character, and may not have more than one "." consecutively.
+    本地部分检查：
+     3. 本地部分可以包含大小写拉丁字母、数字 0 到 9，
+        以及可打印字符 (!#$%&'*+-/=?^_`{|}~)
+     4. 本地部分的 "." 可以出现在首尾以外的位置，
+        但不能连续出现多个 "."。
 
-    Checks for the domain:
-     5. The domain may contain: upper and lowercase latin letters and digits 0 to 9
-     6. Hyphen "-", provided that it is not the first or last character
-     7. The domain may also contain a "." in any place that is not the first or
-        last character, and may not have more than one "." consecutively.
+    域名部分检查：
+     5. 域名可以包含大小写拉丁字母和数字 0 到 9
+     6. 可以包含连字符 "-"，但不能位于首尾
+     7. 域名中的 "." 可以出现在首尾以外的位置，
+        但不能连续出现多个 "."。
 
     >>> for email, valid in email_tests:
     ...     assert is_valid_email_address(email) == valid
     """
 
-    # (1.) Make sure that there is only one @ symbol in the email address
+    # （1.）确保邮箱地址中仅有一个 @ 符号
     if email.count("@") != 1:
         return False
 
     local_part, domain = email.split("@")
-    # (2.) Check octet length of the local part and domain
+    # （2.）检查本地部分和域名的字节长度
     if len(local_part) > MAX_LOCAL_PART_OCTETS or len(domain) > MAX_DOMAIN_OCTETS:
         return False
 
-    # (3.) Validate the characters in the local-part
+    # （3.）验证本地部分的字符
     if any(
         char not in string.ascii_letters + string.digits + ".(!#$%&'*+-/=?^_`{|}~)"
         for char in local_part
     ):
         return False
 
-    # (4.) Validate the placement of "." characters in the local-part
+    # （4.）验证本地部分中 "." 的位置
     if local_part.startswith(".") or local_part.endswith(".") or ".." in local_part:
         return False
 
-    # (5.) Validate the characters in the domain
+    # （5.）验证域名中的字符
     if any(char not in string.ascii_letters + string.digits + ".-" for char in domain):
         return False
 
-    # (6.) Validate the placement of "-" characters
+    # （6.）验证 "-" 的位置
     if domain.startswith("-") or domain.endswith("."):
         return False
 
-    # (7.) Validate the placement of "." characters
+    # （7.）验证 "." 的位置
     return not (domain.startswith(".") or domain.endswith(".") or ".." in domain)
 
 

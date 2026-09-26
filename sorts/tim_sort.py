@@ -14,25 +14,25 @@ def binary_search[T: Comparable](lst: list[T], item: T, start: int, end: int) ->
     >>> binary_search([1, 3, 5], 6, 0, 2)
     3
 
-    Find the insertion index for ``item`` in a sorted sublist.
+    在有序子列表中查找 ``item`` 的插入索引。
 
-    It performs a recursive binary search on ``lst`` between indices
-    ``start`` and ``end`` (inclusive) and returns the index showing
-    where to insert the item so the list stays sorted.
+    在 ``lst`` 的 ``start`` 到 ``end`` 索引范围内
+    （包含两端）执行递归二分查找，返回
+    能够保持列表有序的插入位置。
 
     Args:
-        lst: A list of comparable items.
-             The sublist from ``start`` to ``end`` must already be sorted.
-        item: The value to locate an insertion index for.
-        start: Left-most index of the sorted sublist to search.
-        end: Right-most index of the sorted sublist to search.
+        lst: 元素可比较的列表。
+             ``start`` 到 ``end`` 的子列表必须已有序。
+        item: 待查找插入位置的值。
+        start: 待搜索有序子列表的最左索引。
+        end: 待搜索有序子列表的最右索引。
 
     Returns:
-        The index at which ``item`` should be inserted.
+        ``item`` 应插入的索引。
 
-    Complexity:
-        Time: ``O(log n)`` for the searched sublist.
-        Space: ``O(log n)`` due to recursion depth.
+    复杂度：
+        时间：相对于待搜索子列表为 ``O(log n)``。
+        空间：递归深度带来 ``O(log n)`` 开销。
     """
     if start == end:
         return start if item < lst[start] else start + 1
@@ -52,22 +52,22 @@ def insertion_sort[T: Comparable](lst: list[T]) -> list[T]:
     """>>> insertion_sort([3, 2, 1])
     [1, 2, 3]
 
-    Return a sorted copy of ``lst`` using insertion sort.
+    使用插入排序返回 ``lst`` 的已排序副本。
 
-    Uses ``binary_search`` to find where to insert each item. The
-    input list is not modified; a new sorted list is returned.
+    使用 ``binary_search`` 查找每个元素的插入位置。
+    不修改输入列表，返回新的有序列表。
 
     Args:
-        lst: The list to sort. A new list is returned; the input list is
-            not modified in-place.
+        lst: 待排序的列表。返回新列表，不会
+            原地修改输入。
 
     Returns:
-        A new list containing the elements of ``lst`` in ascending order.
+        包含 ``lst`` 所有元素、按升序排列的新列表。
 
-    Complexity:
-        Time: ``O(n^2)`` in the worst case because each insertion may
-            shift many elements.
-        Space: ``O(n)`` for the reconstructed list copies.
+    复杂度：
+        时间：最坏为 ``O(n^2)``，因为每次插入都可能
+            移动多个元素。
+        空间：重建列表副本需要 ``O(n)``。
     """
     length = len(lst)
 
@@ -83,19 +83,19 @@ def merge[T: Comparable](left: list[T], right: list[T]) -> list[T]:
     """>>> merge([1, 4], [2, 3])
     [1, 2, 3, 4]
 
-    Merge two sorted lists and return a new sorted list.
+    合并两个有序列表，返回新的有序列表。
 
     Args:
-        left: A list sorted in ascending order.
-        right: A list sorted in ascending order.
+        left: 按升序排列的列表。
+        right: 按升序排列的列表。
 
     Returns:
-        A new list containing all elements from ``left`` and ``right`` in
-        ascending order.
+        包含 ``left`` 和 ``right`` 所有元素、按
+        升序排列的新列表。
 
-    Complexity:
-        Time: ``O(n + m)`` where ``n`` and ``m`` are the input lengths.
-        Space: ``O(n + m)`` because recursive slicing creates new lists.
+    复杂度：
+        时间：``O(n + m)``，其中 ``n`` 和 ``m`` 为输入长度。
+        空间：``O(n + m)``，因为递归切片会创建新列表。
     """
     if not left:
         return right
@@ -111,12 +111,12 @@ def merge[T: Comparable](left: list[T], right: list[T]) -> list[T]:
 
 def tim_sort[T: Comparable](lst: Sequence[T]) -> list[T]:
     """
-    Sort and return the input using a TimSort-like approach: detect
-    runs, sort each run with insertion sort, then merge the runs.
+    使用类似 TimSort 的方式排序并返回输入：检测
+    有序段，使用插入排序处理各段，再合并这些段。
 
-    Complexity:
-        Time: ``O(n log n)`` in the common case.
-        Space: ``O(n)`` for the extra lists used during sorting.
+    复杂度：
+        时间：通常为 ``O(n log n)``。
+        空间：排序中使用的额外列表需要 ``O(n)``。
 
     >>> tim_sort([])
     []

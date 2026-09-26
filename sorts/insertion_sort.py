@@ -1,15 +1,15 @@
 """
-A pure Python implementation of the insertion sort algorithm
+插入排序（Insertion Sort）算法的纯 Python 实现
 
-This algorithm sorts a collection by comparing adjacent elements.
-When it finds that order is not respected, it moves the element compared
-backward until the order is correct.  It then goes back directly to the
-element's initial position resuming forward comparison.
+通过比较相邻元素对集合排序。
+发现顺序不正确时，将当前元素向前移动，
+直到顺序正确。然后直接返回该元素的
+初始位置，继续向后比较。
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v insertion_sort.py
 
-For manual testing run:
+手动测试请运行：
 python3 insertion_sort.py
 """
 
@@ -25,23 +25,23 @@ T = TypeVar("T", bound=Comparable)
 
 
 def insertion_sort[T: Comparable](collection: MutableSequence[T]) -> MutableSequence[T]:
-    """A pure Python implementation of the insertion sort algorithm
+    """插入排序算法的纯 Python 实现
 
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered by ascending
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
 
-    Complexity Analysis:
-        Time Complexity:
-            - Best Case: O(n) when the collection is already sorted
-            - Average Case: O(n^2)
-            - Worst Case: O(n^2) when the collection is sorted in reverse order
+    复杂度分析：
+        时间复杂度：
+            - 最好情况：集合已有序时为 O(n)
+            - 平均情况：O(n^2)
+            - 最坏情况：集合逆序时为 O(n^2)
 
-        Space Complexity:
-            - O(1) because the algorithm sorts the collection in place and
-              uses only a constant amount of additional memory
+        空间复杂度：
+            - O(1)，因为算法原地排序，
+              仅使用常数大小的额外内存
 
-    Examples:
+    示例：
     >>> insertion_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> insertion_sort([]) == sorted([])

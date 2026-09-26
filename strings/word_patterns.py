@@ -1,6 +1,6 @@
 def get_word_pattern(word: str) -> str:
     """
-    Returns numerical pattern of character appearances in given word
+    返回给定单词中字符出现规律的数字模式
     >>> get_word_pattern("")
     ''
     >>> get_word_pattern(" ")

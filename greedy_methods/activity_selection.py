@@ -1,10 +1,10 @@
 """
-The Activity Selection Problem is a classic problem in which a set of activities,
-each with a start and end time, needs to be scheduled in such a way that the
-maximum number of non-overlapping activities is selected.
-This is a greedy algorithm where at each step,
-we choose the activity that finishes the earliest
-and does not conflict with previously selected activities.
+活动选择问题（Activity Selection Problem）是一个经典问题：给定一组活动，
+每项活动都有开始和结束时间，需要合理安排，
+使选出的互不重叠的活动数量最多。
+这里采用贪心算法（Greedy Algorithm），每一步都
+选择结束时间最早、
+且不与已选活动冲突的活动。
 
 Wikipedia: https://en.wikipedia.org/wiki/Activity_selection_problem
 """
@@ -12,17 +12,17 @@ Wikipedia: https://en.wikipedia.org/wiki/Activity_selection_problem
 
 def activity_selection(activities: list[tuple[int, int]]) -> list[tuple[int, int]]:
     """
-    Solve the Activity Selection Problem using a greedy algorithm by selecting
-    the maximum number of non-overlapping activities from a list of activities.
+    使用贪心算法求解活动选择问题，从活动列表中
+    选出数量最多的互不重叠的活动。
 
     Parameters:
-    activities: A list of tuples where each tuple contains
-                                        the start and end times of an activity.
+    activities: 元组列表，每个元组包含
+                                        一项活动的开始和结束时间。
 
     Returns:
-    A list of selected activities that are non-overlapping.
+    互不重叠的已选活动列表。
 
-    Example:
+    示例：
     >>> activity_selection([(1, 3), (2, 5), (3, 9), (6, 8)])
     [(1, 3), (6, 8)]
 
@@ -41,15 +41,15 @@ def activity_selection(activities: list[tuple[int, int]]) -> list[tuple[int, int
     if not activities:
         return []
 
-    # Step 1: Sort the activities by their end time
+    # 第 1 步：按结束时间对活动排序
     sorted_activities = sorted(activities, key=lambda activity: activity[1])
 
-    # Step 2: Select the first activity (the one that finishes the earliest)
-    # as the initial activity
+    # 第 2 步：选择第一项活动（结束最早的活动）
+    # 作为初始活动
     selected_activities = [sorted_activities[0]]
 
-    # Step 3: Iterate through the sorted activities and select the ones
-    # that do not overlap with the last selected activity
+    # 第 3 步：遍历排序后的活动，选出
+    # 与上一次选择的活动不重叠的活动
     for i in range(1, len(sorted_activities)):
         if sorted_activities[i][0] >= selected_activities[-1][1]:
             selected_activities.append(sorted_activities[i])

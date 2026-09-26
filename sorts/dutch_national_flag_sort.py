@@ -1,40 +1,40 @@
 """
-A pure implementation of Dutch national flag (DNF) sort algorithm in Python.
-Dutch National Flag algorithm is an algorithm originally designed by Edsger Dijkstra.
-It is the most optimal sort for 3 unique values (eg. 0, 1, 2) in a sequence.  DNF can
-sort a sequence of n size with [0 <= a[i] <= 2] at guaranteed O(n) complexity in a
-single pass.
+荷兰国旗排序（Dutch National Flag，DNF）算法的纯 Python 实现。
+荷兰国旗算法最初由 Edsger Dijkstra 设计。
+对于仅包含 3 种不同值（如 0、1、2）的序列，它是一种最优排序方法。DNF 可以
+在单次遍历中，以保证的 O(n) 复杂度对满足 [0 <= a[i] <= 2] 的
+长度为 n 的序列排序。
 
-The flag of the Netherlands consists of three colors: white, red, and blue.
-The task is to randomly arrange balls of white, red, and blue in such a way that balls
-of the same color are placed together.  DNF sorts a sequence of 0, 1, and 2's in linear
-time that does not consume any extra space.  This algorithm can be implemented only on
-a sequence that contains three unique elements.
+荷兰国旗由白、红、蓝三色组成。
+任务是将随机排列的白、红、蓝球重新排列，使
+相同颜色的球聚在一起。DNF 在线性时间内对 0、1、2 的序列排序，
+不消耗额外空间。此算法仅适用于
+包含三种不同元素的序列。
 
-1) Time complexity is O(n).
-2) Space complexity is O(1).
+1) 时间复杂度为 O(n)。
+2) 空间复杂度为 O(1)。
 
 More info on: https://en.wikipedia.org/wiki/Dutch_national_flag_problem
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v dutch_national_flag_sort.py
 
-For manual testing run:
+手动测试请运行：
 python dnf_sort.py
 """
 
-# Python program to sort a sequence containing only 0, 1 and 2 in a single pass.
-red = 0  # The first color of the flag.
-white = 1  # The second color of the flag.
-blue = 2  # The third color of the flag.
+# 通过单次遍历对仅含 0、1、2 的序列排序的 Python 程序。
+red = 0  # 国旗的第一种颜色。
+white = 1  # 国旗的第二种颜色。
+blue = 2  # 国旗的第三种颜色。
 colors = (red, white, blue)
 
 
 def dutch_national_flag_sort(sequence: list) -> list:
     """
-    A pure Python implementation of Dutch National Flag sort algorithm.
-    :param data: 3 unique integer values (e.g., 0, 1, 2) in an sequence
-    :return: The same collection in ascending order
+    荷兰国旗排序算法的纯 Python 实现。
+    :param data: 包含 3 种不同整数值（如 0、1、2）的序列
+    :return: 按升序排列后的同一个集合
 
     >>> dutch_national_flag_sort([])
     []

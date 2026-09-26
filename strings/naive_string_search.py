@@ -1,11 +1,11 @@
 """
 https://en.wikipedia.org/wiki/String-searching_algorithm#Na%C3%AFve_string_search
-this algorithm tries to find the pattern from every position of
-the mainString if pattern is found from position i it add it to
-the answer and does the same for position i+1
-Complexity : O(n*m)
-    n=length of main string
-    m=length of pattern string
+从主字符串 mainString 的每个位置尝试匹配模式。
+若在位置 i 找到模式，则将该位置加入
+答案，再从位置 i+1 继续执行相同操作
+复杂度：O(n*m)
+    n=主字符串长度
+    m=模式字符串长度
 """
 
 

@@ -1,11 +1,11 @@
 """
-The merge sort algorithm.
+归并排序（Merge Sort）算法。
 
-For doctests, run the following command:
+运行 doctest 请使用以下命令：
 python -m doctest -v merge_sort.py
-or
+或
 python3 -m doctest -v merge_sort.py
-For manual testing, run:
+手动测试请运行：
 python merge_sort.py
 """
 
@@ -18,15 +18,15 @@ class Comparable(Protocol):
 
 def merge_sort[T: Comparable](collection: list[T]) -> list[T]:
     """
-    Sorts a list using the merge sort algorithm.
+    使用归并排序算法对列表排序。
 
-    :param collection: A collection with comparable items.
-    :return: The collection ordered in ascending order.
+    :param collection: 元素可比较的集合。
+    :return: 按升序排列的集合。
 
-    Time Complexity: O(n log n)
-    Space Complexity: O(n)
+    时间复杂度：O(n log n)
+    空间复杂度：O(n)
 
-    Examples:
+    示例：
     >>> merge_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
 
@@ -39,11 +39,11 @@ def merge_sort[T: Comparable](collection: list[T]) -> list[T]:
 
     def merge(left: list[T], right: list[T]) -> list[T]:
         """
-        Merge two sorted lists into a single sorted list.
+        将两个有序列表合并为一个有序列表。
 
-        :param left: Left collection
-        :param right: Right collection
-        :return: Merged result
+        :param left: 左侧集合
+        :param right: 右侧集合
+        :return: 合并结果
         """
         result: list[T] = []
         while left and right:

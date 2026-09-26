@@ -1,7 +1,7 @@
 def snake_to_camel_case(input_str: str, use_pascal: bool = False) -> str:
     """
-    Transforms a snake_case given string to camelCase (or PascalCase if indicated)
-    (defaults to not use Pascal)
+    将给定的 snake_case 字符串转换为 camelCase（若指定则为 PascalCase）
+    （默认不使用 PascalCase）
 
     >>> snake_to_camel_case("some_random_string")
     'someRandomString'

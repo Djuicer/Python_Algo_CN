@@ -1,12 +1,12 @@
 """
-This is an implementation of Pigeon Hole Sort.
-For doctests run following command:
+鸽巢排序（Pigeonhole Sort）的实现。
+运行 doctest 请使用以下命令：
 
 python3 -m doctest -v pigeon_sort.py
-or
+或
 python -m doctest -v pigeon_sort.py
 
-For manual testing run:
+手动测试请运行：
 python pigeon_sort.py
 """
 
@@ -15,9 +15,9 @@ from __future__ import annotations
 
 def pigeon_sort(array: list[int]) -> list[int]:
     """
-    Implementation of pigeon hole sort algorithm
-    :param array: Collection of comparable items
-    :return: Collection sorted in ascending order
+    鸽巢排序算法的实现
+    :param array: 元素可比较的集合
+    :return: 按升序排列的集合
     >>> pigeon_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
     >>> pigeon_sort([])
@@ -30,17 +30,17 @@ def pigeon_sort(array: list[int]) -> list[int]:
 
     _min, _max = min(array), max(array)
 
-    # Compute the variables
+    # 计算所需变量
     holes_range = _max - _min + 1
     holes, holes_repeat = [0] * holes_range, [0] * holes_range
 
-    # Make the sorting.
+    # 执行排序。
     for i in array:
         index = i - _min
         holes[index] = i
         holes_repeat[index] += 1
 
-    # Makes the array back by replacing the numbers.
+    # 通过替换数值重建数组。
     index = 0
     for i in range(holes_range):
         while holes_repeat[i] > 0:
@@ -48,7 +48,7 @@ def pigeon_sort(array: list[int]) -> list[int]:
             index += 1
             holes_repeat[i] -= 1
 
-    # Returns the sorted array.
+    # 返回排序后的数组。
     return array
 
 

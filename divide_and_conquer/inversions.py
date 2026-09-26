@@ -1,24 +1,24 @@
 """
-Given an array-like data structure A[1..n], how many pairs
-(i, j) for all 1 <= i < j <= n such that A[i] > A[j]? These pairs are
-called inversions. Counting the number of such inversions in an array-like
-object is the important. Among other things, counting inversions can help
-us determine how close a given array is to being sorted.
-In this implementation, I provide two algorithms, a divide-and-conquer
-algorithm which runs in nlogn and the brute-force n^2 algorithm.
+给定类数组数据结构 A[1..n]，满足
+1 <= i < j <= n 且 A[i] > A[j] 的数对 (i, j) 有多少个？这些数对
+称为逆序对（Inversion）。统计类数组对象中的逆序对数量
+很重要。例如，统计逆序对可以帮助
+判断给定数组距离有序状态有多近。
+此处提供两种算法：时间复杂度为 nlogn 的分治算法，
+以及时间复杂度为 n^2 的暴力算法。
 """
 
 
 def count_inversions_bf(arr):
     """
-    Counts the number of inversions using a naive brute-force algorithm
+    使用朴素暴力算法统计逆序对数量
     Parameters
     ----------
-    arr: arr: array-like, the list containing the items for which the number
-    of inversions is desired. The elements of `arr` must be comparable.
+    arr: arr: 类数组对象，包含待统计逆序对数量的
+    元素列表。`arr` 的元素必须可比较。
     Returns
     -------
-    num_inversions: The total number of inversions in `arr`
+    num_inversions: `arr` 中的逆序对总数
     Examples
     ---------
      >>> count_inversions_bf([1, 4, 2, 4, 1])
@@ -42,15 +42,15 @@ def count_inversions_bf(arr):
 
 def count_inversions_recursive(arr):
     """
-    Counts the number of inversions using a divide-and-conquer algorithm
+    使用分治算法统计逆序对数量
     Parameters
     -----------
-    arr: array-like, the list containing the items for which the number
-    of inversions is desired. The elements of `arr` must be comparable.
+    arr: 类数组对象，包含待统计逆序对数量的
+    元素列表。`arr` 的元素必须可比较。
     Returns
     -------
-    C: a sorted copy of `arr`.
-    num_inversions: int, the total number of inversions in 'arr'
+    C: `arr` 的已排序副本。
+    num_inversions: int，'arr' 中的逆序对总数
     Examples
     --------
     >>> count_inversions_recursive([1, 4, 2, 4, 1])
@@ -76,18 +76,18 @@ def count_inversions_recursive(arr):
 
 def _count_cross_inversions(p, q):
     """
-    Counts the inversions across two sorted arrays.
-    And combine the two arrays into one sorted array
-    For all 1<= i<=len(P) and for all 1 <= j <= len(Q),
-    if P[i] > Q[j], then (i, j) is a cross inversion
+    统计跨两个有序数组的逆序对。
+    并将两个数组合并为一个有序数组
+    对于所有 1<= i<=len(P) 和 1 <= j <= len(Q)，
+    若 P[i] > Q[j]，则 (i, j) 为跨数组的逆序对
     Parameters
     ----------
-    P: array-like, sorted in non-decreasing order
-    Q: array-like, sorted in non-decreasing order
+    P: 类数组对象，按非递减顺序排列
+    Q: 类数组对象，按非递减顺序排列
     Returns
     ------
-    R: array-like, a sorted array of the elements of `P` and `Q`
-    num_inversion: int, the number of inversions across `P` and `Q`
+    R: 类数组对象，由 `P` 和 `Q` 的元素组成的有序数组
+    num_inversion: int，跨 `P` 和 `Q` 的逆序对数量
     Examples
     --------
     >>> _count_cross_inversions([1, 2, 3], [0, 2, 5])
@@ -121,7 +121,7 @@ def _count_cross_inversions(p, q):
 def main() -> None:
     arr_1 = [10, 2, 1, 5, 5, 2, 11]
 
-    # this arr has 8 inversions:
+    # 此 arr 中有 8 个逆序对：
     # (10, 2), (10, 1), (10, 5), (10, 5), (10, 2), (2, 1), (5, 2), (5, 2)
 
     num_inversions_bf = count_inversions_bf(arr_1)
@@ -131,7 +131,7 @@ def main() -> None:
 
     print("number of inversions = ", num_inversions_bf)
 
-    # testing an array with zero inversion (a sorted arr_1)
+    # 测试没有逆序对的数组（已排序的 arr_1）
 
     arr_1.sort()
     num_inversions_bf = count_inversions_bf(arr_1)
@@ -140,7 +140,7 @@ def main() -> None:
     assert num_inversions_bf == num_inversions_recursive == 0
     print("number of inversions = ", num_inversions_bf)
 
-    # an empty list should also have zero inversions
+    # 空列表的逆序对数量也应为零
     arr_1 = []
     num_inversions_bf = count_inversions_bf(arr_1)
     _, num_inversions_recursive = count_inversions_recursive(arr_1)

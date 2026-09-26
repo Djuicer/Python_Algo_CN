@@ -1,21 +1,21 @@
 def sliding_window(input_string: str) -> int:
     """
-    This function takes a string and returns the length of the longest substring
-    without repeating characters using the sliding window algorithm.
+    接收一个字符串，使用滑动窗口（Sliding Window）算法
+    返回不含重复字符的最长子串长度。
 
-    It runs in O(n) time, where n is the length of the string. The sliding window
-    approach ensures that each character is processed at most twice.
+    时间复杂度为 O(n)，其中 n 为字符串长度。滑动窗口
+    保证每个字符最多处理两次。
 
     Args:
-        input_string: A string input.
+        input_string: 输入字符串。
 
     Returns:
-        int: Length of the longest substring without repeating characters.
+        int: 不含重复字符的最长子串长度。
 
     Raises:
-        TypeError: If the input is not a string.
+        TypeError: 输入不是字符串时抛出。
 
-    Examples:
+    示例：
     >>> sliding_window("abcabcbb")
     3
     >>> sliding_window("bbbbb")
@@ -31,28 +31,28 @@ def sliding_window(input_string: str) -> int:
     >>> sliding_window("a"*10000)
     1
     """
-    # Error handling for non-string inputs
+    # 处理非字符串输入
     if not isinstance(input_string, str):
         raise TypeError("Input must be a string")
 
-    # Handle empty string case immediately
+    # 直接处理空字符串
     if len(input_string) == 0:
         return 0
 
-    # Dictionary to store the most recent index of each character
+    # 记录每个字符最近一次出现位置的字典
     char_index_map: dict[str, int] = {}
 
-    # Initialize the sliding window pointers
+    # 初始化滑动窗口指针
     left: int = 0
     max_len: int = 0
-    # Traverse the string with a right pointer
+    # 用右指针遍历字符串
     for right, char in enumerate(input_string):
         if char in char_index_map and char_index_map[char] >= left:
-            # Move the left pointer to avoid repeating characters
+            # 移动左指针以避免重复字符
             left = char_index_map[char] + 1
-        # Update the latest index of the character
+        # 更新字符最近一次出现的索引
         char_index_map[char] = right
-        # Calculate the current length of the window
+        # 计算当前窗口长度
         current_len = right - left + 1
         max_len = max(max_len, current_len)
     return max_len

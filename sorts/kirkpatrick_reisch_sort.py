@@ -2,17 +2,17 @@ import heapq
 import random
 
 """
-Kirkpatrick-Reisch sorting algorithm.
-Divides input into sqrt(n) blocks, sorts each, then merges using a min-heap.
+Kirkpatrick-Reisch 排序算法。
+将输入分成 sqrt(n) 个块，分别排序，再使用最小堆合并。
 
-Time Complexity:
-- Average case: O(n * sqrt(n))
-- Worst case: O(n * sqrt(n))
-- Best case: O(n * sqrt(n))
+时间复杂度：
+- 平均情况：O(n * sqrt(n))
+- 最坏情况：O(n * sqrt(n))
+- 最好情况：O(n * sqrt(n))
 
-Space Complexity: O(n)
+空间复杂度：O(n)
 
-Explanation Links:
+说明链接：
 https://en.wikipedia.org/wiki/Kirkpatrick%E2%80%93Reisch_sort
 https://sortingsearching.com/2020/06/06/kirkpatrick-reisch.html
 """
@@ -20,15 +20,15 @@ https://sortingsearching.com/2020/06/06/kirkpatrick-reisch.html
 
 def kirkpatrick_reisch_sort(arr: list[int]) -> list[int]:
     """
-    Implements the Kirkpatrick-Reisch sorting algorithm.
+    实现 Kirkpatrick-Reisch 排序算法。
 
     Args:
-    arr (list): The input list to be sorted.
+    arr (list): 待排序的输入列表。
 
     Returns:
-    list: A new list containing the sorted elements.
+    list: 包含排序后元素的新列表。
 
-    Examples:
+    示例：
     >>> kirkpatrick_reisch_sort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])
     [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]
 
@@ -48,19 +48,19 @@ def kirkpatrick_reisch_sort(arr: list[int]) -> list[int]:
     if n <= 1:
         return arr
 
-    # Step 1: Divide the input into sqrt(n) blocks
+    # 第 1 步：将输入分成 sqrt(n) 个块
     block_size = int(n**0.5)
     blocks = [arr[i : i + block_size] for i in range(0, n, block_size)]
 
-    # Step 2: Sort each block
+    # 第 2 步：对每个块排序
     for block in blocks:
         block.sort()
 
-    # Step 3: Create a min-heap of the first elements of each block
+    # 第 3 步：用各块的首元素创建最小堆
     heap = [(block[0], i, 0) for i, block in enumerate(blocks) if block]
     heapq.heapify(heap)
 
-    # Step 4: Extract elements from the heap and refill from blocks
+    # 第 4 步：从堆中取出元素，并从各块补入元素
     sorted_arr = []
     while heap:
         val, block_index, element_index = heapq.heappop(heap)
@@ -74,12 +74,12 @@ def kirkpatrick_reisch_sort(arr: list[int]) -> list[int]:
 
 
 if __name__ == "__main__":
-    # Generate a random list of integers
+    # 生成随机整数列表
     arr = [random.randint(1, 1000) for _ in range(100)]
 
     print("Original Array:", arr)
     sorted_arr = kirkpatrick_reisch_sort(arr)
     print("Sorted Array:", sorted_arr)
 
-    # Verify the result
+    # 验证结果
     assert sorted_arr == sorted(arr)

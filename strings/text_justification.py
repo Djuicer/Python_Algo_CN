@@ -1,10 +1,10 @@
 def text_justification(word: str, max_width: int) -> list:
     """
-    Will format the string such that each line has exactly
-    (max_width) characters and is fully (left and right) justified,
-    and return the list of justified text.
+    格式化字符串，使每行恰好包含
+    max_width 个字符，并实现左右两端对齐，
+    返回对齐后的文本列表。
 
-    example 1:
+    示例 1：
     string = "This is an example of text justification."
     max_width = 16
 
@@ -15,7 +15,7 @@ def text_justification(word: str, max_width: int) -> list:
     >>> text_justification("This is an example of text justification.", 16)
     ['This    is    an', 'example  of text', 'justification.  ']
 
-    example 2:
+    示例 2：
     string = "Two roads diverged in a yellow wood"
     max_width = 16
     output = ['Two        roads',
@@ -25,43 +25,43 @@ def text_justification(word: str, max_width: int) -> list:
     >>> text_justification("Two roads diverged in a yellow wood", 16)
     ['Two        roads', 'diverged   in  a', 'yellow wood     ']
 
-    Time complexity: O(m*n)
-    Space complexity: O(m*n)
+    时间复杂度：O(m*n)
+    空间复杂度：O(m*n)
     """
 
-    # Converting string into list of strings split by a space
+    # 按空格将字符串拆分为字符串列表
     words = word.split()
 
     def justify(line: list, width: int, max_width: int) -> str:
         overall_spaces_count = max_width - width
         words_count = len(line)
         if len(line) == 1:
-            # if there is only word in line
-            # just insert overall_spaces_count for the remainder of line
+            # 若行中只有一个单词，
+            # 则在行尾补入 overall_spaces_count 个空格
             return line[0] + " " * overall_spaces_count
         else:
             spaces_to_insert_between_words = words_count - 1
-            # num_spaces_between_words_list[i] : tells you to insert
-            # num_spaces_between_words_list[i] spaces
-            # after word on line[i]
+            # num_spaces_between_words_list[i] 表示在
+            # line[i] 处的单词后插入
+            # num_spaces_between_words_list[i] 个空格
             num_spaces_between_words_list = spaces_to_insert_between_words * [
                 overall_spaces_count // spaces_to_insert_between_words
             ]
             spaces_count_in_locations = (
                 overall_spaces_count % spaces_to_insert_between_words
             )
-            # distribute spaces via round robin to the left words
+            # 从左侧单词开始轮流分配空格
             for i in range(spaces_count_in_locations):
                 num_spaces_between_words_list[i] += 1
             aligned_words_list = []
             for i in range(spaces_to_insert_between_words):
-                # add the word
+                # 添加单词
                 aligned_words_list.append(line[i])
-                # add the spaces to insert
+                # 添加所需空格
                 aligned_words_list.append(num_spaces_between_words_list[i] * " ")
-            # just add the last word to the sentence
+            # 将最后一个单词加入句子
             aligned_words_list.append(line[-1])
-            # join the aligned words list to form a justified line
+            # 连接对齐后的单词列表，形成两端对齐的一行
             return "".join(aligned_words_list)
 
     answer = []
@@ -69,16 +69,16 @@ def text_justification(word: str, max_width: int) -> list:
     width = 0
     for inner_word in words:
         if width + len(inner_word) + len(line) <= max_width:
-            # keep adding words until we can fill out max_width
-            # width = sum of length of all words (without overall_spaces_count)
-            # len(inner_word) = length of current inner_word
-            # len(line) = number of overall_spaces_count to insert between words
+            # 持续添加单词，直到达到 max_width
+            # width = 所有单词长度之和（不含 overall_spaces_count）
+            # len(inner_word) = 当前 inner_word 的长度
+            # len(line) = 单词之间需要插入的 overall_spaces_count 数量
             line.append(inner_word)
             width += len(inner_word)
         else:
-            # justify the line and add it to result
+            # 对齐该行并加入结果
             answer.append(justify(line, width, max_width))
-            # reset new line and new width
+            # 重置新行和宽度
             line, width = [inner_word], len(inner_word)
     remaining_spaces = max_width - width - len(line)
     answer.append(" ".join(line) + (remaining_spaces + 1) * " ")

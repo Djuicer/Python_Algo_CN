@@ -1,5 +1,5 @@
 """
-This is a pure Python implementation of the radix sort algorithm
+基数排序（Radix Sort）算法的纯 Python 实现
 
 Source: https://en.wikipedia.org/wiki/Radix_sort
 """
@@ -11,7 +11,7 @@ RADIX = 10
 
 def radix_sort(list_of_ints: list[int]) -> list[int]:
     """
-    Examples:
+    示例：
     >>> radix_sort([0, 5, 3, 2, 2])
     [0, 2, 2, 3, 5]
 
@@ -35,19 +35,19 @@ def radix_sort(list_of_ints: list[int]) -> list[int]:
     placement = 1
     max_digit = max(list_of_ints)
     while placement <= max_digit:
-        # declare and initialize empty buckets
+        # 声明并初始化空桶
         buckets: list[list] = [[] for _ in range(RADIX)]
-        # split list_of_ints between the buckets
+        # 将 list_of_ints 分配到各桶
         for i in list_of_ints:
             tmp = int((i / placement) % RADIX)
             buckets[tmp].append(i)
-        # put each buckets' contents into list_of_ints
+        # 将各桶内容放回 list_of_ints
         a = 0
         for b in range(RADIX):
             for i in buckets[b]:
                 list_of_ints[a] = i
                 a += 1
-        # move to next
+        # 处理下一位
         placement *= RADIX
     return list_of_ints
 

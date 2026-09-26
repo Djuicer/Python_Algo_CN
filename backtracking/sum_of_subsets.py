@@ -1,17 +1,17 @@
 """
-The sum-of-subsets problem states that a set of non-negative integers, and a
-value M, determine all possible subsets of the given set whose summation sum
-equal to given M.
+子集和问题给定一个非负整数集合及
+数值 M，要求找出该集合中所有元素和
+等于 M 的子集。
 
-Summation of the chosen numbers must be equal to given number M and one number
-can be used only once.
+所选数字之和必须等于给定的 M，每个数字
+只能使用一次。
 """
 
 
 def generate_sum_of_subsets_solutions(nums: list[int], max_sum: int) -> list[list[int]]:
     """
-    The main function. For list of numbers 'nums' find the subsets with sum
-    equal to 'max_sum'
+    主函数。对于数值列表 'nums'，找出元素和
+    等于 'max_sum' 的子集
 
     >>> generate_sum_of_subsets_solutions(nums=[3, 34, 4, 12, 5, 2], max_sum=9)
     [[3, 4, 2], [4, 5]]
@@ -38,11 +38,11 @@ def create_state_space_tree(
     remaining_nums_sum: int,
 ) -> None:
     """
-    Creates a state space tree to iterate through each branch using DFS.
-    It terminates the branching of a node when any of the two conditions
-    given below satisfy.
-    This algorithm follows depth-fist-search and backtracks when the node is not
-    branchable.
+    创建状态空间树，使用深度优先搜索（DFS）遍历各分支。
+    满足下面两个条件中的任意一个时，
+    终止该节点的分支扩展。
+    此算法采用深度优先搜索，在节点无法继续
+    扩展时回溯。
 
     >>> path = []
     >>> result = []

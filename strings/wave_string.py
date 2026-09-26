@@ -1,6 +1,6 @@
 def wave(txt: str) -> list:
     """
-    Returns a so called 'wave' of a given string
+    返回给定字符串的“波浪”形式
     >>> wave('cat')
     ['Cat', 'cAt', 'caT']
     >>> wave('one')

@@ -1,12 +1,12 @@
 """
-A pure Python implementation of the Reverse Selection Sort algorithm
+反转选择排序（Reverse Selection Sort）算法的纯 Python 实现
 
-This algorithm progressively sorts the array by reversing subarrays
+通过反转子数组，逐步完成数组排序
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v reverse_selection.py
 
-For manual testing run:
+手动测试请运行：
 python3 reverse_selection.py
 """
 
@@ -19,13 +19,13 @@ class Comparable(Protocol):
 
 def reverse_subarray[T](arr: list[T], start: int, end: int) -> None:
     """
-    Reverse a subarray in-place.
+    原地反转子数组。
 
-    :param arr: the array containing the subarray to be reversed
-    :param start: the starting index of the subarray
-    :param end: the ending index of the subarray
+    :param arr: 包含待反转子数组的数组
+    :param start: 子数组的起始索引
+    :param end: 子数组的结束索引
 
-    Examples:
+    示例：
     >>> lst = [1, 2, 3, 4, 5]
     >>> reverse_subarray(lst, 1, 3)
     >>> lst
@@ -49,13 +49,13 @@ def reverse_subarray[T](arr: list[T], start: int, end: int) -> None:
 
 def reverse_selection_sort[T: Comparable](collection: list[T]) -> list[T]:
     """
-    A pure implementation of reverse selection sort algorithm in Python
+    反转选择排序算法的纯 Python 实现
 
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection sorted in ascending order
+    :param collection: 可变有序集合，其中包含类型可不同但
+    可相互比较的元素
+    :return: 按升序排列后的同一个集合
 
-    Examples:
+    示例：
     >>> reverse_selection_sort([1, 9, 5, 21, 17, 6])
     [1, 5, 6, 9, 17, 21]
 
@@ -84,14 +84,14 @@ def reverse_selection_sort[T: Comparable](collection: list[T]) -> list[T]:
     """
     n = len(collection)
     for i in range(n - 1):
-        # Find the minimum element in the unsorted portion
+        # 查找未排序部分的最小元素
         min_idx = i
         for j in range(i + 1, n):
             if collection[j] < collection[min_idx]:
                 min_idx = j
 
-        # If the minimum is not at the start of the unsorted portion,
-        # reverse the subarray to bring it to the front
+        # 若最小元素不在未排序部分的开头，
+        # 则反转子数组，将其移到前端
         if min_idx != i:
             reverse_subarray(collection, i, min_idx)
 

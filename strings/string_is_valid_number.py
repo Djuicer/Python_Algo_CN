@@ -1,6 +1,6 @@
 """
-Topic: Deterministic Finite Automaton (DFA)
-Given a string s, return whether s is a valid number or not
+主题：确定有限自动机（Deterministic Finite Automaton，DFA）
+给定字符串 s，判断它是否表示有效数值
 LeetCode link: https://leetcode.com/problems/valid-number/description/
 """
 
@@ -53,21 +53,21 @@ state_machine: dict[State, dict[CharType, State]] = {
 
 def classify_char(char: str) -> CharType | None:
     """
-    Classifies a character into one of the following categories:
+    将字符划分为以下类别之一：
 
-    - 'CharType.NUMERIC': if the character is a digit (0-9)
-    - 'CharType.SIGN': if the character is a plus sign (+) or a minus sign (-)
-    - 'CharType.EXPONENT': if the character is an 'e' or 'E'
-        (used in exponential notation)
-    - 'CharType.DECIMAL': if the character is a decimal point (.)
-    - None: if the character does not fit into any of the above categories
-    - None: if size of char is not 1
+    - 'CharType.NUMERIC': 数字（0-9）
+    - 'CharType.SIGN': 加号（+）或减号（-）
+    - 'CharType.EXPONENT': 'e' 或 'E'
+        （用于指数记法）
+    - 'CharType.DECIMAL': 小数点（.）
+    - None: 不属于上述任何类别
+    - None: char 的长度不为 1
 
     Parameters:
-    char (str): The character to be classified
+    char (str): 待分类的字符
 
     Returns:
-    CharType: The classification of the character
+    CharType: 字符所属类别
 
     >>> classify_char('2')
     <CharType.NUMERIC: 'NUMERIC'>
@@ -98,13 +98,13 @@ def classify_char(char: str) -> CharType | None:
 
 def is_valid_number(number_string: str) -> bool:
     """
-    This function checks if the input string represents a valid number.
-    It uses a finite state machine to parse the input string,
-    transitioning between states based on the character type.
-    The function returns True if the input string represents a valid number,
-    and False otherwise.
-    A valid number is defined as a string that can be parsed into an
-    integer, decimal, or exponent.
+    检查输入字符串是否表示有效数值。
+    使用有限状态机解析输入字符串，
+    根据字符类型在状态之间转移。
+    若输入字符串表示有效数值，则返回 True，
+    否则返回 False。
+    有效数值指可以解析为整数、小数或
+    指数形式的字符串。
     >>> is_valid_number("2")
     True
     >>> is_valid_number("0089")

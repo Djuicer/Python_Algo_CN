@@ -4,7 +4,7 @@ import re
 def dna(dna: str) -> str:
     """
     https://en.wikipedia.org/wiki/DNA
-    Returns the second side of a DNA strand
+    返回 DNA 链的另一条互补链
 
     >>> dna("GCTA")
     'CGAT'

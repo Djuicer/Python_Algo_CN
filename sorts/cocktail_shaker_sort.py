@@ -1,5 +1,5 @@
 """
-An implementation of the cocktail shaker sort algorithm in pure Python.
+鸡尾酒排序（Cocktail Shaker Sort）算法的纯 Python 实现。
 
 https://en.wikipedia.org/wiki/Cocktail_shaker_sort
 """
@@ -13,10 +13,10 @@ class Comparable(Protocol):
 
 def cocktail_shaker_sort[T: Comparable](arr: list[T]) -> list[T]:
     """
-    Sorts a list using the Cocktail Shaker Sort algorithm.
+    使用鸡尾酒排序算法对列表排序。
 
-    :param arr: List of elements to be sorted.
-    :return: Sorted list.
+    :param arr: 待排序的元素列表。
+    :return: 排序后的列表。
 
     >>> cocktail_shaker_sort([4, 5, 2, 1, 2])
     [1, 2, 2, 4, 5]
@@ -44,7 +44,7 @@ def cocktail_shaker_sort[T: Comparable](arr: list[T]) -> list[T]:
     while start < end:
         swapped = False
 
-        # Pass from left to right
+        # 从左向右遍历
         for i in range(start, end):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
@@ -53,9 +53,9 @@ def cocktail_shaker_sort[T: Comparable](arr: list[T]) -> list[T]:
         if not swapped:
             break
 
-        end -= 1  # Decrease the end pointer after each pass
+        end -= 1  # 每轮遍历后减小结束指针
 
-        # Pass from right to left
+        # 从右向左遍历
         for i in range(end, start, -1):
             if arr[i] < arr[i - 1]:
                 arr[i], arr[i - 1] = arr[i - 1], arr[i]
@@ -64,7 +64,7 @@ def cocktail_shaker_sort[T: Comparable](arr: list[T]) -> list[T]:
         if not swapped:
             break
 
-        start += 1  # Increase the start pointer after each pass
+        start += 1  # 每轮遍历后增大起始指针
 
     return arr
 

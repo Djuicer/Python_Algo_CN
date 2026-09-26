@@ -1,8 +1,8 @@
 def upper(word: str) -> str:
     """
-    Convert an entire string to ASCII uppercase letters by looking for lowercase ASCII
-    letters and subtracting 32 from their integer representation to get the uppercase
-    letter.
+    查找字符串中的 ASCII 小写字母，将其整数表示减去 32，
+    得到对应的大写字母，从而将整个字符串中的
+    ASCII 字母转为大写。
 
     >>> upper("wow")
     'WOW'

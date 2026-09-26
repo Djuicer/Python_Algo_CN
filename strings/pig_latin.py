@@ -1,9 +1,9 @@
 def pig_latin(word: str) -> str:
-    """Compute the piglatin of a given string.
+    """计算给定字符串的猪拉丁语（Pig Latin）形式。
 
     https://en.wikipedia.org/wiki/Pig_Latin
 
-    Usage examples:
+    用法示例：
     >>> pig_latin("pig")
     'igpay'
     >>> pig_latin("latin")

@@ -1,11 +1,11 @@
 def min_window(search_str: str, target_letters: str) -> str:
     """
-    Given a string to search, and another string of target char_dict,
-    return the smallest substring of the search string that contains
-    all target char_dict.
+    给定待搜索字符串，以及另一个表示目标 char_dict 的字符串，
+    返回搜索字符串中包含所有目标 char_dict 的
+    最短子串。
 
-    This is somewhat modified from my solution to the problem
-    "Minimum Window Substring" on leetcode.
+    此实现对我在 LeetCode 上的
+    “Minimum Window Substring”题目解法略作修改。
     https://leetcode.com/problems/minimum-window-substring/description/
 
     >>> min_window("Hello World", "lWl")
@@ -13,28 +13,28 @@ def min_window(search_str: str, target_letters: str) -> str:
     >>> min_window("Hello World", "f")
     ''
 
-    This solution uses a sliding window, alternating between shifting
-    the end of the window right until all target char_dict are contained
-    in the window, and shifting the start of the window right until the
-    window no longer contains every target character.
+    使用滑动窗口，交替执行以下操作：
+    向右移动窗口末端，直到窗口包含所有目标 char_dict；
+    再向右移动窗口起点，直到窗口
+    不再包含每个目标字符。
 
-    Time complexity: O(target_count + search_len) ->
-        The algorithm checks a dictionary at most twice for each character
-        in search_str.
+    时间复杂度：O(target_count + search_len) ->
+        对于 search_str 中的每个字符，
+        最多查询字典两次。
 
-    Space complexity: O(search_len) ->
-        The primary contributor to additional space is the building of a
-        dictionary using the search string.
+    空间复杂度：O(search_len) ->
+        额外空间主要用于根据搜索字符串
+        构建字典。
     """
 
     target_count = len(target_letters)
     search_len = len(search_str)
 
-    # Return if not possible due to string lengths.
+    # 根据字符串长度判断无法匹配时，直接返回。
     if search_len < target_count:
         return ""
 
-    # Build dictionary with counts for each letter in target_letters
+    # 构建字典，记录 target_letters 中每个字母的数量
     char_dict = {}
     for ch in target_letters:
         if ch not in char_dict:
@@ -42,16 +42,16 @@ def min_window(search_str: str, target_letters: str) -> str:
         else:
             char_dict[ch] += 1
 
-    # Initialize window
+    # 初始化窗口
     window_start = 0
     window_end = 0
 
     exists = False
     min_window_len = search_len + 1
 
-    # Start sliding window algorithm
+    # 开始滑动窗口算法
     while window_end < search_len:
-        # Slide window end right until all search characters are contained
+        # 向右移动窗口末端，直到包含所有待搜索字符
         while target_count > 0 and window_end < search_len:
             cur = search_str[window_end]
             if cur in char_dict:
@@ -61,13 +61,13 @@ def min_window(search_str: str, target_letters: str) -> str:
             window_end += 1
         temp = window_end - window_start
 
-        # Check if window is the smallest found so far
+        # 检查窗口是否为目前找到的最小窗口
         if target_count == 0 and temp < min_window_len:
             min_window = [window_start, window_end]
             exists = True
             min_window_len = temp
 
-        # Slide window start right until a search character exits the window
+        # 向右移动窗口起点，直到某个待搜索字符离开窗口
         while target_count == 0 and window_start < window_end:
             cur = search_str[window_start]
             window_start += 1
@@ -77,7 +77,7 @@ def min_window(search_str: str, target_letters: str) -> str:
                     break
         temp = window_end - window_start + 1
 
-        # Check if window is the smallest found so far
+        # 检查窗口是否为目前找到的最小窗口
         if temp < min_window_len and target_count == 0:
             min_window = [window_start - 1, window_end]
             min_window_len = temp

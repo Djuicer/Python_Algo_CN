@@ -5,7 +5,7 @@ ASCII_CASE_OFFSET = ord("a") - ord("A")
 
 def lower(word: str) -> str:
     """
-    Convert ASCII uppercase letters in a string to lowercase.
+    将字符串中的 ASCII 大写字母转换为小写。
 
     >>> lower("wow")
     'wow'

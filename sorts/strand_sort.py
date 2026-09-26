@@ -15,14 +15,14 @@ def strand_sort[T](
     arr: list[T], reverse: bool = False, solution: list[T] | None = None
 ) -> list[T]:
     """
-    Strand sort implementation
+    串排序（Strand Sort）的实现
     source: https://en.wikipedia.org/wiki/Strand_sort
 
-    :param arr: Unordered input list
-    :param reverse: Descent ordering flag
-    :param solution: Ordered items container
+    :param arr: 无序输入列表
+    :param reverse: 降序排列标志
+    :param solution: 保存有序元素的容器
 
-    Examples:
+    示例：
     >>> strand_sort([4, 2, 5, 3, 0, 1])
     [0, 1, 2, 3, 4, 5]
 
@@ -45,7 +45,7 @@ def strand_sort[T](
             sublist.append(item)
             arr.pop(i)
 
-    #  merging sublist into solution list
+    # 将子列表合并到 solution 列表中
     if not solution:
         solution.extend(sublist)
     else:

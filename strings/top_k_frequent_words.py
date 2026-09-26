@@ -1,12 +1,12 @@
 """
-Finds the top K most frequent words from the provided word list.
+找出给定单词列表中出现频次最高的 K 个单词。
 
-This implementation aims to show how to solve the problem using the Heap class
-already present in this repository.
-Computing order statistics is, in fact, a typical usage of heaps.
+展示如何使用本仓库中已有的 Heap 类
+解决此问题。
+计算顺序统计量是堆的一种典型用途。
 
-This is mostly shown for educational purposes, since the problem can be solved
-in a few lines using collections.Counter from the Python standard library:
+此实现主要用于教学，实际上使用 Python 标准库中的
+collections.Counter，仅需几行代码即可求解：
 
 from collections import Counter
 def top_k_frequent_words(words, k_value):
@@ -66,12 +66,12 @@ class WordCount:
 
 def top_k_frequent_words(words: list[str], k_value: int) -> list[str]:
     """
-    Returns the `k_value` most frequently occurring words,
-    in non-increasing order of occurrence.
-    In this context, a word is defined as an element in the provided list.
+    返回出现频次最高的 `k_value` 个单词，
+    按频次的非递增顺序排列。
+    这里将给定列表中的每个元素视为一个单词。
 
-    In case `k_value` is greater than the number of distinct words, a value of k equal
-    to the number of distinct words will be considered, instead.
+    若 `k_value` 大于不同单词的数量，则使用
+    不同单词的数量作为 k 值。
 
     >>> top_k_frequent_words(['a', 'b', 'c', 'a', 'c', 'c'], 3)
     ['c', 'a', 'b']

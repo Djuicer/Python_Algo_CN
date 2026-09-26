@@ -5,7 +5,7 @@ https://en.wikipedia.org/wiki/N-gram
 
 def create_ngram(sentence: str, ngram_size: int) -> list[str]:
     """
-    Create ngrams from a sentence
+    从句子中生成 n 元片段（N-gram）
 
     >>> create_ngram("I am a sentence", 2)
     ['I ', ' a', 'am', 'm ', ' a', 'a ', ' s', 'se', 'en', 'nt', 'te', 'en', 'nc', 'ce']
