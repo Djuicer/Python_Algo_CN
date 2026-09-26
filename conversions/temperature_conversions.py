@@ -1,11 +1,11 @@
-"""Convert between different units of temperature"""
+"""在不同温度单位之间转换。"""
 
 
 def celsius_to_fahrenheit(celsius: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Celsius to Fahrenheit and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Celsius
-    Wikipedia reference: https://en.wikipedia.org/wiki/Fahrenheit
+    将给定值从 Celsius 转换为 Fahrenheit，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Celsius
+    维基百科参考资料：https://en.wikipedia.org/wiki/Fahrenheit
 
     >>> celsius_to_fahrenheit(273.354, 3)
     524.037
@@ -31,9 +31,9 @@ def celsius_to_fahrenheit(celsius: float, ndigits: int = 2) -> float:
 
 def celsius_to_kelvin(celsius: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Celsius to Kelvin and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Celsius
-    Wikipedia reference: https://en.wikipedia.org/wiki/Kelvin
+    将给定值从 Celsius 转换为 Kelvin，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Celsius
+    维基百科参考资料：https://en.wikipedia.org/wiki/Kelvin
 
     >>> celsius_to_kelvin(273.354, 3)
     546.504
@@ -55,9 +55,9 @@ def celsius_to_kelvin(celsius: float, ndigits: int = 2) -> float:
 
 def celsius_to_rankine(celsius: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Celsius to Rankine and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Celsius
-    Wikipedia reference: https://en.wikipedia.org/wiki/Rankine_scale
+    将给定值从 Celsius 转换为 Rankine，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Celsius
+    维基百科参考资料：https://en.wikipedia.org/wiki/Rankine_scale
 
     >>> celsius_to_rankine(273.354, 3)
     983.707
@@ -79,9 +79,9 @@ def celsius_to_rankine(celsius: float, ndigits: int = 2) -> float:
 
 def fahrenheit_to_celsius(fahrenheit: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Fahrenheit to Celsius and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Fahrenheit
-    Wikipedia reference: https://en.wikipedia.org/wiki/Celsius
+    将给定值从 Fahrenheit 转换为 Celsius，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Fahrenheit
+    维基百科参考资料：https://en.wikipedia.org/wiki/Celsius
 
     >>> fahrenheit_to_celsius(273.354, 3)
     134.086
@@ -109,9 +109,9 @@ def fahrenheit_to_celsius(fahrenheit: float, ndigits: int = 2) -> float:
 
 def fahrenheit_to_kelvin(fahrenheit: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Fahrenheit to Kelvin and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Fahrenheit
-    Wikipedia reference: https://en.wikipedia.org/wiki/Kelvin
+    将给定值从 Fahrenheit 转换为 Kelvin，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Fahrenheit
+    维基百科参考资料：https://en.wikipedia.org/wiki/Kelvin
 
     >>> fahrenheit_to_kelvin(273.354, 3)
     407.236
@@ -139,9 +139,9 @@ def fahrenheit_to_kelvin(fahrenheit: float, ndigits: int = 2) -> float:
 
 def fahrenheit_to_rankine(fahrenheit: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Fahrenheit to Rankine and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Fahrenheit
-    Wikipedia reference: https://en.wikipedia.org/wiki/Rankine_scale
+    将给定值从 Fahrenheit 转换为 Rankine，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Fahrenheit
+    维基百科参考资料：https://en.wikipedia.org/wiki/Rankine_scale
 
     >>> fahrenheit_to_rankine(273.354, 3)
     733.024
@@ -169,9 +169,9 @@ def fahrenheit_to_rankine(fahrenheit: float, ndigits: int = 2) -> float:
 
 def kelvin_to_celsius(kelvin: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Kelvin to Celsius and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Kelvin
-    Wikipedia reference: https://en.wikipedia.org/wiki/Celsius
+    将给定值从 Kelvin 转换为 Celsius，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Kelvin
+    维基百科参考资料：https://en.wikipedia.org/wiki/Celsius
 
     >>> kelvin_to_celsius(273.354, 3)
     0.204
@@ -193,9 +193,9 @@ def kelvin_to_celsius(kelvin: float, ndigits: int = 2) -> float:
 
 def kelvin_to_fahrenheit(kelvin: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Kelvin to Fahrenheit and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Kelvin
-    Wikipedia reference: https://en.wikipedia.org/wiki/Fahrenheit
+    将给定值从 Kelvin 转换为 Fahrenheit，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Kelvin
+    维基百科参考资料：https://en.wikipedia.org/wiki/Fahrenheit
 
     >>> kelvin_to_fahrenheit(273.354, 3)
     32.367
@@ -217,9 +217,9 @@ def kelvin_to_fahrenheit(kelvin: float, ndigits: int = 2) -> float:
 
 def kelvin_to_rankine(kelvin: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Kelvin to Rankine and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Kelvin
-    Wikipedia reference: https://en.wikipedia.org/wiki/Rankine_scale
+    将给定值从 Kelvin 转换为 Rankine，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Kelvin
+    维基百科参考资料：https://en.wikipedia.org/wiki/Rankine_scale
 
     >>> kelvin_to_rankine(273.354, 3)
     492.037
@@ -241,9 +241,9 @@ def kelvin_to_rankine(kelvin: float, ndigits: int = 2) -> float:
 
 def rankine_to_celsius(rankine: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Rankine to Celsius and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Rankine_scale
-    Wikipedia reference: https://en.wikipedia.org/wiki/Celsius
+    将给定值从 Rankine 转换为 Celsius，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Rankine_scale
+    维基百科参考资料：https://en.wikipedia.org/wiki/Celsius
 
     >>> rankine_to_celsius(273.354, 3)
     -121.287
@@ -265,9 +265,9 @@ def rankine_to_celsius(rankine: float, ndigits: int = 2) -> float:
 
 def rankine_to_fahrenheit(rankine: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Rankine to Fahrenheit and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Rankine_scale
-    Wikipedia reference: https://en.wikipedia.org/wiki/Fahrenheit
+    将给定值从 Rankine 转换为 Fahrenheit，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Rankine_scale
+    维基百科参考资料：https://en.wikipedia.org/wiki/Fahrenheit
 
     >>> rankine_to_fahrenheit(273.15)
     -186.52
@@ -285,9 +285,9 @@ def rankine_to_fahrenheit(rankine: float, ndigits: int = 2) -> float:
 
 def rankine_to_kelvin(rankine: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from Rankine to Kelvin and round it to 2 decimal places.
-    Wikipedia reference: https://en.wikipedia.org/wiki/Rankine_scale
-    Wikipedia reference: https://en.wikipedia.org/wiki/Kelvin
+    将给定值从 Rankine 转换为 Kelvin，并四舍五入到小数点后 2 位。
+    维基百科参考资料：https://en.wikipedia.org/wiki/Rankine_scale
+    维基百科参考资料：https://en.wikipedia.org/wiki/Kelvin
 
     >>> rankine_to_kelvin(0)
     0.0
@@ -305,8 +305,8 @@ def rankine_to_kelvin(rankine: float, ndigits: int = 2) -> float:
 
 def reaumur_to_kelvin(reaumur: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from reaumur to Kelvin and round it to 2 decimal places.
-    Reference:- http://www.csgnetwork.com/temp2conv.html
+    将给定值从 reaumur 转换为 Kelvin，并四舍五入到小数点后 2 位。
+    参考资料：http://www.csgnetwork.com/temp2conv.html
 
     >>> reaumur_to_kelvin(0)
     273.15
@@ -324,8 +324,8 @@ def reaumur_to_kelvin(reaumur: float, ndigits: int = 2) -> float:
 
 def reaumur_to_fahrenheit(reaumur: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from reaumur to fahrenheit and round it to 2 decimal places.
-    Reference:- http://www.csgnetwork.com/temp2conv.html
+    将给定值从 reaumur 转换为 fahrenheit，并四舍五入到小数点后 2 位。
+    参考资料：http://www.csgnetwork.com/temp2conv.html
 
     >>> reaumur_to_fahrenheit(0)
     32.0
@@ -343,8 +343,8 @@ def reaumur_to_fahrenheit(reaumur: float, ndigits: int = 2) -> float:
 
 def reaumur_to_celsius(reaumur: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from reaumur to celsius and round it to 2 decimal places.
-    Reference:- http://www.csgnetwork.com/temp2conv.html
+    将给定值从 reaumur 转换为 celsius，并四舍五入到小数点后 2 位。
+    参考资料：http://www.csgnetwork.com/temp2conv.html
 
     >>> reaumur_to_celsius(0)
     0.0
@@ -362,8 +362,8 @@ def reaumur_to_celsius(reaumur: float, ndigits: int = 2) -> float:
 
 def reaumur_to_rankine(reaumur: float, ndigits: int = 2) -> float:
     """
-    Convert a given value from reaumur to rankine and round it to 2 decimal places.
-    Reference:- http://www.csgnetwork.com/temp2conv.html
+    将给定值从 reaumur 转换为 rankine，并四舍五入到小数点后 2 位。
+    参考资料：http://www.csgnetwork.com/temp2conv.html
 
     >>> reaumur_to_rankine(0)
     491.67

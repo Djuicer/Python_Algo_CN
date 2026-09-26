@@ -1,5 +1,5 @@
 """
-Convert International System of Units (SI) and Binary prefixes
+转换国际单位制（SI）前缀和二进制前缀。
 """
 
 from __future__ import annotations
@@ -47,8 +47,8 @@ def convert_si_prefix(
     unknown_prefix: str | SIUnit,
 ) -> float:
     """
-    Wikipedia reference: https://en.wikipedia.org/wiki/Binary_prefix
-    Wikipedia reference: https://en.wikipedia.org/wiki/International_System_of_Units
+    维基百科参考资料：https://en.wikipedia.org/wiki/Binary_prefix
+    维基百科参考资料：https://en.wikipedia.org/wiki/International_System_of_Units
     >>> convert_si_prefix(1, SIUnit.giga, SIUnit.mega)
     1000
     >>> convert_si_prefix(1, SIUnit.mega, SIUnit.giga)
@@ -76,7 +76,7 @@ def convert_binary_prefix(
     unknown_prefix: str | BinaryUnit,
 ) -> float:
     """
-    Wikipedia reference: https://en.wikipedia.org/wiki/Metric_prefix
+    维基百科参考资料：https://en.wikipedia.org/wiki/Metric_prefix
     >>> convert_binary_prefix(1, BinaryUnit.giga, BinaryUnit.mega)
     1024
     >>> convert_binary_prefix(1, BinaryUnit.mega, BinaryUnit.giga)

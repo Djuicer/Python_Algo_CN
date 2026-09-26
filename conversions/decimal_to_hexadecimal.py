@@ -1,6 +1,6 @@
-"""Convert Base 10 (Decimal) Values to Hexadecimal Representations"""
+"""将十进制（基数 10）值转换为十六进制表示。"""
 
-# set decimal value for each hexadecimal digit
+# 设置每个十六进制数字对应的十进制值
 values = {
     0: "0",
     1: "1",
@@ -23,8 +23,7 @@ values = {
 
 def decimal_to_hexadecimal(decimal: float) -> str:
     """
-    take integer decimal value, return hexadecimal representation as str beginning
-    with 0x
+    接收十进制整数值，返回以 0x 开头的十六进制字符串表示。
     >>> decimal_to_hexadecimal(5)
     '0x5'
     >>> decimal_to_hexadecimal(15)

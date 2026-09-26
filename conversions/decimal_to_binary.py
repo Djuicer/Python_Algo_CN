@@ -1,9 +1,9 @@
-"""Convert a Decimal Number to a Binary Number."""
+"""将十进制数转换为二进制数。"""
 
 
 def decimal_to_binary_iterative(num: int) -> str:
     """
-    Convert an Integer Decimal Number to a Binary Number as str.
+    将十进制整数转换为以字符串表示的二进制数。
     >>> decimal_to_binary_iterative(0)
     '0b0'
     >>> decimal_to_binary_iterative(2)
@@ -54,7 +54,7 @@ def decimal_to_binary_iterative(num: int) -> str:
 
 def decimal_to_binary_recursive_helper(decimal: int) -> str:
     """
-    Take a positive integer value and return its binary equivalent.
+    接收一个正整数并返回其等价的二进制值。
     >>> decimal_to_binary_recursive_helper(1000)
     '1111101000'
     >>> decimal_to_binary_recursive_helper("72")
@@ -65,7 +65,7 @@ def decimal_to_binary_recursive_helper(decimal: int) -> str:
     ValueError: invalid literal for int() with base 10: 'number'
     """
     decimal = int(decimal)
-    if decimal in (0, 1):  # Exit cases for the recursion
+    if decimal in (0, 1):  # 递归的终止条件
         return str(decimal)
     div, mod = divmod(decimal, 2)
     return decimal_to_binary_recursive_helper(div) + str(mod)
@@ -73,9 +73,8 @@ def decimal_to_binary_recursive_helper(decimal: int) -> str:
 
 def decimal_to_binary_recursive(number: str) -> str:
     """
-    Take an integer value and raise ValueError for wrong inputs,
-    call the function above and return the output with prefix "0b" & "-0b"
-    for positive and negative integers respectively.
+    接收一个整数值，对错误输入引发 ValueError；调用上方函数，
+    并分别为正整数和负整数的输出添加 "0b" 与 "-0b" 前缀。
     >>> decimal_to_binary_recursive(0)
     '0b0'
     >>> decimal_to_binary_recursive(40)

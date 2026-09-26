@@ -32,7 +32,7 @@ class NumberingSystem(Enum):
     @classmethod
     def max_value(cls, system: str) -> int:
         """
-        Gets the max value supported by the given number system.
+        获取指定计数系统支持的最大值。
 
         >>> NumberingSystem.max_value("short") == 10**18 - 1
         True
@@ -94,8 +94,7 @@ class NumberWords(Enum):
 
 def convert_small_number(num: int) -> str:
     """
-    Converts small, non-negative integers with irregular constructions in English (i.e.,
-    numbers under 100) into words.
+    将英语中结构不规则的较小非负整数（即小于 100 的数）转换为单词。
 
     >>> convert_small_number(0)
     'zero'
@@ -138,10 +137,10 @@ def convert_number(
     num: int, system: Literal["short", "long", "indian"] = "short"
 ) -> str:
     """
-    Converts an integer to English words.
+    将整数转换为英文单词。
 
-    :param num: The integer to be converted
-    :param system: The numbering system (short, long, or Indian)
+    :param num: 要转换的整数
+    :param system: 计数系统（short、long 或 Indian）
 
     >>> convert_number(0)
     'zero'
@@ -192,7 +191,7 @@ def convert_number(
                 else convert_small_number(digit_group)
             )
             word_groups.append(f"{word_group} {unit}")
-    if num > 0 or not word_groups:  # word_groups is only empty if input num was 0
+    if num > 0 or not word_groups:  # 仅当输入 num 为 0 时，word_groups 才为空
         word_groups.append(convert_small_number(num))
     return " ".join(word_groups)
 

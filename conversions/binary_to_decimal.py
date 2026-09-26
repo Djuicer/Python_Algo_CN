@@ -1,6 +1,6 @@
 def bin_to_decimal(bin_string: str) -> int:
     """
-    Convert a binary value to its decimal equivalent
+    将二进制值转换为等价的十进制值。
 
     >>> bin_to_decimal("101")
     5

@@ -1,20 +1,18 @@
 """
-A unit of time is any particular time interval, used as a standard way of measuring or
-expressing duration.  The base unit of time in the International System of Units (SI),
-and by extension most of the Western world, is the second, defined as about 9 billion
-oscillations of the caesium atom.
+时间单位是用于度量或表示时长的特定时间间隔。在国际单位制（SI）以及多数西方国家中，
+时间的基本单位是秒，其定义约为铯原子振荡 90 亿次所经历的时间。
 
 https://en.wikipedia.org/wiki/Unit_of_time
 """
 
 time_chart: dict[str, float] = {
     "seconds": 1.0,
-    "minutes": 60.0,  # 1 minute = 60 sec
-    "hours": 3600.0,  # 1 hour = 60 minutes = 3600 seconds
-    "days": 86400.0,  # 1 day = 24 hours = 1440 min = 86400 sec
-    "weeks": 604800.0,  # 1 week=7d=168hr=10080min = 604800 sec
-    "months": 2629800.0,  # Approximate value for a month in seconds
-    "years": 31557600.0,  # Approximate value for a year in seconds
+    "minutes": 60.0,  # 1 分钟 = 60 秒
+    "hours": 3600.0,  # 1 小时 = 60 分钟 = 3600 秒
+    "days": 86400.0,  # 1 天 = 24 小时 = 1440 分钟 = 86400 秒
+    "weeks": 604800.0,  # 1 周 = 7 天 = 168 小时 = 10080 分钟 = 604800 秒
+    "months": 2629800.0,  # 一个月所含秒数的近似值
+    "years": 31557600.0,  # 一年所含秒数的近似值
 }
 
 time_chart_inverse: dict[str, float] = {
@@ -24,7 +22,7 @@ time_chart_inverse: dict[str, float] = {
 
 def convert_time(time_value: float, unit_from: str, unit_to: str) -> float:
     """
-    Convert time from one unit to another using the time_chart above.
+    使用上方的 time_chart 在不同时间单位之间转换。
 
     >>> convert_time(3600, "seconds", "hours")
     1.0

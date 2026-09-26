@@ -1,21 +1,21 @@
 """
-Conversion of length units.
-Available Units:
+长度单位转换。
+可用单位：
 Metre, Kilometre, Megametre, Gigametre,
 Terametre, Petametre, Exametre, Zettametre, Yottametre
 
-USAGE :
--> Import this file into their respective project.
--> Use the function length_conversion() for conversion of length units.
--> Parameters :
-    -> value : The number of from units you want to convert
-    -> from_type : From which type you want to convert
-    -> to_type : To which type you want to convert
+用法：
+-> 将此文件导入相应项目。
+-> 使用 length_conversion() 函数转换长度单位。
+-> 参数：
+    -> value：要转换的数值
+    -> from_type：原单位类型
+    -> to_type：目标单位类型
 
-REFERENCES :
--> Wikipedia reference: https://en.wikipedia.org/wiki/Meter
--> Wikipedia reference: https://en.wikipedia.org/wiki/Kilometer
--> Wikipedia reference: https://en.wikipedia.org/wiki/Orders_of_magnitude_(length)
+参考资料：
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Meter
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Kilometer
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Orders_of_magnitude_(length)
 """
 
 UNIT_SYMBOL = {
@@ -29,7 +29,7 @@ UNIT_SYMBOL = {
     "zettametre": "Zm",
     "yottametre": "Ym",
 }
-# Exponent of the factor(meter)
+# 换算因子（米）的指数
 METRIC_CONVERSION = {
     "m": 0,
     "km": 3,
@@ -45,7 +45,7 @@ METRIC_CONVERSION = {
 
 def length_conversion(value: float, from_type: str, to_type: str) -> float:
     """
-    Conversion between astronomical length units.
+    天文尺度长度单位之间的转换。
 
     >>> length_conversion(1, "meter", "kilometer")
     0.001

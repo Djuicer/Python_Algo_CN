@@ -1,21 +1,21 @@
 """
-Conversion of volume units.
-Available Units:- Cubic metre,Litre,KiloLitre,Gallon,Cubic yard,Cubic foot,cup
-USAGE :
--> Import this file into their respective project.
--> Use the function length_conversion() for conversion of volume units.
--> Parameters :
-    -> value : The number of from units you want to convert
-    -> from_type : From which type you want to convert
-    -> to_type : To which type you want to convert
-REFERENCES :
--> Wikipedia reference: https://en.wikipedia.org/wiki/Cubic_metre
--> Wikipedia reference: https://en.wikipedia.org/wiki/Litre
--> Wikipedia reference: https://en.wiktionary.org/wiki/kilolitre
--> Wikipedia reference: https://en.wikipedia.org/wiki/Gallon
--> Wikipedia reference: https://en.wikipedia.org/wiki/Cubic_yard
--> Wikipedia reference: https://en.wikipedia.org/wiki/Cubic_foot
--> Wikipedia reference: https://en.wikipedia.org/wiki/Cup_(unit)
+体积单位转换。
+可用单位：Cubic metre,Litre,KiloLitre,Gallon,Cubic yard,Cubic foot,cup
+用法：
+-> 将此文件导入相应项目。
+-> 使用 length_conversion() 函数转换体积单位。
+-> 参数：
+    -> value：要转换的数值
+    -> from_type：原单位类型
+    -> to_type：目标单位类型
+参考资料：
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Cubic_metre
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Litre
+-> 维基词典参考资料：https://en.wiktionary.org/wiki/kilolitre
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Gallon
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Cubic_yard
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Cubic_foot
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Cup_(unit)
 """
 
 from typing import NamedTuple
@@ -39,7 +39,7 @@ METRIC_CONVERSION = {
 
 def volume_conversion(value: float, from_type: str, to_type: str) -> float:
     """
-    Conversion between volume units.
+    体积单位之间的转换。
     >>> volume_conversion(4, "cubic meter", "litre")
     4000
     >>> volume_conversion(1, "litre", "gallon")

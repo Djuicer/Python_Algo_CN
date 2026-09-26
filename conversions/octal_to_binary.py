@@ -1,8 +1,8 @@
 """
 * Author: Bama Charan Chhandogi (https://github.com/BamaCharanChhandogi)
-* Description: Convert a Octal number to Binary.
+* 说明：将八进制数转换为二进制数。
 
-References for better understanding:
+参考资料：
 https://en.wikipedia.org/wiki/Binary_number
 https://en.wikipedia.org/wiki/Octal
 """
@@ -10,7 +10,7 @@ https://en.wikipedia.org/wiki/Octal
 
 def octal_to_binary(octal_number: str) -> str:
     """
-    Convert an Octal number to Binary.
+    将八进制数转换为二进制数。
 
     >>> octal_to_binary("17")
     '001111'

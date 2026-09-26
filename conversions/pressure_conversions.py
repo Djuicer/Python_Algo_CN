@@ -1,19 +1,19 @@
 """
-Conversion of pressure units.
-Available Units:- Pascal,Bar,Kilopascal,Megapascal,psi(pound per square inch),
+压强单位转换。
+可用单位：Pascal,Bar,Kilopascal,Megapascal,psi(pound per square inch),
 inHg(in mercury column),torr,atm
-USAGE :
--> Import this file into their respective project.
--> Use the function pressure_conversion() for conversion of pressure units.
--> Parameters :
-    -> value : The number of from units you want to convert
-    -> from_type : From which type you want to convert
-    -> to_type : To which type you want to convert
-REFERENCES :
--> Wikipedia reference: https://en.wikipedia.org/wiki/Pascal_(unit)
--> Wikipedia reference: https://en.wikipedia.org/wiki/Pound_per_square_inch
--> Wikipedia reference: https://en.wikipedia.org/wiki/Inch_of_mercury
--> Wikipedia reference: https://en.wikipedia.org/wiki/Torr
+用法：
+-> 将此文件导入相应项目。
+-> 使用 pressure_conversion() 函数转换压强单位。
+-> 参数：
+    -> value：要转换的数值
+    -> from_type：原单位类型
+    -> to_type：目标单位类型
+参考资料：
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Pascal_(unit)
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Pound_per_square_inch
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Inch_of_mercury
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Torr
 -> https://en.wikipedia.org/wiki/Standard_atmosphere_(unit)
 -> https://msestudent.com/what-are-the-units-of-pressure/
 -> https://www.unitconverters.net/pressure-converter.html
@@ -41,7 +41,7 @@ PRESSURE_CONVERSION = {
 
 def pressure_conversion(value: float, from_type: str, to_type: str) -> float:
     """
-    Conversion between pressure units.
+    压强单位之间的转换。
     >>> pressure_conversion(4, "atm", "pascal")
     405300
     >>> pressure_conversion(1, "pascal", "psi")

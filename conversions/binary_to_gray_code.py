@@ -1,9 +1,8 @@
 """
-Convert between Binary and Gray Code representations.
+在二进制与格雷码（Gray Code）表示之间转换。
 
-Gray Code (also known as reflected binary code) is a binary numeral system where
-two successive values differ in only one bit. This property makes it useful in
-error correction, digital communications, and position encoders.
+格雷码（又称反射二进制码）是一种相邻两个数值仅有一位不同的二进制编码。
+这一特性使其适用于纠错、数字通信和位置编码器。
 
 Wikipedia: https://en.wikipedia.org/wiki/Gray_code
 """
@@ -11,18 +10,18 @@ Wikipedia: https://en.wikipedia.org/wiki/Gray_code
 
 def binary_to_gray(binary_number: int) -> int:
     """
-    Convert a binary number to its Gray Code equivalent.
+    将二进制数转换为等价的格雷码。
 
-    The algorithm works by XORing the binary number with itself right-shifted by 1.
-    Formula: gray = binary XOR (binary >> 1)
+    算法将二进制数与自身右移 1 位后的结果进行异或。
+    公式：gray = binary XOR (binary >> 1)
 
-    Args:
-        binary_number: A positive integer representing a binary number
+    参数：
+        binary_number：表示二进制数的非负整数
 
-    Returns:
-        The Gray Code equivalent as an integer
+    返回：
+        以整数表示的等价格雷码
 
-    Examples:
+    示例：
     >>> binary_to_gray(0)
     0
     >>> binary_to_gray(1)
@@ -60,18 +59,18 @@ def binary_to_gray(binary_number: int) -> int:
 
 def gray_to_binary(gray_number: int) -> int:
     """
-    Convert a Gray Code number to its binary equivalent.
+    将格雷码数转换为等价的二进制数。
 
-    The algorithm works by repeatedly XORing the gray code with itself right-shifted,
-    until the right-shifted value becomes 0.
+    算法反复将格雷码与其自身右移后的结果进行异或，
+    直到右移后的值变为 0。
 
-    Args:
-        gray_number: A positive integer representing a Gray Code number
+    参数：
+        gray_number：表示格雷码的非负整数
 
-    Returns:
-        The binary equivalent as an integer
+    返回：
+        以整数表示的等价二进制数
 
-    Examples:
+    示例：
     >>> gray_to_binary(0)
     0
     >>> gray_to_binary(1)
@@ -116,15 +115,15 @@ def gray_to_binary(gray_number: int) -> int:
 
 def decimal_to_gray(decimal_number: int) -> str:
     """
-    Convert a decimal number to its Gray Code representation as a binary string.
+    将十进制数转换为以二进制字符串表示的格雷码。
 
-    Args:
-        decimal_number: A positive integer in decimal
+    参数：
+        decimal_number：非负十进制整数
 
-    Returns:
-        Gray Code representation as a binary string
+    返回：
+        以二进制字符串表示的格雷码
 
-    Examples:
+    示例：
     >>> decimal_to_gray(0)
     '0'
     >>> decimal_to_gray(1)
@@ -150,20 +149,20 @@ def decimal_to_gray(decimal_number: int) -> str:
         raise ValueError("Input must be a non-negative integer")
 
     gray_code = binary_to_gray(decimal_number)
-    return bin(gray_code)[2:]  # Remove '0b' prefix
+    return bin(gray_code)[2:]  # 移除 '0b' 前缀
 
 
 def gray_to_decimal(gray_string: str) -> int:
     """
-    Convert a Gray Code binary string to its decimal equivalent.
+    将格雷码二进制字符串转换为等价的十进制数。
 
-    Args:
-        gray_string: A string of 0s and 1s representing Gray Code
+    参数：
+        gray_string：由 0 和 1 组成、表示格雷码的字符串
 
-    Returns:
-        The decimal equivalent as an integer
+    返回：
+        以整数表示的等价十进制数
 
-    Examples:
+    示例：
     >>> gray_to_decimal('0')
     0
     >>> gray_to_decimal('1')
@@ -190,7 +189,7 @@ def gray_to_decimal(gray_string: str) -> int:
     if not gray_string:
         raise ValueError("Input string cannot be empty")
 
-    # Validate binary string
+    # 验证二进制字符串
     if not all(bit in "01" for bit in gray_string):
         raise ValueError("Invalid binary string")
 
@@ -203,10 +202,10 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Interactive demonstration
+    # 交互式演示
     print("=== Binary to Gray Code Converter ===\n")
 
-    # Demonstrate conversions for 0-15
+    # 演示 0 到 15 的转换
     print("Decimal | Binary   | Gray Code")
     print("--------|----------|----------")
     for i in range(16):

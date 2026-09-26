@@ -20,7 +20,7 @@ BITS_TO_HEX = {
 
 def bin_to_hexadecimal(binary_str: str) -> str:
     """
-    Converting a binary string into hexadecimal using Grouping Method
+    使用分组法将二进制字符串转换为十六进制。
 
     >>> bin_to_hexadecimal('101011111')
     '0x15f'
@@ -37,10 +37,10 @@ def bin_to_hexadecimal(binary_str: str) -> str:
         ...
     ValueError: Empty string was passed to the function
     """
-    # Sanitising parameter
+    # 清理参数
     binary_str = str(binary_str).strip()
 
-    # Exceptions
+    # 异常检查
     if not binary_str:
         raise ValueError("Empty string was passed to the function")
     is_negative = binary_str[0] == "-"

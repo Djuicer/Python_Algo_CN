@@ -1,5 +1,5 @@
 """
-Conversion of weight units.
+重量单位转换。
 
 __author__ = "Anubhav Solanki"
 __license__ = "MIT"
@@ -7,27 +7,27 @@ __version__ = "1.1.0"
 __maintainer__ = "Anubhav Solanki"
 __email__ = "anubhavsolanki0@gmail.com"
 
-USAGE :
--> Import this file into their respective project.
--> Use the function weight_conversion() for conversion of weight units.
--> Parameters :
-    -> from_type : From which type you want to convert
-    -> to_type : To which type you want to convert
-    -> value : the value which you want to convert
+用法：
+-> 将此文件导入相应项目。
+-> 使用 weight_conversion() 函数转换重量单位。
+-> 参数：
+    -> from_type：原单位类型
+    -> to_type：目标单位类型
+    -> value：要转换的数值
 
-REFERENCES :
+参考资料：
 
--> Wikipedia reference: https://en.wikipedia.org/wiki/Kilogram
--> Wikipedia reference: https://en.wikipedia.org/wiki/Gram
--> Wikipedia reference: https://en.wikipedia.org/wiki/Millimetre
--> Wikipedia reference: https://en.wikipedia.org/wiki/Tonne
--> Wikipedia reference: https://en.wikipedia.org/wiki/Long_ton
--> Wikipedia reference: https://en.wikipedia.org/wiki/Short_ton
--> Wikipedia reference: https://en.wikipedia.org/wiki/Pound
--> Wikipedia reference: https://en.wikipedia.org/wiki/Ounce
--> Wikipedia reference: https://en.wikipedia.org/wiki/Fineness#Karat
--> Wikipedia reference: https://en.wikipedia.org/wiki/Dalton_(unit)
--> Wikipedia reference: https://en.wikipedia.org/wiki/Stone_(unit)
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Kilogram
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Gram
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Millimetre
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Tonne
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Long_ton
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Short_ton
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Pound
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Ounce
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Fineness#Karat
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Dalton_(unit)
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Stone_(unit)
 """
 
 KILOGRAM_CHART: dict[str, float] = {
@@ -61,7 +61,7 @@ WEIGHT_TYPE_CHART: dict[str, float] = {
 
 def weight_conversion(from_type: str, to_type: str, value: float) -> float:
     """
-    Conversion of weight unit with the help of KILOGRAM_CHART
+    借助 KILOGRAM_CHART 转换重量单位。
 
     "kilogram" : 1,
     "gram" : pow(10, 3),

@@ -1,11 +1,10 @@
 def rgb_to_cmyk(r_input: int, g_input: int, b_input: int) -> tuple[int, int, int, int]:
     """
-    Simple RGB to CMYK conversion. Returns percentages of CMYK paint.
+    简单的 RGB 到 CMYK 转换，返回 CMYK 油墨的百分比。
     https://www.programmingalgorithms.com/algorithm/rgb-to-cmyk/
 
-    Note: this is a very popular algorithm that converts colors linearly and gives
-    only approximate results. Actual preparation for printing requires advanced color
-    conversion considering the color profiles and parameters of the target device.
+    注意：这是一种常用的线性颜色转换算法，只能得到近似结果。实际的印前处理
+    需要结合目标设备的颜色配置文件和参数进行更高级的颜色转换。
 
     >>> rgb_to_cmyk(255, 200, "a")
     Traceback (most recent call last):
@@ -47,14 +46,14 @@ def rgb_to_cmyk(r_input: int, g_input: int, b_input: int) -> tuple[int, int, int
     if not 0 <= r_input < 256 or not 0 <= g_input < 256 or not 0 <= b_input < 256:
         raise ValueError("Expected int of the range 0..255")
 
-    # changing range from 0..255 to 0..1
+    # 将取值范围从 0..255 转换为 0..1
     r = r_input / 255
     g = g_input / 255
     b = b_input / 255
 
     k = 1 - max(r, g, b)
 
-    if k == 1:  # pure black
+    if k == 1:  # 纯黑色
         return 0, 0, 0, 100
 
     c = round(100 * (1 - r - k) / (1 - k))

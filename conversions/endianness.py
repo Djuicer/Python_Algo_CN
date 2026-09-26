@@ -1,30 +1,29 @@
 """
-Endianness Conversion Algorithm
+字节序（Endianness）转换算法
 
-This module implements endianness (byte order) conversion utilities for converting
-between big-endian and little-endian representations of multi-byte integers.
+本模块实现字节序转换工具，用于在多字节整数的大端表示与小端表示之间转换。
 
-Endianness refers to the order of bytes in a multi-byte data type:
-- Big-endian: Most significant byte first (e.g., 0x12345678 → [0x12, 0x34, 0x56, 0x78])
-- Little-endian: Least significant byte first
-  (e.g., 0x12345678 → [0x78, 0x56, 0x34, 0x12])
+字节序是指多字节数据类型中各字节的排列顺序：
+- 大端序（Big-endian）：最高有效字节在前（例如 0x12345678 → [0x12, 0x34, 0x56, 0x78]）
+- 小端序（Little-endian）：最低有效字节在前
+  （例如 0x12345678 → [0x78, 0x56, 0x34, 0x12]）
 
-Common uses:
-- Network protocols (TCP/IP uses big-endian for multi-byte fields)
-- File format parsing (PNG, JPEG headers specify endianness)
-- Cryptographic algorithms (MD5 uses little-endian, SHA-256 uses big-endian)
-- Binary data serialization (Protocol Buffers, MessagePack)
-- Hardware interfacing (ARM is bi-endian, x86 is strictly little-endian)
-- Cross-platform data exchange
+常见用途：
+- 网络协议（TCP/IP 的多字节字段使用大端序）
+- 文件格式解析（PNG、JPEG 文件头会指定字节序）
+- 密码算法（MD5 使用小端序，SHA-256 使用大端序）
+- 二进制数据序列化（Protocol Buffers、MessagePack）
+- 硬件接口（ARM 支持双字节序，x86 严格使用小端序）
+- 跨平台数据交换
 
-Real-world examples:
-- IP addresses are transmitted in big-endian (network byte order)
-- Modern ARM and x86 processors typically operate in little-endian mode
-- Java class files use big-endian format
-- Bitcoin uses little-endian for block hashes
-- USB and PCI protocols use little-endian
+实际示例：
+- IP 地址以大端序（网络字节序）传输
+- 现代 ARM 和 x86 处理器通常以小端模式运行
+- Java 类文件使用大端格式
+- Bitcoin 的区块哈希使用小端序
+- USB 和 PCI 协议使用小端序
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Endianness
 - RFC 1700 (Network Byte Order)
 - https://tools.ietf.org/html/rfc1700
@@ -33,16 +32,16 @@ References:
 
 def swap_endianness_16(value: int) -> int:
     """
-    Swap the byte order of a 16-bit integer.
+    交换 16 位整数的字节顺序。
 
-    Args:
-        value: 16-bit integer (0 to 65,535)
+    参数：
+        value：16 位整数（0 到 65,535）
 
-    Returns:
-        Integer with swapped byte order
+    返回：
+        字节顺序交换后的整数
 
-    Raises:
-        ValueError: If value is negative or exceeds 16-bit range
+    异常：
+        ValueError：当 value 为负数或超出 16 位范围时
 
     >>> swap_endianness_16(0x1234)
     13330
@@ -71,16 +70,16 @@ def swap_endianness_16(value: int) -> int:
 
 def swap_endianness_32(value: int) -> int:
     """
-    Swap the byte order of a 32-bit integer.
+    交换 32 位整数的字节顺序。
 
-    Args:
-        value: 32-bit integer (0 to 4,294,967,295)
+    参数：
+        value：32 位整数（0 到 4,294,967,295）
 
-    Returns:
-        Integer with swapped byte order
+    返回：
+        字节顺序交换后的整数
 
-    Raises:
-        ValueError: If value is negative or exceeds 32-bit range
+    异常：
+        ValueError：当 value 为负数或超出 32 位范围时
 
     >>> swap_endianness_32(0x12345678)
     2018915346
@@ -117,16 +116,16 @@ def swap_endianness_32(value: int) -> int:
 
 def swap_endianness_64(value: int) -> int:
     """
-    Swap the byte order of a 64-bit integer.
+    交换 64 位整数的字节顺序。
 
-    Args:
-        value: 64-bit integer (0 to 18,446,744,073,709,551,615)
+    参数：
+        value：64 位整数（0 到 18,446,744,073,709,551,615）
 
-    Returns:
-        Integer with swapped byte order
+    返回：
+        字节顺序交换后的整数
 
-    Raises:
-        ValueError: If value is negative or exceeds 64-bit range
+    异常：
+        ValueError：当 value 为负数或超出 64 位范围时
 
     >>> swap_endianness_64(0x0123456789ABCDEF)
     17279655951921914625
@@ -164,17 +163,17 @@ def swap_endianness_64(value: int) -> int:
 
 def bytes_to_int_little(data: bytes) -> int:
     """
-    Convert bytes to integer using little-endian byte order.
+    使用小端字节序将字节转换为整数。
 
-    Args:
-        data: Byte sequence to convert (1-8 bytes)
+    参数：
+        data：要转换的字节序列（1 至 8 字节）
 
-    Returns:
-        Integer representation in little-endian order
+    返回：
+        按小端序解释所得的整数
 
-    Raises:
-        TypeError: If data is not bytes
-        ValueError: If data is empty or exceeds 8 bytes
+    异常：
+        TypeError：当 data 不是 bytes 时
+        ValueError：当 data 为空或超过 8 字节时
 
     >>> bytes_to_int_little(b'\\x78\\x56\\x34\\x12')
     305419896
@@ -200,17 +199,17 @@ def bytes_to_int_little(data: bytes) -> int:
 
 def bytes_to_int_big(data: bytes) -> int:
     """
-    Convert bytes to integer using big-endian byte order.
+    使用大端字节序将字节转换为整数。
 
-    Args:
-        data: Byte sequence to convert (1-8 bytes)
+    参数：
+        data：要转换的字节序列（1 至 8 字节）
 
-    Returns:
-        Integer representation in big-endian order
+    返回：
+        按大端序解释所得的整数
 
-    Raises:
-        TypeError: If data is not bytes
-        ValueError: If data is empty or exceeds 8 bytes
+    异常：
+        TypeError：当 data 不是 bytes 时
+        ValueError：当 data 为空或超过 8 字节时
 
     >>> bytes_to_int_big(b'\\x12\\x34\\x56\\x78')
     305419896
@@ -236,17 +235,17 @@ def bytes_to_int_big(data: bytes) -> int:
 
 def int_to_bytes_little(value: int, num_bytes: int) -> bytes:
     """
-    Convert integer to bytes using little-endian byte order.
+    使用小端字节序将整数转换为字节。
 
-    Args:
-        value: Integer to convert (non-negative)
-        num_bytes: Number of bytes in output (1-8)
+    参数：
+        value：要转换的非负整数
+        num_bytes：输出的字节数（1 至 8）
 
-    Returns:
-        Bytes representation in little-endian order
+    返回：
+        小端序的字节表示
 
-    Raises:
-        ValueError: If value is negative, num_bytes invalid, or value too large
+    异常：
+        ValueError：当 value 为负数、num_bytes 无效或 value 过大时
 
     >>> int_to_bytes_little(0x12345678, 4)
     b'xV4\\x12'
@@ -277,17 +276,17 @@ def int_to_bytes_little(value: int, num_bytes: int) -> bytes:
 
 def int_to_bytes_big(value: int, num_bytes: int) -> bytes:
     """
-    Convert integer to bytes using big-endian byte order.
+    使用大端字节序将整数转换为字节。
 
-    Args:
-        value: Integer to convert (non-negative)
-        num_bytes: Number of bytes in output (1-8)
+    参数：
+        value：要转换的非负整数
+        num_bytes：输出的字节数（1 至 8）
 
-    Returns:
-        Bytes representation in big-endian order
+    返回：
+        大端序的字节表示
 
-    Raises:
-        ValueError: If value is negative, num_bytes invalid, or value too large
+    异常：
+        ValueError：当 value 为负数、num_bytes 无效或 value 过大时
 
     >>> int_to_bytes_big(0x12345678, 4)
     b'\\x124Vx'

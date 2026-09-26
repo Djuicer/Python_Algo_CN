@@ -1,21 +1,18 @@
 """
-The RGB color model is an additive color model in which red, green, and blue light
-are added together in various ways to reproduce a broad array of colors. The name
-of the model comes from the initials of the three additive primary colors, red,
-green, and blue. Meanwhile, the HSV representation models how colors appear under
-light. In it, colors are represented using three components: hue, saturation and
-(brightness-)value. This file provides functions for converting colors from one
-representation to the other.
+RGB 颜色模型是一种加色模型，通过以不同方式叠加红、绿、蓝光来呈现多种颜色。
+该模型的名称取自三种加色原色 red、green 和 blue 的首字母。HSV 表示则模拟颜色
+在光照下的外观，使用色相（hue）、饱和度（saturation）和明度（value）三个分量
+表示颜色。本文件提供在这两种表示之间转换颜色的函数。
 
-(description adapted from https://en.wikipedia.org/wiki/RGB_color_model and
-https://en.wikipedia.org/wiki/HSL_and_HSV).
+（说明改编自 https://en.wikipedia.org/wiki/RGB_color_model 和
+https://en.wikipedia.org/wiki/HSL_and_HSV）。
 """
 
 
 def hsv_to_rgb(hue: float, saturation: float, value: float) -> list[int]:
     """
-    Conversion from the HSV-representation to the RGB-representation.
-    Expected RGB-values taken from
+    从 HSV 表示转换为 RGB 表示。
+    预期 RGB 值取自
     https://www.rapidtables.com/convert/color/hsv-to-rgb.html
 
     >>> hsv_to_rgb(0, 0, 0)
@@ -83,10 +80,9 @@ def hsv_to_rgb(hue: float, saturation: float, value: float) -> list[int]:
 
 def rgb_to_hsv(red: int, green: int, blue: int) -> list[float]:
     """
-    Conversion from the RGB-representation to the HSV-representation.
-    The tested values are the reverse values from the hsv_to_rgb-doctests.
-    Function "approximately_equal_hsv" is needed because of small deviations due to
-    rounding for the RGB-values.
+    从 RGB 表示转换为 HSV 表示。
+    测试值是 hsv_to_rgb doctest 中数值的逆向转换结果。
+    由于 RGB 值舍入会产生微小偏差，因此需要使用 "approximately_equal_hsv" 函数。
 
     >>> approximately_equal_hsv(rgb_to_hsv(0, 0, 0), [0, 0, 0])
     True
@@ -141,7 +137,7 @@ def rgb_to_hsv(red: int, green: int, blue: int) -> list[float]:
 
 def approximately_equal_hsv(hsv_1: list[float], hsv_2: list[float]) -> bool:
     """
-    Utility-function to check that two hsv-colors are approximately equal
+    用于检查两个 HSV 颜色是否近似相等的工具函数。
 
     >>> approximately_equal_hsv([0, 0, 0], [0, 0, 0])
     True

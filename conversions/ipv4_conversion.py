@@ -3,13 +3,13 @@
 
 def ipv4_to_decimal(ipv4_address: str) -> int:
     """
-    Convert an IPv4 address to its decimal representation.
+    将 IPv4 地址转换为十进制表示。
 
-    Args:
-        ip_address: A string representing an IPv4 address (e.g., "192.168.0.1").
+    参数：
+        ip_address：表示 IPv4 地址的字符串（例如 "192.168.0.1"）。
 
-    Returns:
-        int: The decimal representation of the IP address.
+    返回：
+        int：IP 地址的十进制表示。
 
     >>> ipv4_to_decimal("192.168.0.1")
     3232235521
@@ -50,13 +50,13 @@ def alt_ipv4_to_decimal(ipv4_address: str) -> int:
 
 def decimal_to_ipv4(decimal_ipv4: int) -> str:
     """
-    Convert a decimal representation of an IP address to its IPv4 format.
+    将 IP 地址的十进制表示转换为 IPv4 格式。
 
-    Args:
-        decimal_ipv4: An integer representing the decimal IP address.
+    参数：
+        decimal_ipv4：表示十进制 IP 地址的整数。
 
-    Returns:
-        The IPv4 representation of the decimal IP address.
+    返回：
+        十进制 IP 地址的 IPv4 表示。
 
     >>> decimal_to_ipv4(3232235521)
     '192.168.0.1'

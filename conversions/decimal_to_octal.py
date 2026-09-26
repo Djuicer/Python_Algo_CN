@@ -1,13 +1,13 @@
-"""Convert a Decimal Number to an Octal Number."""
+"""将十进制数转换为八进制数。"""
 
 import math
 
-# Modified from:
+# 修改自：
 # https://github.com/TheAlgorithms/Javascript/blob/master/Conversions/DecimalToOctal.js
 
 
 def decimal_to_octal(num: int) -> str:
-    """Convert a Decimal Number to an Octal Number.
+    """将十进制数转换为八进制数。
 
     >>> all(decimal_to_octal(i) == oct(i) for i
     ...     in (0, 2, 8, 64, 65, 216, 255, 256, 512))
@@ -19,13 +19,13 @@ def decimal_to_octal(num: int) -> str:
         remainder = num % 8
         octal = octal + (remainder * math.floor(math.pow(10, counter)))
         counter += 1
-        num = math.floor(num / 8)  # basically /= 8 without remainder if any
-        # This formatting removes trailing '.0' from `octal`.
+        num = math.floor(num / 8)  # 相当于除以 8 并舍弃余数
+        # 此格式化操作会移除 `octal` 末尾的 '.0'。
     return f"0o{int(octal)}"
 
 
 def main() -> None:
-    """Print octal equivalents of decimal numbers."""
+    """打印十进制数对应的八进制值。"""
     print("\n2 in octal is:")
     print(decimal_to_octal(2))  # = 2
     print("\n8 in octal is:")

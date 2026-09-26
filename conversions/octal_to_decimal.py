@@ -1,6 +1,6 @@
 def oct_to_decimal(oct_string: str) -> int:
     """
-    Convert a octal value to its decimal equivalent
+    将八进制值转换为等价的十进制值。
 
     >>> oct_to_decimal("")
     Traceback (most recent call last):

@@ -1,5 +1,5 @@
 """
-The function below will convert any binary string to the octal equivalent.
+以下函数将任意二进制字符串转换为等价的八进制值。
 
 >>> bin_to_octal("1111")
 '17'

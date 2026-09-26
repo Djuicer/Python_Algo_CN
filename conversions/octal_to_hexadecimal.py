@@ -1,7 +1,7 @@
 def octal_to_hex(octal: str) -> str:
     """
-    Convert an Octal number to Hexadecimal number.
-    For more information: https://en.wikipedia.org/wiki/Octal
+    将八进制数转换为十六进制数。
+    更多信息：https://en.wikipedia.org/wiki/Octal
 
     >>> octal_to_hex("100")
     '0x40'
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     nums = ["030", "100", "247", "235", "007"]
 
-    ## Main Tests
+    ## 主测试
 
     for num in nums:
         hexadecimal = octal_to_hex(num)

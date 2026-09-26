@@ -1,5 +1,5 @@
 """
-Convert speed units
+速度单位转换。
 
 https://en.wikipedia.org/wiki/Kilometres_per_hour
 https://en.wikipedia.org/wiki/Miles_per_hour
@@ -24,7 +24,7 @@ speed_chart_inverse: dict[str, float] = {
 
 def convert_speed(speed: float, unit_from: str, unit_to: str) -> float:
     """
-    Convert speed from one unit to another using the speed_chart above.
+    使用上方的 speed_chart 在不同速度单位之间转换。
 
     "km/h": 1.0,
     "m/s": 3.6,

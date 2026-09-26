@@ -1,7 +1,6 @@
 def decimal_to_negative_binary(number: int) -> int:
     """
-    a conversion algorithm from decimal
-    to negative binary base
+    从十进制转换为负二进制（基数为 -2）的算法。
 
     https://en.wikipedia.org/wiki/Negative_base#:~:text=Binary-,Negabinary,-Ternary
 

@@ -1,5 +1,5 @@
 """
-Functions useful for doing molecular chemistry:
+用于分子化学计算的函数：
 * molarity_to_normality
 * moles_to_pressure
 * moles_to_volume
@@ -11,11 +11,11 @@ Functions useful for doing molecular chemistry:
 
 def molarity_to_normality(nfactor: int, moles: float, volume: float) -> float:
     """
-    Convert molarity to normality.
-      Volume is taken in litres.
+    将摩尔浓度转换为当量浓度。
+      体积以 litres 为单位。
 
-      Wikipedia reference: https://en.wikipedia.org/wiki/Equivalent_concentration
-      Wikipedia reference: https://en.wikipedia.org/wiki/Molar_concentration
+      维基百科参考资料：https://en.wikipedia.org/wiki/Equivalent_concentration
+      维基百科参考资料：https://en.wikipedia.org/wiki/Molar_concentration
 
       >>> molarity_to_normality(2, 3.1, 0.31)
       20
@@ -27,15 +27,15 @@ def molarity_to_normality(nfactor: int, moles: float, volume: float) -> float:
 
 def moles_to_pressure(volume: float, moles: float, temperature: float) -> float:
     """
-    Convert moles to pressure.
-      Ideal gas laws are used.
-      Temperature is taken in kelvin.
-      Volume is taken in litres.
-      Pressure has atm as SI unit.
+    将物质的量转换为压强。
+      使用理想气体定律。
+      温度以 kelvin 为单位。
+      体积以 litres 为单位。
+      压强采用 atm 作为 SI 单位。
 
-      Wikipedia reference: https://en.wikipedia.org/wiki/Gas_laws
-      Wikipedia reference: https://en.wikipedia.org/wiki/Pressure
-      Wikipedia reference: https://en.wikipedia.org/wiki/Temperature
+      维基百科参考资料：https://en.wikipedia.org/wiki/Gas_laws
+      维基百科参考资料：https://en.wikipedia.org/wiki/Pressure
+      维基百科参考资料：https://en.wikipedia.org/wiki/Temperature
 
       >>> moles_to_pressure(0.82, 3, 300)
       90
@@ -47,15 +47,15 @@ def moles_to_pressure(volume: float, moles: float, temperature: float) -> float:
 
 def moles_to_volume(pressure: float, moles: float, temperature: float) -> float:
     """
-    Convert moles to volume.
-      Ideal gas laws are used.
-      Temperature is taken in kelvin.
-      Volume is taken in litres.
-      Pressure has atm as SI unit.
+    将物质的量转换为体积。
+      使用理想气体定律。
+      温度以 kelvin 为单位。
+      体积以 litres 为单位。
+      压强采用 atm 作为 SI 单位。
 
-      Wikipedia reference: https://en.wikipedia.org/wiki/Gas_laws
-      Wikipedia reference: https://en.wikipedia.org/wiki/Pressure
-      Wikipedia reference: https://en.wikipedia.org/wiki/Temperature
+      维基百科参考资料：https://en.wikipedia.org/wiki/Gas_laws
+      维基百科参考资料：https://en.wikipedia.org/wiki/Pressure
+      维基百科参考资料：https://en.wikipedia.org/wiki/Temperature
 
       >>> moles_to_volume(0.82, 3, 300)
       90
@@ -69,15 +69,15 @@ def pressure_and_volume_to_temperature(
     pressure: float, moles: float, volume: float
 ) -> float:
     """
-    Convert pressure and volume to temperature.
-      Ideal gas laws are used.
-      Temperature is taken in kelvin.
-      Volume is taken in litres.
-      Pressure has atm as SI unit.
+    根据压强和体积计算温度。
+      使用理想气体定律。
+      温度以 kelvin 为单位。
+      体积以 litres 为单位。
+      压强采用 atm 作为 SI 单位。
 
-      Wikipedia reference: https://en.wikipedia.org/wiki/Gas_laws
-      Wikipedia reference: https://en.wikipedia.org/wiki/Pressure
-      Wikipedia reference: https://en.wikipedia.org/wiki/Temperature
+      维基百科参考资料：https://en.wikipedia.org/wiki/Gas_laws
+      维基百科参考资料：https://en.wikipedia.org/wiki/Pressure
+      维基百科参考资料：https://en.wikipedia.org/wiki/Temperature
 
       >>> pressure_and_volume_to_temperature(0.82, 1, 2)
       20
@@ -89,11 +89,11 @@ def pressure_and_volume_to_temperature(
 
 def mass_to_moles(mass: float, molar_mass: float) -> float:
     """
-    Convert mass of a substance to moles.
-      Mass is taken in grams.
-      Molar mass is taken in grams per mole (g/mol).
+    将物质的质量转换为物质的量。
+      质量以 grams 为单位。
+      摩尔质量以 grams per mole（g/mol）为单位。
 
-      Wikipedia reference: https://en.wikipedia.org/wiki/Mole_(unit)
+      维基百科参考资料：https://en.wikipedia.org/wiki/Mole_(unit)
 
       >>> mass_to_moles(36.03, 18.015)
       2.0
@@ -110,9 +110,9 @@ def mass_to_moles(mass: float, molar_mass: float) -> float:
 
 def moles_to_molecules(moles: float) -> float:
     """
-    Convert moles of a substance to total molecules using Avogadro's constant.
+    使用阿伏伽德罗常数将物质的量转换为分子总数。
 
-      Wikipedia reference: https://en.wikipedia.org/wiki/Avogadro_constant
+      维基百科参考资料：https://en.wikipedia.org/wiki/Avogadro_constant
 
       >>> moles_to_molecules(2)
       1.2044e+24

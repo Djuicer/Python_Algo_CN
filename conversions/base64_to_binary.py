@@ -1,7 +1,7 @@
 """
 * Author: Siddharth Singh (https://github.com/coolsidd)
-* Description: Convert a binary string to Base64.
-References for better understanding:
+* 说明：将二进制字符串转换为 Base64。
+参考资料：
 https://en.wikipedia.org/wiki/Base64
 """
 
@@ -74,7 +74,7 @@ B64_TO_BITS = {
 
 
 def base64_to_bin(base64_str: str) -> str:
-    """Convert a base64 value to its binary equivalent.
+    """将 Base64 值转换为等价的二进制值。
 
     >>> base64_to_bin("ABC")
     '000000000001000010'

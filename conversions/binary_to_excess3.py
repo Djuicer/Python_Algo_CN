@@ -1,25 +1,25 @@
 def binary_to_excess3(binary_str: str) -> str:
     """
-    Convert a binary number (as a string) to its Excess-3 code.
+    将以字符串表示的二进制数转换为余 3 码（Excess-3）。
     https://en.wikipedia.org/wiki/Excess-3
 
-    Args:
-        binary_str (str): Binary number as a string (e.g., "1010").
+    参数：
+        binary_str (str)：以字符串表示的二进制数（例如 "1010"）。
 
-    Returns:
-        str: Excess-3 code as a binary string.
+    返回：
+        str：以二进制字符串表示的余 3 码。
 
-    Example:
+    示例：
         >>> binary_to_excess3("1010")
         '1101'
     """
-    # Convert binary to decimal
+    # 将二进制转换为十进制
     decimal_value = int(binary_str, 2)
 
-    # Add 3 (Excess-3 encoding)
+    # 加 3（余 3 编码）
     excess3_value = decimal_value + 3
 
-    # Convert back to 4-bit binary
+    # 转换回 4 位二进制
     excess3_binary = format(excess3_value, "04b")
 
     return excess3_binary

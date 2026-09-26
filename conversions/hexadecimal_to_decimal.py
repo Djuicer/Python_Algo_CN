@@ -1,9 +1,9 @@
-hex_table = {hex(i)[2:]: i for i in range(16)}  # Use [:2] to strip off the leading '0x'
+hex_table = {hex(i)[2:]: i for i in range(16)}  # 使用 [:2] 去除开头的 '0x'
 
 
 def hex_to_decimal(hex_string: str) -> int:
     """
-    Convert a hexadecimal value to its decimal equivalent
+    将十六进制值转换为等价的十进制值。
     #https://www.programiz.com/python-programming/methods/built-in/hex
 
     >>> hex_to_decimal("a")

@@ -1,25 +1,25 @@
 """
-Conversion of length units.
-Available Units:- Metre,Kilometre,Feet,Inch,Centimeter,Yard,Foot,Mile,Millimeter
+长度单位转换。
+可用单位：Metre,Kilometre,Feet,Inch,Centimeter,Yard,Foot,Mile,Millimeter
 
-USAGE :
--> Import this file into their respective project.
--> Use the function length_conversion() for conversion of length units.
--> Parameters :
-    -> value : The number of from units you want to convert
-    -> from_type : From which type you want to convert
-    -> to_type : To which type you want to convert
+用法：
+-> 将此文件导入相应项目。
+-> 使用 length_conversion() 函数转换长度单位。
+-> 参数：
+    -> value：要转换的数值
+    -> from_type：原单位类型
+    -> to_type：目标单位类型
 
-REFERENCES :
--> Wikipedia reference: https://en.wikipedia.org/wiki/Meter
--> Wikipedia reference: https://en.wikipedia.org/wiki/Kilometer
--> Wikipedia reference: https://en.wikipedia.org/wiki/Feet
--> Wikipedia reference: https://en.wikipedia.org/wiki/Inch
--> Wikipedia reference: https://en.wikipedia.org/wiki/Centimeter
--> Wikipedia reference: https://en.wikipedia.org/wiki/Yard
--> Wikipedia reference: https://en.wikipedia.org/wiki/Foot
--> Wikipedia reference: https://en.wikipedia.org/wiki/Mile
--> Wikipedia reference: https://en.wikipedia.org/wiki/Millimeter
+参考资料：
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Meter
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Kilometer
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Feet
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Inch
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Centimeter
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Yard
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Foot
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Mile
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Millimeter
 """
 
 from typing import NamedTuple
@@ -36,7 +36,7 @@ TYPE_CONVERSION = {
     "meter": "m",
     "kilometer": "km",
     "inch": "in",
-    "inche": "in",  # Trailing 's' has been stripped off
+    "inche": "in",  # 末尾的 's' 已被移除
     "feet": "ft",
     "foot": "ft",
     "yard": "yd",
@@ -57,7 +57,7 @@ METRIC_CONVERSION = {
 
 def length_conversion(value: float, from_type: str, to_type: str) -> float:
     """
-    Conversion between length units.
+    长度单位之间的转换。
 
     >>> length_conversion(4, "METER", "FEET")
     13.12336

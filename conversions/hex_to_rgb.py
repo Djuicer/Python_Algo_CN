@@ -1,8 +1,8 @@
 """
 * Author: Cicero Tiago Carneiro Valentim (https://github.com/cicerotcv)
-* Description: Convert hexadecimal (#FF2000) color to RGB (rgb(255, 32, 0)).
+* 说明：将十六进制颜色（#FF2000）转换为 RGB（rgb(255, 32, 0)）。
 
-References:
+参考资料：
 https://www.w3schools.com/colors/colors_rgb.asp
 https://www.w3schools.com/colors/colors_hexadecimal.asp
 """
@@ -10,19 +10,18 @@ https://www.w3schools.com/colors/colors_hexadecimal.asp
 
 def hex_to_rgb(hex_color: str) -> str:
     """
-    Converts a hexadecimal color code to RGB values.
+    将十六进制颜色代码转换为 RGB 值。
 
-    Args:
-        hex_color (str): A hexadecimal color code, e.g., "#RGB" or "#RRGGBB".
+    参数：
+        hex_color (str)：十六进制颜色代码，例如 "#RGB" 或 "#RRGGBB"。
 
-    Returns:
-        str: A string representation of a rgb value "rgb(r, g, b)" containing
-        three integers.
+    返回：
+        str：包含三个整数的 RGB 值字符串表示 "rgb(r, g, b)"。
 
-    Raises:
-        ValueError: If the input hex_color is not a valid hexadecimal color code.
+    异常：
+        ValueError：当输入 hex_color 不是有效的十六进制颜色代码时。
 
-    Examples:
+    示例：
     >>> hex_to_rgb("#FF0000")
     'rgb(255, 0, 0)'
 
@@ -51,21 +50,21 @@ def hex_to_rgb(hex_color: str) -> str:
     ...
     ValueError: Invalid hex color code
 
-    Note:
-        - The function supports both 6-digit and 3-digit hex color codes.
+    注意：
+        - 此函数支持 6 位和 3 位十六进制颜色代码。
     """
 
     hex_color = hex_color.lstrip("#")
 
-    # Check if the input is a valid hex color code
+    # 检查输入是否为有效的十六进制颜色代码
     if not (len(hex_color) == 6 or len(hex_color) == 3):
         raise ValueError("Invalid hex color code")
 
-    # Expand 3-digit hex codes to 6 digits (e.g., "#123" to "#112233")
+    # 将 3 位十六进制代码扩展为 6 位（例如将 "#123" 扩展为 "#112233"）
     if len(hex_color) == 3:
         hex_color = "".join([char * 2 for char in hex_color])
 
-    # Parse the hex values to integers
+    # 将十六进制值解析为整数
     red = int(hex_color[0:2], 16)
     green = int(hex_color[2:4], 16)
     blue = int(hex_color[4:6], 16)

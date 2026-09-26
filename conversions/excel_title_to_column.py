@@ -1,8 +1,7 @@
 def excel_title_to_column(column_title: str) -> int:
     """
-    Given a string column_title that represents
-    the column title in an Excel sheet, return
-    its corresponding column number.
+    给定表示 Excel 工作表列标题的字符串 column_title，
+    返回对应的列编号。
 
     >>> excel_title_to_column("A")
     1

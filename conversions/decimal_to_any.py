@@ -1,4 +1,4 @@
-"""Convert a positive Decimal Number to Any Other Representation"""
+"""将正十进制数转换为任意其他进制表示。"""
 
 from string import ascii_uppercase
 
@@ -7,7 +7,7 @@ ALPHABET_VALUES = {str(ord(c) - 55): c for c in ascii_uppercase}
 
 def decimal_to_any(num: int, base: int) -> str:
     """
-    Convert a positive integer to another base as str.
+    将正整数转换为以字符串表示的另一进制数。
     >>> decimal_to_any(0, 2)
     '0'
     >>> decimal_to_any(5, 4)

@@ -17,9 +17,9 @@ ROMAN = [
 
 def roman_to_int(roman: str) -> int:
     """
-    LeetCode No. 13 Roman to Integer
-    Given a roman numeral, convert it to an integer.
-    Input is guaranteed to be within the range from 1 to 3999.
+    LeetCode 第 13 题：罗马数字转整数。
+    给定一个罗马数字，将其转换为整数。
+    保证输入值在 1 到 3999 的范围内。
     https://en.wikipedia.org/wiki/Roman_numerals
     >>> tests = {"III": 3, "CLIV": 154, "MIX": 1009, "MMD": 2500, "MMMCMXCIX": 3999}
     >>> all(roman_to_int(key) == value for key, value in tests.items())
@@ -40,8 +40,8 @@ def roman_to_int(roman: str) -> int:
 
 def int_to_roman(number: int) -> str:
     """
-    Given an integer, convert it to a Roman numeral.
-    Input must be an integer in the range 1 to 3999.
+    给定一个整数，将其转换为罗马数字。
+    输入必须是 1 到 3999 范围内的整数。
     https://en.wikipedia.org/wiki/Roman_numerals
     >>> tests = {"III": 3, "CLIV": 154, "MIX": 1009, "MMD": 2500, "MMMCMXCIX": 3999}
     >>> all(int_to_roman(value) == key for key, value in tests.items())

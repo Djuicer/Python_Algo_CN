@@ -1,8 +1,8 @@
 """
 * Author: Manuel Di Lullo (https://github.com/manueldilullo)
-* Description: Convert a number to use the correct SI or Binary unit prefix.
+* 说明：转换数值，使其使用正确的 SI 或二进制单位前缀。
 
-Inspired by prefix_conversion.py file in this repository by lance-pyles
+灵感来自本仓库中 lance-pyles 编写的 prefix_conversion.py 文件。
 
 URL: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
 URL: https://en.wikipedia.org/wiki/Binary_prefix
@@ -13,7 +13,7 @@ from __future__ import annotations
 from enum import Enum, unique
 from typing import TypeVar
 
-# Create a generic variable that can be 'Enum', or any subclass.
+# 创建一个可表示 'Enum' 或其任意子类的泛型变量
 T = TypeVar("T", bound="Enum")
 
 
@@ -55,8 +55,7 @@ class SIUnit(Enum):
     @classmethod
     def get_positive(cls) -> dict:
         """
-        Returns a dictionary with only the elements of this enum
-        that has a positive value
+        返回一个仅包含此枚举中正值元素的字典。
         >>> from itertools import islice
         >>> positive = SIUnit.get_positive()
         >>> inc = iter(positive.items())
@@ -70,8 +69,7 @@ class SIUnit(Enum):
     @classmethod
     def get_negative(cls) -> dict:
         """
-        Returns a dictionary with only the elements of this enum
-        that has a negative value
+        返回一个仅包含此枚举中负值元素的字典。
         @example
         >>> from itertools import islice
         >>> negative = SIUnit.get_negative()
@@ -86,8 +84,8 @@ class SIUnit(Enum):
 
 def add_si_prefix(value: float) -> str:
     """
-    Function that converts a number to his version with SI prefix
-    @input value (an integer)
+    将数值转换为带 SI 前缀的形式。
+    @input value（整数）
     @example:
     >>> add_si_prefix(10000)
     '10.0 kilo'
@@ -102,8 +100,8 @@ def add_si_prefix(value: float) -> str:
 
 def add_binary_prefix(value: float) -> str:
     """
-    Function that converts a number to his version with Binary prefix
-    @input value (an integer)
+    将数值转换为带二进制前缀的形式。
+    @input value（整数）
     @example:
     >>> add_binary_prefix(65536)
     '64.0 kilo'

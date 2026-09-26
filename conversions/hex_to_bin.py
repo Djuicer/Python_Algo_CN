@@ -1,11 +1,11 @@
 def hex_to_bin(hex_num: str) -> int:
     """
-    Convert a hexadecimal value to its binary equivalent
+    将十六进制值转换为等价的二进制值。
     #https://stackoverflow.com/questions/1425493/convert-hex-to-binary
-    Here, we have used the bitwise right shift operator: >>
-    Shifts the bits of the number to the right and fills 0 on voids left as a result.
-    Similar effect as of dividing the number with some power of two.
-    Example:
+    此处使用了按位右移运算符：>>
+    它将数字的各位向右移动，并在左侧空位补 0，
+    效果类似于将数字除以 2 的某次幂。
+    示例：
     a = 10
     a >> 1 = 5
 

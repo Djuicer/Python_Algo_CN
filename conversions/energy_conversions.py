@@ -1,28 +1,28 @@
 """
-Conversion of energy units.
+能量单位转换。
 
-Available units: joule, kilojoule, megajoule, gigajoule,\
+可用单位：joule, kilojoule, megajoule, gigajoule,\
       wattsecond, watthour, kilowatthour, newtonmeter, calorie_nutr,\
           kilocalorie_nutr, electronvolt, britishthermalunit_it, footpound
 
-USAGE :
--> Import this file into their respective project.
--> Use the function energy_conversion() for conversion of energy units.
--> Parameters :
-    -> from_type : From which type you want to convert
-    -> to_type : To which type you want to convert
-    -> value : the value which you want to convert
+用法：
+-> 将此文件导入相应项目。
+-> 使用 energy_conversion() 函数转换能量单位。
+-> 参数：
+    -> from_type：原单位类型
+    -> to_type：目标单位类型
+    -> value：要转换的数值
 
-REFERENCES :
--> Wikipedia reference: https://en.wikipedia.org/wiki/Units_of_energy
--> Wikipedia reference: https://en.wikipedia.org/wiki/Joule
--> Wikipedia reference: https://en.wikipedia.org/wiki/Kilowatt-hour
--> Wikipedia reference: https://en.wikipedia.org/wiki/Newton-metre
--> Wikipedia reference: https://en.wikipedia.org/wiki/Calorie
--> Wikipedia reference: https://en.wikipedia.org/wiki/Electronvolt
--> Wikipedia reference: https://en.wikipedia.org/wiki/British_thermal_unit
--> Wikipedia reference: https://en.wikipedia.org/wiki/Foot-pound_(energy)
--> Unit converter reference: https://www.unitconverters.net/energy-converter.html
+参考资料：
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Units_of_energy
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Joule
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Kilowatt-hour
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Newton-metre
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Calorie
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Electronvolt
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/British_thermal_unit
+-> 维基百科参考资料：https://en.wikipedia.org/wiki/Foot-pound_(energy)
+-> 单位转换器参考资料：https://www.unitconverters.net/energy-converter.html
 """
 
 ENERGY_CONVERSION: dict[str, float] = {
@@ -44,7 +44,7 @@ ENERGY_CONVERSION: dict[str, float] = {
 
 def energy_conversion(from_type: str, to_type: str, value: float) -> float:
     """
-    Conversion of energy units.
+    能量单位转换。
     >>> energy_conversion("joule", "joule", 1)
     1.0
     >>> energy_conversion("joule", "kilojoule", 1)
