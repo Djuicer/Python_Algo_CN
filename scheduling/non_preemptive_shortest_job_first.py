@@ -1,6 +1,6 @@
 """
-Non-preemptive Shortest Job First
-Shortest execution time process is chosen for the next execution.
+非抢占式最短作业优先（Shortest Job First，SJF）。
+选择执行时间最短的进程作为下一个执行对象。
 https://www.guru99.com/shortest-job-first-sjf-scheduling.html
 https://en.wikipedia.org/wiki/Shortest_job_next
 """
@@ -14,9 +14,9 @@ def calculate_waitingtime(
     arrival_time: list[int], burst_time: list[int], no_of_processes: int
 ) -> list[int]:
     """
-    Calculate the waiting time of each processes
+    计算各进程的等待时间。
 
-    Return: The waiting time for each process.
+    返回：各进程的等待时间。
     >>> calculate_waitingtime([0,1,2], [10, 5, 8], 3)
     [0, 9, 13]
     >>> calculate_waitingtime([1,2,2,4], [4, 6, 3, 1], 4)
@@ -28,7 +28,7 @@ def calculate_waitingtime(
     waiting_time = [0] * no_of_processes
     remaining_time = [0] * no_of_processes
 
-    # Initialize remaining_time to waiting_time.
+    # 将 remaining_time 初始化为 waiting_time
 
     for i in range(no_of_processes):
         remaining_time[i] = burst_time[i]
@@ -37,10 +37,8 @@ def calculate_waitingtime(
     completed = 0
     total_time = 0
 
-    # When processes are not completed,
-    # A process whose arrival time has passed \
-    # and has remaining execution time is put into the ready_process.
-    # The shortest process in the ready_process, target_process is executed.
+    # 当仍有进程未完成时，将已经到达且仍有剩余执行时间的进程放入
+    # ready_process，并执行其中最短的进程 target_process
 
     while completed != no_of_processes:
         ready_process = []
@@ -71,9 +69,9 @@ def calculate_turnaroundtime(
     burst_time: list[int], no_of_processes: int, waiting_time: list[int]
 ) -> list[int]:
     """
-    Calculate the turnaround time of each process.
+    计算各进程的周转时间。
 
-    Return: The turnaround time for each process.
+    返回：各进程的周转时间。
     >>> calculate_turnaroundtime([0,1,2], 3, [0, 10, 15])
     [0, 11, 17]
     >>> calculate_turnaroundtime([1,2,2,4], 4, [1, 8, 5, 4])
@@ -99,7 +97,7 @@ if __name__ == "__main__":
         burst_time, no_of_processes, waiting_time
     )
 
-    # Printing the Result
+    # 输出结果
     print("PID\tBurst Time\tArrival Time\tWaiting Time\tTurnaround Time")
     for i, process_id in enumerate(list(range(1, 5))):
         print(

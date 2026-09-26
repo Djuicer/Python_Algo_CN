@@ -1,7 +1,6 @@
 """
-Highest response ratio next (HRRN) scheduling is a non-preemptive discipline.
-It was developed as modification of shortest job next or shortest job first (SJN or SJF)
-to mitigate the problem of process starvation.
+最高响应比优先（Highest Response Ratio Next，HRRN）是一种非抢占式调度策略。
+它是在最短作业优先（SJN 或 SJF）的基础上改进而来，用于缓解进程饥饿问题。
 https://en.wikipedia.org/wiki/Highest_response_ratio_next
 """
 
@@ -14,9 +13,9 @@ def calculate_turn_around_time(
     process_name: list, arrival_time: list, burst_time: list, no_of_process: int
 ) -> list:
     """
-    Calculate the turn around time of each processes
+    计算各进程的周转时间。
 
-    Return: The turn around time time for each process.
+    返回：各进程的周转时间。
     >>> calculate_turn_around_time(["A", "B", "C"], [3, 5, 8], [2, 4, 6], 3)
     [2, 4, 7]
     >>> calculate_turn_around_time(["A", "B", "C"], [0, 2, 4], [3, 5, 7], 3)
@@ -24,15 +23,14 @@ def calculate_turn_around_time(
     """
 
     current_time = 0
-    # Number of processes finished
+    # 已完成的进程数量
     finished_process_count = 0
-    # Displays the finished process.
-    # If it is 0, the performance is completed if it is 1, before the performance.
+    # 标记进程是否完成：0 表示已完成，1 表示尚未执行
     finished_process = [0] * no_of_process
-    # List to include calculation results
+    # 存放计算结果的列表
     turn_around_time = [0] * no_of_process
 
-    # Sort by arrival time.
+    # 按到达时间排序
     burst_time = [burst_time[i] for i in np.argsort(arrival_time)]
     process_name = [process_name[i] for i in np.argsort(arrival_time)]
     arrival_time.sort()
@@ -49,9 +47,9 @@ def calculate_turn_around_time(
         current_time = max(current_time, arrival_time[i])
 
         response_ratio = 0
-        # Index showing the location of the process being performed
+        # 表示当前执行进程位置的索引
         loc = 0
-        # Saves the current response ratio.
+        # 保存当前响应比
         temp = 0
         for i in range(no_of_process):
             if finished_process[i] == 0 and arrival_time[i] <= current_time:
@@ -62,12 +60,12 @@ def calculate_turn_around_time(
                 response_ratio = temp
                 loc = i
 
-        # Calculate the turn around time
+        # 计算周转时间
         turn_around_time[loc] = current_time + burst_time[loc] - arrival_time[loc]
         current_time += burst_time[loc]
-        # Indicates that the process has been performed.
+        # 标记该进程已经执行
         finished_process[loc] = 1
-        # Increase finished_process_count by 1
+        # 将 finished_process_count 加 1
         finished_process_count += 1
 
     return turn_around_time
@@ -80,9 +78,9 @@ def calculate_waiting_time(
     no_of_process: int,
 ) -> list:
     """
-    Calculate the waiting time of each processes.
+    计算各进程的等待时间。
 
-    Return: The waiting time for each process.
+    返回：各进程的等待时间。
     >>> calculate_waiting_time(["A", "B", "C"], [2, 4, 7], [2, 4, 6], 3)
     [0, 0, 1]
     >>> calculate_waiting_time(["A", "B", "C"], [3, 6, 11], [3, 5, 7], 3)

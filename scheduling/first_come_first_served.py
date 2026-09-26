@@ -1,15 +1,13 @@
-# Implementation of First Come First Served scheduling algorithm
-# In this Algorithm we just care about the order that the processes arrived
-# without carring about their duration time
+# 先来先服务（First Come First Served，FCFS）调度算法的实现
+# 本算法只关心进程到达顺序，不考虑其执行时长
 # https://en.wikipedia.org/wiki/Scheduling_(computing)#First_come,_first_served
 from __future__ import annotations
 
 
 def calculate_waiting_times(duration_times: list[int]) -> list[int]:
     """
-    This function calculates the waiting time of some processes that have a
-    specified duration time.
-        Return: The waiting time for each process.
+    计算一组具有指定执行时长的进程的等待时间。
+        返回：各进程的等待时间。
     >>> calculate_waiting_times([5, 10, 15])
     [0, 5, 15]
     >>> calculate_waiting_times([1, 2, 3, 4, 5])
@@ -27,10 +25,8 @@ def calculate_turnaround_times(
     duration_times: list[int], waiting_times: list[int]
 ) -> list[int]:
     """
-    This function calculates the turnaround time of some processes.
-        Return: The time difference between the completion time and the
-                arrival time.
-                Practically waiting_time + duration_time
+    计算一组进程的周转时间。
+        返回：完成时间与到达时间之差，实际上等于 waiting_time + duration_time。
     >>> calculate_turnaround_times([5, 10, 15], [0, 5, 15])
     [5, 15, 30]
     >>> calculate_turnaround_times([1, 2, 3, 4, 5], [0, 1, 3, 6, 10])
@@ -46,8 +42,8 @@ def calculate_turnaround_times(
 
 def calculate_average_turnaround_time(turnaround_times: list[int]) -> float:
     """
-    This function calculates the average of the turnaround times
-        Return: The average of the turnaround times.
+    计算平均周转时间。
+        返回：周转时间的平均值。
     >>> calculate_average_turnaround_time([0, 5, 16])
     7.0
     >>> calculate_average_turnaround_time([1, 5, 8, 12])
@@ -60,8 +56,8 @@ def calculate_average_turnaround_time(turnaround_times: list[int]) -> float:
 
 def calculate_average_waiting_time(waiting_times: list[int]) -> float:
     """
-    This function calculates the average of the waiting times
-        Return: The average of the waiting times.
+    计算平均等待时间。
+        返回：等待时间的平均值。
     >>> calculate_average_waiting_time([0, 5, 16])
     7.0
     >>> calculate_average_waiting_time([1, 5, 8, 12])
@@ -73,31 +69,31 @@ def calculate_average_waiting_time(waiting_times: list[int]) -> float:
 
 
 if __name__ == "__main__":
-    # process id's
+    # 进程 ID
     processes = [1, 2, 3]
 
-    # ensure that we actually have processes
+    # 确保确实存在进程
     if len(processes) == 0:
         print("Zero amount of processes")
         raise SystemExit(0)
 
-    # duration time of all processes
+    # 所有进程的执行时长
     duration_times = [19, 8, 9]
 
-    # ensure we can match each id to a duration time
+    # 确保每个 ID 都能匹配一个执行时长
     if len(duration_times) != len(processes):
         print("Unable to match all id's with their duration time")
         raise SystemExit(0)
 
-    # get the waiting times and the turnaround times
+    # 获取等待时间和周转时间
     waiting_times = calculate_waiting_times(duration_times)
     turnaround_times = calculate_turnaround_times(duration_times, waiting_times)
 
-    # get the average times
+    # 获取平均时间
     average_waiting_time = calculate_average_waiting_time(waiting_times)
     average_turnaround_time = calculate_average_turnaround_time(turnaround_times)
 
-    # print all the results
+    # 输出所有结果
     print("Process ID\tDuration Time\tWaiting Time\tTurnaround Time")
     for i, process in enumerate(processes):
         print(

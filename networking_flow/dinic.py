@@ -1,21 +1,19 @@
 """
-Dinic's algorithm for the maximum-flow problem.
+用于最大流问题的 Dinic 算法。
 
-Dinic's algorithm repeatedly builds a *level graph* with a breadth-first search
-(shortest augmenting paths, measured in edges) and then, in one pass, saturates
-a *blocking flow* on that level graph using depth-first search.  Grouping the
-augmenting paths by length this way gives a much better worst case than the
-plain Ford-Fulkerson / Edmonds-Karp augmenting-path method:
+Dinic 算法反复使用广度优先搜索构建*层次图*（按边数度量的最短增广路径），
+然后使用深度优先搜索，在一次遍历中使该层次图上的*阻塞流*饱和。通过这种方式
+按长度对增广路径分组，其最坏情况性能远优于普通的 Ford-Fulkerson / Edmonds-Karp
+增广路径方法：
 
-* Dinic's algorithm:            O(V^2 * E)
-* on unit-capacity networks:    O(E * sqrt(V))
+* Dinic 算法：                 O(V^2 * E)
+* 单位容量网络：               O(E * sqrt(V))
 
-Unlike the adjacency-matrix implementations in ``ford_fulkerson.py`` and
-``minimum_cut.py`` in this directory, this version stores the graph as an
-adjacency list of residual edges, so it also handles graphs with parallel edges
-and is efficient on sparse graphs.
+与本目录中 ``ford_fulkerson.py`` 和 ``minimum_cut.py`` 的邻接矩阵实现不同，
+本版本将图存储为残量边的邻接表，因此也能处理包含平行边的图，并且在稀疏图上
+效率较高。
 
-Reference: https://en.wikipedia.org/wiki/Dinic%27s_algorithm
+参考资料：https://en.wikipedia.org/wiki/Dinic%27s_algorithm
 """
 
 from collections import deque
@@ -23,9 +21,9 @@ from collections import deque
 
 class Dinic:
     """
-    Maximum flow in a directed graph with non-negative integer capacities.
+    计算具有非负整数容量的有向图中的最大流。
 
-    Add edges with :meth:`add_edge`, then call :meth:`max_flow`.
+    使用 :meth:`add_edge` 添加边，然后调用 :meth:`max_flow`。
 
     >>> g = Dinic(6)
     >>> capacities = {
@@ -38,14 +36,12 @@ class Dinic:
     >>> g.max_flow(0, 5)
     23
 
-    A source with no outgoing edges (or a sink with no incoming edges) has zero
-    maximum flow:
+    没有出边的源点（或没有入边的汇点）的最大流为零：
 
     >>> Dinic(3).max_flow(0, 2)
     0
 
-    Parallel edges between the same pair of vertices are supported and their
-    capacities add up:
+    支持同一对顶点间的平行边，其容量会累加：
 
     >>> h = Dinic(2)
     >>> h.add_edge(0, 1, 3)
@@ -58,15 +54,15 @@ class Dinic:
         if vertices <= 0:
             raise ValueError("number of vertices must be positive")
         self.size = vertices
-        # graph[vertex] holds indices into self.edges for edges leaving that vertex.
+        # graph[vertex] 存储该顶点出边在 self.edges 中的索引
         self.graph: list[list[int]] = [[] for _ in range(vertices)]
-        # Each edge is stored as [destination, residual_capacity].
-        # Edge i and its reverse edge i ^ 1 are always created together.
+        # 每条边存储为 [destination, residual_capacity]
+        # 边 i 与其反向边 i ^ 1 始终成对创建
         self.edges: list[list[int]] = []
 
     def add_edge(self, source: int, destination: int, capacity: int) -> None:
         """
-        Add a directed edge ``source -> destination`` with the given capacity.
+        添加一条容量为给定值的有向边 ``source -> destination``。
 
         >>> g = Dinic(2)
         >>> g.add_edge(0, 1, 5)
@@ -86,10 +82,10 @@ class Dinic:
         self.graph[source].append(len(self.edges))
         self.edges.append([destination, capacity])
         self.graph[destination].append(len(self.edges))
-        self.edges.append([source, 0])  # reverse edge starts saturated
+        self.edges.append([source, 0])  # 反向边初始为饱和状态
 
     def _build_level_graph(self, source: int) -> list[int]:
-        """Breadth-first search; return per-vertex levels (-1 if unreachable)."""
+        """执行广度优先搜索；返回各顶点的层级（不可达时为 -1）。"""
         level = [-1] * self.size
         level[source] = 0
         queue = deque([source])
@@ -110,7 +106,7 @@ class Dinic:
         level: list[int],
         progress: list[int],
     ) -> int:
-        """Depth-first search that pushes a blocking flow along the level graph."""
+        """沿层次图推送阻塞流的深度优先搜索。"""
         if vertex == sink:
             return pushed
         while progress[vertex] < len(self.graph[vertex]):
@@ -129,7 +125,7 @@ class Dinic:
 
     def max_flow(self, source: int, sink: int) -> int:
         """
-        Return the maximum flow from ``source`` to ``sink``.
+        返回从 ``source`` 到 ``sink`` 的最大流。
 
         >>> g = Dinic(4)
         >>> for (u, v), cap in {(0, 1): 3, (0, 2): 2, (1, 2): 5,

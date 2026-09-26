@@ -15,18 +15,18 @@ import numpy as np
 @dataclass
 class FuzzySet:
     """
-    A class for representing and manipulating triangular fuzzy sets.
-    Attributes:
-        name: The name or label of the fuzzy set.
-        left_boundary: The left boundary of the fuzzy set.
-        peak: The peak (central) value of the fuzzy set.
-        right_boundary: The right boundary of the fuzzy set.
-    Methods:
-        membership(x): Calculate the membership value of an input 'x' in the fuzzy set.
-        union(other): Calculate the union of this fuzzy set with another fuzzy set.
-        intersection(other): Calculate the intersection of this fuzzy set with another.
-        complement(): Calculate the complement (negation) of this fuzzy set.
-        plot(): Plot the membership function of the fuzzy set.
+    用于表示和操作三角模糊集合的类。
+    属性：
+        name: 模糊集合的名称或标签。
+        left_boundary: 模糊集合的左边界。
+        peak: 模糊集合的峰值（中心值）。
+        right_boundary: 模糊集合的右边界。
+    方法：
+        membership(x): 计算输入 'x' 在模糊集合中的隶属度。
+        union(other): 计算此模糊集合与另一模糊集合的并集。
+        intersection(other): 计算此模糊集合与另一模糊集合的交集。
+        complement(): 计算此模糊集合的补集（否定）。
+        plot(): 绘制模糊集合的隶属函数。
 
     >>> sheru = FuzzySet("Sheru", 0.4, 1, 0.6)
     >>> sheru
@@ -38,24 +38,24 @@ class FuzzySet:
     >>> siya
     FuzzySet(name='Siya', left_boundary=0.5, peak=1, right_boundary=0.7)
 
-    # Complement Operation
+    # 补集运算
     >>> sheru.complement()
     FuzzySet(name='¬Sheru', left_boundary=0.4, peak=0.6, right_boundary=0)
     >>> siya.complement()  # doctest: +NORMALIZE_WHITESPACE
     FuzzySet(name='¬Siya', left_boundary=0.30000000000000004, peak=0.5,
      right_boundary=0)
 
-    # Intersection Operation
+    # 交集运算
     >>> siya.intersection(sheru)
     FuzzySet(name='Siya ∩ Sheru', left_boundary=0.5, peak=0.6, right_boundary=1.0)
 
-    # Membership Operation
+    # 隶属度运算
     >>> sheru.membership(0.5)
     0.16666666666666663
     >>> sheru.membership(0.6)
     0.0
 
-    # Union Operations
+    # 并集运算
     >>> siya.union(sheru)
     FuzzySet(name='Siya U Sheru', left_boundary=0.4, peak=1.0, right_boundary=0.7)
     """
@@ -76,9 +76,9 @@ class FuzzySet:
 
     def complement(self) -> FuzzySet:
         """
-        Calculate the complement (negation) of this fuzzy set.
-        Returns:
-            FuzzySet: A new fuzzy set representing the complement.
+        计算此模糊集合的补集（否定）。
+        返回：
+            FuzzySet: 表示补集的新模糊集合。
 
         >>> FuzzySet("fuzzy_set", 0.1, 0.2, 0.3).complement()
         FuzzySet(name='¬fuzzy_set', left_boundary=0.7, peak=0.9, right_boundary=0.8)
@@ -92,12 +92,11 @@ class FuzzySet:
 
     def intersection(self, other) -> FuzzySet:
         """
-        Calculate the intersection of this fuzzy set
-        with another fuzzy set.
-        Args:
-            other: Another fuzzy set to intersect with.
-        Returns:
-            A new fuzzy set representing the intersection.
+        计算此模糊集合与另一模糊集合的交集。
+        参数：
+            other: 要与之求交集的另一模糊集合。
+        返回：
+            表示交集的新模糊集合。
 
         >>> FuzzySet("a", 0.1, 0.2, 0.3).intersection(FuzzySet("b", 0.4, 0.5, 0.6))
         FuzzySet(name='a ∩ b', left_boundary=0.4, peak=0.3, right_boundary=0.35)
@@ -111,9 +110,9 @@ class FuzzySet:
 
     def membership(self, x: float) -> float:
         """
-        Calculate the membership value of an input 'x' in the fuzzy set.
-        Returns:
-            The membership value of 'x' in the fuzzy set.
+        计算输入 'x' 在模糊集合中的隶属度。
+        返回：
+            'x' 在模糊集合中的隶属度。
 
         >>> a = FuzzySet("a", 0.1, 0.2, 0.3)
         >>> a.membership(0.09)
@@ -140,11 +139,11 @@ class FuzzySet:
 
     def union(self, other) -> FuzzySet:
         """
-        Calculate the union of this fuzzy set with another fuzzy set.
-        Args:
-            other (FuzzySet): Another fuzzy set to union with.
-        Returns:
-            FuzzySet: A new fuzzy set representing the union.
+        计算此模糊集合与另一模糊集合的并集。
+        参数：
+            other (FuzzySet): 要与之求并集的另一模糊集合。
+        返回：
+            FuzzySet: 表示并集的新模糊集合。
 
         >>> FuzzySet("a", 0.1, 0.2, 0.3).union(FuzzySet("b", 0.4, 0.5, 0.6))
         FuzzySet(name='a U b', left_boundary=0.1, peak=0.35, right_boundary=0.6)
@@ -158,7 +157,7 @@ class FuzzySet:
 
     def plot(self) -> None:
         """
-        Plot the membership function of the fuzzy set.
+        绘制模糊集合的隶属函数。
         """
         x = np.linspace(0, 1, 1000)
         y = [self.membership(xi) for xi in x]

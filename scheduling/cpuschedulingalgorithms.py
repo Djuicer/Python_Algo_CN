@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
-# ===================== Scheduler Engine ===================== #
+# ===================== 调度器引擎 ===================== #
 class SchedulerEngine:
     def __init__(self, processes: list[dict], algorithm: str, quantum: int = 2) -> None:
         """
-        Initializes the scheduler engine.
+        初始化调度器引擎。
 
         >>> processes = [{"pid": "P1", "arrival": 0, "burst": 4}]
         >>> engine = SchedulerEngine(processes, "FCFS")
@@ -26,12 +26,12 @@ class SchedulerEngine:
         self.quantum = quantum
         for process in self.processes:
             process["remaining"] = process["burst"]
-        self.timeline: list[tuple[int, str]] = []  # [(time, pid)]
+        self.timeline: list[tuple[int, str]] = []  # [(时间, pid)]
         self.stats: list[tuple] = []
 
     def simulate(self) -> Generator[tuple[int, str | None, list[str]]]:
         """
-        Runs the selected CPU scheduling algorithm.
+        运行所选的 CPU 调度算法。
 
         >>> processes = [{"pid": "P1", "arrival": 0, "burst": 2}]
         >>> engine = SchedulerEngine(processes, "FCFS")
@@ -53,10 +53,10 @@ class SchedulerEngine:
             yield from self._simulate_rr()
         self._calculate_stats()
 
-    # first come first serve
+    # 先来先服务
     def _simulate_fcfs(self) -> Generator[tuple[int, str, list[str]]]:
         """
-        Simulates First Come First Serve scheduling.
+        模拟先来先服务（First Come First Serve，FCFS）调度。
 
         >>> processes = [{"pid": "P1", "arrival": 0, "burst": 2}]
         >>> engine = SchedulerEngine(processes, "FCFS")
@@ -73,10 +73,10 @@ class SchedulerEngine:
                 t += 1
             process["completion"] = t
 
-    # shortest job first non preemptive
+    # 非抢占式最短作业优先
     def _simulate_sjf_np(self) -> Generator[tuple[int, str | None, list[str]]]:
         """
-        Simulates Shortest Job First (Non-Preemptive).
+        模拟非抢占式最短作业优先（Shortest Job First）调度。
 
         >>> processes = [{"pid": "P1", "arrival": 0, "burst": 2}]
         >>> engine = SchedulerEngine(processes, "SJF (Non-Preemptive)")
@@ -104,9 +104,9 @@ class SchedulerEngine:
             process["completion"] = t
             done += 1
 
-    # shortest job first preemptive
+    # 抢占式最短作业优先
     def _simulate_sjf_p(self) -> Generator[tuple[int, str | None, list[str]]]:
-        """Simulates SJF Preemptive scheduling."""
+        """模拟抢占式 SJF 调度。"""
         t = 0
         processes = sorted(self.processes, key=lambda process: process["arrival"])
         done = 0
@@ -129,9 +129,9 @@ class SchedulerEngine:
                 done += 1
             t += 1
 
-    # priority non preemptive
+    # 非抢占式优先级调度
     def _simulate_priority_np(self) -> Generator[tuple[int, str | None, list[str]]]:
-        """Simulates Priority (Non-Preemptive) scheduling."""
+        """模拟非抢占式优先级调度。"""
         t = 0
         done = 0
         while done < len(self.processes):
@@ -152,9 +152,9 @@ class SchedulerEngine:
             process["completion"] = t
             done += 1
 
-    # priority preemptive
+    # 抢占式优先级调度
     def _simulate_priority_p(self) -> Generator[tuple[int, str | None, list[str]]]:
-        """Simulates Priority (Preemptive) scheduling."""
+        """模拟抢占式优先级调度。"""
         t = 0
         done = 0
         while done < len(self.processes):
@@ -176,9 +176,9 @@ class SchedulerEngine:
                 done += 1
             t += 1
 
-    # round robin
+    # 轮转调度
     def _simulate_rr(self) -> Generator[tuple[int, str | None, list[str]]]:
-        """Simulates Round Robin scheduling."""
+        """模拟轮转调度（Round Robin）。"""
         t = 0
         q: list[dict] = []
         processes = sorted(self.processes, key=lambda process: process["arrival"])
@@ -209,7 +209,7 @@ class SchedulerEngine:
                 done += 1
 
     def _calculate_stats(self) -> None:
-        """Calculates turnaround, waiting, and response times."""
+        """计算周转时间、等待时间和响应时间。"""
         for process in self.processes:
             pid = process["pid"]
             arrival = process["arrival"]
@@ -222,10 +222,10 @@ class SchedulerEngine:
             self.stats.append((pid, arrival, burst, completion, tat, wt, rt))
 
 
-# ===================== Interface ===================== #
+# ===================== 界面 ===================== #
 class CPUSchedulerGUI:
     def __init__(self, root: tk.Tk) -> None:
-        """Initializes the GUI window."""
+        """初始化 GUI 窗口。"""
         self.root = root
         self.root.title("CPU Scheduling Visualizer")
         self.root.geometry("1000x700")
@@ -233,7 +233,7 @@ class CPUSchedulerGUI:
         self.setup_ui()
 
     def setup_ui(self) -> None:
-        """Sets up GUI widgets."""
+        """设置 GUI 控件。"""
         top_frame = ttk.Frame(self.root)
         top_frame.pack(pady=10)
 
@@ -318,7 +318,7 @@ class CPUSchedulerGUI:
         self.avg_label.pack()
 
     def add_process(self) -> None:
-        """Adds a new process entry to the table."""
+        """向表格中添加新的进程条目。"""
         try:
             pid = self.pid_e.get()
             arrival = int(self.arrival_e.get())
@@ -332,7 +332,7 @@ class CPUSchedulerGUI:
             messagebox.showerror("Error", "Invalid input")
 
     def delete_process(self) -> None:
-        """Deletes a selected process."""
+        """删除所选进程。"""
         if sel := self.tree.selection():
             values = self.tree.item(sel[0])["values"]
             if not values:
@@ -342,7 +342,7 @@ class CPUSchedulerGUI:
             self.tree.delete(sel[0])
 
     def run_scheduling(self) -> None:
-        """Runs the selected scheduling algorithm."""
+        """运行所选调度算法。"""
         algo = self.algo_cb.get()
         quantum = int(self.quantum_e.get() or 2)
         if algo.lower() == "round robin":
@@ -356,7 +356,7 @@ class CPUSchedulerGUI:
         threading.Thread(target=self.animate, daemon=True).start()
 
     def animate(self) -> None:
-        """Animates the scheduling visualization."""
+        """以动画形式展示调度过程。"""
         self.ax.clear()
         x: int = 0
         colors: dict[str, str] = {}
@@ -391,7 +391,7 @@ class CPUSchedulerGUI:
         self.show_results()
 
     def show_results(self) -> None:
-        """Displays scheduling results."""
+        """显示调度结果。"""
         for item in self.result_box.get_children():
             self.result_box.delete(item)
         total_wt = total_tat = total_rt = 0

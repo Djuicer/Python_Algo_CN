@@ -1,27 +1,24 @@
 """
-Zadeh's fuzzy-set operators on membership vectors.
+隶属度向量上的 Zadeh 模糊集合运算符。
 
-A fuzzy set over a universe of discourse ``X`` is described by a *membership
-function* ``mu: X -> [0, 1]``.  Once the universe is sampled on a grid, that
-function becomes a NumPy vector of membership degrees and the classic set
-operations reduce to element-wise arithmetic.
+论域 ``X`` 上的模糊集合由*隶属函数* ``mu: X -> [0, 1]`` 描述。在网格上对论域
+采样后，该函数便成为由隶属度组成的 NumPy 向量，经典集合运算也随之化为
+逐元素运算。
 
-This module implements the standard (Zadeh) operators plus a few common
-alternatives.  Unlike ``fuzzy_operations.FuzzySet`` -- which stores a *triangular
-fuzzy number* by its three defining points -- the functions here work on the
-sampled membership vectors directly, so they apply to *any* membership shape
-(triangular, trapezoidal, Gaussian, ...).
+本模块实现标准的 Zadeh 运算符及若干常见替代运算。与通过三个定义点存储
+*三角模糊数*的 ``fuzzy_operations.FuzzySet`` 不同，此处函数直接处理采样后的
+隶属度向量，因此适用于*任意*形状的隶属函数（三角形、梯形、高斯形等）。
 
-References:
+参考资料：
   - https://en.wikipedia.org/wiki/Fuzzy_set#Fuzzy_set_operations
   - https://en.wikipedia.org/wiki/Fuzzy_logic
   - https://en.wikipedia.org/wiki/T-norm
 
-Requirements:
+依赖：
   - numpy
 
-Originally contributed as a ``scikit-fuzzy`` demo by Jigyasa Gandhi; rewritten
-here to be dependency-free (NumPy only) and covered by doctests.
+最初由 Jigyasa Gandhi 以 ``scikit-fuzzy`` 演示程序的形式贡献；此处将其改写为
+仅依赖 NumPy 的版本，并用 doctest 覆盖。
 """
 
 import numpy as np
@@ -32,10 +29,10 @@ def triangular_membership(
     grid: NDArray[np.float64], left: float, peak: float, right: float
 ) -> NDArray[np.float64]:
     """
-    Sample a triangular membership function on the ``grid``.
+    在 ``grid`` 上对三角隶属函数进行采样。
 
-    The membership rises linearly from 0 at ``left`` to 1 at ``peak`` and falls
-    back to 0 at ``right``.
+    隶属度从 ``left`` 处的 0 线性上升至 ``peak`` 处的 1，再下降至 ``right``
+    处的 0。
 
     >>> grid = np.array([0.0, 25.0, 50.0])
     >>> triangular_membership(grid, 0, 25, 50)
@@ -59,7 +56,7 @@ def fuzzy_union(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Union (logical OR): ``max(mu_A(x), mu_B(x))``.
+    并集（逻辑 OR）：``max(mu_A(x), mu_B(x))``。
 
     >>> fuzzy_union(np.array([0.2, 0.7]), np.array([0.5, 0.1]))
     array([0.5, 0.7])
@@ -71,7 +68,7 @@ def fuzzy_intersection(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Intersection (logical AND): ``min(mu_A(x), mu_B(x))``.
+    交集（逻辑 AND）：``min(mu_A(x), mu_B(x))``。
 
     >>> fuzzy_intersection(np.array([0.2, 0.7]), np.array([0.5, 0.1]))
     array([0.2, 0.1])
@@ -81,7 +78,7 @@ def fuzzy_intersection(
 
 def fuzzy_complement(membership: NDArray[np.float64]) -> NDArray[np.float64]:
     """
-    Complement (logical NOT): ``1 - mu_A(x)``.
+    补集（逻辑 NOT）：``1 - mu_A(x)``。
 
     >>> fuzzy_complement(np.array([0.0, 0.3, 1.0]))
     array([1. , 0.7, 0. ])
@@ -93,7 +90,7 @@ def fuzzy_difference(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Difference ``A / B``: ``min(mu_A(x), 1 - mu_B(x))``.
+    差集 ``A / B``：``min(mu_A(x), 1 - mu_B(x))``。
 
     >>> fuzzy_difference(np.array([0.6, 0.4]), np.array([0.2, 0.9]))
     array([0.6, 0.1])
@@ -105,7 +102,7 @@ def algebraic_sum(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Algebraic (probabilistic) sum: ``mu_A + mu_B - mu_A * mu_B``.
+    代数和（概率和）：``mu_A + mu_B - mu_A * mu_B``。
 
     >>> algebraic_sum(np.array([0.5, 1.0]), np.array([0.5, 0.2]))
     array([0.75, 1.  ])
@@ -117,7 +114,7 @@ def algebraic_product(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Algebraic product: ``mu_A * mu_B``.
+    代数积：``mu_A * mu_B``。
 
     >>> algebraic_product(np.array([0.5, 1.0]), np.array([0.5, 0.2]))
     array([0.25, 0.2 ])
@@ -129,7 +126,7 @@ def bounded_sum(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Bounded sum (Lukasiewicz t-conorm): ``min(1, mu_A + mu_B)``.
+    有界和（Lukasiewicz t-余范数）：``min(1, mu_A + mu_B)``。
 
     >>> bounded_sum(np.array([0.5, 0.8]), np.array([0.2, 0.7]))
     array([0.7, 1. ])
@@ -141,7 +138,7 @@ def bounded_difference(
     membership_a: NDArray[np.float64], membership_b: NDArray[np.float64]
 ) -> NDArray[np.float64]:
     """
-    Bounded difference (Lukasiewicz t-norm): ``max(0, mu_A + mu_B - 1)``.
+    有界差（Lukasiewicz t-范数）：``max(0, mu_A + mu_B - 1)``。
 
     >>> bounded_difference(np.array([0.5, 0.8]), np.array([0.2, 0.7]))
     array([0. , 0.5])
@@ -154,7 +151,7 @@ if __name__ == "__main__":
 
     testmod()
 
-    # Reproduce the original "young vs. middle-aged" demo, dependency-free.
+    # 在不依赖额外库的情况下复现原始的“年轻人与中年人”演示
     universe = np.linspace(start=0, stop=75, num=75)
     young = triangular_membership(universe, 0, 25, 50)
     middle_aged = triangular_membership(universe, 25, 50, 75)

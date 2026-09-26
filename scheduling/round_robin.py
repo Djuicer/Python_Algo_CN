@@ -1,6 +1,6 @@
 """
-Round Robin is a scheduling algorithm.
-In Round Robin each process is assigned a fixed time slot in a cyclic way.
+轮转调度（Round Robin）是一种调度算法。
+轮转调度以循环方式为每个进程分配固定时间片。
 https://en.wikipedia.org/wiki/Round-robin_scheduling
 """
 
@@ -11,9 +11,9 @@ from statistics import mean
 
 def calculate_waiting_times(burst_times: list[int]) -> list[int]:
     """
-    Calculate the waiting times of a list of processes that have a specified duration.
+    计算一组具有指定执行时长的进程的等待时间。
 
-    Return: The waiting time for each process.
+    返回：各进程的等待时间。
     >>> calculate_waiting_times([10, 5, 8])
     [13, 10, 13]
     >>> calculate_waiting_times([4, 6, 3, 1])

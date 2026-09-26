@@ -1,15 +1,14 @@
 def job_sequencing_with_deadlines(jobs: list) -> list:
     """
-    Function to find the maximum profit by doing jobs in a given time frame
+    求在给定时间范围内执行作业可获得的最大收益。
 
-    Args:
-        jobs [list]: A list of tuples of (job_id, deadline, profit)
+    参数：
+        jobs [list]: 由 (job_id, deadline, profit) 元组组成的列表
 
-    Returns:
-        max_profit [int]: Maximum profit that can be earned by doing jobs
-        in a given time frame
+    返回：
+        max_profit [int]: 在给定时间范围内执行作业可获得的最大收益
 
-    Examples:
+    示例：
     >>> job_sequencing_with_deadlines(
     ... [(1, 4, 20), (2, 1, 10), (3, 1, 40), (4, 1, 30)])
     [2, 60]
@@ -18,20 +17,18 @@ def job_sequencing_with_deadlines(jobs: list) -> list:
     [2, 127]
     """
 
-    # Sort the jobs in descending order of profit
+    # 按收益降序排列作业
     jobs = sorted(jobs, key=lambda value: value[2], reverse=True)
 
-    # Create a list of size equal to the maximum deadline
-    # and initialize it with -1
+    # 创建长度等于最大截止期限的列表，并用 -1 初始化
     max_deadline = max(jobs, key=lambda value: value[1])[1]
     time_slots = [-1] * max_deadline
 
-    # Finding the maximum profit and the count of jobs
+    # 求最大收益和作业数量
     count = 0
     max_profit = 0
     for job in jobs:
-        # Find a free time slot for this job
-        # (Note that we start from the last possible slot)
+        # 为该作业寻找空闲时间段（注意从最后一个可能的时间段开始）
         for i in range(job[1] - 1, -1, -1):
             if time_slots[i] == -1:
                 time_slots[i] = job[0]

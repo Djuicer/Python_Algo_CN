@@ -1,10 +1,10 @@
 """
-Ford-Fulkerson Algorithm for Maximum Flow Problem
+用于最大流问题的 Ford-Fulkerson 算法
 * https://en.wikipedia.org/wiki/Ford%E2%80%93Fulkerson_algorithm
 
-Description:
-    (1) Start with initial flow as 0
-    (2) Choose the augmenting path from source to sink and add the path to flow
+说明：
+    (1) 从初始流量 0 开始
+    (2) 选择从源点到汇点的增广路径，并将该路径加入流
 """
 
 graph = [
@@ -19,36 +19,36 @@ graph = [
 
 def breadth_first_search(graph: list, source: int, sink: int, parents: list) -> bool:
     """
-    This function returns True if there is a node that has not iterated.
+    若存在尚未遍历的节点，则返回 True。
 
-    Args:
-        graph: Adjacency matrix of graph
-        source: Source
-        sink: Sink
-        parents: Parent list
+    参数：
+        graph: 图的邻接矩阵
+        source: 源点
+        sink: 汇点
+        parents: 父节点列表
 
-    Returns:
-        True if there is a path from source to sink
+    返回：
+        若存在从 source 到 sink 的路径，则返回 True
 
     >>> breadth_first_search(graph, 0, 5, [-1, -1, -1, -1, -1, -1])
     True
     """
     num_nodes = len(graph)
     visited = [False] * num_nodes
-    queue = []  # Using list instead of deque
+    queue = []  # 使用 list 代替 deque
 
     queue.append(source)
     visited[source] = True
 
     while queue:
-        # Use pop(0) to simulate deque's popleft()
+        # 使用 pop(0) 模拟 deque 的 popleft()
         current_node = queue.pop(0)
 
-        # If we reached the sink, we can stop early
+        # 若已到达汇点，则可提前停止
         if current_node == sink:
             return True
 
-        # Check all adjacent nodes
+        # 检查所有相邻节点
         for neighbor, capacity in enumerate(graph[current_node]):
             if not visited[neighbor] and capacity > 0:
                 visited[neighbor] = True
@@ -60,17 +60,17 @@ def breadth_first_search(graph: list, source: int, sink: int, parents: list) -> 
 
 def ford_fulkerson(graph: list, source: int, sink: int) -> int:
     """
-    This function returns the maximum flow from source to sink in the given graph.
+    返回给定图中从源点到汇点的最大流。
 
-    CAUTION: This function changes the given graph.
+    注意：本函数会修改给定的图。
 
-    Args:
-        graph: Adjacency matrix of graph
-        source: Source
-        sink: Sink
+    参数：
+        graph: 图的邻接矩阵
+        source: 源点
+        sink: 汇点
 
-    Returns:
-        Maximum flow
+    返回：
+        最大流
 
     >>> test_graph = [
     ...     [0, 16, 13, 0, 0, 0],
@@ -83,28 +83,28 @@ def ford_fulkerson(graph: list, source: int, sink: int) -> int:
     >>> ford_fulkerson(test_graph, 0, 5)
     23
     """
-    # Create a copy of the graph to avoid modifying the original
+    # 创建图的副本，以免修改原图
     residual_graph = [row[:] for row in graph]
     num_nodes = len(residual_graph)
     parents = [-1] * num_nodes
     max_flow = 0
 
-    # Augment the flow while there is a path from source to sink
+    # 只要存在从源点到汇点的路径，就持续增广流
     while breadth_first_search(residual_graph, source, sink, parents):
-        # Find the minimum residual capacity along the path
+        # 寻找路径上的最小剩余容量
         path_flow = float("inf")
         current_node = sink
 
-        # Find the minimum capacity in the path
+        # 寻找路径中的最小容量
         while current_node != source:
             parent_node = parents[current_node]
             path_flow = min(path_flow, residual_graph[parent_node][current_node])
             current_node = parent_node
 
-        # Add path flow to overall flow
+        # 将路径流量加入总流量
         max_flow += path_flow
 
-        # Update residual capacities of the edges and reverse edges
+        # 更新边及其反向边的剩余容量
         current_node = sink
         while current_node != source:
             parent_node = parents[current_node]

@@ -1,7 +1,6 @@
 """
-Shortest job remaining first
-Please note arrival time and burst
-Please use spaces to separate times entered.
+最短剩余作业优先。
+请注意到达时间和执行时间，输入各时间时使用空格分隔。
 """
 
 from __future__ import annotations
@@ -13,8 +12,8 @@ def calculate_waitingtime(
     arrival_time: list[int], burst_time: list[int], no_of_processes: int
 ) -> list[int]:
     """
-    Calculate the waiting time of each processes
-    Return: List of waiting times.
+    计算各进程的等待时间。
+    返回：等待时间列表。
     >>> calculate_waitingtime([1,2,3,4],[3,3,5,1],4)
     [0, 3, 5, 0]
     >>> calculate_waitingtime([1,2,3],[2,5,1],3)
@@ -24,7 +23,7 @@ def calculate_waitingtime(
     """
     remaining_time = [0] * no_of_processes
     waiting_time = [0] * no_of_processes
-    # Copy the burst time into remaining_time[]
+    # 将执行时间复制到 remaining_time[]
     for i in range(no_of_processes):
         remaining_time[i] = burst_time[i]
 
@@ -34,7 +33,7 @@ def calculate_waitingtime(
     short = 0
     check = False
 
-    # Process until all processes are completed
+    # 持续处理，直至所有进程完成
     while complete != no_of_processes:
         for j in range(no_of_processes):
             if (
@@ -59,16 +58,16 @@ def calculate_waitingtime(
             complete += 1
             check = False
 
-            # Find finish time of current process
+            # 求当前进程的完成时间
             finish_time = increment_time + 1
 
-            # Calculate waiting time
+            # 计算等待时间
             finar = finish_time - arrival_time[short]
             waiting_time[short] = finar - burst_time[short]
 
             waiting_time[short] = max(waiting_time[short], 0)
 
-        # Increment time
+        # 增加时间
         increment_time += 1
     return waiting_time
 
@@ -77,8 +76,8 @@ def calculate_turnaroundtime(
     burst_time: list[int], no_of_processes: int, waiting_time: list[int]
 ) -> list[int]:
     """
-    Calculate the turn around time of each Processes
-    Return: list of turn around times.
+    计算各进程的周转时间。
+    返回：周转时间列表。
     >>> calculate_turnaroundtime([3,3,5,1], 4, [0,3,5,0])
     [3, 6, 10, 1]
     >>> calculate_turnaroundtime([3,3], 2, [0,3])
@@ -96,8 +95,8 @@ def calculate_average_times(
     waiting_time: list[int], turn_around_time: list[int], no_of_processes: int
 ) -> None:
     """
-    This function calculates the average of the waiting & turnaround times
-    Prints: Average Waiting time & Average Turn Around Time
+    计算等待时间和周转时间的平均值。
+    输出：平均等待时间和平均周转时间。
     >>> calculate_average_times([0,3,5,0],[3,6,10,1],4)
     Average waiting time = 2.00000
     Average turn around time = 5.0
@@ -148,6 +147,6 @@ if __name__ == "__main__":
         ],
     )
 
-    # Printing the dataFrame
+    # 输出数据帧
     pd.set_option("display.max_rows", fcfs.shape[0] + 1)
     print(fcfs)

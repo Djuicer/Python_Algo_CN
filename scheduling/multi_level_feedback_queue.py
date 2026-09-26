@@ -3,23 +3,22 @@ from collections import deque
 
 class Process:
     def __init__(self, process_name: str, arrival_time: int, burst_time: int) -> None:
-        self.process_name = process_name  # process name
-        self.arrival_time = arrival_time  # arrival time of the process
-        # completion time of finished process or last interrupted time
+        self.process_name = process_name  # 进程名称
+        self.arrival_time = arrival_time  # 进程到达时间
+        # 已完成进程的完成时间或上次中断时间
         self.stop_time = arrival_time
-        self.burst_time = burst_time  # remaining burst time
-        self.waiting_time = 0  # total time of the process wait in ready queue
-        self.turnaround_time = 0  # time from arrival time to completion time
+        self.burst_time = burst_time  # 剩余执行时间
+        self.waiting_time = 0  # 进程在就绪队列中的总等待时间
+        self.turnaround_time = 0  # 从到达至完成所用的时间
 
 
 class MLFQ:
     """
-    MLFQ(Multi Level Feedback Queue)
+    多级反馈队列（Multi Level Feedback Queue，MLFQ）
     https://en.wikipedia.org/wiki/Multilevel_feedback_queue
-    MLFQ has a lot of queues that have different priority
-    In this MLFQ,
-    The first Queue(0) to last second Queue(N-2) of MLFQ have Round Robin Algorithm
-    The last Queue(N-1) has First Come, First Served Algorithm
+    MLFQ 包含多个优先级不同的队列。
+    在此 MLFQ 中，从第一个队列 Queue(0) 到倒数第二个队列 Queue(N-2) 使用
+    轮转调度算法，最后一个队列 Queue(N-1) 使用先来先服务算法。
     """
 
     def __init__(
@@ -29,20 +28,20 @@ class MLFQ:
         queue: deque[Process],
         current_time: int,
     ) -> None:
-        # total number of mlfq's queues
+        # MLFQ 的队列总数
         self.number_of_queues = number_of_queues
-        # time slice of queues that round robin algorithm applied
+        # 采用轮转调度的各队列时间片
         self.time_slices = time_slices
-        # unfinished process is in this ready_queue
+        # 未完成进程位于此就绪队列
         self.ready_queue = queue
-        # current time
+        # 当前时间
         self.current_time = current_time
-        # finished process is in this sequence queue
+        # 已完成进程位于此顺序队列
         self.finish_queue: deque[Process] = deque()
 
     def calculate_sequence_of_finish_queue(self) -> list[str]:
         """
-        This method returns the sequence of finished processes
+        返回进程完成顺序。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -59,7 +58,7 @@ class MLFQ:
 
     def calculate_waiting_time(self, queue: list[Process]) -> list[int]:
         """
-        This method calculates waiting time of processes
+        计算进程的等待时间。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -76,7 +75,7 @@ class MLFQ:
 
     def calculate_turnaround_time(self, queue: list[Process]) -> list[int]:
         """
-        This method calculates turnaround time of processes
+        计算进程的周转时间。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -93,7 +92,7 @@ class MLFQ:
 
     def calculate_completion_time(self, queue: list[Process]) -> list[int]:
         """
-        This method calculates completion time of processes
+        计算进程的完成时间。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -112,7 +111,7 @@ class MLFQ:
         self, queue: deque[Process]
     ) -> list[int]:
         """
-        This method calculate remaining burst time of processes
+        计算进程的剩余执行时间。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -133,7 +132,7 @@ class MLFQ:
 
     def update_waiting_time(self, process: Process) -> int:
         """
-        This method updates waiting times of unfinished processes
+        更新未完成进程的等待时间。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -149,9 +148,8 @@ class MLFQ:
 
     def first_come_first_served(self, ready_queue: deque[Process]) -> deque[Process]:
         """
-        FCFS(First Come, First Served)
-        FCFS will be applied to MLFQ's last queue
-        A first came process will be finished at first
+        先来先服务（First Come, First Served，FCFS）
+        FCFS 应用于 MLFQ 的最后一个队列，先到达的进程先完成。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -161,39 +159,39 @@ class MLFQ:
         >>> mlfq.calculate_sequence_of_finish_queue()
         ['P1', 'P2', 'P3', 'P4']
         """
-        finished: deque[Process] = deque()  # sequence deque of finished process
+        finished: deque[Process] = deque()  # 已完成进程的顺序双端队列
         while len(ready_queue) != 0:
-            cp = ready_queue.popleft()  # current process
+            cp = ready_queue.popleft()  # 当前进程
 
-            # if process's arrival time is later than current time, update current time
+            # 若进程到达时间晚于当前时间，则更新当前时间
             if self.current_time < cp.arrival_time:
                 self.current_time += cp.arrival_time
 
-            # update waiting time of current process
+            # 更新当前进程的等待时间
             self.update_waiting_time(cp)
-            # update current time
+            # 更新当前时间
             self.current_time += cp.burst_time
-            # finish the process and set the process's burst-time 0
+            # 完成进程，并将其执行时间设为 0
             cp.burst_time = 0
-            # set the process's turnaround time because it is finished
+            # 进程已完成，设置其周转时间
             cp.turnaround_time = self.current_time - cp.arrival_time
-            # set the completion time
+            # 设置完成时间
             cp.stop_time = self.current_time
-            # add the process to queue that has finished queue
+            # 将进程加入已完成队列
             finished.append(cp)
 
-        self.finish_queue.extend(finished)  # add finished process to finish queue
-        # FCFS will finish all remaining processes
+        self.finish_queue.extend(finished)  # 将已完成进程加入 finish_queue
+        # FCFS 会完成所有剩余进程
         return finished
 
     def round_robin(
         self, ready_queue: deque[Process], time_slice: int
     ) -> tuple[deque[Process], deque[Process]]:
         """
-        RR(Round Robin)
-        RR will be applied to MLFQ's all queues except last queue
-        All processes can't use CPU for time more than time_slice
-        If the process consume CPU up to time_slice, it will go back to ready queue
+        轮转调度（Round Robin，RR）
+        RR 应用于 MLFQ 中除最后一个队列外的所有队列。
+        所有进程使用 CPU 的时间均不能超过 time_slice；若进程用满 time_slice，
+        则返回就绪队列。
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -203,46 +201,46 @@ class MLFQ:
         >>> mlfq.calculate_sequence_of_finish_queue()
         ['P2']
         """
-        finished: deque[Process] = deque()  # sequence deque of terminated process
-        # just for 1 cycle and unfinished processes will go back to queue
+        finished: deque[Process] = deque()  # 已终止进程的顺序双端队列
+        # 只执行一轮，未完成进程将返回队列
         for _ in range(len(ready_queue)):
-            cp = ready_queue.popleft()  # current process
+            cp = ready_queue.popleft()  # 当前进程
 
-            # if process's arrival time is later than current time, update current time
+            # 若进程到达时间晚于当前时间，则更新当前时间
             if self.current_time < cp.arrival_time:
                 self.current_time += cp.arrival_time
 
-            # update waiting time of unfinished processes
+            # 更新未完成进程的等待时间
             self.update_waiting_time(cp)
-            # if the burst time of process is bigger than time-slice
+            # 若进程执行时间大于时间片
             if cp.burst_time > time_slice:
-                # use CPU for only time-slice
+                # 仅使用一个时间片的 CPU
                 self.current_time += time_slice
-                # update remaining burst time
+                # 更新剩余执行时间
                 cp.burst_time -= time_slice
-                # update end point time
+                # 更新结束时间
                 cp.stop_time = self.current_time
-                # locate the process behind the queue because it is not finished
+                # 进程尚未完成，将其放到队尾
                 ready_queue.append(cp)
             else:
-                # use CPU for remaining burst time
+                # 使用 CPU 完成剩余执行时间
                 self.current_time += cp.burst_time
-                # set burst time 0 because the process is finished
+                # 进程已完成，将执行时间设为 0
                 cp.burst_time = 0
-                # set the finish time
+                # 设置完成时间
                 cp.stop_time = self.current_time
-                # update the process' turnaround time because it is finished
+                # 进程已完成，更新其周转时间
                 cp.turnaround_time = self.current_time - cp.arrival_time
-                # add the process to queue that has finished queue
+                # 将进程加入已完成队列
                 finished.append(cp)
 
-        self.finish_queue.extend(finished)  # add finished process to finish queue
-        # return finished processes queue and remaining processes queue
+        self.finish_queue.extend(finished)  # 将已完成进程加入 finish_queue
+        # 返回已完成进程队列和剩余进程队列
         return finished, ready_queue
 
     def multi_level_feedback_queue(self) -> deque[Process]:
         """
-        MLFQ(Multi Level Feedback Queue)
+        多级反馈队列（Multi Level Feedback Queue，MLFQ）
         >>> P1 = Process("P1", 0, 53)
         >>> P2 = Process("P2", 0, 17)
         >>> P3 = Process("P3", 0, 68)
@@ -253,12 +251,12 @@ class MLFQ:
         ['P2', 'P4', 'P1', 'P3']
         """
 
-        #  all queues except last one have round_robin algorithm
+        # 除最后一个队列外，所有队列均采用 round_robin 算法
         for i in range(self.number_of_queues - 1):
             _finished, self.ready_queue = self.round_robin(
                 self.ready_queue, self.time_slices[i]
             )
-        #  the last queue has first_come_first_served algorithm
+        # 最后一个队列采用 first_come_first_served 算法
         self.first_come_first_served(self.ready_queue)
 
         return self.finish_queue
@@ -290,22 +288,22 @@ if __name__ == "__main__":
     mlfq = MLFQ(number_of_queues, time_slices, queue, 0)
     finish_queue = mlfq.multi_level_feedback_queue()
 
-    # print total waiting times of processes(P1, P2, P3, P4)
+    # 输出进程（P1、P2、P3、P4）的总等待时间
     print(
         f"waiting time:\
         \t\t\t{MLFQ.calculate_waiting_time(mlfq, [P1, P2, P3, P4])}"
     )
-    # print completion times of processes(P1, P2, P3, P4)
+    # 输出进程（P1、P2、P3、P4）的完成时间
     print(
         f"completion time:\
         \t\t{MLFQ.calculate_completion_time(mlfq, [P1, P2, P3, P4])}"
     )
-    # print total turnaround times of processes(P1, P2, P3, P4)
+    # 输出进程（P1、P2、P3、P4）的总周转时间
     print(
         f"turnaround time:\
         \t\t{MLFQ.calculate_turnaround_time(mlfq, [P1, P2, P3, P4])}"
     )
-    # print sequence of finished processes
+    # 输出进程完成顺序
     print(
         f"sequence of finished processes:\
         {mlfq.calculate_sequence_of_finish_queue()}"

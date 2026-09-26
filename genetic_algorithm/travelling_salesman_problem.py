@@ -1,9 +1,7 @@
 """
-Use a genetic algorithm to solve the travelling salesman problem (TSP)
-which asks the following question:
-"Given a list of cities and the distances between each pair of cities, what is the
- shortest possible route that visits each city exactly once and returns to the origin
- city?"
+使用遗传算法求解旅行商问题（Travelling Salesman Problem，TSP）。该问题要求：
+“给定一组城市及每对城市间的距离，访问每座城市恰好一次并返回出发城市的
+最短路线是什么？”
 
 https://en.wikipedia.org/wiki/Genetic_algorithm
 https://en.wikipedia.org/wiki/Travelling_salesman_problem
@@ -34,11 +32,10 @@ def main(
     mutation_probability: float,
 ) -> tuple[list[int], float]:
     """
-    Genetic algorithm main function
+    遗传算法主函数。
 
-    The algorithm is stochastic, so seed ``random`` and assert invariants of the
-    returned tour rather than one exact ordering (not reproducible across
-    platforms / Python versions).
+    该算法具有随机性，因此应为 ``random`` 设置种子，并断言返回路线的不变量，
+    而不是断言某个精确顺序（不同平台或 Python 版本之间无法复现该顺序）。
 
     >>> import random
     >>> random.seed(0)
@@ -68,19 +65,19 @@ def main(
     )
     for _ in range(iterations_num):
         """
-        Uncomment to choose another selection operator
-        Only one of the two selection operators can be uncommented at the same time.
+        取消注释以选择另一种选择算子。
+        两种选择算子同一时间只能取消其中一种的注释。
         """
         # chromosomes = chose_ts(fitness_matrix, chromosomes, population_size)
         chromosomes = chose_rws(fitness_matrix, chromosomes, population_size)
-        for x in range(int(population_size / 2)):  # Population crossover
+        for x in range(int(population_size / 2)):  # 种群交叉
             chromosomes[x], chromosomes[x + int(population_size / 2)] = crossing(
                 chromosomes[x],
                 chromosomes[x + int(population_size / 2)],
                 crossover_probability,
                 cities_list,
             )
-        for x in range(population_size):  # Population variation
+        for x in range(population_size):  # 种群变异
             chromosomes[x] = mutate(chromosomes[x], mutation_probability)
 
         fitness_matrix, best_path, best_distance = fitness(
@@ -92,7 +89,7 @@ def main(
 
 def distance(city1: list[int], city2: list[int]) -> float:
     """
-    Calculate the distance between two coordinate points
+    计算两个坐标点之间的距离。
     >>> distance([0, 0], [3, 4] )
     5.0
     >>> distance([0, 0], [-3, 4] )
@@ -107,7 +104,7 @@ def init(
     cities: dict[int, list[int]], population_size: int
 ) -> tuple[list[list[int]], list[int]]:
     """
-    Initialization generates initial population
+    初始化并生成初始种群。
     >>> init(cities={0: [0, 0], 1: [2, 2]}, population_size=2)
     ([[0, 1, 0], [0, 1, 0]], [1])
     >>> init(cities={0: [0, 0], 1: [2, 2]}, population_size=0)
@@ -122,9 +119,9 @@ def init(
     del cities_list[0]
     for _ in range(population_size):
         chromosome = []
-        chromosome.append(0)  # Add starting point
+        chromosome.append(0)  # 添加起点
         chromosome.extend(random.sample(cities_list, len(cities_list)))
-        chromosome.append(0)  # Add end point
+        chromosome.append(0)  # 添加终点
         chromosomes.append(chromosome)
     return chromosomes, cities_list
 
@@ -136,8 +133,8 @@ def fitness(
     best_distance: float,
 ) -> tuple[list[float], list[int], float]:
     """
-    Calculate population fitness
-    Generate a fitness matrix and obtain the optimal value in the current population
+    计算种群适应度。
+    生成适应度矩阵，并获得当前种群中的最优值。
     >>> fitness(cities={0: [0, 0], 1: [2, 2]},chromosomes=[[0,1,0]],
     ... best_path=[], best_distance=float("inf"))
     ([0.17677669529663687], [0, 1, 0], 5.656854249492381)
@@ -158,7 +155,7 @@ def fitness(
     new_best_distance = best_distance
     for chromosome in chromosomes:
         total_distance = 0.0
-        for i in range(len(chromosome) - 1):  # Calculate total distance
+        for i in range(len(chromosome) - 1):  # 计算总距离
             total_distance += distance(cities[chromosome[i]], cities[chromosome[i + 1]])
         fitness_matrix.append(1 / total_distance)
         if total_distance < new_best_distance:
@@ -172,8 +169,7 @@ def chose_ts(
     fitness_matrix: list[float], chromosomes: list[list[int]], population_size: int
 ) -> list[list[int]]:
     """
-    A type of selection operator
-    Tournament Selection
+    一种选择算子：锦标赛选择（Tournament Selection）。
     >>> chose_ts(fitness_matrix=[1], chromosomes=[[0,1,0]], population_size=1)
     [[0, 1, 0]]
     >>> chose_ts(fitness_matrix=[1], chromosomes=[0,1,0], population_size=0)
@@ -208,8 +204,7 @@ def chose_rws(
     fitness_matrix: list[float], chromosomes: list[list[int]], population_size: int
 ) -> list[list[int]]:
     """
-    A type of selection operator
-    Roulette Wheel Selection
+    一种选择算子：轮盘赌选择（Roulette Wheel Selection）。
     >>> chose_rws(fitness_matrix=[1], chromosomes=[[0,1,0]], population_size=1)
     [[0, 1, 0]]
     >>> chose_rws(fitness_matrix=[1], chromosomes=[0,1,0], population_size=0)
@@ -251,7 +246,7 @@ def crossing(
     cities_list: list[int],
 ) -> tuple[list[int], list[int]]:
     """
-    Population crossover
+    种群交叉。
     >>> crossing(chromosome_a=[0,1,0], chromosome_b=[0,1,0],
     ... crossover_probability=0,cities_list=[1])
     ([0, 1, 0], [0, 1, 0])
@@ -291,14 +286,14 @@ def crossing(
             unique_elements_set = set(chromosome)
             if len(unique_elements_set) != len(
                 chromosome
-            ):  # Determine whether the chromosome segment has duplication
+            ):  # 判断染色体片段中是否存在重复
                 for segment_index in range(
                     (crossover_segment[1] - crossover_segment[0]) + 1
                 ):
                     target_index = 0
                     for chrom_index in range(
                         1, len(chromosome) - 1
-                    ):  # Exclude start and end points 0 when searching
+                    ):  # 搜索时排除起点和终点 0
                         if chrom_index == (crossover_segment[0] + segment_index):
                             continue
                         if (
@@ -321,7 +316,7 @@ def crossing(
 
 def mutate(chromosome: list[int], mutation_probability: float) -> list[int]:
     """
-    Population variation: swap two interior cities (endpoints stay at 0).
+    种群变异：交换内部的两座城市（两个端点仍为 0）。
 
     >>> mutate([0, 1, 0], mutation_probability=0)  # no mutation -> unchanged
     [0, 1, 0]
@@ -330,8 +325,8 @@ def mutate(chromosome: list[int], mutation_probability: float) -> list[int]:
     >>> mutate([0, 1, 2, 3, 0], mutation_probability=1)  # swaps two interior cities
     [0, 2, 1, 3, 0]
 
-    An empty chromosome has no interior cities to swap; match only the exception
-    type since the exact stdlib message changes across Python versions.
+    空染色体没有可交换的内部城市；由于标准库的确切异常消息会随 Python 版本
+    变化，因此只匹配异常类型。
 
     >>> mutate([], mutation_probability=1)  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
@@ -343,7 +338,7 @@ def mutate(chromosome: list[int], mutation_probability: float) -> list[int]:
         mutate_location = [
             random.randint(1, len(new_chromosome) - 2),
             random.randint(1, len(new_chromosome) - 2),
-        ]  # Exclude start and end points 0
+        ]  # 排除起点和终点 0
         new_chromosome[mutate_location[0]], new_chromosome[mutate_location[1]] = (
             new_chromosome[mutate_location[1]],
             new_chromosome[mutate_location[0]],
