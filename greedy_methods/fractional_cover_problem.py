@@ -14,8 +14,8 @@ class Item:
         """
         返回物品的价值与重量之比。
 
-        Returns:
-            float: 物品的价值与重量之比。
+        返回：
+            float：物品的价值与重量之比。
 
         示例：
         >>> Item(10, 65).ratio
@@ -34,16 +34,16 @@ def fractional_cover(items: list[Item], capacity: int) -> float:
     """
     求解分数覆盖问题（Fractional Cover Problem）。
 
-    Args:
-        items: 物品列表，每个物品都有 weight 和 value 属性。
-        capacity: 背包可承受的最大重量。
+    参数：
+        items：物品列表，每个物品都有 weight 和 value 属性。
+        capacity：背包可承受的最大重量。
 
-    Returns:
+    返回：
         通过选取物品的一部分来填充背包容量，
         所能获得的最大价值。
 
-    Raises:
-        ValueError: capacity 为负数时抛出。
+    异常：
+        ValueError：capacity 为负数时抛出。
 
     示例：
     >>> fractional_cover((Item(10, 60), Item(20, 100), Item(30, 120)), capacity=50)

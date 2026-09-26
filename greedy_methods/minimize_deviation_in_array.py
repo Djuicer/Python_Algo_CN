@@ -25,11 +25,11 @@ class Solution:
         """
         求执行操作后数组的最小偏差。
 
-        Args:
-            nums (List[int]): 正整数列表。
+        参数：
+            nums (List[int])：正整数列表。
 
-        Returns:
-            temp_mindeviation (int): 操作后数组的最小偏差。
+        返回：
+            temp_mindeviation (int)：操作后数组的最小偏差。
 
         示例：
             >>> solution = Solution()

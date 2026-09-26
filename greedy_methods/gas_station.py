@@ -12,7 +12,7 @@
 加油站的索引；否则返回 -1。
 若存在解，则保证解唯一
 
-Reference: https://leetcode.com/problems/gas-station/description
+参考资料：https://leetcode.com/problems/gas-station/description
 
 实现说明：
 首先检查总油量是否足以完成全程；不足则返回 -1。
@@ -39,11 +39,11 @@ def get_gas_stations(
     """
     返回由加油站组成的元组。
 
-    Args:
-        gas_quantities: 每个加油站可提供的油量
-        costs: 从一个加油站开到下一个加油站所需的油量
+    参数：
+        gas_quantities：每个加油站可提供的油量
+        costs：从一个加油站开到下一个加油站所需的油量
 
-    Returns:
+    返回：
         由加油站组成的元组
 
     >>> gas_stations = get_gas_stations([1, 2, 3, 4, 5], [3, 4, 5, 1, 2])
@@ -64,12 +64,12 @@ def can_complete_journey(gas_stations: tuple[GasStation, ...]) -> int:
     返回能够完成全程的
     起始加油站索引。
 
-    Args:
-        gas_quantities [list]: 每个加油站可提供的油量
-        cost [list]: 从一个加油站开到下一个加油站所需的油量
+    参数：
+        gas_quantities [list]：每个加油站可提供的油量
+        cost [list]：从一个加油站开到下一个加油站所需的油量
 
-    Returns:
-        start [int]: 完成全程所需的起始索引
+    返回：
+        start [int]：完成全程所需的起始索引
 
     示例：
     >>> can_complete_journey(get_gas_stations([1, 2, 3, 4, 5], [3, 4, 5, 1, 2]))

@@ -1,13 +1,12 @@
 """
-Ramer-Douglas-Peucker polyline simplification algorithm.
+Ramer-Douglas-Peucker 折线简化算法。
 
-Given a sequence of 2-D points and a tolerance epsilon, the algorithm
-reduces the number of points while preserving the overall shape of the curve.
+给定二维点序列和容差 epsilon，该算法在保留曲线整体形状的同时减少点的数量。
 
-Time complexity:  O(n log n) average, O(n²) worst case
-Space complexity: O(n)
+时间复杂度：平均 O(n log n)，最坏 O(n²)
+空间复杂度：O(n)
 
-References:
+参考资料：
     https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 """
 
@@ -20,7 +19,7 @@ def _euclidean_distance(
     point_a: tuple[float, float],
     point_b: tuple[float, float],
 ) -> float:
-    """Return the Euclidean distance between two 2-D points.
+    """返回两个二维点之间的欧几里得距离。
 
     >>> _euclidean_distance((0.0, 0.0), (3.0, 4.0))
     5.0
@@ -35,17 +34,13 @@ def _perpendicular_distance(
     line_start: tuple[float, float],
     line_end: tuple[float, float],
 ) -> float:
-    """Return the distance from *point* to the line **segment** between
-    *line_start* and *line_end*.
+    """返回 *point* 到 *line_start* 与 *line_end* 之间线段的距离。
 
-    When the perpendicular projection of *point* onto the infinite line falls
-    within the segment, this equals the perpendicular distance to that line.
-    When the projection falls outside the segment, the distance to the nearest
-    endpoint is returned instead (projection clamped to [0, 1]).
+    当 *point* 在无限直线上的垂直投影落在线段内时，此值等于点到该直线的垂直距离。
+    当投影落在线段外时，改为返回到最近端点的距离（将投影参数限制在 [0, 1]）。
 
-    This is the correct distance measure for the Ramer-Douglas-Peucker
-    algorithm: using the infinite-line distance can incorrectly discard points
-    whose projection lies beyond a segment endpoint.
+    这是 Ramer-Douglas-Peucker 算法所需的正确距离度量；使用到无限直线的距离，
+    可能会错误地舍弃投影位于线段端点之外的点。
 
     >>> _perpendicular_distance((4.0, 0.0), (0.0, 0.0), (0.0, 3.0))
     4.0
@@ -66,10 +61,10 @@ def _perpendicular_distance(
     dx, dy = bx - ax, by - ay
     seg_len_sq = dx * dx + dy * dy
     if seg_len_sq == 0.0:
-        # line_start and line_end coincide; fall back to point-to-point distance
+    # line_start 与 line_end 重合；改用点到点距离
         return _euclidean_distance(point, line_start)
-    # Project point onto the segment line, then clamp t to [0, 1] so the
-    # nearest point is always on the segment rather than the infinite line.
+    # 将点投影到线段所在直线，再把 t 限制在 [0, 1]，确保最近点始终在线段上，
+    # 而不是仅位于无限延伸的直线上。
     t = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / seg_len_sq))
     nearest_x = ax + t * dx
     nearest_y = ay + t * dy
@@ -80,36 +75,33 @@ def ramer_douglas_peucker(
     pts: list[tuple[float, float]],
     epsilon: float,
 ) -> list[tuple[float, float]]:
-    """Simplify a polyline using the Ramer-Douglas-Peucker algorithm.
+    """使用 Ramer-Douglas-Peucker 算法简化折线。
 
-    Given a sequence of 2-D points and a maximum allowable deviation
-    *epsilon* (>= 0), returns a simplified list of points such that no
-    discarded point is farther than *epsilon* from the simplified polyline.
+    给定二维点序列和最大允许偏差 *epsilon* (>= 0)，返回简化后的点列表，
+    使任何被舍弃点到简化折线的距离都不超过 *epsilon*。
 
-    Parameters
+    参数
     ----------
     pts:
-        Ordered sequence of ``(x, y)`` points describing the polyline.
+        描述折线的有序 ``(x, y)`` 点序列。
     epsilon:
-        Maximum allowable distance of any discarded point from the
-        simplified polyline.  Must be non-negative.
+        任意被舍弃点到简化折线的最大允许距离，必须为非负数。
 
-    Returns
+    返回
     -------
     list[tuple[float, float]]
-        Simplified list of ``(x, y)`` points.  The first and last points of
-        *pts* are always preserved.
+        简化后的 ``(x, y)`` 点列表。始终保留 *pts* 的首尾两点。
 
-    Raises
+    异常
     ------
     ValueError
-        If *epsilon* is negative.
+        当 *epsilon* 为负数时。
 
-    References
+    参考资料
     ----------
     https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
 
-    Examples
+    示例
     --------
     >>> ramer_douglas_peucker([], epsilon=1.0)
     []
@@ -136,31 +128,29 @@ def ramer_douglas_peucker(
         return list(pts)
 
     # ---------------------------------------------------------------------------
-    # Iterative, stack-based implementation.
+    # 基于栈的迭代实现。
     #
-    # The naive recursive approach copies sublists at every level via slicing
-    # (pts[:max_index+1] / pts[max_index:]), which is O(n) per call and makes
-    # the overall algorithm O(n²) in memory even for well-balanced splits.  An
-    # explicit stack operating on index ranges avoids all copying and also
-    # eliminates the risk of hitting Python's recursion limit for long polylines.
+    # 朴素递归方法会在每层通过切片（pts[:max_index+1] / pts[max_index:]）复制子列表，
+    # 每次调用需要 O(n) 空间，即使划分均衡，总体内存复杂度也会达到 O(n²)。
+    # 使用显式栈操作索引区间可避免所有复制，并消除长折线触及 Python 递归限制的风险。
     # ---------------------------------------------------------------------------
     n = len(pts)
 
-    # keep[i] is True when pts[i] must appear in the output.
+    # 当 pts[i] 必须出现在输出中时，keep[i] 为 True。
     keep: list[bool] = [False] * n
     keep[0] = True
     keep[-1] = True
 
-    # Stack of (start_index, end_index) pairs still to be examined.
+    # 存放待检查 (start_index, end_index) 索引对的栈。
     stack: list[tuple[int, int]] = [(0, n - 1)]
 
     while stack:
         start, end = stack.pop()
         if end - start < 2:
-            # Only one interior candidate at most; nothing to split further.
+        # 内部候选点至多一个，无需继续拆分。
             continue
 
-        # Find the interior point with the greatest distance to the segment.
+        # 查找距线段最远的内部点。
         max_dist = 0.0
         max_index = start
         for i in range(start + 1, end):
@@ -173,7 +163,7 @@ def ramer_douglas_peucker(
             keep[max_index] = True
             stack.append((start, max_index))
             stack.append((max_index, end))
-        # else: all interior points are within epsilon; discard them all.
+        # 否则所有内部点均在 epsilon 范围内，将其全部舍弃。
 
     return [pts[i] for i in range(n) if keep[i]]
 

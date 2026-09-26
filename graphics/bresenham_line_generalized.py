@@ -1,10 +1,10 @@
 """
-Generalized Bresenham's Line Drawing Algorithm
+通用 Bresenham 直线绘制算法
 ----------------------------------------------
 
-Handles all possible line slopes and directions.
+处理所有可能的直线斜率和方向。
 
-Reference:
+参考资料：
 https://www.geeksforgeeks.org/dsa/bresenhams-line-generation-algorithm/
 
 >>> generalized_bresenham_line((0, 0), (5, 3))

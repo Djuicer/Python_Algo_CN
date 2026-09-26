@@ -1,6 +1,6 @@
 """
 贪心归并排序算法的纯 Python 实现
-reference: https://www.geeksforgeeks.org/optimal-file-merge-patterns/
+参考资料：https://www.geeksforgeeks.org/optimal-file-merge-patterns/
 
 运行 doctest 请使用以下命令：
 python3 -m doctest -v greedy_merge_sort.py
@@ -23,11 +23,11 @@ python3 -m doctest -v greedy_merge_sort.py
 def optimal_merge_pattern(files: list) -> float:
     """以最优代价合并所有文件
 
-    Args:
-        files [list]: 待合并的各文件大小组成的列表
+    参数：
+        files [list]：待合并的各文件大小组成的列表
 
-    Returns:
-        optimal_merge_cost [int]: 合并所有文件的最优代价
+    返回：
+        optimal_merge_cost [int]：合并所有文件的最优代价
 
     示例：
     >>> optimal_merge_pattern([2, 3, 4])

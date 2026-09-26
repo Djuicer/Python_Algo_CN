@@ -1,15 +1,12 @@
 """
-Graham Scan algorithm for finding the convex hull of a set of points.
+用于求点集凸包的 Graham 扫描（Graham Scan）算法。
 
-The Graham scan is a method of computing the convex hull of a finite set of points
-in the plane with time complexity O(n log n). It is named after Ronald Graham, who
-published the original algorithm in 1972.
+Graham 扫描用于计算平面上有限点集的凸包，时间复杂度为 O(n log n)。
+该算法以 Ronald Graham 命名，他于 1972 年发表了原始算法。
 
-The algorithm finds all vertices of the convex hull ordered along its boundary.
-It uses a stack to efficiently identify and remove points that would create
-non-convex angles.
+该算法按凸包边界顺序找出所有顶点，并使用栈高效识别和移除会形成非凸角的点。
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Graham_scan
 - Graham, R.L. (1972). "An Efficient Algorithm for Determining the Convex Hull of a
   Finite Planar Set"
@@ -27,7 +24,7 @@ T = TypeVar("T", bound="Point")
 @dataclass
 class Point:
     """
-    A point in 2D space.
+    二维空间中的点。
 
     >>> Point(0, 0)
     Point(x=0.0, y=0.0)
@@ -40,18 +37,18 @@ class Point:
 
     def __init__(self, x_coordinate: float, y_coordinate: float) -> None:
         """
-        Initialize a 2D point.
+        初始化一个二维点。
 
-        Args:
-            x_coordinate: The x-coordinate (horizontal position) of the point
-            y_coordinate: The y-coordinate (vertical position) of the point
+        参数：
+            x_coordinate：点的 x 坐标（水平位置）
+            y_coordinate：点的 y 坐标（垂直位置）
         """
         self.x = float(x_coordinate)
         self.y = float(y_coordinate)
 
     def __eq__(self, other: object) -> bool:
         """
-        Check if two points are equal.
+        检查两个点是否相等。
 
         >>> Point(1, 2) == Point(1, 2)
         True
@@ -64,7 +61,7 @@ class Point:
 
     def __lt__(self, other: Point) -> bool:
         """
-        Compare two points for sorting (bottom-most, then left-most).
+        比较两个点以进行排序（先按最下方，再按最左侧）。
 
         >>> Point(1, 2) < Point(1, 3)
         True
@@ -79,7 +76,7 @@ class Point:
 
     def euclidean_distance(self, other: Point) -> float:
         """
-        Calculate Euclidean distance between two points.
+        计算两点之间的欧几里得距离。
 
         >>> Point(0, 0).euclidean_distance(Point(3, 4))
         5.0
@@ -90,13 +87,12 @@ class Point:
 
     def consecutive_orientation(self, point_a: Point, point_b: Point) -> float:
         """
-        Calculate the cross product of vectors (self -> point_a) and
-        (point_a -> point_b).
+        计算向量 (self -> point_a) 与 (point_a -> point_b) 的叉积。
 
-        Returns:
-        - Positive value: counter-clockwise turn
-        - Negative value: clockwise turn
-        - Zero: collinear points
+        返回：
+        - 正值：逆时针转向
+        - 负值：顺时针转向
+        - 零：三点共线
 
         >>> Point(0, 0).consecutive_orientation(Point(1, 0), Point(1, 1))
         1.0
@@ -112,24 +108,23 @@ class Point:
 
 def graham_scan(points: Sequence[Point]) -> list[Point]:
     """
-    Find the convex hull of a set of points using the Graham scan algorithm.
+    使用 Graham 扫描算法求点集的凸包。
 
-    The algorithm works as follows:
-    1. Find the bottom-most point (or left-most in case of tie)
-    2. Sort all other points by polar angle with respect to the bottom-most point
-    3. Process points in order, maintaining a stack of hull candidates
-    4. Remove points that would create a clockwise turn
+    算法步骤如下：
+    1. 找到最下方的点（若并列则取最左侧）
+    2. 以最下方的点为基准，按极角对其余点排序
+    3. 按顺序处理各点，并用栈维护凸包候选点
+    4. 移除会形成顺时针转向的点
 
-    Args:
-        points: A sequence of Point objects
+    参数：
+        points：Point 对象序列
 
-    Returns:
-        A list of Point objects representing the convex hull in counter-clockwise order.
-        Returns an empty list if there are fewer than 3 distinct points or if all
-        points are collinear.
+    返回：
+        按逆时针顺序表示凸包的 Point 对象列表。
+        若不同的点少于 3 个或所有点共线，则返回空列表。
 
-    Time Complexity: O(n log n) due to sorting
-    Space Complexity: O(n) for the output hull
+    时间复杂度：O(n log n)，由排序决定
+    空间复杂度：O(n)，用于输出凸包
 
     >>> graham_scan([])
     []
@@ -146,42 +141,42 @@ def graham_scan(points: Sequence[Point]) -> list[Point]:
     if len(points) <= 2:
         return []
 
-    # Find the bottom-most point (left-most in case of tie)
+    # 找到最下方的点（若并列则取最左侧）
     min_point = min(points)
 
-    # Remove the min_point from the list
+    # 从列表中移除 min_point
     points_list = [p for p in points if p != min_point]
     if not points_list:
-        # Edge case where all points are the same
+        # 处理所有点均相同的边界情况
         return []
 
     def polar_angle_key(point: Point) -> tuple[float, float, float]:
         """
-        Key function for sorting points by polar angle relative to min_point.
+        以 min_point 为基准按极角排序各点的键函数。
 
-        Points are sorted counter-clockwise. When two points have the same angle,
-        the farther point comes first (we'll remove duplicates later).
+        各点按逆时针顺序排列。当两个点的角度相同时，距离较远的点排在前面
+        （稍后会移除重复点）。
         """
-        # We use a dummy third point (min_point itself) to calculate relative angles
-        # Instead, we'll compute the angle between points
+        # 使用虚拟的第三个点（min_point 本身）计算相对角度
+        # 改为直接计算点之间的角度
         dx = point.x - min_point.x
         dy = point.y - min_point.y
 
-        # Use atan2 for angle, but we can also use cross product for comparison
-        # For sorting, we compare orientations between consecutive points
+        # 使用 atan2 计算角度，也可以使用叉积进行比较
+        # 排序时比较相邻点之间的方向
         distance = min_point.euclidean_distance(point)
-        return (dx, dy, -distance)  # Negative distance to sort farther points first
+        return (dx, dy, -distance)  # 使用负距离，使较远的点排在前面
 
-    # Sort by polar angle using a comparison based on cross product
+    # 使用基于叉积的比较按极角排序
     def compare_points(point_a: Point, point_b: Point) -> int:
-        """Compare two points by polar angle relative to min_point."""
+        """以 min_point 为基准，按极角比较两个点。"""
         orientation = min_point.consecutive_orientation(point_a, point_b)
         if orientation < 0.0:
-            return 1  # point_a comes after point_b (clockwise)
+            return 1  # point_a 位于 point_b 之后（顺时针）
         elif orientation > 0.0:
-            return -1  # point_a comes before point_b (counter-clockwise)
+            return -1  # point_a 位于 point_b 之前（逆时针）
         else:
-            # Collinear: farther point should come first
+            # 共线时，较远的点应排在前面
             dist_a = min_point.euclidean_distance(point_a)
             dist_b = min_point.euclidean_distance(point_b)
             if dist_b < dist_a:
@@ -195,15 +190,15 @@ def graham_scan(points: Sequence[Point]) -> list[Point]:
 
     points_list.sort(key=cmp_to_key(compare_points))
 
-    # Build the convex hull
+    # 构建凸包
     convex_hull: list[Point] = [min_point, points_list[0]]
 
     for point in points_list[1:]:
-        # Skip consecutive points with the same angle (collinear with min_point)
+        # 跳过角度相同的连续点（与 min_point 共线）
         if min_point.consecutive_orientation(point, convex_hull[-1]) == 0.0:
             continue
 
-        # Remove points that create a clockwise turn (or are collinear)
+        # 移除形成顺时针转向（或共线）的点
         while len(convex_hull) >= 2:
             orientation = convex_hull[-2].consecutive_orientation(
                 convex_hull[-1], point
@@ -215,7 +210,7 @@ def graham_scan(points: Sequence[Point]) -> list[Point]:
 
         convex_hull.append(point)
 
-    # Need at least 3 points for a valid convex hull
+    # 有效凸包至少需要 3 个点
     if len(convex_hull) <= 2:
         return []
 
@@ -227,7 +222,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Example usage
+    # 使用示例
     points = [
         Point(0, 0),
         Point(1, 0),
@@ -237,7 +232,7 @@ if __name__ == "__main__":
         Point(1, 2),
         Point(0, 2),
         Point(0, 1),
-        Point(1, 1),  # Interior point
+        Point(1, 1),  # 内部点
     ]
 
     hull = graham_scan(points)

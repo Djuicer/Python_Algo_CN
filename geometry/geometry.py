@@ -5,13 +5,13 @@ from dataclasses import dataclass, field
 from types import NoneType
 from typing import Self
 
-# Building block classes
+# 基础构件类
 
 
 @dataclass
 class Angle:
     """
-    An Angle in degrees (unit of measurement)
+    以度为计量单位的角。
 
     >>> Angle()
     Angle(degrees=90)
@@ -46,17 +46,17 @@ class Angle:
         >>> Angle.from_radians(math.pi / 2)
         Angle(degrees=90.0)
         """
-        degrees = math.degrees(radians) % 360  # Normalize to 0-360
+        degrees = math.degrees(radians) % 360  # 归一化到 0-360
         return cls(degrees)
 
 
 @dataclass
 class Side:
     """
-    A side of a two-dimensional shape such as Polygon, etc.
-    adjacent_sides: a list of sides which are adjacent to the current side
-    angle: the angle in degrees between each adjacent side
-    length: the length of the current side in meters
+    Polygon 等二维图形的一条边。
+    adjacent_sides：与当前边相邻的边列表
+    angle：当前边与各相邻边之间的夹角，以度为单位
+    length：当前边的长度，以米为单位
 
     >>> Side(5)
     Side(length=5, angle=Angle(degrees=90), next_side=None)
@@ -94,7 +94,7 @@ class Side:
 @dataclass
 class Ellipse:
     """
-    A geometric Ellipse on a 2D surface
+    二维平面上的几何椭圆。
 
     >>> Ellipse(5, 10)
     Ellipse(major_radius=5, minor_radius=10)
@@ -118,7 +118,7 @@ class Ellipse:
     @property
     def perimeter(self) -> float:
         """
-        Use Ramanujan's first approximation for ellipse perimeter.
+        使用拉马努金的第一个椭圆周长近似公式。
         https://en.wikipedia.org/wiki/Perimeter_of_an_ellipse#First_approximation
 
         >>> Ellipse(5, 10).perimeter
@@ -146,7 +146,7 @@ class Ellipse:
 
 class Circle(Ellipse):
     """
-    A geometric Circle on a 2D surface
+    二维平面上的几何圆。
 
     >>> Circle(5)
     Circle(radius=5)
@@ -177,8 +177,7 @@ class Circle(Ellipse):
 
     def max_parts(self, num_cuts: float) -> float:
         """
-        Return the maximum number of parts that circle can be divided into if cut
-        'num_cuts' times.
+        返回将圆切割 'num_cuts' 次时最多可得到的部分数量。
 
         >>> circle = Circle(5)
         >>> circle.max_parts(0)
@@ -206,7 +205,7 @@ class Circle(Ellipse):
 @dataclass
 class Polygon:
     """
-    An abstract class which represents Polygon on a 2D surface.
+    表示二维平面上多边形的抽象类。
 
     >>> Polygon()
     Polygon(sides=[])
@@ -278,17 +277,17 @@ class Polygon:
             return []
         vertices = [(0.0, 0.0)]
         x, y = 0.0, 0.0
-        direction = 0.0  # Initial direction in radians
+        direction = 0.0  # 初始方向，以弧度为单位
 
         for side in self.sides:
             x += side.length * math.cos(direction)
             y += side.length * math.sin(direction)
             vertices.append((x, y))
-            # Turn by exterior angle (180 - interior)
+            # 按外角（180 - 内角）转向
             turn = math.pi - side.angle.to_radians()
             direction += turn
 
-        # Check closure (tolerance for float precision)
+        # 检查是否闭合（为浮点精度保留容差）
         if (
             math.hypot(
                 vertices[-1][0] - vertices[0][0], vertices[-1][1] - vertices[0][1]
@@ -324,7 +323,7 @@ class Polygon:
 
 class Rectangle(Polygon):
     """
-    A geometric rectangle on a 2D surface.
+    二维平面上的几何矩形。
 
     >>> rectangle_one = Rectangle(5, 10)
     >>> rectangle_one.perimeter()
@@ -371,8 +370,7 @@ class Rectangle(Polygon):
 @dataclass
 class Square(Rectangle):
     """
-    a structure which represents a
-    geometrical square on a 2D surface
+    表示二维平面上几何正方形的结构。
     >>> square_one = Square(5)
     >>> square_one.perimeter()
     20
@@ -392,7 +390,7 @@ class Square(Rectangle):
 
 class Triangle(Polygon):
     """
-    A geometric triangle on a 2D surface.
+    二维平面上的几何三角形。
 
     >>> tri = Triangle(3, 4, 5)
     >>> tri.perimeter()
@@ -420,7 +418,7 @@ class Triangle(Polygon):
     ) -> None:
         super().__init__()
 
-        # validate triangle inequality
+        # 验证三角不等式
         if not (
             side_a + side_b > side_c
             and side_a + side_c > side_b
@@ -432,7 +430,7 @@ class Triangle(Polygon):
         self.side_b = side_b
         self.side_c = side_c
 
-        # calculate angles using cosines if not provided
+        # 未提供角度时使用余弦定理计算
         if angle_a is None:
             cos_a = (side_b**2 + side_c**2 - side_a**2) / (2 * side_b * side_c)
             angle_a = Angle.from_radians(math.acos(max(-1, min(1, cos_a))))
@@ -445,7 +443,7 @@ class Triangle(Polygon):
             cos_c = (side_a**2 + side_b**2 - side_c**2) / (2 * side_a * side_b)
             angle_c = Angle.from_radians(math.acos(max(-1, min(1, cos_c))))
 
-        # validate angle sum
+        # 验证内角和
         angle_sum = angle_a.degrees + angle_b.degrees + angle_c.degrees
         if abs(angle_sum - 180) > 0.01:
             raise ValueError("Triangle angles must sum to 180 degrees")
@@ -454,7 +452,7 @@ class Triangle(Polygon):
         self.angle_b = angle_b
         self.angle_c = angle_c
 
-        # add sides with their corresponding angles
+        # 添加各条边及其对应角度
         self.add_side(Side(side_a, angle_a))
         self.add_side(Side(side_b, angle_b))
         self.add_side(Side(side_c, angle_c))
@@ -468,14 +466,14 @@ class Triangle(Polygon):
 
     def area(self) -> float:
         """
-        Calculate area using Heron's formula.
+        使用海伦公式计算面积。
 
         >>> Triangle(3, 4, 5).area()
         6.0
         >>> round(Triangle(5, 5, 5).area(), 2)
         10.83
         """
-        s = self.perimeter() / 2  # semi-perimeter
+        s = self.perimeter() / 2  # 半周长
         area = math.sqrt(s * (s - self.side_a) * (s - self.side_b) * (s - self.side_c))
         return area
 

@@ -6,14 +6,14 @@ def sliding_window(input_string: str) -> int:
     时间复杂度为 O(n)，其中 n 为字符串长度。滑动窗口
     保证每个字符最多处理两次。
 
-    Args:
-        input_string: 输入字符串。
+    参数：
+        input_string：输入字符串。
 
-    Returns:
-        int: 不含重复字符的最长子串长度。
+    返回：
+        int：不含重复字符的最长子串长度。
 
-    Raises:
-        TypeError: 输入不是字符串时抛出。
+    异常：
+        TypeError：输入不是字符串时抛出。
 
     示例：
     >>> sliding_window("abcabcbb")

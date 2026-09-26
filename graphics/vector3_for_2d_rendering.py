@@ -1,5 +1,5 @@
 """
-render 3d points for 2d surfaces.
+将三维点渲染到二维平面。
 """
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ def convert_to_2d(
     x: float, y: float, z: float, scale: float, distance: float
 ) -> tuple[float, float]:
     """
-    Converts 3d point to a 2d drawable point
+    将三维点转换为可绘制的二维点。
 
     >>> convert_to_2d(1.0, 2.0, 3.0, 10.0, 10.0)
     (7.6923076923076925, 15.384615384615385)
@@ -39,9 +39,8 @@ def rotate(
     x: float, y: float, z: float, axis: str, angle: float
 ) -> tuple[float, float, float]:
     """
-    rotate a point around a certain axis with a certain angle
-    angle can be any integer between 1, 360 and axis can be any one of
-    'x', 'y', 'z'
+    将点绕指定坐标轴旋转指定角度。
+    angle 可以是 1 到 360 之间的任意整数，axis 可以是 'x'、'y'、'z' 之一。
 
     >>> rotate(1.0, 2.0, 3.0, 'y', 90.0)
     (3.130524675073759, 2.0, 0.4470070007889556)

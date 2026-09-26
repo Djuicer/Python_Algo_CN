@@ -1,11 +1,11 @@
 """
-Classic Bresenham's Line Drawing Algorithm
+经典 Bresenham 直线绘制算法
 ------------------------------------------
 
-Draws a line between two points (x1, y1) and (x2, y2)
-for slope 0 ≤ m ≤ 1, without floating-point operations.
+在点 (x1, y1) 与 (x2, y2) 之间绘制斜率满足 0 ≤ m ≤ 1 的直线，
+且不使用浮点运算。
 
-Reference : https://www.geeksforgeeks.org/dsa/bresenhams-line-generation-algorithm/
+参考资料：https://www.geeksforgeeks.org/dsa/bresenhams-line-generation-algorithm/
 
 >>> classic_bresenham_line((0, 0), (5, 3))
 [(0, 0), (1, 1), (2, 1), (3, 2), (4, 2), (5, 3)]

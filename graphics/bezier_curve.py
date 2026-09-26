@@ -7,27 +7,25 @@ from scipy.special import comb
 
 class BezierCurve:
     """
-    Bezier curve is a weighted sum of a set of control points.
-    Generate Bezier curves from a given set of control points.
-    This implementation works only for 2d coordinates in the xy plane.
+    贝塞尔曲线（Bezier Curve）是一组控制点的加权和。
+    根据给定的控制点集生成贝塞尔曲线。
+    此实现仅适用于 xy 平面上的二维坐标。
     """
 
     def __init__(self, list_of_points: list[tuple[float, float]]) -> None:
         """
-        list_of_points: Control points in the xy plane on which to interpolate. These
-            points control the behavior (shape) of the Bezier curve.
+        list_of_points：xy 平面上用于插值的控制点。这些点控制贝塞尔曲线的行为（形状）。
         """
         self.list_of_points = list_of_points
-        # Degree determines the flexibility of the curve.
-        # Degree = 1 will produce a straight line.
+        # 次数决定曲线的灵活程度。
+        # 次数为 1 时将生成直线。
         self.degree = len(list_of_points) - 1
 
     def basis_function(self, t: float) -> list[float]:
         """
-        The basis function determines the weight of each control point at time t.
-            t: time value between 0 and 1 inclusive at which to evaluate the basis of
-               the curve.
-        returns the x, y values of basis function at time t
+        基函数决定参数 t 处各控制点的权重。
+            t：用于计算曲线基函数的参数值，范围为闭区间 [0, 1]。
+        返回参数 t 处基函数的 x、y 值。
 
         >>> curve = BezierCurve([(1,1), (1,2)])
         >>> [float(x) for x in curve.basis_function(0)]
@@ -38,21 +36,21 @@ class BezierCurve:
         assert 0 <= t <= 1, "Time t must be between 0 and 1."
         output_values: list[float] = []
         for i in range(len(self.list_of_points)):
-            # basis function for each i
+            # 每个 i 对应的基函数
             output_values.append(
                 comb(self.degree, i) * ((1 - t) ** (self.degree - i)) * (t**i)
             )
-        # the basis must sum up to 1 for it to produce a valid Bezier curve.
+        # 要生成有效的贝塞尔曲线，各基函数之和必须为 1。
         assert round(sum(output_values), 5) == 1
         return output_values
 
     def bezier_curve_function(self, t: float) -> tuple[float, float]:
         """
-        The function to produce the values of the Bezier curve at time t.
-            t: the value of time t at which to evaluate the Bezier function
-        Returns the x, y coordinates of the Bezier curve at time t.
-            The first point in the curve is when t = 0.
-            The last point in the curve is when t = 1.
+        计算贝塞尔曲线在参数 t 处取值的函数。
+            t：用于计算贝塞尔函数的参数值
+        返回贝塞尔曲线在参数 t 处的 x、y 坐标。
+            t = 0 时得到曲线的第一个点。
+            t = 1 时得到曲线的最后一个点。
 
         >>> curve = BezierCurve([(1,1), (1,2)])
         >>> tuple(float(x) for x in curve.bezier_curve_function(0))
@@ -67,16 +65,16 @@ class BezierCurve:
         x = 0.0
         y = 0.0
         for i in range(len(self.list_of_points)):
-            # For all points, sum up the product of i-th basis function and i-th point.
+            # 对所有点累加第 i 个基函数与第 i 个点的乘积。
             x += basis_function[i] * self.list_of_points[i][0]
             y += basis_function[i] * self.list_of_points[i][1]
         return (x, y)
 
     def derivative(self, t: float) -> tuple[float, float]:
         """
-        Computes the derivative (tangent vector) of the Bezier curve at time t.
-        t: parameter between 0 and 1
-        Returns the (dx, dy) vector representing the direction of the curve at t.
+        计算贝塞尔曲线在参数 t 处的导数（切向量）。
+        t：0 到 1 之间的参数
+        返回表示曲线在 t 处方向的 (dx, dy) 向量。
         """
         if not 0 <= t <= 1:
             raise ValueError("Time t must be between 0 and 1.")
@@ -94,14 +92,14 @@ class BezierCurve:
 
     def plot_curve(self, step_size: float = 0.01) -> None:
         """
-        Plots the Bezier curve using matplotlib plotting capabilities.
-            step_size: defines the step(s) at which to evaluate the Bezier curve.
-            The smaller the step size, the finer the curve produced.
+        使用 matplotlib 的绘图功能绘制贝塞尔曲线。
+            step_size：定义计算贝塞尔曲线时的步长。
+            步长越小，生成的曲线越精细。
         """
         from matplotlib import pyplot as plt
 
-        to_plot_x: list[float] = []  # x coordinates of points to plot
-        to_plot_y: list[float] = []  # y coordinates of points to plot
+        to_plot_x: list[float] = []  # 待绘制点的 x 坐标
+        to_plot_y: list[float] = []  # 待绘制点的 y 坐标
 
         t = 0.0
         while t <= 1:
@@ -129,11 +127,11 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    BezierCurve([(1, 2), (3, 5)]).plot_curve()  # degree 1
-    BezierCurve([(0, 0), (5, 5), (5, 0)]).plot_curve()  # degree 2
-    BezierCurve([(0, 0), (5, 5), (5, 0), (2.5, -2.5)]).plot_curve()  # degree 3
+    BezierCurve([(1, 2), (3, 5)]).plot_curve()  # 1 次曲线
+    BezierCurve([(0, 0), (5, 5), (5, 0)]).plot_curve()  # 2 次曲线
+    BezierCurve([(0, 0), (5, 5), (5, 0), (2.5, -2.5)]).plot_curve()  # 3 次曲线
 
-    # Test derivative method
+    # 测试导数方法
     curve = BezierCurve([(0, 0), (5, 5), (5, 0)])
     print("Derivative at t=0.0:", curve.derivative(0.0))
     print("Derivative at t=0.5:", curve.derivative(0.5))

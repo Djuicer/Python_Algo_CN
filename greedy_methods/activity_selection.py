@@ -6,7 +6,7 @@
 选择结束时间最早、
 且不与已选活动冲突的活动。
 
-Wikipedia: https://en.wikipedia.org/wiki/Activity_selection_problem
+维基百科：https://en.wikipedia.org/wiki/Activity_selection_problem
 """
 
 
@@ -15,11 +15,11 @@ def activity_selection(activities: list[tuple[int, int]]) -> list[tuple[int, int
     使用贪心算法求解活动选择问题，从活动列表中
     选出数量最多的互不重叠的活动。
 
-    Parameters:
-    activities: 元组列表，每个元组包含
+    参数：
+    activities：元组列表，每个元组包含
                                         一项活动的开始和结束时间。
 
-    Returns:
+    返回：
     互不重叠的已选活动列表。
 
     示例：

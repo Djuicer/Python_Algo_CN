@@ -4,7 +4,7 @@ Created on Fri Oct 16 09:31:07 2020
 @author: Dr. Tobias Schröder
 @license: MIT-license
 
-This file contains the test-suite for the knapsack problem.
+此文件包含背包问题的测试套件。
 """
 
 import unittest
@@ -15,7 +15,7 @@ from knapsack import knapsack as k
 class Test(unittest.TestCase):
     def test_base_case(self) -> None:
         """
-        test for the base case
+        测试基本情况。
         """
         cap = 0
         val = [0]
@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
 
     def test_easy_case(self) -> None:
         """
-        test for the easy case
+        测试简单情况。
         """
         cap = 3
         val = [1, 2, 3]
@@ -40,7 +40,7 @@ class Test(unittest.TestCase):
 
     def test_knapsack(self) -> None:
         """
-        test for the knapsack
+        测试背包问题。
         """
         cap = 50
         val = [60, 100, 120]
@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
 
     def test_knapsack_repetition(self) -> None:
         """
-        test for the knapsack repetition
+        测试允许重复选取物品的背包问题。
         """
         cap = 50
         val = [60, 100, 120]

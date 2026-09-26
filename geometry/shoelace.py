@@ -1,15 +1,14 @@
 def area_of_polygon(xs: list[float], ys: list[float]) -> float:
     """
-    Compute the area of a polygon. The polygon has to be planar and simple
-    (not self-intersecting). The vertices have to be ordered in the
-    counter-clockwise direction.
+    使用鞋带公式（Shoelace Formula）计算多边形面积。多边形必须是平面简单多边形
+    （不自相交），且顶点必须按逆时针方向排列。
     https://en.wikipedia.org/wiki/Shoelace_formula
 
-    Args:
-        xs: list of x coordinates of the polygon vertices in counter-clockwise order
-        ys: list of y coordinates of the polygon vertices in counter-clockwise order
-    Returns:
-        area of the polygon
+    参数：
+        xs：按逆时针顺序排列的多边形顶点 x 坐标列表
+        ys：按逆时针顺序排列的多边形顶点 y 坐标列表
+    返回：
+        多边形面积
 
     >>> from math import isclose
     >>> xs = [1, 3, 7, 4, 8]

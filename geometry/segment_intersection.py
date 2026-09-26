@@ -1,10 +1,9 @@
 """
-Given two line segments, determine whether they intersect.
+给定两条线段，判断它们是否相交。
 
-This is based on the algorithm described in Introduction to Algorithms
-(CLRS), Chapter 33.
+本实现基于《算法导论》（CLRS）第 33 章所述算法。
 
-Reference:
+参考资料：
     - https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     - https://en.wikipedia.org/wiki/Orientation_(geometry)
 """
@@ -15,7 +14,7 @@ from typing import NamedTuple
 
 
 class Point(NamedTuple):
-    """A point in 2D space.
+    """二维空间中的点。
 
     >>> Point(0, 0)
     Point(x=0, y=0)
@@ -28,13 +27,12 @@ class Point(NamedTuple):
 
 
 def direction(pivot: Point, target: Point, query: Point) -> float:
-    """Return the cross product of vectors (pivot->query) and (pivot->target).
+    """返回向量 (pivot->query) 与 (pivot->target) 的叉积。
 
-    The sign of the result encodes the orientation of the ordered triple
-    (pivot, target, query):
-      - Negative  ->  counter-clockwise (left turn)
-      - Positive  ->  clockwise (right turn)
-      - Zero      ->  collinear
+    结果的符号表示有序三元组 (pivot, target, query) 的方向：
+      - 负值 -> 逆时针（左转）
+      - 正值 -> 顺时针（右转）
+      - 零   -> 共线
 
     >>> direction(Point(0, 0), Point(1, 0), Point(0, 1))
     -1
@@ -49,7 +47,7 @@ def direction(pivot: Point, target: Point, query: Point) -> float:
 
 
 def on_segment(seg_start: Point, seg_end: Point, point: Point) -> bool:
-    """Check whether *point*, known to be collinear with the segment, lies on it.
+    """检查已知与线段共线的 *point* 是否位于该线段上。
 
     >>> on_segment(Point(0, 0), Point(4, 4), Point(2, 2))
     True
@@ -64,11 +62,10 @@ def on_segment(seg_start: Point, seg_end: Point, point: Point) -> bool:
 
 
 def segments_intersect(p1: Point, p2: Point, p3: Point, p4: Point) -> bool:
-    """Return True if line segment p1p2 intersects line segment p3p4.
+    """若线段 p1p2 与线段 p3p4 相交，则返回 True。
 
-    Uses the CLRS cross-product / orientation method.  Handles both the
-    general case (proper crossing) and degenerate cases where one endpoint
-    lies exactly on the other segment.
+    使用 CLRS 的叉积/方向方法。既处理一般情况（正规相交），也处理某个端点
+    恰好位于另一条线段上的退化情况。
 
     >>> segments_intersect(Point(0, 0), Point(2, 2), Point(0, 2), Point(2, 0))
     True

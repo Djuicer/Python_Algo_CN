@@ -1,19 +1,18 @@
-# To get an insight into naive recursive way to solve the Knapsack problem
+# 理解使用朴素递归方法求解背包问题
 
 
 """
-A shopkeeper has bags of wheat that each have different weights and different profits.
-eg.
+一位店主有若干袋小麦，每袋的重量和利润各不相同。
+例如：
 no_of_items 4
 profit 5 4 8 6
 weight 1 2 4 5
 max_weight 5
-Constraints:
+约束：
 max_weight > 0
 profit[i] >= 0
 weight[i] >= 0
-Calculate the maximum profit that the shopkeeper can make given maxmum weight that can
-be carried.
+在给定最大承载重量的条件下，计算店主可以获得的最大利润。
 """
 
 
@@ -21,13 +20,13 @@ def knapsack(
     weights: list, values: list, number_of_items: int, max_weight: int, index: int
 ) -> int:
     """
-    Function description is as follows-
-    :param weights: Take a list of weights
-    :param values: Take a list of profits corresponding to the weights
-    :param number_of_items: number of items available to pick from
-    :param max_weight: Maximum weight that could be carried
-    :param index: the element we are looking at
-    :return: Maximum expected gain
+    函数说明如下：
+    :param weights: 重量列表
+    :param values: 与各重量对应的利润列表
+    :param number_of_items: 可供选择的物品数量
+    :param max_weight: 最大承载重量
+    :param index: 当前考察的元素
+    :return: 最大预期收益
     >>> knapsack([1, 2, 4, 5], [5, 4, 8, 6], 4, 5, 0)
     13
     >>> knapsack([3 ,4 , 5], [10, 9 , 8], 3, 25, 0)

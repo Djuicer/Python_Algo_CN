@@ -1,14 +1,12 @@
 """
-Andrew's Monotone Chain Convex Hull Algorithm.
+Andrew 单调链凸包算法（Monotone Chain Convex Hull Algorithm）。
 
-Reference: https://en.wikipedia.org/wiki/Convex_hull_algorithms#Andrew's_monotone_chain_algorithm
-Reference: Andrew, A. M. (1979). "Another efficient algorithm for convex hulls
+参考资料：https://en.wikipedia.org/wiki/Convex_hull_algorithms#Andrew's_monotone_chain_algorithm
+参考资料：Andrew, A. M. (1979). "Another efficient algorithm for convex hulls
            in two dimensions". Information Processing Letters, 9(5), 216-219.
 
-Andrew's monotone chain algorithm computes the convex hull of a set of 2D points
-in O(n log n) time. It first sorts the points lexicographically (by x-coordinate,
-and in case of a tie, by y-coordinate) and then constructs the lower and upper
-hulls in two separate O(n) passes.
+Andrew 单调链算法以 O(n log n) 时间计算二维点集的凸包。它首先按字典序对点排序
+（先按 x 坐标，若相同则按 y 坐标），随后分别用一次 O(n) 遍历构建下凸包和上凸包。
 """
 
 from __future__ import annotations
@@ -18,7 +16,7 @@ from typing import NamedTuple
 
 class Point(NamedTuple):
     """
-    A 2D point with real-valued coordinates.
+    坐标为实数的二维点。
 
     >>> Point(0.0, 0.0)
     Point(x=0.0, y=0.0)
@@ -32,21 +30,20 @@ class Point(NamedTuple):
 
 def cross_product_direction(origin: Point, point_a: Point, point_b: Point) -> float:
     """
-    Compute the 2D cross product of vectors (origin -> point_a) and (origin -> point_b).
+    计算向量 (origin -> point_a) 与 (origin -> point_b) 的二维叉积。
 
-    The return value encodes the orientation of the ordered triplet
-    (origin, point_a, point_b):
-        > 0 : Counter-clockwise turn (left turn)
-        < 0 : Clockwise turn (right turn)
-        = 0 : Collinear points
+    返回值表示有序三元组 (origin, point_a, point_b) 的方向：
+        > 0：逆时针转向（左转）
+        < 0：顺时针转向（右转）
+        = 0：三点共线
 
-    Parameters:
-        origin: The reference pivot point.
-        point_a: The first endpoint.
-        point_b: The second endpoint.
+    参数：
+        origin：参考基点。
+        point_a：第一个端点。
+        point_b：第二个端点。
 
-    Returns:
-        The signed magnitude of the 2D cross product.
+    返回：
+        二维叉积的带符号数值。
 
     >>> cross_product_direction(Point(0, 0), Point(1, 0), Point(1, 1))
     1
@@ -62,19 +59,18 @@ def cross_product_direction(origin: Point, point_a: Point, point_b: Point) -> fl
 
 def monotone_chain(points: list[Point]) -> list[Point]:
     """
-    Compute the convex hull of a set of 2D points in counter-clockwise order
-    using Andrew's Monotone Chain algorithm.
+    使用 Andrew 单调链算法，按逆时针顺序计算二维点集的凸包。
 
-    Parameters:
-        points: A list of 2D points.
+    参数：
+        points：二维点列表。
 
-    Returns:
-        A list of vertices forming the convex hull in counter-clockwise order.
+    返回：
+        按逆时针顺序构成凸包的顶点列表。
 
-    Time Complexity: O(n log n) where n is the number of points.
-    Space Complexity: O(n)
+    时间复杂度：O(n log n)，其中 n 为点的数量。
+    空间复杂度：O(n)
 
-    Examples:
+    示例：
     >>> monotone_chain([])
     []
     >>> monotone_chain([Point(1, 1)])
@@ -101,7 +97,7 @@ def monotone_chain(points: list[Point]) -> list[Point]:
     if len(unique_sorted_points) <= 1:
         return unique_sorted_points
 
-    # Build the lower hull: only keep counter-clockwise turns
+    # 构建下凸包：只保留逆时针转向
     lower_hull: list[Point] = []
     for candidate_point in unique_sorted_points:
         while (
@@ -112,7 +108,7 @@ def monotone_chain(points: list[Point]) -> list[Point]:
             lower_hull.pop()
         lower_hull.append(candidate_point)
 
-    # Build the upper hull: only keep counter-clockwise turns
+    # 构建上凸包：只保留逆时针转向
     upper_hull: list[Point] = []
     for candidate_point in reversed(unique_sorted_points):
         while (
@@ -123,7 +119,7 @@ def monotone_chain(points: list[Point]) -> list[Point]:
             upper_hull.pop()
         upper_hull.append(candidate_point)
 
-    # Omit the last point of each half because it is repeated at the ends
+    # 每一半的最后一点会在端部重复，因此将其省略
     return lower_hull[:-1] + upper_hull[:-1]
 
 

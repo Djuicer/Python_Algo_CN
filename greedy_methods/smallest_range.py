@@ -13,11 +13,11 @@ def smallest_range(nums: list[list[int]]) -> list[int]:
 
     使用最小堆（Min Heap）提高效率。区间至少包含每个列表中的一个数。
 
-    Args:
-        `nums`: 由 k 个有序整数列表组成的列表。
+    参数：
+        `nums`：由 k 个有序整数列表组成的列表。
 
-    Returns:
-        list: 以两个元素组成的列表表示最小区间。
+    返回：
+        list：以两个元素组成的列表表示最小区间。
 
     示例：
 
@@ -69,4 +69,4 @@ if __name__ == "__main__":
     from doctest import testmod
 
     testmod()
-    print(f"{smallest_range([[1, 2, 3], [1, 2, 3], [1, 2, 3]])}")  # Output: [1, 1]
+    print(f"{smallest_range([[1, 2, 3], [1, 2, 3], [1, 2, 3]])}")  # 输出：[1, 1]

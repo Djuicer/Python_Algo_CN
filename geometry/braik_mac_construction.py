@@ -1,7 +1,7 @@
 """
 braikenridge_maclaurin_construction
 https://mathworld.wolfram.com/ConicSection.html
-5 Points define a conic section on a 2D normal orthogonal plane using this technique.
+此方法使用 5 个点在二维标准正交平面上确定一条圆锥曲线。
 """
 
 from __future__ import annotations
@@ -14,9 +14,8 @@ from numpy import array, linalg
 @dataclass
 class Point:
     """
-    A point defined by 2 floats representing a length on a normalized
-    orthogonal coordinate system
-    default coordinate is the origin
+    在标准正交坐标系中由两个表示长度的浮点数定义的点。
+    默认坐标为原点。
 
     >>> Point(-1.0, 0.0)
     Point(x=-1.0, y=0.0)
@@ -35,8 +34,7 @@ class Point:
 @dataclass
 class BraikMac:
     """
-    Given a list of 5 points, determine the corresponding
-    conic section equation and provide it to the user
+    给定由 5 个点组成的列表，确定并返回对应的圆锥曲线方程。
 
     | x**2   xy  y**2  x  y  1 |
     | x1**2 x1y1 y1**2 x1 y1 1 |

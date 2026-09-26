@@ -1,4 +1,4 @@
-"""A recursive implementation of 0-N Knapsack Problem
+"""0-N 背包问题（Knapsack Problem）的递归实现。
 https://en.wikipedia.org/wiki/Knapsack_problem
 """
 
@@ -15,9 +15,8 @@ def knapsack(
     allow_repetition=False,
 ) -> int:
     """
-    Returns the maximum value that can be put in a knapsack of a capacity cap,
-    whereby each weight w has a specific value val
-    with option to allow repetitive selection of items
+    返回容量为 cap 的背包能够装入的最大价值，其中每个重量 w 都有对应价值 val，
+    并可选择是否允许重复选取物品。
 
     >>> cap = 50
     >>> val = [60, 100, 120]
@@ -26,29 +25,27 @@ def knapsack(
     >>> knapsack(cap, w, val, c)
     220
 
-    Given the repetition is NOT allowed,
-    the result is 220 cause the values of 100 and 120 got the weight of 50
-    which is the limit of the capacity.
+    不允许重复选取时，结果为 220，因为价值 100 和 120 对应物品的总重量为 50，
+    恰好达到容量上限。
     >>> knapsack(cap, w, val, c, True)
     300
 
-    Given the repetition is allowed,
-    the result is 300 cause the values of 60*5 (pick 5 times)
-    got the weight of 10*5 which is the limit of the capacity.
+    允许重复选取时，结果为 300，因为价值为 60 的物品选取 5 次，
+    总价值为 60*5，总重量为 10*5，恰好达到容量上限。
     """
 
     @lru_cache
     def knapsack_recur(capacity: int, counter: int) -> int:
-        # Base Case
+        # 基本情况
         if counter == 0 or capacity == 0:
             return 0
 
-        # If weight of the nth item is more than Knapsack of capacity,
-        #   then this item cannot be included in the optimal solution,
-        # else return the maximum of two cases:
-        #   (1) nth item included only once (0-1), if allow_repetition is False
-        #       nth item included one or more times (0-N), if allow_repetition is True
-        #   (2) not included
+        # 如果第 n 个物品的重量超过背包容量，
+        #   则该物品不能加入最优解；
+        # 否则返回以下两种情况的最大值：
+        #   (1) allow_repetition 为 False 时，第 n 个物品只选一次（0-1）；
+        #       allow_repetition 为 True 时，第 n 个物品选取一次或多次（0-N）
+        #   (2) 不选取该物品
         if weights[counter - 1] > capacity:
             return knapsack_recur(capacity, counter - 1)
         else:

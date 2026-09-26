@@ -1,15 +1,14 @@
 """
-Rotating Calipers Algorithm for Convex Polygon Diameter.
+用于计算凸多边形直径的旋转卡壳（Rotating Calipers）算法。
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Rotating_calipers
 - https://cp-algorithms.com/geometry/convex-hull-kernel.html
 - Toussaint, G. T. (1983). "Solving geometric problems with the rotating calipers".
   Proceedings of IEEE MELECON '83, Athens, Greece.
 
-The rotating calipers paradigm allows computing the diameter (the maximum Euclidean
-distance between any pair of points) of a set of 2D points in O(n log n) time
-(O(n log n) for the convex hull and O(n) for the calipers sweep).
+旋转卡壳方法可在 O(n log n) 时间内计算二维点集的直径（任意两点间的最大欧几里得距离），
+其中构建凸包需要 O(n log n)，卡壳扫描需要 O(n)。
 """
 
 from __future__ import annotations
@@ -20,7 +19,7 @@ from typing import NamedTuple
 
 class Point(NamedTuple):
     """
-    A 2D point with real-valued coordinates.
+    坐标为实数的二维点。
 
     >>> Point(0.0, 0.0)
     Point(x=0.0, y=0.0)
@@ -34,13 +33,12 @@ class Point(NamedTuple):
 
 def cross_product(origin: Point, point_a: Point, point_b: Point) -> float:
     """
-    Compute the 2D cross product of vectors (origin -> point_a) and (origin -> point_b).
+    计算向量 (origin -> point_a) 与 (origin -> point_b) 的二维叉积。
 
-    The return value represents twice the signed area of triangle
-    (origin, point_a, point_b):
-        > 0 : Counter-clockwise turn (left turn)
-        < 0 : Clockwise turn (right turn)
-        = 0 : Collinear points
+    返回值表示三角形 (origin, point_a, point_b) 带符号面积的两倍：
+        > 0：逆时针转向（左转）
+        < 0：顺时针转向（右转）
+        = 0：三点共线
 
     >>> cross_product(Point(0.0, 0.0), Point(1.0, 0.0), Point(1.0, 1.0))
     1.0
@@ -56,7 +54,7 @@ def cross_product(origin: Point, point_a: Point, point_b: Point) -> float:
 
 def distance_squared(point_a: Point, point_b: Point) -> float:
     """
-    Compute the squared Euclidean distance between point_a and point_b.
+    计算 point_a 与 point_b 之间欧几里得距离的平方。
 
     >>> distance_squared(Point(0.0, 0.0), Point(3.0, 4.0))
     25.0
@@ -70,11 +68,10 @@ def distance_squared(point_a: Point, point_b: Point) -> float:
 
 def convex_hull(points: list[Point]) -> list[Point]:
     """
-    Compute the convex hull of a set of 2D points in counter-clockwise order
-    using Andrew's monotone chain algorithm.
+    使用 Andrew 单调链算法，按逆时针顺序计算二维点集的凸包。
 
-    Time Complexity: O(n log n) where n is the number of points.
-    Space Complexity: O(n)
+    时间复杂度：O(n log n)，其中 n 为点的数量。
+    空间复杂度：O(n)
 
     >>> convex_hull([Point(0.0, 0.0), Point(1.0, 1.0)])
     [Point(x=0.0, y=0.0), Point(x=1.0, y=1.0)]
@@ -118,15 +115,13 @@ def convex_hull(points: list[Point]) -> list[Point]:
 
 def rotating_calipers(points: list[Point]) -> tuple[float, tuple[Point, Point]]:
     """
-    Find the maximum Euclidean distance (polygon diameter) and an antipodal pair
-    of points for a given set of 2D points using the rotating calipers algorithm.
+    使用旋转卡壳算法，求给定二维点集的最大欧几里得距离（多边形直径）及一对对踵点。
 
-    Time Complexity: O(n log n) for convex hull construction
-        + O(n) for the calipers sweep.
-    Space Complexity: O(n) for the convex hull.
+    时间复杂度：构建凸包为 O(n log n)，卡壳扫描为 O(n)。
+    空间复杂度：O(n)，用于存储凸包。
 
-    Raises:
-        ValueError: If fewer than 2 points are provided.
+    异常：
+        ValueError：当提供的点少于 2 个时。
 
     >>> points = [
     ...     Point(0.0, 0.0),
@@ -177,7 +172,7 @@ def rotating_calipers(points: list[Point]) -> tuple[float, tuple[Point, Point]]:
     max_dist_squared = 0.0
     best_pair = (hull[0], hull[1])
 
-    # Find initial antipodal point furthest from edge hull[0]-hull[1]
+    # 查找距离边 hull[0]-hull[1] 最远的初始对踵点
     antipodal_idx = 1
     while cross_product(
         hull[0], hull[1], hull[(antipodal_idx + 1) % hull_size]

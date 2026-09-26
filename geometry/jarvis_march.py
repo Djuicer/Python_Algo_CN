@@ -1,21 +1,20 @@
 """
-Jarvis March (Gift Wrapping) algorithm for finding the convex hull of a set of points.
+用于求点集凸包的 Jarvis 步进法（Jarvis March，又称 Gift Wrapping）。
 
-The convex hull is the smallest convex polygon that contains all the points.
+凸包是包含所有点的最小凸多边形。
 
-Time Complexity: O(n*h) where n is the number of points and h is the number of
-hull points.
-Space Complexity: O(h) where h is the number of hull points.
+时间复杂度：O(n*h)，其中 n 为点的数量，h 为凸包上的点数。
+空间复杂度：O(h)，其中 h 为凸包上的点数。
 
-USAGE:
-    -> Import this file into your project.
-    -> Use the jarvis_march() function to find the convex hull of a set of points.
-    -> Parameters:
-        -> points: A list of Point objects representing 2D coordinates
+用法：
+    -> 将此文件导入项目。
+    -> 使用 jarvis_march() 函数求点集的凸包。
+    -> 参数：
+        -> points：表示二维坐标的 Point 对象列表
 
-REFERENCES:
-    -> Wikipedia reference: https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
-    -> GeeksforGeeks:
+参考资料：
+    -> 维基百科参考资料：https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
+    -> GeeksforGeeks 参考资料：
        https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/
 """
 
@@ -23,7 +22,7 @@ from __future__ import annotations
 
 
 class Point:
-    """Represents a 2D point with x and y coordinates."""
+    """表示具有 x、y 坐标的二维点。"""
 
     def __init__(self, x_coordinate: float, y_coordinate: float) -> None:
         self.x = x_coordinate
@@ -43,12 +42,12 @@ class Point:
 
 def _cross_product(origin: Point, point_a: Point, point_b: Point) -> float:
     """
-    Calculate the cross product of vectors OA and OB.
+    计算向量 OA 与 OB 的叉积。
 
-    Returns:
-        > 0: Counter-clockwise turn (left turn)
-        = 0: Collinear
-        < 0: Clockwise turn (right turn)
+    返回：
+        > 0：逆时针转向（左转）
+        = 0：共线
+        < 0：顺时针转向（右转）
     """
     return (point_a.x - origin.x) * (point_b.y - origin.y) - (point_a.y - origin.y) * (
         point_b.x - origin.x
@@ -56,21 +55,21 @@ def _cross_product(origin: Point, point_a: Point, point_b: Point) -> float:
 
 
 def _is_point_on_segment(p1: Point, p2: Point, point: Point) -> bool:
-    """Check if a point lies on the line segment between p1 and p2."""
-    # Check if point is collinear with segment endpoints
+    """检查点是否位于 p1 与 p2 之间的线段上。"""
+    # 检查点是否与线段端点共线
     cross = (point.y - p1.y) * (p2.x - p1.x) - (point.x - p1.x) * (p2.y - p1.y)
 
     if abs(cross) > 1e-9:
         return False
 
-    # Check if point is within the bounding box of the segment
+    # 检查点是否位于线段的包围盒内
     return min(p1.x, p2.x) <= point.x <= max(p1.x, p2.x) and min(
         p1.y, p2.y
     ) <= point.y <= max(p1.y, p2.y)
 
 
 def _find_leftmost_point(points: list[Point]) -> int:
-    """Find index of leftmost point (and bottom-most in case of tie)."""
+    """查找最左侧点的索引（若并列则取最下方）。"""
     left_idx = 0
     for i in range(1, len(points)):
         if points[i].x < points[left_idx].x or (
@@ -81,9 +80,9 @@ def _find_leftmost_point(points: list[Point]) -> int:
 
 
 def _find_next_hull_point(points: list[Point], current_idx: int) -> int:
-    """Find the next point on the convex hull."""
+    """查找凸包上的下一个点。"""
     next_idx = (current_idx + 1) % len(points)
-    # Ensure next_idx is not the same as current_idx
+    # 确保 next_idx 与 current_idx 不同
     while next_idx == current_idx:
         next_idx = (next_idx + 1) % len(points)
 
@@ -98,7 +97,7 @@ def _find_next_hull_point(points: list[Point], current_idx: int) -> int:
 
 
 def _is_valid_polygon(hull: list[Point]) -> bool:
-    """Check if hull forms a valid polygon (has at least one non-collinear turn)."""
+    """检查凸包是否构成有效多边形（至少有一次非共线转向）。"""
     for i in range(len(hull)):
         p1 = hull[i]
         p2 = hull[(i + 1) % len(hull)]
@@ -109,7 +108,7 @@ def _is_valid_polygon(hull: list[Point]) -> bool:
 
 
 def _add_point_to_hull(hull: list[Point], point: Point) -> None:
-    """Add a point to hull, removing collinear intermediate points."""
+    """向凸包添加一个点，并移除共线的中间点。"""
     last = len(hull) - 1
     if len(hull) > 1 and _is_point_on_segment(hull[last - 1], hull[last], point):
         hull[last] = Point(point.x, point.y)
@@ -119,22 +118,21 @@ def _add_point_to_hull(hull: list[Point], point: Point) -> None:
 
 def jarvis_march(points: list[Point]) -> list[Point]:
     """
-    Find the convex hull of a set of points using the Jarvis March algorithm.
+    使用 Jarvis 步进法求点集的凸包。
 
-    The algorithm starts with the leftmost point and wraps around the set of
-    points, selecting the most counter-clockwise point at each step.
+    算法从最左侧的点开始包围点集，每一步选择最偏逆时针方向的点。
 
-    Args:
-        points: List of Point objects representing 2D coordinates
+    参数：
+        points：表示二维坐标的 Point 对象列表
 
-    Returns:
-        List of Points that form the convex hull in counter-clockwise order.
-        Returns empty list if there are fewer than 3 non-collinear points.
+    返回：
+        按逆时针顺序构成凸包的 Point 列表。
+        若非共线点少于 3 个，则返回空列表。
     """
     if len(points) <= 2:
         return []
 
-    # Remove duplicate points to avoid infinite loops
+    # 移除重复点以避免无限循环
     unique_points = list(set(points))
 
     if len(unique_points) <= 2:
@@ -142,7 +140,7 @@ def jarvis_march(points: list[Point]) -> list[Point]:
 
     convex_hull: list[Point] = []
 
-    # Find the leftmost point
+    # 查找最左侧的点
     left_point_idx = _find_leftmost_point(unique_points)
     convex_hull.append(
         Point(unique_points[left_point_idx].x, unique_points[left_point_idx].y)
@@ -150,7 +148,7 @@ def jarvis_march(points: list[Point]) -> list[Point]:
 
     current_idx = left_point_idx
     while True:
-        # Find the next counter-clockwise point
+        # 查找下一个逆时针方向的点
         next_idx = _find_next_hull_point(unique_points, current_idx)
 
         if next_idx == left_point_idx:
@@ -162,18 +160,18 @@ def jarvis_march(points: list[Point]) -> list[Point]:
         current_idx = next_idx
         _add_point_to_hull(convex_hull, unique_points[current_idx])
 
-    # Check for degenerate cases
+    # 检查退化情况
     if len(convex_hull) <= 2:
         return []
 
-    # Check if last point is collinear with first and second-to-last
+    # 检查最后一点是否与第一点和倒数第二点共线
     last = len(convex_hull) - 1
     if _is_point_on_segment(convex_hull[last - 1], convex_hull[last], convex_hull[0]):
         convex_hull.pop()
         if len(convex_hull) == 2:
             return []
 
-    # Verify the hull forms a valid polygon
+    # 验证凸包是否构成有效多边形
     if not _is_valid_polygon(convex_hull):
         return []
 
@@ -181,7 +179,7 @@ def jarvis_march(points: list[Point]) -> list[Point]:
 
 
 if __name__ == "__main__":
-    # Example usage
+    # 使用示例
     points = [Point(0, 0), Point(1, 1), Point(0, 1), Point(1, 0), Point(0.5, 0.5)]
     hull = jarvis_march(points)
     print(f"Convex hull: {hull}")

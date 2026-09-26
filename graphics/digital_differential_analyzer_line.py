@@ -7,34 +7,27 @@ def digital_differential_analyzer_line(
     p1: tuple[int, int], p2: tuple[int, int]
 ) -> list[tuple[int, int]]:
     """
-    Digital Differential Analyzer (DDA) Line Drawing Algorithm.
+    数字微分分析器（Digital Differential Analyzer, DDA）直线绘制算法。
 
-    Draw a straight line between two points by calculating the difference in
-    x (dx) and y (dy) coordinates and incrementally stepping through the
-    dominant axis while updating the other axis using fractional increments.
+    通过计算两点的 x 坐标差 dx 和 y 坐标差 dy，在主轴上逐步移动，
+    同时使用小数增量更新另一坐标轴，从而在两点之间绘制直线。
 
-    One of the main disadvantages of the DDA algorithm is its reliance on
-    floating-point arithmetic, which can introduce rounding errors at each step.
-    Because of this, it is generally slower and less accurate than the
-    Bresenham line drawing algorithm, which uses only integer arithmetic.
+    DDA 算法的主要缺点之一是依赖浮点运算，这可能在每一步引入舍入误差。
+    因此，它通常比仅使用整数运算的 Bresenham 直线绘制算法更慢且精度更低。
 
-    Despite this, DDA is useful for educational purposes as it is simple
-    to understand and demonstrates the basic idea of incremental line generation.
+    尽管如此，DDA 易于理解，并能展示增量式生成直线的基本思想，适合教学使用。
 
-    This algorithm works by calculating the dx (change in x) and dy (change in y) and
-    then iteratively steps along the dominant axis, incrementing the other axis by a
-    fractional amount (the slope).
-    It is notable for its simplicity but also for its main disadvantage:
-    * it relies on floating-point arithmetic at every step, which is computationally
-      slow.
-    * it is generally outperformed by Bresenham's algorithm, which achieves the same
-      result using only integer-based math.
+    该算法计算 dx（x 的变化量）和 dy（y 的变化量），随后沿主轴迭代移动，
+    并以小数增量（斜率）更新另一坐标轴。
+    它结构简单，但也存在主要缺点：
+    * 每一步都依赖浮点运算，计算速度较慢。
+    * Bresenham 算法仅使用整数运算即可得到相同结果，性能通常优于该算法。
 
-    Args:
-      - p1: Coordinates of the starting point.
-      - p2: Coordinates of the ending point.
-    Returns:
-      - List of coordinate points that form the line.
+    参数：
+      - p1：起点坐标。
+      - p2：终点坐标。
+    返回：
+      - 构成直线的坐标点列表。
 
     >>> digital_differential_analyzer_line((1, 1), (4, 4))
     [(2, 2), (3, 3), (4, 4)]

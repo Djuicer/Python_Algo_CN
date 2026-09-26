@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 
 from numpy import array, linalg
 
-# Define a Point on a 2D normalized orthogonal euclidean grid
+# 在二维标准正交欧几里得网格上定义一个点
 # https://mathworld.wolfram.com/Circumcenter.html
 # https://mathworld.wolfram.com/Incenter.html
 # https://mathworld.wolfram.com/Orthocenter.html
@@ -14,9 +14,8 @@ from numpy import array, linalg
 @dataclass
 class Point:
     """
-    A point defined by 2 floats representing a length on a normalized
-    orthogonal coordinate system
-    default coordinate is the origin
+    在标准正交坐标系中由两个表示长度的浮点数定义的点。
+    默认坐标为原点。
 
     >>> Point(-1.0, 0.0)
     Point(x=-1.0, y=0.0)
@@ -36,7 +35,7 @@ class Point:
 @dataclass
 class Triangle:
     """
-    A 3 point Triangle on a 2D normalized orthogonal euclidean grid
+    二维标准正交欧几里得网格上由三个点定义的三角形。
 
     >>> p1 = Point(-1.0,0.0)
     >>> p2 = Point(1.0,0.0)
@@ -55,17 +54,17 @@ class Triangle:
     ortho: Point = field(default_factory=Point)
 
     def __post_init__(self) -> None:
-        # Check for valid arguments
+        # 检查参数是否有效
         if (
             not isinstance(self.v1, Point)
             or not isinstance(self.v2, Point)
             or not isinstance(self.v3, Point)
         ):
             raise TypeError("All 3 arguments should be Point Objects")
-        # Check for 3 unique points
+        # 检查三个点是否互不相同
         if self.v1 in (self.v2, self.v3):
             raise TypeError("All 3 arguments should be unique")
-        # Check for linearity
+        # 检查是否共线
         if self.v1.x == self.v2.x and self.v3.y == self.v2.y:
             raise TypeError("One or more arguments are redundant")
         m = (self.v1.y - self.v2.y) / (self.v1.x - self.v2.x)
@@ -73,7 +72,7 @@ class Triangle:
         if self.v3.y == m * self.v3.x + yb:
             raise TypeError("One or more arguments are redundant")
 
-    # Circumcenter
+    # 外心
     @property
     def circumcenter(self) -> Point:
         m_0 = array(
@@ -104,7 +103,7 @@ class Triangle:
         self.circum.y = -by / (2 * a)
         return self.circum
 
-    # Incenter
+    # 内心
     @property
     def incenter(self) -> Point:
         a = math.sqrt((self.v2.x - self.v3.x) ** 2 + (self.v2.y - self.v3.y) ** 2)
@@ -114,7 +113,7 @@ class Triangle:
         self.incen.y = (a * self.v1.y + b * self.v2.y + c * self.v3.y) / (a + b + c)
         return self.incen
 
-    # Orthocenter
+    # 垂心
     @property
     def orthocenter(self) -> Point:
         inv_m1 = -1 / ((self.v3.y - self.v1.y) / (self.v3.x - self.v1.x))
