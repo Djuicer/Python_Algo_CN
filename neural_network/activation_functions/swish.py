@@ -1,16 +1,14 @@
 """
-This script demonstrates the implementation of the Sigmoid Linear Unit (SiLU)
-or swish function.
+本脚本演示 Sigmoid 线性单元（SiLU），即 Swish 函数的实现。
 * https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
 * https://en.wikipedia.org/wiki/Swish_function
 
-The function takes a vector x of K real numbers as input and returns x * sigmoid(x).
-Swish is a smooth, non-monotonic function defined as f(x) = x * sigmoid(x).
-Extensive experiments shows that Swish consistently matches or outperforms ReLU
-on deep networks applied to a variety of challenging domains such as
-image classification and machine translation.
+该函数接收包含 K 个实数的向量 x，并返回 x * sigmoid(x)。
+Swish 是一种平滑的非单调函数，定义为 f(x) = x * sigmoid(x)。
+大量实验表明，在图像分类和机器翻译等多种具有挑战性的领域中，
+Swish 在深度网络上的表现始终不逊于或优于 ReLU。
 
-This script is inspired by a corresponding research paper.
+本脚本受相关研究论文启发。
 * https://arxiv.org/abs/1710.05941
 * https://blog.paperspace.com/swish-activation-function/
 """
@@ -20,8 +18,7 @@ import numpy as np
 
 def sigmoid(vector: np.ndarray) -> np.ndarray:
     """
-    Mathematical function sigmoid takes a vector x of K real numbers as input and
-    returns 1/ (1 + e^-x).
+    数学函数 sigmoid 接收包含 K 个实数的向量 x，并返回 1/ (1 + e^-x)。
     https://en.wikipedia.org/wiki/Sigmoid_function
 
     >>> sigmoid(np.array([-1.0, 1.0, 2.0]))
@@ -32,15 +29,15 @@ def sigmoid(vector: np.ndarray) -> np.ndarray:
 
 def sigmoid_linear_unit(vector: np.ndarray) -> np.ndarray:
     """
-    Implements the Sigmoid Linear Unit (SiLU) or swish function
+    实现 Sigmoid 线性单元（SiLU），即 Swish 函数。
 
-    Parameters:
-        vector (np.ndarray): A  numpy array consisting of real values
+    参数：
+        vector (np.ndarray): 由实数组成的 NumPy 数组
 
-    Returns:
-        swish_vec (np.ndarray): The input numpy array, after applying swish
+    返回：
+        swish_vec (np.ndarray): 应用 Swish 后的输入 NumPy 数组
 
-    Examples:
+    示例：
     >>> sigmoid_linear_unit(np.array([-1.0, 1.0, 2.0]))
     array([-0.26894142,  0.73105858,  1.76159416])
 
@@ -52,14 +49,14 @@ def sigmoid_linear_unit(vector: np.ndarray) -> np.ndarray:
 
 def swish(vector: np.ndarray, trainable_parameter: int) -> np.ndarray:
     """
-    Parameters:
-        vector (np.ndarray): A  numpy array consisting of real values
-        trainable_parameter: Use to implement various Swish Activation Functions
+    参数：
+        vector (np.ndarray): 由实数组成的 NumPy 数组
+        trainable_parameter: 用于实现不同的 Swish 激活函数
 
-    Returns:
-        swish_vec (np.ndarray): The input numpy array, after applying swish
+    返回：
+        swish_vec (np.ndarray): 应用 Swish 后的输入 NumPy 数组
 
-    Examples:
+    示例：
     >>> swish(np.array([-1.0, 1.0, 2.0]), 2)
     array([-0.11920292,  0.88079708,  1.96402758])
 

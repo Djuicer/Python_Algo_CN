@@ -1,8 +1,8 @@
 """
-Squareplus Activation Function
+Squareplus 激活函数
 
-Use Case: Squareplus designed to enhance positive values and suppress negative values.
-For more detailed information, you can refer to the following link:
+用途：Squareplus 旨在增强正值并抑制负值。
+更多详细信息请参阅以下链接：
 https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Squareplus
 """
 
@@ -11,18 +11,18 @@ import numpy as np
 
 def squareplus(vector: np.ndarray, beta: float) -> np.ndarray:
     """
-    Implements the SquarePlus activation function.
+    实现 Squareplus 激活函数。
 
-    Parameters:
-        vector (np.ndarray): The input array for the SquarePlus activation.
-        beta (float): size of the curved region
+    参数：
+        vector (np.ndarray): Squareplus 激活函数的输入数组。
+        beta (float): 曲线区域的大小
 
-    Returns:
-        np.ndarray: The input array after applying the SquarePlus activation.
+    返回：
+        np.ndarray: 应用 Squareplus 激活函数后的输入数组。
 
-    Formula: f(x) = ( x + sqrt(x^2 + b) ) / 2
+    公式：f(x) = ( x + sqrt(x^2 + b) ) / 2
 
-    Examples:
+    示例：
     >>> squareplus(np.array([2.3, 0.6, -2, -3.8]), beta=2)
     array([2.5       , 1.06811457, 0.22474487, 0.12731349])
 

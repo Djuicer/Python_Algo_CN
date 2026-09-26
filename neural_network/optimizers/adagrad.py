@@ -1,8 +1,8 @@
 """
-Adagrad Optimizer
+Adagrad 优化器
 
-Implements Adagrad (Adaptive Gradient) for neural network training using NumPy.
-Adagrad adapts the learning rate for each parameter based on historical gradients.
+使用 NumPy 实现用于神经网络训练的 Adagrad（Adaptive Gradient）。
+Adagrad 根据历史梯度分别调整每个参数的学习率。
 
 Reference: https://en.wikipedia.org/wiki/Stochastic_gradient_descent#AdaGrad
 Author: Adhithya Laxman Ravi Shankar Geetha
@@ -14,20 +14,20 @@ import numpy as np
 
 class Adagrad:
     """
-    Adagrad optimizer.
+    Adagrad 优化器。
 
-    Adapts learning rate individually for each parameter:
+    分别调整每个参数的学习率：
         accumulated_grad += gradient^2
         param = param - (learning_rate / sqrt(accumulated_grad + epsilon)) * gradient
     """
 
     def __init__(self, learning_rate: float = 0.01, epsilon: float = 1e-8) -> None:
         """
-        Initialize Adagrad optimizer.
+        初始化 Adagrad 优化器。
 
-        Args:
-            learning_rate (float): Initial learning rate.
-            epsilon (float): Small constant for numerical stability.
+        参数：
+            learning_rate (float): 初始学习率。
+            epsilon (float): 用于保证数值稳定性的小常数。
 
         >>> optimizer = Adagrad(learning_rate=0.01, epsilon=1e-8)
         >>> optimizer.learning_rate
@@ -41,15 +41,15 @@ class Adagrad:
         self, param_id: int, params: np.ndarray, gradients: np.ndarray
     ) -> np.ndarray:
         """
-        Update parameters using Adagrad.
+        使用 Adagrad 更新参数。
 
-        Args:
-            param_id (int): Unique identifier for parameter group.
-            params (np.ndarray): Current parameters.
-            gradients (np.ndarray): Gradients of parameters.
+        参数：
+            param_id (int): 参数组的唯一标识符。
+            params (np.ndarray): 当前参数。
+            gradients (np.ndarray): 参数的梯度。
 
-        Returns:
-            np.ndarray: Updated parameters.
+        返回：
+            np.ndarray: 更新后的参数。
 
         >>> optimizer = Adagrad(learning_rate=0.1)
         >>> params = np.array([1.0, 2.0])
@@ -68,7 +68,7 @@ class Adagrad:
         return params - adjusted_lr * gradients
 
 
-# Usage example
+# 使用示例
 if __name__ == "__main__":
     import doctest
 

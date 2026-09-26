@@ -1,8 +1,8 @@
 """
-Mish Activation Function
+Mish 激活函数
 
-Use Case: Improved version of the ReLU activation function used in Computer Vision.
-For more detailed information, you can refer to the following link:
+用途：用于计算机视觉的 ReLU 激活函数改进版本。
+更多详细信息请参阅以下链接：
 https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Mish
 """
 
@@ -13,18 +13,18 @@ from .softplus import softplus
 
 def mish(vector: np.ndarray) -> np.ndarray:
     """
-        Implements the Mish activation function.
+        实现 Mish 激活函数。
 
-        Parameters:
-            vector (np.ndarray): The input array for Mish activation.
+        参数：
+            vector (np.ndarray): Mish 激活函数的输入数组。
 
-        Returns:
-            np.ndarray: The input array after applying the Mish activation.
+        返回：
+            np.ndarray: 应用 Mish 激活函数后的输入数组。
 
-        Formula:
+        公式：
             f(x) = x * tanh(softplus(x)) = x * tanh(ln(1 + e^x))
 
-    Examples:
+    示例：
     >>> mish(vector=np.array([2.3,0.6,-2,-3.8]))
     array([ 2.26211893,  0.46613649, -0.25250148, -0.08405831])
 

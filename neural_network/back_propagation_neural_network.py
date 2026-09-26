@@ -2,15 +2,15 @@
 
 """
 
-A Framework of Back Propagation Neural Network (BP) model
+反向传播神经网络（Back Propagation Neural Network，BP）模型框架
 
-Easy to use:
-    * add many layers as you want ! ! !
-    * clearly see how the loss decreasing
-Easy to expand:
-    * more activation functions
-    * more loss functions
-    * more optimization method
+易于使用：
+    * 可按需添加任意数量的层
+    * 可清晰观察损失下降过程
+易于扩展：
+    * 更多激活函数
+    * 更多损失函数
+    * 更多优化方法
 
 Author: Stephen Lee
 Github : https://github.com/RiptideBo
@@ -28,18 +28,18 @@ def sigmoid(x: np.ndarray) -> np.ndarray:
 
 class DenseLayer:
     """
-    Layers of BP neural network
+    BP 神经网络的层
     """
 
     def __init__(
         self, units, activation=None, learning_rate=None, is_input_layer=False
     ) -> None:
         """
-        common connected layer of bp network
-        :param units: numbers of neural units
-        :param activation: activation function
-        :param learning_rate: learning rate for paras
-        :param is_input_layer: whether it is input layer or not
+        BP 网络的普通全连接层
+        :param units: 神经元数量
+        :param activation: 激活函数
+        :param learning_rate: 参数的学习率
+        :param is_input_layer: 是否为输入层
         """
         self.units = units
         self.weight = None
@@ -58,7 +58,7 @@ class DenseLayer:
             self.activation = sigmoid
 
     def cal_gradient(self):
-        # activation function may be sigmoid or linear
+        # 激活函数可以是 sigmoid 或线性函数
         if self.activation == sigmoid:
             gradient_mat = np.dot(self.output, (1 - self.output).T)
             gradient_activation = np.diag(np.diag(gradient_mat))
@@ -69,7 +69,7 @@ class DenseLayer:
     def forward_propagation(self, xdata):
         self.xdata = xdata
         if self.is_input_layer:
-            # input layer
+            # 输入层
             self.wx_plus_b = xdata
             self.output = xdata
             return xdata
@@ -89,16 +89,16 @@ class DenseLayer:
         self.gradient_weight = np.dot(gradient.T, self._gradient_weight.T)
         self.gradient_bias = gradient * self._gradient_bias
         self.gradient = np.dot(gradient, self._gradient_x).T
-        # upgrade: the Negative gradient direction
+        # 沿负梯度方向更新
         self.weight = self.weight - self.learn_rate * self.gradient_weight
         self.bias = self.bias - self.learn_rate * self.gradient_bias.T
-        # updates the weights and bias according to learning rate (0.3 if undefined)
+        # 根据学习率更新权重和偏置（未定义时为 0.3）
         return self.gradient
 
 
 class BPNN:
     """
-    Back Propagation Neural Network model
+    反向传播神经网络模型
     """
 
     def __init__(self) -> None:
@@ -136,14 +136,14 @@ class BPNN:
                 _xdata = np.asmatrix(xdata[row, :]).T
                 _ydata = np.asmatrix(ydata[row, :]).T
 
-                # forward propagation
+                # 前向传播
                 for layer in self.layers:
                     _xdata = layer.forward_propagation(_xdata)
 
                 loss, gradient = self.cal_loss(_ydata, _xdata)
                 all_loss = all_loss + loss
 
-                # back propagation: the input_layer does not upgrade
+                # 反向传播：输入层不更新
                 for layer in self.layers[:0:-1]:
                     gradient = layer.back_propagation(gradient)
 
@@ -160,7 +160,7 @@ class BPNN:
     def cal_loss(self, ydata, ydata_):
         self.loss = np.sum(np.power((ydata - ydata_), 2))
         self.loss_gradient = 2 * (ydata_ - ydata)
-        # vector (shape is the same as _ydata.shape)
+        # 向量（形状与 _ydata.shape 相同）
         return self.loss, self.loss_gradient
 
     def plot_loss(self) -> None:

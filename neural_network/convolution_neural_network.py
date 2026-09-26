@@ -1,13 +1,13 @@
 """
  - - - - - -- - - - - - - - - - - - - - - - - - - - - - -
-Name - - CNN - Convolution Neural Network For Photo Recognizing
-Goal - - Recognize Handwriting Word Photo
-Detail: Total 5 layers neural network
-        * Convolution layer
-        * Pooling layer
-        * Input layer layer of BP
-        * Hidden layer of BP
-        * Output layer of BP
+名称 - - CNN - 用于图像识别的卷积神经网络
+目标 - - 识别手写文字图像
+详情：共包含 5 层神经网络
+        * 卷积层
+        * 池化层
+        * BP 输入层
+        * BP 隐藏层
+        * BP 输出层
 Author: Stephen Lee
 Github: 245885195@qq.com
 Date: 2017.9.20
@@ -25,13 +25,13 @@ class CNN:
         self, conv1_get, size_p1, bp_num1, bp_num2, bp_num3, rate_w=0.2, rate_t=0.2
     ) -> None:
         """
-        :param conv1_get: [a,c,d], size, number, step of convolution kernel
-        :param size_p1: pooling size
-        :param bp_num1: units number of flatten layer
-        :param bp_num2: units number of hidden layer
-        :param bp_num3: units number of output layer
-        :param rate_w: rate of weight learning
-        :param rate_t: rate of threshold learning
+        :param conv1_get: [a,c,d]，卷积核的大小、数量和步长
+        :param size_p1: 池化大小
+        :param bp_num1: 展平层的单元数
+        :param bp_num2: 隐藏层的单元数
+        :param bp_num3: 输出层的单元数
+        :param rate_w: 权重学习率
+        :param rate_t: 阈值学习率
         """
         self.num_bp1 = bp_num1
         self.num_bp2 = bp_num2
@@ -53,7 +53,7 @@ class CNN:
         self.thre_bp3 = -2 * rng.random(self.num_bp3) + 1
 
     def save_model(self, save_path) -> None:
-        # save model dict with pickle
+        # 使用 pickle 保存模型字典
         model_dic = {
             "num_bp1": self.num_bp1,
             "num_bp2": self.num_bp2,
@@ -77,7 +77,7 @@ class CNN:
 
     @classmethod
     def read_model(cls, model_path):
-        # read saved model
+        # 读取已保存的模型
         with open(model_path, "rb") as f:
             model_dic = pickle.load(f)  # noqa: S301
 
@@ -89,9 +89,9 @@ class CNN:
         bp3 = model_dic.get("num_bp3")
         r_w = model_dic.get("rate_weight")
         r_t = model_dic.get("rate_thre")
-        # create model instance
+        # 创建模型实例
         conv_ins = CNN(conv_get, size_p1, bp1, bp2, bp3, r_w, r_t)
-        # modify model parameter
+        # 修改模型参数
         conv_ins.w_conv1 = model_dic.get("w_conv1")
         conv_ins.wkj = model_dic.get("wkj")
         conv_ins.vji = model_dic.get("vji")
@@ -107,11 +107,11 @@ class CNN:
         return round(x, 3)
 
     def convolute(self, data, convs, w_convs, thre_convs, conv_step):
-        # convolution process
+        # 卷积过程
         size_conv = convs[0]
         num_conv = convs[1]
         size_data = np.shape(data)[0]
-        # get the data slice of original image data, data_focus
+        # 获取原始图像数据的数据切片 data_focus
         data_focus = []
         for i_focus in range(0, size_data - size_conv + 1, conv_step):
             for j_focus in range(0, size_data - size_conv + 1, conv_step):
@@ -119,7 +119,7 @@ class CNN:
                     i_focus : i_focus + size_conv, j_focus : j_focus + size_conv
                 ]
                 data_focus.append(focus)
-        # calculate the feature map of every single kernel, and saved as list of matrix
+        # 计算每个卷积核的特征图，并保存为矩阵列表
         data_featuremap = []
         size_feature_map = int((size_data - size_conv) / conv_step + 1)
         for i_map in range(num_conv):
@@ -135,7 +135,7 @@ class CNN:
             )
             data_featuremap.append(featuremap)
 
-        # expanding the data slice to one dimension
+        # 将数据切片展开为一维
         focus1_list = []
         for each_focus in data_focus:
             focus1_list.extend(self.Expand_Mat(each_focus))
@@ -143,7 +143,7 @@ class CNN:
         return focus_list, data_featuremap
 
     def pooling(self, featuremaps, size_pooling, pooling_type="average_pool"):
-        # pooling process
+        # 池化过程
         size_map = len(featuremaps[0])
         size_pooled = int(size_map / size_pooling)
         featuremap_pooled = []
@@ -157,17 +157,17 @@ class CNN:
                         j_focus : j_focus + size_pooling,
                     ]
                     if pooling_type == "average_pool":
-                        # average pooling
+                        # 平均池化
                         map_pooled.append(np.average(focus))
                     elif pooling_type == "max_pooling":
-                        # max pooling
+                        # 最大池化
                         map_pooled.append(np.max(focus))
             map_pooled = np.asmatrix(map_pooled).reshape(size_pooled, size_pooled)
             featuremap_pooled.append(map_pooled)
         return featuremap_pooled
 
     def _expand(self, data):
-        # expanding three dimension data to one dimension list
+        # 将三维数据展开为一维列表
         data_expanded = []
         for i in range(len(data)):
             shapes = np.shape(data[i])
@@ -178,7 +178,7 @@ class CNN:
         return data_expanded
 
     def _expand_mat(self, data_mat):
-        # expanding matrix to one dimension list
+        # 将矩阵展开为一维列表
         data_mat = np.asarray(data_mat)
         shapes = np.shape(data_mat)
         data_expanded = data_mat.reshape(1, shapes[0] * shapes[1])
@@ -188,10 +188,10 @@ class CNN:
         self, out_map, pd_pool, num_map, size_map, size_pooling
     ):
         """
-        calculate the gradient from the data slice of pool layer
-        pd_pool: list of matrix
-        out_map: the shape of data slice(size_map*size_map)
-        return: pd_all: list of matrix, [num, size_map, size_map]
+        根据池化层的数据切片计算梯度
+        pd_pool: 矩阵列表
+        out_map: 数据切片的形状（size_map*size_map）
+        return: pd_all: 矩阵列表，[num, size_map, size_map]
         """
         pd_all = []
         i_pool = 0
@@ -212,7 +212,7 @@ class CNN:
     def train(
         self, patterns, datas_train, datas_teach, n_repeat, error_accuracy, draw_e=bool
     ):
-        # model training
+        # 模型训练
         print("----------------------Start Training-------------------------")
         print((" - - Shape: Train_Data  ", np.shape(datas_train)))
         print((" - - Shape: Teach_Data  ", np.shape(datas_teach)))
@@ -248,8 +248,8 @@ class CNN:
                 bp_net_k = np.dot(bp_out2, self.wkj.T) - self.thre_bp3
                 bp_out3 = self.sig(bp_net_k)
 
-                # --------------Model Leaning ------------------------
-                # calculate error and gradient---------------
+                # --------------模型学习------------------------
+                # 计算误差和梯度---------------
                 pd_k_all = np.multiply(
                     (data_teach - bp_out3), np.multiply(bp_out3, (1 - bp_out3))
                 )
@@ -267,8 +267,8 @@ class CNN:
                     shape_featuremap1[1],
                     self.size_pooling1,
                 )
-                # weight and threshold learning process---------
-                # convolution layer
+                # 权重和阈值的学习过程---------
+                # 卷积层
                 for k_conv in range(self.conv1[1]):
                     pd_conv_list = self._expand_mat(pd_conv1_all[k_conv])
                     delta_w = self.rate_weight * np.dot(pd_conv_list, data_focus1)
@@ -281,12 +281,12 @@ class CNN:
                         self.thre_conv1[k_conv]
                         - np.sum(pd_conv1_all[k_conv]) * self.rate_thre
                     )
-                # all connected layer
+                # 全连接层
                 self.wkj = self.wkj + pd_k_all.T * bp_out2 * self.rate_weight
                 self.vji = self.vji + pd_j_all.T * bp_out1 * self.rate_weight
                 self.thre_bp3 = self.thre_bp3 - pd_k_all * self.rate_thre
                 self.thre_bp2 = self.thre_bp2 - pd_j_all * self.rate_thre
-                # calculate the sum error of all single image
+                # 计算所有单幅图像的误差总和
                 errors = np.sum(abs(data_teach - bp_out3))
                 error_count += errors
                 # print('   ----Teach      ',data_teach)
@@ -311,7 +311,7 @@ class CNN:
         return mse
 
     def predict(self, datas_test):
-        # model predict
+        # 模型预测
         produce_out = []
         print("-------------------Start Testing-------------------------")
         print((" - - Shape: Test_Data  ", np.shape(datas_test)))
@@ -337,7 +337,7 @@ class CNN:
         return np.asarray(res)
 
     def convolution(self, data):
-        # return the data of image after convoluting process so we can check it out
+        # 返回卷积后的图像数据，以便检查结果
         data_test = np.asmatrix(data)
         _data_focus1, data_conved1 = self.convolute(
             data_test,
@@ -353,5 +353,5 @@ class CNN:
 
 if __name__ == "__main__":
     """
-    I will put the example in another file
+    示例将放在另一个文件中
     """

@@ -1,8 +1,8 @@
 """
-Nesterov Accelerated Gradient (NAG) Optimizer
+Nesterov 加速梯度（NAG）优化器
 
-Implements Nesterov momentum for neural network training using NumPy.
-NAG looks ahead and computes gradients at the anticipated position.
+使用 NumPy 实现用于神经网络训练的 Nesterov 动量。
+NAG 进行前瞻，并在预期位置计算梯度。
 
 Reference: https://cs231n.github.io/neural-networks-3/#sgd
 Author: Adhithya Laxman Ravi Shankar Geetha
@@ -14,20 +14,20 @@ import numpy as np
 
 class NesterovAcceleratedGradient:
     """
-    Nesterov Accelerated Gradient (NAG) optimizer.
+    Nesterov 加速梯度（NAG）优化器。
 
-    Updates parameters using Nesterov momentum:
+    使用 Nesterov 动量更新参数：
         velocity = momentum * velocity - learning_rate * gradient_at_lookahead
         param = param + velocity
     """
 
     def __init__(self, learning_rate: float = 0.01, momentum: float = 0.9) -> None:
         """
-        Initialize NAG optimizer.
+        初始化 NAG 优化器。
 
-        Args:
-            learning_rate (float): Learning rate for weight updates.
-            momentum (float): Momentum factor.
+        参数：
+            learning_rate (float): 权重更新的学习率。
+            momentum (float): 动量因子。
 
         >>> optimizer = NesterovAcceleratedGradient(learning_rate=0.01, momentum=0.9)
         >>> optimizer.momentum
@@ -41,15 +41,15 @@ class NesterovAcceleratedGradient:
         self, param_id: int, params: np.ndarray, gradients: np.ndarray
     ) -> np.ndarray:
         """
-        Update parameters using NAG.
+        使用 NAG 更新参数。
 
-        Args:
-            param_id (int): Unique identifier for parameter group.
-            params (np.ndarray): Current parameters.
-            gradients (np.ndarray): Gradients at lookahead position.
+        参数：
+            param_id (int): 参数组的唯一标识符。
+            params (np.ndarray): 当前参数。
+            gradients (np.ndarray): 前瞻位置处的梯度。
 
-        Returns:
-            np.ndarray: Updated parameters.
+        返回：
+            np.ndarray: 更新后的参数。
 
         >>> optimizer = NesterovAcceleratedGradient(learning_rate=0.1, momentum=0.9)
         >>> params = np.array([1.0, 2.0])
@@ -72,7 +72,7 @@ class NesterovAcceleratedGradient:
         )
 
 
-# Usage example
+# 使用示例
 if __name__ == "__main__":
     import doctest
 

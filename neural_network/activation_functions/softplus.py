@@ -1,8 +1,8 @@
 """
-Softplus Activation Function
+Softplus 激活函数
 
-Use Case: The Softplus function is a smooth approximation of the ReLU function.
-For more detailed information, you can refer to the following link:
+用途：Softplus 函数是 ReLU 函数的平滑近似。
+更多详细信息请参阅以下链接：
 https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#Softplus
 """
 
@@ -11,17 +11,17 @@ import numpy as np
 
 def softplus(vector: np.ndarray) -> np.ndarray:
     """
-    Implements the Softplus activation function.
+    实现 Softplus 激活函数。
 
-    Parameters:
-        vector (np.ndarray): The input array for the Softplus activation.
+    参数：
+        vector (np.ndarray): Softplus 激活函数的输入数组。
 
-    Returns:
-        np.ndarray: The input array after applying the Softplus activation.
+    返回：
+        np.ndarray: 应用 Softplus 激活函数后的输入数组。
 
-    Formula: f(x) = ln(1 + e^x)
+    公式：f(x) = ln(1 + e^x)
 
-    Examples:
+    示例：
     >>> softplus(np.array([2.3, 0.6, -2, -3.8]))
     array([2.39554546, 1.03748795, 0.12692801, 0.02212422])
 

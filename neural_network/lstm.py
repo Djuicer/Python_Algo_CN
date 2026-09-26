@@ -1,5 +1,5 @@
 """
-A simple implementation of Long Short-Term Memory (LSTM) networks in Python.
+使用 Python 简单实现长短期记忆网络（Long Short-Term Memory，LSTM）。
 """
 
 import numpy as np
@@ -15,12 +15,12 @@ class LongShortTermMemory:
         learning_rate: float = 0.05,
     ) -> None:
         """
-        Initialize the LSTM network with the given data and hyperparameters.
+        使用给定数据和超参数初始化 LSTM 网络。
 
-        :param input_data: The input data as a string.
-        :param hidden_layer_size: The number of hidden units in the LSTM layer.
-        :param training_epochs: The number of training epochs.
-        :param learning_rate: The learning rate.
+        :param input_data: 字符串形式的输入数据。
+        :param hidden_layer_size: LSTM 层中的隐藏单元数。
+        :param training_epochs: 训练轮数。
+        :param learning_rate: 学习率。
 
         >>> lstm = LongShortTermMemory("abcde", hidden_layer_size=10, training_epochs=5,
         ... learning_rate=0.01)
@@ -52,7 +52,7 @@ class LongShortTermMemory:
         self.target_sequence: str = self.input_data[1:]
         self.random_generator: Generator = np.random.default_rng()
 
-        # Initialize attributes used in reset method
+        # 初始化 reset 方法使用的属性
         self.combined_inputs: dict[int, np.ndarray] = {}
         self.hidden_states: dict[int, np.ndarray] = {
             -1: np.zeros((self.hidden_layer_size, 1))
@@ -70,10 +70,10 @@ class LongShortTermMemory:
 
     def one_hot_encode(self, char: str) -> np.ndarray:
         """
-        One-hot encode a character.
+        对字符进行独热编码（One-hot Encoding）。
 
-        :param char: The character to encode.
-        :return: A one-hot encoded vector.
+        :param char: 要编码的字符。
+        :return: 独热编码后的向量。
 
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> output = lstm.one_hot_encode('a')
@@ -93,13 +93,10 @@ class LongShortTermMemory:
 
     def initialize_weights(self) -> None:
         """
-        Initialize the weights and biases for the LSTM network.
+        初始化 LSTM 网络的权重和偏置。
 
-        This method initializes the forget gate, input gate,
-        cell candidate, and output gate weights
-        and biases, as well as the output layer weights and biases.
-        It ensures that the weights
-        and biases have the correct shapes.
+        此方法初始化遗忘门、输入门、候选细胞状态和输出门的权重与偏置，
+        以及输出层的权重与偏置，并确保它们具有正确的形状。
 
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
 
@@ -163,13 +160,13 @@ class LongShortTermMemory:
 
     def init_weights(self, input_dim: int, output_dim: int) -> np.ndarray:
         """
-        Initialize weights with random values.
+        使用随机值初始化权重。
 
-        :param input_dim: The input dimension.
-        :param output_dim: The output dimension.
-        :return: A matrix of initialized weights.
+        :param input_dim: 输入维度。
+        :param output_dim: 输出维度。
+        :return: 初始化后的权重矩阵。
 
-        Example:
+        示例：
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> weights = lstm.init_weights(5, 10)
         >>> isinstance(weights, np.ndarray)
@@ -183,11 +180,11 @@ class LongShortTermMemory:
 
     def sigmoid(self, input_array: np.ndarray, derivative: bool = False) -> np.ndarray:
         """
-        Sigmoid activation function.
+        Sigmoid 激活函数。
 
-        :param input_array: The input array.
-        :param derivative: Whether to compute the derivative.
-        :return: The sigmoid activation or its derivative.
+        :param input_array: 输入数组。
+        :param derivative: 是否计算导数。
+        :return: sigmoid 激活值或其导数。
 
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> output = lstm.sigmoid(input_array=np.array([[1, 2, 3]]))
@@ -205,11 +202,11 @@ class LongShortTermMemory:
 
     def tanh(self, input_array: np.ndarray, derivative: bool = False) -> np.ndarray:
         """
-        Tanh activation function.
+        Tanh 激活函数。
 
-        :param input_array: The input array.
-        :param derivative: Whether to compute the derivative.
-        :return: The tanh activation or its derivative.
+        :param input_array: 输入数组。
+        :param derivative: 是否计算导数。
+        :return: tanh 激活值或其导数。
 
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> output = lstm.tanh(input_array=np.array([[1, 2, 3]]))
@@ -227,10 +224,10 @@ class LongShortTermMemory:
 
     def softmax(self, input_array: np.ndarray) -> np.ndarray:
         """
-        Softmax activation function.
+        Softmax 激活函数。
 
-        :param input_array: The input array.
-        :return: The softmax activation.
+        :param input_array: 输入数组。
+        :return: softmax 激活值。
 
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> output = lstm.softmax(input_array=np.array([1, 2, 3]))
@@ -244,10 +241,10 @@ class LongShortTermMemory:
 
     def reset_network_state(self) -> None:
         """
-        Reset the LSTM network states.
+        重置 LSTM 网络状态。
 
-        Resets the internal states of the LSTM network, including the combined inputs,
-        hidden states, cell states, gate activations, and network outputs.
+        重置 LSTM 网络的内部状态，包括组合输入、隐藏状态、细胞状态、
+        门激活值和网络输出。
 
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> lstm.reset_network_state()
@@ -271,12 +268,12 @@ class LongShortTermMemory:
 
     def forward_pass(self, inputs: list[np.ndarray]) -> list[np.ndarray]:
         """
-        Perform a forward pass through the LSTM network for the given inputs.
+        对给定输入执行 LSTM 网络的前向传播。
 
-        :param inputs: A list of input arrays (sequences).
-        :return: A list of network outputs.
+        :param inputs: 输入数组（序列）列表。
+        :return: 网络输出列表。
 
-        Example:
+        示例：
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> inputs = [np.random.rand(5, 1) for _ in range(5)]
         >>> outputs = lstm.forward_pass(inputs)
@@ -325,12 +322,12 @@ class LongShortTermMemory:
 
     def backward_pass(self, errors: list[np.ndarray], inputs: list[np.ndarray]) -> None:
         """
-        Perform the backward pass for the LSTM model, adjusting weights and biases.
+        对 LSTM 模型执行反向传播，调整权重和偏置。
 
-        :param errors: A list of errors computed from the output layer.
-        :param inputs: A list of input one-hot encoded vectors.
+        :param errors: 根据输出层计算得到的误差列表。
+        :param inputs: 输入独热编码向量列表。
 
-        Example:
+        示例：
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> inputs = [lstm.one_hot_encode(char) for char in lstm.input_sequence]
         >>> predictions = lstm.forward_pass(inputs)
@@ -436,9 +433,9 @@ class LongShortTermMemory:
 
     def train(self) -> None:
         """
-        Train the LSTM model.
+        训练 LSTM 模型。
 
-        Example:
+        示例：
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> lstm.train()
         """
@@ -456,12 +453,12 @@ class LongShortTermMemory:
 
     def test(self) -> str:
         """
-        Test the LSTM model.
+        测试 LSTM 模型。
 
-        Returns:
-            str: The output predictions.
+        返回：
+            str: 预测输出。
 
-        Example:
+        示例：
         >>> lstm = LongShortTermMemory("abcde" * 50, hidden_layer_size=10)
         >>> output = lstm.test()
         >>> isinstance(output, str)
@@ -476,7 +473,7 @@ class LongShortTermMemory:
 
         output = ""
         for t in range(len(self.target_sequence)):
-            # Apply softmax to get probabilities for predictions
+            # 应用 softmax 获取预测概率
             probs = self.softmax(probabilities[t].reshape(-1))
             prediction_index = self.random_generator.choice(
                 self.vocabulary_size, p=probs
@@ -485,7 +482,7 @@ class LongShortTermMemory:
 
             output += prediction
 
-            # Calculate accuracy
+            # 计算准确率
             if prediction == self.target_sequence[t]:
                 accuracy += 1
 

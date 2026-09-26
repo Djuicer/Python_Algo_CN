@@ -1,9 +1,9 @@
 """
-Perceptron
+感知机（Perceptron）
 w = w + N * (d(k) - y) * x(k)
 
-Using perceptron network for oil analysis, with Measuring of 3 parameters
-that represent chemical characteristics we can classify the oil, in p1 or p2
+使用感知机网络分析油品。通过测量代表化学特性的 3 个参数，
+可以将油品分类为 p1 或 p2。
 p1 = -1
 p2 = 1
 
@@ -24,14 +24,14 @@ class Perceptron:
         seed: int | None = 0,
     ) -> None:
         """
-        Initializes a Perceptron network for oil analysis
-        :param sample: sample dataset of 3 parameters with shape [30,3]
-        :param target: variable for classification with two possible states -1 or 1
-        :param learning_rate: learning rate used in optimizing.
-        :param epoch_number: number of epochs to train network on.
-        :param bias: bias value for the network.
-        :param seed: seed for the (internal) random number generator so that
-            training is reproducible; pass ``None`` for non-deterministic weights.
+        初始化用于油品分析的感知机网络
+        :param sample: 包含 3 个参数、形状为 [30,3] 的样本数据集
+        :param target: 用于分类的变量，可能状态为 -1 或 1
+        :param learning_rate: 优化时使用的学习率。
+        :param epoch_number: 网络训练的轮数。
+        :param bias: 网络的偏置值。
+        :param seed: 内部随机数生成器的种子，用于保证训练可复现；
+            传入 ``None`` 可使用非确定性权重。
 
         >>> p = Perceptron([], (0, 1, 2))
         Traceback (most recent call last):
@@ -58,20 +58,19 @@ class Perceptron:
         self.epoch_number = epoch_number
         self.bias = bias
         self.number_sample = len(sample)
-        self.col_sample = len(sample[0])  # number of columns in dataset
+        self.col_sample = len(sample[0])  # 数据集中的列数
         self.weight: list = []
-        # A dedicated RNG instance keeps training reproducible without touching
-        # the global ``random`` state (which other code/tests may rely on).
+        # 独立的随机数生成器实例可以保证训练可复现，且不影响其他代码或测试
+        # 可能依赖的全局 ``random`` 状态。
         self._rng = random.Random(seed)
 
     def training(self) -> int:
         """
-        Trains the perceptron until it stops misclassifying the training data
-        or the maximum number of epochs (``epoch_number``) is reached, whichever
-        comes first. The epoch cap guarantees termination even if the data is
-        not linearly separable.
+        训练感知机，直到不再错误分类训练数据，或达到最大训练轮数
+        （``epoch_number``），以先发生者为准。即使数据不是线性可分的，
+        轮数上限也能保证训练终止。
 
-        :return: the number of epochs the network was trained for.
+        :return: 网络实际训练的轮数。
 
         >>> data = [[2.0149, 0.6192, 10.9263]]
         >>> targets = [-1]
@@ -106,7 +105,7 @@ class Perceptron:
                         )
                     has_misclassified = True
             epoch_count = epoch_count + 1
-            # stop early once every sample is classified correctly
+            # 所有样本均正确分类后提前停止
             if not has_misclassified:
                 break
 
@@ -114,11 +113,10 @@ class Perceptron:
 
     def sort(self, sample: list[float]) -> int:
         """
-        Classifies a single observation as P1 (-1) or P2 (1). The network must
-        be trained first.
+        将单个观测值分类为 P1（-1）或 P2（1）。网络必须先完成训练。
 
-        :param sample: example row to classify as P1 or P2
-        :return: -1 if the sample is classified as P1, otherwise 1
+        :param sample: 要分类为 P1 或 P2 的样本行
+        :return: 样本分类为 P1 时返回 -1，否则返回 1
 
         >>> data = [[2.0149, 0.6192, 10.9263]]
         >>> targets = [-1]
@@ -139,9 +137,9 @@ class Perceptron:
 
     def sign(self, u: float) -> int:
         """
-        threshold function for classification
-        :param u: input number
-        :return: 1 if the input is greater than or equal to 0, otherwise -1
+        用于分类的阈值函数
+        :param u: 输入数值
+        :return: 输入大于或等于 0 时返回 1，否则返回 -1
         >>> data = [[0], [-0.5], [0.5]]
         >>> targets = [1, -1, 1]
         >>> perceptron = Perceptron(data, targets)

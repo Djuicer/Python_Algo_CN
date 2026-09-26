@@ -1,13 +1,12 @@
 """
  - - - - - -- - - - - - - - - - - - - - - - - - - - - - -
 Name - - sliding_window_attention.py
-Goal - - Implement a neural network architecture using sliding
-        window attention for sequence modeling tasks.
-Detail: Total 5 layers neural network
-        * Input layer
-        * Sliding Window Attention Layer
-        * Feedforward Layer
-        * Output Layer
+目标 - - 实现一种使用滑动窗口注意力机制完成序列建模任务的神经网络架构。
+详情：共包含 5 层神经网络
+        * 输入层
+        * 滑动窗口注意力层
+        * 前馈层
+        * 输出层
 Author: Stephen Lee
 Github: 245885195@qq.com
 Date: 2024.10.20
@@ -26,23 +25,22 @@ import numpy as np
 
 
 class SlidingWindowAttention:
-    """Sliding Window Attention Module.
+    """滑动窗口注意力（Sliding Window Attention）模块。
 
-    This class implements a sliding window attention mechanism where
-    the model attends to a fixed-size window of context around each token.
+    此类实现滑动窗口注意力机制，模型关注每个词元周围固定大小的上下文窗口。
 
-    Attributes:
-        window_size (int): The size of the attention window.
-        embed_dim (int): The dimensionality of the input embeddings.
+    属性：
+        window_size (int): 注意力窗口的大小。
+        embed_dim (int): 输入嵌入的维度。
     """
 
     def __init__(self, embed_dim: int, window_size: int) -> None:
         """
-        Initialize the SlidingWindowAttention module.
+        初始化 SlidingWindowAttention 模块。
 
-        Args:
-            embed_dim (int): The dimensionality of the input embeddings.
-            window_size (int): The size of the attention window.
+        参数：
+            embed_dim (int): 输入嵌入的维度。
+            window_size (int): 注意力窗口的大小。
         """
         self.window_size = window_size
         self.embed_dim = embed_dim
@@ -51,14 +49,14 @@ class SlidingWindowAttention:
 
     def forward(self, input_tensor: np.ndarray) -> np.ndarray:
         """
-        Forward pass for the sliding window attention.
+        执行滑动窗口注意力的前向传播。
 
-        Args:
-            input_tensor (np.ndarray): Input tensor of shape (batch_size,
-                                       seq_length, embed_dim).
+        参数：
+            input_tensor (np.ndarray): 形状为 (batch_size,
+                                       seq_length, embed_dim) 的输入张量。
 
-        Returns:
-            np.ndarray: Output tensor of shape (batch_size, seq_length, embed_dim).
+        返回：
+            np.ndarray: 形状为 (batch_size, seq_length, embed_dim) 的输出张量。
 
         >>> x = np.random.randn(2, 10, 4)  # Batch size 2, sequence
         >>> attention = SlidingWindowAttention(embed_dim=4, window_size=3)
@@ -72,17 +70,17 @@ class SlidingWindowAttention:
         output = np.zeros_like(input_tensor)
 
         for i in range(seq_length):
-            # Define the window range
+            # 定义窗口范围
             start = max(0, i - self.window_size // 2)
             end = min(seq_length, i + self.window_size // 2 + 1)
 
-            # Extract the local window
+            # 提取局部窗口
             local_window = input_tensor[:, start:end, :]
 
-            # Compute attention scores
+            # 计算注意力分数
             attention_scores = np.matmul(local_window, self.attention_weights)
 
-            # Average the attention scores
+            # 对注意力分数求平均值
             output[:, i, :] = np.mean(attention_scores, axis=1)
 
         return output
@@ -93,7 +91,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # usage
+    # 使用示例
     rng = np.random.default_rng()
     x = rng.standard_normal((2, 10, 4))  # Batch size 2,
     attention = SlidingWindowAttention(embed_dim=4, window_size=3)

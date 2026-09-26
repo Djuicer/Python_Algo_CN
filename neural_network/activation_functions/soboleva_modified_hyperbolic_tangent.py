@@ -1,10 +1,9 @@
 """
-This script implements the Soboleva Modified Hyperbolic Tangent function.
+本脚本实现 Soboleva 修正双曲正切函数。
 
-The function applies the Soboleva Modified Hyperbolic Tangent function
-to each element of the vector.
+该函数对向量中的每个元素应用 Soboleva 修正双曲正切函数。
 
-More details about the activation function can be found on:
+有关该激活函数的更多详细信息，请参阅：
 https://en.wikipedia.org/wiki/Soboleva_modified_hyperbolic_tangent
 """
 
@@ -15,17 +14,17 @@ def soboleva_modified_hyperbolic_tangent(
     vector: np.ndarray, a_value: float, b_value: float, c_value: float, d_value: float
 ) -> np.ndarray:
     """
-    Implements the Soboleva Modified Hyperbolic Tangent function
+    实现 Soboleva 修正双曲正切函数。
 
-    Parameters:
-        vector (ndarray): A vector that consists of numeric values
-        a_value (float): parameter a of the equation
-        b_value (float): parameter b of the equation
-        c_value (float): parameter c of the equation
-        d_value (float): parameter d of the equation
+    参数：
+        vector (ndarray): 由数值组成的向量
+        a_value (float): 方程中的参数 a
+        b_value (float): 方程中的参数 b
+        c_value (float): 方程中的参数 c
+        d_value (float): 方程中的参数 d
 
-    Returns:
-        vector (ndarray): Input array after applying SMHT function
+    返回：
+        vector (ndarray): 应用 SMHT 函数后的输入数组
 
     >>> vector = np.array([5.4, -2.4, 6.3, -5.23, 3.27, 0.56])
     >>> soboleva_modified_hyperbolic_tangent(vector, 0.2, 0.4, 0.6, 0.8)
@@ -33,12 +32,12 @@ def soboleva_modified_hyperbolic_tangent(
             0.1566043 ])
     """
 
-    # Separate the numerator and denominator for simplicity
-    # Calculate the numerator and denominator element-wise
+    # 为简化计算，将分子和分母分开
+    # 逐元素计算分子和分母
     numerator = np.exp(a_value * vector) - np.exp(-b_value * vector)
     denominator = np.exp(c_value * vector) + np.exp(-d_value * vector)
 
-    # Calculate and return the final result element-wise
+    # 逐元素计算并返回最终结果
     return numerator / denominator
 
 

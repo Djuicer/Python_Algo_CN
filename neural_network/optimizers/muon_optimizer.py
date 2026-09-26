@@ -1,8 +1,8 @@
 """
-Muon Optimizer
+Muon 优化器
 
-Implements Muon optimizer for neural network hidden layers using NumPy.
-Muon uses Newton-Schulz orthogonalization iterations for improved convergence.
+使用 NumPy 实现用于神经网络隐藏层的 Muon 优化器。
+Muon 使用 Newton-Schulz 正交化迭代来改善收敛效果。
 
 Reference: https://kellerjordan.github.io/posts/muon/
 Author: Adhithya Laxman Ravi Shankar Geetha
@@ -14,21 +14,21 @@ import numpy as np
 
 class Muon:
     """
-    Muon optimizer for hidden layer weight matrices.
+    用于隐藏层权重矩阵的 Muon 优化器。
 
-    Applies Newton-Schulz orthogonalization to gradients before updates.
+    更新前对梯度应用 Newton-Schulz 正交化。
     """
 
     def __init__(
         self, learning_rate: float = 0.02, momentum: float = 0.95, ns_steps: int = 5
     ) -> None:
         """
-        Initialize Muon optimizer.
+        初始化 Muon 优化器。
 
-        Args:
-            learning_rate (float): Learning rate for updates.
-            momentum (float): Momentum factor.
-            ns_steps (int): Number of Newton-Schulz iteration steps.
+        参数：
+            learning_rate (float): 更新时使用的学习率。
+            momentum (float): 动量因子。
+            ns_steps (int): Newton-Schulz 迭代步数。
 
         >>> optimizer = Muon(learning_rate=0.02, momentum=0.95, ns_steps=5)
         >>> optimizer.momentum
@@ -41,13 +41,13 @@ class Muon:
 
     def newton_schulz_orthogonalize(self, matrix: np.ndarray) -> np.ndarray:
         """
-        Orthogonalize matrix using Newton-Schulz iterations.
+        使用 Newton-Schulz 迭代对矩阵进行正交化。
 
-        Args:
-            matrix (np.ndarray): Input matrix.
+        参数：
+            matrix (np.ndarray): 输入矩阵。
 
-        Returns:
-            np.ndarray: Orthogonalized matrix.
+        返回：
+            np.ndarray: 正交化后的矩阵。
 
         >>> optimizer = Muon()
         >>> mat = np.array([[1.0, 0.5], [0.5, 1.0]])
@@ -71,15 +71,15 @@ class Muon:
         self, param_id: int, params: np.ndarray, gradients: np.ndarray
     ) -> np.ndarray:
         """
-        Update parameters using Muon.
+        使用 Muon 更新参数。
 
-        Args:
-            param_id (int): Unique identifier for parameter group.
-            params (np.ndarray): Current parameters.
-            gradients (np.ndarray): Gradients of parameters.
+        参数：
+            param_id (int): 参数组的唯一标识符。
+            params (np.ndarray): 当前参数。
+            gradients (np.ndarray): 参数的梯度。
 
-        Returns:
-            np.ndarray: Updated parameters.
+        返回：
+            np.ndarray: 更新后的参数。
 
         >>> optimizer = Muon(learning_rate=0.1, momentum=0.9)
         >>> params = np.array([[1.0, 2.0], [3.0, 4.0]])
@@ -97,7 +97,7 @@ class Muon:
         return params - self.learning_rate * self.velocity[param_id]
 
 
-# Usage example
+# 使用示例
 if __name__ == "__main__":
     import doctest
 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     weights = np.array([[1.0, 2.0], [3.0, 4.0]])
 
     for step in range(10):
-        gradients = 0.1 * weights  # Simplified gradient
+        gradients = 0.1 * weights  # 简化后的梯度
         weights = optimizer.update(0, weights, gradients)
         if step % 3 == 0:
             print(f"Step {step}: weights =\n{weights}")

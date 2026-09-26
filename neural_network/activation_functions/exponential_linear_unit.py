@@ -1,10 +1,9 @@
 """
-Implements the Exponential Linear Unit or ELU function.
+实现指数线性单元（Exponential Linear Unit，ELU）函数。
 
-The function takes a vector of K real numbers and a real number alpha as
-input and then applies the ELU function to each element of the vector.
+该函数接收一个包含 K 个实数的向量和一个实数 alpha，并对向量中的每个元素应用 ELU 函数。
 
-Script inspired from its corresponding Wikipedia article
+本脚本受对应 Wikipedia 文章启发：
 https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
 """
 
@@ -13,16 +12,16 @@ import numpy as np
 
 def exponential_linear_unit(vector: np.ndarray, alpha: float) -> np.ndarray:
     """
-         Implements the ELU activation function.
-         Parameters:
-             vector: the array containing input of elu activation
-             alpha: hyper-parameter
-         return:
-         elu (np.array): The input numpy array after applying elu.
+         实现 ELU 激活函数。
+         参数：
+             vector: 包含 ELU 激活函数输入的数组
+             alpha: 超参数
+         返回：
+         elu (np.array): 应用 ELU 后的输入 NumPy 数组。
 
-         Mathematically, f(x) = x, x>0 else (alpha * (e^x -1)), x<=0, alpha >=0
+         数学定义：f(x) = x, x>0 else (alpha * (e^x -1)), x<=0, alpha >=0
 
-    Examples:
+    示例：
     >>> exponential_linear_unit(vector=np.array([2.3,0.6,-2,-3.8]), alpha=0.3)
     array([ 2.3       ,  0.6       , -0.25939942, -0.29328877])
 

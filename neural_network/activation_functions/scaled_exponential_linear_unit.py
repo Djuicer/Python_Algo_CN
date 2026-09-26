@@ -1,14 +1,10 @@
 """
-Implements the Scaled Exponential Linear Unit or SELU function.
-The function takes a vector of K real numbers and two real numbers
-alpha(default = 1.6732) & lambda (default = 1.0507) as input and
-then applies the SELU function to each element of the vector.
-SELU is a self-normalizing activation function. It is a variant
-of the ELU. The main advantage of SELU is that we can be sure
-that the output will always be standardized due to its
-self-normalizing behavior. That means there is no need to
-include Batch-Normalization layers.
-References :
+实现缩放指数线性单元（Scaled Exponential Linear Unit，SELU）函数。
+该函数接收包含 K 个实数的向量，以及两个实数 alpha（默认值为 1.6732）和
+lambda（默认值为 1.0507），并对向量中的每个元素应用 SELU 函数。
+SELU 是一种自归一化激活函数，也是 ELU 的变体。SELU 的主要优点是其
+自归一化特性可以使输出始终保持标准化，因此无需加入批归一化层。
+参考资料：
 https://iq.opengenus.org/scaled-exponential-linear-unit/
 """
 
@@ -19,16 +15,16 @@ def scaled_exponential_linear_unit(
     vector: np.ndarray, alpha: float = 1.6732, lambda_: float = 1.0507
 ) -> np.ndarray:
     """
-    Applies the Scaled Exponential Linear Unit function to each element of the vector.
-    Parameters :
+    对向量中的每个元素应用缩放指数线性单元函数。
+    参数：
         vector : np.ndarray
         alpha : float (default = 1.6732)
         lambda_ : float (default = 1.0507)
 
-    Returns : np.ndarray
-    Formula : f(x) = lambda_ * x if x > 0
+    返回：np.ndarray
+    公式：f(x) = lambda_ * x if x > 0
                      lambda_ * alpha * (e**x - 1) if x <= 0
-    Examples :
+    示例：
     >>> scaled_exponential_linear_unit(vector=np.array([1.3, 3.7, 2.4]))
     array([1.36591, 3.88759, 2.52168])
 

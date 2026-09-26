@@ -1,12 +1,11 @@
 """
-This script demonstrates an implementation of the Gaussian Error Linear Unit function.
+本脚本演示高斯误差线性单元（Gaussian Error Linear Unit，GELU）函数的实现。
 * https://en.wikipedia.org/wiki/Activation_function#Comparison_of_activation_functions
 
-The function takes a vector of K real numbers as input and returns x * sigmoid(1.702*x).
-Gaussian Error Linear Unit (GELU) is a high-performing neural network activation
-function.
+该函数接收包含 K 个实数的向量，并返回 x * sigmoid(1.702*x)。
+GELU 是一种性能优异的神经网络激活函数。
 
-This script is inspired by a corresponding research paper.
+本脚本受相关研究论文启发。
 * https://arxiv.org/abs/1606.08415
 """
 
@@ -15,8 +14,7 @@ import numpy as np
 
 def sigmoid(vector: np.ndarray) -> np.ndarray:
     """
-    Mathematical function sigmoid takes a vector x of K real numbers as input and
-    returns 1/ (1 + e^-x).
+    数学函数 sigmoid 接收包含 K 个实数的向量 x，并返回 1/ (1 + e^-x)。
     https://en.wikipedia.org/wiki/Sigmoid_function
 
     >>> sigmoid(np.array([-1.0, 1.0, 2.0]))
@@ -27,15 +25,15 @@ def sigmoid(vector: np.ndarray) -> np.ndarray:
 
 def gaussian_error_linear_unit(vector: np.ndarray) -> np.ndarray:
     """
-    Implements the Gaussian Error Linear Unit (GELU) function
+    实现高斯误差线性单元（GELU）函数。
 
-    Parameters:
-        vector (np.ndarray): A  numpy array of shape (1, n) consisting of real values
+    参数：
+        vector (np.ndarray): 由实数组成、形状为 (1, n) 的 NumPy 数组
 
-    Returns:
-        gelu_vec (np.ndarray): The input numpy array, after applying gelu
+    返回：
+        gelu_vec (np.ndarray): 应用 GELU 后的输入 NumPy 数组
 
-    Examples:
+    示例：
     >>> gaussian_error_linear_unit(np.array([-1.0, 1.0, 2.0]))
     array([-0.15420423,  0.84579577,  1.93565862])
 

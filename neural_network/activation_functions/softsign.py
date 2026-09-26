@@ -1,12 +1,12 @@
 """
-This script demonstrates the implementation of the Softsign activation function.
+本脚本演示 Softsign 激活函数的实现。
 
-Softsign is a smooth activation function defined as:
+Softsign 是一种平滑激活函数，定义如下：
 
     f(x) = x / (1 + |x|)
 
-It maps input values into the range (-1, 1), similar to the hyperbolic tangent (tanh)
-function but with a polynomial decay instead of exponential.
+它将输入值映射到 (-1, 1) 范围内，与双曲正切（tanh）函数类似，
+但使用多项式衰减而非指数衰减。
 
 https://en.wikipedia.org/wiki/Activation_function
 https://www.gabormelli.com/RKB/Softsign_Activation_Function
@@ -17,13 +17,13 @@ import numpy as np
 
 def softsign(vector: np.ndarray) -> np.ndarray:
     """
-    Implements the softsign activation function
+    实现 Softsign 激活函数。
 
-    Parameters:
-        vector (ndarray): A vector that consists of numeric values
+    参数：
+        vector (ndarray): 由数值组成的向量
 
-    Returns:
-        vector (ndarray): Input vector after applying softsign function
+    返回：
+        vector (ndarray): 应用 Softsign 函数后的输入向量
 
     >>> vector = np.array([-5, -1, 0, 1, 5])
     >>> softsign(vector)

@@ -1,9 +1,8 @@
 """
-Adam Optimizer
+Adam 优化器
 
-Implements Adam (Adaptive Moment Estimation) for neural network training using NumPy.
-Adam combines momentum and adaptive learning rates using first and
-second moment estimates.
+使用 NumPy 实现用于神经网络训练的 Adam（Adaptive Moment Estimation）。
+Adam 利用一阶矩和二阶矩估计，将动量与自适应学习率相结合。
 
 Reference: https://arxiv.org/abs/1412.6980
 Author: Adhithya Laxman Ravi Shankar Geetha
@@ -15,9 +14,9 @@ import numpy as np
 
 class Adam:
     """
-    Adam optimizer.
+    Adam 优化器。
 
-    Combines momentum and RMSProp:
+    将动量与 RMSProp 相结合：
         m = beta1 * m + (1 - beta1) * gradient
         v = beta2 * v + (1 - beta2) * gradient^2
         m_hat = m / (1 - beta1^t)
@@ -33,13 +32,13 @@ class Adam:
         epsilon: float = 1e-8,
     ) -> None:
         """
-        Initialize Adam optimizer.
+        初始化 Adam 优化器。
 
-        Args:
-            learning_rate (float): Learning rate.
-            beta1 (float): Exponential decay rate for first moment.
-            beta2 (float): Exponential decay rate for second moment.
-            epsilon (float): Small constant for numerical stability.
+        参数：
+            learning_rate (float): 学习率。
+            beta1 (float): 一阶矩的指数衰减率。
+            beta2 (float): 二阶矩的指数衰减率。
+            epsilon (float): 用于保证数值稳定性的小常数。
 
         >>> optimizer = Adam(learning_rate=0.001, beta1=0.9, beta2=0.999)
         >>> optimizer.beta1
@@ -57,15 +56,15 @@ class Adam:
         self, param_id: int, params: np.ndarray, gradients: np.ndarray
     ) -> np.ndarray:
         """
-        Update parameters using Adam.
+        使用 Adam 更新参数。
 
-        Args:
-            param_id (int): Unique identifier for parameter group.
-            params (np.ndarray): Current parameters.
-            gradients (np.ndarray): Gradients of parameters.
+        参数：
+            param_id (int): 参数组的唯一标识符。
+            params (np.ndarray): 当前参数。
+            gradients (np.ndarray): 参数的梯度。
 
-        Returns:
-            np.ndarray: Updated parameters.
+        返回：
+            np.ndarray: 更新后的参数。
 
         >>> optimizer = Adam(learning_rate=0.1)
         >>> params = np.array([1.0, 2.0])
@@ -92,7 +91,7 @@ class Adam:
         return params - self.learning_rate * m_hat / (np.sqrt(v_hat) + self.epsilon)
 
 
-# Usage example
+# 使用示例
 if __name__ == "__main__":
     import doctest
 
