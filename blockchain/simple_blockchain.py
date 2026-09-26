@@ -1,10 +1,10 @@
 """
-A simple blockchain implementation with Proof-of-Work (PoW).
+一个采用工作量证明（Proof of Work，PoW）的简单区块链实现。
 
-This educational example demonstrates:
-- Block structure with index, timestamp, data, previous hash, nonce, and hash
-- Mining via Proof-of-Work
-- Chain integrity verification
+此教学示例展示：
+- 包含索引、时间戳、数据、前一区块哈希、nonce 和哈希的区块结构
+- 通过工作量证明进行挖矿
+- 验证链的完整性
 
 Author: Letitia Gilbert
 """
@@ -15,15 +15,15 @@ from time import time
 
 class Block:
     """
-    Represents a single block in a blockchain.
+    表示区块链中的单个区块。
 
-    Attributes:
-        index (int): Position of the block in the chain.
-        timestamp (float): Creation time of the block.
-        data (str): Data stored in the block.
-        previous_hash (str): Hash of the previous block.
-        nonce (int): Number used for mining.
-        hash (str): SHA256 hash of the block's content.
+    属性：
+        index (int): 区块在链中的位置。
+        timestamp (float): 区块的创建时间。
+        data (str): 区块中存储的数据。
+        previous_hash (str): 前一个区块的哈希。
+        nonce (int): 用于挖矿的数值。
+        hash (str): 区块内容的 SHA256 哈希。
     """
 
     def __init__(
@@ -37,13 +37,13 @@ class Block:
 
     def compute_hash(self, nonce: int) -> str:
         """
-        Compute SHA256 hash of the block with given nonce.
+        使用给定 nonce 计算区块的 SHA256 哈希。
 
-        Args:
-            nonce (int): Nonce to include in the hash.
+        参数：
+            nonce (int): 要包含在哈希计算中的 nonce。
 
-        Returns:
-            str: Hexadecimal hash string.
+        返回：
+            str: 十六进制哈希字符串。
 
         >>> block = Block(0, "Genesis", "0", difficulty=2)
         >>> len(block.compute_hash(0)) == 64
@@ -58,13 +58,13 @@ class Block:
 
     def mine_block(self, difficulty: int) -> tuple[int, str]:
         """
-        Simple Proof-of-Work mining algorithm.
+        简单的工作量证明挖矿算法。
 
-        Args:
-            difficulty (int): Number of leading zeros required in the hash.
+        参数：
+            difficulty (int): 哈希所需的前导零数量。
 
-        Returns:
-            Tuple[int, str]: Valid nonce and resulting hash that satisfies difficulty.
+        返回：
+            Tuple[int, str]: 满足难度要求的有效 nonce 及所得哈希。
 
         >>> block = Block(0, "Genesis", "0", difficulty=2)
         >>> block.hash.startswith('00')
@@ -83,10 +83,10 @@ class Block:
 
 class Blockchain:
     """
-    Simple blockchain class maintaining a list of blocks.
+    维护区块列表的简单区块链类。
 
-    Attributes:
-        chain (List[Block]): List of blocks forming the chain.
+    属性：
+        chain (List[Block]): 构成区块链的区块列表。
     """
 
     def __init__(self, difficulty: int = 2) -> None:
@@ -95,10 +95,10 @@ class Blockchain:
 
     def create_genesis_block(self) -> Block:
         """
-        Create the first block in the blockchain.
+        创建区块链中的第一个区块。
 
-        Returns:
-            Block: Genesis block.
+        返回：
+            Block: 创世区块。
 
         >>> bc = Blockchain()
         >>> bc.chain[0].index
@@ -110,13 +110,13 @@ class Blockchain:
 
     def add_block(self, data: str) -> Block:
         """
-        Add a new block to the blockchain with given data.
+        使用给定数据向区块链添加新区块。
 
-        Args:
-            data (str): Data to store in the block.
+        参数：
+            data (str): 要存储在区块中的数据。
 
-        Returns:
-            Block: Newly added block.
+        返回：
+            Block: 新添加的区块。
 
         >>> bc = Blockchain()
         >>> new_block = bc.add_block("Test Data")
@@ -136,10 +136,10 @@ class Blockchain:
 
     def is_valid(self) -> bool:
         """
-        Verify the integrity of the blockchain.
+        验证区块链的完整性。
 
-        Returns:
-            bool: True if chain is valid, False otherwise.
+        返回：
+            bool: 链有效时返回 True，否则返回 False。
 
         >>> bc = Blockchain()
         >>> new_block = bc.add_block("Test")

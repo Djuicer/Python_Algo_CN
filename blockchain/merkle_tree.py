@@ -1,13 +1,12 @@
 """
-Merkle Tree Construction and Verification
+默克尔树（Merkle Tree）的构建与验证
 
-This module implements the construction of a Merkle Tree and
-verification of inclusion proofs for blockchain data integrity.
+本模块实现默克尔树的构建，以及用于验证区块链数据完整性的包含证明。
 
-Each leaf is a SHA-256 hash of a transaction, and internal nodes are
-computed by hashing the concatenation of their child nodes.
+每个叶节点都是一笔交易的 SHA-256 哈希，内部节点则通过对子节点哈希的
+拼接结果进行哈希计算得到。
 
-References:
+参考资料：
 https://en.wikipedia.org/wiki/Merkle_tree
 """
 
@@ -16,15 +15,15 @@ import hashlib
 
 def sha256(data: str) -> str:
     """
-    Compute the SHA-256 hash of the given string.
+    计算给定字符串的 SHA-256 哈希。
 
-    Args:
-        data (str): Input string.
+    参数：
+        data (str): 输入字符串。
 
-    Returns:
-        str: Hexadecimal SHA-256 hash of the input.
+    返回：
+        str: 输入内容的十六进制 SHA-256 哈希。
 
-    Example:
+    示例：
         >>> sha256("abc")
         'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
     """
@@ -33,14 +32,13 @@ def sha256(data: str) -> str:
 
 def build_merkle_tree(leaves: list[str]) -> list[list[str]]:
     """
-    Build a Merkle Tree from the given leaf nodes.
+    根据给定的叶节点构建默克尔树。
 
-    Args:
-        leaves: List of data strings (transactions).
+    参数：
+        leaves: 数据字符串（交易）列表。
 
-    Returns:
-        A list of lists representing tree levels,
-        with the last level containing the Merkle root.
+    返回：
+        表示树中各层的列表，其中最后一层包含默克尔根。
 
     >>> len(build_merkle_tree(["a", "b", "c", "d"])[-1][0])
     64
@@ -65,7 +63,7 @@ def build_merkle_tree(leaves: list[str]) -> list[list[str]]:
 
 def merkle_root(leaves: list[str]) -> str:
     """
-    Return the Merkle root hash for a given list of data.
+    返回给定数据列表的默克尔根哈希。
 
     >>> r = merkle_root(["tx1", "tx2", "tx3"])
     >>> isinstance(r, str)
@@ -76,15 +74,15 @@ def merkle_root(leaves: list[str]) -> str:
 
 def verify_proof(leaf: str, proof: list[str], root: str) -> bool:
     """
-    Verify inclusion of a leaf using a Merkle proof.
+    使用默克尔证明验证某个叶节点是否包含在树中。
 
-    Args:
-        leaf: Original data string.
-        proof: List of sibling hashes up the path.
-        root: Expected Merkle root hash.
+    参数：
+        leaf: 原始数据字符串。
+        proof: 沿路径向上的兄弟节点哈希列表。
+        root: 预期的默克尔根哈希。
 
-    Returns:
-        True if proof is valid, else False.
+    返回：
+        证明有效时返回 True，否则返回 False。
 
     >>> data = ["a", "b", "c", "d"]
     >>> tree = build_merkle_tree(data)

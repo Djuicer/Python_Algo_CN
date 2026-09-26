@@ -1,11 +1,11 @@
 def mux(input0: int, input1: int, select: int) -> int:
     """
-    Implement a 2-to-1 Multiplexer.
+    实现二选一多路复用器（Multiplexer）。
 
-    :param input0: The first input value (0 or 1).
-    :param input1: The second input value (0 or 1).
-    :param select: The select signal (0 or 1) to choose between input0 and input1.
-    :return: The output based on the select signal.  input1 if select else input0.
+    :param input0: 第一个输入值（0 或 1）。
+    :param input1: 第二个输入值（0 或 1）。
+    :param select: 用于在 input0 和 input1 之间选择的选择信号（0 或 1）。
+    :return: 根据选择信号得到的输出，即 input1 if select else input0。
 
     https://www.electrically4u.com/solved-problems-on-multiplexer
     https://en.wikipedia.org/wiki/Multiplexer

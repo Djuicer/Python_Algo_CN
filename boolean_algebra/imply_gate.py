@@ -1,11 +1,11 @@
 """
-An IMPLY Gate is a logic gate in boolean algebra which results to 1 if
-either input 1 is 0, or if input 1 is 1, then the output is 1 only if input 2 is 1.
-It is true if input 1 implies input 2.
+蕴含门（IMPLY Gate）是布尔代数中的一种逻辑门。当输入 1 为 0 时输出为 1；
+当输入 1 为 1 时，仅当输入 2 为 1，输出才为 1。
+输入 1 蕴含输入 2 时，其结果为真。
 
-Following is the truth table of an IMPLY Gate:
+以下是蕴含门的真值表：
     ------------------------------
-    | Input 1 | Input 2 | Output |
+    |  输入 1 |  输入 2 |  输出  |
     ------------------------------
     |    0    |    0    |    1   |
     |    0    |    1    |    1   |
@@ -13,13 +13,13 @@ Following is the truth table of an IMPLY Gate:
     |    1    |    1    |    1   |
     ------------------------------
 
-Refer - https://en.wikipedia.org/wiki/IMPLY_gate
+参考资料：https://en.wikipedia.org/wiki/IMPLY_gate
 """
 
 
 def imply_gate(input_1: int, input_2: int) -> int:
     """
-    Calculate IMPLY of the input values
+    计算输入值的逻辑蕴含。
 
     >>> imply_gate(0, 0)
     1
@@ -35,8 +35,8 @@ def imply_gate(input_1: int, input_2: int) -> int:
 
 def recursive_imply_list(input_list: list[int]) -> int:
     """
-    Recursively calculates the implication of a list.
-    Strictly the implication is applied consecutively left to right:
+    递归计算列表中各项的逻辑蕴含。
+    蕴含运算严格按照从左到右的顺序连续执行：
     ( (a -> b) -> c ) -> d ...
 
     >>> recursive_imply_list([])

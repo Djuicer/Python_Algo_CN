@@ -1,15 +1,14 @@
 """
-Wa-Tor algorithm (1984)
+Wa-Tor 算法（1984）
 
 | @ https://en.wikipedia.org/wiki/Wa-Tor
 | @ https://beltoforion.de/en/wator/
 | @ https://beltoforion.de/en/wator/images/wator_medium.webm
 
-This solution aims to completely remove any systematic approach
-to the Wa-Tor planet, and utilise fully random methods.
+此解决方案旨在完全消除对 Wa-Tor 星球的任何系统化处理方式，
+并采用完全随机的方法。
 
-The constants are a working set that allows the Wa-Tor planet
-to result in one of the three possible results.
+这些常量构成一组可用配置，使 Wa-Tor 星球产生三种可能结果之一。
 """
 
 from collections.abc import Callable
@@ -17,27 +16,27 @@ from random import randint, shuffle
 from time import sleep
 from typing import Literal
 
-WIDTH = 50  # Width of the Wa-Tor planet
-HEIGHT = 50  # Height of the Wa-Tor planet
+WIDTH = 50  # Wa-Tor 星球的宽度
+HEIGHT = 50  # Wa-Tor 星球的高度
 
-PREY_INITIAL_COUNT = 30  # The initial number of prey entities
-PREY_REPRODUCTION_TIME = 5  # The chronons before reproducing
+PREY_INITIAL_COUNT = 30  # 猎物实体的初始数量
+PREY_REPRODUCTION_TIME = 5  # 繁殖前需要经过的时元数
 
-PREDATOR_INITIAL_COUNT = 50  # The initial number of predator entities
-# The initial energy value of predator entities
+PREDATOR_INITIAL_COUNT = 50  # 捕食者实体的初始数量
+# 捕食者实体的初始能量值
 PREDATOR_INITIAL_ENERGY_VALUE = 15
-# The energy value provided when consuming prey
+# 吃掉猎物时获得的能量值
 PREDATOR_FOOD_VALUE = 5
-PREDATOR_REPRODUCTION_TIME = 20  # The chronons before reproducing
+PREDATOR_REPRODUCTION_TIME = 20  # 繁殖前需要经过的时元数
 
-MAX_ENTITIES = 500  # The max number of organisms on the board
-# The number of entities to delete from the unbalanced side
+MAX_ENTITIES = 500  # 棋盘上的最大生物数量
+# 从数量失衡的一方删除的实体数
 DELETE_UNBALANCED_ENTITIES = 50
 
 
 class Entity:
     """
-    Represents an entity (either prey or predator).
+    表示一个实体（猎物或捕食者）。
 
     >>> e = Entity(True, coords=(0, 0))
     >>> e.prey
@@ -50,7 +49,7 @@ class Entity:
 
     def __init__(self, prey: bool, coords: tuple[int, int]) -> None:
         self.prey = prey
-        # The (row, col) pos of the entity
+        # 实体的 (row, col) 位置
         self.coords = coords
 
         self.remaining_reproduction_time = (
@@ -93,12 +92,11 @@ class Entity:
 
 class WaTor:
     """
-    Represents the main Wa-Tor algorithm.
+    表示 Wa-Tor 主算法。
 
-    :attr time_passed: A function that is called every time
-        time passes (a chronon) in order to visually display
-        the new Wa-Tor planet. The `time_passed` function can block
-        using ``time.sleep`` to slow the algorithm progression.
+    :attr time_passed: 每当时间流逝一个时元（chronon）时调用的函数，
+        用于直观显示新的 Wa-Tor 星球。`time_passed` 函数可以使用
+        ``time.sleep`` 阻塞，以减缓算法的运行速度。
 
     >>> wt = WaTor(10, 15)
     >>> wt.width
@@ -122,7 +120,7 @@ class WaTor:
 
         self.planet: list[list[Entity | None]] = [[None] * width for _ in range(height)]
 
-        # Populate planet with predators and prey randomly
+        # 在星球上随机放置捕食者和猎物
         for _ in range(PREY_INITIAL_COUNT):
             self.add_entity(prey=True)
         for _ in range(PREDATOR_INITIAL_COUNT):
@@ -131,7 +129,7 @@ class WaTor:
 
     def set_planet(self, planet: list[list[Entity | None]]) -> None:
         """
-        Ease of access for testing
+        便于测试时访问。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> planet = [
@@ -152,8 +150,7 @@ class WaTor:
 
     def add_entity(self, prey: bool) -> None:
         """
-        Adds an entity, making sure the entity does
-        not override another entity
+        添加一个实体，并确保该实体不会覆盖其他实体。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> wt.set_planet([[None, None], [None, None]])
@@ -172,7 +169,7 @@ class WaTor:
 
     def get_entities(self) -> list[Entity]:
         """
-        Returns a list of all the entities within the planet.
+        返回星球中所有实体的列表。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> len(wt.get_entities()) == PREDATOR_INITIAL_COUNT + PREY_INITIAL_COUNT
@@ -182,9 +179,8 @@ class WaTor:
 
     def balance_predators_and_prey(self) -> None:
         """
-        Balances predators and preys so that prey
-        can not dominate the predators, blocking up
-        space for them to reproduce.
+        平衡捕食者与猎物的数量，防止猎物数量压倒捕食者，
+        占满捕食者繁殖所需的空间。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> for i in range(2000):
@@ -214,9 +210,9 @@ class WaTor:
 
     def get_surrounding_prey(self, entity: Entity) -> list[Entity]:
         """
-        Returns all the prey entities around (N, S, E, W) a predator entity.
+        返回捕食者实体四周（N、S、E、W）的所有猎物实体。
 
-        Subtly different to the `move_and_reproduce`.
+        与 `move_and_reproduce` 略有不同。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> wt.set_planet([
@@ -239,10 +235,10 @@ class WaTor:
         """
         row, col = entity.coords
         adjacent: list[tuple[int, int]] = [
-            (row - 1, col),  # North
-            (row + 1, col),  # South
-            (row, col - 1),  # West
-            (row, col + 1),  # East
+            (row - 1, col),  # 北
+            (row + 1, col),  # 南
+            (row, col - 1),  # 西
+            (row, col + 1),  # 东
         ]
 
         return [
@@ -258,15 +254,12 @@ class WaTor:
         self, entity: Entity, direction_orders: list[Literal["N", "E", "S", "W"]]
     ) -> None:
         """
-        Attempts to move to an unoccupied neighbouring square
-        in either of the four directions (North, South, East, West).
-        If the move was successful and the `remaining_reproduction_time` is
-        equal to 0, then a new prey or predator can also be created
-        in the previous square.
+        尝试向四个方向（北、南、东、西）之一的相邻空方格移动。
+        如果移动成功且 `remaining_reproduction_time` 等于 0，
+        还可以在原方格中创建新的猎物或捕食者。
 
-        :param direction_orders: Ordered list (like priority queue) depicting
-                            order to attempt to move. Removes any systematic
-                            approach of checking neighbouring squares.
+        :param direction_orders: 表示尝试移动顺序的有序列表（类似优先队列），
+                            用于消除检查相邻方格时的系统化顺序。
 
         >>> planet = [
         ... [None, None, None],
@@ -312,12 +305,12 @@ class WaTor:
         row, col = coords = entity.coords
 
         adjacent_squares: dict[Literal["N", "E", "S", "W"], tuple[int, int]] = {
-            "N": (row - 1, col),  # North
-            "S": (row + 1, col),  # South
-            "W": (row, col - 1),  # West
-            "E": (row, col + 1),  # East
+            "N": (row - 1, col),  # 北
+            "S": (row + 1, col),  # 南
+            "W": (row, col - 1),  # 西
+            "E": (row, col + 1),  # 东
         }
-        # Weight adjacent locations
+        # 为相邻位置确定优先顺序
         adjacent: list[tuple[int, int]] = []
         for order in direction_orders:
             adjacent.append(adjacent_squares[order])
@@ -328,17 +321,17 @@ class WaTor:
                 and 0 <= c < self.width
                 and self.planet[r][c] is None
             ):
-                # Move entity to empty adjacent square
+                # 将实体移至相邻空方格
                 self.planet[r][c] = entity
                 self.planet[row][col] = None
                 entity.coords = (r, c)
                 break
 
-        # (2.) See if it possible to reproduce in previous square
+        # (2.) 检查能否在原方格中繁殖
         if coords != entity.coords and entity.remaining_reproduction_time <= 0:
-            # Check if the entities on the planet is less than the max limit
+            # 检查星球上的实体数是否小于上限
             if len(self.get_entities()) < MAX_ENTITIES:
-                # Reproduce in previous square
+                # 在原方格中繁殖
                 self.planet[row][col] = Entity(prey=entity.prey, coords=coords)
                 entity.reset_reproduction_time()
         else:
@@ -348,15 +341,13 @@ class WaTor:
         self, entity: Entity, direction_orders: list[Literal["N", "E", "S", "W"]]
     ) -> None:
         """
-        Performs the actions for a prey entity
+        执行猎物实体的行为。
 
-        For prey the rules are:
-            1. At each chronon, a prey moves randomly to one of the adjacent unoccupied
-               squares. If there are no free squares, no movement takes place.
-            2. Once a prey has survived a certain number of chronons it may reproduce.
-               This is done as it moves to a neighbouring square,
-               leaving behind a new prey in its old position.
-               Its reproduction time is also reset to zero.
+        猎物遵循以下规则：
+            1. 每个时元，猎物随机移动到一个相邻空方格。如果没有空方格，
+               则不发生移动。
+            2. 猎物存活一定时元后可以繁殖。它移动到相邻方格时，
+               会在原位置留下新的猎物，同时重置繁殖时间。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> reproducable_entity = Entity(True, coords=(0, 1))
@@ -377,20 +368,17 @@ class WaTor:
         direction_orders: list[Literal["N", "E", "S", "W"]],
     ) -> None:
         """
-        Performs the actions for a predator entity
+        执行捕食者实体的行为。
 
-        :param occupied_by_prey_coords: Move to this location if there is prey there
+        :param occupied_by_prey_coords: 如果此位置有猎物，则移动到这里
 
-        For predators the rules are:
-            1. At each chronon, a predator moves randomly to an adjacent square occupied
-               by a prey. If there is none, the predator moves to a random adjacent
-               unoccupied square. If there are no free squares, no movement takes place.
-            2. At each chronon, each predator is deprived of a unit of energy.
-            3. Upon reaching zero energy, a predator dies.
-            4. If a predator moves to a square occupied by a prey,
-               it eats the prey and earns a certain amount of energy.
-            5. Once a predator has survived a certain number of chronons
-               it may reproduce in exactly the same way as the prey.
+        捕食者遵循以下规则：
+            1. 每个时元，捕食者随机移动到一个被猎物占据的相邻方格。如果没有，
+               则随机移动到相邻空方格；如果没有空方格，则不发生移动。
+            2. 每个时元，每个捕食者损失一个单位的能量。
+            3. 能量降至零时，捕食者死亡。
+            4. 捕食者移动到被猎物占据的方格时，会吃掉猎物并获得一定能量。
+            5. 捕食者存活一定时元后，可以采用与猎物完全相同的方式繁殖。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> wt.set_planet([[Entity(True, coords=(0, 0)), Entity(False, coords=(0, 1))]])
@@ -399,38 +387,37 @@ class WaTor:
         [[Entity(prey=False, coords=(0, 0),
         remaining_reproduction_time=20, energy_value=19), None]]
         """
-        assert entity.energy_value is not None  # [type checking]
+        assert entity.energy_value is not None  # [类型检查]
 
-        # (3.) If the entity has 0 energy, it will die
+        # (3.) 实体能量为 0 时死亡
         if entity.energy_value == 0:
             self.planet[entity.coords[0]][entity.coords[1]] = None
             return
 
-        # (1.) Move to entity if possible
+        # (1.) 如果可能，则移动到猎物所在位置
         if occupied_by_prey_coords is not None:
-            # Kill the prey
+            # 杀死猎物
             prey = self.planet[occupied_by_prey_coords[0]][occupied_by_prey_coords[1]]
             assert prey is not None
             prey.alive = False
 
-            # Move onto prey
+            # 移动到猎物所在位置
             self.planet[occupied_by_prey_coords[0]][occupied_by_prey_coords[1]] = entity
             self.planet[entity.coords[0]][entity.coords[1]] = None
 
             entity.coords = occupied_by_prey_coords
-            # (4.) Eats the prey and earns energy
+            # (4.) 吃掉猎物并获得能量
             entity.energy_value += PREDATOR_FOOD_VALUE
         else:
-            # (5.) If it has survived the certain number of chronons it will also
-            # reproduce in this function
+            # (5.) 如果已存活指定数量的时元，也会在此函数中繁殖
             self.move_and_reproduce(entity, direction_orders)
 
-        # (2.) Each chronon, the predator is deprived of a unit of energy
+        # (2.) 每个时元，捕食者损失一个单位的能量
         entity.energy_value -= 1
 
     def run(self, *, iteration_count: int) -> None:
         """
-        Emulate time passing by looping `iteration_count` times
+        通过循环 `iteration_count` 次来模拟时间流逝。
 
         >>> wt = WaTor(WIDTH, HEIGHT)
         >>> wt.run(iteration_count=PREDATOR_INITIAL_ENERGY_VALUE - 1)
@@ -439,10 +426,8 @@ class WaTor:
         True
         """
         for iter_num in range(iteration_count):
-            # Generate list of all entities in order to randomly
-            # pop an entity at a time to simulate true randomness
-            # This removes the systematic approach of iterating
-            # through each entity width by height
+            # 生成所有实体的列表，每次随机弹出一个实体以模拟真正的随机性，
+            # 从而消除按宽度和高度依次遍历实体的系统化方式
             all_entities = self.get_entities()
 
             for __ in range(len(all_entities)):
@@ -451,17 +436,17 @@ class WaTor:
                     continue
 
                 directions: list[Literal["N", "E", "S", "W"]] = ["N", "E", "S", "W"]
-                shuffle(directions)  # Randomly shuffle directions
+                shuffle(directions)  # 随机打乱方向
 
                 if entity.prey:
                     self.perform_prey_actions(entity, directions)
                 else:
-                    # Create list of surrounding prey
+                    # 创建周围猎物的列表
                     surrounding_prey = self.get_surrounding_prey(entity)
                     surrounding_prey_coords = None
 
                     if surrounding_prey:
-                        # Again, randomly shuffle directions
+                        # 再次随机打乱顺序
                         shuffle(surrounding_prey)
                         surrounding_prey_coords = surrounding_prey[0].coords
 
@@ -469,24 +454,22 @@ class WaTor:
                         entity, surrounding_prey_coords, directions
                     )
 
-            # Balance out the predators and prey
+            # 平衡捕食者和猎物
             self.balance_predators_and_prey()
 
             if self.time_passed is not None:
-                # Call time_passed function for Wa-Tor planet
-                # visualisation in a terminal or a graph.
+                # 调用 time_passed 函数，在终端或图形中显示 Wa-Tor 星球。
                 self.time_passed(self, iter_num)
 
 
 def visualise(wt: WaTor, iter_number: int, *, colour: bool = True) -> None:
     """
-    Visually displays the Wa-Tor planet using
-    an ascii code in terminal to clear and re-print
-    the Wa-Tor planet at intervals.
+    在终端中使用 ASCII 代码清屏，并按一定间隔重新打印 Wa-Tor 星球，
+    从而直观显示其状态。
 
-    Uses ascii colour codes to colourfully display the predators and prey:
-        * (0x60f197) Prey = ``#``
-        * (0xfffff) Predator = ``x``
+    使用 ASCII 颜色代码彩色显示捕食者和猎物：
+        * (0x60f197) 猎物 = ``#``
+        * (0xfffff) 捕食者 = ``x``
 
     >>> wt = WaTor(30, 30)
     >>> wt.set_planet([
@@ -511,7 +494,7 @@ def visualise(wt: WaTor, iter_number: int, *, colour: bool = True) -> None:
     planet = wt.planet
     output = ""
 
-    # Iterate over every entity in the planet
+    # 遍历星球中的每个实体
     for row in planet:
         for entity in row:
             if entity is None:
@@ -534,7 +517,7 @@ def visualise(wt: WaTor, iter_number: int, *, colour: bool = True) -> None:
         f"{output}\n Iteration: {iter_number} | Prey count: {prey_count} | "
         f"Predator count: {len(entities) - prey_count} | {reprint}"
     )
-    # Block the thread to be able to visualise seeing the algorithm
+    # 阻塞线程，以便观察算法的可视化过程
     sleep(0.05)
 
 

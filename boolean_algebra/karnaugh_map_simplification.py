@@ -6,7 +6,7 @@ https://www.allaboutcircuits.com/technical-articles/karnaugh-map-boolean-algebra
 
 def simplify_kmap(kmap: list[list[int]]) -> str:
     """
-    Simplify the Karnaugh map.
+    化简卡诺图（Karnaugh Map）。
     >>> simplify_kmap(kmap=[[0, 1], [1, 1]])
     "A'B + AB' + AB"
     >>> simplify_kmap(kmap=[[0, 0], [0, 0]])
@@ -31,7 +31,7 @@ def simplify_kmap(kmap: list[list[int]]) -> str:
 
 def main() -> None:
     """
-    Main function to create and simplify a K-Map.
+    创建并化简卡诺图的主函数。
 
     >>> main()
     [0, 1]
@@ -41,7 +41,7 @@ def main() -> None:
     """
     kmap = [[0, 1], [1, 1]]
 
-    # Manually generate the product of [0, 1] and [0, 1]
+    # 手动生成 [0, 1] 与 [0, 1] 的笛卡尔积
 
     for row in kmap:
         print(row)

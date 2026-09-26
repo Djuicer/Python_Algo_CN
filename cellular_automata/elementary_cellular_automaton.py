@@ -1,30 +1,28 @@
 """
-Elementary Cellular Automaton - Rule 30
----------------------------------------
+初等元胞自动机——规则 30
+-----------------------
 
-A one-dimensional cellular automaton introduced by Stephen Wolfram.
-Each cell's next state depends on its current state and its two immediate neighbors.
+由 Stephen Wolfram 提出的一维元胞自动机。
+每个元胞的下一状态取决于其当前状态及紧邻的两个元胞。
 
-Reference:
+参考资料：
     https://en.wikipedia.org/wiki/Rule_30
 """
 
 
 def rule_30_step(current: list[int]) -> list[int]:
     """
-    Compute the next generation of a one-dimensional cellular automaton
-    following Wolfram's Rule 30.
+    按照 Wolfram 的规则 30 计算一维元胞自动机的下一代。
 
-    Each cell's next state is determined by its left, center, and right neighbors.
+    每个元胞的下一状态由其左侧、自身和右侧元胞决定。
 
-    Args:
-        current (list[int]): The current generation as a list of 0s (dead)
-            and 1s (alive).
+    参数：
+        current (list[int]): 由 0（死亡）和 1（存活）组成的当前代列表。
 
-    Returns:
-        list[int]: The next generation as a list of 0s and 1s.
+    返回：
+        list[int]: 由 0 和 1 组成的下一代列表。
 
-    Example:
+    示例：
         >>> rule_30_step([0, 0, 1, 0, 0])
         [0, 1, 1, 1, 0]
     """
@@ -34,10 +32,10 @@ def rule_30_step(current: list[int]) -> list[int]:
         center = current[i]
         right = current[i + 1] if i < len(current) - 1 else 0
 
-        # Combine neighbors into a 3-bit pattern
+        # 将相邻元胞组合为 3 位模式
         pattern = (left << 2) | (center << 1) | right
 
-        # Rule 30 binary: 00011110 (bitwise representation of 30)
+        # 规则 30 的二进制形式：00011110（30 的位表示）
         next_gen.append((30 >> pattern) & 1)
 
     return next_gen
@@ -45,21 +43,21 @@ def rule_30_step(current: list[int]) -> list[int]:
 
 def generate_rule_30(size: int = 31, generations: int = 15) -> list[list[int]]:
     """
-    Generate multiple generations of Rule 30 automaton.
+    生成规则 30 元胞自动机的多代状态。
 
-    Args:
-        size (int): Number of cells in one generation. Default is 31.
-        generations (int): Number of generations to evolve. Default is 15.
+    参数：
+        size (int): 每一代的元胞数量，默认值为 31。
+        generations (int): 演化的代数，默认值为 15。
 
-    Returns:
-        list[list[int]]: A list of generations (each a list of 0s and 1s).
+    返回：
+        list[list[int]]: 各代状态的列表（每一代均为由 0 和 1 组成的列表）。
 
-    Example:
+    示例：
         >>> len(generate_rule_30(15, 5))
         5
     """
     grid = [[0] * size for _ in range(generations)]
-    grid[0][size // 2] = 1  # Start with a single live cell in the middle
+    grid[0][size // 2] = 1  # 初始状态仅在中央放置一个活细胞
 
     for i in range(1, generations):
         grid[i] = rule_30_step(grid[i - 1])
@@ -68,7 +66,7 @@ def generate_rule_30(size: int = 31, generations: int = 15) -> list[list[int]]:
 
 
 if __name__ == "__main__":
-    # Run an example simulation
+    # 运行示例模拟
     generations = generate_rule_30(31, 15)
     for row in generations:
         print("".join("█" if cell else " " for cell in row))

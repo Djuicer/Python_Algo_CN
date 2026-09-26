@@ -1,23 +1,22 @@
 """
-A NAND Gate is a logic gate in boolean algebra which results to 0 (False) if both
-the inputs are 1, and 1 (True) otherwise. It's similar to adding
-a NOT gate along with an AND gate.
-Following is the truth table of a NAND Gate:
+与非门（NAND Gate）是布尔代数中的一种逻辑门。当两个输入均为 1 时，
+其输出为 0（False）；否则输出为 1（True）。它相当于在与门后连接非门。
+以下是与非门的真值表：
     ------------------------------
-    | Input 1 | Input 2 | Output |
+    |  输入 1 |  输入 2 |  输出  |
     ------------------------------
     |    0    |    0    |    1   |
     |    0    |    1    |    1   |
     |    1    |    0    |    1   |
     |    1    |    1    |    0   |
     ------------------------------
-Refer - https://www.geeksforgeeks.org/logic-gates-in-python/
+参考资料：https://www.geeksforgeeks.org/logic-gates-in-python/
 """
 
 
 def nand_gate(input_1: int, input_2: int) -> int:
     """
-    Calculate NAND of the input values
+    计算输入值的逻辑与非。
     >>> nand_gate(0, 0)
     1
     >>> nand_gate(0, 1)

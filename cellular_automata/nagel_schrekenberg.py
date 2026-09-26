@@ -1,24 +1,23 @@
 """
-Simulate the evolution of a highway with only one road that is a loop.
-The highway is divided in cells, each cell can have at most one car in it.
-The highway is a loop so when a car comes to one end, it will come out on the other.
-Each car is represented by its speed (from 0 to 5).
+模拟一条环形单车道公路的演化。公路被划分为多个元胞，每个元胞最多容纳
+一辆汽车。由于公路呈环形，汽车到达一端后会从另一端出现。
+每辆汽车用其速度（0 到 5）表示。
 
-Some information about speed:
-    -1 means that the cell on the highway is empty
-    0 to 5 are the speed of the cars with 0 being the lowest and 5 the highest
+速度说明：
+    -1 表示公路上的元胞为空
+    0 到 5 表示汽车速度，其中 0 最低，5 最高
 
-highway: list[int]  Where every position and speed of every car will be stored
-probability         The probability that a driver will slow down
-initial_speed       The speed of the cars a the start
-frequency           How many cells there are between two cars at the start
-max_speed           The maximum speed a car can go to
-number_of_cells     How many cell are there in the highway
-number_of_update    How many times will the position be updated
+highway: list[int]  存储每辆汽车的位置和速度
+probability         驾驶员减速的概率
+initial_speed       汽车的初始速度
+frequency           初始状态下两辆汽车之间的元胞数
+max_speed           汽车能够达到的最大速度
+number_of_cells     公路中的元胞数量
+number_of_update    位置更新次数
 
-More information here: https://en.wikipedia.org/wiki/Nagel%E2%80%93Schreckenberg_model
+更多信息：https://en.wikipedia.org/wiki/Nagel%E2%80%93Schreckenberg_model
 
-Examples for doctest:
+doctest 示例：
 >>> simulate(construct_highway(6, 3, 0), 2, 0, 2)
 [[0, -1, -1, 0, -1, -1], [-1, 1, -1, -1, 1, -1], [-1, -1, 1, -1, -1, 1]]
 >>> simulate(construct_highway(5, 2, -2), 3, 0, 2)
@@ -37,29 +36,29 @@ def construct_highway(
     max_speed: int = 5,
 ) -> list:
     """
-    Build the highway following the parameters given
+    根据给定参数构建公路。
     >>> construct_highway(10, 2, 6)
     [[6, -1, 6, -1, 6, -1, 6, -1, 6, -1]]
     >>> construct_highway(10, 10, 2)
     [[2, -1, -1, -1, -1, -1, -1, -1, -1, -1]]
     """
 
-    highway = [[-1] * number_of_cells]  # Create a highway without any car
+    highway = [[-1] * number_of_cells]  # 创建一条没有汽车的公路
     i = 0
     initial_speed = max(initial_speed, 0)
     while i < number_of_cells:
         highway[0][i] = (
             randint(0, max_speed) if random_speed else initial_speed
-        )  # Place the cars
+        )  # 放置汽车
         i += (
             randint(1, max_speed * 2) if random_frequency else frequency
-        )  # Arbitrary number, may need tuning
+        )  # 任意数值，可能需要调整
     return highway
 
 
 def get_distance(highway_now: list, car_index: int) -> int:
     """
-    Get the distance between a car (at index car_index) and the next car
+    获取一辆汽车（索引为 car_index）与下一辆汽车之间的距离。
     >>> get_distance([6, -1, 6, -1, 6], 2)
     1
     >>> get_distance([2, -1, -1, -1, 3, 1, 0, 1, 3, 2], 0)
@@ -70,17 +69,17 @@ def get_distance(highway_now: list, car_index: int) -> int:
 
     distance = 0
     cells = highway_now[car_index + 1 :]
-    for cell in range(len(cells)):  # May need a better name for this
-        if cells[cell] != -1:  # If the cell is not empty then
-            return distance  # we have the distance we wanted
+    for cell in range(len(cells)):  # 此变量或许需要更合适的名称
+        if cells[cell] != -1:  # 如果元胞非空
+            return distance  # 得到所需距离
         distance += 1
-    # Here if the car is near the end of the highway
+    # 汽车靠近公路末端时执行到此处
     return distance + get_distance(highway_now, -1)
 
 
 def update(highway_now: list, probability: float, max_speed: int) -> list:
     """
-    Update the speed of the cars
+    更新汽车速度。
     >>> update([-1, -1, -1, -1, -1, 2, -1, -1, -1, -1, 3], 0.0, 5)
     [-1, -1, -1, -1, -1, 3, -1, -1, -1, -1, 4]
     >>> update([-1, -1, 2, -1, -1, -1, -1, 3], 0.0, 5)
@@ -88,19 +87,19 @@ def update(highway_now: list, probability: float, max_speed: int) -> list:
     """
 
     number_of_cells = len(highway_now)
-    # Beforce calculations, the highway is empty
+    # 计算前，下一时刻的公路为空
     next_highway = [-1] * number_of_cells
 
     for car_index in range(number_of_cells):
         if highway_now[car_index] != -1:
-            # Add 1 to the current speed of the car and cap the speed
+            # 当前车速加 1，并限制最大速度
             next_highway[car_index] = min(highway_now[car_index] + 1, max_speed)
-            # Number of empty cell before the next car
+            # 与下一辆汽车之间的空元胞数量
             dn = get_distance(highway_now, car_index) - 1
-            # We can't have the car causing an accident
+            # 防止汽车发生碰撞
             next_highway[car_index] = min(next_highway[car_index], dn)
             if random() < probability:
-                # Randomly, a driver will slow down
+                # 驾驶员随机减速
                 next_highway[car_index] = max(next_highway[car_index] - 1, 0)
     return next_highway
 
@@ -109,7 +108,7 @@ def simulate(
     highway: list, number_of_update: int, probability: float, max_speed: int
 ) -> list:
     """
-    The main function, it will simulate the evolution of the highway
+    模拟公路演化的主函数。
     >>> simulate([[-1, 2, -1, -1, -1, 3]], 2, 0.0, 3)
     [[-1, 2, -1, -1, -1, 3], [-1, -1, -1, 2, -1, 0], [1, -1, -1, 0, -1, -1]]
     >>> simulate([[-1, 2, -1, 3]], 4, 0.0, 3)
@@ -125,9 +124,9 @@ def simulate(
         for car_index in range(number_of_cells):
             speed = next_speeds_calculated[car_index]
             if speed != -1:
-                # Change the position based on the speed (with % to create the loop)
+                # 根据速度改变位置（使用 % 构成环形）
                 index = (car_index + speed) % number_of_cells
-                # Commit the change of position
+                # 应用位置变化
                 real_next_speeds[index] = speed
         highway.append(real_next_speeds)
 

@@ -1,160 +1,160 @@
-# Blockchain Technology
+# 区块链技术
 
 <p align="center">
 <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="700">
 </p>
 
-A Blockchain is a type of **distributed ledger** technology (DLT) that consists of a growing list of records, called **blocks**, that are securely linked together using **cryptography**.
+区块链（Blockchain）是一种**分布式账本技术**（Distributed Ledger Technology，DLT），由不断增长的记录列表组成；这些记录称为**区块**，并通过**密码学**安全地连接在一起。
 
-Let's break down the terminologies in the above definition. We find below terminologies,
+下面对上述定义中的术语逐一说明：
 
-- Digital Ledger Technology (DLT)
-- Blocks
-- Cryptography
+- 分布式账本技术（DLT）
+- 区块
+- 密码学
 
-## Distributed Ledger Technology (DLT)
+## 分布式账本技术（DLT）
 
-First of all, a **ledger** is a book or collection of accounts that keeps track of account transactions. Usually, ledgers are **centralised**, meaning that they're controlled by a sole influence.
-These ledgers are physical records maintained by banks, governments, and other establishments to track financial transactions, ownership records, and any other essential information.
-However, this approach only serves as a hotbed for inefficiency and over-reliance on a sole entity.
+首先，**账本**是用于记录账户交易的簿册或账户集合。传统账本通常是**中心化的**，即由单一主体控制。
+这些账本是由银行、政府及其他机构维护的实体记录，用于追踪金融交易、所有权记录及其他重要信息。
+然而，这种方式容易造成效率低下，并导致对单一实体的过度依赖。
 
-This is where Distributed Ledger Technology comes in. DLT represents a massive shift from centralised data management.
+分布式账本技术正是为解决这些问题而出现。DLT 代表着从中心化数据管理向分布式管理的重大转变。
 
-Instead of one single entity managing data, the ledger, which in this case is **digital**, is shared among multiple **nodes**(computers) in a network. Each node is responsible for maintaining an **identical** copy of the main ledger, and all these nodes must consent before any new information is added to the main ledger.
+数据不再由单一实体管理；这里的账本是**数字化的**，由网络中的多个**节点**（计算机）共享。每个节点都负责维护主账本的一份**相同**副本，任何新信息加入主账本之前，都必须获得这些节点的共同认可。
 
-*Key Characteristics of DLT:*
+*DLT 的主要特征：*
 
-- Decentralisation: No single point of control, management or failure
-- Transparency: All network participants can see transactions, although personal details may be encrypted
-- Immutability: Once data is recorded and confirmed, it becomes extremely hard to change
-- Consensus Mechanisms: Network participants must agree on the credibility of new transactions
+- 去中心化：不存在单一的控制点、管理点或故障点
+- 透明性：所有网络参与者都可以查看交易，但个人信息可能经过加密
+- 不可篡改性：数据一经记录并确认，就极难更改
+- 共识机制：网络参与者必须就新交易的可信性达成一致
 
-*To further conceptualise Distributed Ledger Technology, imagine the scenario below:*
+*为了更直观地理解分布式账本技术，可以设想以下场景：*
 
-- Four roommates live in an apartment together.
-- They all contribute towards groceries, utilities, and rent.
-- In the spirit of accountability, they use a **shared Google Sheet** where every expense is tracked.
-- Everyone can **see**, **add**, and **validate** expenses, but **no one can delete past expense entries** — they're only allowed to append new rows with reasons for any corrections.
+- 四名室友共同居住在一套公寓中。
+- 他们共同承担食品杂货、水电和房租等费用。
+- 为了明确责任，他们使用一份**共享的 Google 表格**记录每笔支出。
+- 每个人都可以**查看**、**添加**和**验证**支出，但**任何人都不能删除以往的支出记录**，只能追加新行并说明更正原因。
 
-This is exactly how a Distributed Ledger works.
+这正是分布式账本的工作方式。
 
-| Google Sheet Feature                              | DLT Concept Equivalent                            |
+| Google 表格的特征                                 | 对应的 DLT 概念                                   |
 |---------------------------------------------------|---------------------------------------------------|
-| Everyone has access to the same document          | **Distributed ledger** — everyone has a synchronised copy |
-| Changes are visible to all in real time           | **Transparency and consensus**                    |
-| No one can erase old entries; only new ones can be added with explanations | **Immutability** of records                        |
-| Each entry includes a timestamp and who added it  | **Timestamped transactions** and **identity** (like digital signatures) |
-| Everyone can verify what’s been entered           | **Decentralised verification**                    |
-| Any disputes are resolved by checking the shared record | **Consensus mechanism** (though manual here)   |
+| 每个人都能访问同一份文档                          | **分布式账本**——每个人都有一份同步副本            |
+| 所有人都能实时看到更改                            | **透明性和共识**                                  |
+| 任何人都不能删除旧记录，只能添加新记录并附上说明  | 记录的**不可篡改性**                              |
+| 每条记录都包含时间戳和添加者信息                  | **带时间戳的交易**和**身份**（类似数字签名）      |
+| 每个人都能验证已录入的内容                        | **去中心化验证**                                  |
+| 任何争议都通过查阅共享记录解决                    | **共识机制**（此处通过人工达成）                  |
 
-## Centralised vs. Distributed Management
+## 中心化管理与分布式管理
 
-**Centralised approach:** Here, an organisation with 4 branches stores all its data in one central database. This database is managed by the Chief Administrator at the headquarters. Each branch needs approval from the Chief Administrator to view and access information.
-If a bad actor gains access to the central database, they can unduly alter all the data, and if the central database fails, all the branches lose their access to vital data.
+**中心化方式：** 假设一个拥有四个分支机构的组织将全部数据存储在一个中央数据库中，该数据库由总部的首席管理员管理。每个分支机构都需要获得首席管理员批准，才能查看和访问相关信息。
+如果恶意人员获得中央数据库的访问权限，就可以不当修改全部数据；如果中央数据库发生故障，所有分支机构都会失去对关键数据的访问能力。
 
-**Distributed approach:** In this case, each organisational branch maintains a complete **carbon copy** of the original ledger. For one branch to add information, all branches must reach a consensus.
-When one branch adds information, it's broadcast to the entire network and systematically synchronised across all other ledgers through a peer-to-peer network after verification.
+**分布式方式：** 在这种情况下，每个分支机构都维护原始账本的一份完整**副本**。任何一个分支机构要添加信息，都必须先由所有分支机构达成共识。
+某个分支机构添加信息时，该信息会广播到整个网络；验证通过后，再通过点对点网络同步到其他所有账本。
 
-In summary, a distributed approach offers:
+总的来说，分布式方式具有以下优势：
 
-- Fault tolerance: If information is altered in one branch, other branches can detect the change through consensus algorithms
-- Security: If one branch is compromised, other branches remain secure and can identify the bad actor
-- Availability: No single point of failure — if one computer goes down, the network is still highly functional
-- Verification: Any member of the network can independently verify the integrity of the complete transaction history
+- 容错性：如果某个分支机构的信息被修改，其他分支机构可以通过共识算法检测到变化
+- 安全性：即使某个分支机构遭到入侵，其他分支机构仍然安全，并能识别恶意参与者
+- 可用性：不存在单点故障；即使一台计算机停机，网络仍可正常运行
+- 可验证性：网络中的任何成员都可以独立验证完整交易历史的完整性
 
-## Blocks
+## 区块
 
-A **block** is a cluster of transactions grouped together with metadata in a structured manner.
-Imagine a block as a page in a digital ledger. This page consists of multiple transaction entries, including important information about when and how that page was created.
-Cryptography is the practice and study of secure communication techniques amid adversarial behavior. More broadly, cryptography is the creation and analysis of protocols that prevent third parties or the general public from accessing private messages.
+**区块**是将一组交易及其元数据按结构化方式组织起来的集合。
+可以将区块想象成数字账本中的一页。这一页包含多条交易记录，以及该页何时、以何种方式创建等重要信息。
+密码学研究并实践在存在对抗行为时实现安全通信的技术。更广义地说，密码学涉及创建和分析协议，以防止第三方或公众访问私密消息。
 
-*Structure of a Block:*
+*区块的结构：*
 
-1. Block Header:
+1. 区块头：
 
-- Previous Block Hash: A unique fingerprint of the previous block, creating the *chain*
-- Merkle Root: A cryptographic summary of all transactions in the block
-- Timestamp: The time the block was created
-- Nonce: A number used in the Proof-of-Work (PoW) mining process
-- Difficulty Target: The complexity level required to mine this block
+- 前一区块哈希：前一个区块的唯一指纹，由此形成*链*
+- 默克尔根：区块中所有交易的密码学摘要
+- 时间戳：区块的创建时间
+- Nonce：工作量证明（PoW）挖矿过程中使用的数值
+- 难度目标：挖掘该区块所要求的复杂度等级
 
-2. Block Body:
+2. 区块体：
 
-- Transaction Data: The actual transaction records (transfers, smart contract executions, etc.)
-- Transaction Count: Number of transactions confirmed in the block
+- 交易数据：实际的交易记录（转账、智能合约执行等）
+- 交易数量：区块中已确认的交易数
 
-## The Chain Formation
+## 链的形成
 
-Blocks are connected cryptographically using hash functions, in order to create an **immutable** chain:
+区块通过哈希函数以密码学方式连接，形成一条**不可篡改**的链：
 
-1. Genesis Block: The first block in the chain, which is hardcoded into the blockchain protocol
-2. Subsequent Blocks: Each new block contains the hash function of the preceding block
-3. Chain Integrity: If someone tries to modify a previous block, its hash function changes, breaking the chain and notifying the entire network
+1. 创世区块：链中的第一个区块，被硬编码在区块链协议中
+2. 后续区块：每个新区块都包含前一个区块的哈希
+3. 链完整性：如果有人试图修改先前的区块，其哈希就会改变，从而破坏链并使整个网络发现异常
 
-With cryptographic linking, once a block is added to the chain and verified by the network, modifying any preceding block is computationally impractical. The deeper a block is in the chain (the more blocks built on top of it), the more secure it becomes.
+借助密码学连接，一个区块一旦加入链并通过网络验证，修改任何先前区块在计算上就变得不可行。区块在链中的位置越深（其后构建的区块越多），安全性就越高。
 
-## Cryptography
+## 密码学
 
-Cryptography is the practice and study of secure communication strategies that safeguard information from unwanted access. In the context of blockchain, cryptography is the backbone of security, privacy, and trust, in a decentralised network where participants don't know, or even trust each other.
+密码学研究并实践保护信息免受未授权访问的安全通信策略。在区块链中，参与者彼此可能互不相识、互不信任，而密码学正是去中心化网络实现安全、隐私和信任的基础。
 
-*Key Cryptographic Concepts in Blockchain:*
+*区块链中的主要密码学概念：*
 
-1. Hash Functions:
+1. 哈希函数：
 
-- Generate fixed-size output (hash) from variable-size input
-- The SHA-256 function is typically used in Bitcoin
-- Properties: Deterministic (giving input to a hash function will always produce the same output), avalanche effect, irreversible
-- Used for: Block linking, transaction verification, mining puzzles
+- 从长度可变的输入生成固定长度的输出（哈希）
+- 比特币通常使用 SHA-256 函数
+- 特性：确定性（相同输入始终产生相同输出）、雪崩效应、不可逆性
+- 用途：连接区块、验证交易、构造挖矿难题
 
-2. Digital Signatures:
+2. 数字签名：
 
-- Prove ownership and authorise transactions without revealing private keys
-- Based on public-key cryptography (asymmetric encryption)
-- Each user has a pair: private key (secret) and public key (shareable)
-- Process: Sign with private key and verify with public key
+- 在不泄露私钥的情况下证明所有权并授权交易
+- 基于公钥密码学（非对称加密）
+- 每个用户都拥有一对密钥：私钥（保密）和公钥（可共享）
+- 流程：使用私钥签名，使用公钥验证
 
-3. Merkle Trees:
+3. 默克尔树：
 
-- Binary tree structure that effectively outlines all transactions in a block
-- Enables quick verification of transaction inclusion without having to download the entire block
-- Provides evidence for altered transaction data
+- 以二叉树结构有效组织区块中的全部交易
+- 无需下载整个区块即可快速验证某笔交易是否包含在内
+- 为交易数据遭到修改提供证据
 
-*Cryptographic Security in Practice:*
+*密码学安全的实际应用：*
 
-1. Transaction Security:
-When person A wants to send **cryptocurrency** to person B:
+1. 交易安全：
+当用户 A 想向用户 B 发送**加密货币**时：
 
-- Person A creates a transaction using person B's **public address**
-- Person A signs the transaction with their **private key**
-- Network nodes verify the signature using person A's **public key**
-- Once verified, the transaction is added to a block
+- 用户 A 使用用户 B 的**公开地址**创建交易
+- 用户 A 使用自己的**私钥**对交易签名
+- 网络节点使用用户 A 的**公钥**验证签名
+- 验证通过后，交易被加入区块
 
-2. Block Integrity:
+2. 区块完整性：
 
-- Each block contains the hash of the previous block
-- Any change to a previous block changes its hash
-- This breaks the chain and immediately notifies the entire network
-- Makes altering historical data unfeasible
+- 每个区块都包含前一个区块的哈希
+- 对先前区块的任何更改都会改变其哈希
+- 这会破坏链，并立即使整个网络发现异常
+- 从而使篡改历史数据变得不可行
 
-3. Privacy vs. Transparency:
+3. 隐私与透明性：
 
-- **Transparency** means amounts and addresses are public.
-- **Privacy** ensures that real-world identities behind addresses are undisclosed.
-- This balance allows for accountability and anonymity in transactions.
+- **透明性**意味着金额和地址是公开的。
+- **隐私**确保地址背后的现实身份不被披露。
+- 两者之间的平衡使交易兼具可追责性和匿名性。
 
-> In summary, **Blockchain technology** represents a pioneering shift in how we store, verify, and transfer value in digital systems. It's a distributed, immutable, non-physical ledger that records transactions and tracks assets across a decentralised network, without requiring **trust** in a sole entity.
-Blockchain networks can track and trade virtually any **asset** of value, from tangible assets like real estate, commodities, and vehicles, to intangible assets such as cryptocurrencies, intellectual property, digital art (NFTs), and carbon credits.
-A blockchain network can track and sell almost anything of value, lowering risk and costs for everyone involved.
+> 总而言之，**区块链技术**推动了数字系统中价值存储、验证和转移方式的开创性转变。它是一种分布式、不可篡改的非实体账本，可在去中心化网络中记录交易和追踪资产，而无须**信任**某个单一实体。
+区块链网络几乎可以追踪和交易任何有价值的**资产**，既包括房地产、大宗商品和车辆等有形资产，也包括加密货币、知识产权、数字艺术品（NFT）和碳信用等无形资产。
+区块链网络可以追踪和交易几乎任何有价值的事物，从而降低所有参与者的风险和成本。
 
-This is just a brief introduction to blockchain technology.
-To find out more about this technology, check out the links below:
+以上只是对区块链技术的简要介绍。
+如需进一步了解这项技术，请参阅以下链接：
 
-- <https://en.wikipedia.org/wiki/Blockchain> - Comprehensive overview of blockchain technology
-- <https://bitcoin.org/bitcoin.pdf> - The original document by Satoshi Nakamoto
-- <https://ethereum.org/en/whitepaper/> - Introduction to programmable blockchain
-- <https://en.wikipedia.org/wiki/Cryptographic_hash_function> - Understanding the math behind blockchain security
-- <https://en.wikipedia.org/wiki/Merkle_tree> - Data structure for efficient verification
-- <https://web3js.readthedocs.io/> - JavaScript library for blockchain interaction
+- <https://en.wikipedia.org/wiki/Blockchain> - 区块链技术综合概述
+- <https://bitcoin.org/bitcoin.pdf> - 中本聪撰写的原始文档
+- <https://ethereum.org/en/whitepaper/> - 可编程区块链简介
+- <https://en.wikipedia.org/wiki/Cryptographic_hash_function> - 了解区块链安全背后的数学原理
+- <https://en.wikipedia.org/wiki/Merkle_tree> - 用于高效验证的数据结构
+- <https://web3js.readthedocs.io/> - 用于区块链交互的 JavaScript 库
 - <https://en.wikipedia.org/wiki/Chinese_remainder_theorem>
 - <https://en.wikipedia.org/wiki/Diophantine_equation>
 - <https://www.geeksforgeeks.org/modular-division/>

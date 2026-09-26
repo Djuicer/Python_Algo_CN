@@ -4,11 +4,11 @@ import random
 class Validator:
     def __init__(self, name: str, stake: int) -> None:
         """
-        Initializes a new validator with a given name and stake.
+        使用给定的名称和质押量初始化新的验证者。
 
-        Args:
-            name (str): The name of the validator.
-            stake (int): The amount of stake the validator has.
+        参数：
+            name (str): 验证者的名称。
+            stake (int): 验证者拥有的质押量。
         """
         self.name = name
         self.stake = stake
@@ -16,17 +16,17 @@ class Validator:
 
 def choose_validator(validators: list[Validator]) -> Validator:
     """
-    Selects a validator to create the next block based on the weight of their stake.
+    根据质押量的权重选择一名验证者来创建下一个区块。
 
-    The higher the stake, the greater the chance to be selected.
+    质押量越高，被选中的概率越大。
 
-    Args:
-        validators (list[Validator]): A list of Validator objects.
+    参数：
+        validators (list[Validator]): Validator 对象列表。
 
-    Returns:
-        Validator: The selected validator based on weighted random selection.
+    返回：
+        Validator: 通过加权随机选择得到的验证者。
 
-    Example:
+    示例：
         >>> validators = [Validator("Alice", 50), Validator("Bob", 30)]
         >>> chosen = choose_validator(validators)
         >>> isinstance(chosen, Validator)

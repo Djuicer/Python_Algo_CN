@@ -5,11 +5,12 @@ from maths.greatest_common_divisor import greatest_common_divisor
 
 def diophantine(a: int, b: int, c: int) -> tuple[float, float]:
     """
-    Diophantine Equation : Given integers a,b,c ( at least one of a and b != 0), the
-    diophantine equation a*x + b*y = c has a solution (where x and y are integers)
-    iff greatest_common_divisor(a,b) divides c.
+    丢番图方程（Diophantine Equation）：给定整数 a、b、c（a 和 b 至少一个不为
+    0），当且仅当 greatest_common_divisor(a,b) 能整除 c 时，丢番图方程
+    a*x + b*y = c 才有整数解 x 和 y。
 
-    GCD ( Greatest Common Divisor ) or HCF ( Highest Common Factor )
+    GCD（最大公约数，Greatest Common Divisor）或 HCF（最高公因数，
+    Highest Common Factor）
 
     >>> diophantine(10,6,14)
     (-7.0, 14.0)
@@ -17,31 +18,30 @@ def diophantine(a: int, b: int, c: int) -> tuple[float, float]:
     >>> diophantine(391,299,-69)
     (9.0, -12.0)
 
-    But above equation has one more solution i.e., x = -4, y = 5.
-    That's why we need diophantine all solution function.
+    但上述方程还有另一个解，即 x = -4、y = 5。
+    因此需要使用求丢番图方程全部解的函数。
 
     """
 
     assert (
         c % greatest_common_divisor(a, b) == 0
-    )  # greatest_common_divisor(a,b) is in maths directory
-    (d, x, y) = extended_gcd(a, b)  # extended_gcd(a,b) function implemented below
+    )  # greatest_common_divisor(a,b) 位于 maths 目录中
+    (d, x, y) = extended_gcd(a, b)  # extended_gcd(a,b) 函数在下方实现
     r = c / d
     return (r * x, r * y)
 
 
 def diophantine_all_soln(a: int, b: int, c: int, n: int = 2) -> None:
     """
-    Lemma : if n|ab and gcd(a,n) = 1, then n|b.
+    引理：如果 n|ab 且 gcd(a,n) = 1，则 n|b。
 
-    Finding All solutions of Diophantine Equations:
+    求丢番图方程的所有解：
 
-    Theorem : Let gcd(a,b) = d, a = d*p, b = d*q. If (x0,y0) is a solution of
-    Diophantine Equation a*x + b*y = c.  a*x0 + b*y0 = c, then all the
-    solutions have the form a(x0 + t*q) + b(y0 - t*p) = c,
-    where t is an arbitrary integer.
+    定理：令 gcd(a,b) = d、a = d*p、b = d*q。如果 (x0,y0) 是丢番图方程
+    a*x + b*y = c 的一个解，即 a*x0 + b*y0 = c，则所有解均可写成
+    a(x0 + t*q) + b(y0 - t*p) = c，其中 t 为任意整数。
 
-    n is the number of solution you want, n = 2 by default
+    n 是所需解的数量，默认值为 2。
 
     >>> diophantine_all_soln(10, 6, 14)
     -7.0 14.0
@@ -60,7 +60,7 @@ def diophantine_all_soln(a: int, b: int, c: int, n: int = 2) -> None:
     48.0 -63.0
 
     """
-    (x0, y0) = diophantine(a, b, c)  # Initial value
+    (x0, y0) = diophantine(a, b, c)  # 初始值
     d = greatest_common_divisor(a, b)
     p = a // d
     q = b // d
@@ -73,8 +73,8 @@ def diophantine_all_soln(a: int, b: int, c: int, n: int = 2) -> None:
 
 def extended_gcd(a: int, b: int) -> tuple[int, int, int]:
     """
-    Extended Euclid's Algorithm : If d divides a and b and d = a*x + b*y for integers
-    x and y, then d = gcd(a,b)
+    扩展欧几里得算法（Extended Euclidean Algorithm）：如果 d 能整除 a 和 b，
+    且对于整数 x 和 y 有 d = a*x + b*y，则 d = gcd(a,b)。
 
     >>> extended_gcd(10, 6)
     (2, -1, 2)
@@ -107,24 +107,24 @@ def all_diophantine_solutions(
     n: int = 2,
 ) -> list[tuple[int, int]]:
     """
-    Return up to `n` integer solutions (x, y) to the linear Diophantine equation
-    a*x + b*y = c using the extended Euclidean algorithm.
+    使用扩展欧几里得算法，返回线性丢番图方程 a*x + b*y = c 的至多 `n` 个
+    整数解 (x, y)。
 
-    Raises
+    异常
     ------
     ValueError
-        If no integer solutions exist.
+        不存在整数解时引发。
 
-    Time complexity
+    时间复杂度
     ---------------
-    O(log(max(|a|, |b|))) to compute a base solution using extended_gcd;
-    plus O(n) to enumerate `n` solutions.
+    使用 extended_gcd 计算一个基础解需要 O(log(max(|a|, |b|)))；
+    枚举 `n` 个解还需要 O(n)。
 
-    Space complexity
+    空间复杂度
     ----------------
-    O(1) beyond the returned list.
+    除返回列表外为 O(1)。
 
-    Examples
+    示例
     --------
     >>> all_diophantine_solutions(10, 6, 14, n=2)
     [(-7, 14), (-4, 9)]
@@ -137,7 +137,7 @@ def all_diophantine_solutions(
     """
     if a == 0 and b == 0:
         if c == 0:
-            # Infinite solutions; return one canonical solution.
+            # 有无穷多个解；返回一个规范解。
             return [(0, 0)][: min(1, n)]
         raise ValueError("No integer solutions exist for a=0, b=0, c!=0")
 
@@ -146,14 +146,14 @@ def all_diophantine_solutions(
         msg = f"No integer solutions exist for a={a}, b={b}, c={c}"
         raise ValueError(msg)
 
-    # Scale a particular solution to ax + by = c
+    # 将一个特解缩放为 ax + by = c 的解
     x0, y0 = xg * (c // g), yg * (c // g)
     if a < 0:
         x0 = -x0
     if b < 0:
         y0 = -y0
 
-    # General solution: x = x0 + t*(b/g), y = y0 - t*(a/g)
+    # 通解：x = x0 + t*(b/g)，y = y0 - t*(a/g)
     dx, dy = b // g, a // g
     return [(x0 + t * dx, y0 - t * dy) for t in range(n)]
 

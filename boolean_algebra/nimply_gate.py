@@ -1,11 +1,11 @@
 """
-An NIMPLY Gate is a logic gate in boolean algebra which results to 0 if
-either input 1 is 0, or if input 1 is 1, then it is 0 only if input 2 is 1.
-It is false if input 1 implies input 2. It is the negated form of imply
+非蕴含门（NIMPLY Gate）是布尔代数中的一种逻辑门。输入 1 为 0 时输出为 0；
+输入 1 为 1 时，仅当输入 2 为 1，输出才为 0。
+当输入 1 蕴含输入 2 时，其结果为假。它是蕴含运算的否定形式。
 
-Following is the truth table of an NIMPLY Gate:
+以下是非蕴含门的真值表：
     ------------------------------
-    | Input 1 | Input 2 | Output |
+    |  输入 1 |  输入 2 |  输出  |
     ------------------------------
     |    0    |    0    |    0   |
     |    0    |    1    |    0   |
@@ -13,13 +13,13 @@ Following is the truth table of an NIMPLY Gate:
     |    1    |    1    |    0   |
     ------------------------------
 
-Refer - https://en.wikipedia.org/wiki/NIMPLY_gate
+参考资料：https://en.wikipedia.org/wiki/NIMPLY_gate
 """
 
 
 def nimply_gate(input_1: int, input_2: int) -> int:
     """
-    Calculate NIMPLY of the input values
+    计算输入值的逻辑非蕴含。
 
     >>> nimply_gate(0, 0)
     0

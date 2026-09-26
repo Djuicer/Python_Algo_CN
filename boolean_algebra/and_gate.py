@@ -1,10 +1,10 @@
 """
-An AND Gate is a logic gate in boolean algebra which results to 1 (True) if all the
-inputs are 1 (True), and 0 (False) otherwise.
+与门（AND Gate）是布尔代数中的一种逻辑门。当所有输入均为 1（True）时，
+其输出为 1（True）；否则输出为 0（False）。
 
-Following is the truth table of a Two Input AND Gate:
+以下是二输入与门的真值表：
     ------------------------------
-    | Input 1 | Input 2 | Output |
+    |  输入 1 |  输入 2 |  输出  |
     ------------------------------
     |    0    |    0    |    0   |
     |    0    |    1    |    0   |
@@ -12,13 +12,13 @@ Following is the truth table of a Two Input AND Gate:
     |    1    |    1    |    1   |
     ------------------------------
 
-Refer - https://www.geeksforgeeks.org/logic-gates/
+参考资料：https://www.geeksforgeeks.org/logic-gates/
 """
 
 
 def and_gate(input_1: int, input_2: int) -> int:
     """
-    Calculate AND of two binary input values.
+    计算两个二进制输入值的逻辑与。
 
     >>> and_gate(0, 0)
     0
@@ -37,11 +37,11 @@ def and_gate(input_1: int, input_2: int) -> int:
         ...
     TypeError: Both inputs must be integers
     """
-    # Type validation
+    # 类型验证
     if not isinstance(input_1, int) or not isinstance(input_2, int):
         raise TypeError("Both inputs must be integers")
 
-    # Value validation
+    # 值验证
     if input_1 not in (0, 1) or input_2 not in (0, 1):
         raise ValueError("Both inputs must be 0 or 1")
 
@@ -50,7 +50,7 @@ def and_gate(input_1: int, input_2: int) -> int:
 
 def n_input_and_gate(inputs: list[int]) -> int:
     """
-    Calculate AND of a list of binary input values.
+    计算二进制输入值列表的逻辑与。
 
     >>> n_input_and_gate([1, 0, 1, 1, 0])
     0
@@ -71,15 +71,15 @@ def n_input_and_gate(inputs: list[int]) -> int:
         ...
     TypeError: All inputs in the list must be integers
     """
-    # Type validation for the list itself
+    # 验证列表本身的类型
     if not isinstance(inputs, list):
         raise TypeError("Input must be a list")
 
-    # Edge case validation for an empty list
+    # 验证空列表这一边界情况
     if not inputs:
         raise ValueError("Input list cannot be empty")
 
-    # Type and value validation for items within the list
+    # 验证列表中各项的类型和值
     for item in inputs:
         if not isinstance(item, int):
             raise TypeError("All inputs in the list must be integers")

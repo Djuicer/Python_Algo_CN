@@ -1,9 +1,9 @@
 """
-A XOR Gate is a logic gate in boolean algebra which results to 1 (True) if only one of
-the two inputs is 1, and 0 (False) if an even number of inputs are 1.
-Following is the truth table of a XOR Gate:
+异或门（XOR Gate）是布尔代数中的一种逻辑门。两个输入中只有一个为 1 时，
+其输出为 1（True）；为 1 的输入数量是偶数时，输出为 0（False）。
+以下是异或门的真值表：
     ------------------------------
-    | Input 1 | Input 2 | Output |
+    |  输入 1 |  输入 2 |  输出  |
     ------------------------------
     |    0    |    0    |    0   |
     |    0    |    1    |    1   |
@@ -11,13 +11,13 @@ Following is the truth table of a XOR Gate:
     |    1    |    1    |    0   |
     ------------------------------
 
-Refer - https://www.geeksforgeeks.org/logic-gates-in-python/
+参考资料：https://www.geeksforgeeks.org/logic-gates-in-python/
 """
 
 
 def xor_gate(input_1: int, input_2: int) -> int:
     """
-    calculate xor of the input values
+    计算输入值的逻辑异或。
 
     >>> xor_gate(0, 0)
     0

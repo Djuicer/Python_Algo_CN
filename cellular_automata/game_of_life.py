@@ -1,31 +1,27 @@
 """Conway's Game Of Life, Author Anurag Kumar(mailto:anuragkumarak95@gmail.com)
 
-Requirements:
+依赖：
   - numpy
   - random
   - time
   - matplotlib
 
-Python:
+Python 版本：
   - 3.5
 
-Usage:
+用法：
   - $python3 game_of_life <canvas_size:int>
 
-Game-Of-Life Rules:
+生命游戏规则：
 
  1.
- Any live cell with fewer than two live neighbours
- dies, as if caused by under-population.
+ 任何活细胞的活邻居少于两个时，因数量不足而死亡。
  2.
- Any live cell with two or three live neighbours lives
- on to the next generation.
+ 任何具有两个或三个活邻居的活细胞都会存活到下一代。
  3.
- Any live cell with more than three live neighbours
- dies, as if by over-population.
+ 任何活细胞的活邻居超过三个时，因数量过多而死亡。
  4.
- Any dead cell with exactly three live neighbours be-
- comes a live cell, as if by reproduction.
+ 任何恰好具有三个活邻居的死细胞都会变成活细胞，如同繁殖一般。
 """
 
 import random
@@ -43,13 +39,13 @@ random.shuffle(choice)
 
 def create_canvas(size: int) -> list[list[bool]]:
     """
-    Create a square canvas of given size filled with False (dead cells).
+    创建给定大小、以 False（死细胞）填充的正方形画布。
 
-    Args:
-        size: The dimension of the square canvas
+    参数：
+        size: 正方形画布的边长
 
-    Returns:
-        A size x size 2D list of boolean values, all initialized to False
+    返回：
+        大小为 size x size 的二维布尔值列表，所有值均初始化为 False
 
     >>> canvas = create_canvas(3)
     >>> len(canvas)
@@ -75,16 +71,15 @@ def seed(canvas: list[list[bool]]) -> None:
 
 def run(canvas: list[list[bool]]) -> list[list[bool]]:
     """
-    Run one generation of Conway's Game of Life on the canvas.
+    在画布上运行一代康威生命游戏。
 
-    Applies the Game of Life rules to all cells simultaneously to produce
-    the next generation.
+    同时对所有细胞应用生命游戏规则，生成下一代。
 
-    Args:
-        canvas: 2D list representing current state of cells
+    参数：
+        canvas: 表示细胞当前状态的二维列表
 
-    Returns:
-        2D list representing the next generation state
+    返回：
+        表示下一代状态的二维列表
 
     >>> blinker = [[False, False, False, False, False],
     ...            [False, False, True, False, False],
@@ -116,20 +111,20 @@ def run(canvas: list[list[bool]]) -> list[list[bool]]:
 
 def __judge_point(pt: bool, neighbours: list[list[bool]]) -> bool:
     """
-    Apply Conway's Game of Life rules to determine the next state of a cell.
+    应用康威生命游戏规则，确定细胞的下一状态。
 
-    Args:
-        pt: Current state of the cell (True=alive, False=dead)
-        neighbours: 3x3 grid including the cell and its 8 neighbors
+    参数：
+        pt: 细胞的当前状态（True=存活，False=死亡）
+        neighbours: 包含该细胞及其 8 个邻居的 3x3 网格
 
-    Returns:
-        The next state of the cell
+    返回：
+        细胞的下一状态
 
-    Rules:
-        1. Live cell with <2 live neighbours dies (under-population)
-        2. Live cell with 2-3 live neighbours survives
-        3. Live cell with >3 live neighbours dies (over-population)
-        4. Dead cell with exactly 3 live neighbours becomes alive
+    规则：
+        1. 活邻居少于 2 个的活细胞死亡（数量不足）
+        2. 活邻居为 2 至 3 个的活细胞存活
+        3. 活邻居多于 3 个的活细胞死亡（数量过多）
+        4. 恰好有 3 个活邻居的死细胞变为活细胞
 
     >>> __judge_point(
     ...     True, [[True, True, False], [False, True, False], [False, False, False]]
@@ -154,7 +149,7 @@ def __judge_point(pt: bool, neighbours: list[list[bool]]) -> bool:
     """
     dead = 0
     alive = 0
-    # finding dead or alive neighbours count.
+    # 统计死亡或存活的邻居数量。
     for i in neighbours:
         for status in i:
             if status:
@@ -162,13 +157,13 @@ def __judge_point(pt: bool, neighbours: list[list[bool]]) -> bool:
             else:
                 dead += 1
 
-    # handling duplicate entry for focus pt.
+    # 处理目标细胞 pt 的重复计数。
     if pt:
         alive -= 1
     else:
         dead -= 1
 
-    # running the rules of game here.
+    # 在此应用生命游戏规则。
     state = pt
     if pt:
         if alive < 2:
@@ -188,7 +183,7 @@ if __name__ == "__main__":
         raise Exception(usage_doc)
 
     canvas_size = int(sys.argv[1])
-    # main working structure of this module.
+    # 本模块的主要运行结构。
     c = create_canvas(canvas_size)
     seed(c)
     fig, ax = plt.subplots()
@@ -201,5 +196,5 @@ if __name__ == "__main__":
             fig.canvas.draw()
             ax.cla()
     except KeyboardInterrupt:
-        # do nothing.
+        # 不执行任何操作。
         pass
