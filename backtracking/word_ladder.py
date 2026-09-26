@@ -19,13 +19,13 @@ def backtrack(
     使用回溯法寻找从 current_word 到 end_word
     的转换序列的辅助函数。
 
-    Parameters:
+    参数：
     current_word (str): 转换序列中的当前单词。
     path (list[str]): 从 begin_word 到 current_word 的转换列表。
     end_word (str): 转换的目标单词。
     word_set (set[str]): 转换中可用的有效单词集合。
 
-    Returns:
+    返回：
     list[str]: 从 begin_word 到 end_word 的转换列表。
                若不存在从 current_word 到 end_word 的有效
                 转换，则返回空列表。
@@ -70,12 +70,12 @@ def word_ladder(begin_word: str, end_word: str, word_set: set[str]) -> list[str]
     使用回溯法求解单词接龙问题，返回
     从 begin_word 到 end_word 的转换列表。
 
-    Parameters:
+    参数：
     begin_word (str): 转换开始的单词。
     end_word (str): 转换的目标单词。
     word_list (list[str]): 转换中可用的有效单词列表。
 
-    Returns:
+    返回：
     list[str]: 从 begin_word 到 end_word 的转换列表。
                若不存在有效转换，则返回空列表。
 

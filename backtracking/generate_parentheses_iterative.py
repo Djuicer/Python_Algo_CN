@@ -14,10 +14,10 @@ def generate_parentheses_iterative(length: int) -> list[str]:
         d. 若右括号数 < 左括号数，则将添加 ')' 后的新组合入栈。
     5. 返回包含所有有效组合的结果。
 
-    Args:
+    参数：
         length: 期望的括号组合长度
 
-    Returns:
+    返回：
         表示有效括号组合的字符串列表
 
     时间复杂度：

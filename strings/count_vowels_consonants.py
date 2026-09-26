@@ -4,10 +4,10 @@ def count_vowels_and_consonants(text: str) -> tuple[int, int]:
 
         忽略非字母字符。
 
-        Args:
+        参数：
             text (str): 输入字符串。
 
-        Returns:
+        返回：
             tuple[int, int]: 包含 (vowel_count,
     consonant_count) 的元组。
      示例：

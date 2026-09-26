@@ -20,7 +20,7 @@ def valid_coloring(
     若任意邻居不满足约束，则返回 False
     若所有邻居均满足约束，则返回 True
 
-    Parameters:
+    参数：
     neighbours: 表示哪些顶点与当前顶点
                 相邻的列表。
                 1 表示当前顶点与该邻居之间
@@ -29,7 +29,7 @@ def valid_coloring(
                       （-1 表示未着色）。
     color: 尝试分配给当前顶点的颜色。
 
-    Returns:
+    返回：
     若可安全地为顶点分配给定颜色，则返回 True，
     否则返回 False。
 
@@ -75,7 +75,7 @@ def util_color(
             2.4. 若当前着色导向一个解，则返回
             2.5. 撤销给定顶点的着色
 
-    Parameters:
+    参数：
     graph: 表示图的邻接矩阵。
            若顶点 i 与 j 之间存在边，
            则 graph[i][j] 为 1。
@@ -85,7 +85,7 @@ def util_color(
                       着色。
     index: 当前处理的顶点索引。
 
-    Returns:
+    返回：
     若使用至多 max_colors 种颜色可以完成着色，则返回 True，否则返回 False。
 
     示例：
@@ -130,11 +130,11 @@ def color(graph: list[list[int]], max_colors: int) -> list[int]:
     若可行，返回颜色分配列表；
     否则返回空列表。
 
-    Parameters:
+    参数：
     graph: 表示图的邻接矩阵。
     max_colors: 允许使用的最多颜色数。
 
-    Returns:
+    返回：
     若使用 max_colors 种颜色可以完成着色，则返回颜色分配列表。
     列表中每个索引处的值表示
     对应顶点所分配的颜色。

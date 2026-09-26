@@ -40,10 +40,10 @@ def dis_between_closest_pair(points, points_counts, min_dis=float("inf")):
     """
     使用暴力法求最近点对距离
 
-    Parameters :
+    参数：
     points, points_count, min_dis (list(tuple(int, int)), int, int)
 
-    Returns :
+    返回：
     min_dis (float): 最近点对之间的距离
 
     >>> dis_between_closest_pair([[1,2],[2,4],[5,7],[8,9],[11,0]],5)
@@ -62,10 +62,10 @@ def dis_between_closest_in_strip(points, points_counts, min_dis=float("inf")):
     """
     求点带内的最近点对
 
-    Parameters :
+    参数：
     points, points_count, min_dis (list(tuple(int, int)), int, int)
 
-    Returns :
+    返回：
     min_dis (float): 点带内最近点对之间的距离（< min_dis）
 
     >>> dis_between_closest_in_strip([[1,2],[2,4],[5,7],[8,9],[11,0]],5)
@@ -82,10 +82,10 @@ def dis_between_closest_in_strip(points, points_counts, min_dis=float("inf")):
 def closest_pair_of_points_sqr(points_sorted_on_x, points_sorted_on_y, points_counts):
     """分治方法
 
-    Parameters :
+    参数：
     points, points_count (list(tuple(int, int)), int)
 
-    Returns :
+    返回：
     (float): 最近点对之间的距离
 
     >>> closest_pair_of_points_sqr([(1, 2), (3, 4)], [(5, 6), (7, 8)], 2)

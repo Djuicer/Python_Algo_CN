@@ -50,4 +50,4 @@ def power(a: int, b: int) -> float:
 
 
 if __name__ == "__main__":
-    print(power(-2, -3))  # output -0.125
+    print(power(-2, -3))  # 输出 -0.125

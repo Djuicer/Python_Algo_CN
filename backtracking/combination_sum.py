@@ -20,7 +20,7 @@ def backtrack(
     递归搜索可能的组合。当当前组合的元素和
     大于目标值时回溯。
 
-    Parameters
+    参数
     ----------
     previous_index: 上一次搜索的最后一个索引
     target: path 列表中的整数相加需要得到的值。

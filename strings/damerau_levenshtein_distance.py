@@ -13,11 +13,11 @@ def damerau_levenshtein_distance(first_string: str, second_string: str) -> int:
     实现 Damerau-Levenshtein 距离算法，用于度量
     两个字符串之间的编辑距离。
 
-    Parameters:
+    参数：
         first_string: 第一个待比较字符串
         second_string: 第二个待比较字符串
 
-    Returns:
+    返回：
         distance: 两个字符串之间的编辑距离
 
     >>> damerau_levenshtein_distance("cat", "cut")

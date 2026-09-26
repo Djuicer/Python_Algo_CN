@@ -33,10 +33,10 @@ def flash_sort(arr: list[int | float]) -> list[int | float]:
     闪电排序对均匀分布的数据尤其高效。
     利用数值分布确定元素的大致位置。
 
-    Args:
+    参数：
         arr: 待排序的整数或浮点数列表
 
-    Returns:
+    返回：
         按升序排列的列表
 
     示例：

@@ -12,12 +12,12 @@ def backtrack(input_string: str, word_dict: set[str], start: int) -> bool:
     使用回溯法判断从索引 'start' 开始
     能否进行有效单词拆分的辅助函数。
 
-    Parameters:
+    参数：
     input_string (str): 待拆分的输入字符串。
     word_dict (set[str]): 有效词典单词的集合。
     start (int): 待检查子串的起始索引。
 
-    Returns:
+    返回：
     bool: 能有效拆分时返回 True，否则返回 False。
 
     示例：
@@ -50,11 +50,11 @@ def word_break(input_string: str, word_dict: set[str]) -> bool:
     使用回溯法判断输入字符串能否拆分为
     有效词典单词组成的序列。
 
-    Parameters:
+    参数：
     input_string (str): 待拆分的输入字符串。
     word_dict (set[str]): 有效单词集合。
 
-    Returns:
+    返回：
     bool: 字符串能拆分为有效单词时返回 True，否则返回 False。
 
     示例：

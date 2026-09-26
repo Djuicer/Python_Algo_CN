@@ -29,7 +29,7 @@ def _sift(seq: list[int], root: int, order: int) -> None:
       - 右子树根位于 ``root - 1``
       - 左子树根位于 ``root - 1 - L(k-2)``
 
-    Args:
+    参数：
         seq:   待排序列表（原地修改）。
         root:  待修复莱昂纳多树的根索引。
         order: 以 ``root`` 为根的莱昂纳多树的阶。
@@ -84,7 +84,7 @@ def _trinkle(
     向左移动，然后调用 ``_sift``，修复
     最终位置上的堆。
 
-    Args:
+    参数：
         seq:        待排序列表（原地修改）。
         pos:        正在插入或刚暴露的根索引。
         heap_sizes: 当前森林中各莱昂纳多树的阶（从左到
@@ -130,10 +130,10 @@ def smoothsort(seq: list[int]) -> list[int]:
     O(n)。通过维护莱昂纳多堆森林来改进堆排序，
     森林结构反映序列中已排序的前缀。
 
-    Args:
+    参数：
         seq: 待排序的整数列表。
 
-    Returns:
+    返回：
         按升序排列后的同一个列表对象。
 
     示例：

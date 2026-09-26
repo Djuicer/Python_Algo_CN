@@ -1,6 +1,6 @@
 def to_title_case(word: str) -> str:
     """
-    Converts a string to capitalized case, preserving the input as is
+    将字符串转换为首字母大写形式，并保持输入内容不变。
 
     >>> to_title_case("Aakash")
     'Aakash'
@@ -33,7 +33,7 @@ def to_title_case(word: str) -> str:
 
 def sentence_to_title_case(input_str: str) -> str:
     """
-    Converts a string to title case, preserving the input as is
+    将字符串转换为标题格式，并保持输入内容不变。
 
     >>> sentence_to_title_case("Aakash Giri")
     'Aakash Giri'

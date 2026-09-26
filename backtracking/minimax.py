@@ -22,7 +22,7 @@ def minimax(
     若玩家是最大化方，则最大化得分。
     若玩家是最小化方，则最小化得分。
 
-    Parameters:
+    参数：
     - depth: 博弈树的当前深度。
     - node_index: 当前节点在 scores 列表中的索引。
     - is_max: 布尔值，表示当前轮次属于
@@ -30,7 +30,7 @@ def minimax(
     - scores: 包含博弈树叶节点得分的列表。
     - height: 博弈树的最大高度。
 
-    Returns:
+    返回：
     - 表示当前玩家最优得分的整数。
 
     >>> import math

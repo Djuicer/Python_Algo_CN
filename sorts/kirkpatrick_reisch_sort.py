@@ -22,10 +22,10 @@ def kirkpatrick_reisch_sort(arr: list[int]) -> list[int]:
     """
     实现 Kirkpatrick-Reisch 排序算法。
 
-    Args:
+    参数：
     arr (list): 待排序的输入列表。
 
-    Returns:
+    返回：
     list: 包含排序后元素的新列表。
 
     示例：

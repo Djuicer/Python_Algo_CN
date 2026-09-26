@@ -12,14 +12,14 @@
 def count_inversions_bf(arr):
     """
     使用朴素暴力算法统计逆序对数量
-    Parameters
+    参数
     ----------
     arr: arr: 类数组对象，包含待统计逆序对数量的
     元素列表。`arr` 的元素必须可比较。
-    Returns
+    返回
     -------
     num_inversions: `arr` 中的逆序对总数
-    Examples
+    示例
     ---------
      >>> count_inversions_bf([1, 4, 2, 4, 1])
      4
@@ -43,15 +43,15 @@ def count_inversions_bf(arr):
 def count_inversions_recursive(arr):
     """
     使用分治算法统计逆序对数量
-    Parameters
+    参数
     -----------
     arr: 类数组对象，包含待统计逆序对数量的
     元素列表。`arr` 的元素必须可比较。
-    Returns
+    返回
     -------
     C: `arr` 的已排序副本。
     num_inversions: int，'arr' 中的逆序对总数
-    Examples
+    示例
     --------
     >>> count_inversions_recursive([1, 4, 2, 4, 1])
     ([1, 1, 2, 4, 4], 4)
@@ -80,15 +80,15 @@ def _count_cross_inversions(p, q):
     并将两个数组合并为一个有序数组
     对于所有 1<= i<=len(P) 和 1 <= j <= len(Q)，
     若 P[i] > Q[j]，则 (i, j) 为跨数组的逆序对
-    Parameters
+    参数
     ----------
     P: 类数组对象，按非递减顺序排列
     Q: 类数组对象，按非递减顺序排列
-    Returns
+    返回
     ------
     R: 类数组对象，由 `P` 和 `Q` 的元素组成的有序数组
     num_inversion: int，跨 `P` 和 `Q` 的逆序对数量
-    Examples
+    示例
     --------
     >>> _count_cross_inversions([1, 2, 3], [0, 2, 5])
     ([0, 1, 2, 2, 3, 5], 4)
@@ -100,9 +100,8 @@ def _count_cross_inversions(p, q):
     i = j = num_inversion = 0
     while i < len(p) and j < len(q):
         if p[i] > q[j]:
-            # if P[1] > Q[j], then P[k] > Q[k] for all  i < k <= len(P)
-            # These are all inversions. The claim emerges from the
-            # property that P is sorted.
+            # 若 P[1] > Q[j]，则对所有 i < k <= len(P)，均有 P[k] > Q[k]。
+            # 这些都是逆序对；该结论源于 P 已排序这一性质。
             num_inversion += len(p) - i
             r.append(q[j])
             j += 1

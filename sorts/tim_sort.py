@@ -20,14 +20,14 @@ def binary_search[T: Comparable](lst: list[T], item: T, start: int, end: int) ->
     （包含两端）执行递归二分查找，返回
     能够保持列表有序的插入位置。
 
-    Args:
+    参数：
         lst: 元素可比较的列表。
              ``start`` 到 ``end`` 的子列表必须已有序。
         item: 待查找插入位置的值。
         start: 待搜索有序子列表的最左索引。
         end: 待搜索有序子列表的最右索引。
 
-    Returns:
+    返回：
         ``item`` 应插入的索引。
 
     复杂度：
@@ -57,11 +57,11 @@ def insertion_sort[T: Comparable](lst: list[T]) -> list[T]:
     使用 ``binary_search`` 查找每个元素的插入位置。
     不修改输入列表，返回新的有序列表。
 
-    Args:
+    参数：
         lst: 待排序的列表。返回新列表，不会
             原地修改输入。
 
-    Returns:
+    返回：
         包含 ``lst`` 所有元素、按升序排列的新列表。
 
     复杂度：
@@ -85,11 +85,11 @@ def merge[T: Comparable](left: list[T], right: list[T]) -> list[T]:
 
     合并两个有序列表，返回新的有序列表。
 
-    Args:
+    参数：
         left: 按升序排列的列表。
         right: 按升序排列的列表。
 
-    Returns:
+    返回：
         包含 ``left`` 和 ``right`` 所有元素、按
         升序排列的新列表。
 

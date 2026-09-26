@@ -8,16 +8,12 @@
 集合长度，然后每轮
 按因子 1.3 缩小。
 
-For each iteration, the algorithm compares elements
-that are a certain number of positions apart
-(determined by the gap). If the element at the higher
-position is greater than the element at the lower
-position, the two elements are swapped. The process
-is repeated until the gap is equal to 1.
+每次迭代时，算法会比较相隔若干位置（由 gap 决定）的元素。
+如果较高位置的元素大于较低位置的元素，则交换两者。
+重复此过程，直到 gap 等于 1。
 
-The reason this is more efficient is that it reduces
-the number of comparisons that need to be made. By
-using a smaller gap, the list is sorted more quickly.
+这种方法通过减少所需的比较次数来提高效率；随着 gap 缩小，
+列表能够更快地完成排序。
 """
 
 from typing import Protocol

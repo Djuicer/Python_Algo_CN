@@ -5,20 +5,20 @@ class BoothsAlgorithm:
     时间复杂度：O(n)，线性时间，n 为输入字符串长度
     空间复杂度：O(n)，失配函数数组需要线性空间
 
-    For More Visit - https://en.wikipedia.org/wiki/Booth%27s_multiplication_algorithm
+    更多信息：https://en.wikipedia.org/wiki/Booth%27s_multiplication_algorithm
     """
 
     def find_minimal_rotation(self, string: str) -> str:
         """
         寻找输入字符串在字典序下最小的循环移位。
 
-        Args:
+        参数：
             string (str): 待求最小循环移位的输入字符串。
 
-        Returns:
+        返回：
             str: 输入字符串在字典序下最小的循环移位。
 
-        Raises:
+        异常：
             ValueError: 输入不是字符串或为空时抛出。
 
         示例：
@@ -63,4 +63,4 @@ class BoothsAlgorithm:
 
 if __name__ == "__main__":
     ba = BoothsAlgorithm()
-    print(ba.find_minimal_rotation("bca"))  # output is 'abc'
+    print(ba.find_minimal_rotation("bca"))  # 输出为 'abc'

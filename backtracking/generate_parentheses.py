@@ -2,9 +2,9 @@
 author: Aayush Soni
 给定 n 对括号，编写函数生成所有
 有效的括号组合。
-Input: n = 2
-Output: ["(())","()()"]
-Leetcode link: https://leetcode.com/problems/generate-parentheses/description/
+输入：n = 2
+输出：["(())","()()"]
+Leetcode 链接：https://leetcode.com/problems/generate-parentheses/description/
 """
 
 

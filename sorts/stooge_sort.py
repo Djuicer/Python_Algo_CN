@@ -33,7 +33,7 @@ def stooge[T: Comparable](arr: list[T], i: int, h: int) -> None:
     if i >= h:
         return
 
-    # If first element is smaller than the last then swap them
+    # 如果首元素小于末元素，则交换两者
     if arr[h] < arr[i]:
         arr[i], arr[h] = arr[h], arr[i]
 

@@ -18,11 +18,11 @@ def bitap_string_match(text: str, pattern: str) -> int:
     """
     获取 pattern 在 text 中第一次出现的索引。
 
-    Args:
+    参数：
         text: 仅由小写字母组成的字符串。
         pattern: 仅由小写字母组成的字符串。
 
-    Returns:
+    返回：
         int: pattern 第一次出现的索引，未找到则返回 -1。
 
     >>> bitap_string_match('abdabababc', 'ababc')

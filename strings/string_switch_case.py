@@ -45,7 +45,7 @@ def to_complex_case(text: str, upper: bool, separator: str) -> str:
     """
     返回使用指定分隔符连接后的字符串。
 
-    Parameters:
+    参数：
     @text: 要执行操作的字符串
     @upper: 决定是否将结果转为大写的布尔值
     @separator: 连接单词所用的分隔符

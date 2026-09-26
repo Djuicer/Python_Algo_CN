@@ -34,8 +34,8 @@ email_tests: tuple[tuple[str, bool], ...] = (
     ("", False),
 )
 
-# The maximum octets (one character as a standard unicode character is one byte)
-# that the local part and the domain part can have
+# 本地部分和域名部分允许的最大字节数
+#（标准 Unicode 字符按一个字符占一个字节计算）
 MAX_LOCAL_PART_OCTETS = 64
 MAX_DOMAIN_OCTETS = 255
 
@@ -52,10 +52,9 @@ def is_valid_email_address(email: str) -> bool:
      1. 邮箱地址只能有一个 @ 符号。严格来说，若本地部分的
         @ 符号被引号包围，则也是有效的，但此
         实现暂不处理 ""。
-        (See https://en.wikipedia.org/wiki/Email_address#:~:text=If%20quoted,)
-     2. The local-part and the domain are limited to a certain number of octets. With
-        unicode storing a single character in one byte, each octet is equivalent to
-        a character. Hence, we can just check the length of the string.
+        （参见 https://en.wikipedia.org/wiki/Email_address#:~:text=If%20quoted,）
+     2. 本地部分和域名部分限制为一定的字节数。Unicode 使用一个字节存储
+        单个字符时，每个字节等价于一个字符，因此只需检查字符串长度。
     本地部分检查：
      3. 本地部分可以包含大小写拉丁字母、数字 0 到 9，
         以及可打印字符 (!#$%&'*+-/=?^_`{|}~)

@@ -22,12 +22,12 @@ class Point:
     """
     定义供所有凸包算法使用的二维点。
 
-    Parameters
+    参数
     ----------
     x: int 或 float，二维点的 x 坐标
     y: int 或 float，二维点的 y 坐标
 
-    Examples
+    示例
     --------
     >>> Point(1, 2)
     (1.0, 2.0)
@@ -91,18 +91,18 @@ def _construct_points(
     """
     从包含数值的类数组对象构造点列表
 
-    Arguments
+    参数
     ---------
 
     list_of_tuples: 包含数值的类数组对象。目前支持的类型
     包括列表、元组和集合。
 
-    Returns
+    返回
     --------
     points: 每个元素均为 Point 类型的列表。仅包含
     可转换为 Point 的对象。
 
-    Examples
+    示例
     -------
     >>> _construct_points([[1, 1], [2, -1], [0.3, 4]])
     [(1.0, 1.0), (2.0, -1.0), (0.3, 4.0)]
@@ -136,18 +136,18 @@ def _validate_input(points: list[Point] | list[list[float]]) -> list[Point]:
     """
     在凸包算法使用输入实例之前对其进行验证
 
-    Parameters
+    参数
     ---------
     points: 类数组对象，使用凸包算法前待验证的
     二维点。points 的元素必须是列表、元组或
     Point。
 
-    Returns
+    返回
     -------
     points: array_like，包含传入数据构造出的所有有效 Point 的可迭代对象。
 
 
-    Exception
+    异常
     ---------
     ValueError: points 为空或为 None，或者传入标量等不正确的
                  数据结构时抛出
@@ -156,7 +156,7 @@ def _validate_input(points: list[Point] | list[list[float]]) -> list[Point]:
                 集合除外，使用前会将其转换为列表
 
 
-    Examples
+    示例
     -------
     >>> _validate_input([[1, 2]])
     [(1.0, 2.0)]
@@ -187,26 +187,25 @@ def _validate_input(points: list[Point] | list[list[float]]) -> list[Point]:
 
 def _det(a: Point, b: Point, c: Point) -> float:
     """
-    Computes the sign perpendicular distance of a 2d point c from a line segment
-    ab. The sign indicates the direction of c relative to ab.
-    A Positive value means c is above ab (to the left), while a negative value
-    means c is below ab (to the right). 0 means all three points are on a straight line.
+    计算二维点 c 到线段 ab 的带符号垂直距离。
+    符号表示 c 相对于 ab 的方向：正值表示 c 位于 ab 上方（左侧），
+    负值表示 c 位于 ab 下方（右侧），0 表示三点共线。
 
     此外，0.5 * abs|det| 是三角形 abc 的面积
 
-    Parameters
+    参数
     ----------
     a: point，线段 ab 左端的点
     b: point，线段 ab 右端的点
     c: point，待确定其方向和位置的点。
 
-    Returns
+    返回
     --------
-    det: float, abs(det) is the distance of c from ab. The sign
-    indicates which side of line segment ab c is. det is computed as
+    det: float，abs(det) 是 c 到 ab 的距离。符号表示 c 位于线段 ab 的哪一侧。
+    det 的计算公式为
     (a_xb_y + c_xa_y + b_xc_y) - (a_yb_x + c_ya_x + b_yc_x)
 
-    Examples
+    示例
     ----------
     >>> _det(Point(1, 1), Point(1, 2), Point(1, 5))
     0.0
@@ -231,20 +230,20 @@ def convex_hull_bf(points: list[Point]) -> list[Point]:
 
     运行时间：O(n^3)，效率很低
 
-    Parameters
+    参数
     ---------
     points: 由 Point、列表或元组组成的类数组对象。
     需要求凸包的二维点集
 
-    Returns
+    返回
     ------
     convex_set: list，按非递减顺序排列的凸包点集。
 
-    See Also
+    另请参阅
     --------
     convex_hull_recursive,
 
-     Examples
+     示例
      ---------
      >>> convex_hull_bf([[0, 0], [1, 0], [10, 1]])
      [(0.0, 0.0), (1.0, 0.0), (10.0, 1.0)]
@@ -300,18 +299,18 @@ def convex_hull_recursive(points: list[Point]) -> list[Point]:
     这些较小凸包的凸包。较小凸包所得结果的并集，
     就是较大问题的凸包解。
 
-    Parameter
+    参数
     ---------
     points: 由 Point、列表或元组组成的类数组对象。
     需要求凸包的二维点集
 
     运行时间：O(n log n)
 
-    Returns
+    返回
     -------
     convex_set: list，按非递减顺序排列的凸包点集。
 
-    Examples
+    示例
     ---------
     >>> convex_hull_recursive([[0, 0], [1, 0], [10, 1]])
     [(0.0, 0.0), (1.0, 0.0), (10.0, 1.0)]
@@ -367,7 +366,7 @@ def _construct_hull(
 ) -> None:
     """
 
-    Parameters
+    参数
     ---------
     points: list 或 None，用于选择下一个凸包顶点的
         点集
@@ -376,12 +375,12 @@ def _construct_hull(
     convex_set: set，当前凸包。此函数会更新
         convex-set 的状态
 
-    Note
+    注意
     ----
     对于线段 'ab'，'a' 在左，'b' 在右。
     对于线段 'ba' 则相反。
 
-    Returns
+    返回
     -------
     无返回值，仅更新 convex-set 的状态
     """
@@ -417,19 +416,19 @@ def convex_hull_melkman(points: list[Point]) -> list[Point]:
 
     运行时间：O(n log n)；输入点已排序时为 O(n)
 
-    Parameters
+    参数
     ---------
     points: 由 Point、列表或元组组成的类数组对象。
     需要求凸包的二维点集
 
-    Returns
+    返回
     ------
     convex_set: list，按非递减顺序排列的凸包点集。
 
-    See Also
+    另请参阅
     --------
 
-    Examples
+    示例
     ---------
     >>> convex_hull_melkman([[0, 0], [1, 0], [10, 1]])
     [(0.0, 0.0), (1.0, 0.0), (10.0, 1.0)]

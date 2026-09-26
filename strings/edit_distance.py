@@ -7,7 +7,7 @@ def edit_distance(source: str, target: str) -> int:
     此实现假设插入、删除和替换操作的代价
     始终为 1
 
-    Args:
+    参数：
     source: 初始字符串，用于计算它与 target 之间的
         编辑距离
     target: 对 source 执行 n 次操作后得到的目标字符串
@@ -43,4 +43,4 @@ def edit_distance(source: str, target: str) -> int:
 
 
 if __name__ == "__main__":
-    print(edit_distance("ATCGCTG", "TAGCTAA"))  # Answer is 4
+    print(edit_distance("ATCGCTG", "TAGCTAA"))  # 答案为 4

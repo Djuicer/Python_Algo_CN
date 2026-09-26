@@ -4,11 +4,11 @@ def hamming_distance(string1: str, string2: str) -> int:
     是对应位置的符号
     不同的位置数。https://en.wikipedia.org/wiki/Hamming_distance
 
-    Args:
+    参数：
         string1 (str): 序列 1
         string2 (str): 序列 2
 
-    Returns:
+    返回：
         int: 汉明距离
 
     >>> hamming_distance("python", "python")

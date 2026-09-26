@@ -10,15 +10,15 @@ def solve_maze(
 ) -> list[list[int]]:
     """
     求解老鼠走迷宫问题。
-    Parameters :
+    参数：
         - maze: 由零和一组成的二维矩阵。
         - source_row: 起点的行索引。
         - source_column: 起点的列索引。
         - destination_row: 终点的行索引。
         - destination_column: 终点的列索引。
-    Returns:
+    返回：
         - solution: 若存在解，则为表示解路径的二维矩阵。
-    Raises:
+    异常：
         - ValueError: 不存在解，或者起点或
             终点坐标无效时抛出。
     说明：
@@ -148,11 +148,11 @@ def run_maze(
     从 (i, j) 开始递归，向上、下、左、右
     四个方向之一移动。
     找到通往终点的路径时返回 True，否则返回 False。
-    Parameters
+    参数
         maze: 由零和一组成的二维矩阵。
         i, j : 矩阵坐标
         solutions: 解的二维矩阵。
-    Returns:
+    返回：
         布尔值，找到路径时为 True，否则为 False。
     """
     size = len(maze)

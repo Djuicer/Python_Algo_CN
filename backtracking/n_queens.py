@@ -18,11 +18,11 @@ def is_safe(board: list[list[int]], row: int, column: int) -> bool:
     根据棋盘当前状态，若可以安全地在指定位置放置皇后，
     则返回布尔值 True。
 
-    Parameters:
+    参数：
     board (2D matrix): 棋盘
     row, column: 棋盘单元格的坐标
 
-    Returns:
+    返回：
     布尔值
 
     >>> is_safe([[0, 0, 0], [0, 0, 0], [0, 0, 0]], 1, 1)

@@ -2,10 +2,10 @@ def find_smallest_and_largest_words(input_string: str) -> tuple:
     """
     按长度找出给定输入字符串中最短和最长的单词。
 
-    Args:
+    参数：
         input_string (str): 待分析的输入字符串。
 
-    Returns:
+    返回：
         tuple: 包含找到的最短和最长单词的元组。
         若未找到单词，元组中的两个值均为 None。
 

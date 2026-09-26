@@ -7,7 +7,7 @@ def is_contains_unique_chars(input_str: str) -> bool:
     False
 
     时间复杂度：O(n)
-    Space complexity: O(1) 19320 bytes as we are having 144697 characters in unicode
+    空间复杂度：O(1)，Unicode 中有 144697 个字符时占用 19320 字节
     """
 
     # 每一位表示一个 Unicode 字符

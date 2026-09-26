@@ -14,7 +14,7 @@ Wild 提出，自 Python 3.11 起集成到标准库中。
 时间复杂度：最坏为 O(n log n)，近乎有序数据为 O(n)
 空间复杂度：合并缓冲区需要 O(n)
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Powersort
 - https://arxiv.org/abs/1805.04154 (Original paper by Munro and Wild)
 
@@ -42,14 +42,14 @@ def _find_run(
     返回检测到的有序段的结束索引（不包含该位置）。
 
 
-    Args:
+    参数：
         arr: 待搜索的列表
         start: 有序段的起始索引
         end: 搜索范围的结束索引（不包含该位置）
         key: 可选的比较键函数
 
 
-    Returns:
+    返回：
         检测到的有序段的结束索引（不包含该位置）
 
 
@@ -96,7 +96,7 @@ def _node_power(total_length: int, b1: int, n1: int, b2: int, n2: int) -> int:
     - b = (b2 + n2/2) / n
 
 
-    Args:
+    参数：
         total_length: 数组总长度
         b1: 第一个有序段的起始索引
         n1: 第一个有序段的长度
@@ -104,7 +104,7 @@ def _node_power(total_length: int, b1: int, n1: int, b2: int, n2: int) -> int:
         n2: 第二个有序段的长度
 
 
-    Returns:
+    返回：
         计算出的节点幂
 
 
@@ -148,7 +148,7 @@ def _merge(
     合并 arr[start1:end1] 与 arr[end1:end2]。
 
 
-    Args:
+    参数：
         arr: 包含有序段的列表
         start1: 第一个有序段的起始索引
         end1: 第一个有序段的结束索引（第二个有序段的起始位置）
@@ -210,13 +210,13 @@ def power_sort(
     并使用基于节点幂的合并策略以获得最优性能。
 
 
-    Args:
+    参数：
         collection: 元素可比较的可变有序集合
         key: 可选函数，用于提取各元素的比较键
         reverse: 为 True 时按降序排列
 
 
-    Returns:
+    返回：
         按参数指定顺序排列后的同一个集合
 
 
@@ -275,10 +275,10 @@ def power_sort(
                 """
                 用于数值的反向键函数。
 
-                Args:
+                参数：
                     element: 待处理的元素
 
-                Returns:
+                返回：
                     数值类型返回相反数，其他类型返回原值
 
                 >>> reverse_key(5)
@@ -299,10 +299,10 @@ def power_sort(
                 """
                 用于数值的反向比较函数。
 
-                Args:
+                参数：
                     element: 待处理的元素
 
-                Returns:
+                返回：
                     数值类型返回相反数，其他类型返回原值
 
                 >>> reverse_cmp(10)

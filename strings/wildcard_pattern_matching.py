@@ -14,23 +14,23 @@ def match_pattern(input_string: str, pattern: str) -> bool:
 
     运行时间：O(len(input_string)*len(pattern))
 
-    Arguments
+    参数
     --------
     input_string: str，待与模式比较的任意字符串
     pattern: str，表示模式的字符串，可以包含
     匹配单个字符的 '.'，以及匹配前一个字符零次或多次的
     '*'
 
-    Note
+    注意
     ----
     模式不能以 '*' 开头，
     因为 * 前至少应有一个字符
 
-    Returns
+    返回
     -------
     表示给定字符串是否匹配模式的布尔值
 
-    Examples
+    示例
     -------
     >>> match_pattern("aab", "c*a*b")
     True

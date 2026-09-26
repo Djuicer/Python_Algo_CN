@@ -1,7 +1,7 @@
 """
 主题：确定有限自动机（Deterministic Finite Automaton，DFA）
 给定字符串 s，判断它是否表示有效数值
-LeetCode link: https://leetcode.com/problems/valid-number/description/
+LeetCode 链接：https://leetcode.com/problems/valid-number/description/
 """
 
 from enum import Enum
@@ -63,10 +63,10 @@ def classify_char(char: str) -> CharType | None:
     - None: 不属于上述任何类别
     - None: char 的长度不为 1
 
-    Parameters:
+    参数：
     char (str): 待分类的字符
 
-    Returns:
+    返回：
     CharType: 字符所属类别
 
     >>> classify_char('2')
