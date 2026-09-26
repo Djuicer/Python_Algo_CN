@@ -2,15 +2,14 @@
 # Black Formatter: True
 
 """
-Implementation of SHA256 Hash function in a Python class and provides utilities
-to find hash of string or hash of text from a file.
+使用 Python 类实现 SHA256 哈希函数，并提供计算字符串或文件文本哈希值的工具。
 
-Usage: python sha256.py --string "Hello World!!"
+用法：python sha256.py --string "Hello World!!"
        python sha256.py --file "hello_world.txt"
-       When run without any arguments,
-       it prints the hash of the string "Hello World!! Welcome to Cryptography"
+       不带任何参数运行时，会输出字符串
+       "Hello World!! Welcome to Cryptography" 的哈希值。
 
-References:
+参考资料：
 https://qvault.io/cryptography/how-sha-2-works-step-by-step-sha-256/
 https://en.wikipedia.org/wiki/SHA-2
 """
@@ -22,7 +21,7 @@ import unittest
 
 class SHA256:
     """
-    Class to contain the entire pipeline for SHA1 Hashing Algorithm
+    封装 SHA1 哈希算法完整处理流程的类。
 
     >>> SHA256(b'Python').hash
     '18885f27b5af9012df19e496460f9294d5ab76128824c6f993787004f6d9a7db'
@@ -34,7 +33,7 @@ class SHA256:
     def __init__(self, data: bytes) -> None:
         self.data = data
 
-        # Initialize hash values
+        # 初始化哈希值
         self.hashes = [
             0x6A09E667,
             0xBB67AE85,
@@ -46,7 +45,7 @@ class SHA256:
             0x5BE0CD19,
         ]
 
-        # Initialize round constants
+        # 初始化轮常数
         self.round_constants = [
             0x428A2F98,
             0x71374491,
@@ -124,23 +123,23 @@ class SHA256:
         return data + padding + big_endian_integer
 
     def final_hash(self) -> None:
-        # Convert into blocks of 64 bytes
+        # 转换为 64 字节的块
         self.blocks = [
             self.preprocessed_data[x : x + 64]
             for x in range(0, len(self.preprocessed_data), 64)
         ]
 
         for block in self.blocks:
-            # Convert the given block into a list of 4 byte integers
+            # 将给定块转换为 4 字节整数列表
             words = list(struct.unpack(">16L", block))
-            # add 48 0-ed integers
+            # 添加 48 个值为 0 的整数
             words += [0] * 48
 
             a, b, c, d, e, f, g, h = self.hashes
 
             for index in range(64):
                 if index > 15:
-                    # modify the zero-ed indexes at the end of the array
+                    # 修改数组末尾值为 0 的索引项
                     s0 = (
                         self.ror(words[index - 15], 7)
                         ^ self.ror(words[index - 15], 18)
@@ -156,7 +155,7 @@ class SHA256:
                         words[index - 16] + s0 + words[index - 7] + s1
                     ) % 0x100000000
 
-                # Compression
+                # 压缩
                 s1 = self.ror(e, 6) ^ self.ror(e, 11) ^ self.ror(e, 25)
                 ch = (e & f) ^ ((~e & (0xFFFFFFFF)) & g)
                 temp1 = (
@@ -179,7 +178,7 @@ class SHA256:
 
             mutated_hash_values = [a, b, c, d, e, f, g, h]
 
-            # Modify final values
+            # 修改最终值
             self.hashes = [
                 ((element + mutated_hash_values[index]) % 0x100000000)
                 for index, element in enumerate(self.hashes)
@@ -189,14 +188,14 @@ class SHA256:
 
     def ror(self, value: int, rotations: int) -> int:
         """
-        Right rotate a given unsigned number by a certain amount of rotations
+        将给定无符号数向右循环移动指定次数。
         """
         return 0xFFFFFFFF & (value << (32 - rotations)) | (value >> rotations)
 
 
 class SHA256HashTest(unittest.TestCase):
     """
-    Test class for the SHA256 class. Inherits the TestCase class from unittest
+    SHA256 类的测试类，继承自 unittest 的 TestCase 类。
     """
 
     def test_match_hashes(self) -> None:
@@ -208,8 +207,7 @@ class SHA256HashTest(unittest.TestCase):
 
 def main() -> None:
     """
-    Provides option 'string' or 'file' to take input
-    and prints the calculated SHA-256 hash
+    提供 'string' 或 'file' 选项来接收输入，并输出计算得到的 SHA-256 哈希值。
     """
 
     # unittest.main()
@@ -234,7 +232,7 @@ def main() -> None:
 
     input_string = args.input_string
 
-    # hash input should be a bytestring
+    # 哈希输入应为字节串
     if args.input_file:
         with open(args.input_file, "rb") as f:
             hash_input = f.read()

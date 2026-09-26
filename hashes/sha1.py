@@ -1,50 +1,43 @@
 """
-Implementation of the SHA1 hash function and gives utilities to find hash of string or
-hash of text from a file. Also contains a Test class to verify that the generated hash
-matches what is returned by the hashlib library
+实现 SHA1 哈希函数，并提供计算字符串或文件文本哈希值的工具。本模块还包含一个
+Test 类，用于验证生成的哈希值是否与 hashlib 库的返回值一致。
 
-Usage: python sha1.py --string "Hello World!!"
+用法：python sha1.py --string "Hello World!!"
        python sha1.py --file "hello_world.txt"
-       When run without any arguments, it prints the hash of the string "Hello World!!
-       Welcome to Cryptography"
+       不带任何参数运行时，会输出字符串 "Hello World!! Welcome to Cryptography"
+       的哈希值。
 
-SHA1 hash or SHA1 sum of a string is a cryptographic function, which means it is easy
-to calculate forwards but extremely difficult to calculate backwards. What this means
-is you can easily calculate the hash of a string, but it is extremely difficult to know
-the original string if you have its hash. This property is useful for communicating
-securely, send encrypted messages and is very useful in payment systems, blockchain and
-cryptocurrency etc.
+字符串的 SHA1 哈希（或 SHA1 和）是一种密码学函数，正向计算容易，反向计算却
+极其困难。也就是说，可以轻松计算字符串的哈希值，但仅凭哈希值很难获知原始
+字符串。这一性质可用于安全通信和发送加密消息，在支付系统、区块链和加密货币
+等领域也非常有用。
 
-The algorithm as described in the reference:
-First we start with a message. The message is padded and the length of the message
-is added to the end. It is then split into blocks of 512 bits or 64 bytes. The blocks
-are then processed one at a time. Each block must be expanded and compressed.
-The value after each compression is added to a 160-bit buffer called the current hash
-state. After the last block is processed, the current hash state is returned as
-the final hash.
+参考资料所述算法如下：
+首先从一条消息开始，对消息进行填充，并在末尾添加消息长度。然后将其分成
+512 位（即 64 字节）的块，再逐块处理。每个块都必须经过扩展和压缩。
+每次压缩后的值会累加到一个称为“当前哈希状态”的 160 位缓冲区中。
+处理完最后一个块后，返回当前哈希状态作为最终哈希值。
 
-Reference: https://deadhacker.com/2006/02/21/sha-1-illustrated/
+参考资料：https://deadhacker.com/2006/02/21/sha-1-illustrated/
 """
 
 import argparse
-import hashlib  # hashlib is only used inside the Test class
+import hashlib  # hashlib 仅在 Test 类中使用
 import struct
 
 
 class SHA1Hash:
     """
-    Class to contain the entire pipeline for SHA1 hashing algorithm
+    封装 SHA1 哈希算法完整处理流程的类。
     >>> SHA1Hash(bytes('Allan', 'utf-8')).final_hash()
     '872af2d8ac3d8695387e7c804bf0e02c18df9e6e'
     """
 
     def __init__(self, data) -> None:
         """
-        Initiates the variables data and h. h is a list of 5 8-digit hexadecimal
-        numbers corresponding to
+        初始化变量 data 和 h。h 是由 5 个八位十六进制数组成的列表，依次对应
         (1732584193, 4023233417, 2562383102, 271733878, 3285377520)
-        respectively. We will start with this as a message digest. 0x is how you write
-        hexadecimal numbers in Python
+        以此作为初始消息摘要。在 Python 中，十六进制数以 0x 开头。
         """
         self.data = data
         self.h = [0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0]
@@ -52,7 +45,7 @@ class SHA1Hash:
     @staticmethod
     def rotate(n, b):
         """
-        Static method to be used inside other methods. Left rotates n by b.
+        供其他方法调用的静态方法，将 n 向左循环移动 b 位。
         >>> SHA1Hash('').rotate(12,2)
         48
         """
@@ -60,7 +53,7 @@ class SHA1Hash:
 
     def padding(self):
         """
-        Pads the input message with zeros so that padded_data has 64 bytes or 512 bits
+        用零填充输入消息，使 padded_data 的长度为 64 字节或 512 位。
         """
         padding = b"\x80" + b"\x00" * (63 - (len(self.data) + 8) % 64)
         padded_data = self.data + padding + struct.pack(">Q", 8 * len(self.data))
@@ -68,7 +61,7 @@ class SHA1Hash:
 
     def split_blocks(self):
         """
-        Returns a list of bytestrings each of length 64
+        返回一个字节串列表，其中每个字节串的长度均为 64。
         """
         return [
             self.padded_data[i : i + 64] for i in range(0, len(self.padded_data), 64)
@@ -77,8 +70,8 @@ class SHA1Hash:
     # @staticmethod
     def expand_block(self, block):
         """
-        Takes a bytestring-block of length 64, unpacks it to a list of integers and
-        returns a list of 80 integers after some bit operations
+        接收一个长度为 64 的字节串块，将其解包为整数列表，并经过若干位运算后
+        返回包含 80 个整数的列表。
         """
         w = list(struct.unpack(">16L", block)) + [0] * 64
         for i in range(16, 80):
@@ -87,13 +80,11 @@ class SHA1Hash:
 
     def final_hash(self):
         """
-        Calls all the other methods to process the input. Pads the data, then splits
-        into blocks and then does a series of operations for each block (including
-        expansion).
-        For each block, the variable h that was initialized is copied to a,b,c,d,e
-        and these 5 variables a,b,c,d,e undergo several changes. After all the blocks
-        are processed, these 5 variables are pairwise added to h ie a to h[0], b to h[1]
-        and so on. This h becomes our final hash which is returned.
+        调用其他所有方法处理输入。先填充数据并分块，再对每个块执行一系列操作
+        （包括扩展）。
+        对每个块，将已初始化的变量 h 复制到 a、b、c、d、e，这 5 个变量随后
+        经历多次变化。处理完所有块后，将这 5 个变量与 h 对应相加，即 a 加到
+        h[0]、b 加到 h[1]，依此类推。此时的 h 即为最终返回的哈希值。
         """
         self.padded_data = self.padding()
         self.blocks = self.split_blocks()
@@ -137,9 +128,8 @@ def test_sha1_hash() -> None:
 
 def main() -> None:
     """
-    Provides option 'string' or 'file' to take input and prints the calculated SHA1
-    hash. unittest.main() has been commented out because we probably don't want to run
-    the test each time.
+    提供 'string' 或 'file' 选项来接收输入，并输出计算得到的 SHA1 哈希值。
+    unittest.main() 已被注释掉，因为通常不需要每次都运行测试。
     """
     # unittest.main()
     parser = argparse.ArgumentParser(description="Process some strings or files")
@@ -152,7 +142,7 @@ def main() -> None:
     parser.add_argument("--file", dest="input_file", help="Hash contents of a file")
     args = parser.parse_args()
     input_string = args.input_string
-    # In any case hash input should be a bytestring
+    # 无论哪种情况，哈希输入都应为字节串
     if args.input_file:
         with open(args.input_file, "rb") as f:
             hash_input = f.read()

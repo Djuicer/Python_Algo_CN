@@ -1,21 +1,21 @@
 """
-Calculate the rank of a matrix.
+计算矩阵的秩。
 
-See: https://en.wikipedia.org/wiki/Rank_(linear_algebra)
+参见：https://en.wikipedia.org/wiki/Rank_(linear_algebra)
 """
 
 
 def rank_of_matrix(matrix: list[list[int | float]]) -> int:
     """
-    Finds the rank of a matrix.
+    求矩阵的秩。
 
-    Args:
-        `matrix`: The matrix as a list of lists.
+    参数：
+        `matrix`: 以列表的列表表示的矩阵。
 
-    Returns:
-        The rank of the matrix.
+    返回：
+        矩阵的秩。
 
-    Example:
+    示例：
 
     >>> matrix1 = [[1, 2, 3],
     ...            [4, 5, 6],
@@ -61,15 +61,15 @@ def rank_of_matrix(matrix: list[list[int | float]]) -> int:
     rank = min(rows, columns)
 
     for row in range(rank):
-        # Check if diagonal element is not zero
+        # 检查对角线元素是否非零
         if matrix[row][row] != 0:
-            # Eliminate all the elements below the diagonal
+            # 消去对角线下方的所有元素
             for col in range(row + 1, rows):
                 multiplier = matrix[col][row] / matrix[row][row]
                 for i in range(row, columns):
                     matrix[col][i] -= multiplier * matrix[row][i]
         else:
-            # Find a non-zero diagonal element to swap rows
+            # 寻找非零对角线元素以交换行
             reduce = True
             for i in range(row + 1, rows):
                 if matrix[i][row] != 0:
@@ -81,7 +81,7 @@ def rank_of_matrix(matrix: list[list[int | float]]) -> int:
                 for i in range(rows):
                     matrix[i][row] = matrix[i][rank]
 
-            # Reduce the row pointer by one to stay on the same row
+                # 将行指针减一，以停留在同一行
             row -= 1
 
     return rank

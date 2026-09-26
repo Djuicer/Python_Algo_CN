@@ -11,25 +11,21 @@ def lamberts_ellipsoidal_distance(
     lat1: float, lon1: float, lat2: float, lon2: float
 ) -> float:
     """
-    Calculate the shortest distance along the surface of an ellipsoid between
-    two points on the surface of Earth given longitudes and latitudes
+    根据经纬度，计算地球表面两点沿椭球面的最短距离：
     https://en.wikipedia.org/wiki/Geographical_distance#Lambert's_formula_for_long_lines
 
-    NOTE: Uses geodesy/haversine_distance.py to compute the central angle, sigma.
+    注意：使用 geodesy/haversine_distance.py 计算圆心角 sigma。
 
-    Representing the Earth as an ellipsoid allows us to approximate distances between
-    points on the surface much better than a sphere. Ellipsoidal formulas treat the
-    Earth as an oblate ellipsoid, which means accounting for the flattening that happens
-    at the North and South poles. Lambert's formulae provide accuracy on the order of
-    10 meters over thousands of kilometers. Other methods can provide
-    millimeter-level accuracy, but this is a simpler method to calculate long-range
-    distances without increasing computational intensity.
+    将地球表示为椭球体，比使用球体能更准确地估算地表两点间的距离。椭球公式
+    将地球视为扁椭球，因此会考虑南北两极处的扁平化。Lambert 公式在数千千米
+    范围内可达到约 10 米的精度。其他方法能达到毫米级精度，但本方法无需增加
+    太多计算量，便能较简单地计算长距离。
 
-    Args:
-        lat1, lon1: latitude and longitude of coordinate 1
-        lat2, lon2: latitude and longitude of coordinate 2
-    Returns:
-        geographical distance between two points in metres
+    参数：
+        lat1, lon1: 坐标 1 的纬度和经度
+        lat2, lon2: 坐标 2 的纬度和经度
+    返回：
+        两点间的地理距离，单位为米
 
     >>> lamberts_ellipsoidal_distance(100, 0, 0, 0)
     Traceback (most recent call last):
@@ -65,39 +61,39 @@ def lamberts_ellipsoidal_distance(
     '9,719,525 meters'
     """
 
-    # Validate latitude values
+    # 验证纬度值
     if not -90 <= lat1 <= 90 or not -90 <= lat2 <= 90:
         raise ValueError("Latitude must be between -90 and 90 degrees")
 
-    # Validate longitude values
+    # 验证经度值
     if not -180 <= lon1 <= 180 or not -180 <= lon2 <= 180:
         raise ValueError("Longitude must be between -180 and 180 degrees")
 
-    # CONSTANTS per WGS84 https://en.wikipedia.org/wiki/World_Geodetic_System
-    # Distance in metres(m)
-    # Equation Parameters
+    # WGS84 常量：https://en.wikipedia.org/wiki/World_Geodetic_System
+    # 距离单位为米（m）
+    # 方程参数
     # https://en.wikipedia.org/wiki/Geographical_distance#Lambert's_formula_for_long_lines
     flattening = (AXIS_A - AXIS_B) / AXIS_A
-    # Parametric latitudes
+    # 参数纬度
     # https://en.wikipedia.org/wiki/Latitude#Parametric_(or_reduced)_latitude
     b_lat1 = atan((1 - flattening) * tan(radians(lat1)))
     b_lat2 = atan((1 - flattening) * tan(radians(lat2)))
 
-    # Compute central angle between two points
-    # using haversine theta. sigma =  haversine_distance / equatorial radius
+    # 使用 Haversine theta 计算两点间的圆心角
+    # sigma =  haversine_distance / equatorial radius
     sigma = haversine_distance(lat1, lon1, lat2, lon2) / EARTH_RADIUS
 
-    # Intermediate P and Q values
+    # 中间值 P 和 Q
     p_value = (b_lat1 + b_lat2) / 2
     q_value = (b_lat2 - b_lat1) / 2
 
-    # Intermediate X value
+    # 中间值 X
     # X = (sigma - sin(sigma)) * sin^2Pcos^2Q / cos^2(sigma/2)
     x_numerator = (sin(p_value) ** 2) * (cos(q_value) ** 2)
     x_denominator = cos(sigma / 2) ** 2
     x_value = (sigma - sin(sigma)) * (x_numerator / x_denominator)
 
-    # Intermediate Y value
+    # 中间值 Y
     # Y = (sigma + sin(sigma)) * cos^2Psin^2Q / sin^2(sigma/2)
     y_numerator = (cos(p_value) ** 2) * (sin(q_value) ** 2)
     y_denominator = sin(sigma / 2) ** 2

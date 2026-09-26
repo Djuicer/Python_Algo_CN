@@ -1,5 +1,5 @@
 """
-Jacobi Iteration Method - https://en.wikipedia.org/wiki/Jacobi_method
+雅可比迭代法（Jacobi Iteration Method）- https://en.wikipedia.org/wiki/Jacobi_method
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ from numpy import float64
 from numpy.typing import NDArray
 
 
-# Method to find solution of system of linear equations
+# 求解线性方程组的方法
 def jacobi_iteration_method(
     coefficient_matrix: NDArray[float64],
     constant_matrix: NDArray[float64],
@@ -17,9 +17,8 @@ def jacobi_iteration_method(
     iterations: int,
 ) -> list[float]:
     """
-    Jacobi Iteration Method:
-    An iterative algorithm to determine the solutions of strictly diagonally dominant
-    system of linear equations
+    雅可比迭代法：
+    一种求解严格对角占优线性方程组的迭代算法。
 
     4x1 +  x2 +  x3 =  2
      x1 + 5x2 + 2x3 = -6
@@ -27,7 +26,7 @@ def jacobi_iteration_method(
 
     x_init = [0.5, -0.5 , -0.5]
 
-    Examples:
+    示例：
 
     >>> coefficient = np.array([[4, 1, 1], [1, 5, 2], [1, 2, 4]])
     >>> constant = np.array([[2], [-6], [-4]])
@@ -134,28 +133,26 @@ def jacobi_iteration_method(
         init_val = new_val
     """
 
-    # denominator - a list of values along the diagonal
+    # denominator——对角线元素列表
     denominator = np.diag(coefficient_matrix)
 
-    # val_last - values of the last column of the table array
+    # val_last——table 数组最后一列的值
     val_last = table[:, -1]
 
-    # masks - boolean mask of all strings without diagonal
-    # elements array coefficient_matrix
+    # masks——coefficient_matrix 数组中各行除对角线元素外的布尔掩码
     masks = ~np.eye(coefficient_matrix.shape[0], dtype=bool)
 
-    # no_diagonals - coefficient_matrix array values without diagonal elements
+    # no_diagonals——coefficient_matrix 数组中除对角线元素外的值
     no_diagonals = coefficient_matrix[masks].reshape(-1, rows - 1)
 
-    # Here we get 'i_col' - these are the column numbers, for each row
-    # without diagonal elements, except for the last column.
+    # 此处得到 'i_col'——每行除对角线元素及最后一列外的列号
     _i_row, i_col = np.where(masks)
     ind = i_col.reshape(-1, rows - 1)
 
-    #'i_col' is converted to a two-dimensional list 'ind', which will be
-    # used to make selections from 'init_val' ('arr' array see below).
+    # 将 'i_col' 转换为二维列表 'ind'，用于从 'init_val' 中选取元素
+    # （参见下方的 'arr' 数组）
 
-    # Iterates the whole matrix for given number of times
+    # 按给定次数迭代整个矩阵
     for _ in range(iterations):
         arr = np.take(init_val, ind)
         sum_product_rows = np.sum((-1) * no_diagonals * arr, axis=1)
@@ -165,7 +162,7 @@ def jacobi_iteration_method(
     return new_val.tolist()
 
 
-# Checks if the given matrix is strictly diagonally dominant
+    # 检查给定矩阵是否严格对角占优
 def strictly_diagonally_dominant(table: NDArray[float64]) -> bool:
     """
     >>> table = np.array([[4, 1, 1, 2], [1, 5, 2, -6], [1, 2, 4, -4]])
@@ -196,7 +193,7 @@ def strictly_diagonally_dominant(table: NDArray[float64]) -> bool:
     return is_diagonally_dominant
 
 
-# Test Cases
+# 测试用例
 if __name__ == "__main__":
     import doctest
 

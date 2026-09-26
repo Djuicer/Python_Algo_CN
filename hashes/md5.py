@@ -1,14 +1,11 @@
 """
-The MD5 algorithm is a hash function that's commonly used as a checksum to
-detect data corruption. The algorithm works by processing a given message in
-blocks of 512 bits, padding the message as needed. It uses the blocks to operate
-a 128-bit state and performs a total of 64 such operations. Note that all values
-are little-endian, so inputs are converted as needed.
+MD5 算法是一种哈希函数，常用作校验和来检测数据损坏。该算法将给定消息分成
+512 位的块进行处理，并按需填充消息。它使用这些块操作一个 128 位状态，共执行
+64 次此类操作。请注意，所有值均采用小端序，因此会按需转换输入。
 
-Although MD5 was used as a cryptographic hash function in the past, it's since
-been cracked, so it shouldn't be used for security purposes.
+尽管 MD5 过去曾用作密码学哈希函数，但它已经被攻破，因此不应再用于安全用途。
 
-For more info, see https://en.wikipedia.org/wiki/MD5
+更多信息请参阅 https://en.wikipedia.org/wiki/MD5
 """
 
 from collections.abc import Generator
@@ -17,16 +14,16 @@ from math import sin
 
 def to_little_endian(string_32: bytes) -> bytes:
     """
-    Converts the given string to little-endian in groups of 8 chars.
+    以每 8 个字符为一组，将给定字符串转换为小端序。
 
-    Arguments:
-        string_32 {[string]} -- [32-char string]
+    参数：
+        string_32 {[string]} -- [32 字符字符串]
 
-    Raises:
-        ValueError -- [input is not 32 char]
+    异常：
+        ValueError -- [输入不是 32 个字符]
 
-    Returns:
-        32-char little-endian string
+    返回：
+        32 字符的小端序字符串
     >>> to_little_endian(b'1234567890abcdfghijklmnopqrstuvw')
     b'pqrstuvwhijklmno90abcdfg12345678'
     >>> to_little_endian(b'1234567890')
@@ -45,22 +42,22 @@ def to_little_endian(string_32: bytes) -> bytes:
 
 def reformat_hex(i: int) -> bytes:
     """
-    Converts the given non-negative integer to hex string.
+    将给定的非负整数转换为十六进制字符串。
 
-    Example: Suppose the input is the following:
+    示例：假设输入如下：
         i = 1234
 
-        The input is 0x000004d2 in hex, so the little-endian hex string is
-        "d2040000".
+        输入的十六进制形式为 0x000004d2，因此小端序十六进制字符串为
+        "d2040000"。
 
-    Arguments:
-        i {[int]} -- [integer]
+    参数：
+        i {[int]} -- [整数]
 
-    Raises:
-        ValueError -- [input is negative]
+    异常：
+        ValueError -- [输入为负数]
 
-    Returns:
-        8-char little-endian hex string
+    返回：
+        8 字符的小端序十六进制字符串
 
     >>> reformat_hex(1234)
     b'd2040000'
@@ -89,27 +86,27 @@ def reformat_hex(i: int) -> bytes:
 
 def preprocess(message: bytes) -> bytes:
     """
-    Preprocesses the message string:
-    - Convert message to bit string
-    - Pad bit string to a multiple of 512 chars:
-        - Append a 1
-        - Append 0's until length = 448 (mod 512)
-        - Append length of original message (64 chars)
+    对消息字符串进行预处理：
+    - 将消息转换为比特字符串
+    - 将比特字符串填充到字符数为 512 的倍数：
+        - 追加一个 1
+        - 追加若干个 0，直至 length = 448 (mod 512)
+        - 追加原始消息的长度（64 个字符）
 
-    Example: Suppose the input is the following:
+    示例：假设输入如下：
         message = "a"
 
-        The message bit string is "01100001", which is 8 bits long. Thus, the
-        bit string needs 439 bits of padding so that
+        消息的比特字符串为 "01100001"，长度为 8 位。因此，需要填充 439 位，
+        使得
         (bit_string + "1" + padding) = 448 (mod 512).
-        The message length is "000010000...0" in 64-bit little-endian binary.
-        The combined bit string is then 512 bits long.
+        消息长度以 64 位小端序二进制表示为 "000010000...0"。
+        合并后的比特字符串长度为 512 位。
 
-    Arguments:
-        message {[string]} -- [message string]
+    参数：
+        message {[string]} -- [消息字符串]
 
-    Returns:
-        processed bit string padded to a multiple of 512 chars
+    返回：
+        已处理并填充到字符数为 512 倍数的比特字符串
 
     >>> preprocess(b"a") == (b"01100001" + b"1" +
     ...                     (b"0" * 439) + b"00001000" + (b"0" * 56))
@@ -122,7 +119,7 @@ def preprocess(message: bytes) -> bytes:
         bit_string += format(char, "08b").encode("utf-8")
     start_len = format(len(bit_string), "064b").encode("utf-8")
 
-    # Pad bit_string to a multiple of 512 chars
+    # 将 bit_string 填充到字符数为 512 的倍数
     bit_string += b"1"
     while len(bit_string) % 512 != 448:
         bit_string += b"0"
@@ -133,10 +130,9 @@ def preprocess(message: bytes) -> bytes:
 
 def get_block_words(bit_string: bytes) -> Generator[list[int]]:
     """
-    Splits bit string into blocks of 512 chars and yields each block as a list
-    of 32-bit words
+    将比特字符串分成 512 字符的块，并以 32 位字列表的形式逐块生成。
 
-    Example: Suppose the input is the following:
+    示例：假设输入如下：
         bit_string =
             "000000000...0" +  # 0x00 (32 bits, padded to the right)
             "000000010...0" +  # 0x01 (32 bits, padded to the right)
@@ -145,21 +141,20 @@ def get_block_words(bit_string: bytes) -> Generator[list[int]]:
             ...
             "000011110...0"    # 0x0a (32 bits, padded to the right)
 
-        Then len(bit_string) == 512, so there'll be 1 block. The block is split
-        into 32-bit words, and each word is converted to little endian. The
-        first word is interpreted as 0 in decimal, the second word is
-        interpreted as 1 in decimal, etc.
+        此时 len(bit_string) == 512，因此只有 1 个块。该块被分成若干 32 位字，
+        每个字都转换为小端序。第一个字解释为十进制的 0，第二个字解释为
+        十进制的 1，依此类推。
 
-        Thus, block_words == [[0, 1, 2, 3, ..., 15]].
+        因此，block_words == [[0, 1, 2, 3, ..., 15]]。
 
-    Arguments:
-        bit_string {[string]} -- [bit string with multiple of 512 as length]
+    参数：
+        bit_string {[string]} -- [长度为 512 倍数的比特字符串]
 
-    Raises:
-        ValueError -- [length of bit string isn't multiple of 512]
+    异常：
+        ValueError -- [比特字符串长度不是 512 的倍数]
 
-    Yields:
-        a list of 16 32-bit words
+    生成：
+        包含 16 个 32 位字的列表
 
     >>> test_string = ("".join(format(n << 24, "032b") for n in range(16))
     ...                  .encode("utf-8"))
@@ -189,16 +184,16 @@ def get_block_words(bit_string: bytes) -> Generator[list[int]]:
 
 def not_32(i: int) -> int:
     """
-    Perform bitwise NOT on given int.
+    对给定整数执行按位取反。
 
-    Arguments:
-        i {[int]} -- [given int]
+    参数：
+        i {[int]} -- [给定整数]
 
-    Raises:
-        ValueError -- [input is negative]
+    异常：
+        ValueError -- [输入为负数]
 
-    Returns:
-        Result of bitwise NOT on i
+    返回：
+        对 i 按位取反的结果
 
     >>> not_32(34)
     4294967261
@@ -227,14 +222,14 @@ def not_32(i: int) -> int:
 
 def sum_32(a: int, b: int) -> int:
     """
-    Add two numbers as 32-bit ints.
+    将两个数作为 32 位整数相加。
 
-    Arguments:
-        a {[int]} -- [first given int]
-        b {[int]} -- [second given int]
+    参数：
+        a {[int]} -- [第一个给定整数]
+        b {[int]} -- [第二个给定整数]
 
-    Returns:
-        (a + b) as an unsigned 32-bit int
+    返回：
+        以无符号 32 位整数表示的 (a + b)
 
     >>> sum_32(1, 1)
     2
@@ -252,17 +247,17 @@ def sum_32(a: int, b: int) -> int:
 
 def left_rotate_32(i: int, shift: int) -> int:
     """
-    Rotate the bits of a given int left by a given amount.
+    将给定整数的比特向左循环移位指定次数。
 
-    Arguments:
-        i {[int]} -- [given int]
-        shift {[int]} -- [shift amount]
+    参数：
+        i {[int]} -- [给定整数]
+        shift {[int]} -- [移位次数]
 
-    Raises:
-        ValueError -- [either given int or shift is negative]
+    异常：
+        ValueError -- [给定整数或 shift 为负数]
 
-    Returns:
-        `i` rotated to the left by `shift` bits
+    返回：
+        将 `i` 向左循环移动 `shift` 位后的结果
 
     >>> left_rotate_32(1234, 1)
     2468
@@ -296,15 +291,15 @@ def left_rotate_32(i: int, shift: int) -> int:
 
 def md5_me(message: bytes) -> bytes:
     """
-    Returns the 32-char MD5 hash of a given message.
+    返回给定消息的 32 字符 MD5 哈希值。
 
-    Reference: https://en.wikipedia.org/wiki/MD5#Algorithm
+    参考资料：https://en.wikipedia.org/wiki/MD5#Algorithm
 
-    Arguments:
-        message {[string]} -- [message]
+    参数：
+        message {[string]} -- [消息]
 
-    Returns:
-        32-char MD5 hash string
+    返回：
+        32 字符的 MD5 哈希字符串
 
     >>> md5_me(b"")
     b'd41d8cd98f00b204e9800998ecf8427e'
@@ -321,12 +316,12 @@ def md5_me(message: bytes) -> bytes:
     True
     """
 
-    # Convert to bit string, add padding and append message length
+    # 转换为比特字符串、添加填充并追加消息长度
     bit_string = preprocess(message)
 
     added_consts = [int(2**32 * abs(sin(i + 1))) for i in range(64)]
 
-    # Starting states
+    # 初始状态
     a0 = 0x67452301
     b0 = 0xEFCDAB89
     c0 = 0x98BADCFE
@@ -399,21 +394,21 @@ def md5_me(message: bytes) -> bytes:
         21,
     ]
 
-    # Process bit string in chunks, each with 16 32-char words
+    # 分块处理比特字符串，每块包含 16 个 32 位字
     for block_words in get_block_words(bit_string):
         a = a0
         b = b0
         c = c0
         d = d0
 
-        # Hash current chunk
+        # 对当前块进行哈希处理
         for i in range(64):
             if i <= 15:
-                # f = (b & c) | (not_32(b) & d)     # Alternate definition for f
+                # f = (b & c) | (not_32(b) & d)     # f 的另一种定义
                 f = d ^ (b & (c ^ d))
                 g = i
             elif i <= 31:
-                # f = (d & b) | (not_32(d) & c)     # Alternate definition for f
+                # f = (d & b) | (not_32(d) & c)     # f 的另一种定义
                 f = c ^ (d & (b ^ c))
                 g = (5 * i + 1) % 16
             elif i <= 47:
@@ -428,7 +423,7 @@ def md5_me(message: bytes) -> bytes:
             c = b
             b = sum_32(b, left_rotate_32(f, shift_amounts[i]))
 
-        # Add hashed chunk to running total
+        # 将当前块的哈希结果加入累计值
         a0 = sum_32(a0, a)
         b0 = sum_32(b0, b)
         c0 = sum_32(c0, c)

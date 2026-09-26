@@ -1,13 +1,12 @@
 """
-Created on Mon Feb 26 14:29:11 2018
+创建于 Mon Feb 26 14:29:11 2018
 
 @author: Christian Bender
 @license: MIT-license
 
-This module contains some useful classes and functions for dealing
-with linear algebra in python.
+本模块包含一些用于在 Python 中处理线性代数的实用类和函数。
 
-Overview:
+概览：
 
 - class Vector
 - function zero_vector(dimension)
@@ -29,29 +28,28 @@ from typing import overload
 
 class Vector:
     """
-    This class represents a vector of arbitrary size.
-    You need to give the vector components.
+    本类表示任意大小的向量，使用时需要给出向量分量。
 
-    Overview of the methods:
+    方法概览：
 
-        __init__(components: Collection[float] | None): init the vector
-        __len__(): gets the size of the vector (number of components)
-        __str__(): returns a string representation
-        __add__(other: Vector): vector addition
-        __sub__(other: Vector): vector subtraction
-        __mul__(other: float): scalar multiplication
-        __mul__(other: Vector): dot product
-        copy(): copies this vector and returns it
-        component(i): gets the i-th component (0-indexed)
-        change_component(pos: int, value: float): changes specified component
-        euclidean_length(): returns the euclidean length of the vector
-        angle(other: Vector, deg: bool): returns the angle between two vectors
+        __init__(components: Collection[float] | None): 初始化向量
+        __len__(): 获取向量大小（分量数）
+        __str__(): 返回字符串表示
+        __add__(other: Vector): 向量加法
+        __sub__(other: Vector): 向量减法
+        __mul__(other: float): 标量乘法
+        __mul__(other: Vector): 点积
+        copy(): 复制并返回此向量
+        component(i): 获取第 i 个分量（从 0 开始索引）
+        change_component(pos: int, value: float): 更改指定分量
+        euclidean_length(): 返回向量的欧几里得长度
+        angle(other: Vector, deg: bool): 返回两个向量的夹角
     """
 
     def __init__(self, components: Collection[float] | None = None) -> None:
         """
-        input: components or nothing
-        simple constructor for init the vector
+        输入：components 或不传入参数
+        用于初始化向量的简单构造函数
         """
         if components is None:
             components = []
@@ -59,21 +57,21 @@ class Vector:
 
     def __len__(self) -> int:
         """
-        returns the size of the vector
+        返回向量的大小。
         """
         return len(self.__components)
 
     def __str__(self) -> str:
         """
-        returns a string representation of the vector
+        返回向量的字符串表示。
         """
         return "(" + ",".join(map(str, self.__components)) + ")"
 
     def __add__(self, other: Vector) -> Vector:
         """
-        input: other vector
-        assumes: other vector has the same size
-        returns a new vector that represents the sum.
+        输入：另一个向量
+        假设：另一个向量大小相同
+        返回表示两者之和的新向量。
         """
         size = len(self)
         if size == len(other):
@@ -84,20 +82,20 @@ class Vector:
 
     def __sub__(self, other: Vector) -> Vector:
         """
-        input: other vector
-        assumes: other vector has the same size
-        returns a new vector that represents the difference.
+        输入：另一个向量
+        假设：另一个向量大小相同
+        返回表示两者之差的新向量。
         """
         size = len(self)
         if size == len(other):
             result = [self.__components[i] - other.component(i) for i in range(size)]
             return Vector(result)
-        else:  # error case
+        else:  # 错误情况
             raise Exception("must have the same size")
 
     def __eq__(self, other: object) -> bool:
         """
-        performs the comparison between two vectors
+        比较两个向量。
         """
         if not isinstance(other, Vector):
             return NotImplemented
@@ -113,8 +111,7 @@ class Vector:
 
     def __mul__(self, other: float | Vector) -> float | Vector:
         """
-        mul implements the scalar multiplication
-        and the dot-product
+        mul 实现标量乘法和点积。
         """
         if isinstance(other, (float, int)):
             ans = [c * other for c in self.__components]
@@ -123,19 +120,19 @@ class Vector:
             size = len(self)
             prods = [self.__components[i] * other.component(i) for i in range(size)]
             return sum(prods)
-        else:  # error case
+        else:  # 错误情况
             raise Exception("invalid operand!")
 
     def copy(self) -> Vector:
         """
-        copies this vector and returns it.
+        复制并返回此向量。
         """
         return Vector(self.__components)
 
     def component(self, i: int) -> float:
         """
-        input: index (0-indexed)
-        output: the i-th component of the vector.
+        输入：索引（从 0 开始）
+        输出：向量的第 i 个分量。
         """
         if isinstance(i, int) and -len(self.__components) <= i < len(self.__components):
             return self.__components[i]
@@ -144,17 +141,16 @@ class Vector:
 
     def change_component(self, pos: int, value: float) -> None:
         """
-        input: an index (pos) and a value
-        changes the specified component (pos) with the
-        'value'
+        输入：索引（pos）和值
+        将指定分量（pos）更改为 'value'。
         """
-        # precondition
+        # 前置条件
         assert -len(self.__components) <= pos < len(self.__components)
         self.__components[pos] = value
 
     def euclidean_length(self) -> float:
         """
-        returns the euclidean length of the vector
+        返回向量的欧几里得长度。
 
         >>> Vector([2, 3, 4]).euclidean_length()
         5.385164807134504
@@ -174,7 +170,7 @@ class Vector:
 
     def angle(self, other: Vector, deg: bool = False) -> float:
         """
-        find angle between two Vector (self, Vector)
+        求两个向量（self、Vector）之间的夹角。
 
         >>> Vector([3, 4, -1]).angle(Vector([2, -1, 1]))
         1.4906464636572374
@@ -195,19 +191,18 @@ class Vector:
 
 def zero_vector(dimension: int) -> Vector:
     """
-    returns a zero-vector of size 'dimension'
+    返回大小为 'dimension' 的零向量。
     """
-    # precondition
+    # 前置条件
     assert isinstance(dimension, int)
     return Vector([0] * dimension)
 
 
 def unit_basis_vector(dimension: int, pos: int) -> Vector:
     """
-    returns a unit basis vector with a One
-    at index 'pos' (indexing at 0)
+    返回单位基向量，其索引 'pos' 处为 1（索引从 0 开始）。
     """
-    # precondition
+    # 前置条件
     assert isinstance(dimension, int)
     assert isinstance(pos, int)
     ans = [0] * dimension
@@ -217,11 +212,11 @@ def unit_basis_vector(dimension: int, pos: int) -> Vector:
 
 def axpy(scalar: float, x: Vector, y: Vector) -> Vector:
     """
-    input: a 'scalar' and two vectors 'x' and 'y'
-    output: a vector
-    computes the axpy operation
+    输入：一个 'scalar' 以及两个向量 'x' 和 'y'
+    输出：一个向量
+    计算 axpy 运算。
     """
-    # precondition
+    # 前置条件
     assert isinstance(x, Vector)
     assert isinstance(y, Vector)
     assert isinstance(scalar, (int, float))
@@ -230,10 +225,8 @@ def axpy(scalar: float, x: Vector, y: Vector) -> Vector:
 
 def random_vector(n: int, a: int, b: int) -> Vector:
     """
-    input: size (N) of the vector.
-           random range (a,b)
-    output: returns a random vector of size N, with
-            random integer components between 'a' and 'b'.
+    输入：向量大小（N）和随机范围（a,b）。
+    输出：返回大小为 N 的随机向量，其整数分量位于 'a' 和 'b' 之间。
     """
     random.seed(None)
     ans = [random.randint(a, b) for _ in range(n)]
@@ -242,29 +235,29 @@ def random_vector(n: int, a: int, b: int) -> Vector:
 
 class Matrix:
     """
-    class: Matrix
-    This class represents an arbitrary matrix.
+    类：Matrix
+    本类表示任意矩阵。
 
-    Overview of the methods:
+    方法概览：
 
         __init__():
-        __str__(): returns a string representation
-        __add__(other: Matrix): matrix addition
-        __sub__(other: Matrix): matrix subtraction
-        __mul__(other: float): scalar multiplication
-        __mul__(other: Vector): vector multiplication
-        height() : returns height
-        width() : returns width
-        component(x: int, y: int): returns specified component
-        change_component(x: int, y: int, value: float): changes specified component
-        minor(x: int, y: int): returns minor along (x, y)
-        cofactor(x: int, y: int): returns cofactor along (x, y)
-        determinant() : returns determinant
+        __str__(): 返回字符串表示
+        __add__(other: Matrix): 矩阵加法
+        __sub__(other: Matrix): 矩阵减法
+        __mul__(other: float): 标量乘法
+        __mul__(other: Vector): 向量乘法
+        height() : 返回高度
+        width() : 返回宽度
+        component(x: int, y: int): 返回指定分量
+        change_component(x: int, y: int, value: float): 更改指定分量
+        minor(x: int, y: int): 返回 (x, y) 处的余子式
+        cofactor(x: int, y: int): 返回 (x, y) 处的代数余子式
+        determinant() : 返回行列式
     """
 
     def __init__(self, matrix: list[list[float]], w: int, h: int) -> None:
         """
-        simple constructor for initializing the matrix with components.
+        使用分量初始化矩阵的简单构造函数。
         """
         self.__matrix = matrix
         self.__width = w
@@ -272,7 +265,7 @@ class Matrix:
 
     def __str__(self) -> str:
         """
-        returns a string representation of this matrix.
+        返回此矩阵的字符串表示。
         """
         ans = ""
         for i in range(self.__height):
@@ -286,7 +279,7 @@ class Matrix:
 
     def __add__(self, other: Matrix) -> Matrix:
         """
-        implements matrix addition.
+        实现矩阵加法。
         """
         if self.__width == other.width() and self.__height == other.height():
             matrix = []
@@ -302,7 +295,7 @@ class Matrix:
 
     def __sub__(self, other: Matrix) -> Matrix:
         """
-        implements matrix subtraction.
+        实现矩阵减法。
         """
         if self.__width == other.width() and self.__height == other.height():
             matrix = []
@@ -324,10 +317,10 @@ class Matrix:
 
     def __mul__(self, other: float | Vector) -> Vector | Matrix:
         """
-        implements the matrix-vector multiplication.
-        implements the matrix-scalar multiplication
+        实现矩阵与向量的乘法。
+        实现矩阵与标量的乘法。
         """
-        if isinstance(other, Vector):  # matrix-vector
+        if isinstance(other, Vector):  # 矩阵与向量相乘
             if len(other) == self.__width:
                 ans = zero_vector(self.__height)
                 for i in range(self.__height):
@@ -342,7 +335,7 @@ class Matrix:
                     "vector must have the same size as the "
                     "number of columns of the matrix!"
                 )
-        elif isinstance(other, (int, float)):  # matrix-scalar
+        elif isinstance(other, (int, float)):  # 矩阵与标量相乘
             matrix = [
                 [self.__matrix[i][j] * other for j in range(self.__width)]
                 for i in range(self.__height)
@@ -352,19 +345,19 @@ class Matrix:
 
     def height(self) -> int:
         """
-        getter for the height
+        获取高度。
         """
         return self.__height
 
     def width(self) -> int:
         """
-        getter for the width
+        获取宽度。
         """
         return self.__width
 
     def component(self, x: int, y: int) -> float:
         """
-        returns the specified (x,y) component
+        返回指定的 (x,y) 分量。
         """
         if 0 <= x < self.__height and 0 <= y < self.__width:
             return self.__matrix[x][y]
@@ -373,7 +366,7 @@ class Matrix:
 
     def change_component(self, x: int, y: int, value: float) -> None:
         """
-        changes the x-y component of this matrix
+        更改此矩阵的 x-y 分量。
         """
         if 0 <= x < self.__height and 0 <= y < self.__width:
             self.__matrix[x][y] = value
@@ -382,7 +375,7 @@ class Matrix:
 
     def minor(self, x: int, y: int) -> float:
         """
-        returns the minor along (x, y)
+        返回 (x, y) 处的余子式。
         """
         if self.__height != self.__width:
             raise Exception("Matrix is not square")
@@ -393,7 +386,7 @@ class Matrix:
 
     def cofactor(self, x: int, y: int) -> float:
         """
-        returns the cofactor (signed minor) along (x, y)
+        返回 (x, y) 处的代数余子式（带符号的余子式）。
         """
         if self.__height != self.__width:
             raise Exception("Matrix is not square")
@@ -404,7 +397,7 @@ class Matrix:
 
     def determinant(self) -> float:
         """
-        returns the determinant of an nxn matrix using Laplace expansion
+        使用拉普拉斯展开返回 nxn 矩阵的行列式。
         """
         if self.__height != self.__width:
             raise Exception("Matrix is not square")
@@ -426,7 +419,7 @@ class Matrix:
 
 def square_zero_matrix(n: int) -> Matrix:
     """
-    returns a square zero-matrix of dimension NxN
+    返回维数为 NxN 的方形零矩阵。
     """
     ans: list[list[float]] = [[0] * n for _ in range(n)]
     return Matrix(ans, n, n)
@@ -434,8 +427,7 @@ def square_zero_matrix(n: int) -> Matrix:
 
 def random_matrix(width: int, height: int, a: int, b: int) -> Matrix:
     """
-    returns a random matrix WxH with integer components
-    between 'a' and 'b'
+    返回 WxH 随机矩阵，其整数分量位于 'a' 和 'b' 之间。
     """
     random.seed(None)
     matrix: list[list[float]] = [

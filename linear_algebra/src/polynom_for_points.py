@@ -1,7 +1,7 @@
 def points_to_polynomial(coordinates: list[list[int]]) -> str:
     """
-    coordinates is a two dimensional matrix: [[x, y], [x, y], ...]
-    number of points you want to use
+    coordinates 是二维矩阵：[[x, y], [x, y], ...]
+    表示要使用的点。
 
     >>> points_to_polynomial([])
     Traceback (most recent call last):
@@ -51,7 +51,7 @@ def points_to_polynomial(coordinates: list[list[int]]) -> str:
 
     x = len(coordinates)
 
-    # put the x and x to the power values in a matrix
+    # 将 x 及 x 的幂值放入矩阵
     matrix: list[list[float]] = [
         [
             coordinates[count_of_line][0] ** (x - (count_in_line + 1))
@@ -60,12 +60,12 @@ def points_to_polynomial(coordinates: list[list[int]]) -> str:
         for count_of_line in range(x)
     ]
 
-    # put the y values into a vector
+    # 将 y 值放入向量
     vector: list[float] = [coordinates[count_of_line][1] for count_of_line in range(x)]
 
     for count in range(x):
-        # Only swap when the current pivot is zero (e.g. a point with x = 0),
-        # so existing exact arithmetic is preserved for well-behaved inputs.
+        # 仅在当前主元为零时交换（例如某个点的 x = 0），
+        # 从而为正常输入保留现有的精确运算
         if matrix[count][count] == 0:
             pivot_row = max(
                 range(count + 1, x), key=lambda row: abs(matrix[row][count])
@@ -80,12 +80,12 @@ def points_to_polynomial(coordinates: list[list[int]]) -> str:
                 continue
             fraction = matrix[number][count] / matrix[count][count]
             for counting_columns, item in enumerate(matrix[count]):
-                # manipulating all the values in the matrix
+    # 处理矩阵中的所有值
                 matrix[number][counting_columns] -= item * fraction
-            # manipulating the values in the vector
+    # 处理向量中的值
             vector[number] -= vector[count] * fraction
 
-    # make solutions
+    # 构造解
     solution: list[str] = [
         str(vector[count] / matrix[count][count]) for count in range(x)
     ]

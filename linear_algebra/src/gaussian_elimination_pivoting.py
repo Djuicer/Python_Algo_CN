@@ -3,20 +3,20 @@ import numpy as np
 
 def solve_linear_system(matrix: np.ndarray) -> np.ndarray:
     """
-    Solve a linear system of equations using Gaussian elimination with partial pivoting
+    使用带部分选主元的高斯消元法求解线性方程组。
 
-    Args:
-      - `matrix`: Coefficient matrix with the last column representing the constants.
+    参数：
+      - `matrix`: 系数矩阵，其最后一列表示常数项。
 
-    Returns:
-      - Solution vector.
+    返回：
+      - 解向量。
 
-    Raises:
-      - ``ValueError``: If the matrix is not correct (i.e., singular).
+    异常：
+      - ``ValueError``: 矩阵不正确（即为奇异矩阵）时抛出。
 
     https://courses.engr.illinois.edu/cs357/su2013/lect.htm Lecture 7
 
-    Example:
+    示例：
 
     >>> A = np.array([[2, 1, -1], [-3, -1, 2], [-2, 1, 2]], dtype=float)
     >>> B = np.array([8, -11, -3], dtype=float)
@@ -41,12 +41,12 @@ def solve_linear_system(matrix: np.ndarray) -> np.ndarray:
         raise ValueError("Matrix is not square")
 
     for column_num in range(num_of_rows):
-        # Lead element search
+    # 搜索主元
         for i in range(column_num, num_of_columns):
             if abs(ab[i][column_num]) > abs(ab[column_num][column_num]):
                 ab[[column_num, i]] = ab[[i, column_num]]
 
-        # Upper triangular matrix
+    # 上三角矩阵
         if abs(ab[column_num, column_num]) < 1e-8:
             raise ValueError("Matrix is singular")
 
@@ -58,14 +58,14 @@ def solve_linear_system(matrix: np.ndarray) -> np.ndarray:
                     * ab[column_num - 1, :]
                 )
 
-    # Find x vector (Back Substitution)
+    # 通过回代求向量 x
     for column_num in range(num_of_rows - 1, -1, -1):
         x = ab[column_num, -1] / ab[column_num, column_num]
         x_lst.insert(0, x)
         for i in range(column_num - 1, -1, -1):
             ab[i, -1] -= ab[i, column_num] * x
 
-    # Return the solution vector
+    # 返回解向量
     return np.asarray(x_lst)
 
 

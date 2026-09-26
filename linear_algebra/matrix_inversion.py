@@ -3,18 +3,17 @@ import numpy as np
 
 def invert_matrix(matrix: list[list[float]]) -> list[list[float]]:
     """
-    Returns the inverse of a square matrix using NumPy.
+    使用 NumPy 返回方阵的逆矩阵。
 
-    Parameters:
-    matrix (list[list[float]]): A square matrix.
+    参数：
+    matrix (list[list[float]]): 方阵。
 
-    Returns:
-    list[list[float]]: Inverted matrix if invertible, else raises error.
+    返回：
+    list[list[float]]: 若矩阵可逆则返回逆矩阵，否则抛出错误。
 
-    The exact floating-point representation returned by ``numpy.linalg.inv``
-    can vary slightly across platforms and BLAS/LAPACK backends
-    (e.g. ``0.6`` vs ``0.6000000000000001``), so the doctests below round the
-    result to make the expected output deterministic.
+    ``numpy.linalg.inv`` 返回的精确浮点表示可能因平台和 BLAS/LAPACK 后端而略有
+    差异（例如 ``0.6`` 与 ``0.6000000000000001``），因此下方 doctest 会对结果
+    取整，使预期输出保持确定。
 
     >>> [[round(x, 6) for x in row] for row in invert_matrix([[4.0, 7.0], [2.0, 6.0]])]
     [[0.6, -0.7], [-0.2, 0.4]]

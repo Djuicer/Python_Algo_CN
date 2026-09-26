@@ -1,32 +1,32 @@
 """
-CRC32 (Cyclic Redundancy Check 32-bit) Hash Algorithm
+CRC32（32 位循环冗余校验）哈希算法
 
-This module implements the CRC32 hash algorithm, a non-cryptographic hash function
-widely used for error detection and data integrity verification.
+本模块实现 CRC32 哈希算法。这是一种非密码学哈希函数，广泛用于错误检测和
+数据完整性验证。
 
-CRC32 is commonly used in:
-- ZIP file format for data integrity
-- Ethernet frame check sequences
-- PNG image format for chunk verification
-- Gzip compression
+CRC32 常用于：
+- ZIP 文件格式中的数据完整性校验
+- 以太网帧校验序列
+- PNG 图像格式中的数据块校验
+- Gzip 压缩
 
-The algorithm uses the IEEE 802.3 polynomial (0xEDB88320 in reversed bit order)
-and produces a 32-bit hash value.
+该算法使用 IEEE 802.3 多项式（按反向位序表示为 0xEDB88320），并生成一个
+32 位哈希值。
 
-Note: CRC32 is NOT suitable for cryptographic purposes. It's designed for
-error detection, not security. For cryptographic hashing, use SHA-256 or similar.
+注意：CRC32 不适用于密码学用途。它用于错误检测，而非安全防护。
+如需密码学哈希，请使用 SHA-256 或类似算法。
 
-Reference:
+参考资料：
 - https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-- https://www.rfc-editor.org/rfc/rfc1952.html (GZIP specification)
+- https://www.rfc-editor.org/rfc/rfc1952.html（GZIP 规范）
 """
 
 
 def _generate_crc32_table() -> list[int]:
     """
-    Generate the CRC32 lookup table for optimized calculation.
+    生成用于优化计算的 CRC32 查找表。
 
-    Uses the IEEE 802.3 polynomial: 0xEDB88320 (reversed bit order)
+    使用 IEEE 802.3 多项式：0xEDB88320（反向位序）。
 
     >>> table = _generate_crc32_table()
     >>> len(table)
@@ -56,16 +56,16 @@ CRC32_TABLE = _generate_crc32_table()
 
 def crc32(data: bytes) -> int:
     """
-    Calculate the CRC32 hash of byte data.
+    计算字节数据的 CRC32 哈希值。
 
-    Args:
-        data: Byte data to calculate the hash for
+    参数：
+        data: 要计算哈希值的字节数据
 
-    Returns:
-        CRC32 hash as a 32-bit integer (0 to 4294967295)
+    返回：
+        以 32 位整数表示的 CRC32 哈希值（0 到 4294967295）
 
-    Raises:
-        TypeError: If data is not of type bytes
+    异常：
+        TypeError: data 不是 bytes 类型时抛出
 
     >>> crc32(b"Hello World")
     1243066710

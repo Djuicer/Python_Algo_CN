@@ -1,8 +1,8 @@
 """
 
-Note:
-    This algorithm has memory persistence.
-    So multiple runs on the same runtime will carry junk and scramble the result!
+注意：
+    该算法具有内存持久性。
+    因此，在同一运行时中多次执行会携带残留数据并扰乱结果！
 """
 
 alphabets = [chr(i) for i in range(32, 126)]

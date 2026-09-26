@@ -1,7 +1,7 @@
 """
-2D Transformations are regularly used in Linear Algebra.
+二维变换在线性代数中经常使用。
 
-I have added the codes for reflection, projection, scaling and rotation 2D matrices.
+本模块实现了二维反射、投影、缩放和旋转矩阵。
 
 .. code-block:: python
 

@@ -8,23 +8,22 @@ def power_iteration(
     max_iterations: int = 100,
 ) -> tuple[float, np.ndarray]:
     """
-    Power Iteration.
-    Find the largest eigenvalue and corresponding eigenvector
-    of matrix input_matrix given a random vector in the same space.
-    Will work so long as vector has component of largest eigenvector.
-    input_matrix must be either real or Hermitian.
+    幂迭代法（Power Iteration）。
+    给定同一空间中的随机向量，求矩阵 input_matrix 的最大特征值及对应特征向量。
+    只要 vector 含有最大特征向量方向上的分量，该方法即可工作。
+    input_matrix 必须为实矩阵或厄米矩阵。
 
-    Input
-    input_matrix: input matrix whose largest eigenvalue we will find.
-    Numpy array. np.shape(input_matrix) == (N,N).
-    vector: random initial vector in same space as matrix.
-    Numpy array. np.shape(vector) == (N,) or (N,1)
+    输入
+    input_matrix: 要求最大特征值的输入矩阵。
+    NumPy 数组。np.shape(input_matrix) == (N,N)。
+    vector: 与矩阵处于同一空间的随机初始向量。
+    NumPy 数组。np.shape(vector) == (N,) 或 (N,1)。
 
-    Output
-    largest_eigenvalue: largest eigenvalue of the matrix input_matrix.
-    Float. Scalar.
-    largest_eigenvector: eigenvector corresponding to largest_eigenvalue.
-    Numpy array. np.shape(largest_eigenvector) == (N,) or (N,1).
+    输出
+    largest_eigenvalue: 矩阵 input_matrix 的最大特征值。
+    浮点标量。
+    largest_eigenvector: largest_eigenvalue 对应的特征向量。
+    NumPy 数组。np.shape(largest_eigenvector) == (N,) 或 (N,1)。
 
     >>> import numpy as np
     >>> input_matrix = np.array([
@@ -37,19 +36,19 @@ def power_iteration(
     (79.66086378788381, array([0.44472726, 0.46209842, 0.76725662]))
     """
 
-    # Ensure matrix is square.
+    # 确保矩阵为方阵
     assert np.shape(input_matrix)[0] == np.shape(input_matrix)[1]
-    # Ensure proper dimensionality.
+    # 确保维数正确
     assert np.shape(input_matrix)[0] == np.shape(vector)[0]
-    # Ensure inputs are either both complex or both real
+    # 确保两个输入同为复数类型或同为实数类型
     assert np.iscomplexobj(input_matrix) == np.iscomplexobj(vector)
     is_complex = np.iscomplexobj(input_matrix)
     if is_complex:
-        # Ensure complex input_matrix is Hermitian
+    # 确保复数 input_matrix 为厄米矩阵
         assert np.array_equal(input_matrix, input_matrix.conj().T)
 
-    # Set convergence to False. Will define convergence when we exceed max_iterations
-    # or when we have small changes from one iteration to next.
+    # 初始设置为未收敛；超过 max_iterations，或相邻两次迭代变化很小时，
+    # 再确定收敛状态
 
     convergence = False
     lambda_previous = 0
@@ -57,16 +56,16 @@ def power_iteration(
     error = 1e12
 
     while not convergence:
-        # Multiple matrix by the vector.
+        # 矩阵乘以向量
         w = np.dot(input_matrix, vector)
-        # Normalize the resulting output vector.
+        # 对所得输出向量归一化
         vector = w / np.linalg.norm(w)
-        # Find rayleigh quotient
-        # (faster than usual b/c we know vector is normalized already)
+        # 计算瑞利商
+        # 由于已知向量已归一化，因此比常规计算更快
         vector_h = vector.conj().T if is_complex else vector.T
         lambda_ = np.dot(vector_h, np.dot(input_matrix, vector))
 
-        # Check convergence.
+        # 检查是否收敛
         error = np.abs(lambda_ - lambda_previous) / lambda_
         iterations += 1
 
@@ -101,23 +100,23 @@ def test_power_iteration() -> None:
             input_matrix = complex_input_matrix
             vector = complex_vector
 
-        # Our implementation.
+    # 本实现
         eigen_value, eigen_vector = power_iteration(input_matrix, vector)
 
-        # Numpy implementation.
+    # NumPy 实现
 
-        # Get eigenvalues and eigenvectors using built-in numpy
-        # eigh (eigh used for symmetric or hermetian matrices).
+    # 使用 NumPy 内置的 eigh 获取特征值和特征向量
+    # （eigh 用于对称矩阵或厄米矩阵）
         eigen_values, eigen_vectors = np.linalg.eigh(input_matrix)
-        # Last eigenvalue is the maximum one.
+    # 最后一个特征值为最大特征值
         eigen_value_max = eigen_values[-1]
-        # Last column in this matrix is eigenvector corresponding to largest eigenvalue.
+    # 该矩阵的最后一列是最大特征值对应的特征向量
         eigen_vector_max = eigen_vectors[:, -1]
 
-        # Check our implementation and numpy gives close answers.
+    # 检查本实现与 NumPy 是否给出相近结果
         assert np.abs(eigen_value - eigen_value_max) <= 1e-6
-        # Take absolute values element wise of each eigenvector.
-        # as they are only unique to a minus sign.
+    # 对每个特征向量逐元素取绝对值，
+    # 因为它们仅相差一个负号
         assert np.linalg.norm(np.abs(eigen_vector) - np.abs(eigen_vector_max)) <= 1e-6
 
 

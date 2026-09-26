@@ -8,25 +8,25 @@ def gauss_jordan(
     coefficients: np.ndarray, vertices: np.ndarray
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    Performs Gauss-Jordan elimination on the system Ax = b to reduce A to its
-    Reduced Row Echelon Form (RREF) and transform b accordingly.
+    对方程组 Ax = b 执行高斯-约旦消元，将 A 化为简化行阶梯形（RREF），
+    并相应变换 b。
 
-    Args:
-        coefficients: A 2D NumPy array representing the coefficient matrix A.
-        vertices: A column vector (2D NumPy array) representing the RHS b.
+    参数：
+        coefficients: 表示系数矩阵 A 的二维 NumPy 数组。
+        vertices: 表示右端项 b 的列向量（二维 NumPy 数组）。
 
-    Returns:
-        A tuple containing:
-            - RREF of matrix A
-            - Transformed RHS vector b
+    返回：
+        包含以下内容的元组：
+            - 矩阵 A 的 RREF
+            - 变换后的右端项向量 b
 
-    Raises:
-        ValueError: If shapes of A and b are incompatible.
+    异常：
+        ValueError: A 和 b 的形状不兼容时抛出。
 
-    See Also:
+    另请参阅：
         https://en.wikibooks.org/wiki/Linear_Algebra/Gauss-Jordan_Reduction
 
-    Examples:
+    示例：
         >>> import numpy as np
         >>> A = np.array([[1, 2, -1], [2, 4, -2], [3, 6, -3]])
         >>> b = np.array([[1], [2], [3]])

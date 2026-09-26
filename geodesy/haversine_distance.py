@@ -5,26 +5,23 @@ EARTH_RADIUS = 6371000
 
 def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """
-    Calculate great-circle distance between two points on a sphere,
-    given longitudes and latitudes https://en.wikipedia.org/wiki/Haversine_formula
+    根据经纬度计算球面上两点间的大圆距离（Great-circle Distance）：
+    https://en.wikipedia.org/wiki/Haversine_formula
 
-    We know that the globe is "sort of" spherical, so a path between two points
-    isn't exactly a straight line. We need to account for the Earth's curvature
-    when calculating distance from point A to B. This effect is negligible for
-    small distances but adds up as distance increases. The Haversine method treats
-    the Earth as a sphere, which allows us to "project" the two points A and B
-    onto the surface of that sphere and approximate the spherical distance between
-    them. Since the Earth is not a perfect sphere, other methods which model the
-    Earth's ellipsoidal nature are more accurate, but a quick and modifiable
-    computation like Haversine can be handy for shorter-range distances.
+    地球近似为球体，因此两点之间的路径并非严格的直线。计算 A 点到 B 点的
+    距离时，需要考虑地球曲率。短距离下这一影响可以忽略，但会随距离增加而
+    累积。Haversine 方法将地球视为球体，从而把 A、B 两点“投影”到球面上，
+    近似计算两点间的球面距离。由于地球并非完美球体，对地球椭球特性建模的
+    其他方法更加准确；但对于较短距离，Haversine 这种快速且易调整的计算方法
+    十分实用。
 
-    Args:
-        lat1: latitude of coordinate 1 in degrees
-        lon1: longitude of coordinate 1 in degrees
-        lat2: latitude of coordinate 2 in degrees
-        lon2: longitude of coordinate 2 in degrees
-    Returns:
-        geographical distance between two points in metres
+    参数：
+        lat1: 坐标 1 的纬度，单位为度
+        lon1: 坐标 1 的经度，单位为度
+        lat2: 坐标 2 的纬度，单位为度
+        lon2: 坐标 2 的经度，单位为度
+    返回：
+        两点间的地理距离，单位为米
 
     >>> from collections import namedtuple
     >>> point_2d = namedtuple("point_2d", "lat lon")
@@ -47,17 +44,16 @@ def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
     >>> isclose(quarter_equator, 10_007_543, rel_tol=1e-3)
     True
     """
-    # Convert geodetic coordinates from degrees to radians.
-    # The Haversine formula operates on a sphere, so we use the raw geodetic
-    # latitudes directly rather than reduced latitudes (which apply to
-    # ellipsoidal models like Lambert's formula).
-    # Reference: https://en.wikipedia.org/wiki/Haversine_formula#Formulation
+    # 将大地坐标从度转换为弧度
+    # Haversine 公式在球面上运算，因此直接使用原始大地纬度，而不使用
+    # 适用于 Lambert 公式等椭球模型的归化纬度
+    # 参考资料：https://en.wikipedia.org/wiki/Haversine_formula#Formulation
     phi_1 = radians(lat1)
     phi_2 = radians(lat2)
     lambda_1 = radians(lon1)
     lambda_2 = radians(lon2)
 
-    # Haversine equation
+    # Haversine 方程
     sin_sq_phi = sin((phi_2 - phi_1) / 2)
     sin_sq_lambda = sin((lambda_2 - lambda_1) / 2)
     sin_sq_phi *= sin_sq_phi

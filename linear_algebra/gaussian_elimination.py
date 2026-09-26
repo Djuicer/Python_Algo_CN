@@ -1,5 +1,5 @@
 """
-| Gaussian elimination method for solving a system of linear equations.
+| 用于求解线性方程组的高斯消元法（Gaussian Elimination）。
 | Gaussian elimination - https://en.wikipedia.org/wiki/Gaussian_elimination
 """
 
@@ -12,10 +12,9 @@ def retroactive_resolution(
     coefficients: NDArray[float64], vector: NDArray[float64]
 ) -> NDArray[float64]:
     """
-    This function performs a retroactive linear system resolution
-    for triangular matrix
+    本函数通过回代求解三角矩阵对应的线性方程组。
 
-    Examples:
+    示例：
         1.
             * 2x1 + 2x2 - 1x3 = 5
             * 0x1 - 2x2 - 1x3 = -7
@@ -47,9 +46,9 @@ def gaussian_elimination(
     coefficients: NDArray[float64], vector: NDArray[float64]
 ) -> NDArray[float64]:
     """
-    This function performs Gaussian elimination method
+    本函数执行高斯消元法。
 
-    Examples:
+    示例：
         1.
             * 1x1 - 4x2 - 2x3 = -2
             * 5x1 + 2x2 - 2x3 = -3
@@ -66,16 +65,16 @@ def gaussian_elimination(
     array([[0. ],
            [2.5]])
     """
-    # coefficients must to be a square matrix so we need to check first
+    # coefficients 必须是方阵，因此需要先检查
     rows, columns = np.shape(coefficients)
     if rows != columns:
         return np.array((), dtype=float)
 
-    # augmented matrix
+    # 增广矩阵
     augmented_mat: NDArray[float64] = np.concatenate((coefficients, vector), axis=1)
     augmented_mat = augmented_mat.astype("float64")
 
-    # scale the matrix leaving it triangular
+    # 对矩阵进行消元，使其成为三角矩阵
     for row in range(rows - 1):
         pivot = augmented_mat[row, row]
         for col in range(row + 1, columns):

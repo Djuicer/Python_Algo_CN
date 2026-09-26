@@ -1,18 +1,16 @@
 """
-The Fletcher checksum is an algorithm for computing a position-dependent
-checksum devised by John G. Fletcher (1934-2012) at Lawrence Livermore Labs
-in the late 1970s.[1] The objective of the Fletcher checksum was to
-provide error-detection properties approaching those of a cyclic
-redundancy check but with the lower computational effort associated
-with summation techniques.
+Fletcher 校验和是一种计算位置相关校验和的算法，由 John G. Fletcher
+（1934—2012）于 20 世纪 70 年代末在劳伦斯利弗莫尔实验室提出。[1]
+Fletcher 校验和旨在以求和技术较低的计算开销，提供接近循环冗余校验的
+错误检测能力。
 
-Source: https://en.wikipedia.org/wiki/Fletcher%27s_checksum
+来源：https://en.wikipedia.org/wiki/Fletcher%27s_checksum
 """
 
 
 def fletcher16(text: str) -> int:
     """
-    Loop through every character in the data and add to two sums.
+    遍历数据中的每个字符，并将其累加到两个和值中。
 
     >>> fletcher16('hello world')
     6752

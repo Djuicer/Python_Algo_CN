@@ -11,14 +11,13 @@ def schur_complement(
     pseudo_inv: np.ndarray | None = None,
 ) -> np.ndarray:
     """
-    Schur complement of a symmetric matrix X given as a 2x2 block matrix
-    consisting of matrices `A`, `B` and `C`.
-    Matrix `A` must be quadratic and non-singular.
-    In case `A` is singular, a pseudo-inverse may be provided using
-    the `pseudo_inv` argument.
+    求对称矩阵 X 的舒尔补（Schur Complement）；X 以由矩阵 `A`、`B` 和 `C`
+    组成的 2x2 分块矩阵给出。
+    矩阵 `A` 必须为方阵且非奇异。
+    若 `A` 为奇异矩阵，可通过 `pseudo_inv` 参数提供伪逆。
 
-    | Link to Wiki: https://en.wikipedia.org/wiki/Schur_complement
-    | See also Convex Optimization - Boyd and Vandenberghe, A.5.5
+    | 维基百科链接：https://en.wikipedia.org/wiki/Schur_complement
+    | 另请参阅 Convex Optimization - Boyd and Vandenberghe, A.5.5
 
     >>> import numpy as np
     >>> a = np.array([[1, 2], [2, 1]])

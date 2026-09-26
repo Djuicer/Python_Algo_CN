@@ -1,68 +1,68 @@
-"""example of simple chaos machine"""
+"""简单混沌机的示例。"""
 
-# Chaos Machine (K, t, m)
+# 混沌机（K、t、m）
 K = [0.33, 0.44, 0.55, 0.44, 0.33]
 t = 3
 m = 5
 
-# Buffer Space (with Parameters Space)
+# 缓冲区空间（含参数空间）
 buffer_space: list[float] = []
 params_space: list[float] = []
 
-# Machine Time
+# 机器时间
 machine_time = 0
 
 
 def push(seed) -> None:
     global buffer_space, params_space, machine_time
 
-    # Choosing Dynamical Systems (All)
+    # 选择全部动力系统
     for key, value in enumerate(buffer_space):
-        # Evolution Parameter
+        # 演化参数
         e = float(seed / value)
 
-        # Control Theory: Orbit Change
+        # 控制理论：轨道变化
         value = (buffer_space[(key + 1) % m] + e) % 1
 
-        # Control Theory: Trajectory Change
+        # 控制理论：轨迹变化
         r = (params_space[key] + e) % 1 + 3
 
-        # Modification (Transition Function) - Jumps
+        # 修改（转移函数）——跳跃
         buffer_space[key] = round(float(r * value * (1 - value)), 10)
-        params_space[key] = r  # Saving to Parameters Space
+        params_space[key] = r  # 保存到参数空间
 
-    # Logistic Map
+    # 逻辑斯谛映射
     assert max(buffer_space) < 1
     assert max(params_space) < 4
 
-    # Machine Time
+    # 机器时间
     machine_time += 1
 
 
 def pull():
     global buffer_space, params_space, machine_time
 
-    # Choosing Dynamical Systems (Increment)
+    # 选择动力系统（递增）
     key = machine_time % m
 
-    # Evolution (Time Length)
+    # 演化（时间长度）
     for _ in range(t):
-        # Variables (Position + Parameters)
+        # 变量（位置与参数）
         r = params_space[key]
         value = buffer_space[key]
 
-        # Modification (Transition Function) - Flow
+        # 修改（转移函数）——流动
         buffer_space[key] = round(float(r * value * (1 - value)), 10)
         params_space[key] = (machine_time * 0.01 + r * 1.01) % 1 + 3
 
-    # Choosing Chaotic Data
+    # 选择混沌数据
     x = int(buffer_space[(key + 2) % m] * (10**10))
     y = int(buffer_space[(key - 2) % m] * (10**10))
 
-    # Machine Time
+    # 机器时间
     machine_time += 1
 
-    # PRNG (Xorshift by George Marsaglia)
+    # 伪随机数生成器（George Marsaglia 提出的 Xorshift）
     x ^= y >> 13
     y ^= x << 17
     x ^= y >> 5
@@ -78,20 +78,20 @@ def reset() -> None:
 
 
 if __name__ == "__main__":
-    # Initialization
+    # 初始化
     reset()
 
-    # Pushing Data (Input)
+    # 推入数据（输入）
     import random
 
     message = random.sample(range(0xFFFFFFFF), 100)
     for chunk in message:
         push(chunk)
 
-    # for controlling
+    # 用于控制循环
     inp = ""
 
-    # Pulling Data (Output)
+    # 拉取数据（输出）
     while inp not in ("e", "E"):
         print(f"{format(pull(), '#04x')}")
         print(buffer_space)

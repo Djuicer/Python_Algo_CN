@@ -1,28 +1,26 @@
 """
-This module provides functions to convert between Geodetic coordinates and
-Earth-Centered, Earth-Fixed (ECEF) Cartesian coordinates, as well as calculating
-target coordinates based on radar measurements.
+本模块提供大地坐标与地心地固（Earth-Centered, Earth-Fixed，ECEF）笛卡尔坐标
+之间的转换函数，并可根据雷达测量值计算目标坐标。
 
-Reference:
+参考资料：
 - https://en.wikipedia.org/wiki/Geographic_coordinate_conversion
 - https://en.wikipedia.org/wiki/Local_tangent_plane_coordinates
 """
 
 import math
 
-# WGS84 Ellipsoid Constants
-WGS84_A = 6378137.0  # Semi-major axis in meters
-WGS84_B = 6356752.314245  # Semi-minor axis in meters
-WGS84_E_SQ = 1.0 - (WGS84_B**2 / WGS84_A**2)  # First eccentricity squared
-WGS84_EP_SQ = (WGS84_A**2 - WGS84_B**2) / WGS84_B**2  # Second eccentricity squared
+# WGS84 椭球常量
+WGS84_A = 6378137.0  # 长半轴，单位为米
+WGS84_B = 6356752.314245  # 短半轴，单位为米
+WGS84_E_SQ = 1.0 - (WGS84_B**2 / WGS84_A**2)  # 第一偏心率的平方
+WGS84_EP_SQ = (WGS84_A**2 - WGS84_B**2) / WGS84_B**2  # 第二偏心率的平方
 
 
 def geodetic_to_ecef(
     lat_deg: float, lon_deg: float, alt_m: float
 ) -> tuple[float, float, float]:
     """
-    Converts Geodetic coordinates (Latitude, Longitude, Altitude) to
-    Earth-Centered, Earth-Fixed (ECEF) Cartesian coordinates.
+    将大地坐标（纬度、经度、高度）转换为地心地固（ECEF）笛卡尔坐标。
 
     >>> x, y, z = geodetic_to_ecef(0.0, 0.0, 0.0)
     >>> round(x, 2), round(y, 2), round(z, 2)
@@ -37,10 +35,10 @@ def geodetic_to_ecef(
     sin_lat = math.sin(lat_rad)
     cos_lat = math.cos(lat_rad)
 
-    # N is the prime vertical radius of curvature
+    # N 为卯酉圈曲率半径
     n_radius = WGS84_A / math.sqrt(1.0 - WGS84_E_SQ * sin_lat**2)
 
-    # Calculate ECEF X, Y, Z
+    # 计算 ECEF 的 X、Y、Z
     x = (n_radius + alt_m) * cos_lat * math.cos(lon_rad)
     y = (n_radius + alt_m) * cos_lat * math.sin(lon_rad)
     z = (n_radius * (1.0 - WGS84_E_SQ) + alt_m) * sin_lat
@@ -52,8 +50,7 @@ def ecef_to_geodetic(
     x_ecef: float, y_ecef: float, z_ecef: float
 ) -> tuple[float, float, float]:
     """
-    Converts Earth-Centered, Earth-Fixed (ECEF) coordinates to
-    Geodetic coordinates (Latitude, Longitude, Altitude) using Bowring's method.
+    使用 Bowring 方法将地心地固（ECEF）坐标转换为大地坐标（纬度、经度、高度）。
 
     >>> lat, lon, alt = ecef_to_geodetic(6378137.0, 0.0, 0.0)
     >>> round(lat, 2), round(lon, 2), round(alt, 2)
@@ -64,7 +61,7 @@ def ecef_to_geodetic(
     """
     p = math.sqrt(x_ecef**2 + y_ecef**2)
 
-    # Handle the special case where the point is exactly at the poles
+    # 处理点恰好位于两极的特殊情况
     if p == 0:
         lon_deg = 0.0
         lat_deg = 90.0 if z_ecef > 0 else -90.0
@@ -76,7 +73,7 @@ def ecef_to_geodetic(
     sin_theta = math.sin(theta)
     cos_theta = math.cos(theta)
 
-    # Calculate exact latitude and longitude
+    # 计算精确的纬度和经度
     lon_rad = math.atan2(y_ecef, x_ecef)
     lat_rad = math.atan2(
         z_ecef + WGS84_EP_SQ * WGS84_B * sin_theta**3,
@@ -85,7 +82,7 @@ def ecef_to_geodetic(
 
     sin_lat = math.sin(lat_rad)
 
-    # Recalculate prime vertical radius to find altitude
+    # 重新计算卯酉圈曲率半径以求高度
     n_radius = WGS84_A / math.sqrt(1.0 - WGS84_E_SQ * sin_lat**2)
 
     alt_m = (p / math.cos(lat_rad)) - n_radius
@@ -97,8 +94,8 @@ def enu_to_ecef(
     east: float, north: float, up: float, ref_lat_deg: float, ref_lon_deg: float
 ) -> tuple[float, float, float]:
     """
-    Rotates East-North-Up (ENU) offset coordinates to ECEF offset coordinates,
-    based on the reference (Radar) latitude and longitude.
+    根据参考点（雷达）的纬度和经度，将东-北-天（ENU）偏移坐标旋转为 ECEF
+    偏移坐标。
 
     >>> dx, dy, dz = enu_to_ecef(100.0, 200.0, 50.0, 0.0, 0.0)
     >>> round(dx, 2), round(dy, 2), round(dz, 2)
@@ -112,7 +109,7 @@ def enu_to_ecef(
     sin_lon = math.sin(lon_rad)
     cos_lon = math.cos(lon_rad)
 
-    # Rotation matrix components for ENU to ECEF
+    # 从 ENU 转换到 ECEF 的旋转矩阵分量
     dx = -sin_lon * east - sin_lat * cos_lon * north + cos_lat * cos_lon * up
     dy = cos_lon * east - sin_lat * sin_lon * north + cos_lat * sin_lon * up
     dz = cos_lat * north + sin_lat * up
@@ -129,46 +126,45 @@ def calculate_target_coordinates(
     elevation_deg: float = 0.0,
 ) -> tuple[float, float, float]:
     """
-    Main function to calculate target (ship) coordinates from radar measurements.
+    根据雷达测量值计算目标（船舶）坐标的主函数。
 
-    Parameters:
-    radar_lat (float): Radar latitude in degrees
-    radar_lon (float): Radar longitude in degrees
-    radar_alt (float): Radar altitude above sea level in meters
-    azimuth_deg (float): True bearing to the target (0 is North, 90 is East)
-    range_m (float): Direct line-of-sight distance to the target in meters
-    elevation_deg (float): Antenna elevation angle in degrees
-        (default 0 for surface ships)
+    参数：
+    radar_lat (float): 雷达纬度，单位为度
+    radar_lon (float): 雷达经度，单位为度
+    radar_alt (float): 雷达海拔高度，单位为米
+    azimuth_deg (float): 目标的真方位角（0 表示北，90 表示东）
+    range_m (float): 到目标的直视距离，单位为米
+    elevation_deg (float): 天线仰角，单位为度（水面船舶默认为 0）
 
-    Returns:
-    tuple: (Target Latitude, Target Longitude, Target Altitude)
+    返回：
+    tuple:（目标纬度、目标经度、目标高度）
 
     >>> lat, lon, alt = calculate_target_coordinates(0.0, 0.0, 0.0, 90.0, 111319.5)
     >>> round(lat, 1), round(lon, 1), round(alt, 1)
     (0.0, 1.0, 971.4)
     """
-    # Step 1: Convert Radar polar measurements to Local ENU Cartesian coordinates
+    # 第 1 步：将雷达极坐标测量值转换为局部 ENU 笛卡尔坐标
     az_rad = math.radians(azimuth_deg)
     el_rad = math.radians(elevation_deg)
 
-    # Standard spherical to cartesian for ENU
-    # North is aligned with 0 degrees Azimuth, East is 90 degrees
+    # ENU 的标准球坐标到笛卡尔坐标转换
+    # 北向对应方位角 0 度，东向对应 90 度
     east = range_m * math.cos(el_rad) * math.sin(az_rad)
     north = range_m * math.cos(el_rad) * math.cos(az_rad)
     up = range_m * math.sin(el_rad)
 
-    # Step 2: Get absolute ECEF position of the Radar
+    # 第 2 步：获取雷达的绝对 ECEF 位置
     radar_x, radar_y, radar_z = geodetic_to_ecef(radar_lat, radar_lon, radar_alt)
 
-    # Step 3: Convert the Local ENU offsets to ECEF offsets
+    # 第 3 步：将局部 ENU 偏移量转换为 ECEF 偏移量
     dx, dy, dz = enu_to_ecef(east, north, up, radar_lat, radar_lon)
 
-    # Step 4: Add offsets to the Radar's ECEF coordinates to find Target ECEF
+    # 第 4 步：将偏移量加入雷达的 ECEF 坐标，求目标 ECEF 坐标
     target_x = radar_x + dx
     target_y = radar_y + dy
     target_z = radar_z + dz
 
-    # Step 5: Convert Target ECEF back to Geodetic coordinates
+    # 第 5 步：将目标 ECEF 坐标转换回大地坐标
     target_lat, target_lon, target_alt = ecef_to_geodetic(target_x, target_y, target_z)
 
     return target_lat, target_lon, target_alt

@@ -9,7 +9,7 @@ import numpy as np
 
 def is_hermitian(matrix: np.ndarray) -> bool:
     """
-    Checks if a matrix is Hermitian.
+    检查矩阵是否为厄米矩阵。
     >>> import numpy as np
     >>> A = np.array([
     ... [2,    2+1j, 4],
@@ -29,8 +29,7 @@ def is_hermitian(matrix: np.ndarray) -> bool:
 
 def rayleigh_quotient(a: np.ndarray, v: np.ndarray) -> Any:
     """
-    Returns the Rayleigh quotient of a Hermitian matrix A and
-    vector v.
+    返回厄米矩阵 A 和向量 v 的瑞利商（Rayleigh Quotient）。
     >>> import numpy as np
     >>> A = np.array([
     ... [1,  2, 4],

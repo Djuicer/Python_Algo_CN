@@ -1,6 +1,6 @@
 def elf_hash(data: str) -> int:
     """
-    Implementation of ElfHash Algorithm, a variant of PJW hash function.
+    实现 ElfHash 算法，它是 PJW 哈希函数的一种变体。
 
     >>> elf_hash('lorem ipsum')
     253956621

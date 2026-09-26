@@ -1,20 +1,16 @@
 """
-Lower-upper (LU) decomposition factors a matrix as a product of a lower
-triangular matrix and an upper triangular matrix. A square matrix has an LU
-decomposition under the following conditions:
+LU 分解（Lower-Upper Decomposition）将矩阵分解为下三角矩阵与上三角矩阵的
+乘积。方阵在以下条件下存在 LU 分解：
 
-    - If the matrix is invertible, then it has an LU decomposition if and only
-      if all of its leading principal minors are non-zero (see
-      https://en.wikipedia.org/wiki/Minor_(linear_algebra) for an explanation of
-      leading principal minors of a matrix).
-    - If the matrix is singular (i.e., not invertible) and it has a rank of k
-      (i.e., it has k linearly independent columns), then it has an LU
-      decomposition if its first k leading principal minors are non-zero.
+    - 若矩阵可逆，则当且仅当其所有顺序主子式均非零时，它存在 LU 分解
+      （矩阵顺序主子式的说明参见
+      https://en.wikipedia.org/wiki/Minor_(linear_algebra)）。
+    - 若矩阵奇异（即不可逆）且秩为 k（即有 k 个线性无关列），则当前 k 个
+      顺序主子式均非零时，它存在 LU 分解。
 
-This algorithm will simply attempt to perform LU decomposition on any square
-matrix and raise an error if no such decomposition exists.
+本算法会尝试对任意方阵执行 LU 分解；若不存在这种分解，则抛出错误。
 
-Reference: https://en.wikipedia.org/wiki/LU_decomposition
+参考资料：https://en.wikipedia.org/wiki/LU_decomposition
 """
 
 from __future__ import annotations
@@ -24,8 +20,7 @@ import numpy as np
 
 def lower_upper_decomposition(table: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """
-    Perform LU decomposition on a given matrix and raises an error if the matrix
-    isn't square or if no such decomposition exists
+    对给定矩阵执行 LU 分解。若矩阵不是方阵或不存在这种分解，则抛出错误。
 
     >>> matrix = np.array([[2, -2, 1], [0, 1, 2], [5, 3, 1]])
     >>> lower_mat, upper_mat = lower_upper_decomposition(matrix)
@@ -80,7 +75,7 @@ def lower_upper_decomposition(table: np.ndarray) -> tuple[np.ndarray, np.ndarray
     ...
     ArithmeticError: No LU decomposition exists
     """
-    # Ensure that table is a square array
+    # 确保 table 是方阵
     rows, columns = np.shape(table)
     if rows != columns:
         msg = (
@@ -92,8 +87,7 @@ def lower_upper_decomposition(table: np.ndarray) -> tuple[np.ndarray, np.ndarray
     lower = np.zeros((rows, columns))
     upper = np.zeros((rows, columns))
 
-    # in 'total', the necessary data is extracted through slices
-    # and the sum of the products is obtained.
+            # 在 'total' 中通过切片提取所需数据，并求乘积之和
 
     for i in range(columns):
         for j in range(i):

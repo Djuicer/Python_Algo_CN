@@ -1,6 +1,5 @@
 """
-The Bob Jenkins hash is a fast, non-cryptographic hash function
-designed for general-purpose use, such as hash table lookups.
+Bob Jenkins 哈希是一种快速的非密码学哈希函数，面向哈希表查找等通用场景。
 
 https://en.wikipedia.org/wiki/Jenkins_hash_function
 """
@@ -8,7 +7,7 @@ https://en.wikipedia.org/wiki/Jenkins_hash_function
 
 def jenkins_one_at_a_time(key: str) -> int:
     """
-    Calculate Jenkins One-at-a-Time hash for a key.
+    计算键的 Jenkins One-at-a-Time 哈希值。
 
     >>> jenkins_one_at_a_time("apple")
     2297466611

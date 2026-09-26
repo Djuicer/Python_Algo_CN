@@ -1,10 +1,10 @@
 """
-Created on Mon Feb 26 15:40:07 2018
+创建于 Mon Feb 26 15:40:07 2018
 
 @author: Christian Bender
 @license: MIT-license
 
-This file contains the test-suite for the linear algebra library.
+本文件包含线性代数库的测试套件。
 """
 
 import unittest
@@ -24,7 +24,7 @@ from .lib import (
 class Test(unittest.TestCase):
     def test_component(self) -> None:
         """
-        test for method component()
+        测试 component() 方法。
         """
         x = Vector([1, 2, 3])
         assert x.component(0) == 1
@@ -33,21 +33,21 @@ class Test(unittest.TestCase):
 
     def test_str(self) -> None:
         """
-        test for method toString()
+        测试 toString() 方法。
         """
         x = Vector([0, 0, 0, 0, 0, 1])
         assert str(x) == "(0,0,0,0,0,1)"
 
     def test_size(self) -> None:
         """
-        test for method size()
+        测试 size() 方法。
         """
         x = Vector([1, 2, 3, 4])
         assert len(x) == 4
 
     def test_euclidean_length(self) -> None:
         """
-        test for method euclidean_length()
+        测试 euclidean_length() 方法。
         """
         x = Vector([1, 2])
         y = Vector([1, 2, 3, 4, 5])
@@ -60,7 +60,7 @@ class Test(unittest.TestCase):
 
     def test_add(self) -> None:
         """
-        test for + operator
+        测试 + 运算符。
         """
         x = Vector([1, 2, 3])
         y = Vector([1, 1, 1])
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
 
     def test_sub(self) -> None:
         """
-        test for - operator
+        测试 - 运算符。
         """
         x = Vector([1, 2, 3])
         y = Vector([1, 1, 1])
@@ -80,29 +80,29 @@ class Test(unittest.TestCase):
 
     def test_mul(self) -> None:
         """
-        test for * operator
+        测试 * 运算符。
         """
         x = Vector([1, 2, 3])
-        a = Vector([2, -1, 4])  # for test of dot product
+        a = Vector([2, -1, 4])  # 用于测试点积
         b = Vector([1, -2, -1])
         assert str(x * 3.0) == "(3.0,6.0,9.0)"
         assert a * b == 0
 
     def test_zero_vector(self) -> None:
         """
-        test for global function zero_vector()
+        测试全局函数 zero_vector()。
         """
         assert str(zero_vector(10)).count("0") == 10
 
     def test_unit_basis_vector(self) -> None:
         """
-        test for global function unit_basis_vector()
+        测试全局函数 unit_basis_vector()。
         """
         assert str(unit_basis_vector(3, 1)) == "(0,1,0)"
 
     def test_axpy(self) -> None:
         """
-        test for global function axpy() (operation)
+        测试全局函数 axpy()（运算）。
         """
         x = Vector([1, 2, 3])
         y = Vector([1, 0, 1])
@@ -110,7 +110,7 @@ class Test(unittest.TestCase):
 
     def test_copy(self) -> None:
         """
-        test for method copy()
+        测试 copy() 方法。
         """
         x = Vector([1, 0, 0, 0, 0, 0])
         y = x.copy()
@@ -118,7 +118,7 @@ class Test(unittest.TestCase):
 
     def test_change_component(self) -> None:
         """
-        test for method change_component()
+        测试 change_component() 方法。
         """
         x = Vector([1, 0, 0])
         x.change_component(0, 0)
@@ -127,14 +127,14 @@ class Test(unittest.TestCase):
 
     def test_str_matrix(self) -> None:
         """
-        test for Matrix method str()
+        测试 Matrix 的 str() 方法。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         assert str(a) == "|1,2,3|\n|2,4,5|\n|6,7,8|\n"
 
     def test_minor(self) -> None:
         """
-        test for Matrix method minor()
+        测试 Matrix 的 minor() 方法。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         minors = [[-3, -14, -10], [-5, -10, -5], [-2, -1, 0]]
@@ -144,7 +144,7 @@ class Test(unittest.TestCase):
 
     def test_cofactor(self) -> None:
         """
-        test for Matrix method cofactor()
+        测试 Matrix 的 cofactor() 方法。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         cofactors = [[-3, 14, -10], [5, -10, 5], [-2, 1, 0]]
@@ -154,14 +154,14 @@ class Test(unittest.TestCase):
 
     def test_determinant(self) -> None:
         """
-        test for Matrix method determinant()
+        测试 Matrix 的 determinant() 方法。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         assert a.determinant() == -5
 
     def test__mul__matrix(self) -> None:
         """
-        test for Matrix * operator
+        测试 Matrix 的 * 运算符。
         """
         a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 3, 3)
         x = Vector([1, 2, 3])
@@ -170,7 +170,7 @@ class Test(unittest.TestCase):
 
     def test_change_component_matrix(self) -> None:
         """
-        test for Matrix method change_component()
+        测试 Matrix 的 change_component() 方法。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         a.change_component(0, 2, 5)
@@ -178,14 +178,14 @@ class Test(unittest.TestCase):
 
     def test_component_matrix(self) -> None:
         """
-        test for Matrix method component()
+        测试 Matrix 的 component() 方法。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         assert a.component(2, 1) == 7, "0.01"
 
     def test__add__matrix(self) -> None:
         """
-        test for Matrix + operator
+        测试 Matrix 的 + 运算符。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         b = Matrix([[1, 2, 7], [2, 4, 5], [6, 7, 10]], 3, 3)
@@ -193,7 +193,7 @@ class Test(unittest.TestCase):
 
     def test__sub__matrix(self) -> None:
         """
-        test for Matrix - operator
+        测试 Matrix 的 - 运算符。
         """
         a = Matrix([[1, 2, 3], [2, 4, 5], [6, 7, 8]], 3, 3)
         b = Matrix([[1, 2, 7], [2, 4, 5], [6, 7, 10]], 3, 3)
@@ -201,7 +201,7 @@ class Test(unittest.TestCase):
 
     def test_square_zero_matrix(self) -> None:
         """
-        test for global function square_zero_matrix()
+        测试全局函数 square_zero_matrix()。
         """
         assert str(square_zero_matrix(5)) == (
             "|0,0,0,0,0|\n|0,0,0,0,0|\n|0,0,0,0,0|\n|0,0,0,0,0|\n|0,0,0,0,0|\n"
