@@ -1,40 +1,40 @@
 """
-This is a type of divide and conquer algorithm which divides the search space into
-3 parts and finds the target value based on the property of the array or list
-(usually monotonic property).
+这是一种分治（Divide and Conquer）算法，将搜索空间划分为
+3 部分，并根据数组或列表的性质
+（通常是单调性）查找目标值。
 
-Time Complexity  : O(log3 N)
-Space Complexity : O(1)
+时间复杂度（Time Complexity）  : O(log3 N)
+空间复杂度（Space Complexity） : O(1)
 """
 
 from __future__ import annotations
 
-# This is the precision for this function which can be altered.
-# It is recommended for users to keep this number greater than or equal to 10.
+# 这是该函数可调整的精度参数。
+# 建议将此值保持为大于或等于 10。
 precision = 10
 
 
-# This is the linear search that will occur after the search space has become smaller.
+# 搜索空间缩小后，将执行下面的线性查找。
 
 
 def lin_search(left: int, right: int, array: list[int], target: int) -> int:
-    """Perform linear search in list. Returns -1 if element is not found.
+    """在列表中执行线性查找。未找到元素则返回 -1。
 
     Parameters
     ----------
     left : int
-        left index bound.
+        左侧索引边界。
     right : int
-        right index bound.
+        右侧索引边界。
     array : List[int]
-        List of elements to be searched on
+        待搜索的元素列表
     target : int
-        Element that is searched
+        待查找的元素
 
     Returns
     -------
     int
-        index of element that is looked for.
+        目标元素的索引。
 
     Examples
     --------
@@ -60,7 +60,7 @@ def lin_search(left: int, right: int, array: list[int], target: int) -> int:
 
 
 def ite_ternary_search(array: list[int], target: int) -> int:
-    """Iterative method of the ternary search algorithm.
+    """三分查找（Ternary Search）算法的迭代实现。
     >>> test_list = [0, 1, 2, 8, 13, 17, 19, 32, 42]
     >>> ite_ternary_search(test_list, 3)
     -1
@@ -115,7 +115,7 @@ def ite_ternary_search(array: list[int], target: int) -> int:
 
 
 def rec_ternary_search(left: int, right: int, array: list[int], target: int) -> int:
-    """Recursive method of the ternary search algorithm.
+    """三分查找算法的递归实现。
 
     >>> test_list = [0, 1, 2, 8, 13, 17, 19, 32, 42]
     >>> rec_ternary_search(0, len(test_list), test_list, 3)

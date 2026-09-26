@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 """
-Pure Python implementations of binary search algorithms
+二分查找（Binary Search）算法的纯 Python 实现
 
-For doctests run the following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v binary_search.py
 
-For manual testing run:
+手动测试请运行：
 python3 binary_search.py
 """
 
@@ -18,20 +18,20 @@ def bisect_left(
     sorted_collection: list[int], item: int, lo: int = 0, hi: int = -1
 ) -> int:
     """
-    Locates the first element in a sorted array that is larger or equal to a given
-    value.
+    在有序数组中定位第一个大于或等于
+    给定值的元素。
 
-    It has the same interface as
+    接口与以下函数相同：
     https://docs.python.org/3/library/bisect.html#bisect.bisect_left .
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item to bisect
-    :param lo: lowest index to consider (as in sorted_collection[lo:hi])
-    :param hi: past the highest index to consider (as in sorted_collection[lo:hi])
-    :return: index i such that all values in sorted_collection[lo:i] are < item and all
-        values in sorted_collection[i:hi] are >= item.
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 用于二分定位的元素
+    :param lo: 搜索范围的起始索引（如 sorted_collection[lo:hi]）
+    :param hi: 搜索范围的结束索引，不包含该位置（如 sorted_collection[lo:hi]）
+    :return: 索引 i，使 sorted_collection[lo:i] 中所有值都 < item，且
+        sorted_collection[i:hi] 中所有值都 >= item。
 
-    Examples:
+    示例：
     >>> bisect_left([0, 5, 7, 10, 15], 0)
     0
     >>> bisect_left([0, 5, 7, 10, 15], 6)
@@ -60,19 +60,19 @@ def bisect_right(
     sorted_collection: list[int], item: int, lo: int = 0, hi: int = -1
 ) -> int:
     """
-    Locates the first element in a sorted array that is larger than a given value.
+    在有序数组中定位第一个大于给定值的元素。
 
-    It has the same interface as
+    接口与以下函数相同：
     https://docs.python.org/3/library/bisect.html#bisect.bisect_right .
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item to bisect
-    :param lo: lowest index to consider (as in sorted_collection[lo:hi])
-    :param hi: past the highest index to consider (as in sorted_collection[lo:hi])
-    :return: index i such that all values in sorted_collection[lo:i] are <= item and
-        all values in sorted_collection[i:hi] are > item.
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 用于二分定位的元素
+    :param lo: 搜索范围的起始索引（如 sorted_collection[lo:hi]）
+    :param hi: 搜索范围的结束索引，不包含该位置（如 sorted_collection[lo:hi]）
+    :return: 索引 i，使 sorted_collection[lo:i] 中所有值都 <= item，且
+        sorted_collection[i:hi] 中所有值都 > item。
 
-    Examples:
+    示例：
     >>> bisect_right([0, 5, 7, 10, 15], 0)
     1
     >>> bisect_right([0, 5, 7, 10, 15], 15)
@@ -101,17 +101,17 @@ def insort_left(
     sorted_collection: list[int], item: int, lo: int = 0, hi: int = -1
 ) -> None:
     """
-    Inserts a given value into a sorted array before other values with the same value.
+    将给定值插入有序数组，置于所有相等元素之前。
 
-    It has the same interface as
+    接口与以下函数相同：
     https://docs.python.org/3/library/bisect.html#bisect.insort_left .
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item to insert
-    :param lo: lowest index to consider (as in sorted_collection[lo:hi])
-    :param hi: past the highest index to consider (as in sorted_collection[lo:hi])
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待插入的元素
+    :param lo: 搜索范围的起始索引（如 sorted_collection[lo:hi]）
+    :param hi: 搜索范围的结束索引，不包含该位置（如 sorted_collection[lo:hi]）
 
-    Examples:
+    示例：
     >>> sorted_collection = [0, 5, 7, 10, 15]
     >>> insort_left(sorted_collection, 6)
     >>> sorted_collection
@@ -141,17 +141,17 @@ def insort_right(
     sorted_collection: list[int], item: int, lo: int = 0, hi: int = -1
 ) -> None:
     """
-    Inserts a given value into a sorted array after other values with the same value.
+    将给定值插入有序数组，置于所有相等元素之后。
 
-    It has the same interface as
+    接口与以下函数相同：
     https://docs.python.org/3/library/bisect.html#bisect.insort_right .
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item to insert
-    :param lo: lowest index to consider (as in sorted_collection[lo:hi])
-    :param hi: past the highest index to consider (as in sorted_collection[lo:hi])
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待插入的元素
+    :param lo: 搜索范围的起始索引（如 sorted_collection[lo:hi]）
+    :param hi: 搜索范围的结束索引，不包含该位置（如 sorted_collection[lo:hi]）
 
-    Examples:
+    示例：
     >>> sorted_collection = [0, 5, 7, 10, 15]
     >>> insort_right(sorted_collection, 6)
     >>> sorted_collection
@@ -178,18 +178,18 @@ def insort_right(
 
 
 def binary_search(sorted_collection: list[int], item: int) -> int:
-    """Pure implementation of a binary search algorithm in Python
+    """二分查找算法的纯 Python 实现
 
-    Be careful collection must be ascending sorted otherwise, the result will be
-    unpredictable
+    注意，集合必须按升序排列，否则结果
+    不可预测。
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search
-    :return: index of the found item or -1 if the item is not found.
-             If there are multiple occurrences of the item, returns the index
-             of the leftmost occurrence.
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :return: 找到的元素索引；未找到则返回 -1。
+             如果元素出现多次，则返回
+             最左侧出现位置的索引。
 
-    Examples:
+    示例：
     >>> binary_search([0, 5, 7, 10, 15], 0)
     0
     >>> binary_search([0, 5, 7, 10, 15], 15)
@@ -214,9 +214,9 @@ def binary_search(sorted_collection: list[int], item: int) -> int:
         current_item = sorted_collection[midpoint]
         if current_item == item:
             result = (
-                midpoint  # Found the item, but continue to find leftmost occurrence
+                midpoint  # 已找到元素，但继续查找最左侧的出现位置
             )
-            right = midpoint - 1  # Look for more occurrences on the left
+            right = midpoint - 1  # 在左侧查找其他出现位置
         elif item < current_item:
             right = midpoint - 1
         else:
@@ -225,16 +225,16 @@ def binary_search(sorted_collection: list[int], item: int) -> int:
 
 
 def binary_search_std_lib(sorted_collection: list[int], item: int) -> int:
-    """Pure implementation of a binary search algorithm in Python using stdlib
+    """使用标准库的二分查找算法纯 Python 实现
 
-    Be careful collection must be ascending sorted otherwise, the result will be
-    unpredictable
+    注意，集合必须按升序排列，否则结果
+    不可预测。
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search
-    :return: index of the found item or -1 if the item is not found
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :return: 找到的元素索引；未找到则返回 -1
 
-    Examples:
+    示例：
     >>> binary_search_std_lib([0, 5, 7, 10, 15], 0)
     0
     >>> binary_search_std_lib([0, 5, 7, 10, 15], 15)
@@ -253,22 +253,22 @@ def binary_search_std_lib(sorted_collection: list[int], item: int) -> int:
 
 
 def binary_search_with_duplicates(sorted_collection: list[int], item: int) -> list[int]:
-    """Pure implementation of a binary search algorithm in Python that supports
-    duplicates.
+    """支持重复元素的二分查找算法
+    纯 Python 实现。
 
-    Resources used:
+    参考资料：
     https://stackoverflow.com/questions/13197552/using-binary-search-with-sorted-array-with-duplicates
 
-    The collection must be sorted in ascending order; otherwise the result will be
-    unpredictable. If the target appears multiple times, this function returns a
-    list of all indexes where the target occurs. If the target is not found,
-    this function returns an empty list.
+    集合必须按升序排列，否则结果
+    不可预测。如果目标元素出现多次，该函数返回
+    所有出现位置的索引列表。如果未找到目标元素，
+    则返回空列表。
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search for
-    :return: a list of indexes where the item is found (empty list if not found)
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :return: 元素出现位置的索引列表（未找到则返回空列表）
 
-    Examples:
+    示例：
     >>> binary_search_with_duplicates([0, 5, 7, 10, 15], 0)
     [0]
     >>> binary_search_with_duplicates([0, 5, 7, 10, 15], 15)
@@ -283,11 +283,11 @@ def binary_search_with_duplicates(sorted_collection: list[int], item: int) -> li
 
     def lower_bound(sorted_collection: list[int], item: int) -> int:
         """
-        Returns the index of the first element greater than or equal to the item.
+        返回第一个大于或等于目标元素的元素索引。
 
-        :param sorted_collection: The sorted list to search.
-        :param item: The item to find the lower bound for.
-        :return: The index where the item can be inserted while maintaining order.
+        :param sorted_collection: 待搜索的有序列表。
+        :param item: 待查找下界的元素。
+        :return: 在保持有序的前提下可插入该元素的索引。
         """
         left = 0
         right = len(sorted_collection)
@@ -302,11 +302,11 @@ def binary_search_with_duplicates(sorted_collection: list[int], item: int) -> li
 
     def upper_bound(sorted_collection: list[int], item: int) -> int:
         """
-        Returns the index of the first element strictly greater than the item.
+        返回第一个严格大于目标元素的元素索引。
 
-        :param sorted_collection: The sorted list to search.
-        :param item: The item to find the upper bound for.
-        :return: The index where the item can be inserted after all existing instances.
+        :param sorted_collection: 待搜索的有序列表。
+        :param item: 待查找上界的元素。
+        :return: 可在所有相等元素之后插入该元素的索引。
         """
         left = 0
         right = len(sorted_collection)
@@ -330,19 +330,19 @@ def binary_search_with_duplicates(sorted_collection: list[int], item: int) -> li
 def binary_search_by_recursion(
     sorted_collection: list[int], item: int, left: int = 0, right: int = -1
 ) -> int:
-    """Pure implementation of a binary search algorithm in Python by recursion
+    """二分查找算法的纯 Python 递归实现
 
-    Be careful collection must be ascending sorted otherwise, the result will be
-    unpredictable
-    First recursion should be started with left=0 and right=(len(sorted_collection)-1)
+    注意，集合必须按升序排列，否则结果
+    不可预测。
+    首次递归调用应设置 left=0 和 right=(len(sorted_collection)-1)
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search
-    :return: index of the found item or -1 if the item is not found.
-             If there are multiple occurrences of the item, returns the index
-             of the leftmost occurrence.
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :return: 找到的元素索引；未找到则返回 -1。
+             如果元素出现多次，则返回
+             最左侧出现位置的索引。
 
-    Examples:
+    示例：
     >>> binary_search_by_recursion([0, 5, 7, 10, 15], 0, 0, 4)
     0
     >>> binary_search_by_recursion([0, 5, 7, 10, 15], 15, 0, 4)
@@ -361,7 +361,7 @@ def binary_search_by_recursion(
     if list(sorted_collection) != sorted(sorted_collection):
         raise ValueError("sorted_collection must be sorted in ascending order")
 
-    # Helper function for the binary search
+    # 二分查找的辅助函数
     def _binary_search_recursive(left_idx: int, right_idx: int) -> int:
         if right_idx < left_idx:
             return -1
@@ -370,8 +370,8 @@ def binary_search_by_recursion(
         current_item = sorted_collection[midpoint]
 
         if current_item == item:
-            # Found the item, now find the leftmost occurrence
-            # First, recursively find any occurrence to the left
+            # 已找到元素，接下来查找最左侧的出现位置
+            # 先递归查找左侧是否还有该元素
             leftmost = _binary_search_recursive(left_idx, midpoint - 1)
             return leftmost if leftmost != -1 else midpoint
         elif item < current_item:
@@ -383,20 +383,20 @@ def binary_search_by_recursion(
 
 
 def exponential_search(sorted_collection: list[int], item: int) -> int:
-    """Pure implementation of an exponential search algorithm in Python
-    Resources used:
+    """指数查找（Exponential Search）算法的纯 Python 实现
+    参考资料：
     https://en.wikipedia.org/wiki/Exponential_search
 
-    Be careful collection must be ascending sorted otherwise, result will be
-    unpredictable
+    注意，集合必须按升序排列，否则结果
+    不可预测。
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search
-    :return: index of the found item or -1 if the item is not found
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :return: 找到的元素索引；未找到则返回 -1
 
-    the order of this algorithm is O(lg I) where I is index position of item if exist
+    该算法的时间复杂度为 O(lg I)，其中 I 为目标元素存在时的索引位置
 
-    Examples:
+    示例：
     >>> exponential_search([0, 5, 7, 10, 15], 0)
     0
     >>> exponential_search([0, 5, 7, 10, 15], 15)
@@ -421,7 +421,7 @@ def exponential_search(sorted_collection: list[int], item: int) -> int:
     return last_result
 
 
-searches = (  # Fastest to slowest...
+searches = (  # 从最快到最慢……
     binary_search_std_lib,
     binary_search,
     exponential_search,

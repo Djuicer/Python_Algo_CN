@@ -1,5 +1,5 @@
 """
-This is pure Python implementation of tree traversal algorithms
+树遍历（Tree Traversal）算法的纯 Python 实现
 """
 
 from __future__ import annotations
@@ -16,8 +16,8 @@ class TreeNode:
 
 def build_tree() -> TreeNode:
     """
-    Builds a binary tree by receiving input and returns the root node of the tree.
-    Stops and returns the tree once 'N' is entered.
+    通过接收输入构建二叉树，并返回树的根节点。
+    输入 'N' 时停止并返回该树。
     """
     print("\n********Press N to stop entering at any point of time********\n")
     check = input("Enter the value of the root node: ").strip().lower()
@@ -172,7 +172,7 @@ def level_order_actual(node: TreeNode) -> None:
             q.put(inner_node)
 
 
-# iteration version
+# 迭代版本
 def pre_order_iter(node: TreeNode) -> None:
     """
     >>> root = TreeNode(1)
@@ -193,13 +193,13 @@ def pre_order_iter(node: TreeNode) -> None:
     stack: list[TreeNode] = []
     n = node
     while n or stack:
-        while n:  # start from root node, find its left child
+        while n:  # 从根节点开始，查找其左子节点
             print(n.data, end=",")
             stack.append(n)
             n = n.left
-        # end of while means current node doesn't have left child
+        # while 循环结束意味着当前节点没有左子节点
         n = stack.pop()
-        # start to traverse its right child
+        # 开始遍历其右子节点
         n = n.right
 
 
@@ -251,19 +251,19 @@ def post_order_iter(node: TreeNode) -> None:
     stack1, stack2 = [], []
     n = node
     stack1.append(n)
-    while stack1:  # to find the reversed order of post order, store it in stack2
+    while stack1:  # 找到后序遍历的逆序，并存入 stack2
         n = stack1.pop()
         if n.left:
             stack1.append(n.left)
         if n.right:
             stack1.append(n.right)
         stack2.append(n)
-    while stack2:  # pop up from stack2 will be the post order
+    while stack2:  # 从 stack2 依次弹出节点，即得到后序遍历顺序
         print(stack2.pop().data, end=",")
 
 
 def prompt(s: str = "", width=50, char="*") -> str:
-    """Return a prompt string padded to the specified width.
+    """返回填充到指定宽度的提示字符串。
 
     >>> [prompt("Python", width=width) for width in range(8, 13)]
     [' Python ', ' Python *', '* Python *', '* Python **', '** Python **']

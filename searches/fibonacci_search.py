@@ -1,13 +1,13 @@
 """
-This is pure Python implementation of fibonacci search.
+斐波那契查找（Fibonacci Search）的纯 Python 实现。
 
-Resources used:
+参考资料：
 https://en.wikipedia.org/wiki/Fibonacci_search_technique
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v fibonacci_search.py
 
-For manual testing run:
+手动测试请运行：
 python3 fibonacci_search.py
 """
 
@@ -16,17 +16,17 @@ from functools import lru_cache
 
 @lru_cache
 def fibonacci(k: int) -> int:
-    """Finds fibonacci number in index k.
+    """求索引 k 处的斐波那契数。
 
     Parameters
     ----------
     k :
-        Index of fibonacci.
+        斐波那契数的索引。
 
     Returns
     -------
     int
-        Fibonacci number in position k.
+        位置 k 处的斐波那契数。
 
     >>> fibonacci(0)
     0
@@ -56,20 +56,20 @@ def fibonacci(k: int) -> int:
 
 
 def fibonacci_search(arr: list, val: int) -> int:
-    """A pure Python implementation of a fibonacci search algorithm.
+    """斐波那契查找算法的纯 Python 实现。
 
     Parameters
     ----------
     arr
-        List of sorted elements.
+        已排序的元素列表。
     val
-        Element to search in list.
+        要在列表中查找的元素。
 
     Returns
     -------
     int
-        The index of the element in the array.
-        -1 if the element is not found.
+        元素在数组中的索引。
+        未找到元素时返回 -1。
 
     >>> fibonacci_search([4, 5, 6, 7], 4)
     0
@@ -103,7 +103,7 @@ def fibonacci_search(arr: list, val: int) -> int:
     39
     """
     len_list = len(arr)
-    # Find m such that F_m >= n where F_i is the i_th fibonacci number.
+    # 找到满足 F_m >= n 的 m，其中 F_i 是第 i 个斐波那契数。
     i = 0
     while True:
         if fibonacci(i) >= len_list:
@@ -114,7 +114,7 @@ def fibonacci_search(arr: list, val: int) -> int:
     while fibb_k > 0:
         index_k = min(
             offset + fibonacci(fibb_k - 1), len_list - 1
-        )  # Prevent out of range
+        )  # 防止索引越界
         item_k_1 = arr[index_k]
         if item_k_1 == val:
             return index_k

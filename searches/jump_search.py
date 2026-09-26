@@ -1,9 +1,9 @@
 """
-Pure Python implementation of the jump search algorithm.
-This algorithm iterates through a sorted collection with a step of n^(1/2),
-until the element compared is bigger than the one searched.
-It will then perform a linear search until it matches the wanted number.
-If not found, it returns -1.
+跳跃查找（Jump Search）算法的纯 Python 实现。
+该算法以 n^(1/2) 为步长遍历有序集合，
+直到当前比较的元素大于目标元素。
+然后执行线性查找，直到找到目标值。
+未找到则返回 -1。
 
 https://en.wikipedia.org/wiki/Jump_search
 """
@@ -19,10 +19,10 @@ class Comparable(Protocol):
 
 def jump_search[T: Comparable](arr: Sequence[T], item: T) -> int:
     """
-    Python implementation of the jump search algorithm.
-    Return the index if the `item` is found, otherwise return -1.
+    跳跃查找算法的 Python 实现。
+    找到 `item` 则返回其索引，否则返回 -1。
 
-    Examples:
+    示例：
     >>> jump_search([0, 1, 2, 3, 4, 5], 3)
     3
     >>> jump_search([-5, -2, -1], -1)

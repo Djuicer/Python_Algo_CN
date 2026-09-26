@@ -1,23 +1,23 @@
 """
-This is a pure Python implementation of the linear search algorithm.
+线性查找（Linear Search）算法的纯 Python 实现。
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v linear_search.py
 
-For manual testing run:
+手动测试请运行：
 python3 linear_search.py
 """
 
 
 def linear_search(sequence: list, target: int) -> int:
-    """A pure Python implementation of a linear search algorithm
+    """线性查找算法的纯 Python 实现
 
-    :param sequence: a collection with comparable items (sorting is not required for
-        linear search)
-    :param target: item value to search
-    :return: index of found item or -1 if item is not found
+    :param sequence: 元素可比较的集合（线性查找
+        不要求排序）
+    :param target: 待查找的元素值
+    :return: 找到的元素索引；未找到则返回 -1
 
-    Examples:
+    示例：
     >>> linear_search([0, 5, 7, 10, 15], 0)
     0
     >>> linear_search([0, 5, 7, 10, 15], 15)
@@ -35,16 +35,16 @@ def linear_search(sequence: list, target: int) -> int:
 
 def rec_linear_search(sequence: list, low: int, high: int, target: int) -> int:
     """
-    A pure Python implementation of a recursive linear search algorithm
+    线性查找算法的纯 Python 递归实现
 
-    :param sequence: a collection with comparable items (as sorted items not required
-        in Linear Search)
-    :param low: Lower bound of the array
-    :param high: Higher bound of the array
-    :param target: The element to be found
-    :return: Index of the key or -1 if key not found
+    :param sequence: 元素可比较的集合（线性查找
+        不要求排序）
+    :param low: 数组的下界
+    :param high: 数组的上界
+    :param target: 待查找的元素
+    :return: 键值的索引；未找到则返回 -1
 
-    Examples:
+    示例：
     >>> rec_linear_search([0, 30, 500, 100, 700], 0, 4, 0)
     0
     >>> rec_linear_search([0, 30, 500, 100, 700], 0, 4, 700)

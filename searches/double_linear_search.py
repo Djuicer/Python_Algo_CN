@@ -3,13 +3,13 @@ from __future__ import annotations
 
 def double_linear_search(array: list[int], search_item: int) -> int:
     """
-    Iterate through the array from both sides to find the index of search_item.
+    从数组两端遍历，查找 search_item 的索引。
 
-    :param array: the array to be searched
-    :param search_item: the item to be searched
-    :return the index of search_item, if search_item is in array, else -1
+    :param array: 待搜索的数组
+    :param search_item: 待查找的元素
+    :return 若 search_item 在 array 中，返回其索引；否则返回 -1
 
-    Examples:
+    示例：
     >>> double_linear_search([1, 5, 5, 10], 1)
     0
     >>> double_linear_search([1, 5, 5, 10], 5)
@@ -19,7 +19,7 @@ def double_linear_search(array: list[int], search_item: int) -> int:
     >>> double_linear_search([1, 5, 5, 10], 10)
     3
     """
-    # define the start and end index of the given array
+    # 定义给定数组的起始和结束索引
     start_ind, end_ind = 0, len(array) - 1
     while start_ind <= end_ind:
         if array[start_ind] == search_item:
@@ -29,7 +29,7 @@ def double_linear_search(array: list[int], search_item: int) -> int:
         else:
             start_ind += 1
             end_ind -= 1
-    # returns -1 if search_item is not found in array
+    # 若在 array 中未找到 search_item，则返回 -1
     return -1
 
 

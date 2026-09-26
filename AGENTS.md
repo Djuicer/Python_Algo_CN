@@ -1,62 +1,188 @@
-# AGENTS.md
+# TheAlgorithms 简体中文本地化项目
 
-Guidance for AI coding agents (and their humans) contributing to
-**TheAlgorithms/Python**. This complements — and never overrides —
-[`CONTRIBUTING.md`](CONTRIBUTING.md). Read that first.
+## 项目目标
 
-This repository is educational: implementations should be clear and correct
-rather than maximally optimized. Every change goes through CI and the
-`algorithms-keeper` bot, both of which reject non-conforming PRs automatically.
+本项目基于 TheAlgorithms 开源代码库制作简体中文学习增强版本。
 
-## Before opening a pull request
+首要原则：
 
-- **Check at least one box in the PR description.** The `algorithms-keeper`
-  bot **closes any PR whose "Describe your change" section has no checked
-  box** (`* [x]`). Fill in the template that ships in
-  `.github/pull_request_template.md` and tick every item that applies before
-  you submit — this is the single most common reason automated PRs get closed.
-- **One algorithm file per PR.** Split unrelated changes into separate PRs to
-  keep review focused.
-- **Don't change code and its doctests in the same PR.** If you're only
-  updating tests, say so and touch nothing else.
+**中文化不得改变程序行为。**
 
-## Code conventions (enforced by CI)
+当前阶段的主要任务是：
 
-- **Formatting & linting:** `ruff` (`uvx ruff check .` and `uvx ruff format .`).
-  Run `uvx pre-commit run --all-files` locally to catch everything CI will.
-- **Type hints:** annotate every function parameter and return value with
-  [type hints](https://docs.python.org/3/library/typing.html).
-- **Doctests:** every function needs at least one
-  [doctest](https://docs.python.org/3/library/doctest.html) that passes under
-  `python -m doctest -v your_file.py` (and `pytest`).
-- **Naming:** filenames are all-lowercase with underscores (no spaces or
-  dashes); functions and variables follow standard Python naming.
-- **Placement:** new files go inside an existing directory.
-- **References:** new algorithms include a URL to Wikipedia or a comparable
-  explanation.
+1. 将适合翻译的英文代码注释翻译为简体中文。
+2. 将适合翻译的英文 Docstring 翻译为简体中文。
+3. 保持代码原有算法实现和 API 完全不变。
+4. 保留原作者版权信息和许可证信息。
+5. 所有修改完成后运行已有测试验证代码行为。
 
-## Running the suite locally
+---
 
-This project is managed with [`uv`](https://docs.astral.sh/uv/) — there is no
-`requirements.txt`. Dependencies live in `pyproject.toml`/`uv.lock`, and `uvx`
-runs a tool in a throwaway environment without polluting yours:
+## 绝对禁止修改
 
-```bash
-uvx pre-commit run --all-files                       # ruff, formatting, hooks
-uvx pytest your_module/your_file.py --doctest-modules
-```
+除非用户明确要求，否则不得修改：
 
-(`uv run pytest ...` works too if you'd rather use the project's locked
-environment.)
+- 算法实现逻辑
+- 函数名
+- 类名
+- 变量名
+- 参数名
+- 文件名
+- 目录名
+- import
+- public API
+- 数值常量
+- 测试数据
+- 测试预期结果
+- LICENSE
+- 原作者版权声明
+- 原始来源信息
 
-Some directories are intentionally skipped in CI (`--ignore` entries in
-`.github/workflows/build.yml`), usually because a heavy dependency lacks a
-wheel for the CPython version the repo currently targets. Check that list
-before assuming a file is untested.
+不得为了“代码更漂亮”进行：
 
-## Good agent behavior
+- 重构
+- 性能优化
+- 风格改写
+- 算法替换
+- 变量重命名
+- 函数拆分或合并
 
-- Keep diffs minimal and scoped to the stated change.
-- Preserve existing style and structure; prefer clarity over cleverness.
-- Never fabricate doctest output — run it and paste the real result.
-- If CI is red, read the log and fix the cause rather than re-running blindly.
+当前任务是本地化，不是重构。
+
+---
+
+## 可以翻译的内容
+
+优先翻译：
+
+- 普通英文代码注释
+- Docstring 中的自然语言说明
+- 参数说明
+- 返回值说明
+- 算法原理说明
+- 示例说明
+- Markdown 文档中的解释文字
+
+---
+
+## 字符串处理规则
+
+源代码中的字符串默认不要翻译。
+
+尤其禁止修改会影响以下内容的字符串：
+
+- 单元测试
+- doctest
+- assert
+- 哈希结果
+- 加密结果
+- 文件格式
+- 网络协议
+- 序列化
+- 正则匹配
+- 命令行参数
+- 固定输入输出
+- API
+
+只有能够明确确认是纯粹面向用户的自然语言说明时，才可以考虑翻译。
+
+如果无法确定，保持原文。
+
+---
+
+## 专业术语翻译规则
+
+使用自然、准确的中国大陆计算机专业用语。
+
+专业术语首次出现时优先采用：
+
+中文名称（English Name）
+
+例如：
+
+- 动态规划（Dynamic Programming）
+- 广度优先搜索（Breadth-First Search）
+- 深度优先搜索（Depth-First Search）
+- 优先队列（Priority Queue）
+- 时间复杂度（Time Complexity）
+
+常用技术缩写保持英文，例如：
+
+- BFS
+- DFS
+- DP
+- API
+- CPU
+- GPU
+- HTTP
+- RSA
+
+不要为了中文化而强行翻译常用技术标识符。
+
+---
+
+## 翻译质量
+
+中文必须：
+
+- 准确
+- 简洁
+- 自然
+- 面向中国大学计算机专业学生
+- 保持原文技术含义
+
+禁止为了扩写而添加原代码无法支持的技术结论。
+
+不确定时保留英文，不要猜测。
+
+---
+
+## Docstring
+
+翻译 Docstring 时：
+
+1. 保持原有结构。
+2. 保持代码示例不变。
+3. 保持 doctest 内容不变。
+4. 保持参数名不变。
+5. 保持返回值类型不变。
+6. 保持异常类型不变。
+7. 只翻译自然语言说明。
+
+---
+
+## 工作方式
+
+不要一次处理整个仓库。
+
+每次只处理用户明确指定的目录或文件。
+
+修改之前：
+
+1. 阅读目标文件。
+2. 理解该目录测试方式。
+3. 确认修改范围。
+
+修改之后：
+
+1. 检查 git diff。
+2. 确认只有本地化相关修改。
+3. 运行相关测试。
+4. 如果测试失败，首先判断是否为本次修改导致。
+5. 不得通过改变原算法行为来让测试通过。
+
+---
+
+## 每次任务完成后的报告
+
+完成一个目录后报告：
+
+- 修改文件数量
+- 未修改文件数量
+- 主要翻译内容
+- 是否修改任何程序逻辑
+- 执行了哪些测试
+- 测试结果
+- 是否存在需要人工审核的问题
+
+如果存在不确定的翻译，明确列出，不要自行猜测。

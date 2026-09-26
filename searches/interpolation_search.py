@@ -1,19 +1,19 @@
 """
-This is pure Python implementation of interpolation search algorithm
+插值查找（Interpolation Search）算法的纯 Python 实现
 """
 
 
 def interpolation_search(sorted_collection: list[int], item: int) -> int | None:
     """
-    Searches for an item in a sorted collection by interpolation search algorithm.
+    使用插值查找算法在有序集合中查找元素。
 
     Args:
-        sorted_collection: sorted list of integers
-        item: item value to search
+        sorted_collection: 已排序的整数列表
+        item: 待查找的元素值
 
     Returns:
-        int: The index of the found item, or None if the item is not found.
-    Examples:
+        int: 找到的元素索引；未找到则返回 None。
+    示例：
     >>> interpolation_search([1, 2, 3, 4, 5], 2)
     1
     >>> interpolation_search([1, 2, 3, 4, 5], 4)
@@ -43,7 +43,7 @@ def interpolation_search(sorted_collection: list[int], item: int) -> int | None:
     right = len(sorted_collection) - 1
 
     while left <= right:
-        # avoid divided by 0 during interpolation
+        # 避免插值计算时除以 0
         if sorted_collection[left] == sorted_collection[right]:
             if sorted_collection[left] == item:
                 return left
@@ -53,7 +53,7 @@ def interpolation_search(sorted_collection: list[int], item: int) -> int | None:
             sorted_collection[right] - sorted_collection[left]
         )
 
-        # out of range check
+        # 检查索引是否越界
         if point < 0 or point >= len(sorted_collection):
             return None
 
@@ -76,21 +76,21 @@ def interpolation_search(sorted_collection: list[int], item: int) -> int | None:
 def interpolation_search_by_recursion(
     sorted_collection: list[int], item: int, left: int = 0, right: int | None = None
 ) -> int | None:
-    """Pure implementation of interpolation search algorithm in Python by recursion
-    Be careful collection must be ascending sorted, otherwise result will be
-    unpredictable
-    First recursion should be started with left=0 and right=(len(sorted_collection)-1)
+    """插值查找算法的纯 Python 递归实现
+    注意，集合必须按升序排列，否则结果
+    不可预测。
+    首次递归调用应设置 left=0 和 right=(len(sorted_collection)-1)
 
     Args:
-        sorted_collection: some sorted collection with comparable items
-        item: item value to search
-        left: left index in collection
-        right: right index in collection
+        sorted_collection: 元素可比较的有序集合
+        item: 待查找的元素值
+        left: 集合中的左侧索引
+        right: 集合中的右侧索引
 
     Returns:
-        index of item in collection or None if item is not present
+        元素在集合中的索引；元素不存在则返回 None
 
-    Examples:
+    示例：
     >>> interpolation_search_by_recursion([0, 5, 7, 10, 15], 0)
     0
     >>> interpolation_search_by_recursion([0, 5, 7, 10, 15], 15)
@@ -114,7 +114,7 @@ def interpolation_search_by_recursion(
         right = len(sorted_collection) - 1
     if left > right:
         return None
-    # avoid divided by 0 during interpolation
+    # 避免插值计算时除以 0
     if sorted_collection[left] == sorted_collection[right]:
         return left if sorted_collection[left] == item else None
 
@@ -122,7 +122,7 @@ def interpolation_search_by_recursion(
         sorted_collection[right] - sorted_collection[left]
     )
 
-    # out of range check
+    # 检查索引是否越界
     if point < 0 or point >= len(sorted_collection):
         return None
 

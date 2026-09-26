@@ -1,11 +1,11 @@
 def search(list_data: list, key: int, left: int = 0, right: int = 0) -> int:
     """
-    Iterate through the array to find the index of key using recursion.
-    :param list_data: the list to be searched
-    :param key: the key to be searched
-    :param left: the index of first element
-    :param right: the index of last element
-    :return: the index of key value if found, -1 otherwise.
+    使用递归遍历数组，查找 key 的索引。
+    :param list_data: 待搜索的列表
+    :param key: 待查找的键值
+    :param left: 第一个元素的索引
+    :param right: 最后一个元素的索引
+    :return: 找到 key 则返回其索引，否则返回 -1。
 
     >>> search(list(range(0, 11)), 5)
     5

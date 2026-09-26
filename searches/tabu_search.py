@@ -1,28 +1,28 @@
 """
-This is pure Python implementation of Tabu search algorithm for a Travelling Salesman
-Problem, that the distances between the cities are symmetric (the distance between city
-'a' and city 'b' is the same between city 'b' and city 'a').
-The TSP can be represented into a graph. The cities are represented by nodes and the
-distance between them is represented by the weight of the ark between the nodes.
+用于求解旅行商问题（Travelling Salesman Problem）的禁忌搜索（Tabu Search）
+算法纯 Python 实现，其中城市间的距离是对称的（即城市
+'a' 到城市 'b' 的距离与城市 'b' 到城市 'a' 的距离相同）。
+TSP 可以用图表示。城市对应节点，
+城市间的距离对应节点间边的权重。
 
-The .txt file with the graph has the form:
+存储图的 .txt 文件格式如下：
 
 node1 node2 distance_between_node1_and_node2
 node1 node3 distance_between_node1_and_node3
 ...
 
-Be careful node1, node2 and the distance between them, must exist only once. This means
-in the .txt file should not exist:
+注意，node1、node2 及它们之间的距离只能出现一次。也就是说，
+.txt 文件中不应同时存在：
 node1 node2 distance_between_node1_and_node2
 node2 node1 distance_between_node2_and_node1
 
-For pytests run following command:
+运行 pytest 请使用以下命令：
 pytest
 
-For manual testing run:
+手动测试请运行：
 python tabu_search.py -f your_file_name.txt -number_of_iterations_of_tabu_search \
     -s size_of_tabu_search
-e.g. python tabu_search.py -f tabudata2.txt -i 4 -s 3
+例如：python tabu_search.py -f tabudata2.txt -i 4 -s 3
 """
 
 import argparse
@@ -31,20 +31,20 @@ import copy
 
 def generate_neighbours(path):
     """
-    Pure implementation of generating a dictionary of neighbors and the cost with each
-    neighbor, given a path file that includes a graph.
+    根据包含图数据的文件路径，生成记录邻居及
+    到各邻居代价的字典。
 
-    :param path: The path to the .txt file that includes the graph (e.g.tabudata2.txt)
-    :return dict_of_neighbours: Dictionary with key each node and value a list of lists
-        with the neighbors of the node and the cost (distance) for each neighbor.
+    :param path: 包含图数据的 .txt 文件路径（例如 tabudata2.txt）
+    :return dict_of_neighbours: 字典，以各节点为键，以列表的列表为值，
+        记录该节点的邻居及到各邻居的代价（距离）。
 
-    Example of dict_of_neighbours:
+    dict_of_neighbours 示例：
     >>) dict_of_neighbours[a]
     [[b,20],[c,18],[d,22],[e,26]]
 
-    This indicates the neighbors of node (city) 'a', which has neighbor the node 'b'
-    with distance 20, the node 'c' with distance 18, the node 'd' with distance 22 and
-    the node 'e' with distance 26.
+    这里表示节点（城市）'a' 的邻居：节点 'b'
+    距离为 20，节点 'c' 距离为 18，节点 'd' 距离为 22，
+    节点 'e' 距离为 26。
     """
 
     dict_of_neighbours = {}
@@ -73,19 +73,19 @@ def generate_neighbours(path):
 
 def generate_first_solution(path, dict_of_neighbours):
     """
-    Pure implementation of generating the first solution for the Tabu search to start,
-    with the redundant resolution strategy. That means that we start from the starting
-    node (e.g. node 'a'), then we go to the city nearest (lowest distance) to this node
-    (let's assume is node 'c'), then we go to the nearest city of the node 'c', etc.
-    till we have visited all cities and return to the starting node.
+    为禁忌搜索生成初始解，
+    采用 redundant resolution strategy。即从起始
+    节点（例如节点 'a'）出发，前往距离它最近的城市
+    （假设为节点 'c'），再前往距离节点 'c' 最近的城市，依此类推，
+    直到访问所有城市并返回起始节点。
 
-    :param path: The path to the .txt file that includes the graph (e.g.tabudata2.txt)
-    :param dict_of_neighbours: Dictionary with key each node and value a list of lists
-        with the neighbors of the node and the cost (distance) for each neighbor.
-    :return first_solution: The solution for the first iteration of Tabu search using
-        the redundant resolution strategy in a list.
-    :return distance_of_first_solution: The total distance that Travelling Salesman
-        will travel, if he follows the path in first_solution.
+    :param path: 包含图数据的 .txt 文件路径（例如 tabudata2.txt）
+    :param dict_of_neighbours: 字典，以各节点为键，以列表的列表为值，
+        记录该节点的邻居及到各邻居的代价（距离）。
+    :return first_solution: 禁忌搜索首次迭代使用的解，以列表表示，
+        由 redundant resolution strategy 生成。
+    :return distance_of_first_solution: 旅行商沿 first_solution 中的路径
+        行进时的总距离。
     """
 
     with open(path) as f:
@@ -126,19 +126,19 @@ def generate_first_solution(path, dict_of_neighbours):
 
 def find_neighborhood(solution, dict_of_neighbours):
     """
-    Pure implementation of generating the neighborhood (sorted by total distance of
-    each solution from lowest to highest) of a solution with 1-1 exchange method, that
-    means we exchange each node in a solution with each other node and generating a
-    number of solution named neighborhood.
+    使用 1-1 交换方法生成某个解的邻域（Neighborhood），并按
+    各解的总距离从小到大排序。具体来说，
+    将解中的每个节点分别与其他节点交换，
+    所生成的一组解称为邻域。
 
-    :param solution: The solution in which we want to find the neighborhood.
-    :param dict_of_neighbours: Dictionary with key each node and value a list of lists
-        with the neighbors of the node and the cost (distance) for each neighbor.
-    :return neighborhood_of_solution: A list that includes the solutions and the total
-        distance of each solution (in form of list) that are produced with 1-1 exchange
-        from the solution that the method took as an input
+    :param solution: 待求邻域的解。
+    :param dict_of_neighbours: 字典，以各节点为键，以列表的列表为值，
+        记录该节点的邻居及到各邻居的代价（距离）。
+    :return neighborhood_of_solution: 一个列表，包含由输入解
+        通过 1-1 交换生成的各个解及其总距离，
+        其中每个解及其距离也以列表表示
 
-    Example:
+    示例：
     >>> find_neighborhood(['a', 'c', 'b', 'd', 'e', 'a'],
     ...                   {'a': [['b', '20'], ['c', '18'], ['d', '22'], ['e', '26']],
     ...                    'c': [['a', '18'], ['b', '10'], ['d', '23'], ['e', '24']],
@@ -189,21 +189,21 @@ def tabu_search(
     first_solution, distance_of_first_solution, dict_of_neighbours, iters, size
 ):
     """
-    Pure implementation of Tabu search algorithm for a Travelling Salesman Problem in
-    Python.
+    用于求解旅行商问题的禁忌搜索算法
+    纯 Python 实现。
 
-    :param first_solution: The solution for the first iteration of Tabu search using
-        the redundant resolution strategy in a list.
-    :param distance_of_first_solution: The total distance that Travelling Salesman will
-        travel, if he follows the path in first_solution.
-    :param dict_of_neighbours: Dictionary with key each node and value a list of lists
-        with the neighbors of the node and the cost (distance) for each neighbor.
-    :param iters: The number of iterations that Tabu search will execute.
-    :param size: The size of Tabu List.
-    :return best_solution_ever: The solution with the lowest distance that occurred
-        during the execution of Tabu search.
-    :return best_cost: The total distance that Travelling Salesman will travel, if he
-        follows the path in best_solution ever.
+    :param first_solution: 禁忌搜索首次迭代使用的解，以列表表示，
+        由 redundant resolution strategy 生成。
+    :param distance_of_first_solution: 旅行商沿 first_solution 中的路径
+        行进时的总距离。
+    :param dict_of_neighbours: 字典，以各节点为键，以列表的列表为值，
+        记录该节点的邻居及到各邻居的代价（距离）。
+    :param iters: 禁忌搜索执行的迭代次数。
+    :param size: 禁忌表的大小。
+    :return best_solution_ever: 禁忌搜索执行过程中
+        出现的总距离最小的解。
+    :return best_cost: 旅行商沿 best_solution_ever 中的路径
+        行进时的总距离。
     """
     count = 1
     solution = first_solution
@@ -288,5 +288,5 @@ if __name__ == "__main__":
         "-s", "--Size", type=int, help="Size of the tabu list", required=True
     )
 
-    # Pass the arguments to main method
+    # 将参数传递给 main 函数
     main(parser.parse_args())

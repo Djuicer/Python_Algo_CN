@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 """
-Pure Python implementation of the exponential search algorithm
+指数查找（Exponential Search）算法的纯 Python 实现
 
-For more information, see the Wikipedia page:
+更多信息请参阅维基百科页面：
 https://en.wikipedia.org/wiki/Exponential_search
 
-Run doctests with the following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v exponential_search.py
 
-For manual testing, run:
+手动测试请运行：
 python3 exponential_search.py
 """
 
@@ -22,18 +22,18 @@ def binary_search_by_recursion(
     left: int = 0,
     right: int | None = None,
 ) -> int:
-    """Pure implementation of the binary search algorithm in Python using recursion
+    """二分查找（Binary Search）算法的纯 Python 递归实现
 
-    Be careful: the collection must be ascendingly sorted; otherwise, the result will
-    be unpredictable.
+    注意，集合必须按升序排列，否则结果
+    不可预测。
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search
-    :param left: starting index for the search
-    :param right: ending index for the search (defaults to the last index)
-    :return: index of the found item or -1 if the item is not found
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :param left: 搜索的起始索引
+    :param right: 搜索的结束索引（默认为最后一个索引）
+    :return: 找到的元素索引；未找到则返回 -1
 
-    Examples:
+    示例：
     >>> binary_search_by_recursion([0, 5, 7, 10, 15], 0, 0, 4)
     0
     >>> binary_search_by_recursion([0, 5, 7, 10, 15], 15, 0, 4)
@@ -52,10 +52,10 @@ def binary_search_by_recursion(
     if right is None:
         right = len(sorted_collection) - 1
 
-    # Recursive core: ``left`` and ``right`` are always concrete indices here, so the
-    # window can only shrink. Keeping the recursion flat (no ``None`` sentinel, no
-    # re-expansion) is what prevents the runaway recursion when the item sits below
-    # ``sorted_collection[0]`` and ``right`` legitimately drops below ``left``.
+    # 递归核心：此处的 ``left`` 和 ``right`` 始终是具体索引，因此
+    # 搜索区间只能缩小。递归中不使用 ``None`` 哨兵，也不
+    # 重新扩大区间，可避免目标值小于 ``sorted_collection[0]``、
+    # ``right`` 正常减小到 ``left`` 以下时发生失控递归。
     def _search(left: int, right: int) -> int:
         if right < left:
             return -1
@@ -74,20 +74,20 @@ def binary_search_by_recursion(
 
 def exponential_search(sorted_collection: list[int], item: int) -> int:
     """
-    Pure implementation of an exponential search algorithm in Python.
-    For more information, refer to:
+    指数查找算法的纯 Python 实现。
+    更多信息请参阅：
     https://en.wikipedia.org/wiki/Exponential_search
 
-    Be careful: the collection must be ascendingly sorted; otherwise the result will
-    be unpredictable.
+    注意，集合必须按升序排列，否则结果
+    不可预测。
 
-    :param sorted_collection: some ascending sorted collection with comparable items
-    :param item: item value to search
-    :return: index of the found item or -1 if the item is not found
+    :param sorted_collection: 元素可比较且按升序排列的集合
+    :param item: 待查找的元素值
+    :return: 找到的元素索引；未找到则返回 -1
 
-    The time complexity of this algorithm is O(log i), where i is the index of the item.
+    该算法的时间复杂度为 O(log i)，其中 i 为目标元素的索引。
 
-    Examples:
+    示例：
     >>> exponential_search([0, 5, 7, 10, 15], 0)
     0
     >>> exponential_search([0, 5, 7, 10, 15], 15)
@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Manual testing
+    # 手动测试
     user_input = input("Enter numbers separated by commas: ").strip()
     collection = sorted(int(item) for item in user_input.split(","))
     target = int(input("Enter a number to search for: "))

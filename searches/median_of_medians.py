@@ -1,19 +1,19 @@
 """
-A Python implementation of the Median of Medians algorithm
-to select pivots for quick_select, which is efficient for
-calculating the value that would appear in the index of a
-list if it would be sorted, even if it is not already
-sorted. Search in time complexity O(n) at any rank
-deterministically
+中位数的中位数（Median of Medians）算法的 Python 实现，
+用于为 quick_select 选择枢轴，能够高效地
+求出列表排序后某个索引处应有的值，
+即使输入列表尚未
+排序。对于任意秩，都能以 O(n) 的时间复杂度
+进行确定性查找。
 https://en.wikipedia.org/wiki/Median_of_medians
 """
 
 
 def median_of_five(arr: list) -> int:
     """
-    Return the median of the input list
-    :param arr: Array to find median of
-    :return: median of arr
+    返回输入列表的中位数
+    :param arr: 待求中位数的数组
+    :return: arr 的中位数
 
     >>> median_of_five([2, 4, 5, 7, 899])
     5
@@ -30,10 +30,10 @@ def median_of_five(arr: list) -> int:
 
 def median_of_medians(arr: list) -> int:
     """
-    Return a pivot to partition data on by calculating
-    Median of medians of input data
-    :param arr: The data to be checked (a list)
-    :return: median of medians of input array
+    通过计算输入数据的中位数的中位数，
+    返回用于划分数据的枢轴
+    :param arr: 待处理的数据（列表）
+    :return: 输入数组的中位数的中位数
 
     >>> median_of_medians([2, 4, 5, 7, 899, 54, 32])
     54
@@ -60,11 +60,11 @@ def median_of_medians(arr: list) -> int:
 
 def quick_select(arr: list, target: int) -> int:
     """
-    Two way partition the data into smaller and greater lists,
-    in relationship to the pivot
-    :param arr: The data to be searched (a list)
-    :param target: The rank to be searched
-    :return: element at rank target
+    根据数据与枢轴的大小关系，
+    将其划分为较小和较大的两个列表
+    :param arr: 待搜索的数据（列表）
+    :param target: 待查找的秩
+    :return: 秩为 target 的元素
 
     >>> quick_select([2, 4, 5, 7, 899, 54, 32], 5)
     32
@@ -76,11 +76,11 @@ def quick_select(arr: list, target: int) -> int:
     5
     """
 
-    # Invalid Input
+    # 无效输入
     if target > len(arr):
         return -1
 
-    # x is the estimated pivot by median of medians algorithm
+    # x 是通过中位数的中位数算法估算的枢轴
     x = median_of_medians(arr)
     left = []
     right = []

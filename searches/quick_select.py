@@ -1,7 +1,7 @@
 """
-A Python implementation of the quick select algorithm, which is efficient for
-calculating the value that would appear in the index of a list if it would be
-sorted, even if it is not already sorted
+快速选择（Quickselect）算法的 Python 实现，能够高效地
+求出列表排序后某个索引处应有的值，
+即使该列表尚未排序
 https://en.wikipedia.org/wiki/Quickselect
 """
 
@@ -10,11 +10,11 @@ import random
 
 def _partition(data: list, pivot) -> tuple:
     """
-    Three way partition the data into smaller, equal and greater lists,
-    in relationship to the pivot
-    :param data: The data to be sorted (a list)
-    :param pivot: The value to partition the data on
-    :return: Three list: smaller, equal and greater
+    根据数据与枢轴的大小关系，
+    将其划分为较小、相等和较大的三个列表
+    :param data: 待排序的数据（列表）
+    :param pivot: 用于划分数据的枢轴值
+    :return: 较小、相等和较大的三个列表
     """
     less, equal, greater = [], [], []
     for element in data:
@@ -38,10 +38,10 @@ def quick_select(items: list, index: int):
     >>> quick_select([3, 5, 7, 10, 2, 12], 3)
     7
     """
-    # index = len(items) // 2 when trying to find the median
-    #   (value of index when items is sorted)
+    # 查找中位数时，index = len(items) // 2
+    #   （items 排序后对应的 index 值）
 
-    # invalid input
+    # 无效输入
     if index >= len(items) or index < 0:
         return None
 
@@ -51,23 +51,23 @@ def quick_select(items: list, index: int):
     count = len(equal)
     m = len(smaller)
 
-    # index is the pivot
+    # index 落在枢轴对应的位置范围内
     if m <= index < m + count:
         return pivot
-    # must be in smaller
+    # 目标必在 smaller 中
     elif m > index:
         return quick_select(smaller, index)
-    # must be in larger
+    # 目标必在 larger 中
     else:
         return quick_select(larger, index - (m + count))
 
 
 def median(items: list):
     """
-    One common application of Quickselect is finding the median, which is
-    the middle element (or average of the two middle elements) in a sorted dataset.
-    It works efficiently on unsorted lists by partially sorting the data without
-    fully sorting the entire list.
+    快速选择的常见用途之一是查找中位数，即
+    有序数据集中间的元素（或中间两个元素的平均值）。
+    它只对数据进行部分排序，无需
+    将整个列表完全排序，因此能高效处理无序列表。
 
     >>> median([3, 2, 2, 9, 9])
     3

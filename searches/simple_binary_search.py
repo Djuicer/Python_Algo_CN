@@ -1,10 +1,10 @@
 """
-Pure Python implementation of a binary search algorithm.
+二分查找（Binary Search）算法的纯 Python 实现。
 
-For doctests run following command:
+运行 doctest 请使用以下命令：
 python3 -m doctest -v simple_binary_search.py
 
-For manual testing run:
+手动测试请运行：
 python3 simple_binary_search.py
 """
 
