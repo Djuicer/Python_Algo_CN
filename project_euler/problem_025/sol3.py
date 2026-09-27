@@ -1,9 +1,9 @@
 """
-The Fibonacci sequence is defined by the recurrence relation:
+斐波那契数列由以下递推关系定义：
 
     Fn = Fn-1 + Fn-2, where F1 = 1 and F2 = 1.
 
-Hence the first 12 terms will be:
+因此前 12 项为：
 
     F1 = 1
     F2 = 1
@@ -18,16 +18,14 @@ Hence the first 12 terms will be:
     F11 = 89
     F12 = 144
 
-The 12th term, F12, is the first term to contain three digits.
+第 12 项 F12 是第一个包含三位数字的项。
 
-What is the index of the first term in the Fibonacci sequence to contain 1000
-digits?
+斐波那契数列中第一个包含 1000 位数字的项，其索引是多少？
 """
 
 
 def solution(n: int = 1000) -> int:
-    """Returns the index of the first term in the Fibonacci sequence to contain
-    n digits.
+    """返回斐波那契数列中第一个包含 n 位数字的项的索引。
 
     >>> solution(1000)
     4782

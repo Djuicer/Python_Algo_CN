@@ -1,34 +1,29 @@
 """
-Number letter counts
+数词字母计数
 Problem 17: https://projecteuler.net/problem=17
 
-If the numbers 1 to 5 are written out in words: one, two, three, four, five,
-then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
+如果将数字 1 到 5 写成英文单词：one、two、three、four、five，
+则总共使用了 3 + 3 + 5 + 4 + 4 = 19 个字母。
 
-If all the numbers from 1 to 1000 (one thousand) inclusive were written out in
-words, how many letters would be used?
+如果将从 1 到 1000（one thousand）的所有数字都写成英文单词，总共会使用多少个字母？
 
 
-NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and
-forty-two) contains 23 letters and 115 (one hundred and fifteen) contains 20
-letters. The use of "and" when writing out numbers is in compliance withBritish
-usage.
+注意：空格和连字符不计。例如，342（three hundred and forty-two）包含 23 个字母，
+115（one hundred and fifteen）包含 20 个字母。数字写法中使用 "and" 遵循英式用法。
 """
 
 
 def solution(n: int = 1000) -> int:
-    """Returns the number of letters used to write all numbers from 1 to n.
-    where n is lower or equals to 1000.
+    """返回用英文写出从 1 到 n 的所有数字所需的字母数，其中 n 小于或等于 1000。
     >>> solution(1000)
     21124
     >>> solution(5)
     19
     """
-    # number of letters in zero, one, two, ..., nineteen (0 for zero since it's
-    # never said aloud)
+    # zero、one、two、...、nineteen 的字母数（zero 从不读出，因此记为 0）
     ones_counts = [0, 3, 3, 5, 4, 4, 3, 5, 5, 4, 3, 6, 6, 8, 8, 7, 7, 9, 8, 8]
-    # number of letters in twenty, thirty, ..., ninety (0 for numbers less than
-    # 20 due to inconsistency in teens)
+    # twenty、thirty、...、ninety 的字母数（小于 20 的数记为 0，
+    # 因为十几的数词形式不规则）
     tens_counts = [0, 0, 6, 6, 5, 5, 5, 7, 6, 6]
 
     count = 0
@@ -36,22 +31,19 @@ def solution(n: int = 1000) -> int:
     for i in range(1, n + 1):
         if i < 1000:
             if i >= 100:
-                # add number of letters for "n hundred"
+        # 加上 "n hundred" 的字母数
                 count += ones_counts[i // 100] + 7
 
                 if i % 100 != 0:
-                    # add number of letters for "and" if number is not multiple
-                    # of 100
+            # 如果数字不是 100 的倍数，则加上 "and" 的字母数
                     count += 3
 
             if 0 < i % 100 < 20:
-                # add number of letters for one, two, three, ..., nineteen
-                # (could be combined with below if not for inconsistency in
-                # teens)
+        # 加上 one、two、three、...、nineteen 的字母数
+        # （若十几的数词形式规则，本可与下方逻辑合并）
                 count += ones_counts[i % 100]
             else:
-                # add number of letters for twenty, twenty one, ..., ninety
-                # nine
+        # 加上 twenty、twenty one、...、ninety nine 的字母数
                 count += ones_counts[i % 10]
                 count += tens_counts[(i % 100 - i % 10) // 10]
         else:

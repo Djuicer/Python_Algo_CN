@@ -1,9 +1,9 @@
 """
 Problem 34: https://projecteuler.net/problem=34
 
-145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
-Find the sum of all numbers which are equal to the sum of the factorial of their digits.
-Note: As 1! = 1 and 2! = 2 are not sums they are not included.
+145 是一个特殊的数，因为 1! + 4! + 5! = 1 + 24 + 120 = 145。
+求所有等于其各位数字阶乘之和的数的总和。
+注意：由于 1! = 1 和 2! = 2 不是和，因此不计入。
 """
 
 from math import factorial
@@ -13,7 +13,7 @@ DIGIT_FACTORIAL = {str(d): factorial(d) for d in range(10)}
 
 def sum_of_digit_factorial(n: int) -> int:
     """
-    Returns the sum of the factorial of digits in n
+    返回 n 的各位数字阶乘之和。
     >>> sum_of_digit_factorial(15)
     121
     >>> sum_of_digit_factorial(0)
@@ -24,9 +24,7 @@ def sum_of_digit_factorial(n: int) -> int:
 
 def solution() -> int:
     """
-    Returns the sum of all numbers whose
-    sum of the factorials of all digits
-    add up to the number itself.
+    返回所有等于其各位数字阶乘之和的数的总和。
     >>> solution()
     40730
     """

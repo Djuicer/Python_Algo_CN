@@ -1,18 +1,18 @@
 """
 Problem 123: https://projecteuler.net/problem=123
 
-Name: Prime square remainders
+名称：素数平方余数
 
-Let pn be the nth prime: 2, 3, 5, 7, 11, ..., and
-let r be the remainder when (pn-1)^n + (pn+1)^n is divided by pn^2.
+令 pn 为第 n 个素数：2, 3, 5, 7, 11, ...；令 r 为
+(pn-1)^n + (pn+1)^n 除以 pn^2 的余数。
 
-For example, when n = 3, p3 = 5, and 43 + 63 = 280 ≡ 5 mod 25.
-The least value of n for which the remainder first exceeds 10^9 is 7037.
+例如，当 n = 3 时，p3 = 5，且 43 + 63 = 280 ≡ 5 mod 25。
+余数首次超过 10^9 时的最小 n 值为 7037。
 
-Find the least value of n for which the remainder first exceeds 10^10.
+求余数首次超过 10^10 时的最小 n 值。
 
 
-Solution:
+解法：
 
 n=1: (p-1) + (p+1) = 2p
 n=2: (p-1)^2 + (p+1)^2
@@ -24,8 +24,7 @@ n=3: (p-1)^3 + (p+1)^3  (Similarly using (p+b)^3 & (p-b)^3 formula and so on)
 n=4: 2p^4 + 12p^2 + 2
 n=5: 2p^5 + 20p^3 + 10p
 
-As you could see, when the expression is divided by p^2.
-Except for the last term, the rest will result in the remainder 0.
+可以看出，当表达式除以 p^2 时，除最后一项外，其余各项的余数均为 0。
 
 n=1: 2p
 n=2: 2
@@ -33,9 +32,9 @@ n=3: 6p
 n=4: 2
 n=5: 10p
 
-So it could be simplified as,
-    r = 2pn when n is odd
-    r = 2   when n is even.
+因此可简化为：
+    n 为奇数时，r = 2pn
+    n 为偶数时，r = 2。
 """
 
 from __future__ import annotations
@@ -45,7 +44,7 @@ from collections.abc import Generator
 
 def sieve() -> Generator[int]:
     """
-    Returns a prime number generator using sieve method.
+    返回使用筛法的素数生成器。
     >>> type(sieve())
     <class 'generator'>
     >>> primes = sieve()
@@ -79,7 +78,7 @@ def sieve() -> Generator[int]:
 
 def solution(limit: float = 1e10) -> int:
     """
-    Returns the least value of n for which the remainder first exceeds 10^10.
+    返回余数首次超过 10^10 时的最小 n 值。
     >>> solution(1e8)
     2371
     >>> solution(1e9)

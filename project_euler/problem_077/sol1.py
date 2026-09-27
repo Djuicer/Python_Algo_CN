@@ -1,7 +1,7 @@
 """
 Project Euler Problem 77: https://projecteuler.net/problem=77
 
-It is possible to write ten as the sum of primes in exactly five different ways:
+将十写成素数之和，恰好有五种不同方式：
 
 7 + 3
 5 + 5
@@ -9,8 +9,7 @@ It is possible to write ten as the sum of primes in exactly five different ways:
 3 + 3 + 2 + 2
 2 + 2 + 2 + 2 + 2
 
-What is the first value which can be written as the sum of primes in over
-five thousand different ways?
+第一个能以超过五千种不同方式写成素数之和的数是多少？
 """
 
 from __future__ import annotations
@@ -33,9 +32,9 @@ for prime in range(3, ceil(NUM_PRIMES**0.5), 2):
 @lru_cache(maxsize=100)
 def partition(number_to_partition: int) -> set[int]:
     """
-    Return a set of integers corresponding to unique prime partitions of n.
-    The unique prime partitions can be represented as unique prime decompositions,
-    e.g. (7+3) <-> 7*3 = 12, (3+3+2+2) = 3*3*2*2 = 36
+    返回与 n 的不同素数划分对应的整数集合。
+    不同素数划分可表示为不同的素数分解，例如
+    (7+3) <-> 7*3 = 12, (3+3+2+2) = 3*3*2*2 = 36
     >>> partition(10)
     {32, 36, 21, 25, 30}
     >>> partition(15)
@@ -63,8 +62,7 @@ def partition(number_to_partition: int) -> set[int]:
 
 def solution(number_unique_partitions: int = 5000) -> int | None:
     """
-    Return the smallest integer that can be written as the sum of primes in over
-    m unique ways.
+    返回能以超过 m 种不同方式写成素数之和的最小整数。
     >>> solution(4)
     10
     >>> solution(500)

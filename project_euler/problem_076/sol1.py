@@ -1,8 +1,8 @@
 """
-Counting Summations
+计数求和
 Problem 76: https://projecteuler.net/problem=76
 
-It is possible to write five as a sum in exactly six different ways:
+将五写成和，恰好有六种不同方式：
 
 4 + 1
 3 + 2
@@ -11,15 +11,13 @@ It is possible to write five as a sum in exactly six different ways:
 2 + 1 + 1 + 1
 1 + 1 + 1 + 1 + 1
 
-How many different ways can one hundred be written as a sum of at least two
-positive integers?
+将一百写成至少两个正整数之和，有多少种不同方式？
 """
 
 
 def solution(m: int = 100) -> int:
     """
-    Returns the number of different ways the number m can be written as a
-    sum of at least two positive integers.
+    返回将数字 m 写成至少两个正整数之和的不同方式数。
 
     >>> solution(100)
     190569291

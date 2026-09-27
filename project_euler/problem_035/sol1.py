@@ -2,18 +2,14 @@
 Project Euler Problem 35
 https://projecteuler.net/problem=35
 
-Problem Statement:
+题目说明：
 
-The number 197 is called a circular prime because all rotations of the digits:
-197, 971, and 719, are themselves prime.
-There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73,
-79, and 97.
-How many circular primes are there below one million?
+数 197 称为循环素数，因为其数字的所有循环排列 197, 971 和 719 本身都是素数。
+100 以下共有十三个这样的素数：2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73,
+79 和 97。一百万以下有多少个循环素数？
 
-To solve this problem in an efficient manner, we will first mark all the primes
-below 1 million using the Sieve of Eratosthenes. Then, out of all these primes,
-we will rule out the numbers which contain an even digit. After this we will
-generate each circular combination of the number and check if all are prime.
+为高效解决此问题，先使用埃拉托斯特尼筛法标记一百万以下的所有素数，
+再排除其中含有偶数数字的数。随后生成每个数的所有循环排列，并检查它们是否全为素数。
 """
 
 from __future__ import annotations
@@ -29,7 +25,7 @@ while i * i <= 1000000:
 
 def is_prime(n: int) -> bool:
     """
-    For 2 <= n <= 1000000, return True if n is prime.
+    对于 2 <= n <= 1000000，如果 n 是素数则返回 True。
     >>> is_prime(87)
     False
     >>> is_prime(23)
@@ -42,7 +38,7 @@ def is_prime(n: int) -> bool:
 
 def contains_an_even_digit(n: int) -> bool:
     """
-    Return True if n contains an even digit.
+    如果 n 包含偶数数字，则返回 True。
     >>> contains_an_even_digit(0)
     True
     >>> contains_an_even_digit(975317933)
@@ -55,13 +51,13 @@ def contains_an_even_digit(n: int) -> bool:
 
 def find_circular_primes(limit: int = 1000000) -> list[int]:
     """
-    Return circular primes below limit.
+    返回 limit 以下的循环素数。
     >>> len(find_circular_primes(100))
     13
     >>> len(find_circular_primes(1000000))
     55
     """
-    result = [2]  # result already includes the number 2.
+    result = [2]  # result 已包含数字 2
     for num in range(3, limit + 1, 2):
         if is_prime(num) and not contains_an_even_digit(num):
             str_num = str(num)

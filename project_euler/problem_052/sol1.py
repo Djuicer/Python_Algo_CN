@@ -1,18 +1,15 @@
 """
-Permuted multiples
+排列倍数
 Problem 52
 
-It can be seen that the number, 125874, and its double, 251748, contain exactly
-the same digits, but in a different order.
+可以看出，数字 125874 及其两倍 251748 所含数字完全相同，只是顺序不同。
 
-Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x,
-contain the same digits.
+找出最小正整数 x，使 2x, 3x, 4x, 5x 和 6x 包含相同的数字。
 """
 
 
 def solution():
-    """Returns the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and
-    6x, contain the same digits.
+    """返回使 2x, 3x, 4x, 5x 和 6x 包含相同数字的最小正整数 x。
 
     >>> solution()
     142857

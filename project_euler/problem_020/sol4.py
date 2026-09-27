@@ -1,17 +1,17 @@
 """
 Problem 20: https://projecteuler.net/problem=20
 
-n! means n x (n - 1) x ... x 3 x 2 x 1
+n! 表示 n x (n - 1) x ... x 3 x 2 x 1
 
-For example, 10! = 10 x 9 x ... x 3 x 2 x 1 = 3628800,
-and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
+例如，10! = 10 x 9 x ... x 3 x 2 x 1 = 3628800，
+数 10! 的各位数字之和为 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27。
 
-Find the sum of the digits in the number 100!
+求数 100! 的各位数字之和。
 """
 
 
 def solution(num: int = 100) -> int:
-    """Returns the sum of the digits in the factorial of num
+    """返回 num 的阶乘的各位数字之和。
     >>> solution(100)
     648
     >>> solution(50)

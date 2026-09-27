@@ -1,26 +1,22 @@
 """
 Project Euler Problem 113: https://projecteuler.net/problem=113
 
-Working from left-to-right if no digit is exceeded by the digit to its left it is
-called an increasing number; for example, 134468.
+从左到右观察，如果任一数字都不大于其左侧数字，则称为递增数；例如 134468。
 
-Similarly if no digit is exceeded by the digit to its right it is called a decreasing
-number; for example, 66420.
+类似地，如果任一数字都不大于其右侧数字，则称为递减数；例如 66420。
 
-We shall call a positive integer that is neither increasing nor decreasing a
-"bouncy" number; for example, 155349.
+既非递增也非递减的正整数称为“弹跳数”；例如 155349。
 
-As n increases, the proportion of bouncy numbers below n increases such that there
-are only 12951 numbers below one-million that are not bouncy and only 277032
-non-bouncy numbers below 10^10.
+随着 n 增大，n 以下弹跳数的比例也随之增加；一百万以下只有 12951 个非弹跳数，
+10^10 以下只有 277032 个非弹跳数。
 
-How many numbers below a googol (10^100) are not bouncy?
+古戈尔（10^100）以下有多少个数不是弹跳数？
 """
 
 
 def choose(n: int, r: int) -> int:
     """
-    Calculate the binomial coefficient c(n,r) using the multiplicative formula.
+    使用乘法公式计算二项式系数 c(n,r)。
     >>> choose(4,2)
     6
     >>> choose(5,3)
@@ -36,7 +32,7 @@ def choose(n: int, r: int) -> int:
 
 def non_bouncy_exact(n: int) -> int:
     """
-    Calculate the number of non-bouncy numbers with at most n digits.
+    计算最多 n 位的非弹跳数数量。
     >>> non_bouncy_exact(1)
     9
     >>> non_bouncy_exact(6)
@@ -49,7 +45,7 @@ def non_bouncy_exact(n: int) -> int:
 
 def non_bouncy_upto(n: int) -> int:
     """
-    Calculate the number of non-bouncy numbers with at most n digits.
+    计算最多 n 位的非弹跳数数量。
     >>> non_bouncy_upto(1)
     9
     >>> non_bouncy_upto(6)
@@ -62,7 +58,7 @@ def non_bouncy_upto(n: int) -> int:
 
 def solution(num_digits: int = 100) -> int:
     """
-    Calculate the number of non-bouncy numbers less than a googol.
+    计算小于一个古戈尔的非弹跳数数量。
     >>> solution(6)
     12951
     >>> solution(10)

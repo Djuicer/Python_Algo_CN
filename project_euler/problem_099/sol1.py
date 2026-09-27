@@ -1,16 +1,15 @@
 """
-Problem:
+问题：
 
-Comparing two numbers written in index form like 2'11 and 3'7 is not difficult, as any
-calculator would confirm that 2^11 = 2048 < 3^7 = 2187.
+比较以指数形式写成的两个数（如 2'11 和 3'7）并不困难，任何计算器都能验证
+2^11 = 2048 < 3^7 = 2187。
 
-However, confirming that 632382^518061 > 519432^525806 would be much more difficult, as
-both numbers contain over three million digits.
+然而，要确认 632382^518061 > 519432^525806 困难得多，因为两数都超过三百万位。
 
-Using base_exp.txt, a 22K text file containing one thousand lines with a base/exponent
-pair on each line, determine which line number has the greatest numerical value.
+使用 22K 文本文件 base_exp.txt，其中包含一千行，每行是一对底数/指数；
+确定数值最大者所在的行号。
 
-NOTE: The first two lines in the file represent the numbers in the example given above.
+注意：文件前两行表示上述示例中的两个数。
 """
 
 import os

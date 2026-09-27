@@ -1,11 +1,10 @@
 """
 Project Euler Problem 68: https://projecteuler.net/problem=68
 
-Magic 5-gon ring
+魔法五边环
 
-Problem Statement:
-Consider the following "magic" 3-gon ring,
-filled with the numbers 1 to 6, and each line adding to nine.
+题目说明：
+考虑下面的“魔法”三边环，其中填入数字 1 到 6，并且每条线之和为九。
 
    4
     \
@@ -15,14 +14,11 @@ filled with the numbers 1 to 6, and each line adding to nine.
   /
  5
 
-Working clockwise, and starting from the group of three
-with the numerically lowest external node (4,3,2 in this example),
-each solution can be described uniquely.
-For example, the above solution can be described by the set: 4,3,2; 6,2,1; 5,1,3.
+按顺时针方向，从外部节点数值最小的三元组开始（本例为 4,3,2），
+每个解都可以被唯一描述。例如，上述解可由集合 4,3,2; 6,2,1; 5,1,3 描述。
 
-It is possible to complete the ring with four different totals: 9, 10, 11, and 12.
-There are eight solutions in total.
-Total   Solution Set
+该环可用四种不同总和完成：9, 10, 11 和 12，共有八个解。
+总和    解集
 9       4,2,3; 5,3,1; 6,1,2
 9       4,3,2; 6,2,1; 5,1,3
 10      2,3,5; 4,5,1; 6,1,3
@@ -32,12 +28,10 @@ Total   Solution Set
 12      1,5,6; 2,6,4; 3,4,5
 12      1,6,5; 3,5,4; 2,4,6
 
-By concatenating each group it is possible to form 9-digit strings;
-the maximum string for a 3-gon ring is 432621513.
+连接每个三元组可形成 9 位字符串；三边环的最大字符串为 432621513。
 
-Using the numbers 1 to 10, and depending on arrangements,
-it is possible to form 16- and 17-digit strings.
-What is the maximum 16-digit string for a "magic" 5-gon ring?
+使用数字 1 到 10，根据不同排列可形成 16 位和 17 位字符串。
+“魔法”五边环所能形成的最大 16 位字符串是什么？
 """
 
 from itertools import permutations
@@ -45,10 +39,9 @@ from itertools import permutations
 
 def solution(gon_side: int = 5) -> int:
     """
-    Find the maximum number for a "magic" gon_side-gon ring
+    找出“魔法”gon_side 边环的最大数字。
 
-    The gon_side parameter should be in the range [3, 5],
-    other side numbers aren't tested
+    gon_side 参数应在 [3, 5] 范围内，其他边数未经测试。
 
     >>> solution(3)
     432621513
@@ -79,8 +72,7 @@ def solution(gon_side: int = 5) -> int:
 
 def generate_gon_ring(gon_side: int, perm: list[int]) -> list[int]:
     """
-    Generate a gon_side-gon ring from a permutation state
-    The permutation state is the ring, but every duplicate is removed
+    从排列状态生成 gon_side 边环。排列状态即去除所有重复项后的环。
 
     >>> generate_gon_ring(3, [4, 2, 3, 5, 1, 6])
     [4, 2, 3, 5, 3, 1, 6, 1, 2]
@@ -103,9 +95,8 @@ def generate_gon_ring(gon_side: int, perm: list[int]) -> list[int]:
 
 def is_magic_gon(numbers: list[int]) -> bool:
     """
-    Check if the solution set is a magic n-gon ring
-    Check that the first number is the smallest number on the outer ring
-    Take a list, and check if the sum of each 3 numbers chunk is equal to the same total
+    检查解集是否为魔法 n 边环。
+    检查第一个数是否为外环上的最小数，并检查列表中每 3 个数一组的和是否相等。
 
     >>> is_magic_gon([4, 2, 3, 5, 3, 1, 6, 1, 2])
     True

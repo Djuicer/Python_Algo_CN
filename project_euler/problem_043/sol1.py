@@ -1,21 +1,19 @@
 """
 Problem 43: https://projecteuler.net/problem=43
 
-The number, 1406357289, is a 0 to 9 pandigital number because it is made up of
-each of the digits 0 to 9 in some order, but it also has a rather interesting
-sub-string divisibility property.
+数字 1406357289 是一个 0 到 9 的全数字数，因为它以某种顺序包含了 0 到 9
+的每个数字；它还具有一种有趣的子串整除性质。
 
-Let d1 be the 1st digit, d2 be the 2nd digit, and so on. In this way, we note
-the following:
+令 d1 为第 1 位、d2 为第 2 位，依此类推。于是有：
 
-d2d3d4=406 is divisible by 2
-d3d4d5=063 is divisible by 3
-d4d5d6=635 is divisible by 5
-d5d6d7=357 is divisible by 7
-d6d7d8=572 is divisible by 11
-d7d8d9=728 is divisible by 13
-d8d9d10=289 is divisible by 17
-Find the sum of all 0 to 9 pandigital numbers with this property.
+d2d3d4=406 可被 2 整除
+d3d4d5=063 可被 3 整除
+d4d5d6=635 可被 5 整除
+d5d6d7=357 可被 7 整除
+d6d7d8=572 可被 11 整除
+d7d8d9=728 可被 13 整除
+d8d9d10=289 可被 17 整除
+求所有具有此性质的 0 到 9 全数字数之和。
 """
 
 from itertools import permutations
@@ -23,8 +21,7 @@ from itertools import permutations
 
 def is_substring_divisible(num: tuple) -> bool:
     """
-    Returns True if the pandigital number passes
-    all the divisibility tests.
+    如果全数字数通过所有整除测试，则返回 True。
     >>> is_substring_divisible((0, 1, 2, 4, 6, 5, 7, 3, 8, 9))
     False
     >>> is_substring_divisible((5, 1, 2, 4, 6, 0, 7, 8, 3, 9))
@@ -50,8 +47,7 @@ def is_substring_divisible(num: tuple) -> bool:
 
 def solution(n: int = 10) -> int:
     """
-    Returns the sum of all pandigital numbers which pass the
-    divisibility tests.
+    返回通过整除测试的所有全数字数之和。
     >>> solution(10)
     16695334890
     """

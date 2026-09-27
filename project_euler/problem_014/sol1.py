@@ -1,27 +1,25 @@
 """
 Problem 14: https://projecteuler.net/problem=14
 
-Problem Statement:
-The following iterative sequence is defined for the set of positive integers:
+题目说明：
+在正整数集合上定义如下迭代数列：
 
     n → n/2 (n is even)
     n → 3n + 1 (n is odd)
 
-Using the rule above and starting with 13, we generate the following sequence:
+从 13 开始应用上述规则，可生成以下数列：
 
     13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
 
-It can be seen that this sequence (starting at 13 and finishing at 1) contains
-10 terms. Although it has not been proved yet (Collatz Problem), it is thought
-that all starting numbers finish at 1.
+可以看出，这个从 13 开始并以 1 结束的数列包含 10 项。尽管这一结论尚未得到
+证明（Collatz 问题），但人们认为所有起始数最终都会到达 1。
 
-Which starting number, under one million, produces the longest chain?
+在一百万以下，哪个起始数会产生最长的链？
 """
 
 
 def solution(n: int = 1000000) -> int:
-    """Returns the number under n that generates the longest sequence using the
-    formula:
+    """返回小于 n 且按以下公式生成最长数列的数：
     n → n/2 (n is even)
     n → 3n + 1 (n is odd)
 

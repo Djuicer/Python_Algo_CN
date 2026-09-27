@@ -1,15 +1,11 @@
 """
 Project Euler Problem 64: https://projecteuler.net/problem=64
 
-All square roots are periodic when written as continued fractions.
-For example, let us consider sqrt(23).
-It can be seen that the sequence is repeating.
-For conciseness, we use the notation sqrt(23)=[4;(1,3,1,8)],
-to indicate that the block (1,3,1,8) repeats indefinitely.
-Exactly four continued fractions, for N<=13, have an odd period.
-How many continued fractions for N<=10000 have an odd period?
+所有平方根写成连分数时都是周期性的。例如，考虑 sqrt(23)，可以看出该数列会重复。
+为简洁起见，使用记号 sqrt(23)=[4;(1,3,1,8)] 表示块 (1,3,1,8) 无限重复。
+当 N<=13 时，恰有四个连分数的周期为奇数。N<=10000 时有多少个连分数的周期为奇数？
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Continued_fraction
 """
 
@@ -18,7 +14,7 @@ from math import floor, sqrt
 
 def continuous_fraction_period(n: int) -> int:
     """
-    Returns the continued fraction period of a number n.
+    返回数字 n 的连分数周期。
 
     >>> continuous_fraction_period(2)
     1
@@ -46,12 +42,10 @@ def continuous_fraction_period(n: int) -> int:
 
 def solution(n: int = 10000) -> int:
     """
-    Returns the count of numbers <= 10000 with odd periods.
-    This function calls continuous_fraction_period for numbers which are
-    not perfect squares.
-    This is checked in if sr - floor(sr) != 0 statement.
-    If an odd period is returned by continuous_fraction_period,
-    count_odd_periods is increased by 1.
+    返回 <= 10000 且周期为奇数的数字数量。
+    此函数对非完全平方数调用 continuous_fraction_period，
+    通过 if sr - floor(sr) != 0 语句进行判断。
+    如果 continuous_fraction_period 返回奇数周期，则 count_odd_periods 增加 1。
 
     >>> solution(2)
     1

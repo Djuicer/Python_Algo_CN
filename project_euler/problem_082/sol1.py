@@ -1,10 +1,8 @@
 """
 Project Euler Problem 82: https://projecteuler.net/problem=82
 
-The minimal path sum in the 5 by 5 matrix below, by starting in any cell
-in the left column and finishing in any cell in the right column,
-and only moving up, down, and right, is indicated in red and bold;
-the sum is equal to 994.
+在下面的 5 x 5 矩阵中，从左列任意单元格出发、在右列任意单元格结束，
+并且只能向上、向下和向右移动时，最小路径和以红色粗体标出，等于 994。
 
      131    673   [234]  [103]  [18]
     [201]  [96]   [342]   965    150
@@ -12,10 +10,10 @@ the sum is equal to 994.
      537    699    497    121    956
      805    732    524    37     331
 
-Find the minimal path sum from the left column to the right column in matrix.txt
+求 matrix.txt 中从左列到右列的最小路径和
 (https://projecteuler.net/project/resources/p082_matrix.txt)
 (right click and "Save Link/Target As..."),
-a 31K text file containing an 80 by 80 matrix.
+该文件是一个包含 80 x 80 矩阵的 31K 文本文件。
 """
 
 import os
@@ -23,9 +21,8 @@ import os
 
 def solution(filename: str = "input.txt") -> int:
     """
-    Returns the minimal path sum in the matrix from the file, by starting in any cell
-    in the left column and finishing in any cell in the right column,
-    and only moving up, down, and right
+    返回文件中矩阵的最小路径和：从左列任意单元格出发，在右列任意单元格结束，
+    并且只能向上、向下和向右移动。
 
     >>> solution("test_matrix.txt")
     994

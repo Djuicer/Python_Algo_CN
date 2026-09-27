@@ -1,11 +1,10 @@
 """
 Problem 39: https://projecteuler.net/problem=39
 
-If p is the perimeter of a right angle triangle with integral length sides,
-{a,b,c}, there are exactly three solutions for p = 120.
+如果 p 是边长均为整数的直角三角形 {a,b,c} 的周长，那么 p = 120 恰好有三个解。
 {20,48,52}, {24,45,51}, {30,40,50}
 
-For which value of p ≤ 1000, is the number of solutions maximised?
+当 p ≤ 1000 时，哪个 p 值对应的解数最多？
 """
 
 from __future__ import annotations
@@ -16,8 +15,7 @@ from collections import Counter
 
 def pythagorean_triple(max_perimeter: int) -> typing.Counter[int]:
     """
-    Returns a dictionary with keys as the perimeter of a right angled triangle
-    and value as the number of corresponding triplets.
+    返回一个字典，键为直角三角形的周长，值为对应三元组的数量。
     >>> pythagorean_triple(15)
     Counter({12: 1})
     >>> pythagorean_triple(40)
@@ -39,7 +37,7 @@ def pythagorean_triple(max_perimeter: int) -> typing.Counter[int]:
 
 def solution(n: int = 1000) -> int:
     """
-    Returns perimeter with maximum solutions.
+    返回解数最多的周长。
     >>> solution(100)
     90
     >>> solution(200)

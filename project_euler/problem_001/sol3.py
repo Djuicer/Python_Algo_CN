@@ -1,20 +1,19 @@
 """
 Project Euler Problem 1: https://projecteuler.net/problem=1
 
-Multiples of 3 and 5
+3 和 5 的倍数
 
-If we list all the natural numbers below 10 that are multiples of 3 or 5,
-we get 3, 5, 6 and 9. The sum of these multiples is 23.
+列出所有小于 10 且是 3 或 5 的倍数的自然数，可得 3、5、6 和 9。
+这些倍数之和为 23。
 
-Find the sum of all the multiples of 3 or 5 below 1000.
+求所有小于 1000 且是 3 或 5 的倍数的数之和。
 """
 
 
 def solution(n: int = 1000) -> int:
     """
-    This solution is based on the pattern that the successive numbers in the
-    series follow: 0+3,+2,+1,+3,+1,+2,+3.
-    Returns the sum of all the multiples of 3 or 5 below n.
+    本解法基于数列相邻项遵循的模式：0+3,+2,+1,+3,+1,+2,+3。
+    返回所有小于 n 且是 3 或 5 的倍数的数之和。
 
     >>> solution(3)
     0

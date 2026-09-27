@@ -1,9 +1,8 @@
 """
 Problem 13: https://projecteuler.net/problem=13
 
-Problem Statement:
-Work out the first ten digits of the sum of the following one-hundred 50-digit
-numbers.
+题目说明：
+求以下一百个 50 位数之和的前十位数字。
 """
 
 import os
@@ -11,8 +10,7 @@ import os
 
 def solution(n: int = 10) -> str:
     """
-    Returns the first 'n' digits of the sum of the array elements
-    from the file num.txt. n should be larger than 2.
+    返回文件 num.txt 中数组元素之和的前 'n' 位数字。n 应大于 2。
 
     >>> solution(3)
     '553'

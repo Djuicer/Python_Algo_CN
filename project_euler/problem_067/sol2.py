@@ -1,15 +1,13 @@
 """
-Problem Statement:
-By starting at the top of the triangle below and moving to adjacent numbers on
-the row below, the maximum total from top to bottom is 23.
+题目说明：
+从下面三角形的顶端开始，每次移动到下一行相邻的数，从顶端到底端的最大总和为 23。
 3
 7 4
 2 4 6
 8 5 9 3
-That is, 3 + 7 + 4 + 9 = 23.
-Find the maximum total from top to bottom in triangle.txt (right click and
-'Save Link/Target As...'), a 15K text file containing a triangle with
-one-hundred rows.
+即 3 + 7 + 4 + 9 = 23。
+求 triangle.txt（右键单击并选择 'Save Link/Target As...'）中从顶端到底端的最大总和；
+该文件是一个包含一百行三角形的 15K 文本文件。
 """
 
 import os
@@ -17,8 +15,7 @@ import os
 
 def solution() -> int:
     """
-    Finds the maximum total in a triangle as described by the problem statement
-    above.
+    求出上述题意中三角形的最大总和。
     >>> solution()
     7273
     """

@@ -1,44 +1,32 @@
 """
 Project Euler Problem 85: https://projecteuler.net/problem=85
 
-By counting carefully it can be seen that a rectangular grid measuring 3 by 2
-contains eighteen rectangles.
+仔细计数可以看出，一个 3 x 2 的矩形网格包含十八个矩形。
 ￼
-Although there exists no rectangular grid that contains exactly two million
-rectangles, find the area of the grid with the nearest solution.
+虽然不存在恰好包含两百万个矩形的矩形网格，但请找出最接近该数量的网格面积。
 
-Solution:
+解法：
 
-    For a grid with side-lengths a and b, the number of rectangles contained in the grid
-    is [a*(a+1)/2] * [b*(b+1)/2)], which happens to be the product of the a-th and b-th
-    triangle numbers. So to find the solution grid (a,b), we need to find the two
-    triangle numbers whose product is closest to two million.
+    对于边长为 a 和 b 的网格，其中包含的矩形数为
+    [a*(a+1)/2] * [b*(b+1)/2)]，恰好是第 a 个与第 b 个三角数的乘积。
+    因此要找解网格 (a,b)，需找出乘积最接近两百万的两个三角数。
 
-    Denote these two triangle numbers Ta and Tb. We want their product Ta*Tb to be
-    as close as possible to 2m. Assuming that the best solution is fairly close to 2m,
-    We can assume that both Ta and Tb are roughly bounded by 2m. Since Ta = a(a+1)/2,
-    we can assume that a (and similarly b) are roughly bounded by sqrt(2 * 2m) = 2000.
-    Since this is a rough bound, to be on the safe side we add 10%. Therefore we start
-    by generating all the triangle numbers Ta for 1 <= a <= 2200. This can be done
-    iteratively since the ith triangle number is the sum of 1,2, ... ,i, and so
-    T(i) = T(i-1) + i.
+    将这两个三角数记为 Ta 和 Tb，希望乘积 Ta*Tb 尽可能接近 2m。假设最佳解相当接近
+    2m，则可认为 Ta 和 Tb 大致以 2m 为界。由于 Ta = a(a+1)/2，可认为 a（以及 b）
+    大致以 sqrt(2 * 2m) = 2000 为界。这个界限较粗略，为安全起见增加 10%。
+    因此先生成 1 <= a <= 2200 的所有三角数 Ta。由于第 i 个三角数是
+    1,2, ... ,i 之和，即 T(i) = T(i-1) + i，可迭代完成。
 
-    We then search this list of triangle numbers for the two that give a product
-    closest to our target of two million. Rather than testing every combination of 2
-    elements of the list, which would find the result in quadratic time, we can find
-    the best pair in linear time.
+    然后在三角数列表中搜索乘积最接近目标两百万的两个数。无需测试列表中每两个元素的
+    所有组合（这会以平方时间求得结果），可以在线性时间内找到最佳数对。
 
-    We iterate through the list of triangle numbers using enumerate() so we have a
-    and Ta. Since we want Ta * Tb to be as close as possible to 2m, we know that Tb
-    needs to be roughly 2m / Ta. Using the formula Tb = b*(b+1)/2 as well as the
-    quadratic formula, we can solve for b:
-    b is roughly (-1 + sqrt(1 + 8 * 2m / Ta)) / 2.
+    使用 enumerate() 遍历三角数列表，从而得到 a 和 Ta。由于希望 Ta * Tb 尽可能接近
+    2m，Tb 应大致等于 2m / Ta。利用公式 Tb = b*(b+1)/2 和二次公式可解得 b：
+    b 大致为 (-1 + sqrt(1 + 8 * 2m / Ta)) / 2。
 
-    Since the closest integers to this estimate will give product closest to 2m,
-    we only need to consider the integers above and below. It's then a simple matter
-    to get the triangle numbers corresponding to those integers, calculate the product
-    Ta * Tb, compare that product to our target 2m, and keep track of the (a,b) pair
-    that comes the closest.
+    因为最接近该估计值的整数会给出最接近 2m 的乘积，所以只需考虑其上下两个整数。
+    随后取得这些整数对应的三角数，计算乘积 Ta * Tb，与目标 2m 比较，
+    并记录最接近目标的 (a,b) 数对。
 
 
 Reference: https://en.wikipedia.org/wiki/Triangular_number
@@ -52,8 +40,7 @@ from math import ceil, floor, sqrt
 
 def solution(target: int = 2000000) -> int:
     """
-    Find the area of the grid which contains as close to two million rectangles
-    as possible.
+    找出所含矩形数尽可能接近两百万的网格面积。
     >>> solution(20)
     6
     >>> solution(2000)

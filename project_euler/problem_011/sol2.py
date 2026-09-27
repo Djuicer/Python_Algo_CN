@@ -1,6 +1,5 @@
 """
-What is the greatest product of four adjacent numbers (horizontally,
-vertically, or diagonally) in this 20x20 array?
+在这个 20x20 数组中，水平、垂直或对角线上相邻四个数的最大乘积是多少？
 
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -28,8 +27,7 @@ import os
 
 
 def solution():
-    """Returns the greatest product of four adjacent numbers (horizontally,
-    vertically, or diagonally).
+    """返回水平、垂直或对角线上相邻四个数的最大乘积。
 
     >>> solution()
     70600674
@@ -41,19 +39,19 @@ def solution():
 
         maximum = 0
 
-        # right
+        # 向右
         for i in range(20):
             for j in range(17):
                 temp = grid[i][j] * grid[i][j + 1] * grid[i][j + 2] * grid[i][j + 3]
                 maximum = max(maximum, temp)
 
-        # down
+        # 向下
         for i in range(17):
             for j in range(20):
                 temp = grid[i][j] * grid[i + 1][j] * grid[i + 2][j] * grid[i + 3][j]
                 maximum = max(maximum, temp)
 
-        # diagonal 1
+        # 对角线 1
         for i in range(17):
             for j in range(17):
                 temp = (
@@ -64,7 +62,7 @@ def solution():
                 )
                 maximum = max(maximum, temp)
 
-        # diagonal 2
+        # 对角线 2
         for i in range(17):
             for j in range(3, 20):
                 temp = (

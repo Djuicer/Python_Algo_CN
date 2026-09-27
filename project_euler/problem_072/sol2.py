@@ -1,25 +1,22 @@
 """
 Project Euler Problem 72: https://projecteuler.net/problem=72
 
-Consider the fraction, n/d, where n and d are positive integers. If n<d and HCF(n,d)=1,
-it is called a reduced proper fraction.
+考虑分数 n/d，其中 n 和 d 为正整数。如果 n<d 且 HCF(n,d)=1，则称其为最简真分数。
 
-If we list the set of reduced proper fractions for d ≤ 8 in ascending order of size,
-we get:
+如果按大小升序列出 d ≤ 8 的最简真分数集合，可得：
 
 1/8, 1/7, 1/6, 1/5, 1/4, 2/7, 1/3, 3/8, 2/5, 3/7, 1/2,
 4/7, 3/5, 5/8, 2/3, 5/7, 3/4, 4/5, 5/6, 6/7, 7/8
 
-It can be seen that there are 21 elements in this set.
+可以看出，该集合包含 21 个元素。
 
-How many elements would be contained in the set of reduced proper fractions
-for d ≤ 1,000,000?
+d ≤ 1,000,000 的最简真分数集合包含多少个元素？
 """
 
 
 def solution(limit: int = 1000000) -> int:
     """
-    Return the number of reduced proper fractions with denominator less than limit.
+    返回分母小于 limit 的最简真分数数量。
     >>> solution(8)
     21
     >>> solution(1000)

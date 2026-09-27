@@ -1,17 +1,15 @@
 """
-Amicable Numbers
-Problem 21
+亲和数
+问题 21
 
-Let d(n) be defined as the sum of proper divisors of n (numbers less than n
-which divide evenly into n).
-If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and
-each of a and b are called amicable numbers.
+定义 d(n) 为 n 的真约数（小于 n 且能整除 n 的数）之和。
+如果 d(a) = b 且 d(b) = a，其中 a ≠ b，那么 a 和 b 构成一对亲和数，
+a 与 b 各自都称为亲和数。
 
-For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55
-and 110; therefore d(220) = 284. The proper divisors of 284 are 1, 2, 4, 71 and
-142; so d(284) = 220.
+例如，220 的真约数为 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 和 110；
+因此 d(220) = 284。284 的真约数为 1, 2, 4, 71 和 142；所以 d(284) = 220。
 
-Evaluate the sum of all the amicable numbers under 10000.
+求 10000 以下所有亲和数之和。
 """
 
 from math import sqrt
@@ -28,7 +26,7 @@ def sum_of_divisors(n: int) -> int:
 
 
 def solution(n: int = 10000) -> int:
-    """Returns the sum of all the amicable numbers under n.
+    """返回 n 以下所有亲和数之和。
 
     >>> solution(10000)
     31626

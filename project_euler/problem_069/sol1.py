@@ -1,11 +1,9 @@
 """
-Totient maximum
+欧拉函数最大值
 Problem 69: https://projecteuler.net/problem=69
 
-Euler's Totient function, φ(n) [sometimes called the phi function],
-is used to determine the number of numbers less than n which are relatively prime to n.
-For example, as 1, 2, 4, 5, 7, and 8,
-are all less than nine and relatively prime to nine, φ(9)=6.
+Euler 欧拉函数 φ(n)（有时称为 phi 函数）用于确定小于 n 且与 n 互素的数的数量。
+例如，1, 2, 4, 5, 7 和 8 均小于九且与九互素，因此 φ(9)=6。
 
 n	Relatively Prime	φ(n)	n/φ(n)
 2	1	                1	    2
@@ -18,20 +16,20 @@ n	Relatively Prime	φ(n)	n/φ(n)
 9	1,2,4,5,7,8	        6	    1.5
 10	1,3,7,9	            4	    2.5
 
-It can be seen that n=6 produces a maximum n/φ(n) for n ≤ 10.
+可以看出，当 n ≤ 10 时，n=6 使 n/φ(n) 取得最大值。
 
-Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.
+找出使 n/φ(n) 最大的 n ≤ 1,000,000。
 """
 
 
 def solution(n: int = 10**6) -> int:
     """
-    Returns solution to problem.
-    Algorithm:
-    1. Precompute φ(k) for all natural k, k <= n using product formula (wikilink below)
+    返回问题的解。
+    算法：
+    1. 使用乘积公式（见下方链接）预计算所有自然数 k（k <= n）的 φ(k)
     https://en.wikipedia.org/wiki/Euler%27s_totient_function#Euler's_product_formula
 
-    2. Find k/φ(k) for all k ≤ n and return the k that attains maximum
+    2. 计算所有 k ≤ n 的 k/φ(k)，并返回使其达到最大值的 k
 
     >>> solution(10)
     6

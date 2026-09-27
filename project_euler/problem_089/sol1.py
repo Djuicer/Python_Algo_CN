@@ -1,12 +1,10 @@
 """
 Project Euler Problem 89: https://projecteuler.net/problem=89
 
-For a number written in Roman numerals to be considered valid there are basic rules
-which must be followed. Even though the rules allow some numbers to be expressed in
-more than one way there is always a "best" way of writing a particular number.
+要使以罗马数字写成的数有效，必须遵循一些基本规则。尽管这些规则允许某些数字有
+多种表示方式，但每个特定数字总有一种“最佳”写法。
 
-For example, it would appear that there are at least six ways of writing the number
-sixteen:
+例如，数字十六似乎至少有六种写法：
 
 IIIIIIIIIIIIIIII
 VIIIIIIIIIII
@@ -15,17 +13,15 @@ XIIIIII
 VVVI
 XVI
 
-However, according to the rules only XIIIIII and XVI are valid, and the last example
-is considered to be the most efficient, as it uses the least number of numerals.
+然而，根据规则只有 XIIIIII 和 XVI 有效，最后一种写法使用的数字字符最少，
+因此被认为最高效。
 
-The 11K text file, roman.txt (right click and 'Save Link/Target As...'), contains one
-thousand numbers written in valid, but not necessarily minimal, Roman numerals; see
-About... Roman Numerals for the definitive rules for this problem.
+11K 文本文件 roman.txt（右键单击并选择 'Save Link/Target As...'）包含一千个以有效但
+不一定最简的罗马数字写成的数；本题的完整规则请参阅 About... Roman Numerals。
 
-Find the number of characters saved by writing each of these in their minimal form.
+求将每个数字改写为最简形式后节省的字符数。
 
-Note: You can assume that all the Roman numerals in the file contain no more than four
-consecutive identical units.
+注意：可以假定文件中的所有罗马数字都不包含超过四个连续相同单位。
 """
 
 import os
@@ -35,8 +31,8 @@ SYMBOLS = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
 
 def parse_roman_numerals(numerals: str) -> int:
     """
-    Converts a string of roman numerals to an integer.
-    e.g.
+    将罗马数字字符串转换为整数。
+    例如：
     >>> parse_roman_numerals("LXXXIX")
     89
     >>> parse_roman_numerals("IIII")
@@ -61,8 +57,8 @@ def parse_roman_numerals(numerals: str) -> int:
 
 def generate_roman_numerals(num: int) -> str:
     """
-    Generates a string of roman numerals for a given integer.
-    e.g.
+    为给定整数生成罗马数字字符串。
+    例如：
     >>> generate_roman_numerals(89)
     'LXXXIX'
     >>> generate_roman_numerals(4)
@@ -117,7 +113,7 @@ def generate_roman_numerals(num: int) -> str:
 
 def solution(roman_numerals_filename: str = "/p089_roman.txt") -> int:
     """
-    Calculates and returns the answer to project euler problem 89.
+    计算并返回 Project Euler 第 89 题的答案。
 
     >>> solution("/numeralcleanup_test.txt")
     16

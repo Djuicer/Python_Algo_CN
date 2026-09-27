@@ -1,29 +1,25 @@
 """
-Counting Sundays
+统计星期日
 Problem 19
 
-You are given the following information, but you may prefer to do some research
-for yourself.
+已知以下信息，你也可以自行查阅相关资料。
 
-1 Jan 1900 was a Monday.
-Thirty days has September,
-April, June and November.
-All the rest have thirty-one,
-Saving February alone,
-Which has twenty-eight, rain or shine.
-And on leap years, twenty-nine.
+1900 年 1 月 1 日是星期一。
+九月有三十天，
+四月、六月和十一月也是如此。
+其余月份有三十一天，
+唯有二月例外，
+平年二十八天，
+闰年则为二十九天。
 
-A leap year occurs on any year evenly divisible by 4, but not on a century
-unless it is divisible by 400.
+能被 4 整除的年份是闰年，但世纪年份必须能被 400 整除才是闰年。
 
-How many Sundays fell on the first of the month during the twentieth century
-(1 Jan 1901 to 31 Dec 2000)?
+在二十世纪（1901 年 1 月 1 日至 2000 年 12 月 31 日）期间，有多少个月的 1 日是星期日？
 """
 
 
 def solution():
-    """Returns the number of mondays that fall on the first of the month during
-    the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+    """返回二十世纪（1901 年 1 月 1 日至 2000 年 12 月 31 日）期间每月 1 日为星期一的次数。
 
     >>> solution()
     171

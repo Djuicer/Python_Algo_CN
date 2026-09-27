@@ -1,16 +1,14 @@
 """
 Project Euler Problem 092: https://projecteuler.net/problem=92
-Square digit chains
-A number chain is created by continuously adding the square of the digits in
-a number to form a new number until it has been seen before.
-For example,
+平方数字链
+不断求一个数各位数字的平方和以形成新数，直至出现先前见过的数，即可构成数字链。
+例如：
 44 → 32 → 13 → 10 → 1 → 1
 85 → 89 → 145 → 42 → 20 → 4 → 16 → 37 → 58 → 89
-Therefore any chain that arrives at 1 or 89 will become stuck in an endless loop.
-What is most amazing is that EVERY starting number will eventually arrive at 1 or 89.
-How many starting numbers below ten million will arrive at 89?
+因此，任何到达 1 或 89 的链都会陷入无限循环。最令人惊讶的是，每个起始数最终都会
+到达 1 或 89。一千万以下有多少个起始数会到达 89？
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Digital_root
     - https://en.wikipedia.org/wiki/Digit_DP
 """
@@ -18,20 +16,17 @@ References:
 
 def solution(number: int = 10_000_000) -> int:
     """
-    Returns how many starting numbers below `number` will arrive at 89
-    in the digit-square chain.
+    返回 `number` 以下会在数字平方链中到达 89 的起始数数量。
 
-    Uses digit DP so the count is computed in O(k * d_max * 10) time —
-    roughly 40 000 operations for number = 10^7 — instead of iterating
-    all `number` values explicitly.
+    使用数位 DP，以 O(k * d_max * 10) 时间计算数量；当 number = 10^7 时约执行
+    40 000 次运算，而无需显式遍历所有 `number` 值。
 
-    Key observations:
-    1. For any n < number, digit_square_sum(n) ≤ num_digits * 81,
-       so chain endpoints can be precomputed for that small range only.
-    2. A digit DP over the decimal digits of (number - 1) counts how many
-       integers in [0, number-1] have each possible digit-square sum,
-       grouping by whether the prefix is still bounded ("tight") or free.
-       Integers whose digit-square sum equals 0 are exactly 0 itself.
+    关键观察：
+    1. 对任意 n < number，digit_square_sum(n) ≤ num_digits * 81，
+       因此只需在这个较小范围内预计算链的终点。
+    2. 对 (number - 1) 的十进制数字进行数位 DP，统计 [0, number-1] 中具有各个可能
+       数字平方和的整数数量，并按前缀是否仍受限（"tight"）或自由分组。
+       数字平方和等于 0 的整数恰好只有 0 本身。
 
     >>> solution(100)
     80

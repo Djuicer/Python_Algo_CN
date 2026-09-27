@@ -1,18 +1,16 @@
 """
-The first known prime found to exceed one million digits was discovered in 1999,
-and is a Mersenne prime of the form 2**6972593 - 1; it contains exactly 2,098,960
-digits. Subsequently other Mersenne primes, of the form 2**p - 1, have been found
-which contain more digits.
-However, in 2004 there was found a massive non-Mersenne prime which contains
-2,357,207 digits: (28433 * (2 ** 7830457 + 1)).
+首个已知超过一百万位的素数发现于 1999 年，是形如 2**6972593 - 1 的 Mersenne 素数；
+它恰好包含 2,098,960 位。随后又发现了其他形如 2**p - 1、位数更多的 Mersenne 素数。
+然而，2004 年发现了一个包含 2,357,207 位的巨大非 Mersenne 素数：
+(28433 * (2 ** 7830457 + 1))。
 
-Find the last ten digits of this prime number.
+求该素数的最后十位数字。
 """
 
 
 def solution(n: int = 10) -> str:
     """
-    Returns the last n digits of NUMBER.
+    返回 NUMBER 的最后 n 位数字。
     >>> solution()
     '8739992577'
     >>> solution(8)

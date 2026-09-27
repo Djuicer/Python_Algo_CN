@@ -1,18 +1,14 @@
 """
 Problem 33: https://projecteuler.net/problem=33
 
-The fraction 49/98 is a curious fraction, as an inexperienced
-mathematician in attempting to simplify it may incorrectly believe
-that 49/98 = 4/8, which is correct, is obtained by cancelling the 9s.
+分数 49/98 很特别：缺乏经验的人在约分时，可能误以为约去两个 9 就能得到
+49/98 = 4/8，而结果碰巧正确。
 
-We shall consider fractions like, 30/50 = 3/5, to be trivial examples.
+我们将 30/50 = 3/5 这样的分数视为平凡示例。
 
-There are exactly four non-trivial examples of this type of fraction,
-less than one in value, and containing two digits in the numerator
-and denominator.
+这种值小于一、分子和分母均为两位数的非平凡分数恰好有四个。
 
-If the product of these four fractions is given in its lowest common
-terms, find the value of the denominator.
+将这四个分数的乘积约为最简分数，求其分母。
 """
 
 from __future__ import annotations
@@ -59,7 +55,7 @@ def fraction_list(digit_len: int) -> list[str]:
 
 def solution(n: int = 2) -> int:
     """
-    Return the solution to the problem
+    返回该问题的解。
     """
     result = 1.0
     for fraction in fraction_list(n):

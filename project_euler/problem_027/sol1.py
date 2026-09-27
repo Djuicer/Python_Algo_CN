@@ -2,32 +2,28 @@
 Project Euler Problem 27
 https://projecteuler.net/problem=27
 
-Problem Statement:
+题目说明：
 
-Euler discovered the remarkable quadratic formula:
+Euler 发现了一个非凡的二次公式：
 n2 + n + 41
-It turns out that the formula will produce 40 primes for the consecutive values
-n = 0 to 39. However, when n = 40, 402 + 40 + 41 = 40(40 + 1) + 41 is divisible
-by 41, and certainly when n = 41, 412 + 41 + 41 is clearly divisible by 41.
-The incredible formula  n2 - 79n + 1601 was discovered, which produces 80 primes
-for the consecutive values n = 0 to 79. The product of the coefficients, -79 and
-1601, is -126479.
-Considering quadratics of the form:
-n² + an + b, where |a| &lt; 1000 and |b| &lt; 1000
-where |n| is the modulus/absolute value of ne.g. |11| = 11 and |-4| = 4
-Find the product of the coefficients, a and b, for the quadratic expression that
-produces the maximum number of primes for consecutive values of n, starting with
-n = 0.
+事实证明，当 n 连续取 0 到 39 时，该公式会产生 40 个素数。然而，当 n = 40 时，
+402 + 40 + 41 = 40(40 + 1) + 41 可被 41 整除；当 n = 41 时，
+412 + 41 + 41 显然也可被 41 整除。
+后来发现了惊人的公式 n2 - 79n + 1601，当 n 连续取 0 到 79 时会产生 80 个素数。
+系数 -79 和 1601 的乘积为 -126479。
+考虑如下形式的二次式：
+n² + an + b，其中 |a| &lt; 1000 且 |b| &lt; 1000
+其中 |n| 表示 n 的模或绝对值，例如 |11| = 11 且 |-4| = 4。
+求从 n = 0 开始连续取值时能产生最多素数的二次表达式中，系数 a 和 b 的乘积。
 """
 
 import math
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
-    A number is prime if it has exactly two factors: 1 and itself.
-    Returns boolean representing primality of given number num (i.e., if the
-    result is true, then the number is indeed prime else it is not).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为素数。
+    如果一个数恰好有两个因数（1 和它本身），则它是素数。
+    返回表示给定数字 num 是否为素数的布尔值。
 
     >>> is_prime(2)
     True
@@ -46,13 +42,13 @@ def is_prime(number: int) -> bool:
     """
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 和 3 是质数
         return True
     elif number < 2 or number % 2 == 0 or number % 3 == 0:
-        # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
+        # 负数、0、1、所有偶数以及 3 的倍数都不是质数
         return False
 
-    # All primes number are in format of 6k +/- 1
+    # 所有质数都形如 6k +/- 1
     for i in range(5, int(math.sqrt(number) + 1), 6):
         if number % i == 0 or number % (i + 2) == 0:
             return False

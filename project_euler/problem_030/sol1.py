@@ -1,24 +1,21 @@
-"""Problem Statement (Digit Fifth Powers): https://projecteuler.net/problem=30
+"""题目说明（各位数字的五次幂）：https://projecteuler.net/problem=30
 
-Surprisingly there are only three numbers that can be written as the sum of fourth
-powers of their digits:
+令人惊讶的是，只有三个数可以写成其各位数字四次幂之和：
 
 1634 = 1^4 + 6^4 + 3^4 + 4^4
 8208 = 8^4 + 2^4 + 0^4 + 8^4
 9474 = 9^4 + 4^4 + 7^4 + 4^4
-As 1 = 1^4 is not a sum it is not included.
+由于 1 = 1^4 不是一个和，因此不计入。
 
-The sum of these numbers is 1634 + 8208 + 9474 = 19316.
+这些数之和为 1634 + 8208 + 9474 = 19316。
 
-Find the sum of all the numbers that can be written as the sum of fifth powers of their
-digits.
+求所有可以写成其各位数字五次幂之和的数的总和。
 
 9^5 = 59049
-59049 * 7 = 413343 (which is only 6 digit number)
-So, numbers greater than 999999 are rejected
-and also 59049 * 3 = 177147 (which exceeds the criteria of number being 3 digit)
-So, number > 999
-and hence a number between 1000 and 1000000
+59049 * 7 = 413343（只有 6 位数字）
+因此排除大于 999999 的数；
+另外，59049 * 3 = 177147（超过三位数的条件），
+所以数字 > 999，因而范围在 1000 到 1000000 之间。
 """
 
 DIGITS_FIFTH_POWER = {str(digit): digit**5 for digit in range(10)}

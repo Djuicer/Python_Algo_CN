@@ -1,14 +1,12 @@
 """
 Project Euler Problem 91: https://projecteuler.net/problem=91
 
-The points P (x1, y1) and Q (x2, y2) are plotted at integer coordinates and
-are joined to the origin, O(0,0), to form ΔOPQ.
+点 P (x1, y1) 和 Q (x2, y2) 位于整数坐标上，并与原点 O(0,0) 相连形成 ΔOPQ。
 ￼
-There are exactly fourteen triangles containing a right angle that can be formed
-when each coordinate lies between 0 and 2 inclusive; that is,
+当每个坐标都在 0 到 2（含）之间时，恰好可以形成十四个含直角的三角形；即
 0 ≤ x1, y1, x2, y2 ≤ 2.
 ￼
-Given that 0 ≤ x1, y1, x2, y2 ≤ 50, how many right triangles can be formed?
+给定 0 ≤ x1, y1, x2, y2 ≤ 50，可以形成多少个直角三角形？
 """
 
 from itertools import combinations, product
@@ -16,9 +14,9 @@ from itertools import combinations, product
 
 def is_right(x1: int, y1: int, x2: int, y2: int) -> bool:
     """
-    Check if the triangle described by P(x1,y1), Q(x2,y2) and O(0,0) is right-angled.
-    Note: this doesn't check if P and Q are equal, but that's handled by the use of
-    itertools.combinations in the solution function.
+    检查由 P(x1,y1)、Q(x2,y2) 和 O(0,0) 描述的三角形是否为直角三角形。
+    注意：此处不检查 P 与 Q 是否相等，该情况由 solution 函数中的
+    itertools.combinations 处理。
 
     >>> is_right(0, 1, 2, 0)
     True
@@ -39,8 +37,8 @@ def is_right(x1: int, y1: int, x2: int, y2: int) -> bool:
 
 def solution(limit: int = 50) -> int:
     """
-    Return the number of right triangles OPQ that can be formed by two points P, Q
-    which have both x- and y- coordinates between 0 and limit inclusive.
+    返回由两点 P、Q 形成的直角三角形 OPQ 数量，其中两点的 x、y 坐标均在
+    0 到 limit（含）之间。
 
     >>> solution(2)
     14

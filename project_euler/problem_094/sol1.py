@@ -1,22 +1,18 @@
 """
 Project Euler Problem 94: https://projecteuler.net/problem=94
 
-It is easily proved that no equilateral triangle exists with integral length sides and
-integral area. However, the almost equilateral triangle 5-5-6 has an area of 12 square
-units.
+很容易证明，不存在边长和面积均为整数的等边三角形。然而，近等边三角形 5-5-6
+的面积为 12 平方单位。
 
-We shall define an almost equilateral triangle to be a triangle for which two sides are
-equal and the third differs by no more than one unit.
+将近等边三角形定义为两边相等、第三边与它们相差不超过一个单位的三角形。
 
-Find the sum of the perimeters of all almost equilateral triangles with integral side
-lengths and area and whose perimeters do not exceed one billion (1,000,000,000).
+求所有边长和面积均为整数、且周长不超过十亿 (1,000,000,000) 的近等边三角形周长之和。
 """
 
 
 def solution(max_perimeter: int = 10**9) -> int:
     """
-    Returns the sum of the perimeters of all almost equilateral triangles with integral
-    side lengths and area and whose perimeters do not exceed max_perimeter
+    返回所有边长和面积均为整数、且周长不超过 max_perimeter 的近等边三角形周长之和。
 
     >>> solution(20)
     16

@@ -1,22 +1,21 @@
 """
 Project Euler Problem 129: https://projecteuler.net/problem=129
 
-A number consisting entirely of ones is called a repunit. We shall define R(k) to be
-a repunit of length k; for example, R(6) = 111111.
+完全由数字一组成的数称为重复单位数（repunit）。定义 R(k) 为长度为 k 的重复单位数；
+例如，R(6) = 111111。
 
-Given that n is a positive integer and GCD(n, 10) = 1, it can be shown that there
-always exists a value, k, for which R(k) is divisible by n, and let A(n) be the least
-such value of k; for example, A(7) = 6 and A(41) = 5.
+给定正整数 n 且 GCD(n, 10) = 1，可以证明总存在 k，使 R(k) 可被 n 整除。
+令 A(n) 为满足条件的最小 k；例如，A(7) = 6 且 A(41) = 5。
 
-The least value of n for which A(n) first exceeds ten is 17.
+使 A(n) 首次超过十的最小 n 值为 17。
 
-Find the least value of n for which A(n) first exceeds one-million.
+求使 A(n) 首次超过一百万的最小 n 值。
 """
 
 
 def least_divisible_repunit(divisor: int) -> int:
     """
-    Return the least value k such that the Repunit of length k is divisible by divisor.
+    返回使长度为 k 的重复单位数可被 divisor 整除的最小 k 值。
     >>> least_divisible_repunit(7)
     6
     >>> least_divisible_repunit(41)
@@ -36,8 +35,7 @@ def least_divisible_repunit(divisor: int) -> int:
 
 def solution(limit: int = 1000000) -> int:
     """
-    Return the least value of n for which least_divisible_repunit(n)
-    first exceeds limit.
+    返回使 least_divisible_repunit(n) 首次超过 limit 的最小 n 值。
     >>> solution(10)
     17
     >>> solution(100)

@@ -2,10 +2,9 @@
 Euler Problem 26
 https://projecteuler.net/problem=26
 
-Problem Statement:
+题目说明：
 
-A unit fraction contains 1 in the numerator. The decimal representation of the
-unit fractions with denominators 2 to 10 are given:
+单位分数的分子为 1。分母从 2 到 10 的单位分数，其十进制表示如下：
 
 1/2	= 	0.5
 1/3	= 	0.(3)
@@ -16,18 +15,15 @@ unit fractions with denominators 2 to 10 are given:
 1/8	= 	0.125
 1/9	= 	0.(1)
 1/10	= 	0.1
-Where 0.1(6) means 0.166666..., and has a 1-digit recurring cycle. It can be
-seen that 1/7 has a 6-digit recurring cycle.
+其中 0.1(6) 表示 0.166666...，其循环节为 1 位。可以看出，1/7 的循环节为 6 位。
 
-Find the value of d < 1000 for which 1/d contains the longest recurring cycle
-in its decimal fraction part.
+求满足 d < 1000 且 1/d 的小数部分具有最长循环节的 d 值。
 """
 
 
 def solution(numerator: int = 1, digit: int = 1000) -> int:
     """
-    Considering any range can be provided,
-    because as per the problem, the digit d < 1000
+    可以提供任意范围；题目要求数字 d < 1000。
     >>> solution(1, 10)
     7
     >>> solution(10, 100)
@@ -53,7 +49,7 @@ def solution(numerator: int = 1, digit: int = 1000) -> int:
     return the_digit
 
 
-# Tests
+# 测试
 if __name__ == "__main__":
     import doctest
 

@@ -1,24 +1,21 @@
 """
 Project Euler Problem 87: https://projecteuler.net/problem=87
 
-The smallest number expressible as the sum of a prime square, prime cube, and prime
-fourth power is 28. In fact, there are exactly four numbers below fifty that can be
-expressed in such a way:
+可表示为一个素数平方、一个素数立方与一个素数四次幂之和的最小数是 28。
+事实上，五十以下恰好有四个数能以这种方式表示：
 
 28 = 22 + 23 + 24
 33 = 32 + 23 + 24
 49 = 52 + 23 + 24
 47 = 22 + 33 + 24
 
-How many numbers below fifty million can be expressed as the sum of a prime square,
-prime cube, and prime fourth power?
+五千万以下有多少个数可表示为一个素数平方、一个素数立方与一个素数四次幂之和？
 """
 
 
 def solution(limit: int = 50000000) -> int:
     """
-    Return the number of integers less than limit which can be expressed as the sum
-    of a prime square, prime cube, and prime fourth power.
+    返回小于 limit 且可表示为一个素数平方、一个素数立方与一个素数四次幂之和的整数数量。
     >>> solution(50)
     4
     """

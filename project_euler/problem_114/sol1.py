@@ -1,10 +1,8 @@
 """
 Project Euler Problem 114: https://projecteuler.net/problem=114
 
-A row measuring seven units in length has red blocks with a minimum length
-of three units placed on it, such that any two red blocks
-(which are allowed to be different lengths) are separated by at least one grey square.
-There are exactly seventeen ways of doing this.
+在一行长度为七个单位的位置上放置最短长度为三个单位的红色方块，并使任意两个红色方块
+（允许长度不同）之间至少隔一个灰色方格。这样的放置方式恰好有十七种。
 
     |g|g|g|g|g|g|g|    |r,r,r|g|g|g|g|
 
@@ -24,17 +22,16 @@ There are exactly seventeen ways of doing this.
 
     |r,r,r,r,r,r,r|
 
-How many ways can a row measuring fifty units in length be filled?
+长度为五十个单位的一行有多少种填充方式？
 
-NOTE: Although the example above does not lend itself to the possibility,
-in general it is permitted to mix block sizes. For example,
-on a row measuring eight units in length you could use red (3), grey (1), and red (4).
+注意：虽然上述示例未体现，但通常允许混合不同方块长度。例如，在长度为八个单位的一行中，
+可以使用红色 (3)、灰色 (1) 和红色 (4)。
 """
 
 
 def solution(length: int = 50) -> int:
     """
-    Returns the number of ways a row of the given length can be filled
+    返回给定长度的一行的填充方式数。
 
     >>> solution(7)
     17

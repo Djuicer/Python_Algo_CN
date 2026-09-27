@@ -1,42 +1,37 @@
 """
 Problem: https://projecteuler.net/problem=54
 
-In the card game poker, a hand consists of five cards and are ranked,
-from lowest to highest, in the following way:
+在扑克游戏中，一手牌由五张牌组成，牌型从低到高排列如下：
 
-High Card: Highest value card.
-One Pair: Two cards of the same value.
-Two Pairs: Two different pairs.
-Three of a Kind: Three cards of the same value.
-Straight: All cards are consecutive values.
-Flush: All cards of the same suit.
-Full House: Three of a kind and a pair.
-Four of a Kind: Four cards of the same value.
-Straight Flush: All cards are consecutive values of same suit.
-Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
+高牌（High Card）：点数最高的牌。
+一对（One Pair）：两张点数相同的牌。
+两对（Two Pairs）：两个不同的对子。
+三条（Three of a Kind）：三张点数相同的牌。
+顺子（Straight）：所有牌的点数连续。
+同花（Flush）：所有牌花色相同。
+葫芦（Full House）：一个三条和一个对子。
+四条（Four of a Kind）：四张点数相同的牌。
+同花顺（Straight Flush）：所有牌花色相同且点数连续。
+皇家同花顺（Royal Flush）：同一花色的 Ten、Jack、Queen、King、Ace。
 
-The cards are valued in the order:
+牌的点数顺序为：
 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace.
 
-If two players have the same ranked hands then the rank made up of the highest
-value wins; for example, a pair of eights beats a pair of fives.
-But if two ranks tie, for example, both players have a pair of queens, then highest
-cards in each hand are compared; if the highest cards tie then the next highest
-cards are compared, and so on.
+如果两名玩家的牌型相同，则组成该牌型的最高点数者获胜；例如，一对八胜过一对五。
+如果牌型点数也相同，例如双方都有一对 Queen，则比较各手牌中的最高牌；
+若最高牌相同，再比较次高牌，依此类推。
 
-The file, poker.txt, contains one-thousand random hands dealt to two players.
-Each line of the file contains ten cards (separated by a single space): the
-first five are Player 1's cards and the last five are Player 2's cards.
-You can assume that all hands are valid (no invalid characters or repeated cards),
-each player's hand is in no specific order, and in each hand there is a clear winner.
+文件 poker.txt 包含随机发给两名玩家的一千手牌。文件每行包含十张牌（以单个空格分隔）：
+前五张属于玩家 1，后五张属于玩家 2。可以假定所有手牌均有效（没有无效字符或重复牌），
+每名玩家的手牌没有特定顺序，并且每手牌都有明确的胜者。
 
-How many hands does Player 1 win?
+玩家 1 赢了多少手？
 
-Resources used:
+参考资料：
 https://en.wikipedia.org/wiki/Texas_hold_%27em
 https://en.wikipedia.org/wiki/List_of_poker_hands
 
-Similar problem on codewars:
+Codewars 上的类似问题：
 https://www.codewars.com/kata/ranking-poker-hands
 https://www.codewars.com/kata/sortable-poker-hands
 """
@@ -47,27 +42,23 @@ import os
 
 
 class PokerHand:
-    """Create an object representing a Poker Hand based on an input of a
-    string which represents the best 5-card combination from the player's hand
-    and board cards.
+    """根据输入字符串创建表示扑克牌手牌的对象，该字符串表示玩家手牌与公共牌组成的
+    最佳 5 张牌组合。
 
-    Attributes: (read-only)
-        hand: a string representing the hand consisting of five cards
+    属性（只读）：
+        hand：表示由五张牌组成的手牌的字符串
 
-    Methods:
-        compare_with(opponent): takes in player's hand (self) and
-            opponent's hand (opponent) and compares both hands according to
-            the rules of Texas Hold'em.
-            Returns one of 3 strings (Win, Loss, Tie) based on whether
-            player's hand is better than the opponent's hand.
+    方法：
+        compare_with(opponent)：接收玩家手牌（self）和对手手牌（opponent），
+            按德州扑克规则比较两手牌。根据玩家手牌是否优于对手手牌，
+            返回 3 个字符串之一（Win、Loss、Tie）。
 
-        hand_name(): Returns a string made up of two parts: hand name
-            and high card.
+        hand_name()：返回由牌型名称和高牌两部分组成的字符串。
 
-    Supported operators:
-        Rich comparison operators: <, >, <=, >=, ==, !=
+    支持的运算符：
+        富比较运算符：<, >, <=, >=, ==, !=
 
-    Supported built-in methods and functions:
+    支持的内置方法和函数：
         list.sort(), sorted()
     """
 
@@ -85,7 +76,7 @@ class PokerHand:
     )
 
     _CARD_NAME = (
-        "",  # placeholder as tuples are zero-indexed
+        "",  # 元组索引从零开始，因此用作占位符
         "One",
         "Two",
         "Three",
@@ -104,25 +95,23 @@ class PokerHand:
 
     def __init__(self, hand: str) -> None:
         """
-        Initialize hand.
-        Hand should of type str and should contain only five cards each
-        separated by a space.
+        初始化手牌。hand 应为 str 类型，并且只能包含五张以空格分隔的牌。
 
-        The cards should be of the following format:
+        牌应采用以下格式：
         [card value][card suit]
 
-        The first character is the value of the card:
+        第一个字符表示牌的点数：
         2, 3, 4, 5, 6, 7, 8, 9, T(en), J(ack), Q(ueen), K(ing), A(ce)
 
-        The second character represents the suit:
+        第二个字符表示花色：
         S(pades), H(earts), D(iamonds), C(lubs)
 
-        For example: "6S 4C KC AS TH"
+        例如："6S 4C KC AS TH"
         """
         if not isinstance(hand, str):
             msg = f"Hand should be of type 'str': {hand!r}"
             raise TypeError(msg)
-        # split removes duplicate whitespaces so no need of strip
+        # split 会移除重复空白，因此无需 strip
         if len(hand.split(" ")) != 5:
             msg = f"Hand should contain only 5 cards: {hand!r}"
             raise ValueError(msg)
@@ -135,16 +124,15 @@ class PokerHand:
 
     @property
     def hand(self):
-        """Returns the self hand"""
+        """返回自身手牌。"""
         return self._hand
 
     def compare_with(self, other: PokerHand) -> str:
         """
-        Determines the outcome of comparing self hand with other hand.
-        Returns the output as 'Win', 'Loss', 'Tie' according to the rules of
-        Texas Hold'em.
+        确定自身手牌与另一手牌的比较结果。
+        按德州扑克规则返回 'Win'、'Loss' 或 'Tie'。
 
-        Here are some examples:
+        以下是一些示例：
         >>> player = PokerHand("2H 3H 4H 5H 6H")  # Stright flush
         >>> opponent = PokerHand("KS AS TS QS JS")  # Royal flush
         >>> player.compare_with(opponent)
@@ -160,18 +148,17 @@ class PokerHand:
         >>> player.compare_with(opponent)
         'Tie'
         """
-        # Breaking the tie works on the following order of precedence:
-        # 1. First pair (default 0)
-        # 2. Second pair (default 0)
-        # 3. Compare all cards in reverse order because they are sorted.
+        # 按以下优先顺序打破平局：
+        # 1. 第一组对子（默认为 0）
+        # 2. 第二组对子（默认为 0）
+        # 3. 因牌已排序，按逆序比较所有牌。
 
-        # First pair and second pair will only be a non-zero value if the card
-        # type is either from the following:
-        # 21: Four of a kind
-        # 20: Full house
-        # 17: Three of a kind
-        # 16: Two pairs
-        # 15: One pair
+        # 仅当牌型为以下类型之一时，第一组和第二组对子才可能为非零值：
+        # 21：四条
+        # 20：葫芦
+        # 17：三条
+        # 16：两对
+        # 15：一对
         if self._hand_type > other._hand_type:
             return "Win"
         elif self._hand_type < other._hand_type:
@@ -183,13 +170,13 @@ class PokerHand:
                 return "Win" if self._second_pair > other._second_pair else "Loss"
         return "Win" if self._first_pair > other._first_pair else "Loss"
 
-    # This function is not part of the problem, I did it just for fun
+    # 此函数不属于题目要求，仅为扩展功能
     def hand_name(self) -> str:
         """
-        Return the name of the hand in the following format:
+        按以下格式返回牌型名称：
         'hand name, high card'
 
-        Here are some examples:
+        以下是一些示例：
         >>> PokerHand("KS AS TS QS JS").hand_name()
         'Royal flush'
 
@@ -224,14 +211,14 @@ class PokerHand:
             return name + f", {high}"
 
     def _compare_cards(self, other: PokerHand) -> str:
-        # Enumerate gives us the index as well as the element of a list
+        # enumerate 同时提供列表元素及其索引
         for index, card_value in enumerate(self._card_values):
             if card_value != other._card_values[index]:
                 return "Win" if card_value > other._card_values[index] else "Loss"
         return "Tie"
 
     def _get_hand_type(self) -> int:
-        # Number representing the type of hand internally:
+        # 内部表示牌型的数字：
         # 23: Royal flush
         # 22: Straight flush
         # 21: Four of a kind
@@ -254,17 +241,15 @@ class PokerHand:
         return len(self._card_suit) == 1
 
     def _is_five_high_straight(self) -> bool:
-        # If a card is a five high straight (low ace) change the location of
-        # ace from the start of the list to the end. Check whether the first
-        # element is ace or not. (Don't want to change again)
-        # Five high straight (low ace): AH 2H 3S 4C 5D
-        # Why use sorted here? One call to this function will mutate the list to
-        # [5, 4, 3, 2, 14] and so for subsequent calls (which will be rare) we
-        # need to compare the sorted version.
-        # Refer test_multiple_calls_five_high_straight in test_poker_hand.py
+        # 如果手牌是五点高顺子（Ace 作低牌），则将 Ace 从列表开头移到末尾。
+        # 检查第一个元素是否为 Ace，以免再次改变。
+        # 五点高顺子（Ace 作低牌）：AH 2H 3S 4C 5D
+        # 为什么在此使用 sorted？调用一次此函数会将列表变为 [5, 4, 3, 2, 14]，
+        # 因此后续调用（这种情况很少）需要比较排序后的版本。
+        # 参见 test_poker_hand.py 中的 test_multiple_calls_five_high_straight
         if sorted(self._card_values) == [2, 3, 4, 5, 14]:
             if self._card_values[0] == 14:
-                # Remember, our list is sorted in reverse order
+                # 注意，列表已按逆序排序
                 ace_card = self._card_values.pop(0)
                 self._card_values.append(ace_card)
             return True
@@ -277,20 +262,18 @@ class PokerHand:
         return True
 
     def _is_same_kind(self) -> int:
-        # Kind Values for internal use:
-        # 7: Four of a kind
-        # 6: Full house
-        # 3: Three of a kind
-        # 2: Two pairs
-        # 1: One pair
-        # 0: False
+        # 内部使用的同点数组合值：
+        # 7：四条
+        # 6：葫芦
+        # 3：三条
+        # 2：两对
+        # 1：一对
+        # 0：False
         kind = val1 = val2 = 0
         for i in range(4):
-            # Compare two cards at a time, if they are same increase 'kind',
-            # add the value of the card to val1, if it is repeating again we
-            # will add 2 to 'kind' as there are now 3 cards with same value.
-            # If we get card of different value than val1, we will do the same
-            # thing with val2
+            # 每次比较两张牌；如果点数相同，则增加 'kind' 并将牌的点数赋给 val1。
+            # 如果该点数再次出现，则因已有 3 张同点数牌而将 'kind' 加 2。
+            # 如果遇到与 val1 不同的点数，则对 val2 执行相同操作。
             if self._card_values[i] == self._card_values[i + 1]:
                 if not val1:
                     val1 = self._card_values[i]
@@ -302,13 +285,13 @@ class PokerHand:
                     kind += 1
                 elif val2 == self._card_values[i]:
                     kind += 2
-        # For consistency in hand type (look at note in _get_hand_type function)
+        # 保持牌型的一致性（参见 _get_hand_type 函数中的说明）
         kind = kind + 2 if kind in [4, 5] else kind
-        # first meaning first pair to compare in 'compare_with'
+        # first 表示 'compare_with' 中首先比较的对子
         first = max(val1, val2)
         second = min(val1, val2)
-        # If it's full house (three count pair + two count pair), make sure
-        # first pair is three count and if not then switch them both.
+        # 如果是葫芦（三张同点数牌加两张同点数牌），确保 first 对应三张牌；
+        # 否则交换二者。
         if kind == 6 and self._card_values.count(first) != 3:
             first, second = second, first
         self._first_pair = first
@@ -316,8 +299,7 @@ class PokerHand:
         return kind
 
     def _internal_state(self) -> tuple[list[int], set[str]]:
-        # Internal representation of hand as a list of card values and
-        # a set of card suit
+        # 手牌在内部表示为牌点数列表和花色集合
         trans: dict = {"T": "10", "J": "11", "Q": "12", "K": "13", "A": "14"}
         new_hand = self._hand.translate(str.maketrans(trans)).split()
         card_values = [int(card[:-1]) for card in new_hand]
@@ -330,10 +312,8 @@ class PokerHand:
     def __str__(self) -> str:
         return self._hand
 
-    # Rich comparison operators (used in list.sort() and sorted() builtin functions)
-    # Note that this is not part of the problem but another extra feature where
-    # if you have a list of PokerHand objects, you can sort them just through
-    # the builtin functions.
+    # 富比较运算符（供内置函数 list.sort() 和 sorted() 使用）
+    # 这不属于题目要求，而是一项额外功能：可以直接用内置函数对 PokerHand 对象列表排序。
     def __eq__(self, other):
         if isinstance(other, PokerHand):
             return self.compare_with(other) == "Tie"
@@ -364,8 +344,8 @@ class PokerHand:
 
 
 def solution() -> int:
-    # Solution for problem number 54 from Project Euler
-    # Input from poker_hands.txt file
+    # Project Euler 第 54 题的解法
+    # 输入来自 poker_hands.txt 文件
     answer = 0
     script_dir = os.path.abspath(os.path.dirname(__file__))
     poker_hands = os.path.join(script_dir, "poker_hands.txt")

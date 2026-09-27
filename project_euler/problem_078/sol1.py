@@ -1,10 +1,9 @@
 """
 Problem 78
 Url: https://projecteuler.net/problem=78
-Statement:
-Let p(n) represent the number of different ways in which n coins
-can be separated into piles. For example, five coins can be separated
-into piles in exactly seven different ways, so p(5)=7.
+题目说明：
+令 p(n) 表示将 n 枚硬币分成若干堆的不同方式数。例如，五枚硬币恰好可以用七种
+不同方式分堆，因此 p(5)=7。
 
             OOOOO
             OOOO   O
@@ -13,7 +12,7 @@ into piles in exactly seven different ways, so p(5)=7.
             OO   OO   O
             OO   O   O   O
             O   O   O   O   O
-Find the least value of n for which p(n) is divisible by one million.
+找出使 p(n) 能被一百万整除的最小 n 值。
 """
 
 import itertools

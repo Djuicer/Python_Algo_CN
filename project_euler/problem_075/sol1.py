@@ -1,8 +1,8 @@
 """
 Project Euler Problem 75: https://projecteuler.net/problem=75
 
-It turns out that 12 cm is the smallest length of wire that can be bent to form an
-integer sided right angle triangle in exactly one way, but there are many more examples.
+事实证明，12 cm 是能够以恰好一种方式弯成整数边直角三角形的最短金属丝长度，
+但还有许多其他示例。
 
 12 cm: (3,4,5)
 24 cm: (6,8,10)
@@ -11,20 +11,17 @@ integer sided right angle triangle in exactly one way, but there are many more e
 40 cm: (8,15,17)
 48 cm: (12,16,20)
 
-In contrast, some lengths of wire, like 20 cm, cannot be bent to form an integer sided
-right angle triangle, and other lengths allow more than one solution to be found; for
-example, using 120 cm it is possible to form exactly three different integer sided
-right angle triangles.
+相比之下，某些长度的金属丝（如 20 cm）无法弯成整数边直角三角形；另一些长度则有
+多个解。例如，使用 120 cm 金属丝恰好可以形成三个不同的整数边直角三角形。
 
 120 cm: (30,40,50), (20,48,52), (24,45,51)
 
-Given that L is the length of the wire, for how many values of L ≤ 1,500,000 can
-exactly one integer sided right angle triangle be formed?
+设 L 为金属丝长度，在 L ≤ 1,500,000 的取值中，有多少个恰好能形成一个整数边
+直角三角形？
 
-Solution: we generate all pythagorean triples using Euclid's formula and
-keep track of the frequencies of the perimeters.
+解法：使用 Euclid 公式生成所有勾股数，并记录各周长出现的次数。
 
-Reference: https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple
+参考资料：https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple
 """
 
 from collections import defaultdict
@@ -33,8 +30,8 @@ from math import gcd
 
 def solution(limit: int = 1500000) -> int:
     """
-    Return the number of values of L <= limit such that a wire of length L can be
-    formmed into an integer sided right angle triangle in exactly one way.
+    返回满足 L <= limit 且长度为 L 的金属丝恰好能以一种方式形成整数边直角三角形的
+    L 值数量。
     >>> solution(50)
     6
     >>> solution(1000)

@@ -1,26 +1,23 @@
 """
 Project Euler Problem 6: https://projecteuler.net/problem=6
 
-Sum square difference
+平方和之差
 
-The sum of the squares of the first ten natural numbers is,
+前十个自然数的平方和为：
     1^2 + 2^2 + ... + 10^2 = 385
 
-The square of the sum of the first ten natural numbers is,
+前十个自然数之和的平方为：
     (1 + 2 + ... + 10)^2 = 55^2 = 3025
 
-Hence the difference between the sum of the squares of the first ten
-natural numbers and the square of the sum is 3025 - 385 = 2640.
+因此，前十个自然数的平方和与其和的平方之差为 3025 - 385 = 2640。
 
-Find the difference between the sum of the squares of the first one
-hundred natural numbers and the square of the sum.
+求前一百个自然数的平方和与其和的平方之差。
 """
 
 
 def solution(n: int = 100) -> int:
     """
-    Returns the difference between the sum of the squares of the first n
-    natural numbers and the square of the sum.
+    返回前 n 个自然数的平方和与其和的平方之差。
 
     >>> solution(10)
     2640

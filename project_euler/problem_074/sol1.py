@@ -1,30 +1,25 @@
 """
 Project Euler Problem 74: https://projecteuler.net/problem=74
 
-The number 145 is well known for the property that the sum of the factorial of its
-digits is equal to 145:
+数 145 因其各位数字的阶乘之和等于 145 而广为人知：
 
 1! + 4! + 5! = 1 + 24 + 120 = 145
 
-Perhaps less well known is 169, in that it produces the longest chain of numbers that
-link back to 169; it turns out that there are only three such loops that exist:
+可能较少有人知道，169 会产生回到 169 的最长数字链；事实证明仅存在以下三个循环：
 
 169 → 363601 → 1454 → 169
 871 → 45361 → 871
 872 → 45362 → 872
 
-It is not difficult to prove that EVERY starting number will eventually get stuck in
-a loop. For example,
+不难证明，每个起始数最终都会陷入循环。例如：
 
 69 → 363600 → 1454 → 169 → 363601 (→ 1454)
 78 → 45360 → 871 → 45361 (→ 871)
 540 → 145 (→ 145)
 
-Starting with 69 produces a chain of five non-repeating terms, but the longest
-non-repeating chain with a starting number below one million is sixty terms.
+从 69 开始会产生包含五个不重复项的链，而起始数低于一百万的最长不重复链包含六十项。
 
-How many chains, with a starting number below one million, contain exactly sixty
-non-repeating terms?
+起始数低于一百万且恰好包含六十个不重复项的链有多少条？
 """
 
 DIGIT_FACTORIALS = {
@@ -55,7 +50,7 @@ CHAIN_LENGTH_CACHE = {
 
 def sum_digit_factorials(n: int) -> int:
     """
-    Return the sum of the factorial of the digits of n.
+    返回 n 的各位数字阶乘之和。
     >>> sum_digit_factorials(145)
     145
     >>> sum_digit_factorials(45361)
@@ -72,8 +67,7 @@ def sum_digit_factorials(n: int) -> int:
 
 def chain_length(n: int, previous: set | None = None) -> int:
     """
-    Calculate the length of the chain of non-repeating terms starting with n.
-    Previous is a set containing the previous member of the chain.
+    计算从 n 开始的不重复项链的长度。Previous 是包含链中先前成员的集合。
     >>> chain_length(10101)
     11
     >>> chain_length(555)
@@ -97,8 +91,7 @@ def chain_length(n: int, previous: set | None = None) -> int:
 
 def solution(num_terms: int = 60, max_start: int = 1000000) -> int:
     """
-    Return the number of chains with a starting number below one million which
-    contain exactly n non-repeating terms.
+    返回起始数低于一百万且恰好包含 n 个不重复项的链的数量。
     >>> solution(10,1000)
     28
     """

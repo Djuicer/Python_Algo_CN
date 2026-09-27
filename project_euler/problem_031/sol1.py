@@ -1,15 +1,14 @@
 """
-Coin sums
+硬币求和
 Problem 31: https://projecteuler.net/problem=31
 
-In England the currency is made up of pound, f, and pence, p, and there are
-eight coins in general circulation:
+英国货币由英镑 f 和便士 p 组成，通常流通八种硬币：
 
 1p, 2p, 5p, 10p, 20p, 50p, f1 (100p) and f2 (200p).
-It is possible to make f2 in the following way:
+可以按以下方式凑出 f2：
 
 1xf1 + 1x50p + 2x20p + 1x5p + 1x2p + 3x1p
-How many different ways can f2 be made using any number of coins?
+使用任意数量的硬币，有多少种不同方式可以凑出 f2？
 """
 
 
@@ -46,8 +45,7 @@ def two_pound(x: int) -> int:
 
 
 def solution(n: int = 200) -> int:
-    """Returns the number of different ways can n pence be made using any number of
-    coins?
+    """返回使用任意数量的硬币凑出 n 便士的不同方式数。
 
     >>> solution(500)
     6295434

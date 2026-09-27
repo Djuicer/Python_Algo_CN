@@ -1,7 +1,7 @@
 """
 Problem 81: https://projecteuler.net/problem=81
-In the 5 by 5 matrix below, the minimal path sum from the top left to the bottom right,
-by only moving to the right and down, is indicated in bold red and is equal to 2427.
+在下面的 5 x 5 矩阵中，只能向右和向下移动时，从左上角到右下角的最小路径和
+以红色粗体标出，等于 2427。
 
     [131]   673   234    103    18
     [201]  [96]  [342]   965   150
@@ -9,9 +9,9 @@ by only moving to the right and down, is indicated in bold red and is equal to 2
      537   699   497    [121]  956
      805   732   524    [37]  [331]
 
-Find the minimal path sum from the top left to the bottom right by only moving right
-and down in matrix.txt (https://projecteuler.net/project/resources/p081_matrix.txt),
-a 31K text file containing an 80 by 80 matrix.
+matrix.txt（https://projecteuler.net/project/resources/p081_matrix.txt）是一个包含
+80 x 80 矩阵的 31K 文本文件。求其中只能向右和向下移动时，从左上角到右下角的
+最小路径和。
 """
 
 import os
@@ -19,7 +19,7 @@ import os
 
 def solution(filename: str = "matrix.txt") -> int:
     """
-    Returns the minimal path sum from the top left to the bottom right of the matrix.
+    返回矩阵中从左上角到右下角的最小路径和。
     >>> solution()
     427337
     """

@@ -1,22 +1,21 @@
 """
 Project Euler Problem 4: https://projecteuler.net/problem=4
 
-Largest palindrome product
+最大回文乘积
 
-A palindromic number reads the same both ways. The largest palindrome made
-from the product of two 2-digit numbers is 9009 = 91 x 99.
+回文数从前向后读和从后向前读都相同。两个 2 位数乘积得到的最大回文数是
+9009 = 91 x 99。
 
-Find the largest palindrome made from the product of two 3-digit numbers.
+求两个 3 位数乘积得到的最大回文数。
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Palindromic_number
 """
 
 
 def solution(n: int = 998001) -> int:
     """
-    Returns the largest palindrome made from the product of two 3-digit
-    numbers which is less than n.
+    返回小于 n、且由两个 3 位数的乘积得到的最大回文数。
 
     >>> solution(20000)
     19591
@@ -27,7 +26,7 @@ def solution(n: int = 998001) -> int:
     """
 
     answer = 0
-    for i in range(999, 99, -1):  # 3 digit numbers range from 999 down to 100
+    for i in range(999, 99, -1):  # 三位数的范围从 999 递减到 100
         for j in range(999, 99, -1):
             product_string = str(i * j)
             if product_string == product_string[::-1] and i * j < n:

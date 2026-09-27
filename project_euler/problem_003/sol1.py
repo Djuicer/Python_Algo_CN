@@ -1,13 +1,13 @@
 """
 Project Euler Problem 3: https://projecteuler.net/problem=3
 
-Largest prime factor
+最大质因数
 
-The prime factors of 13195 are 5, 7, 13 and 29.
+13195 的质因数为 5、7、13 和 29。
 
-What is the largest prime factor of the number 600851475143?
+数 600851475143 的最大质因数是多少？
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Prime_number#Unique_factorization
 """
 
@@ -15,10 +15,9 @@ import math
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
-    A number is prime if it has exactly two factors: 1 and itself.
-    Returns boolean representing primality of given number (i.e., if the
-    result is true, then the number is indeed prime else it is not).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为质数。
+    如果一个数恰好有两个因数：1 和它本身，则该数为质数。
+    返回表示给定数是否为质数的布尔值。
 
     >>> is_prime(2)
     True
@@ -35,13 +34,13 @@ def is_prime(number: int) -> bool:
     """
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 和 3 是质数
         return True
     elif number < 2 or number % 2 == 0 or number % 3 == 0:
-        # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
+        # 负数、0、1、所有偶数及所有 3 的倍数都不是质数
         return False
 
-    # All primes number are in format of 6k +/- 1
+    # 所有大于 3 的质数都可表示为 6k +/- 1
     for i in range(5, int(math.sqrt(number) + 1), 6):
         if number % i == 0 or number % (i + 2) == 0:
             return False
@@ -50,7 +49,7 @@ def is_prime(number: int) -> bool:
 
 def solution(n: int = 600851475143) -> int:
     """
-    Returns the largest prime factor of a given number n.
+    返回给定数 n 的最大质因数。
 
     >>> solution(13195)
     29

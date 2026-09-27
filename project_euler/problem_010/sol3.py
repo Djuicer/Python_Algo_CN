@@ -1,13 +1,13 @@
 """
 Project Euler Problem 10: https://projecteuler.net/problem=10
 
-Summation of primes
+质数求和
 
-The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+小于 10 的质数之和为 2 + 3 + 5 + 7 = 17。
 
-Find the sum of all the primes below two million.
+求所有小于两百万的质数之和。
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Prime_number
     - https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 """
@@ -15,10 +15,10 @@ References:
 
 def solution(n: int = 2000000) -> int:
     """
-    Returns the sum of all the primes below n using Sieve of Eratosthenes:
+    使用埃拉托斯特尼筛法（Sieve of Eratosthenes）返回所有小于 n 的质数之和：
 
-    The sieve of Eratosthenes is one of the most efficient ways to find all primes
-    smaller than n when n is smaller than 10 million.  Only for positive numbers.
+    当 n 小于 1000 万时，埃拉托斯特尼筛法是查找所有小于 n 的质数的
+    高效方法之一。仅适用于正数。
 
     >>> solution(1000)
     76127

@@ -1,9 +1,7 @@
 """
 Project Euler Problem 80: https://projecteuler.net/problem=80
 Author: Sandeep Gupta
-Problem statement: For the first one hundred natural numbers, find the total of
-the digital sums of the first one hundred decimal digits for all the irrational
-square roots.
+题目说明：对于前一百个自然数，求所有无理平方根小数部分前一百位数字之和的总和。
 Time: 5 October 2020, 18:30
 """
 
@@ -12,10 +10,8 @@ import decimal
 
 def solution() -> int:
     """
-    To evaluate the sum, Used decimal python module to calculate the decimal
-    places up to 100, the most important thing would be take calculate
-    a few extra places for decimal otherwise there will be rounding
-    error.
+    为计算该总和，使用 Python 的 decimal 模块计算到小数点后 100 位。
+    最重要的是额外计算几位小数，否则会产生舍入误差。
 
     >>> solution()
     40886

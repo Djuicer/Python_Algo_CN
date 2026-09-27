@@ -1,8 +1,7 @@
 """
-The following undirected network consists of seven vertices and twelve edges
-with a total weight of 243.
+以下无向网络由七个顶点和十二条边组成，总权重为 243。
 ￼
-The same network can be represented by the matrix below.
+同一网络可由下列矩阵表示。
 
     A   B   C   D   E   F   G
 A   -   16  12  21  -   -   -
@@ -13,19 +12,16 @@ E   -   20  -   18  -   -   11
 F   -   -   31  19  -   -   27
 G   -   -   -   23  11  27  -
 
-However, it is possible to optimise the network by removing some edges and still
-ensure that all points on the network remain connected. The network which achieves
-the maximum saving is shown below. It has a weight of 93, representing a saving of
-243 - 93 = 150 from the original network.
+可以移除一些边来优化网络，同时保证网络中所有点仍然连通。能实现最大节省的网络
+如下所示，其权重为 93，相比原网络节省 243 - 93 = 150。
 
-Using network.txt (right click and 'Save Link/Target As...'), a 6K text file
-containing a network with forty vertices, and given in matrix form, find the maximum
-saving which can be achieved by removing redundant edges whilst ensuring that the
-network remains connected.
+network.txt（右键单击并选择 'Save Link/Target As...'）是一个 6K 文本文件，
+以矩阵形式给出包含四十个顶点的网络。求在保证网络连通的同时移除冗余边所能实现的
+最大节省值。
 
-Solution:
-    We use Prim's algorithm to find a Minimum Spanning Tree.
-    Reference: https://en.wikipedia.org/wiki/Prim%27s_algorithm
+解法：
+    使用 Prim 算法寻找最小生成树（Minimum Spanning Tree）。
+    参考资料：https://en.wikipedia.org/wiki/Prim%27s_algorithm
 """
 
 from __future__ import annotations
@@ -38,7 +34,7 @@ EdgeT = tuple[int, int]
 
 class Graph:
     """
-    A class representing an undirected weighted graph.
+    表示无向加权图的类。
     """
 
     def __init__(self, vertices: set[int], edges: Mapping[EdgeT, int]) -> None:
@@ -94,8 +90,7 @@ class Graph:
 
 def solution(filename: str = "p107_network.txt") -> int:
     """
-    Find the maximum saving which can be achieved by removing redundant edges
-    whilst ensuring that the network remains connected.
+    求在保证网络连通的同时移除冗余边所能实现的最大节省值。
     >>> solution("test_network.txt")
     150
     """

@@ -1,15 +1,14 @@
 """
 Problem 15: https://projecteuler.net/problem=15
 
-Starting in the top left corner of a 2x2 grid, and only being able to move to
-the right and down, there are exactly 6 routes to the bottom right corner.
-How many such routes are there through a 20x20 grid?
+从 2x2 网格的左上角出发，并且只能向右和向下移动，到达右下角恰好有 6 条路径。
+在 20x20 网格中有多少条这样的路径？
 """
 
 
 def solution(n: int = 20) -> int:
     """
-    Solve by explicitly counting the paths with dynamic programming.
+    使用动态规划（Dynamic Programming）显式统计路径数。
 
     >>> solution(6)
     924

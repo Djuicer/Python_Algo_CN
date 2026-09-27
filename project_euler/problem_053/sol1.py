@@ -1,20 +1,19 @@
 """
-Combinatoric selections
+组合选择
 Problem 53
 
-There are exactly ten ways of selecting three from five, 12345:
+从五个元素 12345 中选择三个，恰好有十种方式：
 
-    123, 124, 125, 134, 135, 145, 234, 235, 245, and 345
+    123, 124, 125, 134, 135, 145, 234, 235, 245, 和 345
 
-In combinatorics, we use the notation, 5C3 = 10.
+在组合数学中，记作 5C3 = 10。
 
-In general,
+一般而言，
 
-nCr = n!/(r!(n-r)!),where r ≤ n, n! = nx(n-1)x...x3x2x1, and 0! = 1.
-It is not until n = 23, that a value exceeds one-million: 23C10 = 1144066.
+nCr = n!/(r!(n-r)!)，其中 r ≤ n，n! = nx(n-1)x...x3x2x1，且 0! = 1。
+直到 n = 23，才有一个值超过一百万：23C10 = 1144066。
 
-How many, not necessarily distinct, values of nCr, for 1 ≤ n ≤ 100, are greater
-than one-million?
+对于 1 ≤ n ≤ 100，有多少个（不要求互不相同的）nCr 值大于一百万？
 """
 
 from math import factorial
@@ -25,8 +24,7 @@ def combinations(n, r):
 
 
 def solution():
-    """Returns the number of values of nCr, for 1 ≤ n ≤ 100, are greater than
-    one-million
+    """返回 1 ≤ n ≤ 100 时大于一百万的 nCr 值的数量。
 
     >>> solution()
     4075

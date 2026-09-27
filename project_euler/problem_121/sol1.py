@@ -1,26 +1,19 @@
 """
-A bag contains one red disc and one blue disc. In a game of chance a player takes a
-disc at random and its colour is noted. After each turn the disc is returned to the
-bag, an extra red disc is added, and another disc is taken at random.
+袋中有一个红色圆片和一个蓝色圆片。在一场概率游戏中，玩家随机取出一个圆片并记录颜色。
+每轮结束后将圆片放回袋中，再加入一个红色圆片，然后再次随机取出一个圆片。
 
-The player pays £1 to play and wins if they have taken more blue discs than red
-discs at the end of the game.
+玩家支付 £1 参加游戏；游戏结束时，若取出的蓝色圆片多于红色圆片，则玩家获胜。
 
-If the game is played for four turns, the probability of a player winning is exactly
-11/120, and so the maximum prize fund the banker should allocate for winning in this
-game would be £10 before they would expect to incur a loss. Note that any payout will
-be a whole number of pounds and also includes the original £1 paid to play the game,
-so in the example given the player actually wins £9.
+如果游戏进行四轮，玩家获胜概率恰为 11/120。因此，在预期出现亏损之前，庄家为胜者
+分配的最高奖金应为 £10。注意，任何赔付都是整数英镑，并包含最初支付的 £1 游戏费，
+所以在该示例中玩家实际赢得 £9。
 
-Find the maximum prize fund that should be allocated to a single game in which
-fifteen turns are played.
+求进行十五轮的单局游戏应分配的最高奖金。
 
 
-Solution:
-    For each 15-disc sequence of red and blue for which there are more red than blue,
-    we calculate the probability of that sequence and add it to the total probability
-    of the player winning. The inverse of this probability gives an upper bound for
-    the prize if the banker wants to avoid an expected loss.
+解法：
+    对每个由红蓝圆片组成且红色多于蓝色的 15 圆片序列，计算其概率并加入玩家获胜的
+    总概率。如果庄家希望避免预期亏损，该概率的倒数即为奖金上界。
 """
 
 from itertools import product
@@ -28,8 +21,7 @@ from itertools import product
 
 def solution(num_turns: int = 15) -> int:
     """
-    Find the maximum prize fund that should be allocated to a single game in which
-    fifteen turns are played.
+    求进行十五轮的单局游戏应分配的最高奖金。
     >>> solution(4)
     10
     >>> solution(10)

@@ -1,35 +1,31 @@
 """
-Lychrel numbers
+Lychrel 数
 Problem 55: https://projecteuler.net/problem=55
 
-If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.
+取 47，将其反转后相加，47 + 74 = 121，结果是回文数。
 
-Not all numbers produce palindromes so quickly. For example,
+并非所有数字都能如此迅速地产生回文数。例如，
 349 + 943 = 1292,
 1292 + 2921 = 4213
 4213 + 3124 = 7337
-That is, 349 took three iterations to arrive at a palindrome.
+也就是说，349 经过三次迭代才得到回文数。
 
-Although no one has proved it yet, it is thought that some numbers, like 196,
-never produce a palindrome. A number that never forms a palindrome through the
-reverse and add process is called a Lychrel number. Due to the theoretical nature
-of these numbers, and for the purpose of this problem, we shall assume that a number
-is Lychrel until proven otherwise. In addition you are given that for every number
-below ten-thousand, it will either (i) become a palindrome in less than fifty
-iterations, or, (ii) no one, with all the computing power that exists, has managed
-so far to map it to a palindrome. In fact, 10677 is the first number to be shown
-to require over fifty iterations before producing a palindrome:
+尽管尚无人证明，但人们认为某些数（如 196）永远不会产生回文数。通过“反转并相加”
+过程始终不能形成回文数的数称为 Lychrel 数。由于这些数具有理论性质，为解决本题，
+在证明并非如此之前，我们都假设一个数是 Lychrel 数。此外，已知对于一万以下的每个数，
+它要么 (i) 在少于五十次迭代后成为回文数，要么 (ii) 迄今即使使用现有全部计算能力，
+也无人能将其映射为回文数。事实上，10677 是首个被证明需要超过五十次迭代才产生
+回文数的数字：
 4668731596684224866951378664 (53 iterations, 28-digits).
 
-Surprisingly, there are palindromic numbers that are themselves Lychrel numbers;
-the first example is 4994.
-How many Lychrel numbers are there below ten-thousand?
+令人惊讶的是，有些回文数本身也是 Lychrel 数；第一个例子是 4994。
+一万以下有多少个 Lychrel 数？
 """
 
 
 def is_palindrome(n: int) -> bool:
     """
-    Returns True if a number is palindrome.
+    如果一个数是回文数，则返回 True。
     >>> is_palindrome(12567321)
     False
     >>> is_palindrome(1221)
@@ -42,7 +38,7 @@ def is_palindrome(n: int) -> bool:
 
 def sum_reverse(n: int) -> int:
     """
-    Returns the sum of n and reverse of n.
+    返回 n 与其反转数之和。
     >>> sum_reverse(123)
     444
     >>> sum_reverse(3478)
@@ -55,7 +51,7 @@ def sum_reverse(n: int) -> int:
 
 def solution(limit: int = 10000) -> int:
     """
-    Returns the count of all lychrel numbers below limit.
+    返回 limit 以下所有 Lychrel 数的数量。
     >>> solution(10000)
     249
     >>> solution(5000)

@@ -1,13 +1,13 @@
 """
 Project Euler Problem 122: https://projecteuler.net/problem=122
 
-Efficient Exponentiation
+高效求幂
 
-The most naive way of computing n^15 requires fourteen multiplications:
+计算 n^15 最朴素的方法需要十四次乘法：
 
                                                n x n x ... x n = n^15.
 
-But using a "binary" method you can compute it in six multiplications:
+但使用“二进制”方法只需六次乘法：
 
                                                          n x n = n^2
                                                      n^2 x n^2 = n^4
@@ -16,7 +16,7 @@ But using a "binary" method you can compute it in six multiplications:
                                                     n^12 x n^2 = n^14
                                                       n^14 x n = n^15
 
-However it is yet possible to compute it in only five multiplications:
+还可以只用五次乘法完成计算：
 
                                                                 n x n = n^2
                                                               n^2 x n = n^3
@@ -24,23 +24,20 @@ However it is yet possible to compute it in only five multiplications:
                                                             n^6 x n^6 = n^12
                                                            n^12 x n^3 = n^15
 
-We shall define m(k) to be the minimum number of multiplications to compute n^k;
-for example m(15) = 5.
+定义 m(k) 为计算 n^k 所需的最少乘法次数；例如 m(15) = 5。
 
-Find sum_{k = 1}^200 m(k).
+求 sum_{k = 1}^200 m(k)。
 
-It uses the fact that for rather small n, applicable for this problem, the solution
-for each number can be formed by increasing the largest element.
+本题利用这样一个事实：对于适用于本题的较小 n，每个数的解都可通过增大最大元素构成。
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Addition_chain
 """
 
 
 def solve(nums: list[int], goal: int, depth: int) -> bool:
     """
-    Checks if nums can have a sum equal to goal, given that length of nums does
-    not exceed depth.
+    在 nums 长度不超过 depth 的条件下，检查 nums 中的数能否得到等于 goal 的和。
 
     >>> solve([1], 2, 2)
     True
@@ -61,8 +58,7 @@ def solve(nums: list[int], goal: int, depth: int) -> bool:
 
 def solution(n: int = 200) -> int:
     """
-    Calculates sum of smallest number of multiplactions for each number up to
-    and including n.
+    计算不超过 n 的每个数所需最少乘法次数之和。
 
     >>> solution(1)
     0

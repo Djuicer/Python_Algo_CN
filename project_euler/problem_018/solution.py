@@ -1,15 +1,14 @@
 """
-By starting at the top of the triangle below and moving to adjacent numbers on
-the row below, the maximum total from top to bottom is 23.
+从下面三角形的顶端开始，每次移动到下一行相邻的数，从顶端到底端的最大总和为 23。
 
 3
 7 4
 2 4 6
 8 5 9 3
 
-That is, 3 + 7 + 4 + 9 = 23.
+即 3 + 7 + 4 + 9 = 23。
 
-Find the maximum total from top to bottom of the triangle below:
+求下面三角形从顶端到底端的最大总和：
 
 75
 95 64
@@ -33,8 +32,7 @@ import os
 
 def solution():
     """
-    Finds the maximum total in a triangle as described by the problem statement
-    above.
+    求出上述题目中三角形的最大总和。
 
     >>> solution()
     1074

@@ -1,8 +1,7 @@
 """
 Problem 46: https://projecteuler.net/problem=46
 
-It was proposed by Christian Goldbach that every odd composite number can be
-written as the sum of a prime and twice a square.
+Christian Goldbach 曾提出，每个奇合数都可以写成一个素数与一个平方数两倍之和。
 
 9 = 7 + 2 x 12
 15 = 7 + 2 x 22
@@ -11,10 +10,9 @@ written as the sum of a prime and twice a square.
 27 = 19 + 2 x 22
 33 = 31 + 2 x 12
 
-It turns out that the conjecture was false.
+事实证明，这个猜想是错误的。
 
-What is the smallest odd composite that cannot be written as the sum of a
-prime and twice a square?
+不能写成一个素数与一个平方数两倍之和的最小奇合数是多少？
 """
 
 from __future__ import annotations
@@ -23,9 +21,9 @@ import math
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为素数。
 
-    A number is prime if it has exactly two factors: 1 and itself.
+    如果一个数恰好有两个因数（1 和它本身），则它是素数。
 
     >>> is_prime(0)
     False
@@ -48,13 +46,13 @@ def is_prime(number: int) -> bool:
     """
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 和 3 是质数
         return True
     elif number < 2 or number % 2 == 0 or number % 3 == 0:
-        # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
+        # 负数、0、1、所有偶数以及 3 的倍数都不是质数
         return False
 
-    # All primes number are in format of 6k +/- 1
+    # 所有质数都形如 6k +/- 1
     for i in range(5, int(math.sqrt(number) + 1), 6):
         if number % i == 0 or number % (i + 2) == 0:
             return False
@@ -66,8 +64,7 @@ odd_composites = [num for num in range(3, 100001, 2) if not is_prime(num)]
 
 def compute_nums(n: int) -> list[int]:
     """
-    Returns a list of first n odd composite numbers which do
-    not follow the conjecture.
+    返回前 n 个不符合该猜想的奇合数列表。
     >>> compute_nums(1)
     [5777]
     >>> compute_nums(2)
@@ -108,7 +105,7 @@ def compute_nums(n: int) -> list[int]:
 
 
 def solution() -> int:
-    """Return the solution to the problem"""
+    """返回该问题的解。"""
     return compute_nums(1)[0]
 
 

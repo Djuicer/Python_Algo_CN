@@ -1,17 +1,14 @@
 """
 Project Euler Problem 79: https://projecteuler.net/problem=79
 
-Passcode derivation
+口令推导
 
-A common security method used for online banking is to ask the user for three
-random characters from a passcode. For example, if the passcode was 531278,
-they may ask for the 2nd, 3rd, and 5th characters; the expected reply would
-be: 317.
+网上银行常用的一种安全方法，是要求用户提供口令中的三个随机字符。例如，若口令为
+531278，系统可能要求第 2、第 3 和第 5 个字符；预期回答为 317。
 
-The text file, keylog.txt, contains fifty successful login attempts.
+文本文件 keylog.txt 包含五十次成功登录尝试。
 
-Given that the three characters are always asked for in order, analyse the file
-so as to determine the shortest possible secret passcode of unknown length.
+已知三个字符总是按顺序询问，分析该文件以确定长度未知的最短可能秘密口令。
 """
 
 import itertools
@@ -20,7 +17,7 @@ from pathlib import Path
 
 def find_secret_passcode(logins: list[str]) -> int:
     """
-    Returns the shortest possible secret passcode of unknown length.
+    返回长度未知的最短可能秘密口令。
 
     >>> find_secret_passcode(["135", "259", "235", "189", "690", "168", "120",
     ...     "136", "289", "589", "160", "165", "580", "369", "250", "280"])
@@ -55,8 +52,7 @@ def find_secret_passcode(logins: list[str]) -> int:
 
 def solution(input_file: str = "keylog.txt") -> int:
     """
-    Returns the shortest possible secret passcode of unknown length
-    for successful login attempts given by `input_file` text file.
+    返回由文本文件 `input_file` 中成功登录尝试所确定的、长度未知的最短可能秘密口令。
 
     >>> solution("keylog_test.txt")
     6312980

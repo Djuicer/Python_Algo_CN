@@ -1,37 +1,30 @@
 """
 Project Euler Problem 074: https://projecteuler.net/problem=74
 
-The number 145 is well known for the property that the sum of the factorial of its
-digits is equal to 145:
+数 145 因其各位数字的阶乘之和等于 145 而广为人知：
 
 1! + 4! + 5! = 1 + 24 + 120 = 145
 
-Perhaps less well known is 169, in that it produces the longest chain of numbers that
-link back to 169; it turns out that there are only three such loops that exist:
+可能较少有人知道，169 会产生回到 169 的最长数字链；事实证明仅存在以下三个循环：
 
 169 → 363601 → 1454 → 169
 871 → 45361 → 871
 872 → 45362 → 872
 
-It is not difficult to prove that EVERY starting number will eventually get stuck in a
-loop. For example,
+不难证明，每个起始数最终都会陷入循环。例如：
 
 69 → 363600 → 1454 → 169 → 363601 (→ 1454)
 78 → 45360 → 871 → 45361 (→ 871)
 540 → 145 (→ 145)
 
-Starting with 69 produces a chain of five non-repeating terms, but the longest
-non-repeating chain with a starting number below one million is sixty terms.
+从 69 开始会产生包含五个不重复项的链，而起始数低于一百万的最长不重复链包含六十项。
 
-How many chains, with a starting number below one million, contain exactly sixty
-non-repeating terms?
+起始数低于一百万且恰好包含六十个不重复项的链有多少条？
 
-Solution approach:
-This solution simply consists in a loop that generates the chains of non repeating
-items using the cached sizes of the previous chains.
-The generation of the chain stops before a repeating item or if the size of the chain
-is greater then the desired one.
-After generating each chain, the length is checked and the counter increases.
+解法思路：
+本解法使用一个循环，利用先前链的缓存长度生成不重复项链。
+遇到重复项之前，或链长度大于目标长度时停止生成。
+每条链生成后检查其长度，并增加计数器。
 """
 
 from math import factorial
@@ -41,7 +34,7 @@ DIGIT_FACTORIAL: dict[str, int] = {str(digit): factorial(digit) for digit in ran
 
 def digit_factorial_sum(number: int) -> int:
     """
-    Function to perform the sum of the factorial of all the digits in number
+    计算 number 的各位数字阶乘之和。
 
     >>> digit_factorial_sum(69.0)
     Traceback (most recent call last):
@@ -71,8 +64,7 @@ def digit_factorial_sum(number: int) -> int:
 
 def solution(chain_length: int = 60, number_limit: int = 1000000) -> int:
     """
-    Returns the number of numbers below number_limit that produce chains with exactly
-    chain_length non repeating elements.
+    返回 number_limit 以下能产生恰含 chain_length 个不重复元素之链的数字数量。
 
     >>> solution(10.0, 1000)
     Traceback (most recent call last):

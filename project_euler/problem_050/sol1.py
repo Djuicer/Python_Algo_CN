@@ -1,19 +1,16 @@
 """
 Project Euler Problem 50: https://projecteuler.net/problem=50
 
-Consecutive prime sum
+连续素数和
 
-The prime 41, can be written as the sum of six consecutive primes:
+素数 41 可以写成六个连续素数之和：
 41 = 2 + 3 + 5 + 7 + 11 + 13
 
-This is the longest sum of consecutive primes that adds to a prime below
-one-hundred.
+在一百以下可得到素数的连续素数和中，这是项数最多的一个。
 
-The longest sum of consecutive primes below one-thousand that adds to a prime,
-contains 21 terms, and is equal to 953.
+在一千以下，可得到素数且项数最多的连续素数和包含 21 项，其值为 953。
 
-Which prime, below one-million, can be written as the sum of the most
-consecutive primes?
+一百万以下哪个素数可以写成最多个连续素数之和？
 """
 
 from __future__ import annotations
@@ -21,8 +18,8 @@ from __future__ import annotations
 
 def prime_sieve(limit: int) -> list[int]:
     """
-    Sieve of Erotosthenes
-    Function to return all the prime numbers up to a number 'limit'
+    埃拉托斯特尼筛法（Sieve of Eratosthenes）。
+    返回小于数字 'limit' 的所有素数。
     https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
     >>> prime_sieve(3)
@@ -53,8 +50,7 @@ def prime_sieve(limit: int) -> list[int]:
 
 def solution(ceiling: int = 1_000_000) -> int:
     """
-    Returns the biggest prime, below the celing, that can be written as the sum
-    of consecutive the most consecutive primes.
+    返回小于上限且可写成最多个连续素数之和的最大素数。
 
     >>> solution(500)
     499

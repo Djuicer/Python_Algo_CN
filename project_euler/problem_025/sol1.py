@@ -1,9 +1,9 @@
 """
-The Fibonacci sequence is defined by the recurrence relation:
+斐波那契数列由以下递推关系定义：
 
     Fn = Fn-1 + Fn-2, where F1 = 1 and F2 = 1.
 
-Hence the first 12 terms will be:
+因此前 12 项为：
 
     F1 = 1
     F2 = 1
@@ -18,18 +18,16 @@ Hence the first 12 terms will be:
     F11 = 89
     F12 = 144
 
-The 12th term, F12, is the first term to contain three digits.
+第 12 项 F12 是第一个包含三位数字的项。
 
-What is the index of the first term in the Fibonacci sequence to contain 1000
-digits?
+斐波那契数列中第一个包含 1000 位数字的项，其索引是多少？
 """
 
 
 def fibonacci(n: int) -> int:
     """
-    Computes the Fibonacci number for input n by iterating through n numbers
-    and creating an array of ints using the Fibonacci formula.
-    Returns the nth element of the array.
+    通过迭代 n 个数并使用斐波那契公式创建整数数组，计算输入 n 对应的斐波那契数。
+    返回数组的第 n 个元素。
 
     >>> fibonacci(2)
     1
@@ -57,9 +55,8 @@ def fibonacci(n: int) -> int:
 
 def fibonacci_digits_index(n: int) -> int:
     """
-    Computes incrementing Fibonacci numbers starting from 3 until the length
-    of the resulting Fibonacci result is the input value n. Returns the term
-    of the Fibonacci sequence where this occurs.
+    从 3 开始依次计算斐波那契数，直到结果的位数等于输入值 n。
+    返回此时对应的斐波那契数列项序号。
 
     >>> fibonacci_digits_index(1000)
     4782
@@ -82,8 +79,7 @@ def fibonacci_digits_index(n: int) -> int:
 
 def solution(n: int = 1000) -> int:
     """
-    Returns the index of the first term in the Fibonacci sequence to contain
-    n digits.
+    返回斐波那契数列中第一个包含 n 位数字的项的索引。
 
     >>> solution(1000)
     4782

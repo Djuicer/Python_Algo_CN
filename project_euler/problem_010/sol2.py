@@ -1,13 +1,13 @@
 """
 Project Euler Problem 10: https://projecteuler.net/problem=10
 
-Summation of primes
+质数求和
 
-The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+小于 10 的质数之和为 2 + 3 + 5 + 7 = 17。
 
-Find the sum of all the primes below two million.
+求所有小于两百万的质数之和。
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Prime_number
 """
 
@@ -17,10 +17,9 @@ from itertools import takewhile
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
-    A number is prime if it has exactly two factors: 1 and itself.
-    Returns boolean representing primality of given number num (i.e., if the
-    result is true, then the number is indeed prime else it is not).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为质数。
+    如果一个数恰好有两个因数：1 和它本身，则该数为质数。
+    返回表示给定数 num 是否为质数的布尔值。
 
     >>> is_prime(2)
     True
@@ -37,13 +36,13 @@ def is_prime(number: int) -> bool:
     """
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 和 3 是质数
         return True
     elif number < 2 or number % 2 == 0 or number % 3 == 0:
-        # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
+        # 负数、0、1、所有偶数以及 3 的倍数都不是质数
         return False
 
-    # All primes number are in format of 6k +/- 1
+    # 所有质数都形如 6k +/- 1
     for i in range(5, int(math.sqrt(number) + 1), 6):
         if number % i == 0 or number % (i + 2) == 0:
             return False
@@ -52,7 +51,7 @@ def is_prime(number: int) -> bool:
 
 def prime_generator() -> Iterator[int]:
     """
-    Generate a list sequence of prime numbers
+    生成质数列表
     """
 
     num = 2
@@ -64,7 +63,7 @@ def prime_generator() -> Iterator[int]:
 
 def solution(n: int = 2000000) -> int:
     """
-    Returns the sum of all the primes below n.
+    返回所有小于 n 的质数之和。
 
     >>> solution(1000)
     76127

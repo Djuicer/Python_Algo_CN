@@ -1,16 +1,13 @@
 """
 Project Euler Problem 104 : https://projecteuler.net/problem=104
 
-The Fibonacci sequence is defined by the recurrence relation:
+斐波那契数列由以下递推关系定义：
 
 Fn = Fn-1 + Fn-2, where F1 = 1 and F2 = 1.
-It turns out that F541, which contains 113 digits, is the first Fibonacci number
-for which the last nine digits are 1-9 pandigital (contain all the digits 1 to 9,
-but not necessarily in order). And F2749, which contains 575 digits, is the first
-Fibonacci number for which the first nine digits are 1-9 pandigital.
+事实证明，包含 113 位的 F541 是首个末九位为 1-9 全数字（包含数字 1 到 9，
+顺序不限）的斐波那契数。包含 575 位的 F2749 是首个前九位为 1-9 全数字的斐波那契数。
 
-Given that Fk is the first Fibonacci number for which the first nine digits AND
-the last nine digits are 1-9 pandigital, find k.
+已知 Fk 是首个前九位和末九位均为 1-9 全数字的斐波那契数，求 k。
 """
 
 import sys
@@ -20,7 +17,7 @@ sys.set_int_max_str_digits(0)
 
 def check(number: int) -> bool:
     """
-    Takes a number and checks if it is pandigital both from start and end
+    接收一个数，检查其首尾是否均为全数字。
 
 
     >>> check(123456789987654321)
@@ -69,7 +66,7 @@ def check(number: int) -> bool:
 
 def check1(number: int) -> bool:
     """
-    Takes a number and checks if it is pandigital from END
+    接收一个数，检查其末尾是否为全数字。
 
     >>> check1(123456789987654321)
     True
@@ -101,7 +98,7 @@ def check1(number: int) -> bool:
 
 def solution() -> int:
     """
-    Outputs the answer is the least Fibonacci number pandigital from both sides.
+    输出首尾均为全数字的最小斐波那契数所对应的答案。
     >>> solution()
     329468
     """

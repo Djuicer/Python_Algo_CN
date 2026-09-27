@@ -1,28 +1,25 @@
 """
-The nth term of the sequence of triangle numbers is given by, tn = ½n(n+1); so
-the first ten triangle numbers are:
+三角数数列的第 n 项为 tn = ½n(n+1)；因此前十个三角数为：
 
 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
 
-By converting each letter in a word to a number corresponding to its
-alphabetical position and adding these values we form a word value. For example,
-the word value for SKY is 19 + 11 + 25 = 55 = t10. If the word value is a
-triangle number then we shall call the word a triangle word.
+将单词中的每个字母转换为其字母表位置对应的数字并求和，可得到单词值。例如，
+SKY 的单词值为 19 + 11 + 25 = 55 = t10。如果单词值是三角数，
+则称该单词为三角单词。
 
-Using words.txt (right click and 'Save Link/Target As...'), a 16K text file
-containing nearly two-thousand common English words, how many are triangle
-words?
+words.txt（右键单击并选择 'Save Link/Target As...'）是一个包含近两千个常用
+英语单词的 16K 文本文件，其中有多少个三角单词？
 """
 
 import os
 
-# Precomputes a list of the 100 first triangular numbers
+# 预先计算前 100 个三角数的列表
 TRIANGULAR_NUMBERS = [int(0.5 * n * (n + 1)) for n in range(1, 101)]
 
 
 def solution():
     """
-    Finds the amount of triangular words in the words file.
+    计算单词文件中三角单词的数量。
 
     >>> solution()
     162

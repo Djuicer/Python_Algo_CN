@@ -1,56 +1,40 @@
 """
 Project Euler Problem 60: https://projecteuler.net/problem=60
 
-# Problem Statement:
+# 题目说明：
 
-The primes 3, 7, 109, and 673 are quite remarkable. By taking any two primes
-and concatenating them in any order the result will always be prime.
-For example, taking 7 and 109, both 7109 and 1097 are prime.
-The sum of these four primes, 792, represents the lowest sum for a set of four primes
-with this property.
-Find the lowest sum for a set of five primes for which any two primes concatenate
-to produce another prime.
+素数 3, 7, 109 和 673 非常特别。任取其中两个素数，以任意顺序连接，结果始终是素数。
+例如，取 7 和 109，7109 与 1097 都是素数。这四个素数之和 792，是具有该性质的
+四素数集合中的最小和。找出具有如下性质的五素数集合的最小和：任意两个素数连接后
+仍为素数。
 
-# Solution Explanation:
+# 解法说明：
 
-The brute force approach would be to check all combinations of 5 primes and check
-if they satisfy the concatenation property. However, this is computationally
-expensive. Instead, we can use a backtracking approach to build sets of primes
-that satisfy the concatenation property. We can further optimize by using property
-of divisibility by 3 to eliminate certain candidates and memoization to avoid
-redundant prime checks.
-Throughout the code, we have used a parameter flag to indicate whether
-we are working with primes that are congruent to 1 or 2 modulo 3.
-This helps in reducing the search space.
+暴力方法会检查所有 5 个素数的组合并判断其是否满足连接性质，但计算代价很高。
+可改用回溯法构造满足连接性质的素数集合，并利用被 3 整除的性质排除部分候选值，
+再通过记忆化避免重复的素数检查。代码使用参数 flag 表示当前处理的是模 3 余 1
+还是余 2 的素数，从而缩小搜索空间。
 
-## Eliminating candidates using divisibility by 3:
-Consider any 2 primes p1 and p2 that are not divisible by 3. If p1 divided by 3
-gives a remainder of 1 and p2 divided by 3 gives a remainder of 2, then
-the concatenated number p1p2 will be divisible by 3 and hence not prime.
-This can be easily proven using the property of modular arithmetic.
+## 利用被 3 整除的性质排除候选值：
+考虑任意两个不能被 3 整除的素数 p1 和 p2。如果 p1 除以 3 余 1，p2 除以 3 余 2，
+则连接所得数字 p1p2 能被 3 整除，因此不是素数。利用模运算性质可轻易证明这一点。
     Consider p1 ≡ 1 (mod 3) and p2 ≡ 2 (mod 3). Define a1 = p1, b1 = 1, a2 = p2, b2 = 2.
     concat(p1, p2) = (p1 * 10^k + p2) where k is the number of digits in p2.
     Now, (p1 * 10^k + p2) mod 3 = ((p1 * 10^k) + p2) mod 3
     As 10^k mod 3 = 1, we have (p1 * 1 + p2) mod 3 (ka mod 3 = kb mod 3)
     Which implies (p1 + p2) mod 3 = (1 + 2) mod 3 = 0 (a1 + a2 mod 3 = b1 + b2 mod 3)
 
-Thus, we can eliminate such pairs from our search space and reach the solution faster.
-The solution uses this property to divide the primes into two lists based on their
-remainder when divided by 3. This way, we only need to check combinations within
-either list, reducing the number of checks significantly.
+因此可以从搜索空间中排除这样的数对，更快得到解。本解法根据素数除以 3 的余数，
+利用该性质将素数分成两个列表。这样只需检查各列表内部的组合，可显著减少检查次数。
 
-## Memoization:
-We can use a dictionary to store the results of prime checks for concatenated numbers.
-This way, if we encounter the same concatenated number again, we can simply look up
-the result instead of recalculating it.
+## 记忆化：
+使用字典存储连接数的素数检查结果。再次遇到相同连接数时，可直接查找结果而无需重算。
 
-## Backtracking:
-We can use a recursive function to build sets of primes. Starting with an empty set,
-we can add primes one by one, checking at each step if the current set satisfies
-the concatenation property. If it does, we can continue adding more primes.
-If we reach a set of 5 primes, we can check if their sum is the lowest
+## 回溯：
+使用递归函数构造素数集合。从空集开始逐个加入素数，每一步检查当前集合是否满足连接性质；
+若满足则继续加入。达到包含 5 个素数的集合后，检查其和是否最小。
 
-References:
+参考资料：
 - [Modular Arithmetic Explanation](https://en.wikipedia.org/wiki/Modular_arithmetic)
 - [Project Euler Forum Discussion](https://projecteuler.net/problem=60)
 - [Prime Checking Optimization](https://en.wikipedia.org/wiki/Primality_test)
@@ -68,7 +52,7 @@ prime_pairs: dict[tuple, bool] = {}
 @cache
 def is_prime(num: int) -> bool:
     """
-    Efficient primality check using 6k ± 1 optimization.
+    使用 6k ± 1 优化高效检查素数。
 
     >>> is_prime(0)
     False
@@ -104,8 +88,8 @@ def is_prime(num: int) -> bool:
 
 def sum_digits(num: int) -> int:
     """
-    Returns the sum of digits of num. If the sum is greater than 10,
-    it recursively sums the digits of the result until a single digit is obtained.
+    返回 num 的各位数字之和。如果该和大于 10，则递归求结果的各位数字之和，
+    直至得到一位数。
 
     >>> sum_digits(-18)
     Traceback (most recent call last):
@@ -129,10 +113,10 @@ def sum_digits(num: int) -> int:
 
 def is_concat(num1: int, num2: int) -> bool:
     """
-    Check if concatenations of num1+num2 and num2+num1 are both prime.
-    Uses memoization to store previously computed results in prime_pairs dictionary.
-    Effects: Updates the prime_pairs dictionary with the result.
-             Only stores (min(num1, num2), max(num1, num2)) as key to avoid duplicates.
+    检查 num1+num2 与 num2+num1 的连接结果是否均为素数。
+    使用记忆化将先前计算的结果存入 prime_pairs 字典。
+    作用：用结果更新 prime_pairs 字典。为避免重复，仅将
+    (min(num1, num2), max(num1, num2)) 存为键。
 
     >>> is_concat(3, 7)
     True
@@ -157,8 +141,8 @@ def is_concat(num1: int, num2: int) -> bool:
 
 def add_prime(primes: list[int]) -> list[int]:
     """
-    Add a new prime number to the input list of primes based on its modulo 3 value.
-    Effects: Modifies the input list by appending a new prime number.
+    根据模 3 的值向输入素数列表添加一个新素数。
+    作用：通过追加新素数来修改输入列表。
 
     >>> add_prime([3, 7, 13, 19])
     [3, 7, 13, 19, 31]
@@ -177,7 +161,7 @@ def add_prime(primes: list[int]) -> list[int]:
 
 def generate_primes(num_primes: int, flag: int = 1) -> list[int]:
     """
-    Generates a list of the first num_primes primes based on their modulo 3 value.
+    根据模 3 的值生成前 num_primes 个素数的列表。
 
     >>> generate_primes(5, 1)
     [3, 7, 13, 19, 31]
@@ -194,8 +178,7 @@ def solution(
     target_size: int = 5, prime_limit: int = 1000, flag: int = 1
 ) -> int | None:
     """
-    Search for a set of primes with the concat-prime property.
-    Returns the sum of the lowest such set found else returns None.
+    搜索具有连接素数性质的素数集合。返回所找到最小集合的和，否则返回 None。
 
     >>> solution(3, 100, None)
     Traceback (most recent call last):
@@ -214,9 +197,8 @@ def solution(
 
     def search(chain: tuple) -> tuple[int, ...] | None:
         """
-        Recursive backtracking search to find a valid set of primes.
-        A threshold is used to ensure we don't exceed the smallest sum.
-        Returns the valid set if found, else None.
+        通过递归回溯搜索有效的素数集合。使用阈值确保不超过当前最小和。
+        找到时返回有效集合，否则返回 None。
 
         >>> search((3,))
         (3, 7, 109, 673)

@@ -2,12 +2,11 @@
 Project Euler 62
 https://projecteuler.net/problem=62
 
-The cube, 41063625 (345^3), can be permuted to produce two other cubes:
-56623104 (384^3) and 66430125 (405^3). In fact, 41063625 is the smallest cube
-which has exactly three permutations of its digits which are also cube.
+立方数 41063625 (345^3) 的数字可重新排列为另外两个立方数：
+56623104 (384^3) 和 66430125 (405^3)。事实上，41063625 是数字排列中恰有三个
+也是立方数的最小立方数。
 
-Find the smallest cube for which exactly five permutations of its digits are
-cube.
+找出数字排列中恰有五个也是立方数的最小立方数。
 """
 
 from collections import defaultdict
@@ -15,15 +14,11 @@ from collections import defaultdict
 
 def solution(max_base: int = 5) -> int:
     """
-    Iterate through every possible cube and sort the cube's digits in
-    ascending order. Sorting maintains an ordering of the digits that allows
-    you to compare permutations. Store each sorted sequence of digits in a
-    dictionary, whose key is the sequence of digits and value is a list of
-    numbers that are the base of the cube.
+    遍历每个可能的立方数，并将其数字按升序排列。排序会保持一种可用于比较排列的
+    数字顺序。将每个排序后的数字序列存入字典，键为数字序列，值为立方数底数列表。
 
-    Once you find 5 numbers that produce the same sequence of digits, return
-    the smallest one, which is at index 0 since we insert each base number in
-    ascending order.
+    找到 5 个产生相同数字序列的数后，返回其中最小者。由于底数按升序插入，
+    最小者位于索引 0。
 
     >>> solution(2)
     125
@@ -46,7 +41,7 @@ def solution(max_base: int = 5) -> int:
 
 def get_digits(num: int) -> str:
     """
-    Computes the sorted sequence of digits of the cube of num.
+    计算 num 的立方的排序数字序列。
 
     >>> get_digits(3)
     '27'

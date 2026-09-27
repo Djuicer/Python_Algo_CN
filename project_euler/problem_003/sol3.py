@@ -1,20 +1,20 @@
 """
 Project Euler Problem 3: https://projecteuler.net/problem=3
 
-Largest prime factor
+最大质因数
 
-The prime factors of 13195 are 5, 7, 13 and 29.
+13195 的质因数为 5、7、13 和 29。
 
-What is the largest prime factor of the number 600851475143?
+数 600851475143 的最大质因数是多少？
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Prime_number#Unique_factorization
 """
 
 
 def solution(n: int = 600851475143) -> int:
     """
-    Returns the largest prime factor of a given number n.
+    返回给定数 n 的最大质因数。
 
     >>> solution(13195)
     29

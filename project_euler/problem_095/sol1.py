@@ -1,31 +1,26 @@
 """
 Project Euler Problem 95: https://projecteuler.net/problem=95
 
-Amicable Chains
+亲和链
 
-The proper divisors of a number are all the divisors excluding the number itself.
-For example, the proper divisors of 28 are 1, 2, 4, 7, and 14.
-As the sum of these divisors is equal to 28, we call it a perfect number.
+一个数的真约数是除该数本身之外的所有约数。例如，28 的真约数为 1, 2, 4, 7 和 14。
+由于这些约数之和等于 28，所以称它为完全数。
 
-Interestingly the sum of the proper divisors of 220 is 284 and
-the sum of the proper divisors of 284 is 220, forming a chain of two numbers.
-For this reason, 220 and 284 are called an amicable pair.
+有趣的是，220 的真约数之和为 284，而 284 的真约数之和为 220，形成一条由两个数
+组成的链。因此，220 和 284 称为一对亲和数。
 
-Perhaps less well known are longer chains.
-For example, starting with 12496, we form a chain of five numbers:
+较长的链可能不太为人所知。例如，从 12496 开始可形成一条包含五个数的链：
     12496 -> 14288 -> 15472 -> 14536 -> 14264 (-> 12496 -> ...)
 
-Since this chain returns to its starting point, it is called an amicable chain.
+由于该链返回起点，所以称为亲和链。
 
-Find the smallest member of the longest amicable chain with
-no element exceeding one million.
+找出所有元素均不超过一百万的最长亲和链中的最小成员。
 
-Solution is doing the following:
-- Get relevant prime numbers
-- Iterate over product combination of prime numbers to generate all non-prime
-  numbers up to max number, by keeping track of prime factors
-- Calculate the sum of factors for each number
-- Iterate over found some factors to find longest chain
+解法执行以下步骤：
+- 获取相关素数
+- 遍历素数乘积组合并记录素因数，生成不超过最大数的所有非素数
+- 计算每个数的因数和
+- 遍历所得因数和以寻找最长链
 """
 
 from math import isqrt
@@ -33,7 +28,7 @@ from math import isqrt
 
 def generate_primes(max_num: int) -> list[int]:
     """
-    Calculates the list of primes up to and including `max_num`.
+    计算不超过 `max_num` 的素数列表。
 
     >>> generate_primes(6)
     [2, 3, 5]
@@ -58,7 +53,7 @@ def multiply(
     primes_degrees: dict[int, int],
 ) -> None:
     """
-    Run over all prime combinations to generate non-prime numbers.
+    遍历所有素数组合以生成非素数。
 
     >>> chain = [0] * 3
     >>> primes_degrees = {}
@@ -106,7 +101,7 @@ def multiply(
 
 def find_longest_chain(chain: list[int], max_num: int) -> int:
     """
-    Finds the smallest element of longest chain
+    找出最长链中的最小元素。
 
     >>> find_longest_chain(chain=[0, 0, 0, 0, 0, 0, 6], max_num=6)
     6
@@ -133,7 +128,7 @@ def find_longest_chain(chain: list[int], max_num: int) -> int:
 
 def solution(max_num: int = 1000000) -> int:
     """
-    Runs the calculation for numbers <= `max_num`.
+    对 <= `max_num` 的数字执行计算。
 
     >>> solution(10)
     6

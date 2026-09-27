@@ -1,28 +1,24 @@
 """
-Prime permutations
+素数排列
 
 Problem 49
 
-The arithmetic sequence, 1487, 4817, 8147, in which each of
-the terms increases by 3330, is unusual in two ways:
-(i) each of the three terms are prime,
-(ii) each of the 4-digit numbers are permutations of one another.
+等差数列 1487, 4817, 8147 的每一项都增加 3330，它有两个特别之处：
+(i) 三项均为素数；
+(ii) 这三个 4 位数互为排列。
 
-There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes,
-exhibiting this property, but there is one other 4-digit increasing sequence.
+由三个 1、2 或 3 位素数组成的等差数列都不具有该性质，但还存在另一个
+由 4 位数组成的递增数列。
 
-What 12-digit number do you form by concatenating the three terms in this sequence?
+将该数列的三项连接起来，会形成哪个 12 位数？
 
-Solution:
+解法：
 
-First, we need to generate all 4 digits prime numbers. Then greedy
-all of them and use permutation to form new numbers. Use binary search
-to check if the permutated numbers is in our prime list and include
-them in a candidate list.
+首先生成所有 4 位素数，然后遍历这些素数，并通过排列形成新数。
+使用二分查找检查排列所得数字是否在素数列表中，并将其加入候选列表。
 
-After that, bruteforce all passed candidates sequences using
-3 nested loops since we know the answer will be 12 digits.
-The bruteforce of this solution will be about 1 sec.
+之后，由于已知答案为 12 位数，使用 3 层嵌套循环暴力枚举所有通过检查的候选数列。
+该解法的暴力搜索约需 1 秒。
 """
 
 import math
@@ -30,9 +26,9 @@ from itertools import permutations
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为素数。
 
-    A number is prime if it has exactly two factors: 1 and itself.
+    如果一个数恰好有两个因数（1 和它本身），则它是素数。
 
     >>> is_prime(0)
     False
@@ -55,13 +51,13 @@ def is_prime(number: int) -> bool:
     """
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 和 3 是质数
         return True
     elif number < 2 or number % 2 == 0 or number % 3 == 0:
-        # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
+        # 负数、0、1、所有偶数以及 3 的倍数都不是质数
         return False
 
-    # All primes number are in format of 6k +/- 1
+    # 所有质数都形如 6k +/- 1
     for i in range(5, int(math.sqrt(number) + 1), 6):
         if number % i == 0 or number % (i + 2) == 0:
             return False
@@ -70,7 +66,7 @@ def is_prime(number: int) -> bool:
 
 def search(target: int, prime_list: list) -> bool:
     """
-    function to search a number in a list using Binary Search.
+    使用二分查找（Binary Search）在列表中查找一个数。
     >>> search(3, [1, 2, 3])
     True
     >>> search(4, [1, 2, 3])
@@ -94,7 +90,7 @@ def search(target: int, prime_list: list) -> bool:
 
 def solution():
     """
-    Return the solution of the problem.
+    返回该问题的解。
     >>> solution()
     296962999629
     """

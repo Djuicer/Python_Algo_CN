@@ -1,11 +1,10 @@
 """
 Project Euler Problem 116: https://projecteuler.net/problem=116
 
-A row of five grey square tiles is to have a number of its tiles
-replaced with coloured oblong tiles chosen
-from red (length two), green (length three), or blue (length four).
+一行五块灰色方砖中的若干块，将由彩色长方形砖替换；可选红色（长度二）、
+绿色（长度三）或蓝色（长度四）。
 
-If red tiles are chosen there are exactly seven ways this can be done.
+如果选择红色砖，恰好有七种方式。
 
     |red,red|grey|grey|grey|    |grey|red,red|grey|grey|
 
@@ -15,31 +14,28 @@ If red tiles are chosen there are exactly seven ways this can be done.
 
     |grey|red,red|red,red|
 
-If green tiles are chosen there are three ways.
+如果选择绿色砖，有三种方式。
 
     |green,green,green|grey|grey|    |grey|green,green,green|grey|
 
     |grey|grey|green,green,green|
 
-And if blue tiles are chosen there are two ways.
+如果选择蓝色砖，有两种方式。
 
     |blue,blue,blue,blue|grey|    |grey|blue,blue,blue,blue|
 
-Assuming that colours cannot be mixed there are 7 + 3 + 2 = 12 ways
-of replacing the grey tiles in a row measuring five units in length.
+假设颜色不能混用，替换长度为五个单位的一行灰砖共有 7 + 3 + 2 = 12 种方式。
 
-How many different ways can the grey tiles in a row measuring fifty units in length
-be replaced if colours cannot be mixed and at least one coloured tile must be used?
+如果颜色不能混用且必须至少使用一块彩色砖，长度为五十个单位的一行灰砖有多少种
+不同的替换方式？
 
-NOTE: This is related to Problem 117 (https://projecteuler.net/problem=117).
+注意：本题与问题 117（https://projecteuler.net/problem=117）相关。
 """
 
 
 def solution(length: int = 50) -> int:
     """
-    Returns the number of different ways can the grey tiles in a row
-    of the given length be replaced if colours cannot be mixed
-    and at least one coloured tile must be used
+    返回在颜色不能混用且至少使用一块彩色砖时，替换给定长度一行灰砖的不同方式数。
 
     >>> solution(5)
     12

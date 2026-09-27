@@ -3,15 +3,13 @@ from maths.greatest_common_divisor import greatest_common_divisor
 """
 Project Euler Problem 5: https://projecteuler.net/problem=5
 
-Smallest multiple
+最小倍数
 
-2520 is the smallest number that can be divided by each of the numbers
-from 1 to 10 without any remainder.
+2520 是能被 1 到 10 中每个数整除且没有余数的最小数。
 
-What is the smallest positive number that is _evenly divisible_ by all
-of the numbers from 1 to 20?
+能被 1 到 20 中所有数整除的最小正数是多少？
 
-References:
+参考资料：
     - https://en.wiktionary.org/wiki/evenly_divisible
     - https://en.wikipedia.org/wiki/Euclidean_algorithm
     - https://en.wikipedia.org/wiki/Least_common_multiple
@@ -20,9 +18,9 @@ References:
 
 def lcm(x: int, y: int) -> int:
     """
-    Least Common Multiple.
+    最小公倍数。
 
-    Using the property that lcm(a, b) * greatest_common_divisor(a, b) = a*b
+    使用性质 lcm(a, b) * greatest_common_divisor(a, b) = a*b
 
     >>> lcm(3, 15)
     15
@@ -39,8 +37,7 @@ def lcm(x: int, y: int) -> int:
 
 def solution(n: int = 20) -> int:
     """
-    Returns the smallest positive number that is evenly divisible (divisible
-    with no remainder) by all of the numbers from 1 to n.
+    返回能被 1 到 n 中所有数整除（无余数）的最小正数。
 
     >>> solution(10)
     2520

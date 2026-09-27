@@ -1,26 +1,24 @@
 """
 Project Euler Problem 9: https://projecteuler.net/problem=9
 
-Special Pythagorean triplet
+特殊勾股数
 
-A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
+勾股数是满足 a < b < c 的三个自然数 a、b、c，且：
 
     a^2 + b^2 = c^2
 
-For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.
+例如，3^2 + 4^2 = 9 + 16 = 25 = 5^2。
 
-There exists exactly one Pythagorean triplet for which a + b + c = 1000.
-Find the product a*b*c.
+恰有一组勾股数满足 a + b + c = 1000。求乘积 a*b*c。
 
-References:
+参考资料：
     - https://en.wikipedia.org/wiki/Pythagorean_triple
 """
 
 
 def solution(n: int = 1000) -> int:
     """
-    Return the product of a,b,c which are Pythagorean Triplet that satisfies
-    the following:
+    返回满足以下条件的勾股数 a、b、c 的乘积：
       1. a < b < c
       2. a**2 + b**2 = c**2
       3. a + b + c = n
@@ -34,7 +32,7 @@ def solution(n: int = 1000) -> int:
     product = -1
     candidate = 0
     for a in range(1, n // 3):
-        # Solving the two equations a**2+b**2=c**2 and a+b+c=N eliminating c
+        # 联立方程 a**2+b**2=c**2 和 a+b+c=N，消去 c
         b = (n * n - 2 * a * n) // (2 * n - 2 * a)
         c = n - a - b
         if c * c == (a * a + b * b):

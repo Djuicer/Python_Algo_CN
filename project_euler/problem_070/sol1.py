@@ -1,31 +1,23 @@
 """
 Project Euler Problem 70: https://projecteuler.net/problem=70
 
-Euler's Totient function, φ(n) [sometimes called the phi function], is used to
-determine the number of positive numbers less than or equal to n which are
-relatively prime to n. For example, as 1, 2, 4, 5, 7, and 8, are all less than
-nine and relatively prime to nine, φ(9)=6.
+Euler 欧拉函数 φ(n)（有时称为 phi 函数）用于确定小于或等于 n 且与 n 互素的
+正整数数量。例如，1, 2, 4, 5, 7 和 8 均小于九且与九互素，因此 φ(9)=6。
 
-The number 1 is considered to be relatively prime to every positive number, so
-φ(1)=1.
+数字 1 被认为与每个正整数都互素，因此 φ(1)=1。
 
-Interestingly, φ(87109)=79180, and it can be seen that 87109 is a permutation
-of 79180.
+有趣的是，φ(87109)=79180，并且可以看出 87109 是 79180 的一个排列。
 
-Find the value of n, 1 < n < 10^7, for which φ(n) is a permutation of n and
-the ratio n/φ(n) produces a minimum.
+找出满足 1 < n < 10^7、φ(n) 是 n 的一个排列且比值 n/φ(n) 最小的 n。
 
 -----
 
-This is essentially brute force. Calculate all totients up to 10^7 and
-find the minimum ratio of n/φ(n) that way. To minimize the ratio, we want
-to minimize n and maximize φ(n) as much as possible, so we can store the
-minimum fraction's numerator and denominator and calculate new fractions
-with each totient to compare against. To avoid dividing by zero, I opt to
-use cross multiplication.
+这本质上是暴力求解：计算 10^7 以内的所有欧拉函数值，并找出 n/φ(n) 的最小比值。
+为了最小化比值，希望尽量减小 n 并增大 φ(n)，因此可存储当前最小分数的分子和分母，
+再用每个欧拉函数值构造新分数进行比较。为避免除以零，这里采用交叉相乘。
 
-References:
-Finding totients
+参考资料：
+计算欧拉函数值
 https://en.wikipedia.org/wiki/Euler's_totient_function#Euler's_product_formula
 """
 
@@ -36,8 +28,7 @@ import numpy as np
 
 def get_totients(max_one: int) -> list[int]:
     """
-    Calculates a list of totients from 0 to max_one exclusive, using the
-    definition of Euler's product formula.
+    使用 Euler 乘积公式的定义，计算从 0 到 max_one（不含）的欧拉函数值列表。
 
     >>> get_totients(5)
     [0, 1, 1, 2, 2]
@@ -57,8 +48,7 @@ def get_totients(max_one: int) -> list[int]:
 
 def has_same_digits(num1: int, num2: int) -> bool:
     """
-    Return True if num1 and num2 have the same frequency of every digit, False
-    otherwise.
+    如果 num1 和 num2 中每个数字出现的频次相同，则返回 True，否则返回 False。
 
     >>> has_same_digits(123456789, 987654321)
     True
@@ -74,7 +64,7 @@ def has_same_digits(num1: int, num2: int) -> bool:
 
 def solution(max_n: int = 10000000) -> int:
     """
-    Finds the value of n from 1 to max such that n/φ(n) produces a minimum.
+    在 1 到 max 中找出使 n/φ(n) 最小的 n。
 
     >>> solution(100)
     21

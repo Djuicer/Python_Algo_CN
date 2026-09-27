@@ -1,9 +1,8 @@
 """
 Problem 28
 Url: https://projecteuler.net/problem=28
-Statement:
-Starting with the number 1 and moving to the right in a clockwise direction a 5
-by 5 spiral is formed as follows:
+题目说明：
+从数字 1 开始向右并按顺时针方向移动，可形成如下 5 x 5 螺旋：
 
     21 22 23 24 25
     20  7  8  9 10
@@ -11,18 +10,16 @@ by 5 spiral is formed as follows:
     18  5  4  3 12
     17 16 15 14 13
 
-It can be verified that the sum of the numbers on the diagonals is 101.
+可以验证，对角线上的数字之和为 101。
 
-What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed
-in the same way?
+以相同方式形成的 1001 x 1001 螺旋中，对角线上的数字之和是多少？
 """
 
 from math import ceil
 
 
 def solution(n: int = 1001) -> int:
-    """Returns the sum of the numbers on the diagonals in a n by n spiral
-    formed in the same way.
+    """返回以相同方式形成的 n x n 螺旋中对角线上的数字之和。
 
     >>> solution(1001)
     669171001

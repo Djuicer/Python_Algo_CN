@@ -2,17 +2,15 @@
 Project Euler Problem 36
 https://projecteuler.net/problem=36
 
-Problem Statement:
+题目说明：
 
-Double-base palindromes
-Problem 36
-The decimal number, 585 = 10010010012 (binary), is palindromic in both bases.
+双进制回文数
+问题 36
+十进制数 585 = 10010010012（二进制）在两种进制下都是回文数。
 
-Find the sum of all numbers, less than one million, which are palindromic in
-base 10 and base 2.
+求一百万以下在十进制和二进制下都是回文数的所有数之和。
 
-(Please note that the palindromic number, in either base, may not include
-leading zeros.)
+（请注意，任一进制下的回文数都不能包含前导零。）
 """
 
 from __future__ import annotations
@@ -20,8 +18,7 @@ from __future__ import annotations
 
 def is_palindrome(n: int | str) -> bool:
     """
-    Return true if the input n is a palindrome.
-    Otherwise return false. n can be an integer or a string.
+    如果输入 n 是回文则返回 true，否则返回 false。n 可以是整数或字符串。
 
     >>> is_palindrome(909)
     True
@@ -37,8 +34,7 @@ def is_palindrome(n: int | str) -> bool:
 
 
 def solution(n: int = 1000000):
-    """Return the sum of all numbers, less than n , which are palindromic in
-    base 10 and base 2.
+    """返回小于 n 且在十进制和二进制下都是回文数的所有数之和。
 
     >>> solution(1000000)
     872187

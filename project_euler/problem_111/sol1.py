@@ -1,12 +1,11 @@
 """
 Project Euler Problem 111: https://projecteuler.net/problem=111
 
-Primes with Runs
+重复数字素数
 
-First, note that for sequence of 10 digits, M(4,d) is 8 or 9.
-Start by constructing prime list up to sqrt(n), which are used to check if
-number is prime.
-Then iterate over possible combinations of numbers checking each if prime.
+首先注意，对于 10 位数字序列，M(4,d) 为 8 或 9。
+先构造不超过 sqrt(n) 的素数列表，用于检查数字是否为素数，
+然后遍历可能的数字组合并逐一检查是否为素数。
 
 """
 
@@ -15,7 +14,7 @@ from numpy import sqrt
 
 def generate_primes(n: int):
     """
-    Calculates the list of primes up to and including n.
+    计算不超过 n 的素数列表。
 
     >>> generate_primes(6)
     [2, 3, 5]
@@ -37,8 +36,7 @@ def generate_primes(n: int):
 
 def is_prime(n, primes_all):
     """
-    Check in int n is prime using primes_all list of relatively small primes
-    compared to n.
+    使用相对于 n 较小的素数列表 primes_all，检查整数 n 是否为素数。
 
     >>> is_prime(5, [2, 3])
     True
@@ -48,7 +46,7 @@ def is_prime(n, primes_all):
 
 def solution(n: int = 10000000000) -> int:
     """
-    Check each possible combination if it is prime.
+    检查每个可能的组合是否为素数。
 
 
     >>> solution(10000)

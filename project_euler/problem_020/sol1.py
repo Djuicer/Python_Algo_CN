@@ -1,17 +1,17 @@
 """
 Problem 20: https://projecteuler.net/problem=20
 
-n! means n x (n - 1) x ... x 3 x 2 x 1
+n! 表示 n x (n - 1) x ... x 3 x 2 x 1
 
-For example, 10! = 10 x 9 x ... x 3 x 2 x 1 = 3628800,
-and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
+例如，10! = 10 x 9 x ... x 3 x 2 x 1 = 3628800，
+数 10! 的各位数字之和为 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27。
 
-Find the sum of the digits in the number 100!
+求数 100! 的各位数字之和。
 """
 
 
 def factorial(num: int) -> int:
-    """Find the factorial of a given number n"""
+    """计算给定数字 n 的阶乘。"""
     fact = 1
     for i in range(1, num + 1):
         fact *= i
@@ -19,17 +19,17 @@ def factorial(num: int) -> int:
 
 
 def split_and_add(number: int) -> int:
-    """Split number digits and add them."""
+    """拆分数字的各位并求和。"""
     sum_of_digits = 0
     while number > 0:
         last_digit = number % 10
         sum_of_digits += last_digit
-        number = number // 10  # Removing the last_digit from the given number
+        number = number // 10  # 从给定数字中移除 last_digit
     return sum_of_digits
 
 
 def solution(num: int = 100) -> int:
-    """Returns the sum of the digits in the factorial of num
+    """返回 num 的阶乘的各位数字之和。
     >>> solution(100)
     648
     >>> solution(50)

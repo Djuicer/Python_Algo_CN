@@ -1,19 +1,16 @@
 """
 Project Euler Problem 73: https://projecteuler.net/problem=73
 
-Consider the fraction, n/d, where n and d are positive integers.
-If n<d and HCF(n,d)=1, it is called a reduced proper fraction.
+考虑分数 n/d，其中 n 和 d 为正整数。如果 n<d 且 HCF(n,d)=1，则称其为最简真分数。
 
-If we list the set of reduced proper fractions for d ≤ 8 in ascending order of size,
-we get:
+如果按大小升序列出 d ≤ 8 的最简真分数集合，可得：
 
 1/8, 1/7, 1/6, 1/5, 1/4, 2/7, 1/3, 3/8, 2/5, 3/7, 1/2, 4/7, 3/5, 5/8, 2/3,
 5/7, 3/4, 4/5, 5/6, 6/7, 7/8
 
-It can be seen that there are 3 fractions between 1/3 and 1/2.
+可以看出，1/3 和 1/2 之间有 3 个分数。
 
-How many fractions lie between 1/3 and 1/2 in the sorted set
-of reduced proper fractions for d ≤ 12,000?
+在按大小排序且 d ≤ 12,000 的最简真分数集合中，1/3 和 1/2 之间有多少个分数？
 """
 
 from math import gcd
@@ -21,8 +18,7 @@ from math import gcd
 
 def solution(max_d: int = 12_000) -> int:
     """
-    Returns number of fractions lie between 1/3 and 1/2 in the sorted set
-    of reduced proper fractions for d ≤ max_d
+    返回按大小排序且 d ≤ max_d 的最简真分数集合中，位于 1/3 和 1/2 之间的分数数量。
 
     >>> solution(4)
     0

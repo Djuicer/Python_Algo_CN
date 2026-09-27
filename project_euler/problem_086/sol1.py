@@ -1,47 +1,36 @@
 """
 Project Euler Problem 86: https://projecteuler.net/problem=86
 
-A spider, S, sits in one corner of a cuboid room, measuring 6 by 5 by 3, and a fly, F,
-sits in the opposite corner. By travelling on the surfaces of the room the shortest
-"straight line" distance from S to F is 10 and the path is shown on the diagram.
+蜘蛛 S 位于一个尺寸为 6 x 5 x 3 的长方体房间一角，苍蝇 F 位于对角。
+沿房间表面移动时，从 S 到 F 的最短“直线”距离为 10，路径如图所示。
 ￼
-However, there are up to three "shortest" path candidates for any given cuboid and the
-shortest route doesn't always have integer length.
+然而，对于任意给定长方体，最多有三条“最短”路径候选，而且最短路径的长度不一定为整数。
 
-It can be shown that there are exactly 2060 distinct cuboids, ignoring rotations, with
-integer dimensions, up to a maximum size of M by M by M, for which the shortest route
-has integer length when M = 100. This is the least value of M for which the number of
-solutions first exceeds two thousand; the number of solutions when M = 99 is 1975.
+可以证明，当 M = 100 时，在忽略旋转、尺寸为整数且最大尺寸不超过 M x M x M 的
+不同长方体中，恰有 2060 个的最短路径长度为整数。这是解数首次超过两千时的最小 M；
+当 M = 99 时，解数为 1975。
 
-Find the least value of M such that the number of solutions first exceeds one million.
+找出使解数首次超过一百万的最小 M 值。
 
-Solution:
-    Label the 3 side-lengths of the cuboid a,b,c such that 1 <= a <= b <= c <= M.
-    By conceptually "opening up" the cuboid and laying out its faces on a plane,
-    it can be seen that the shortest distance between 2 opposite corners is
-    sqrt((a+b)^2 + c^2). This distance is an integer if and only if (a+b),c make up
-    the first 2 sides of a pythagorean triplet.
+解法：
+    将长方体的 3 条边长记为 a,b,c，使 1 <= a <= b <= c <= M。
+    在概念上“展开”长方体并将各面铺在平面上，可以看出两个对角之间的最短距离为
+    sqrt((a+b)^2 + c^2)。当且仅当 (a+b),c 构成勾股数的前 2 条边时，该距离为整数。
 
-    The second useful insight is rather than calculate the number of cuboids
-    with integral shortest distance for each maximum cuboid side-length M,
-    we can calculate this number iteratively each time we increase M, as follows.
-    The set of cuboids satisfying this property with maximum side-length M-1 is a
-    subset of the cuboids satisfying the property with maximum side-length M
-    (since any cuboids with side lengths <= M-1 are also <= M). To calculate the
-    number of cuboids in the larger set (corresponding to M) we need only consider
-    the cuboids which have at least one side of length M. Since we have ordered the
-    side lengths a <= b <= c, we can assume that c = M. Then we just need to count
-    the number of pairs a,b satisfying the conditions:
+    第二个有用的观察是，无需对每个最大边长 M 单独计算最短距离为整数的长方体数量，
+    而可在每次增加 M 时迭代计算。最大边长为 M-1 且满足该性质的长方体集合，
+    是最大边长为 M 的对应集合的子集（边长 <= M-1 的长方体也满足 <= M）。
+    要计算更大集合（对应 M）中的长方体数量，只需考虑至少有一条边长为 M 的长方体。
+    由于边长已排序为 a <= b <= c，可令 c = M，再统计满足下列条件的 a,b 数对：
         sqrt((a+b)^2 + M^2) is integer
         1 <= a <= b <= M
 
-    To count the number of pairs (a,b) satisfying these conditions, write d = a+b.
-    Now we have:
+    为统计满足这些条件的 (a,b) 数对数量，令 d = a+b。于是有：
         1 <= a <= b <= M  =>  2 <= d <= 2*M
-                                   we can actually make the second equality strict,
-                                   since d = 2*M => d^2 + M^2 = 5M^2
-                                              => shortest distance = M * sqrt(5)
-                                              => not integral.
+                                   实际可将第二个等号改为严格不等号，
+                                   因为 d = 2*M => d^2 + M^2 = 5M^2
+                                              => 最短距离 = M * sqrt(5)
+                                              => 不是整数。
         a + b = d => b = d - a
                  and a <= b
                   => a <= d/2
@@ -54,14 +43,12 @@ Solution:
                 also a >= 1
                   => a >= max(1, d - M)
 
-        So a is in range(max(1, d - M), min(M, d // 2) + 1)
+        因此 a 位于 range(max(1, d - M), min(M, d // 2) + 1)
 
-    For a given d, the number of cuboids satisfying the required property with c = M
-    and a + b = d is the length of this range, which is
+    对给定 d，满足所需性质且 c = M、a + b = d 的长方体数量即该范围的长度：
         min(M, d // 2) + 1 - max(1, d - M).
 
-    In the code below, d is sum_shortest_sides
-                   and M is max_cuboid_size.
+    在以下代码中，d 为 sum_shortest_sides，M 为 max_cuboid_size。
 
 
 """
@@ -71,9 +58,8 @@ from math import sqrt
 
 def solution(limit: int = 1000000) -> int:
     """
-    Return the least value of M such that there are more than one million cuboids
-    of side lengths 1 <= a,b,c <= M such that the shortest distance between two
-    opposite vertices of the cuboid is integral.
+    返回使下述长方体数量超过一百万的最小 M：边长满足 1 <= a,b,c <= M，
+    且两个对角顶点之间的最短距离为整数。
     >>> solution(100)
     24
     >>> solution(1000)

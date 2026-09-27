@@ -1,7 +1,6 @@
 """
-The 5-digit number, 16807=75, is also a fifth power. Similarly, the 9-digit number,
-134217728=89, is a ninth power.
-How many n-digit positive integers exist which are also an nth power?
+5 位数 16807=75 同时也是五次幂。类似地，9 位数 134217728=89 是九次幂。
+有多少个 n 位正整数同时也是 n 次幂？
 """
 
 """
@@ -13,7 +12,7 @@ Using these conclusions, we will calculate the result.
 
 def solution(max_base: int = 10, max_power: int = 22) -> int:
     """
-    Returns the count of all n-digit numbers which are nth power
+    返回所有同时为 n 次幂的 n 位数的数量。
     >>> solution(10, 22)
     49
     >>> solution(0, 0)

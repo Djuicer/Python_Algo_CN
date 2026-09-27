@@ -1,13 +1,11 @@
 """
 Problem 119: https://projecteuler.net/problem=119
 
-Name: Digit power sum
+名称：数字幂和
 
-The number 512 is interesting because it is equal to the sum of its digits
-raised to some power: 5 + 1 + 2 = 8, and 8^3 = 512. Another example of a number
-with this property is 614656 = 28^4. We shall define an to be the nth term of
-this sequence and insist that a number must contain at least two digits to have a sum.
-You are given that a2 = 512 and a10 = 614656. Find a30
+数字 512 很有趣，因为它等于其各位数字之和的某次幂：5 + 1 + 2 = 8，且 8^3 = 512。
+具有该性质的另一个数是 614656 = 28^4。定义 an 为该数列第 n 项，并规定一个数必须
+至少包含两位才有数字和。已知 a2 = 512 且 a10 = 614656，求 a30。
 """
 
 import math
@@ -15,7 +13,7 @@ import math
 
 def digit_sum(n: int) -> int:
     """
-    Returns the sum of the digits of the number.
+    返回该数的各位数字之和。
     >>> digit_sum(123)
     6
     >>> digit_sum(456)
@@ -28,7 +26,7 @@ def digit_sum(n: int) -> int:
 
 def solution(n: int = 30) -> int:
     """
-    Returns the value of 30th digit power sum.
+    返回第 30 个数字幂和的值。
     >>> solution(2)
     512
     >>> solution(5)

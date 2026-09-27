@@ -1,7 +1,7 @@
 """
 Project Euler Problem 124: https://projecteuler.net/problem=124
 
-Ordered Radicals
+有序根积
 
 """
 
@@ -10,7 +10,7 @@ from numpy import sqrt
 
 def generate_primes(n: int) -> list[int]:
     """
-    Calculates the list of primes up to and including n.
+    计算不超过 n 的素数列表。
 
     >>> generate_primes(6)
     [2, 3, 5]
@@ -33,8 +33,7 @@ def generate_primes(n: int) -> list[int]:
 
 def generate_n(factors: list[int], n_max: int, n: int, res: set[int]):
     """
-    Generates all numbers n that can be constructed out of 'factors', with any
-    multiplicity, but that do no exceed 'n_max'.
+    生成所有可由 'factors' 以任意重数构造且不超过 'n_max' 的数字 n。
 
     >>> generate_n([2], 10, 1, set())
     """
@@ -54,8 +53,8 @@ def generate_rads(
     factors_all: list[int], n_max: int, n: int, res: dict, factors_prev: list[int]
 ):
     """
-    Generates all rads and associated factors, e.g., rad = factor_1 * ... * factor_k.
-    Output is stored in 'res' dict argument.
+    生成所有 rad 及相关因数，例如 rad = factor_1 * ... * factor_k。
+    输出存储在字典参数 'res' 中。
 
     >>> generate_rads([2], 10, 1, {}, [])
     """
@@ -74,9 +73,8 @@ def generate_rads(
 
 def solution(n_max: int = 100000, k: int = 10000) -> int:
     """
-    Loops over sorted 'rads' and generates all numbers 'n' for rad.
-    Keeps track of total number of n, and when k falls inside some rad,
-    it sorts all 'n' for it and picks up associated n.
+    遍历已排序的 'rads'，为 rad 生成所有数字 'n'。记录 n 的总数；当 k 落入某个 rad 时，
+    对其所有 'n' 排序并选取对应的 n。
 
     >>> solution(10, 6)
     9

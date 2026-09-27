@@ -1,6 +1,5 @@
 """
-What is the greatest product of four adjacent numbers (horizontally,
-vertically, or diagonally) in this 20x20 array?
+在这个 20x20 数组中，水平、垂直或对角线上相邻四个数的最大乘积是多少？
 
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -35,14 +34,13 @@ def largest_product(grid):
     lr_diag_product = 0
     rl_diag_product = 0
 
-    # Check vertically, horizontally, diagonally at the same time (only works
-    # for nxn grid)
+    # 同时检查垂直、水平和对角线方向（仅适用于 nxn 网格）
     for i in range(n_columns):
         for j in range(n_rows - 3):
             vert_product = grid[j][i] * grid[j + 1][i] * grid[j + 2][i] * grid[j + 3][i]
             horz_product = grid[i][j] * grid[i][j + 1] * grid[i][j + 2] * grid[i][j + 3]
 
-            # Left-to-right diagonal (\) product
+            # 从左到右的对角线（\）乘积
             if i < n_columns - 3:
                 lr_diag_product = (
                     grid[i][j]
@@ -51,7 +49,7 @@ def largest_product(grid):
                     * grid[i + 3][j + 3]
                 )
 
-            # Right-to-left diagonal(/) product
+            # 从右到左的对角线（/）乘积
             if i > 2:
                 rl_diag_product = (
                     grid[i][j]
@@ -69,8 +67,7 @@ def largest_product(grid):
 
 
 def solution():
-    """Returns the greatest product of four adjacent numbers (horizontally,
-    vertically, or diagonally).
+    """返回水平、垂直或对角线上相邻四个数的最大乘积。
 
     >>> solution()
     70600674

@@ -2,8 +2,7 @@
 Project Euler Problem 58:https://projecteuler.net/problem=58
 
 
-Starting with 1 and spiralling anticlockwise in the following way,
-a square spiral with side length 7 is formed.
+从 1 开始，按如下方式逆时针旋转，可形成边长为 7 的方形螺旋。
 
 37 36 35 34 33 32 31
 38 17 16 15 14 13 30
@@ -13,24 +12,17 @@ a square spiral with side length 7 is formed.
 42 21 22 23 24 25 26
 43 44 45 46 47 48 49
 
-It is interesting to note that the odd squares lie along the bottom right
-diagonal ,but what is more interesting is that 8 out of the 13 numbers
-lying along both diagonals are prime; that is, a ratio of 8/13 ≈ 62%.
+值得注意的是，奇数的平方位于右下对角线上；更有趣的是，两条对角线上的 13 个数中
+有 8 个是素数，即比例为 8/13 ≈ 62%。
 
-If one complete new layer is wrapped around the spiral above,
-a square spiral with side length 9 will be formed.
-If this process is continued,
-what is the side length of the square spiral for which
-the ratio of primes along both diagonals first falls below 10%?
+如果在上述螺旋外围完整包上一层，将形成边长为 9 的方形螺旋。
+若继续此过程，两条对角线上的素数比例首次低于 10% 时，方形螺旋的边长是多少？
 
-Solution: We have to find an odd length side for which square falls below
-10%. With every layer we add 4 elements are being added to the diagonals
-,lets say we have a square spiral of odd length with side length j,
-then if we move from j to j+2, we are adding j*j+j+1,j*j+2*(j+1),j*j+3*(j+1)
-j*j+4*(j+1). Out of these 4 only the first three can become prime
-because last one reduces to (j+2)*(j+2).
-So we check individually each one of these before incrementing our
-count of current primes.
+解法：需要找到使比例低于 10% 的奇数边长。每增加一层，对角线上就增加 4 个元素。
+设已有边长为奇数 j 的方形螺旋，从 j 增加到 j+2 时，新增
+j*j+j+1,j*j+2*(j+1),j*j+3*(j+1),j*j+4*(j+1)。
+这 4 个数中只有前三个可能成为素数，因为最后一个可化为 (j+2)*(j+2)。
+因此，在增加当前素数计数前，逐一检查前三个数。
 
 """
 
@@ -38,9 +30,9 @@ import math
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为素数。
 
-    A number is prime if it has exactly two factors: 1 and itself.
+    如果一个数恰好有两个因数（1 和它本身），则它是素数。
 
     >>> is_prime(0)
     False
@@ -78,9 +70,7 @@ def is_prime(number: int) -> bool:
 
 def solution(ratio: float = 0.1) -> int:
     """
-    Returns the side length of the square spiral of odd length greater
-    than 1 for which the ratio of primes along both diagonals
-    first falls below the given ratio.
+    返回大于 1 的奇数边长方形螺旋中，两条对角线上的素数比例首次低于给定比例时的边长。
     >>> solution(.5)
     11
     >>> solution(.2)

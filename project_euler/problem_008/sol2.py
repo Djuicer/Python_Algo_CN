@@ -1,10 +1,9 @@
 """
 Project Euler Problem 8: https://projecteuler.net/problem=8
 
-Largest product in a series
+数列中的最大乘积
 
-The four adjacent digits in the 1000-digit number that have the greatest
-product are 9 x 9 x 8 x 9 = 5832.
+这个 1000 位数中乘积最大的四个相邻数字为 9 x 9 x 8 x 9 = 5832。
 
     73167176531330624919225119674426574742355349194934
     96983520312774506326239578318016984801869478851843
@@ -27,8 +26,7 @@ product are 9 x 9 x 8 x 9 = 5832.
     05886116467109405077541002256983155200055935729725
     71636269561882670428252483600823257530420752963450
 
-Find the thirteen adjacent digits in the 1000-digit number that have the
-greatest product. What is the value of this product?
+找出这个 1000 位数中乘积最大的十三个相邻数字。该乘积是多少？
 """
 
 from functools import reduce
@@ -59,8 +57,7 @@ N = (
 
 def solution(n: str = N) -> int:
     """
-    Find the thirteen adjacent digits in the 1000-digit number n that have
-    the greatest product and returns it.
+    找出 1000 位数 n 中乘积最大的十三个相邻数字，并返回该乘积。
 
     >>> solution("13978431290823798458352374")
     609638400
@@ -71,7 +68,7 @@ def solution(n: str = N) -> int:
     """
 
     return max(
-        # mypy cannot properly interpret reduce
+        # mypy 无法正确解释 reduce
         int(reduce(lambda x, y: str(int(x) * int(y)), n[i : i + 13]))
         for i in range(len(n) - 12)
     )

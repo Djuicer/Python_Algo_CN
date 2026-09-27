@@ -1,15 +1,13 @@
 """
-Truncatable primes
+可截断素数
 Problem 37: https://projecteuler.net/problem=37
 
-The number 3797 has an interesting property. Being prime itself, it is possible
-to continuously remove digits from left to right, and remain prime at each stage:
-3797, 797, 97, and 7. Similarly we can work from right to left: 3797, 379, 37, and 3.
+数 3797 具有一个有趣的性质。它本身是素数，从左到右连续移除数字时，
+每一步仍为素数：3797, 797, 97 和 7。从右到左也同样如此：3797, 379, 37 和 3。
 
-Find the sum of the only eleven primes that are both truncatable from left to right
-and right to left.
+求仅有的十一个可从左到右和从右到左截断的素数之和。
 
-NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+注意：2, 3, 5 和 7 不视为可截断素数。
 """
 
 from __future__ import annotations
@@ -18,9 +16,9 @@ import math
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
+    """以 O(sqrt(n)) 的时间复杂度检查一个数是否为素数。
 
-    A number is prime if it has exactly two factors: 1 and itself.
+    如果一个数恰好有两个因数（1 和它本身），则它是素数。
 
     >>> is_prime(0)
     False
@@ -43,13 +41,13 @@ def is_prime(number: int) -> bool:
     """
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 和 3 是质数
         return True
     elif number < 2 or number % 2 == 0 or number % 3 == 0:
-        # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
+        # 负数、0、1、所有偶数以及 3 的倍数都不是质数
         return False
 
-    # All primes number are in format of 6k +/- 1
+    # 所有质数都形如 6k +/- 1
     for i in range(5, int(math.sqrt(number) + 1), 6):
         if number % i == 0 or number % (i + 2) == 0:
             return False
@@ -58,7 +56,7 @@ def is_prime(number: int) -> bool:
 
 def list_truncated_nums(n: int) -> list[int]:
     """
-    Returns a list of all left and right truncated numbers of n
+    返回 n 从左侧和右侧截断所得的所有数字列表。
     >>> list_truncated_nums(927628)
     [927628, 27628, 92762, 7628, 9276, 628, 927, 28, 92, 8, 9]
     >>> list_truncated_nums(467)
@@ -76,8 +74,7 @@ def list_truncated_nums(n: int) -> list[int]:
 
 def validate(n: int) -> bool:
     """
-    To optimize the approach, we will rule out the numbers above 1000,
-    whose first or last three digits are not prime
+    为优化方法，排除大于 1000 且前三位或后三位不是素数的数字。
     >>> validate(74679)
     False
     >>> validate(235693)
@@ -93,7 +90,7 @@ def validate(n: int) -> bool:
 
 def compute_truncated_primes(count: int = 11) -> list[int]:
     """
-    Returns the list of truncated primes
+    返回可截断素数列表。
     >>> compute_truncated_primes(11)
     [23, 37, 53, 73, 313, 317, 373, 797, 3137, 3797, 739397]
     """
@@ -110,7 +107,7 @@ def compute_truncated_primes(count: int = 11) -> list[int]:
 
 def solution() -> int:
     """
-    Returns the sum of truncated primes
+    返回可截断素数之和。
     """
     return sum(compute_truncated_primes(11))
 

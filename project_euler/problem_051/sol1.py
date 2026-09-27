@@ -1,19 +1,17 @@
 """
 https://projecteuler.net/problem=51
-Prime digit replacements
+素数数字替换
 Problem 51
 
-By replacing the 1st digit of the 2-digit number *3, it turns out that six of
-the nine possible values: 13, 23, 43, 53, 73, and 83, are all prime.
+替换两位数 *3 的第 1 位数字后，九个可能值中的六个：13, 23, 43, 53, 73 和 83
+都是素数。
 
-By replacing the 3rd and 4th digits of 56**3 with the same digit, this 5-digit
-number is the first example having seven primes among the ten generated numbers,
-yielding the family: 56003, 56113, 56333, 56443, 56663, 56773, and 56993.
-Consequently 56003, being the first member of this family, is the smallest prime
-with this property.
+用同一个数字替换 56**3 的第 3 和第 4 位后，这个 5 位数是首个在生成的十个数中
+有七个素数的示例，得到素数族：56003, 56113, 56333, 56443, 56663, 56773 和 56993。
+因此，作为该素数族的第一个成员，56003 是具有此性质的最小素数。
 
-Find the smallest prime which, by replacing part of the number (not necessarily
-adjacent digits) with the same digit, is part of an eight prime value family.
+找出最小的素数：将其部分数字（不必相邻）替换为同一个数字后，它属于一个包含
+八个素数的素数族。
 """
 
 from __future__ import annotations
@@ -23,8 +21,8 @@ from collections import Counter
 
 def prime_sieve(n: int) -> list[int]:
     """
-    Sieve of Erotosthenes
-    Function to return all the prime numbers up to a certain number
+    埃拉托斯特尼筛法（Sieve of Eratosthenes）。
+    返回小于某个数的所有素数。
     https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
     >>> prime_sieve(3)
@@ -55,8 +53,7 @@ def prime_sieve(n: int) -> list[int]:
 
 def digit_replacements(number: int) -> list[list[int]]:
     """
-    Returns all the possible families of digit replacements in a number which
-    contains at least one repeating digit
+    返回一个至少含有一个重复数字的数通过数字替换所得的所有可能数族。
 
     >>> digit_replacements(544)
     [[500, 511, 522, 533, 544, 555, 566, 577, 588, 599]]
@@ -77,7 +74,7 @@ def digit_replacements(number: int) -> list[list[int]]:
 
 def solution(family_length: int = 8) -> int:
     """
-    Returns the solution of the problem
+    返回该问题的解。
 
     >>> solution(2)
     229399
@@ -87,7 +84,7 @@ def solution(family_length: int = 8) -> int:
     """
     numbers_checked = set()
 
-    # Filter primes with less than 3 replaceable digits
+    # 筛除可替换数字少于 3 个的质数
     primes = {
         x for x in set(prime_sieve(1_000_000)) if len(str(x)) - len(set(str(x))) >= 3
     }

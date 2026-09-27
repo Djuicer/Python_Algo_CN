@@ -1,25 +1,20 @@
 """
 Problem 112: https://projecteuler.net/problem=112
 
-Working from left-to-right if no digit is exceeded by the digit to its left it is
-called an increasing number; for example, 134468.
-Similarly if no digit is exceeded by the digit to its right it is called a decreasing
-number; for example, 66420.
-We shall call a positive integer that is neither increasing nor decreasing a "bouncy"
-number, for example, 155349.
-Clearly there cannot be any bouncy numbers below one-hundred, but just over half of
-the numbers below one-thousand (525) are bouncy. In fact, the least number for which
-the proportion of bouncy numbers first reaches 50% is 538.
-Surprisingly, bouncy numbers become more and more common and by the time we reach
-21780 the proportion of bouncy numbers is equal to 90%.
+从左到右观察，如果任一数字都不大于其左侧数字，则称为递增数；例如 134468。
+类似地，如果任一数字都不大于其右侧数字，则称为递减数；例如 66420。
+既非递增也非递减的正整数称为“弹跳数”，例如 155349。
+显然，一百以下不存在弹跳数，但一千以下的数中略多于一半（525）是弹跳数。
+事实上，弹跳数比例首次达到 50% 时的最小数是 538。令人惊讶的是，弹跳数越来越常见，
+到 21780 时，弹跳数比例达到 90%。
 
-Find the least number for which the proportion of bouncy numbers is exactly 99%.
+找出弹跳数比例恰好为 99% 时的最小数。
 """
 
 
 def check_bouncy(n: int) -> bool:
     """
-    Returns True if number is bouncy, False otherwise
+    如果 number 是弹跳数则返回 True，否则返回 False。
     >>> check_bouncy(6789)
     False
     >>> check_bouncy(-12345)
@@ -54,8 +49,7 @@ def check_bouncy(n: int) -> bool:
 
 def solution(percent: float = 99) -> int:
     """
-    Returns the least number for which the proportion of bouncy numbers is
-    exactly 'percent'
+    返回弹跳数比例恰好为 'percent' 时的最小数。
     >>> solution(50)
     538
     >>> solution(90)

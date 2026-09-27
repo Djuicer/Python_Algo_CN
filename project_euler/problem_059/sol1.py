@@ -1,29 +1,22 @@
 """
-Each character on a computer is assigned a unique code and the preferred standard is
-ASCII (American Standard Code for Information Interchange).
-For example, uppercase A = 65, asterisk (*) = 42, and lowercase k = 107.
+计算机中的每个字符都被分配一个唯一编码，首选标准是 ASCII
+（American Standard Code for Information Interchange）。
+例如，大写 A = 65、星号 (*) = 42、小写 k = 107。
 
-A modern encryption method is to take a text file, convert the bytes to ASCII, then
-XOR each byte with a given value, taken from a secret key. The advantage with the
-XOR function is that using the same encryption key on the cipher text, restores
-the plain text; for example, 65 XOR 42 = 107, then 107 XOR 42 = 65.
+一种现代加密方法是读取文本文件，将字节转换为 ASCII，然后让每个字节与取自密钥的
+给定值进行 XOR。XOR 的优点是，对密文使用同一密钥即可恢复明文；例如，
+65 XOR 42 = 107，然后 107 XOR 42 = 65。
 
-For unbreakable encryption, the key is the same length as the plain text message, and
-the key is made up of random bytes. The user would keep the encrypted message and the
-encryption key in different locations, and without both "halves", it is impossible to
-decrypt the message.
+对于不可破解的加密，密钥与明文消息等长，并由随机字节组成。用户会将加密消息和密钥
+存放在不同位置；如果不能同时取得这两个“部分”，就无法解密消息。
 
-Unfortunately, this method is impractical for most users, so the modified method is
-to use a password as a key. If the password is shorter than the message, which is
-likely, the key is repeated cyclically throughout the message. The balance for this
-method is using a sufficiently long password key for security, but short enough to
-be memorable.
+遗憾的是，这种方法对大多数用户并不实用，因此改用密码作为密钥。如果密码比消息短，
+就让密钥在整条消息中循环重复。该方法需要在安全性与可记忆性之间权衡：密码密钥既要
+足够长，又要短到便于记忆。
 
-Your task has been made easy, as the encryption key consists of three lower case
-characters. Using p059_cipher.txt (right click and 'Save Link/Target As...'), a
-file containing the encrypted ASCII codes, and the knowledge that the plain text
-must contain common English words, decrypt the message and find the sum of the ASCII
-values in the original text.
+本题已降低难度，因为加密密钥由三个小写字符组成。使用包含加密 ASCII 编码的文件
+p059_cipher.txt（右键单击并选择 'Save Link/Target As...'），并利用明文必然包含
+常见英语单词这一信息，解密消息并求原始文本中 ASCII 值的总和。
 """
 
 from __future__ import annotations
@@ -43,10 +36,9 @@ COMMON_WORDS: list[str] = ["the", "be", "to", "of", "and", "in", "that", "have"]
 
 def try_key(ciphertext: list[int], key: tuple[int, ...]) -> str | None:
     """
-    Given an encrypted message and a possible 3-character key, decrypt the message.
-    If the decrypted message contains a invalid character, i.e. not an ASCII letter,
-    a digit, punctuation or whitespace, then we know the key is incorrect, so return
-    None.
+    给定一条加密消息和一个可能的 3 字符密钥，解密该消息。
+    如果解密消息包含无效字符，即不是 ASCII 字母、数字、标点或空白字符，
+    则说明密钥错误，返回 None。
     >>> try_key([0, 17, 20, 4, 27], (104, 116, 120))
     'hello'
     >>> try_key([68, 10, 300, 4, 27], (104, 116, 120)) is None
@@ -68,8 +60,8 @@ def try_key(ciphertext: list[int], key: tuple[int, ...]) -> str | None:
 
 def filter_valid_chars(ciphertext: list[int]) -> list[str]:
     """
-    Given an encrypted message, test all 3-character strings to try and find the
-    key. Return a list of the possible decrypted messages.
+    给定一条加密消息，测试所有 3 字符字符串以尝试找出密钥。
+    返回可能的解密消息列表。
     >>> from itertools import cycle
     >>> text = "The enemy's gate is down"
     >>> key = "end"
@@ -87,9 +79,8 @@ def filter_valid_chars(ciphertext: list[int]) -> list[str]:
 
 def filter_common_word(possibles: list[str], common_word: str) -> list[str]:
     """
-    Given a list of possible decoded messages, narrow down the possibilities
-    for checking for the presence of a specified common word. Only decoded messages
-    containing common_word will be returned.
+    给定可能的解码消息列表，通过检查指定常用词来缩小范围。
+    仅返回包含 common_word 的解码消息。
     >>> filter_common_word(['asfla adf', 'I am here', '   !?! #a'], 'am')
     ['I am here']
     >>> filter_common_word(['athla amf', 'I am here', '   !?! #a'], 'am')
@@ -100,9 +91,8 @@ def filter_common_word(possibles: list[str], common_word: str) -> list[str]:
 
 def solution(filename: str = "p059_cipher.txt") -> int:
     """
-    Test the ciphertext against all possible 3-character keys, then narrow down the
-    possibilities by filtering using common words until there's only one possible
-    decoded message.
+    使用所有可能的 3 字符密钥测试密文，再用常用词筛选以缩小范围，
+    直到只剩一条可能的解码消息。
     >>> solution("test_cipher.txt")
     3000
     """

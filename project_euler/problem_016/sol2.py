@@ -1,14 +1,14 @@
 """
 Problem 16: https://projecteuler.net/problem=16
 
-2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+2^15 = 32768，其各位数字之和为 3 + 2 + 7 + 6 + 8 = 26。
 
-What is the sum of the digits of the number 2^1000?
+数 2^1000 的各位数字之和是多少？
 """
 
 
 def solution(power: int = 1000) -> int:
-    """Returns the sum of the digits of the number 2^power.
+    """返回数 2^power 的各位数字之和。
 
     >>> solution(1000)
     1366
