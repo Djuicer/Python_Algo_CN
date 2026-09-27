@@ -1,18 +1,17 @@
 """
-Longest Common Substring Problem Statement:
-    Given two sequences, find the
-    longest common substring present in both of them. A substring is
-    necessarily continuous.
+最长公共子串问题描述：
+    给定两个序列，查找同时存在于两者中的最长公共子串。
+    子串必然是连续的。
 
-Example:
-    ``abcdef`` and ``xabded`` have two longest common substrings, ``ab`` or ``de``.
-    Therefore, algorithm should return any one of them.
+示例：
+    ``abcdef`` 和 ``xabded`` 有两个最长公共子串：``ab`` 或 ``de``。
+    因此，算法应返回其中任意一个。
 """
 
 
 def longest_common_substring(text1: str, text2: str) -> str:
     """
-    Finds the longest common substring between two strings.
+    查找两个字符串之间的最长公共子串。
 
     >>> longest_common_substring("", "")
     ''

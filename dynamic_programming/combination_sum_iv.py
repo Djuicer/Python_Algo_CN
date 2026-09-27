@@ -1,32 +1,30 @@
 """
-Question:
-    You are given an array of distinct integers and you have to tell how many
-    different ways of selecting the elements from the array are there such that
-    the sum of chosen elements is equal to the target number tar.
+问题：
+    给定一个由不同整数组成的数组，求从数组中选择元素并使所选元素之和
+    等于目标数 tar 的不同方式数。
 
-Example
+示例
 
-Input:
+输入：
     * N = 3
     * target = 5
     * array = [1, 2, 5]
 
-Output:
+输出：
     9
 
-Approach:
-    The basic idea is to go over recursively to find the way such that the sum
-    of chosen elements is `target`. For every element, we have two choices
+思路：
+    基本思想是通过递归寻找使所选元素之和为 `target` 的方式。
+    对于每个元素，有两种选择：
 
-        1. Include the element in our set of chosen elements.
-        2. Don't include the element in our set of chosen elements.
+        1. 将该元素加入所选元素集合。
+        2. 不将该元素加入所选元素集合。
 """
 
 
 def combination_sum_iv(array: list[int], target: int) -> int:
     """
-    Function checks the all possible combinations, and returns the count
-    of possible combination in exponential Time Complexity.
+    检查所有可能的组合，并以指数时间复杂度返回可能组合的数量。
 
     >>> combination_sum_iv([1,2,5], 5)
     9
@@ -44,9 +42,8 @@ def combination_sum_iv(array: list[int], target: int) -> int:
 
 def combination_sum_iv_dp_array(array: list[int], target: int) -> int:
     """
-    Function checks the all possible combinations, and returns the count
-    of possible combination in O(N^2) Time Complexity as we are using Dynamic
-    programming array here.
+    检查所有可能的组合，并返回可能组合的数量。
+    由于这里使用动态规划（Dynamic Programming）数组，时间复杂度为 O(N^2)。
 
     >>> combination_sum_iv_dp_array([1,2,5], 5)
     9
@@ -74,9 +71,8 @@ def combination_sum_iv_dp_array(array: list[int], target: int) -> int:
 
 def combination_sum_iv_bottom_up(n: int, array: list[int], target: int) -> int:
     """
-    Function checks the all possible combinations with using bottom up approach,
-    and returns the count of possible combination in O(N^2) Time Complexity
-    as we are using Dynamic programming array here.
+    使用自底向上的方法检查所有可能的组合，并返回可能组合的数量。
+    由于这里使用动态规划数组，时间复杂度为 O(N^2)。
 
     >>> combination_sum_iv_bottom_up(3, [1,2,5], 5)
     9

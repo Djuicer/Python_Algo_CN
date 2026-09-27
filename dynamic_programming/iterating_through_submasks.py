@@ -1,9 +1,8 @@
 """
 Author : Syed Faizan (3rd Year Student IIIT Pune)
 github : faizan2700
-You are given a bitmask m and you want to efficiently iterate through all of
-its submasks. The mask s is submask of m if only bits that were included in
-bitmask are set
+给定一个位掩码 m，需要高效遍历它的所有子掩码。
+如果掩码 s 中置位的位都包含在位掩码 m 中，则 s 是 m 的子掩码。
 """
 
 from __future__ import annotations
@@ -11,16 +10,15 @@ from __future__ import annotations
 
 def list_of_submasks(mask: int) -> list[int]:
     """
-    Args:
-        mask : number which shows mask ( always integer > 0, zero does not have any
-            submasks )
+    参数：
+        mask : 表示掩码的数（始终为 integer > 0，零没有任何子掩码）
 
-    Returns:
-        all_submasks : the list of submasks of mask (mask s is called submask of mask
-        m if only bits that were included in original mask are set
+    返回：
+        all_submasks : mask 的子掩码列表（如果掩码 s 中置位的位都包含在原始掩码
+        m 中，则称掩码 s 为掩码 m 的子掩码）
 
-    Raises:
-        AssertionError: mask not positive integer
+    异常：
+        AssertionError: mask 不是正整数
 
     >>> list_of_submasks(15)
     [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
@@ -42,9 +40,8 @@ def list_of_submasks(mask: int) -> list[int]:
     )
 
     """
-    first submask iterated will be mask itself then operation will be performed
-    to get other submasks till we reach empty submask that is zero ( zero is not
-    included in final submasks list )
+    遍历的第一个子掩码是 mask 本身，随后执行运算以获得其他子掩码，
+    直到到达值为零的空子掩码（最终的子掩码列表不包含零）
     """
     all_submasks = []
     submask = mask

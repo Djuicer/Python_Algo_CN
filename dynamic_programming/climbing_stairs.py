@@ -3,18 +3,18 @@
 
 def climb_stairs(number_of_steps: int) -> int:
     """
-    LeetCdoe No.70: Climbing Stairs
-    Distinct ways to climb a number_of_steps staircase where each time you can either
-    climb 1 or 2 steps.
+    LeetCdoe 第 70 题：爬楼梯
+    爬上具有 number_of_steps 级台阶的楼梯，每次可以爬 1 级或 2 级，
+    计算不同的爬法数量。
 
-    Args:
-        number_of_steps: number of steps on the staircase
+    参数：
+        number_of_steps: 楼梯的台阶数
 
-    Returns:
-        Distinct ways to climb a number_of_steps staircase
+    返回：
+        爬上具有 number_of_steps 级台阶的楼梯的不同方式数
 
-    Raises:
-        AssertionError: number_of_steps not positive integer
+    异常：
+        AssertionError: number_of_steps 不是正整数
 
     >>> climb_stairs(3)
     3

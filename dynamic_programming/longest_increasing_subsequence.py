@@ -1,24 +1,22 @@
 """
 Author  : Mehdi ALAOUI
 
-This is a pure Python implementation of Dynamic Programming solution to the longest
-increasing subsequence of a given sequence.
+这是使用纯 Python 实现的给定序列最长递增子序列动态规划（Dynamic Programming）解法。
 
-The problem is:
-    Given an array, to find the longest and increasing sub-array in that given array and
-    return it.
+问题如下：
+    给定一个数组，查找并返回其中最长的递增子数组。
 
-Example:
-    ``[10, 22, 9, 33, 21, 50, 41, 60, 80]`` as input will return
-    ``[10, 22, 33, 41, 60, 80]`` as output
+示例：
+    输入 ``[10, 22, 9, 33, 21, 50, 41, 60, 80]`` 将返回
+    ``[10, 22, 33, 41, 60, 80]``。
 """
 
 from __future__ import annotations
 
 
-def longest_subsequence(array: list[int]) -> list[int]:  # This function is recursive
+def longest_subsequence(array: list[int]) -> list[int]:  # 此函数使用递归
     """
-    Some examples
+    一些示例
 
     >>> longest_subsequence([10, 22, 9, 33, 21, 50, 41, 60, 80])
     [10, 22, 33, 41, 60, 80]
@@ -34,11 +32,10 @@ def longest_subsequence(array: list[int]) -> list[int]:  # This function is recu
     []
     """
     array_length = len(array)
-    # If the array contains only one element, we return it (it's the stop condition of
-    # recursion)
+    # 如果数组仅包含一个元素，则返回该元素（这是递归的终止条件）
     if array_length <= 1:
         return array
-        # Else
+        # 否则
     pivot = array[0]
     is_found = False
     i = 1

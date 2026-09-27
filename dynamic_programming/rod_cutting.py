@@ -1,38 +1,34 @@
 """
-This module provides two implementations for the rod-cutting problem:
-  1. A naive recursive implementation which has an exponential runtime
-  2. Two dynamic programming implementations which have quadratic runtime
+此模块提供切割钢条问题的两类实现：
+  1. 运行时间为指数级的朴素递归实现
+  2. 两种运行时间为平方级的动态规划实现
 
-The rod-cutting problem is the problem of finding the maximum possible revenue
-obtainable from a rod of length ``n`` given a list of prices for each integral piece
-of the rod. The maximum revenue can thus be obtained by cutting the rod and selling the
-pieces separately or not cutting it at all if the price of it is the maximum obtainable.
+切割钢条问题是在给定每种整数长度钢条的价格列表时，求长度为 ``n`` 的钢条
+所能获得的最大收益。因此，可以将钢条切开并分别出售各段来获得最大收益；
+如果整根钢条的价格就是可获得的最大值，也可以完全不切割。
 
 """
 
 
 def naive_cut_rod_recursive(n: int, prices: list):
     """
-    Solves the rod-cutting problem via naively without using the benefit of dynamic
-    programming. The results is the same sub-problems are solved several times
-    leading to an exponential runtime
+    使用朴素方法求解切割钢条问题，不利用动态规划的优势。
+    同一子问题会被多次求解，因此运行时间为指数级。
 
-    Runtime: O(2^n)
+    运行时间：O(2^n)
 
-    Arguments
+    参数
     ---------
 
-    * `n`: int, the length of the rod
-    * `prices`: list, the prices for each piece of rod. ``p[i-i]`` is the
-      price for a rod of length ``i``
+    * `n`: int，钢条长度。
+    * `prices`: list，每段钢条的价格。``p[i-i]`` 是长度为 ``i`` 的钢条价格。
 
-    Returns
+    返回
     -------
 
-    The maximum revenue obtainable for a rod of length `n` given the list of prices
-    for each piece.
+    给定各段价格列表时，长度为 `n` 的钢条可获得的最大收益。
 
-    Examples
+    示例
     --------
 
     >>> naive_cut_rod_recursive(4, [1, 5, 8, 9])
@@ -55,30 +51,27 @@ def naive_cut_rod_recursive(n: int, prices: list):
 
 def top_down_cut_rod(n: int, prices: list):
     """
-    Constructs a top-down dynamic programming solution for the rod-cutting
-    problem via memoization. This function serves as a wrapper for
-    ``_top_down_cut_rod_recursive``
+    通过记忆化搜索构造切割钢条问题的自顶向下动态规划解法。
+    此函数是 ``_top_down_cut_rod_recursive`` 的包装器。
 
-    Runtime: O(n^2)
+    运行时间：O(n^2)
 
-    Arguments
+    参数
     ---------
 
-    * `n`: int, the length of the rod
-    * `prices`: list, the prices for each piece of rod. ``p[i-i]`` is the
-      price for a rod of length ``i``
+    * `n`: int，钢条长度。
+    * `prices`: list，每段钢条的价格。``p[i-i]`` 是长度为 ``i`` 的钢条价格。
 
     .. note::
-      For convenience and because Python's lists using ``0``-indexing, ``length(max_rev)
-      = n + 1``, to accommodate for the revenue obtainable from a rod of length ``0``.
+      为方便起见，并且由于 Python 列表使用 ``0``-索引，令 ``length(max_rev)
+      = n + 1``，以容纳长度为 ``0`` 的钢条可获得的收益。
 
-    Returns
+    返回
     -------
 
-    The maximum revenue obtainable for a rod of length `n` given the list of prices
-    for each piece.
+    给定各段价格列表时，长度为 `n` 的钢条可获得的最大收益。
 
-    Examples
+    示例
     --------
 
     >>> top_down_cut_rod(4, [1, 5, 8, 9])
@@ -93,25 +86,22 @@ def top_down_cut_rod(n: int, prices: list):
 
 def _top_down_cut_rod_recursive(n: int, prices: list, max_rev: list):
     """
-    Constructs a top-down dynamic programming solution for the rod-cutting problem
-    via memoization.
+    通过记忆化搜索构造切割钢条问题的自顶向下动态规划解法。
 
-    Runtime: O(n^2)
+    运行时间：O(n^2)
 
-    Arguments
+    参数
     ---------
 
-    * `n`: int, the length of the rod
-    * `prices`: list, the prices for each piece of rod. ``p[i-i]`` is the
-      price for a rod of length ``i``
-    * `max_rev`: list, the computed maximum revenue for a piece of rod.
-      ``max_rev[i]`` is the maximum revenue obtainable for a rod of length ``i``
+    * `n`: int，钢条长度。
+    * `prices`: list，每段钢条的价格。``p[i-i]`` 是长度为 ``i`` 的钢条价格。
+    * `max_rev`: list，已计算的钢条最大收益。
+      ``max_rev[i]`` 是长度为 ``i`` 的钢条可获得的最大收益。
 
-    Returns
+    返回
     -------
 
-    The maximum revenue obtainable for a rod of length `n` given the list of prices
-    for each piece.
+    给定各段价格列表时，长度为 `n` 的钢条可获得的最大收益。
     """
     if max_rev[n] >= 0:
         return max_rev[n]
@@ -132,24 +122,22 @@ def _top_down_cut_rod_recursive(n: int, prices: list, max_rev: list):
 
 def bottom_up_cut_rod(n: int, prices: list):
     """
-    Constructs a bottom-up dynamic programming solution for the rod-cutting problem
+    构造切割钢条问题的自底向上动态规划解法。
 
-    Runtime: O(n^2)
+    运行时间：O(n^2)
 
-    Arguments
+    参数
     ---------
 
-    * `n`: int, the maximum length of the rod.
-    * `prices`: list, the prices for each piece of rod. ``p[i-i]`` is the
-      price for a rod of length ``i``
+    * `n`: int，钢条的最大长度。
+    * `prices`: list，每段钢条的价格。``p[i-i]`` 是长度为 ``i`` 的钢条价格。
 
-    Returns
+    返回
     -------
 
-    The maximum revenue obtainable from cutting a rod of length `n` given
-    the prices for each piece of rod p.
+    给定每段钢条 p 的价格时，切割长度为 `n` 的钢条可获得的最大收益。
 
-    Examples
+    示例
     --------
 
     >>> bottom_up_cut_rod(4, [1, 5, 8, 9])
@@ -159,8 +147,7 @@ def bottom_up_cut_rod(n: int, prices: list):
     """
     _enforce_args(n, prices)
 
-    # length(max_rev) = n + 1, to accommodate for the revenue obtainable from a rod of
-    # length 0.
+    # length(max_rev) = n + 1，以容纳长度为 0 的钢条可获得的收益
     max_rev = [float("-inf") for _ in range(n + 1)]
     max_rev[0] = 0
 
@@ -176,14 +163,13 @@ def bottom_up_cut_rod(n: int, prices: list):
 
 def _enforce_args(n: int, prices: list) -> None:
     """
-    Basic checks on the arguments to the rod-cutting algorithms
+    对切割钢条算法的参数执行基本检查。
 
-    * `n`: int, the length of the rod
-    * `prices`: list, the price list for each piece of rod.
+    * `n`: int，钢条长度。
+    * `prices`: list，每段钢条的价格列表。
 
-    Throws ``ValueError``:
-        if `n` is negative or there are fewer items in the price list than the length of
-        the rod
+    抛出 ``ValueError``：
+        如果 `n` 为负数，或者价格列表中的项目数少于钢条长度。
     """
     if n < 0:
         msg = f"n must be greater than or equal to 0. Got n = {n}"
@@ -201,8 +187,7 @@ def main() -> None:
     prices = [6, 10, 12, 15, 20, 23]
     n = len(prices)
 
-    # the best revenue comes from cutting the rod into 6 pieces, each
-    # of length 1 resulting in a revenue of 6 * 6 = 36.
+    # 最佳收益来自将钢条切成 6 段，每段长度为 1，收益为 6 * 6 = 36
     expected_max_revenue = 36
 
     max_rev_top_down = top_down_cut_rod(n, prices)

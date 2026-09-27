@@ -1,39 +1,36 @@
-"""Needleman-Wunsch algorithm for global sequence alignment.
+"""用于全局序列比对的 Needleman-Wunsch 算法。
 
-Reference:
+参考资料：
     https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
 
-The Needleman-Wunsch algorithm (1970) is a dynamic programming algorithm
-used in bioinformatics and computational biology to find the optimal global
-alignment between two sequences (such as DNA, RNA, or protein sequences).
+Needleman-Wunsch 算法 (1970) 是一种动态规划算法，用于在生物信息学和计算生物学中
+查找两个序列（如 DNA、RNA 或蛋白质序列）之间的最优全局比对。
 
-Unlike local alignment algorithms (e.g., Smith-Waterman), which find the
-highest-scoring local sub-regions, Needleman-Wunsch aligns both sequences across
-their entire lengths from start to finish.
+局部比对算法（如 Smith-Waterman）查找得分最高的局部子区域，
+而 Needleman-Wunsch 从头到尾对两个序列的完整长度进行比对。
 
-Algorithm:
-1. Initialization:
-   - Construct a matrix of size (m + 1) x (n + 1) where m and n are sequence lengths.
-   - Initialize boundary conditions:
+算法：
+1. 初始化：
+   - 构造大小为 (m + 1) x (n + 1) 的矩阵，其中 m 和 n 是序列长度。
+   - 初始化边界条件：
      score_matrix[i][0] = i * gap_score
      score_matrix[0][j] = j * gap_score
 
-2. Matrix Filling (Recurrence Relation):
-   For each cell (i, j):
+2. 填充矩阵（状态转移方程）：
+   对于每个单元格 (i, j)：
      diagonal = score_matrix[i - 1][j - 1] + (match_score if seq1[i-1] == seq2[j-1]
                                               else mismatch_score)
      deletion = score_matrix[i - 1][j] + gap_score
      insertion = score_matrix[i][j - 1] + gap_score
      score_matrix[i][j] = max(diagonal, deletion, insertion)
 
-3. Traceback:
-   - Start from the bottom-right cell (m, n) and trace back to (0, 0).
-   - At each step, determine which direction (diagonal, up, or left) produced the
-     maximum score, assembling the aligned sequences in reverse order.
+3. 回溯：
+   - 从右下角单元格 (m, n) 开始，回溯到 (0, 0)。
+   - 每一步确定产生最高得分的方向（对角、向上或向左），并以逆序组装比对后的序列。
 
-Complexity:
-    Time Complexity:  O(m * n) where m and n are the lengths of the sequences.
-    Space Complexity: O(m * n) to store the score matrix for traceback.
+复杂度：
+    时间复杂度：O(m * n)，其中 m 和 n 是序列长度。
+    空间复杂度：O(m * n)，用于存储回溯所需的得分矩阵。
 """
 
 from __future__ import annotations
@@ -46,25 +43,25 @@ def needleman_wunsch(
     mismatch_score: int = -1,
     gap_score: int = -1,
 ) -> tuple[str, str, int]:
-    """Compute the optimal global sequence alignment using Needleman-Wunsch.
+    """使用 Needleman-Wunsch 算法计算最优全局序列比对。
 
-    Parameters:
-        sequence1: The first input sequence to align.
-        sequence2: The second input sequence to align.
-        match_score: Score awarded when two characters match (default: 1).
-        mismatch_score: Penalty score when characters do not match (default: -1).
-        gap_score: Penalty score for introducing a gap '-' (default: -1).
+    参数：
+        sequence1: 要比对的第一个输入序列。
+        sequence2: 要比对的第二个输入序列。
+        match_score: 两个字符匹配时获得的分数（默认值：1）。
+        mismatch_score: 字符不匹配时的罚分（默认值：-1）。
+        gap_score: 引入间隙 '-' 时的罚分（默认值：-1）。
 
-    Returns:
-        A tuple containing:
-        - aligned_sequence1: The first aligned sequence with inserted gaps.
-        - aligned_sequence2: The second aligned sequence with inserted gaps.
-        - alignment_score: The total optimal alignment score.
+    返回：
+        包含以下内容的元组：
+        - aligned_sequence1: 插入间隙后的第一个比对序列。
+        - aligned_sequence2: 插入间隙后的第二个比对序列。
+        - alignment_score: 最优比对的总得分。
 
-    Raises:
-        ValueError: If gap_score is positive (gap must be neutral or a penalty).
+    异常：
+        ValueError: 如果 gap_score 为正数（间隙分数必须为零或罚分）。
 
-    Examples:
+    示例：
         >>> # Wikipedia classic example
         >>> needleman_wunsch(
         ...     "GCATGCG", "GATTACA", match_score=1, mismatch_score=-1, gap_score=-1
@@ -110,18 +107,18 @@ def needleman_wunsch(
     first_sequence_length = len(sequence1)
     second_sequence_length = len(sequence2)
 
-    # Initialize the (m + 1) x (n + 1) dynamic programming score matrix
+    # 初始化 (m + 1) x (n + 1) 动态规划得分矩阵
     score_matrix = [
         [0] * (second_sequence_length + 1) for _ in range(first_sequence_length + 1)
     ]
 
-    # Fill base-case boundary penalties
+    # 填充边界条件的罚分
     for row_index in range(first_sequence_length + 1):
         score_matrix[row_index][0] = row_index * gap_score
     for col_index in range(second_sequence_length + 1):
         score_matrix[0][col_index] = col_index * gap_score
 
-    # Populate the score matrix using dynamic programming
+    # 使用动态规划填充得分矩阵
     for row_index in range(1, first_sequence_length + 1):
         for col_index in range(1, second_sequence_length + 1):
             char1 = sequence1[row_index - 1]
@@ -136,7 +133,7 @@ def needleman_wunsch(
                 diagonal_score, deletion_score, insertion_score
             )
 
-    # Traceback from bottom-right (m, n) to top-left (0, 0)
+    # 从右下角 (m, n) 回溯到左上角 (0, 0)
     aligned_chars_first: list[str] = []
     aligned_chars_second: list[str] = []
     curr_row = first_sequence_length
@@ -148,7 +145,7 @@ def needleman_wunsch(
             char2 = sequence2[curr_col - 1]
             substitution = match_score if char1 == char2 else mismatch_score
 
-            # Check if diagonal step was optimal
+            # 检查对角步骤是否最优
             if (
                 score_matrix[curr_row][curr_col]
                 == score_matrix[curr_row - 1][curr_col - 1] + substitution
@@ -159,7 +156,7 @@ def needleman_wunsch(
                 curr_col -= 1
                 continue
 
-        # Check if vertical step (gap in second sequence) was optimal
+        # 检查垂直步骤（第二个序列中的间隙）是否最优
         if (
             curr_row > 0
             and score_matrix[curr_row][curr_col]
@@ -169,7 +166,7 @@ def needleman_wunsch(
             aligned_chars_second.append("-")
             curr_row -= 1
         else:
-            # Horizontal step (gap in first sequence)
+            # 水平步骤（第一个序列中的间隙）
             aligned_chars_first.append("-")
             aligned_chars_second.append(sequence2[curr_col - 1])
             curr_col -= 1

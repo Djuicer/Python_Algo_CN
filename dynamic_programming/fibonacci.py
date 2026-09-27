@@ -1,6 +1,5 @@
 """
-This is a pure Python implementation of Dynamic Programming solution to the fibonacci
-sequence problem.
+这是使用纯 Python 实现的斐波那契数列动态规划（Dynamic Programming）解法。
 """
 
 
@@ -10,8 +9,8 @@ class Fibonacci:
 
     def get(self, index: int) -> list:
         """
-        Get the Fibonacci number of `index`. If the number does not exist,
-        calculate all missing numbers leading up to the number of `index`.
+        获取索引为 `index` 的斐波那契数。如果该数尚不存在，
+        则计算直至索引 `index` 之前所有缺少的数。
 
         >>> Fibonacci().get(10)
         [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]

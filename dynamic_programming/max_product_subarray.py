@@ -1,9 +1,8 @@
 def max_product_subarray(numbers: list[int]) -> int:
     """
-    Returns the maximum product that can be obtained by multiplying a
-    contiguous subarray of the given integer list `numbers`.
+    返回给定整数列表 `numbers` 的连续子数组所能得到的最大乘积。
 
-    Example:
+    示例：
 
     >>> max_product_subarray([2, 3, -2, 4])
     6
@@ -41,14 +40,14 @@ def max_product_subarray(numbers: list[int]) -> int:
     max_till_now = min_till_now = max_prod = numbers[0]
 
     for i in range(1, len(numbers)):
-        # update the maximum and minimum subarray products
+        # 更新子数组乘积的最大值和最小值
         number = numbers[i]
         if number < 0:
             max_till_now, min_till_now = min_till_now, max_till_now
         max_till_now = max(number, max_till_now * number)
         min_till_now = min(number, min_till_now * number)
 
-        # update the maximum product found till now
+        # 更新目前找到的最大乘积
         max_prod = max(max_prod, max_till_now)
 
     return max_prod

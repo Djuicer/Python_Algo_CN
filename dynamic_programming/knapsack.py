@@ -1,19 +1,17 @@
 """
-Given weights and values of n items, put these items in a knapsack of
-capacity W to get the maximum total value in the knapsack.
+给定 n 个物品的重量和价值，将这些物品放入容量为 W 的背包，
+使背包中物品的总价值最大。
 
-Note that only the integer weights 0-1 knapsack problem is solvable
-using dynamic programming.
+请注意，只有整数重量的 0-1 背包问题可以使用动态规划求解。
 """
 
 
 def mf_knapsack(i, wt, val, j):
     """
-    This code involves the concept of memory functions. Here we solve the subproblems
-    which are needed unlike the below example
-    F is a 2D array with ``-1`` s filled up
+    此代码使用记忆函数的概念。与下面的示例不同，这里只求解需要的子问题。
+    F 是一个 2D 数组，以 ``-1`` 填充。
     """
-    global f  # a global dp table for knapsack
+    global f  # 背包问题的全局 dp 表
     if f[i][j] < 0:
         if j < wt[i - 1]:
             val = mf_knapsack(i - 1, wt, val, j)
@@ -41,26 +39,22 @@ def knapsack(w, wt, val, n):
 
 def knapsack_with_example_solution(w: int, wt: list, val: list):
     """
-    Solves the integer weights knapsack problem returns one of
-    the several possible optimal subsets.
+    求解整数重量背包问题，并返回多个可能最优子集中的一个。
 
-    Parameters
+    参数
     ----------
 
-    * `w`: int, the total maximum weight for the given knapsack problem.
-    * `wt`: list, the vector of weights for all items where ``wt[i]`` is the weight
-       of the ``i``-th item.
-    * `val`: list, the vector of values for all items where ``val[i]`` is the value
-      of the ``i``-th item
+    * `w`: int，给定背包问题允许的最大总重量。
+    * `wt`: list，所有物品的重量向量，其中 ``wt[i]`` 是第 ``i`` 个物品的重量。
+    * `val`: list，所有物品的价值向量，其中 ``val[i]`` 是第 ``i`` 个物品的价值。
 
-    Returns
+    返回
     -------
 
-    * `optimal_val`: float, the optimal value for the given knapsack problem
-    * `example_optional_set`: set, the indices of one of the optimal subsets
-      which gave rise to the optimal value.
+    * `optimal_val`: float，给定背包问题的最优值。
+    * `example_optional_set`: set，产生最优值的一个最优子集的索引。
 
-    Examples
+    示例
     --------
 
     >>> knapsack_with_example_solution(10, [1, 3, 5, 2], [10, 20, 100, 22])
@@ -102,27 +96,25 @@ def knapsack_with_example_solution(w: int, wt: list, val: list):
 
 def _construct_solution(dp: list, wt: list, i: int, j: int, optimal_set: set) -> None:
     """
-    Recursively reconstructs one of the optimal subsets given
-    a filled DP table and the vector of weights
+    根据已填充的 DP 表和重量向量，递归重建一个最优子集。
 
-    Parameters
+    参数
     ----------
 
-    * `dp`: list of list, the table of a solved integer weight dynamic programming
-      problem
-    * `wt`: list or tuple, the vector of weights of the items
-    * `i`: int, the index of the item under consideration
-    * `j`: int, the current possible maximum weight
-    * `optimal_set`: set, the optimal subset so far. This gets modified by the function.
+    * `dp`: list of list，已求解的整数重量动态规划问题表。
+    * `wt`: list or tuple，物品的重量向量。
+    * `i`: int，当前考虑的物品索引。
+    * `j`: int，当前可能的最大重量。
+    * `optimal_set`: set，当前的最优子集。此函数会修改它。
 
-    Returns
+    返回
     -------
 
     ``None``
     """
-    # for the current item i at a maximum weight j to be part of an optimal subset,
-    # the optimal value at (i, j) must be greater than the optimal value at (i-1, j).
-    # where i - 1 means considering only the previous items at the given maximum weight
+    # 要使最大重量 j 下的当前物品 i 成为最优子集的一部分，
+    # (i, j) 处的最优值必须大于 (i-1, j) 处的最优值。
+    # 其中 i - 1 表示在给定最大重量下只考虑之前的物品
     if i > 0 and j > 0:
         if dp[i - 1][j] == dp[i][j]:
             _construct_solution(dp, wt, i - 1, j, optimal_set)
@@ -133,7 +125,7 @@ def _construct_solution(dp: list, wt: list, i: int, j: int, optimal_set: set) ->
 
 if __name__ == "__main__":
     """
-    Adding test case for knapsack
+    添加背包问题测试用例
     """
     val = [3, 2, 4, 4]
     wt = [4, 3, 2, 3]
@@ -142,10 +134,10 @@ if __name__ == "__main__":
     f = [[0] * (w + 1)] + [[0] + [-1] * (w + 1) for _ in range(n + 1)]
     optimal_solution, _ = knapsack(w, wt, val, n)
     print(optimal_solution)
-    print(mf_knapsack(n, wt, val, w))  # switched the n and w
+    print(mf_knapsack(n, wt, val, w))  # 交换了 n 和 w
 
-    # testing the dynamic programming problem with example
-    # the optimal subset for the above example are items 3 and 4
+    # 使用示例测试动态规划问题
+    # 上述示例的最优子集是物品 3 和 4
     optimal_solution, optimal_subset = knapsack_with_example_solution(w, wt, val)
     assert optimal_solution == 8
     assert optimal_subset == {3, 4}

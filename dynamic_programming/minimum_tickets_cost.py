@@ -2,24 +2,23 @@
 Author  : Alexander Pantyukhin
 Date    : November 1, 2022
 
-Task:
-Given a list of days when you need to travel. Each day is integer from 1 to 365.
-You are able to use tickets for 1 day, 7 days and 30 days.
-Each ticket has a cost.
+任务：
+给定需要出行的日期列表，每个日期都是从 1 到 365 的整数。
+可以使用有效期为 1 天、7 天和 30 天的车票，每种车票都有相应费用。
 
-Find the minimum cost you need to travel every day in the given list of days.
+求在给定日期列表中的每一天出行所需的最低费用。
 
-Implementation notes:
-implementation Dynamic Programming up bottom approach.
+实现说明：
+采用自顶向下的动态规划方法实现。
 
-Runtime complexity: O(n)
+运行时间复杂度：O(n)
 
-The implementation was tested on the
-leetcode: https://leetcode.com/problems/minimum-cost-for-tickets/
+此实现在 leetcode 上通过了测试：
+https://leetcode.com/problems/minimum-cost-for-tickets/
 
 
-Minimum Cost For Tickets
-Dynamic Programming: up -> down.
+最低车票费用
+动态规划（Dynamic Programming）：自顶向下。
 """
 
 import functools
@@ -88,7 +87,7 @@ def mincost_tickets(days: list[int], costs: list[int]) -> int:
     ValueError: The parameter costs should be a list of three integers
     """
 
-    # Validation
+    # 验证
     if not isinstance(days, list) or not all(isinstance(day, int) for day in days):
         raise ValueError("The parameter days should be a list of integers")
 

@@ -1,25 +1,21 @@
 """
-Given an array of non-negative integers representing an elevation map where the width
-of each bar is 1, this program calculates how much rainwater can be trapped.
+给定一个表示高程图的非负整数数组，其中每个柱子的宽度为 1，
+此程序计算可以收集多少雨水。
 
-Example - height = (0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1)
-Output: 6
-This problem can be solved using the concept of "DYNAMIC PROGRAMMING".
+示例 - height = (0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1)
+输出：6
+此问题可以使用“动态规划（DYNAMIC PROGRAMMING）”的概念求解。
 
-We calculate the maximum height of bars on the left and right of every bar in array.
-Then iterate over the width of structure and at each index.
-The amount of water that will be stored is equal to minimum of maximum height of bars
-on both sides minus height of bar at current position.
+计算数组中每个柱子左右两侧柱子的最大高度，然后逐个遍历结构中的每个索引。
+可存储的水量等于两侧柱子最大高度的较小值减去当前位置柱子的高度。
 """
 
 
 def trapped_rainwater(heights: tuple[int, ...]) -> int:
     """
-    The trapped_rainwater function calculates the total amount of rainwater that can be
-    trapped given an array of bar heights.
-    It uses a dynamic programming approach, determining the maximum height of bars on
-    both sides for each bar, and then computing the trapped water above each bar.
-    The function returns the total trapped water.
+    trapped_rainwater 函数根据给定的柱高数组计算可收集的雨水总量。
+    它使用动态规划方法，确定每个柱子两侧柱子的最大高度，
+    然后计算每个柱子上方收集的雨水。函数返回收集的雨水总量。
 
     >>> trapped_rainwater((0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1))
     6

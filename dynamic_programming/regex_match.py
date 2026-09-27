@@ -1,25 +1,25 @@
 """
-Regex matching check if a text matches pattern or not.
-Pattern:
+正则表达式匹配用于检查文本是否与模式匹配。
+模式：
 
-    1. ``.`` Matches any single character.
-    2. ``*`` Matches zero or more of the preceding element.
+    1. ``.`` 匹配任意单个字符。
+    2. ``*`` 匹配前一个元素零次或多次。
 
-More info:
+更多信息：
     https://medium.com/trick-the-interviwer/regular-expression-matching-9972eb74c03
 """
 
 
 def recursive_match(text: str, pattern: str) -> bool:
     r"""
-    Recursive matching algorithm.
+    递归匹配算法。
 
-    | Time complexity: O(2^(\|text\| + \|pattern\|))
-    | Space complexity: Recursion depth is O(\|text\| + \|pattern\|).
+    | 时间复杂度：O(2^(\|text\| + \|pattern\|))
+    | 空间复杂度：递归深度为 O(\|text\| + \|pattern\|)。
 
-    :param text: Text to match.
-    :param pattern: Pattern to match.
-    :return: ``True`` if `text` matches `pattern`, ``False`` otherwise.
+    :param text: 要匹配的文本。
+    :param pattern: 要匹配的模式。
+    :return: ``True`` 表示 `text` 与 `pattern` 匹配，``False`` 表示不匹配。
 
     >>> recursive_match('abc', 'a.c')
     True
@@ -51,14 +51,14 @@ def recursive_match(text: str, pattern: str) -> bool:
 
 def dp_match(text: str, pattern: str) -> bool:
     r"""
-    Dynamic programming matching algorithm.
+    动态规划匹配算法。
 
-    | Time complexity: O(\|text\| * \|pattern\|)
-    | Space complexity: O(\|text\| * \|pattern\|)
+    | 时间复杂度：O(\|text\| * \|pattern\|)
+    | 空间复杂度：O(\|text\| * \|pattern\|)
 
-    :param text: Text to match.
-    :param pattern: Pattern to match.
-    :return: ``True`` if `text` matches `pattern`, ``False`` otherwise.
+    :param text: 要匹配的文本。
+    :param pattern: 要匹配的模式。
+    :return: ``True`` 表示 `text` 与 `pattern` 匹配，``False`` 表示不匹配。
 
     >>> dp_match('abc', 'a.c')
     True

@@ -1,17 +1,16 @@
 """
-Given a string s, partition s such that every substring of the
-partition is a palindrome.
-Find the minimum cuts needed for a palindrome partitioning of s.
+给定字符串 s，对 s 进行划分，使划分中的每个子串都是回文串。
+求对 s 进行回文划分所需的最少切割次数。
 
-Time Complexity: O(n^2)
-Space Complexity: O(n^2)
-For other explanations refer to: https://www.youtube.com/watch?v=_H8V5hJUGd0
+时间复杂度：O(n^2)
+空间复杂度：O(n^2)
+其他说明请参阅：https://www.youtube.com/watch?v=_H8V5hJUGd0
 """
 
 
 def find_minimum_partitions(string: str) -> int:
     """
-    Returns the minimum cuts needed for a palindrome partitioning of string
+    返回对 string 进行回文划分所需的最少切割次数。
 
     >>> find_minimum_partitions("aab")
     1

@@ -5,7 +5,7 @@ from __future__ import annotations
 
 def maximum_non_adjacent_sum(nums: list[int]) -> int:
     """
-    Find the maximum non-adjacent sum of the integers in the nums input list
+    求输入列表 nums 中整数的最大非相邻元素之和。
 
     >>> maximum_non_adjacent_sum([1, 2, 3])
     4

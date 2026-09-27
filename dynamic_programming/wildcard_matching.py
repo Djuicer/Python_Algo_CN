@@ -2,17 +2,16 @@
 Author  : ilyas dahhou
 Date    : Oct 7, 2023
 
-Task:
-Given an input string and a pattern, implement wildcard pattern matching with support
-for '?' and '*' where:
-'?' matches any single character.
-'*' matches any sequence of characters (including the empty sequence).
-The matching should cover the entire input string (not partial).
+任务：
+给定输入字符串和模式，实现支持 '?' 和 '*' 的通配符模式匹配，其中：
+'?' 匹配任意单个字符。
+'*' 匹配任意字符序列（包括空序列）。
+匹配应覆盖整个输入字符串（而非局部）。
 
-Runtime complexity: O(m * n)
+运行时间复杂度：O(m * n)
 
-The implementation was tested on the
-leetcode: https://leetcode.com/problems/wildcard-matching/
+此实现在 leetcode 上通过了测试：
+https://leetcode.com/problems/wildcard-matching/
 """
 
 
@@ -47,11 +46,11 @@ def is_match(string: str, pattern: str) -> bool:
     """
     dp = [[False] * (len(pattern) + 1) for _ in string + "1"]
     dp[0][0] = True
-    # Fill in the first row
+    # 填充第一行
     for j, char in enumerate(pattern, 1):
         if char == "*":
             dp[0][j] = dp[0][j - 1]
-    # Fill in the rest of the DP table
+    # 填充 DP 表的其余部分
     for i, s_char in enumerate(string, 1):
         for j, p_char in enumerate(pattern, 1):
             if p_char in (s_char, "?"):

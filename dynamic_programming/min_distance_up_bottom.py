@@ -1,11 +1,11 @@
 """
 Author  : Alexander Pantyukhin
 Date    : October 14, 2022
-This is an implementation of the up-bottom approach to find edit distance.
-The implementation was tested on Leetcode: https://leetcode.com/problems/edit-distance/
+这是使用自顶向下方法求编辑距离的实现。
+此实现在 Leetcode 上通过了测试：https://leetcode.com/problems/edit-distance/
 
-Levinstein distance
-Dynamic Programming: up -> down.
+Levinstein 距离
+动态规划（Dynamic Programming）：自顶向下。
 """
 
 import functools
@@ -27,13 +27,13 @@ def min_distance_up_bottom(word1: str, word2: str) -> int:
 
     @functools.cache
     def min_distance(index1: int, index2: int) -> int:
-        # if first word index overflows - delete all from the second word
+        # 如果第一个单词的索引越界，则删除第二个单词中的所有剩余字符
         if index1 >= len_word1:
             return len_word2 - index2
-        # if second word index overflows - delete all from the first word
+        # 如果第二个单词的索引越界，则删除第一个单词中的所有剩余字符
         if index2 >= len_word2:
             return len_word1 - index1
-        diff = int(word1[index1] != word2[index2])  # current letters not identical
+        diff = int(word1[index1] != word2[index2])  # 当前字母不相同
         return min(
             1 + min_distance(index1 + 1, index2),
             1 + min_distance(index1, index2 + 1),

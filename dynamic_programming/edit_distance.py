@@ -2,18 +2,17 @@
 Author  : Turfa Auliarachman
 Date    : October 12, 2016
 
-This is a pure Python implementation of Dynamic Programming solution to the edit
-distance problem.
+这是使用纯 Python 实现的编辑距离动态规划（Dynamic Programming）解法。
 
-The problem is :
-Given two strings A and B. Find the minimum number of operations to string B such that
-A = B. The permitted operations are removal,  insertion, and substitution.
+问题如下：
+给定两个字符串 A 和 B，求对字符串 B 执行的最少操作次数，使 A = B。
+允许的操作包括删除、插入和替换。
 """
 
 
 class EditDistance:
     """
-    Use :
+    用法：
     solver              = EditDistance()
     editDistanceResult  = solver.solve(firstString, secondString)
     """
@@ -73,11 +72,11 @@ class EditDistance:
 
         for i in range(m + 1):
             for j in range(n + 1):
-                if i == 0:  # first string is empty
+                if i == 0:  # 第一个字符串为空
                     self.dp[i][j] = j
-                elif j == 0:  # second string is empty
+                elif j == 0:  # 第二个字符串为空
                     self.dp[i][j] = i
-                elif word1[i - 1] == word2[j - 1]:  # last characters are equal
+                elif word1[i - 1] == word2[j - 1]:  # 最后一个字符相同
                     self.dp[i][j] = self.dp[i - 1][j - 1]
                 else:
                     insert = self.dp[i][j - 1]

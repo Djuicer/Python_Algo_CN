@@ -1,8 +1,6 @@
 """
-You have m types of coins available in infinite quantities
-where the value of each coins is given in the array S=[S0,... Sm-1]
-Can you determine number of ways of making change for n units using
-the given types of coins?
+现有 m 种数量无限的硬币，每种硬币的面值由数组 S=[S0,... Sm-1] 给出。
+能否确定使用这些硬币凑成 n 单位金额的方式数？
 https://www.hackerrank.com/challenges/coin-change/problem
 """
 
@@ -24,15 +22,13 @@ def dp_count(s, n):
     """
     if n < 0:
         return 0
-    # table[i] represents the number of ways to get to amount i
+    # table[i] 表示凑成金额 i 的方式数
     table = [0] * (n + 1)
 
-    # There is exactly 1 way to get to zero(You pick no coins).
+    # 凑成零恰好有 1 种方式（不选择任何硬币）
     table[0] = 1
 
-    # Pick all coins one by one and update table[] values
-    # after the index greater than or equal to the value of the
-    # picked coin
+    # 逐一选择所有硬币，并更新索引大于或等于所选硬币面值的 table[] 值
     for coin_val in s:
         for j in range(coin_val, n + 1):
             table[j] += table[j - coin_val]

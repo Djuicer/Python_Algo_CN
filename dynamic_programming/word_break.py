@@ -2,22 +2,20 @@
 Author  : Alexander Pantyukhin
 Date    : December 12, 2022
 
-Task:
-Given a string and a list of words, return true if the string can be
-segmented into a space-separated sequence of one or more words.
+任务：
+给定一个字符串和一个单词列表，如果该字符串可以拆分为由空格分隔的一个或多个单词序列，
+则返回 true。
 
-Note that the same word may be reused
-multiple times in the segmentation.
+请注意，同一个单词在拆分中可以重复使用多次。
 
-Implementation notes: Trie + Dynamic programming up -> down.
-The Trie will be used to store the words. It will be useful for scanning
-available words for the current position in the string.
+实现说明：Trie + 自顶向下动态规划。
+Trie 用于存储单词，便于扫描字符串当前位置可用的单词。
 
 Leetcode:
 https://leetcode.com/problems/word-break/description/
 
-Runtime: O(n * n)
-Space: O(n)
+运行时间：O(n * n)
+空间：O(n)
 """
 
 import functools
@@ -26,7 +24,7 @@ from typing import Any
 
 def word_break(string: str, words: list[str]) -> bool:
     """
-    Return True if numbers have opposite signs False otherwise.
+    如果数字符号相反则返回 True，否则返回 False。
 
     >>> word_break("applepenapple", ["apple","pen"])
     True
@@ -54,7 +52,7 @@ def word_break(string: str, words: list[str]) -> bool:
     ValueError: the words should be a list of non-empty strings
     """
 
-    # Validation
+    # 验证
     if not isinstance(string, str) or len(string) == 0:
         raise ValueError("the string should be not empty string")
 
@@ -63,7 +61,7 @@ def word_break(string: str, words: list[str]) -> bool:
     ):
         raise ValueError("the words should be a list of non-empty strings")
 
-    # Build trie
+    # 构建 trie
     trie: dict[str, Any] = {}
     word_keeper_key = "WORD_KEEPER"
 
@@ -79,7 +77,7 @@ def word_break(string: str, words: list[str]) -> bool:
 
     len_string = len(string)
 
-    # Dynamic programming method
+    # 动态规划方法
     @functools.cache
     def is_breakable(index: int) -> bool:
         """

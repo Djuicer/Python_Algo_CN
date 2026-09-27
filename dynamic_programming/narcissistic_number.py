@@ -1,24 +1,22 @@
 """
-Find all narcissistic numbers up to a given limit using dynamic programming.
+使用动态规划查找给定上限以内的所有自恋数。
 
-A narcissistic number (also known as an Armstrong number or plus perfect number)
-is a number that is the sum of its own digits each raised to the power of the
-number of digits.
+自恋数（也称为 Armstrong 数或加法完美数）是这样一个数：
+其值等于自身各位数字的位数次幂之和。
 
-For example, 153 is a narcissistic number because 153 = 1^3 + 5^3 + 3^3.
+例如，153 是自恋数，因为 153 = 1^3 + 5^3 + 3^3。
 
-This implementation uses dynamic programming with memoization to efficiently
-compute digit powers and find all narcissistic numbers up to a specified limit.
+此实现使用带记忆化搜索（Memoization）的动态规划，高效计算数字的幂，
+并查找指定上限以内的所有自恋数。
 
-The DP optimization caches digit^power calculations. When searching through many
-numbers, the same digit power calculations occur repeatedly (e.g., 153, 351, 135
-all need 1^3, 5^3, 3^3). Memoization avoids these redundant calculations.
+DP 优化会缓存 digit^power 计算。搜索许多数时，相同的数字幂计算会反复出现
+（例如，153, 351, 135 都需要 1^3, 5^3, 3^3）。记忆化搜索避免了这些重复计算。
 
-Examples of narcissistic numbers:
-    Single digit: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-    Three digit: 153, 370, 371, 407
-    Four digit: 1634, 8208, 9474
-    Five digit: 54748, 92727, 93084
+自恋数示例：
+    一位数：0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+    三位数：153, 370, 371, 407
+    四位数：1634, 8208, 9474
+    五位数：54748, 92727, 93084
 
 Reference: https://en.wikipedia.org/wiki/Narcissistic_number
 """
@@ -26,18 +24,17 @@ Reference: https://en.wikipedia.org/wiki/Narcissistic_number
 
 def find_narcissistic_numbers(limit: int) -> list[int]:
     """
-    Find all narcissistic numbers up to the given limit using dynamic programming.
+    使用动态规划查找给定上限以内的所有自恋数。
 
-    This function uses memoization to cache digit power calculations, avoiding
-    redundant computations across different numbers with the same digit count.
+    此函数使用记忆化搜索缓存数字幂计算，避免在位数相同的不同数字之间重复计算。
 
-    Args:
-        limit: The upper bound for searching narcissistic numbers (exclusive)
+    参数：
+        limit: 搜索自恋数的上限（不包含）
 
-    Returns:
-        list[int]: A sorted list of all narcissistic numbers below the limit
+    返回：
+        list[int]: 小于 limit 的所有自恋数的有序列表
 
-    Examples:
+    示例：
         >>> find_narcissistic_numbers(10)
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
         >>> find_narcissistic_numbers(160)
@@ -58,22 +55,22 @@ def find_narcissistic_numbers(limit: int) -> list[int]:
 
     narcissistic_nums = []
 
-    # Memoization: cache[(power, digit)] = digit^power
-    # This avoids recalculating the same power for different numbers
+    # 记忆化搜索：cache[(power, digit)] = digit^power
+    # 这可以避免为不同数字重复计算相同的幂
     power_cache: dict[tuple[int, int], int] = {}
 
     def get_digit_power(digit: int, power: int) -> int:
-        """Get digit^power using memoization (DP optimization)."""
+        """使用记忆化搜索（DP 优化）获取 digit^power。"""
         if (power, digit) not in power_cache:
             power_cache[(power, digit)] = digit**power
         return power_cache[(power, digit)]
 
-    # Check each number up to the limit
+    # 检查上限以内的每个数
     for number in range(limit):
-        # Count digits
+        # 计算位数
         num_digits = len(str(number))
 
-        # Calculate sum of powered digits using memoized powers
+        # 使用记忆化的幂计算各位数字幂之和
         remaining = number
         digit_sum = 0
         while remaining > 0:
@@ -81,7 +78,7 @@ def find_narcissistic_numbers(limit: int) -> list[int]:
             digit_sum += get_digit_power(digit, num_digits)
             remaining //= 10
 
-        # Check if narcissistic
+        # 检查是否为自恋数
         if digit_sum == number:
             narcissistic_nums.append(number)
 
@@ -93,7 +90,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Demonstrate the dynamic programming approach
+    # 演示动态规划方法
     print("Finding all narcissistic numbers up to 10000:")
     print("(Using memoization to cache digit power calculations)")
     print()

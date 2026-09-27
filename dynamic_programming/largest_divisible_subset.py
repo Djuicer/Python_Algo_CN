@@ -3,8 +3,8 @@ from __future__ import annotations
 
 def largest_divisible_subset(items: list[int]) -> list[int]:
     """
-    Algorithm to find the biggest subset in the given array such that for any 2 elements
-    x and y in the subset, either x divides y or y divides x.
+    寻找给定数组中最大子集的算法，使子集中的任意 2 个元素 x 和 y，
+    都满足 x 整除 y 或 y 整除 x。
     >>> largest_divisible_subset([1, 16, 7, 8, 4])
     [16, 8, 4, 1]
     >>> largest_divisible_subset([1, 2, 3])
@@ -24,17 +24,16 @@ def largest_divisible_subset(items: list[int]) -> list[int]:
     >>> largest_divisible_subset([])
     []
     """
-    # Sort the array in ascending order as the sequence does not matter we only have to
-    # pick up a subset.
+    # 由于顺序并不重要，只需选出一个子集，因此将数组按升序排序
     items = sorted(items)
 
     number_of_items = len(items)
 
-    # Initialize memo with 1s and hash with increasing numbers
+    # 使用 1 初始化 memo，使用递增数字初始化 hash
     memo = [1] * number_of_items
     hash_array = list(range(number_of_items))
 
-    # Iterate through the array
+    # 遍历数组
     for i, item in enumerate(items):
         for prev_index in range(i):
             if ((items[prev_index] != 0 and item % items[prev_index]) == 0) and (
@@ -46,13 +45,13 @@ def largest_divisible_subset(items: list[int]) -> list[int]:
     ans = -1
     last_index = -1
 
-    # Find the maximum length and its corresponding index
+    # 查找最大长度及其对应索引
     for i, memo_item in enumerate(memo):
         if memo_item > ans:
             ans = memo_item
             last_index = i
 
-    # Reconstruct the divisible subset
+    # 重建整除子集
     if last_index == -1:
         return []
     result = [items[last_index]]

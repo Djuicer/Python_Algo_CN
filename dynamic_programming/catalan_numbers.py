@@ -1,27 +1,24 @@
 """
-Print all the Catalan numbers from 0 to n, n being the user input.
+输出从 0 到 n 的所有卡特兰数，其中 n 由用户输入。
 
- * The Catalan numbers are a sequence of positive integers that
- * appear in many counting problems in combinatorics [1]. Such
- * problems include counting [2]:
- * - The number of Dyck words of length 2n
- * - The number well-formed expressions with n pairs of parentheses
- *   (e.g., `()()` is valid but `())(` is not)
- * - The number of different ways n + 1 factors can be completely
- *   parenthesized (e.g., for n = 2, C(n) = 2 and (ab)c and a(bc)
- *   are the two valid ways to parenthesize.
- * - The number of full binary trees with n + 1 leaves
+ * 卡特兰数是一个正整数数列，出现在组合数学的许多计数问题中 [1]。
+ * 这些问题包括计算 [2]：
+ * - 长度为 2n 的 Dyck 词数量
+ * - 由 n 对括号组成的良构表达式数量
+ *   （例如，`()()` 有效，而 `())(` 无效）
+ * - 对 n + 1 个因子添加完整括号的不同方式数
+ *   （例如，当 n = 2 时，C(n) = 2，(ab)c 和 a(bc)
+ *   是两种有效的加括号方式）
+ * - 具有 n + 1 个叶节点的满二叉树数量
 
- * A Catalan number satisfies the following recurrence relation
- * which we will use in this algorithm [1].
+ * 卡特兰数满足以下递推关系，本算法将使用该关系 [1]。
  * C(0) = C(1) = 1
  * C(n) = sum(C(i).C(n-i-1)), from i = 0 to n-1
 
- * In addition, the n-th Catalan number can be calculated using
- * the closed form formula below [1]:
+ * 此外，第 n 个卡特兰数可以使用以下闭式公式计算 [1]：
  * C(n) = (1 / (n + 1)) * (2n choose n)
 
- * Sources:
+ * 来源：
  *  [1] https://brilliant.org/wiki/catalan-numbers/
  *  [2] https://en.wikipedia.org/wiki/Catalan_number
 """
@@ -29,7 +26,7 @@ Print all the Catalan numbers from 0 to n, n being the user input.
 
 def catalan_numbers(upper_limit: int) -> "list[int]":
     """
-    Return a list of the Catalan number sequence from 0 through `upper_limit`.
+    返回从 0 到 `upper_limit` 的卡特兰数数列。
 
     >>> catalan_numbers(5)
     [1, 1, 2, 5, 14, 42]
@@ -44,12 +41,12 @@ def catalan_numbers(upper_limit: int) -> "list[int]":
 
     catalan_list = [0] * (upper_limit + 1)
 
-    # Base case: C(0) = C(1) = 1
+    # 边界条件：C(0) = C(1) = 1
     catalan_list[0] = 1
     if upper_limit > 0:
         catalan_list[1] = 1
 
-    # Recurrence relation: C(i) = sum(C(j).C(i-j-1)), from j = 0 to i
+    # 递推关系：C(i) = sum(C(j).C(i-j-1)), from j = 0 to i
     for i in range(2, upper_limit + 1):
         for j in range(i):
             catalan_list[i] += catalan_list[j] * catalan_list[i - j - 1]

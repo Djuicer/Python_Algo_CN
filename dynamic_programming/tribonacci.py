@@ -1,9 +1,9 @@
-# Tribonacci sequence using Dynamic Programming
+# 使用动态规划计算 Tribonacci 数列
 
 
 def tribonacci(num: int) -> list[int]:
     """
-    Given a number, return first n Tribonacci Numbers.
+    给定一个数，返回前 n 个 Tribonacci 数。
     >>> tribonacci(5)
     [0, 0, 1, 1, 2]
     >>> tribonacci(8)

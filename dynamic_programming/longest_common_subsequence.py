@@ -1,26 +1,24 @@
 """
-LCS Problem Statement: Given two sequences, find the length of longest subsequence
-present in both of them.  A subsequence is a sequence that appears in the same relative
-order, but not necessarily continuous.
-Example:"abc", "abg" are subsequences of "abcdefgh".
+LCS 问题描述：给定两个序列，求同时存在于两者中的最长子序列长度。
+子序列中的元素保持相同的相对顺序，但不一定连续。
+示例："abc", "abg" 都是 "abcdefgh" 的子序列。
 """
 
 
 def longest_common_subsequence(x: str, y: str):
     """
-    Finds the longest common subsequence between two strings. Also returns the
-    The subsequence found
+    查找两个字符串的最长公共子序列，同时返回找到的子序列。
 
-    Parameters
+    参数
     ----------
 
-    x: str, one of the strings
-    y: str, the other string
+    x: str，其中一个字符串。
+    y: str，另一个字符串。
 
-    Returns
+    返回
     -------
-    L[m][n]: int, the length of the longest subsequence. Also equal to len(seq)
-    Seq: str, the subsequence found
+    L[m][n]: int，最长子序列的长度，也等于 len(seq)。
+    Seq: str，找到的子序列。
 
     >>> longest_common_subsequence("programming", "gaming")
     (6, 'gaming')
@@ -47,7 +45,7 @@ def longest_common_subsequence(x: str, y: str):
     >>> longest_common_subsequence("ABCD", "ACBD")  # No repeated characters
     (3, 'ABD')
     """
-    # find the length of strings
+    # 获取字符串长度
 
     assert x is not None
     assert y is not None
@@ -55,7 +53,7 @@ def longest_common_subsequence(x: str, y: str):
     m = len(x)
     n = len(y)
 
-    # declaring the array for storing the dp values
+    # 声明用于存储 dp 值的数组
     dp = [[0] * (n + 1) for _ in range(m + 1)]
 
     for i in range(1, m + 1):

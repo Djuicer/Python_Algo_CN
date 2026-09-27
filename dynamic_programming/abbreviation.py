@@ -1,14 +1,14 @@
 """
 https://www.hackerrank.com/challenges/abbr/problem
-You can perform the following operation on some string, :
+可以对某个字符串执行以下操作：
 
-1. Capitalize zero or more of 's lowercase letters at some index i
-   (i.e., make them uppercase).
-2. Delete all of the remaining lowercase letters in .
+1. 将某些索引 i 处的零个或多个小写字母转换为大写
+   （即，使它们成为大写字母）。
+2. 删除其余所有小写字母。
 
-Example:
+示例：
 a=daBcd and b="ABC"
-daBcd -> capitalize a and c(dABCd) -> remove d (ABC)
+daBcd -> 将 a 和 c 转换为大写(dABCd) -> 删除 d (ABC)
 """
 
 

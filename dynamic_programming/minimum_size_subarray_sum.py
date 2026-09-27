@@ -3,8 +3,8 @@ import sys
 
 def minimum_subarray_sum(target: int, numbers: list[int]) -> int:
     """
-    Return the length of the shortest contiguous subarray in a list of numbers whose sum
-    is at least target.  Reference: https://stackoverflow.com/questions/8269916
+    返回数值列表中元素之和至少为 target 的最短连续子数组长度。
+    参考资料：https://stackoverflow.com/questions/8269916
 
     >>> minimum_subarray_sum(7, [2, 3, 1, 2, 4, 3])
     2

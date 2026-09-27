@@ -2,19 +2,18 @@ import math
 
 
 class Graph:
-    def __init__(self, n=0) -> None:  # a graph with Node 0,1,...,N-1
+    def __init__(self, n=0) -> None:  # 包含节点 0,1,...,N-1 的图
         self.n = n
         self.w = [
             [math.inf for j in range(n)] for i in range(n)
-        ]  # adjacency matrix for weight
+        ]  # 权重的邻接矩阵
         self.dp = [
             [math.inf for j in range(n)] for i in range(n)
-        ]  # dp[i][j] stores minimum distance from i to j
+        ]  # dp[i][j] 存储从 i 到 j 的最短距离
 
     def add_edge(self, u, v, w) -> None:
         """
-        Adds a directed edge from node u
-        to node v with weight w.
+        添加一条从节点 u 到节点 v、权重为 w 的有向边。
 
         >>> g = Graph(3)
         >>> g.add_edge(0, 1, 5)
@@ -25,8 +24,7 @@ class Graph:
 
     def floyd_warshall(self) -> None:
         """
-        Computes the shortest paths between all pairs of
-        nodes using the Floyd-Warshall algorithm.
+        使用 Floyd-Warshall 算法计算所有节点对之间的最短路径。
 
         >>> g = Graph(3)
         >>> g.add_edge(0, 1, 1)
@@ -44,7 +42,7 @@ class Graph:
 
     def show_min(self, u, v):
         """
-        Returns the minimum distance from node u to node v.
+        返回从节点 u 到节点 v 的最短距离。
 
         >>> g = Graph(3)
         >>> g.add_edge(0, 1, 3)
@@ -63,7 +61,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # Example usage
+    # 使用示例
     graph = Graph(5)
     graph.add_edge(0, 2, 9)
     graph.add_edge(0, 4, 10)
@@ -79,7 +77,7 @@ if __name__ == "__main__":
     graph.floyd_warshall()
     print(
         graph.show_min(1, 4)
-    )  # Should output the minimum distance from node 1 to node 4
+    )  # 应输出从节点 1 到节点 4 的最短距离
     print(
         graph.show_min(0, 3)
-    )  # Should output the minimum distance from node 0 to node 3
+    )  # 应输出从节点 0 到节点 3 的最短距离

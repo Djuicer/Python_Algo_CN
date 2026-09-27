@@ -1,4 +1,4 @@
-# Factorial of a number using memoization
+# 使用记忆化搜索计算一个数的阶乘
 
 from functools import lru_cache
 

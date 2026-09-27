@@ -1,47 +1,39 @@
 """
-| Find the minimum number of multiplications needed to multiply chain of matrices.
+| 求矩阵链相乘所需的最少乘法次数。
 | Reference: https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/
 
-The algorithm has interesting real-world applications.
+该算法有许多有趣的实际应用。
 
-Example:
-  1. Image transformations in Computer Graphics as images are composed of matrix.
-  2. Solve complex polynomial equations in the field of algebra using least processing
-     power.
-  3. Calculate overall impact of macroeconomic decisions as economic equations involve a
-     number of variables.
-  4. Self-driving car navigation can be made more accurate as matrix multiplication can
-     accurately determine position and orientation of obstacles in short time.
+示例：
+  1. 计算机图形学中的图像变换，因为图像由矩阵构成。
+  2. 以最少的处理能力求解代数领域的复杂多项式方程。
+  3. 计算宏观经济决策的整体影响，因为经济方程涉及多个变量。
+  4. 矩阵乘法可以在短时间内准确确定障碍物的位置和方向，从而提高自动驾驶汽车导航的准确性。
 
-Python doctests can be run with the following command::
+可使用以下命令运行 Python doctest：
 
   python -m doctest -v matrix_chain_multiply.py
 
-Given a sequence ``arr[]`` that represents chain of 2D matrices such that the dimension
-of the ``i`` th matrix is ``arr[i-1]*arr[i]``.
-So suppose ``arr = [40, 20, 30, 10, 30]`` means we have ``4`` matrices of dimensions
-``40*20``, ``20*30``, ``30*10`` and ``10*30``.
+给定表示 2D 矩阵链的序列 ``arr[]``，其中第 ``i`` 个矩阵的维度为
+``arr[i-1]*arr[i]``。例如，``arr = [40, 20, 30, 10, 30]`` 表示有 ``4`` 个矩阵，
+其维度分别为 ``40*20``、``20*30``、``30*10`` 和 ``10*30``。
 
-``matrix_chain_multiply()`` returns an integer denoting minimum number of
-multiplications to multiply the chain.
+``matrix_chain_multiply()`` 返回一个整数，表示矩阵链相乘所需的最少乘法次数。
 
-We do not need to perform actual multiplication here.
-We only need to decide the order in which to perform the multiplication.
+这里不需要执行实际的乘法，只需决定执行乘法的顺序。
 
-Hints:
-  1. Number of multiplications (ie cost) to multiply ``2`` matrices
-     of size ``m*p`` and ``p*n`` is ``m*p*n``.
-  2. Cost of matrix multiplication is not associative ie ``(M1*M2)*M3 != M1*(M2*M3)``
-  3. Matrix multiplication is not commutative. So, ``M1*M2`` does not mean ``M2*M1``
-     can be done.
-  4. To determine the required order, we can try different combinations.
+提示：
+  1. 将 ``2`` 个大小分别为 ``m*p`` 和 ``p*n`` 的矩阵相乘，乘法次数（即代价）为 ``m*p*n``。
+  2. 矩阵乘法的代价不满足结合律，即 ``(M1*M2)*M3 != M1*(M2*M3)``。
+  3. 矩阵乘法不满足交换律，因此 ``M1*M2`` 并不意味着可以执行 ``M2*M1``。
+  4. 为确定所需顺序，可以尝试不同的组合。
 
-So, this problem has overlapping sub-problems and can be solved using recursion.
-We use Dynamic Programming for optimal time complexity.
+因此，此问题具有重叠子问题，可以使用递归求解。
+我们使用动态规划（Dynamic Programming）来获得最优时间复杂度。
 
-Example input:
+示例输入：
     ``arr = [40, 20, 30, 10, 30]``
-output:
+输出：
     ``26000``
 """
 
@@ -53,15 +45,15 @@ from sys import maxsize
 
 def matrix_chain_multiply(arr: list[int]) -> int:
     """
-    Find the minimum number of multiplcations required to multiply the chain of matrices
+    求矩阵链相乘所需的最少乘法次数。
 
-    Args:
-        `arr`: The input array of integers.
+    参数：
+        `arr`: 输入整数数组。
 
-    Returns:
-        Minimum number of multiplications needed to multiply the chain
+    返回：
+        矩阵链相乘所需的最少乘法次数。
 
-    Examples:
+    示例：
 
     >>> matrix_chain_multiply([1, 2, 3, 4, 3])
     30
@@ -78,11 +70,11 @@ def matrix_chain_multiply(arr: list[int]) -> int:
     """
     if len(arr) < 2:
         return 0
-    # initialising 2D dp matrix
+    # 初始化 2D dp 矩阵
     n = len(arr)
     dp = [[maxsize for j in range(n)] for i in range(n)]
-    # we want minimum cost of multiplication of matrices
-    # of dimension (i*k) and (k*j). This cost is arr[i-1]*arr[k]*arr[j].
+    # 求维度为 (i*k) 和 (k*j) 的矩阵相乘的最小代价
+    # 该代价为 arr[i-1]*arr[k]*arr[j]
     for i in range(n - 1, 0, -1):
         for j in range(i, n):
             if i == j:
@@ -98,10 +90,9 @@ def matrix_chain_multiply(arr: list[int]) -> int:
 
 def matrix_chain_order(dims: list[int]) -> int:
     """
-    Source: https://en.wikipedia.org/wiki/Matrix_chain_multiplication
+    来源：https://en.wikipedia.org/wiki/Matrix_chain_multiplication
 
-    The dynamic programming solution is faster than cached the recursive solution and
-    can handle larger inputs.
+    动态规划解法比带缓存的递归解法更快，并且可以处理更大的输入。
 
     >>> matrix_chain_order([1, 2, 3, 4, 3])
     30

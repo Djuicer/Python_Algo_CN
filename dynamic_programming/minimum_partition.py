@@ -1,5 +1,5 @@
 """
-Partition a set into two subsets such that the difference of subset sums is minimum
+将一个集合划分为两个子集，使两个子集之和的差最小。
 """
 
 

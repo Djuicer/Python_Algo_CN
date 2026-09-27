@@ -9,12 +9,11 @@ def viterbi(
     emission_probabilities: dict,
 ) -> list:
     """
-    Viterbi Algorithm, to find the most likely path of
-    states from the start and the expected output.
+    Viterbi 算法，用于从起点和预期输出中找出最可能的状态路径。
 
     https://en.wikipedia.org/wiki/Viterbi_algorithm
 
-    Wikipedia example
+    Wikipedia 示例
 
     >>> observations = ["normal", "cold", "dizzy"]
     >>> states = ["Healthy", "Fever"]
@@ -114,7 +113,7 @@ def viterbi(
         transition_probabilities,
         emission_probabilities,
     )
-    # Creates data structures and fill initial step
+    # 创建数据结构并填充初始步骤
     probabilities: dict = {}
     pointers: dict = {}
     for state in states_space:
@@ -124,13 +123,12 @@ def viterbi(
         )
         pointers[(state, observation)] = None
 
-    # Fills the data structure with the probabilities of
-    # different transitions and pointers to previous states
+    # 使用不同转移的概率和指向先前状态的指针填充数据结构
     for o in range(1, len(observations_space)):
         observation = observations_space[o]
         prior_observation = observations_space[o - 1]
         for state in states_space:
-            # Calculates the argmax for probability function
+            # 计算概率函数的 argmax
             arg_max = ""
             max_probability = -1
             for k_state in states_space:
@@ -143,7 +141,7 @@ def viterbi(
                     max_probability = probability
                     arg_max = k_state
 
-            # Update probabilities and pointers dicts
+            # 更新 probabilities 和 pointers 字典
             probabilities[(state, observation)] = (
                 probabilities[(arg_max, prior_observation)]
                 * transition_probabilities[arg_max][state]
@@ -152,10 +150,10 @@ def viterbi(
 
             pointers[(state, observation)] = arg_max
 
-    # The final observation
+    # 最终观测值
     final_observation = observations_space[len(observations_space) - 1]
 
-    # argmax for given final observation
+    # 给定最终观测值的 argmax
     arg_max = ""
     max_probability = -1
     for k_state in states_space:
@@ -165,7 +163,7 @@ def viterbi(
             arg_max = k_state
     last_state = arg_max
 
-    # Process pointers backwards
+    # 反向处理指针
     previous = last_state
     result = []
     for o in range(len(observations_space) - 1, -1, -1):

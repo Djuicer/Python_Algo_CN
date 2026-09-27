@@ -1,11 +1,9 @@
 """
-The maximum subarray sum problem is the task of finding the maximum sum that can be
-obtained from a contiguous subarray within a given array of numbers. For example, given
-the array [-2, 1, -3, 4, -1, 2, 1, -5, 4], the contiguous subarray with the maximum sum
-is [4, -1, 2, 1], so the maximum subarray sum is 6.
+最大子数组和问题是在给定的数值数组中，寻找一个和最大的连续子数组。
+例如，给定数组 [-2, 1, -3, 4, -1, 2, 1, -5, 4]，和最大的连续子数组是
+[4, -1, 2, 1]，因此最大子数组和为 6。
 
-Kadane's algorithm is a simple dynamic programming algorithm that solves the maximum
-subarray sum problem in O(n) time and O(1) space.
+Kadane 算法是一种简单的动态规划算法，以 O(n) 时间和 O(1) 空间解决最大子数组和问题。
 
 Reference: https://en.wikipedia.org/wiki/Maximum_subarray_problem
 """
@@ -17,9 +15,9 @@ def max_subarray_sum(
     arr: Sequence[float], allow_empty_subarrays: bool = False
 ) -> float:
     """
-    Solves the maximum subarray sum problem using Kadane's algorithm.
-    :param arr: the given array of numbers
-    :param allow_empty_subarrays: if True, then the algorithm considers empty subarrays
+    使用 Kadane 算法解决最大子数组和问题。
+    :param arr: 给定的数值数组
+    :param allow_empty_subarrays: 如果为 True，则算法会考虑空子数组
 
     >>> max_subarray_sum([2, 8, 9])
     19

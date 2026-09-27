@@ -3,11 +3,11 @@
 
 def fizz_buzz(number: int, iterations: int) -> str:
     """
-    | Plays FizzBuzz.
-    | Prints Fizz if number is a multiple of ``3``.
-    | Prints Buzz if its a multiple of ``5``.
-    | Prints FizzBuzz if its a multiple of both ``3`` and ``5`` or ``15``.
-    | Else Prints The Number Itself.
+    | 进行 FizzBuzz 游戏。
+    | 如果 number 是 ``3`` 的倍数，则输出 Fizz。
+    | 如果 number 是 ``5`` 的倍数，则输出 Buzz。
+    | 如果 number 同时是 ``3`` 和 ``5`` 的倍数，即 ``15`` 的倍数，则输出 FizzBuzz。
+    | 否则输出数字本身。
 
     >>> fizz_buzz(1,7)
     '1 2 Fizz 4 Buzz Fizz 7 '

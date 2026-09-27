@@ -1,11 +1,9 @@
 """
 https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm
-The Smith-Waterman algorithm is a dynamic programming algorithm used for sequence
-alignment. It is particularly useful for finding similarities between two sequences,
-such as DNA or protein sequences. In this implementation, gaps are penalized
-linearly, meaning that the score is reduced by a fixed amount for each gap introduced
-in the alignment. However, it's important to note that the Smith-Waterman algorithm
-supports other gap penalty methods as well.
+Smith-Waterman 算法是一种用于序列比对的动态规划算法，特别适合查找两个序列
+（如 DNA 或蛋白质序列）之间的相似性。在此实现中，间隙采用线性罚分，
+即比对中每引入一个间隙，得分就减少固定值。需要注意的是，
+Smith-Waterman 算法也支持其他间隙罚分方法。
 """
 
 
@@ -17,9 +15,8 @@ def score_function(
     gap: int = -2,
 ) -> int:
     """
-    Calculate the score for a character pair based on whether they match or mismatch.
-    Returns 1 if the characters match, -1 if they mismatch, and -2 if either of the
-    characters is a gap.
+    根据字符对是否匹配来计算得分。
+    如果字符匹配则返回 1，不匹配则返回 -1，任一字符为间隙则返回 -2。
     >>> score_function('A', 'A')
     1
     >>> score_function('A', 'C')
@@ -44,9 +41,8 @@ def smith_waterman(
     gap: int = -2,
 ) -> list[list[int]]:
     """
-    Perform the Smith-Waterman local sequence alignment algorithm.
-    Returns a 2D list representing the score matrix. Each value in the matrix
-    corresponds to the score of the best local alignment ending at that point.
+    执行 Smith-Waterman 局部序列比对算法。
+    返回表示得分矩阵的 2D 列表。矩阵中的每个值对应以该位置结尾的最佳局部比对得分。
     >>> smith_waterman('ACAC', 'CA')
     [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 0, 2], [0, 1, 0]]
     >>> smith_waterman('acac', 'ca')
@@ -101,11 +97,11 @@ def smith_waterman(
     >>> smith_waterman('AGTCT', 'GTC')
     [[0, 0, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 2, 0], [0, 0, 0, 3], [0, 0, 1, 1]]
     """
-    # make both query and subject uppercase
+    # 将 query 和 subject 都转换为大写
     query = query.upper()
     subject = subject.upper()
 
-    # Initialize score matrix
+    # 初始化得分矩阵
     m = len(query)
     n = len(subject)
     score = [[0] * (n + 1) for _ in range(m + 1)]
@@ -113,14 +109,14 @@ def smith_waterman(
 
     for i in range(1, m + 1):
         for j in range(1, n + 1):
-            # Calculate scores for each cell
+            # 计算每个单元格的得分
             match = score[i - 1][j - 1] + score_function(
                 query[i - 1], subject[j - 1], **kwargs
             )
             delete = score[i - 1][j] + gap
             insert = score[i][j - 1] + gap
 
-            # Take maximum score
+            # 取最高得分
             score[i][j] = max(0, match, delete, insert)
 
     return score
@@ -128,9 +124,9 @@ def smith_waterman(
 
 def traceback(score: list[list[int]], query: str, subject: str) -> str:
     r"""
-    Perform traceback to find the optimal local alignment.
-    Starts from the highest scoring cell in the matrix and traces back recursively
-    until a 0 score is found. Returns the alignment strings.
+    执行回溯以查找最优局部比对。
+    从矩阵中得分最高的单元格开始递归回溯，直到找到得分为 0 的位置。
+    返回比对字符串。
     >>> traceback([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 0, 2], [0, 1, 0]], 'ACAC', 'CA')
     'CA\nCA'
     >>> traceback([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 0, 2], [0, 1, 0]], 'acac', 'ca')
@@ -142,10 +138,10 @@ def traceback(score: list[list[int]], query: str, subject: str) -> str:
     >>> traceback([[0, 0, 0]], 'ACAC', '')
     ''
     """
-    # make both query and subject uppercase
+    # 将 query 和 subject 都转换为大写
     query = query.upper()
     subject = subject.upper()
-    # find the indices of the maximum value in the score matrix
+    # 查找得分矩阵中最大值的索引
     max_value = float("-inf")
     i_max = j_max = 0
     for i, row in enumerate(score):
@@ -153,31 +149,31 @@ def traceback(score: list[list[int]], query: str, subject: str) -> str:
             if value > max_value:
                 max_value = value
                 i_max, j_max = i, j
-    # Traceback logic to find optimal alignment
+    # 查找最优比对的回溯逻辑
     i = i_max
     j = j_max
     align1 = ""
     align2 = ""
     gap = score_function("-", "-")
-    # guard against empty query or subject
+    # 防止 query 或 subject 为空
     if i == 0 or j == 0:
         return ""
     while i > 0 and j > 0:
         if score[i][j] == score[i - 1][j - 1] + score_function(
             query[i - 1], subject[j - 1]
         ):
-            # optimal path is a diagonal take both letters
+            # 最优路径为对角方向，取两个字母
             align1 = query[i - 1] + align1
             align2 = subject[j - 1] + align2
             i -= 1
             j -= 1
         elif score[i][j] == score[i - 1][j] + gap:
-            # optimal path is a vertical
+            # 最优路径为垂直方向
             align1 = query[i - 1] + align1
             align2 = f"-{align2}"
             i -= 1
         else:
-            # optimal path is a horizontal
+            # 最优路径为水平方向
             align1 = f"-{align1}"
             align2 = subject[j - 1] + align2
             j -= 1

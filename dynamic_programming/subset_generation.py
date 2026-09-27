@@ -1,13 +1,13 @@
 def subset_combinations(elements: list[int], n: int) -> list:
     """
-    Compute n-element combinations from a given list using dynamic programming.
+    使用动态规划计算给定列表中包含 n 个元素的组合。
 
-    Args:
-        * `elements`: The list of elements from which combinations will be generated.
-        * `n`: The number of elements in each combination.
+    参数：
+        * `elements`: 用于生成组合的元素列表。
+        * `n`: 每个组合中的元素数量。
 
-    Returns:
-        A list of tuples, each representing a combination of `n` elements.
+    返回：
+        元组列表，每个元组表示一个由 `n` 个元素组成的组合。
 
     >>> subset_combinations(elements=[10, 20, 30, 40], n=2)
     [(10, 20), (10, 30), (10, 40), (20, 30), (20, 40), (30, 40)]
