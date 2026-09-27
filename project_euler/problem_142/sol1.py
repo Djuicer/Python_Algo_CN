@@ -1,27 +1,26 @@
 """
 Project Euler Problem 142: https://projecteuler.net/problem=142
 
-Perfect Square Collection
+完全平方数集合
 
-Find the smallest x + y + z with integers x > y > z > 0  such that
-x + y, x - y, x + z, x - z, y + z, y - z are all perfect squares.
+求满足以下条件的最小 x + y + z：整数 x > y > z > 0，且
+x + y, x - y, x + z, x - z, y + z, y - z 均为完全平方数。
 
 
-Change the variables to a, b, c, so that 3 requirements are satisfied automatically:
+将变量替换为 a、b、c，使 3 个条件自动满足：
 a^2 = y - z
 b^2 = x - y
 c^2 = z + x
 
-and the rest of requirements for perfect squares are:
+其余完全平方数条件为：
 z + y = c^2 - b^2
 y + x = a^2 + c^2
 x - z = a^2 + b^2
 
-Then iterate over a^2, b^2 and c^2 to check if the combination satisfies all
-3 requirements.
+然后遍历 a^2、b^2 和 c^2，检查组合是否满足全部 3 个条件。
 
-The total sum x + y + z = (a^2 - b^2 + 3c^2) / 2, so we break loop for c^2 if
-the sum is already bigger than found sum.
+总和 x + y + z = (a^2 - b^2 + 3c^2) / 2，因此若该和已大于找到的总和，
+则终止 c^2 的循环。
 
 """
 
@@ -29,9 +28,9 @@ the sum is already bigger than found sum.
 def solution(number_of_terms: int = 3) -> int | None:
     """
 
-    Iterate over combinations of a, b, c and save min sum.
-    In case only one term x = 1 is solution.
-    In case of two terms, x = 5, y = 4 is the solution.
+    遍历 a、b、c 的组合并保存最小总和。
+    只有一项时，解为 x = 1。
+    有两项时，解为 x = 5, y = 4。
 
     >>> solution(1)
     1
@@ -60,7 +59,7 @@ def solution(number_of_terms: int = 3) -> int | None:
                 continue
             for c in range(max(a, b) + 1, len(squares)):
                 c_sq = squares[c]
-                # break if x + y + z is already bigger than min_sum:
+                # 如果 x + y + z 已大于 min_sum，则终止循环
                 if min_sum is not None and (a_sq - b_sq + 3 * c_sq) // 2 > min_sum:
                     break
                 if (c_sq - b_sq in squares_set) and (a_sq + c_sq in squares_set):

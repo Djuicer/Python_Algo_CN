@@ -18,11 +18,11 @@ Project Euler Problem 60: https://projecteuler.net/problem=60
 ## 利用被 3 整除的性质排除候选值：
 考虑任意两个不能被 3 整除的素数 p1 和 p2。如果 p1 除以 3 余 1，p2 除以 3 余 2，
 则连接所得数字 p1p2 能被 3 整除，因此不是素数。利用模运算性质可轻易证明这一点。
-    Consider p1 ≡ 1 (mod 3) and p2 ≡ 2 (mod 3). Define a1 = p1, b1 = 1, a2 = p2, b2 = 2.
-    concat(p1, p2) = (p1 * 10^k + p2) where k is the number of digits in p2.
-    Now, (p1 * 10^k + p2) mod 3 = ((p1 * 10^k) + p2) mod 3
-    As 10^k mod 3 = 1, we have (p1 * 1 + p2) mod 3 (ka mod 3 = kb mod 3)
-    Which implies (p1 + p2) mod 3 = (1 + 2) mod 3 = 0 (a1 + a2 mod 3 = b1 + b2 mod 3)
+    考虑 p1 ≡ 1 (mod 3) 和 p2 ≡ 2 (mod 3)。定义 a1 = p1, b1 = 1, a2 = p2, b2 = 2。
+    concat(p1, p2) = (p1 * 10^k + p2)，其中 k 是 p2 的位数。
+    于是，(p1 * 10^k + p2) mod 3 = ((p1 * 10^k) + p2) mod 3
+    由于 10^k mod 3 = 1，可得 (p1 * 1 + p2) mod 3 (ka mod 3 = kb mod 3)
+    这意味着 (p1 + p2) mod 3 = (1 + 2) mod 3 = 0 (a1 + a2 mod 3 = b1 + b2 mod 3)
 
 因此可以从搜索空间中排除这样的数对，更快得到解。本解法根据素数除以 3 的余数，
 利用该性质将素数分成两个列表。这样只需检查各列表内部的组合，可显著减少检查次数。
@@ -78,7 +78,7 @@ def is_prime(num: int) -> bool:
         return True
     if num % 2 == 0 or num % 3 == 0:
         return False
-    # Check divisibility up to sqrt(num)
+    # 检查不超过 sqrt(num) 的因数
     n_sqrt = int(num**0.5)
     for i in range(5, n_sqrt + 1, 6):
         if num % i == 0 or num % (i + 2) == 0:
@@ -152,7 +152,7 @@ def add_prime(primes: list[int]) -> list[int]:
     [3, 7, 13, 19, 31, 37]
     """
 
-    next_num = primes[-1] + 3  # using modular arithmetic to get similar primes
+    next_num = primes[-1] + 3  # 使用模运算得到同类素数
     while not is_prime(next_num):
         next_num += 3
     primes.append(next_num)
@@ -221,7 +221,7 @@ def solution(
         if result and len(result) == target_size:
             return sum(result)
 
-    return None  # No valid set found
+    return None  # 未找到有效集合
 
 
 if __name__ == "__main__":

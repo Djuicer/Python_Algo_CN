@@ -1,20 +1,17 @@
 """
 Project Euler Problem 174: https://projecteuler.net/problem=174
 
-We shall define a square lamina to be a square outline with a square "hole" so that
-the shape possesses vertical and horizontal symmetry.
+将方形薄片定义为带有方形“孔洞”的正方形边框，使其具有水平和垂直对称性。
 
-Given eight tiles it is possible to form a lamina in only one way: 3x3 square with a
-1x1 hole in the middle. However, using thirty-two tiles it is possible to form two
-distinct laminae.
+使用八块方砖只能以一种方式形成薄片：一个中心带有 1x1 孔洞的 3x3 正方形。
+而使用三十二块方砖可以形成两种不同的薄片。
 
-If t represents the number of tiles used, we shall say that t = 8 is type L(1) and
-t = 32 is type L(2).
+若 t 表示使用的方砖数，则称 t = 8 属于 L(1) 型，t = 32 属于 L(2) 型。
 
-Let N(n) be the number of t ≤ 1000000 such that t is type L(n); for example,
-N(15) = 832.
+令 N(n) 表示满足 t ≤ 1000000 且 t 属于 L(n) 型的 t 的数量；例如，
+N(15) = 832。
 
-What is sum N(n) for 1 ≤ n ≤ 10?
+求 1 ≤ n ≤ 10 时的 sum N(n)。
 """
 
 from collections import defaultdict
@@ -23,7 +20,7 @@ from math import ceil, sqrt
 
 def solution(t_limit: int = 1000000, n_limit: int = 10) -> int:
     """
-    Return the sum of N(n) for 1 <= n <= n_limit.
+    返回 1 <= n <= n_limit 时 N(n) 的总和。
 
     >>> solution(1000,5)
     222

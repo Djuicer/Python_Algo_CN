@@ -1,28 +1,26 @@
 """
 Project Euler Problem 190: https://projecteuler.net/problem=190
 
-Maximising a Weighted Product
+最大化加权乘积
 
-Let S_m = (x_1, x_2, ..., x_m) be the m-tuple of positive real numbers with
-x_1 + x_2 + ... + x_m = m for which P_m = x_1 * x_2^2 * ... * x_m^m is maximised.
+令 S_m = (x_1, x_2, ..., x_m) 为满足 x_1 + x_2 + ... + x_m = m，且使
+P_m = x_1 * x_2^2 * ... * x_m^m 最大的正实数 m 元组。
 
-For example, it can be verified that |_ P_10 _| = 4112
-(|_ _| is the integer part function).
+例如，可以验证 |_ P_10 _| = 4112（|_ _| 为取整数部分函数）。
 
-Find Sum_{m=2}^15 = |_ P_m _|.
+求 Sum_{m=2}^15 = |_ P_m _|。
 
-Solution:
-- Fix x_1 = m - x_2 - ... - x_m.
-- Calculate partial derivatives of P_m wrt the x_2, ..., x_m. This gives that
+解法：
+- 固定 x_1 = m - x_2 - ... - x_m。
+- 计算 P_m 关于 x_2, ..., x_m 的偏导数，可得
   x_2 = 2 * x_1, x_3 = 3 * x_1, ..., x_m = m * x_1.
-- Calculate partial second order derivatives of P_m wrt the x_2, ..., x_m.
-  By plugging in the values from the previous step, can verify that solution is maximum.
+- 计算 P_m 关于 x_2, ..., x_m 的二阶偏导数。代入上一步的值，可以验证该解为最大值。
 """
 
 
 def solution(n: int = 15) -> int:
     """
-    Calculate sum of |_ P_m _| for m from 2 to n.
+    计算 m 从 2 到 n 时 |_ P_m _| 的总和。
 
     >>> solution(2)
     1

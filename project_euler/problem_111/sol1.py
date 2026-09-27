@@ -74,13 +74,13 @@ def solution(n: int = 10000000000) -> int:
 
     n_dig = len(str(n)) - 3
     two_dig = {1, 2, 3, 4, 5, 6, 7, 8, 9} - one_digit
-    for i in list(two_dig):  # main digit
+    for i in list(two_dig):  # 主数字
         for j in range(n_dig + 1):
             for k in range(n_dig + 1 - j):
-                for m1 in range(10):  # first changing digit
+                for m1 in range(10):  # 第一个变化的数字
                     if m1 == 0 and j == 0:
                         continue
-                    for m2 in range(10):  # second changing digit
+                    for m2 in range(10):  # 第二个变化的数字
                         num = int(
                             str(i) * j
                             + str(m1)

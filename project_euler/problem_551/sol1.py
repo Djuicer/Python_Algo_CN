@@ -1,15 +1,15 @@
 """
-Sum of digits sequence
-Problem 551
+数位和数列
+第 551 题
 
-Let a(0), a(1),... be an integer sequence defined by:
+设 a(0), a(1),... 为如下定义的整数数列：
      a(0) = 1
-     for n >= 1, a(n) is the sum of the digits of all preceding terms
+     当 n >= 1 时，a(n) 是前一项各位数字之和
 
-The sequence starts with 1, 1, 2, 4, 8, ...
-You are given a(10^6) = 31054319.
+该数列从 1, 1, 2, 4, 8, ... 开始
+已知 a(10^6) = 31054319。
 
-Find a(10^15)
+求 a(10^15)
 """
 
 ks = range(2, 20 + 1)
@@ -19,25 +19,22 @@ memo: dict[int, dict[int, list[list[int]]]] = {}
 
 def next_term(a_i, k, i, n):
     """
-    Calculates and updates a_i in-place to either the n-th term or the
-    smallest term for which c > 10^k when the terms are written in the form:
+    就地计算并更新 a_i，使其成为第 n 项；或者当各项写成以下形式时，
+    使其成为满足 c > 10^k 的最小项：
             a(i) = b * 10^k + c
 
-    For any a(i), if digitsum(b) and c have the same value, the difference
-    between subsequent terms will be the same until c >= 10^k.  This difference
-    is cached to greatly speed up the computation.
+    对于任意 a(i)，如果 digitsum(b) 与 c 的值相同，则在 c >= 10^k 之前，
+    后续项之间的差值都相同。缓存此差值可大幅加快计算。
 
-    Arguments:
-    a_i -- array of digits starting from the one's place that represent
-           the i-th term in the sequence
-    k --  k when terms are written in the from a(i) = b*10^k + c.
-          Term are calulcated until c > 10^k or the n-th term is reached.
-    i -- position along the sequence
-    n -- term to calculate up to if k is large enough
+    参数：
+    a_i -- 从个位开始、表示数列第 i 项的数字数组
+    k --  将各项写成 a(i) = b*10^k + c 形式时的 k。
+          计算各项，直到 c > 10^k 或到达第 n 项。
+    i -- 数列中的位置
+    n -- 当 k 足够大时要计算到的项
 
-    Return: a tuple of difference between ending term and starting term, and
-    the number of terms calculated. ex. if starting term is a_0=1, and
-    ending term is a_10=62, then (61, 9) is returned.
+    返回：由结束项与起始项的差值以及计算的项数构成的元组。例如，若起始项
+    为 a_0=1，结束项为 a_10=62，则返回 (61, 9)。
     """
     # ds_b - digitsum(b)
     ds_b = sum(a_i[j] for j in range(k, len(a_i)))
@@ -52,7 +49,7 @@ def next_term(a_i, k, i, n):
         jumps = sub_memo.get(c)
 
         if jumps is not None and len(jumps) > 0:
-            # find and make the largest jump without going over
+            # 找到并执行不超过上限的最大跳跃
             max_jump = -1
             for _k in range(len(jumps) - 1, -1, -1):
                 if jumps[_k][2] <= k and jumps[_k][1] <= max_dn:
@@ -61,7 +58,7 @@ def next_term(a_i, k, i, n):
 
             if max_jump >= 0:
                 diff, dn, _kk = jumps[max_jump]
-                # since the difference between jumps is cached, add c
+                # 由于缓存了跳跃之间的差值，因此加上 c
                 new_c = diff + c
                 for j in range(min(k, len(a_i))):
                     new_c, a_i[j] = divmod(new_c, 10)
@@ -79,7 +76,7 @@ def next_term(a_i, k, i, n):
 
     if k > ks[0]:
         while True:
-            # keep doing smaller jumps
+            # 继续执行较小的跳跃
             _diff, terms_jumped = next_term(a_i, k - 1, i + dn, n)
             diff += _diff
             dn += terms_jumped
@@ -87,35 +84,35 @@ def next_term(a_i, k, i, n):
             if dn >= max_dn or c + diff >= base[k]:
                 break
     else:
-        # would be too small a jump, just compute sequential terms instead
+        # 跳跃幅度会太小，改为依次计算各项
         _diff, terms_jumped = compute(a_i, k, i + dn, n)
         diff += _diff
         dn += terms_jumped
 
     jumps = sub_memo[c]
 
-    # keep jumps sorted by # of terms skipped
+    # 按跳过的项数保持 jumps 有序
     j = 0
     while j < len(jumps):
         if jumps[j][1] > dn:
             break
         j += 1
 
-    # cache the jump for this value digitsum(b) and c
+    # 为 digitsum(b) 和 c 的当前值缓存该跳跃
     sub_memo[c].insert(j, (diff, dn, k))
     return (diff, dn)
 
 
 def compute(a_i, k, i, n):
     """
-    same as next_term(a_i, k, i, n) but computes terms without memoizing results.
+    与 next_term(a_i, k, i, n) 相同，但计算各项时不记忆结果。
     """
     if i >= n:
         return 0, i
     if k > len(a_i):
         a_i.extend([0 for _ in range(k - len(a_i))])
 
-    # note: a_i -> b * 10^k + c
+    # 注意：a_i -> b * 10^k + c
     # ds_b -> digitsum(b)
     # ds_c -> digitsum(c)
     start_i = i
@@ -147,8 +144,7 @@ def compute(a_i, k, i, n):
 
 def add(digits, k, addend) -> None:
     """
-    adds addend to digit array given in digits
-    starting at index k
+    从索引 k 开始，将 addend 加到 digits 给出的数字数组中。
     """
     for j in range(k, len(digits)):
         s = digits[j] + addend
@@ -169,7 +165,7 @@ def add(digits, k, addend) -> None:
 
 def solution(n: int = 10**15) -> int:
     """
-    returns n-th term of sequence
+    返回数列的第 n 项。
 
     >>> solution(10)
     62

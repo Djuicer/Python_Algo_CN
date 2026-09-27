@@ -56,8 +56,8 @@ def solution(gon_side: int = 5) -> int:
     if gon_side < 3 or gon_side > 5:
         raise ValueError("gon_side must be in the range [3, 5]")
 
-    # Since it's 16, we know 10 is on the outer ring
-    # Put the big numbers at the end so that they are never the first number
+    # 由于结果是 16 位数，可知 10 位于外环
+    # 将较大的数放在末尾，使它们不会成为第一个数
     small_numbers = list(range(gon_side + 1, 0, -1))
     big_numbers = list(range(gon_side + 2, gon_side * 2 + 1))
 

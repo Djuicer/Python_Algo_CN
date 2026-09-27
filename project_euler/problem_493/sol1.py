@@ -1,26 +1,25 @@
 """
 Project Euler Problem 493: https://projecteuler.net/problem=493
 
-70 coloured balls are placed in an urn, 10 for each of the seven rainbow colours.
-What is the expected number of distinct colours in 20 randomly picked balls?
-Give your answer with nine digits after the decimal point (a.bcdefghij).
+一个瓮中放有 70 个彩球，七种彩虹颜色各有 10 个。
+随机抽取 20 个球，球的不同颜色数量的期望是多少？
+请将答案保留小数点后九位 (a.bcdefghij)。
 
 -----
 
-This combinatorial problem can be solved by decomposing the problem into the
-following steps:
-1. Calculate the total number of possible picking combinations
+这个组合问题可以分解为以下步骤来求解：
+1. 计算所有可能的抽取组合总数
 [combinations := binom_coeff(70, 20)]
-2. Calculate the number of combinations with one colour missing
+2. 计算缺少一种颜色的组合数
 [missing := binom_coeff(60, 20)]
-3. Calculate the probability of one colour missing
+3. 计算缺少一种颜色的概率
 [missing_prob := missing / combinations]
-4. Calculate the probability of no colour missing
+4. 计算不缺少任何颜色的概率
 [no_missing_prob := 1 - missing_prob]
-5. Calculate the expected number of distinct colours
+5. 计算不同颜色数量的期望
 [expected = 7 * no_missing_prob]
 
-References:
+参考资料：
 - https://en.wikipedia.org/wiki/Binomial_coefficient
 """
 
@@ -33,7 +32,7 @@ NUM_BALLS = BALLS_PER_COLOUR * NUM_COLOURS
 
 def solution(num_picks: int = 20) -> str:
     """
-    Calculates the expected number of distinct colours
+    计算不同颜色数量的期望。
 
     >>> solution(10)
     '5.669644129'

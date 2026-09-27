@@ -16,10 +16,10 @@ Problem 123: https://projecteuler.net/problem=123
 
 n=1: (p-1) + (p+1) = 2p
 n=2: (p-1)^2 + (p+1)^2
-     = p^2 + 1 - 2p + p^2 + 1 + 2p  (Using (p+b)^2 = (p^2 + b^2 + 2pb),
-                                           (p-b)^2 = (p^2 + b^2 - 2pb) and b = 1)
+     = p^2 + 1 - 2p + p^2 + 1 + 2p  (使用 (p+b)^2 = (p^2 + b^2 + 2pb),
+                                           (p-b)^2 = (p^2 + b^2 - 2pb)，且 b = 1)
      = 2p^2 + 2
-n=3: (p-1)^3 + (p+1)^3  (Similarly using (p+b)^3 & (p-b)^3 formula and so on)
+n=3: (p-1)^3 + (p+1)^3  (类似地使用 (p+b)^3 & (p-b)^3 公式，依此类推)
      = 2p^3 + 6p
 n=4: 2p^4 + 12p^2 + 2
 n=5: 2p^5 + 20p^3 + 10p
@@ -91,7 +91,7 @@ def solution(limit: float = 1e10) -> int:
         prime = next(primes)
         if (2 * prime * n) > limit:
             return n
-        # Ignore the next prime as the reminder will be 2.
+        # 忽略下一个素数，因为余数将为 2
         next(primes)
         n += 2
 

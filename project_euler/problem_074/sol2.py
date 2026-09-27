@@ -58,7 +58,7 @@ def digit_factorial_sum(number: int) -> int:
     if number < 0:
         raise ValueError("Parameter number must be greater than or equal to 0")
 
-    # Converts number in string to iterate on its digits and adds its factorial.
+    # 将 number 转为字符串以遍历各位数字，并将其阶乘相加
     return sum(DIGIT_FACTORIAL[digit] for digit in str(number))
 
 
@@ -98,18 +98,17 @@ def solution(chain_length: int = 60, number_limit: int = 1000000) -> int:
             "Parameters chain_length and number_limit must be greater than 0"
         )
 
-    # the counter for the chains with the exact desired length
+    # 长度恰好为目标值的链计数器
     chains_counter = 0
-    # the cached sizes of the previous chains
+    # 缓存先前各链的长度
     chain_sets_lengths: dict[int, int] = {}
 
     for start_chain_element in range(1, number_limit):
-        # The temporary set will contain the elements of the chain
+        # 临时集合用于存放链中的元素
         chain_set = set()
         chain_set_length = 0
 
-        # Stop computing the chain when you find a cached size, a repeating item or the
-        # length is greater then the desired one.
+        # 当找到缓存长度或重复项，或者链长度超过目标值时，停止计算该链
         chain_element = start_chain_element
         while (
             chain_element not in chain_sets_lengths
@@ -125,7 +124,7 @@ def solution(chain_length: int = 60, number_limit: int = 1000000) -> int:
 
         chain_sets_lengths[start_chain_element] = chain_set_length
 
-        # If chain contains the exact amount of elements increase the counter
+        # 如果链包含的元素数量恰好等于目标值，则增加计数器
         if chain_set_length == chain_length:
             chains_counter += 1
 

@@ -1,32 +1,27 @@
 """
-In laser physics, a "white cell" is a mirror system that acts as a delay line for the
-laser beam. The beam enters the cell, bounces around on the mirrors, and eventually
-works its way back out.
+在激光物理学中，“白光腔”（white cell）是一种充当激光束延迟线的反射镜系统。
+光束进入腔体，在反射镜之间多次反射，最终离开。
 
-The specific white cell we will be considering is an ellipse with the equation
+本题所考虑的白光腔是一个椭圆，其方程为
 4x^2 + y^2 = 100
 
-The section corresponding to -0.01 ≤ x ≤ +0.01 at the top is missing, allowing the
-light to enter and exit through the hole.
+顶部对应 -0.01 ≤ x ≤ +0.01 的部分缺失，使光线可以通过该孔进入和离开。
 ￼￼
-The light beam in this problem starts at the point (0.0,10.1) just outside the white
-cell, and the beam first impacts the mirror at (1.4,-9.6).
+本题中的光束从白光腔外的点 (0.0,10.1) 出发，首次在 (1.4,-9.6) 处撞击反射镜。
 
-Each time the laser beam hits the surface of the ellipse, it follows the usual law of
-reflection "angle of incidence equals angle of reflection." That is, both the incident
-and reflected beams make the same angle with the normal line at the point of incidence.
+激光束每次撞击椭圆表面时都遵循通常的反射定律：“入射角等于反射角”。也就是说，
+入射光束和反射光束与入射点法线的夹角相同。
 
-In the figure on the left, the red line shows the first two points of contact between
-the laser beam and the wall of the white cell; the blue line shows the line tangent to
-the ellipse at the point of incidence of the first bounce.
+左图中的红线表示激光束与白光腔壁最初的两个接触点；蓝线表示第一次反射入射点处
+椭圆的切线。
 
-The slope m of the tangent line at any point (x,y) of the given ellipse is: m = -4x/y
+给定椭圆上任意点 (x,y) 处切线的斜率 m 为：m = -4x/y
 
-The normal line is perpendicular to this tangent line at the point of incidence.
+入射点处的法线与该切线垂直。
 
-The animation on the right shows the first 10 reflections of the beam.
+右侧动画展示了光束最初的 10 次反射。
 
-How many times does the beam hit the internal surface of the white cell before exiting?
+光束在离开前会撞击白光腔内表面多少次？
 """
 
 from math import isclose, sqrt
@@ -36,16 +31,15 @@ def next_point(
     point_x: float, point_y: float, incoming_gradient: float
 ) -> tuple[float, float, float]:
     """
-    Given that a laser beam hits the interior of the white cell at point
-    (point_x, point_y) with gradient incoming_gradient, return a tuple (x,y,m1)
-    where the next point of contact with the interior is (x,y) with gradient m1.
+    给定激光束以斜率 incoming_gradient 在点 (point_x, point_y) 撞击白光腔内壁，
+    返回元组 (x,y,m1)，其中下一接触点为 (x,y)，斜率为 m1。
     >>> next_point(5.0, 0.0, 0.0)
     (-5.0, 0.0, 0.0)
     >>> next_point(5.0, 0.0, -2.0)
     (0.0, -10.0, 2.0)
     """
-    # normal_gradient = gradient of line through which the beam is reflected
-    # outgoing_gradient = gradient of reflected line
+    # normal_gradient = 光束反射所依据直线的斜率
+    # outgoing_gradient = 反射线的斜率
     normal_gradient = point_y / 4 / point_x
     s2 = 2 * normal_gradient / (1 + normal_gradient * normal_gradient)
     c2 = (1 - normal_gradient * normal_gradient) / (
@@ -53,7 +47,7 @@ def next_point(
     )
     outgoing_gradient = (s2 - c2 * incoming_gradient) / (c2 + s2 * incoming_gradient)
 
-    # to find the next point, solve the simultaeneous equations:
+    # 为找到下一点，求解联立方程：
     # y^2 + 4x^2 = 100
     # y - b = m * (x - a)
     # ==> A x^2 + B x + C = 0
@@ -68,7 +62,7 @@ def next_point(
         -linear_term + sqrt(linear_term**2 - 4 * quadratic_term * constant_term)
     ) / (2 * quadratic_term)
 
-    # two solutions, one of which is our input point
+    # 有两个解，其中一个是输入点
     next_x = x_minus if isclose(x_plus, point_x) else x_plus
     next_y = point_y + outgoing_gradient * (next_x - point_x)
 
@@ -77,8 +71,7 @@ def next_point(
 
 def solution(first_x_coord: float = 1.4, first_y_coord: float = -9.6) -> int:
     """
-    Return the number of times that the beam hits the interior wall of the
-    cell before exiting.
+    返回光束离开前撞击腔体内壁的次数。
     >>> solution(0.00001,-10)
     1
     >>> solution(5, 0)

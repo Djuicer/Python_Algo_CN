@@ -1,41 +1,31 @@
 """
 Project Euler Problem 206: https://projecteuler.net/problem=206
 
-Find the unique positive integer whose square has the form 1_2_3_4_5_6_7_8_9_0,
-where each “_” is a single digit.
+求唯一的正整数，使其平方具有形式 1_2_3_4_5_6_7_8_9_0，其中每个“_”均为一位数字。
 
 -----
 
-Instead of computing every single permutation of that number and going
-through a 10^9 search space, we can narrow it down considerably.
+无需计算该数的每一种排列并遍历 10^9 的搜索空间，可以大幅缩小范围。
 
-If the square ends in a 0, then the square root must also end in a 0. Thus,
-the last missing digit must be 0 and the square root is a multiple of 10.
-We can narrow the search space down to the first 8 digits and multiply the
-result of that by 10 at the end.
+如果平方数以 0 结尾，则其平方根也必须以 0 结尾。因此，最后一个缺失数字必须是 0，
+且平方根是 10 的倍数。可以将搜索空间缩小到前 8 位，最后再将结果乘以 10。
 
-Now the last digit is a 9, which can only happen if the square root ends
-in a 3 or 7. From this point, we can try one of two different methods to find
-the answer:
+此时末位数字为 9，只有平方根以 3 或 7 结尾时才可能出现。从这里开始，可以尝试
+以下两种方法之一来寻找答案：
 
-1. Start at the lowest possible base number whose square would be in the
-format, and count up. The base we would start at is 101010103, whose square is
-the closest number to 10203040506070809. Alternate counting up by 4 and 6 so
-the last digit of the base is always a 3 or 7.
+1. 从平方数可能符合该形式的最小底数开始向上计数。起始底数为 101010103，
+其平方最接近 10203040506070809。交替增加 4 和 6，使底数末位始终为 3 或 7。
 
-2. Start at the highest possible base number whose square would be in the
-format, and count down. That base would be 138902663, whose square is the
-closest number to 1929394959697989. Alternate counting down by 6 and 4 so the
-last digit of the base is always a 3 or 7.
+2. 从平方数可能符合该形式的最大底数开始向下计数。该底数为 138902663，
+其平方最接近 1929394959697989。交替减少 6 和 4，使底数末位始终为 3 或 7。
 
-The solution does option 2 because the answer happens to be much closer to the
-starting point.
+本解法采用方法 2，因为答案恰好更接近该起点。
 """
 
 
 def is_square_form(num: int) -> bool:
     """
-    Determines if num is in the form 1_2_3_4_5_6_7_8_9
+    判断 num 是否具有形式 1_2_3_4_5_6_7_8_9。
 
     >>> is_square_form(1)
     False
@@ -57,7 +47,7 @@ def is_square_form(num: int) -> bool:
 
 def solution() -> int:
     """
-    Returns the first integer whose square is of the form 1_2_3_4_5_6_7_8_9_0
+    返回首个平方具有形式 1_2_3_4_5_6_7_8_9_0 的整数。
     """
     num = 138902663
 

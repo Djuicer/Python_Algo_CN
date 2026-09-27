@@ -54,19 +54,19 @@ def solution(target: int = 2000000) -> int:
     for idx in range(1, ceil(sqrt(target * 2) * 1.1)):
         triangle_numbers.append(triangle_numbers[-1] + idx)
 
-    # we want this to be as close as possible to target
+    # 希望该值尽可能接近 target
     best_product: int = 0
-    # the area corresponding to the grid that gives the product closest to target
+    # 乘积最接近 target 的网格所对应的面积
     area: int = 0
-    # an estimate of b, using the quadratic formula
+    # 使用二次公式得到的 b 估计值
     b_estimate: float
-    # the largest integer less than b_estimate
+    # 小于 b_estimate 的最大整数
     b_floor: int
-    # the largest integer less than b_estimate
+    # 小于 b_estimate 的最大整数
     b_ceil: int
-    # the triangle number corresponding to b_floor
+    # b_floor 对应的三角数
     triangle_b_first_guess: int
-    # the triangle number corresponding to b_ceil
+    # b_ceil 对应的三角数
     triangle_b_second_guess: int
 
     for idx_a, triangle_a in enumerate(triangle_numbers[1:], 1):

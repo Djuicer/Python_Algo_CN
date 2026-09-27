@@ -1,37 +1,35 @@
 """
 Project Euler Problem 138: https://projecteuler.net/problem=138
 
-Special Isosceles Triangles
+特殊等腰三角形
 
 
-With change of variables
+通过变量替换
 
 c = b/2
 
-and requiring that
+并要求
 
 h = 2c +- 1
 
-the triangle relation
+三角形关系
 
 c^2 + h^2 = L^2
 
-can be expressed as
+可表示为
 
 5 c^2 +- 4c + 1 = L^2
 
-or with some rearrangement:
+或者经过整理：
 
 (5c +- 2)^2 = 5L^2 - 1
 
-This to be solved for positive integer c and L, requires that
+要使正整数 c 和 L 满足该式，需要
 
 5L^2 - 1 = m^2
 
-The above equation is negative Pell's equation with n = 5 and can be solved
-recursively as outlined in the wikipedia article.
-Note, we neglect first solution (m = 2, L = 1), as this leads to b and h
-being non-integers.
+上述方程是 n = 5 时的负 Pell 方程，可按照 Wikipedia 文章所述递归求解。
+注意，忽略第一个解 (m = 2, L = 1)，因为它会使 b 和 h 不是整数。
 
 Reference: https://en.wikipedia.org/wiki/Pell%27s_equation#The_negative_Pell's_equation
 
@@ -40,8 +38,7 @@ Reference: https://en.wikipedia.org/wiki/Pell%27s_equation#The_negative_Pell's_e
 
 def solution(k: int = 12) -> int:
     """
-    The recursive solution of negative Pell's equation with k + 1 values of L
-    summed and the first solution being skipped.
+    对负 Pell 方程进行递归求解，跳过第一个解，并对 k + 1 个 L 值求和。
 
     >>> solution(2)
     322

@@ -25,14 +25,13 @@ def solution(a: int = 100, b: int = 100) -> int:
     1872
     """
 
-    # RETURN the MAXIMUM from the list of SUMs of the list of INT converted from STR of
-    # BASE raised to the POWER
+    # 将 BASE 的 POWER 次幂转为 STR，再将其中各项转为 INT 并求和，最后返回这些和的最大值
     return max(
         sum(int(x) for x in str(base**power)) for base in range(a) for power in range(b)
     )
 
 
-# Tests
+# 测试
 if __name__ == "__main__":
     import doctest
 

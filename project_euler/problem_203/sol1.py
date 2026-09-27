@@ -1,8 +1,7 @@
 """
 Project Euler Problem 203: https://projecteuler.net/problem=203
 
-The binomial coefficients (n k) can be arranged in triangular form, Pascal's
-triangle, like this:
+二项式系数 (n k) 可以排列成如下三角形形式，即 Pascal 三角形：
                             1
                         1       1
                     1		2       1
@@ -13,16 +12,14 @@ triangle, like this:
 1		7		21		35		35		21		7		1
                         .........
 
-It can be seen that the first eight rows of Pascal's triangle contain twelve
-distinct numbers: 1, 2, 3, 4, 5, 6, 7, 10, 15, 20, 21 and 35.
+可以看出，Pascal 三角形的前八行包含十二个不同数字：
+1, 2, 3, 4, 5, 6, 7, 10, 15, 20, 21 and 35。
 
-A positive integer n is called squarefree if no square of a prime divides n.
-Of the twelve distinct numbers in the first eight rows of Pascal's triangle,
-all except 4 and 20 are squarefree. The sum of the distinct squarefree numbers
-in the first eight rows is 105.
+若正整数 n 不可被任何素数的平方整除，则称 n 为无平方因子数。
+Pascal 三角形前八行的十二个不同数字中，除 4 和 20 外均为无平方因子数。
+前八行中不同无平方因子数的总和为 105。
 
-Find the sum of the distinct squarefree numbers in the first 51 rows of
-Pascal's triangle.
+求 Pascal 三角形前 51 行中不同无平方因子数的总和。
 
 References:
 - https://en.wikipedia.org/wiki/Pascal%27s_triangle
@@ -33,11 +30,10 @@ from __future__ import annotations
 
 def get_pascal_triangle_unique_coefficients(depth: int) -> set[int]:
     """
-    Returns the unique coefficients of a Pascal's triangle of depth "depth".
+    返回深度为 "depth" 的 Pascal 三角形中的不同系数。
 
-    The coefficients of this triangle are symmetric. A further improvement to this
-    method could be to calculate the coefficients once per level. Nonetheless,
-    the current implementation is fast enough for the original problem.
+    该三角形的系数具有对称性。可以通过每层只计算一次系数进一步改进此方法，
+    但当前实现对原题而言已足够快。
 
     >>> get_pascal_triangle_unique_coefficients(1)
     {1}
@@ -62,15 +58,13 @@ def get_pascal_triangle_unique_coefficients(depth: int) -> set[int]:
 
 def get_squarefrees(unique_coefficients: set[int]) -> set[int]:
     """
-    Calculates the squarefree numbers inside unique_coefficients.
+    计算 unique_coefficients 中的无平方因子数。
 
-    Based on the definition of a non-squarefree number, then any non-squarefree
-    n can be decomposed as n = p*p*r, where p is positive prime number and r
-    is a positive integer.
+    根据非无平方因子数的定义，任何此类 n 都可分解为 n = p*p*r，
+    其中 p 是正素数，r 是正整数。
 
-    Under the previous formula, any coefficient that is lower than p*p is
-    squarefree as r cannot be negative. On the contrary, if any r exists such
-    that n = p*p*r, then the number is non-squarefree.
+    根据上述公式，由于 r 不能为负，任何小于 p*p 的系数都是无平方因子数。
+    反之，若存在 r 使 n = p*p*r，则该数不是无平方因子数。
 
     >>> get_squarefrees({1})
     {1}
@@ -99,7 +93,7 @@ def get_squarefrees(unique_coefficients: set[int]) -> set[int]:
 
 def solution(n: int = 51) -> int:
     """
-    Returns the sum of squarefrees for a given Pascal's Triangle of depth n.
+    返回给定深度 n 的 Pascal 三角形中无平方因子数的总和。
 
     >>> solution(1)
     1

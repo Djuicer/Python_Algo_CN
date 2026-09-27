@@ -1,16 +1,13 @@
 """
-Prize Strings
+获奖字符串
 Problem 191
 
-A particular school offers cash rewards to children with good attendance and
-punctuality. If they are absent for three consecutive days or late on more
-than one occasion then they forfeit their prize.
+某学校向出勤和守时表现良好的学生提供现金奖励。如果连续三天缺席，或迟到超过一次，
+则失去奖励资格。
 
-During an n-day period a trinary string is formed for each child consisting
-of L's (late), O's (on time), and A's (absent).
+在 n 天期间，为每个学生生成一个三元字符串，由 L（迟到）、O（准时）和 A（缺席）组成。
 
-Although there are eighty-one trinary strings for a 4-day period that can be
-formed, exactly forty-three strings would lead to a prize:
+尽管 4 天期间可形成八十一个三元字符串，但恰有四十三个字符串可以获奖：
 
 OOOO OOOA OOOL OOAO OOAA OOAL OOLO OOLA OAOO OAOA
 OAOL OAAO OAAL OALO OALA OLOO OLOA OLAO OLAA AOOO
@@ -18,7 +15,7 @@ AOOA AOOL AOAO AOAA AOAL AOLO AOLA AAOO AAOA AAOL
 AALO AALA ALOO ALOA ALAO ALAA LOOO LOOA LOAO LOAA
 LAOO LAOA LAAO
 
-How many "prize" strings exist over a 30-day period?
+30 天期间存在多少个“获奖”字符串？
 
 References:
     - The original Project Euler project page:
@@ -30,13 +27,10 @@ cache: dict[tuple[int, int, int], int] = {}
 
 def _calculate(days: int, absent: int, late: int) -> int:
     """
-    A small helper function for the recursion, mainly to have
-    a clean interface for the solution() function below.
+    一个用于递归的小型辅助函数，主要用于为下方的 solution() 函数提供简洁接口。
 
-    It should get called with the number of days (corresponding
-    to the desired length of the 'prize strings'), and the
-    initial values for the number of consecutive absent days and
-    number of total late days.
+    调用时应传入天数（对应所需“获奖字符串”的长度）、连续缺席天数的初始值，
+    以及迟到总天数的初始值。
 
     >>> _calculate(days=4, absent=0, late=0)
     43
@@ -46,38 +40,31 @@ def _calculate(days: int, absent: int, late: int) -> int:
     98950096
     """
 
-    # if we are absent twice, or late 3 consecutive days,
-    # no further prize strings are possible
+    # 如果缺席两次，或连续迟到 3 天，则不再可能产生获奖字符串
     if late == 3 or absent == 2:
         return 0
 
-    # if we have no days left, and have not failed any other rules,
-    # we have a prize string
+    # 如果已无剩余天数且未违反其他规则，则得到一个获奖字符串
     if days == 0:
         return 1
 
-    # No easy solution, so now we need to do the recursive calculation
+    # 没有简便解法，因此需要进行递归计算
 
-    # First, check if the combination is already in the cache, and
-    # if yes, return the stored value from there since we already
-    # know the number of possible prize strings from this point on
+    # 首先检查该组合是否已在缓存中；若是，则返回所存值，
+    # 因为从当前状态开始的可能获奖字符串数量已经确定
     key = (days, absent, late)
     if key in cache:
         return cache[key]
 
-    # now we calculate the three possible ways that can unfold from
-    # this point on, depending on our attendance today
+    # 根据今天的出勤情况，计算从当前状态开始的三种可能分支
 
-    # 1) if we are late (but not absent), the "absent" counter stays as
-    # it is, but the "late" counter increases by one
+    # 1) 如果迟到（但未缺席），"absent" 计数器保持不变，"late" 计数器增加一
     state_late = _calculate(days - 1, absent, late + 1)
 
-    # 2) if we are absent, the "absent" counter increases by 1, and the
-    # "late" counter resets to 0
+    # 2) 如果缺席，"absent" 计数器增加 1，"late" 计数器重置为 0
     state_absent = _calculate(days - 1, absent + 1, 0)
 
-    # 3) if we are on time, this resets the "late" counter and keeps the
-    # absent counter
+    # 3) 如果准时，重置 "late" 计数器并保持 absent 计数器不变
     state_ontime = _calculate(days - 1, absent, 0)
 
     prizestrings = state_late + state_absent + state_ontime
@@ -88,8 +75,7 @@ def _calculate(days: int, absent: int, late: int) -> int:
 
 def solution(days: int = 30) -> int:
     """
-    Returns the number of possible prize strings for a particular number
-    of days, using a simple recursive function with caching to speed it up.
+    使用带缓存的简单递归函数，返回给定天数下可能的获奖字符串数量。
 
     >>> solution()
     1918080160

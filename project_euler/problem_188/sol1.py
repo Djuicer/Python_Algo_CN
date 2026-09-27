@@ -1,30 +1,28 @@
 """
 Project Euler Problem 188: https://projecteuler.net/problem=188
 
-The hyperexponentiation of a number
+数的超幂
 
-The hyperexponentiation or tetration of a number a by a positive integer b,
-denoted by a↑↑b or b^a, is recursively defined by:
+数 a 关于正整数 b 的超幂（或幂塔）记作 a↑↑b 或 b^a，递归定义为：
 
 a↑↑1 = a,
 a↑↑(k+1) = a(a↑↑k).
 
-Thus we have e.g. 3↑↑2 = 3^3 = 27, hence 3↑↑3 = 3^27 = 7625597484987 and
-3↑↑4 is roughly 103.6383346400240996*10^12.
+因此，例如 3↑↑2 = 3^3 = 27，进而 3↑↑3 = 3^27 = 7625597484987，且
+3↑↑4 约为 103.6383346400240996*10^12。
 
-Find the last 8 digits of 1777↑↑1855.
+求 1777↑↑1855 的末 8 位数字。
 
 References:
     - https://en.wikipedia.org/wiki/Tetration
 """
 
 
-# small helper function for modular exponentiation (fast exponentiation algorithm)
+# 模幂运算的小型辅助函数（快速幂算法）
 def _modexpt(base: int, exponent: int, modulo_value: int) -> int:
     """
-    Returns the modular exponentiation, that is the value
-    of `base ** exponent % modulo_value`, without calculating
-    the actual number.
+    返回模幂运算结果，即 `base ** exponent % modulo_value` 的值，
+    而不计算实际数值。
     >>> _modexpt(2, 4, 10)
     6
     >>> _modexpt(2, 1024, 100)
@@ -44,8 +42,7 @@ def _modexpt(base: int, exponent: int, modulo_value: int) -> int:
 
 def solution(base: int = 1777, height: int = 1855, digits: int = 8) -> int:
     """
-    Returns the last 8 digits of the hyperexponentiation of base by
-    height, i.e. the number base↑↑height:
+    返回 base 关于 height 的超幂（即 base↑↑height）的末 8 位数字：
 
     >>> solution(base=3, height=2)
     27
@@ -55,8 +52,7 @@ def solution(base: int = 1777, height: int = 1855, digits: int = 8) -> int:
     2547
     """
 
-    # calculate base↑↑height by right-assiciative repeated modular
-    # exponentiation
+    # 通过右结合的重复模幂运算计算 base↑↑height
     result = base
     for _ in range(1, height):
         result = _modexpt(base, result, 10**digits)

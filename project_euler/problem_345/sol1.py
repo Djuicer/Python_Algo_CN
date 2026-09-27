@@ -1,12 +1,11 @@
 """
 Project Euler Problem 345: https://projecteuler.net/problem=345
 
-Matrix Sum
+矩阵和
 
-We define the Matrix Sum of a matrix as the maximum possible sum of
-matrix elements such that none of the selected elements share the same row or column.
+将矩阵的“矩阵和”定义为满足以下条件的最大元素和：任意两个所选元素均不在同一行或同一列。
 
-For example, the Matrix Sum of the matrix below equals
+例如，下方矩阵的矩阵和等于
 3315 ( = 863 + 383 + 343 + 959 + 767):
       7  53 183 439 863
     497 383 563  79 973
@@ -14,7 +13,7 @@ For example, the Matrix Sum of the matrix below equals
     627 343 773 959 943
     767 473 103 699 303
 
-Find the Matrix Sum of:
+求以下矩阵的矩阵和：
       7  53 183 439 863 497 383 563  79 973 287  63 343 169 583
     627 343 773 959 943 767 473 103 699 303 957 703 583 639 913
     447 283 463  29  23 487 463 993 119 883 327 493 423 159 743
@@ -31,7 +30,7 @@ Find the Matrix Sum of:
     815 559 813 459 522 788 168 586 966 232 308 833 251 631 107
     813 883 451 509 615  77 281 613 459 205 380 274 302  35 805
 
-Brute force solution, with caching intermediate steps to speed up the calculation.
+采用暴力解法，并缓存中间步骤以加快计算。
 """
 
 import numpy as np
@@ -66,8 +65,8 @@ MATRIX_2 = [
 
 def solve(arr: NDArray, row: int, cols: set[int], cache: dict[str, int]) -> int:
     """
-    Finds the max sum for array `arr` starting with row index `row`, and with columns
-    included in `cols`. `cache` is used for caching intermediate results.
+    对数组 `arr`，从行索引 `row` 开始并使用 `cols` 中的列，求最大和。
+    `cache` 用于缓存中间结果。
 
     >>> solve(arr=np.array([[1, 2], [3, 4]]), row=0, cols={0, 1}, cache={})
     5
@@ -94,7 +93,7 @@ def solve(arr: NDArray, row: int, cols: set[int], cache: dict[str, int]) -> int:
 
 def solution(matrix_str: list[str] = MATRIX_2) -> int:
     """
-    Takes list of strings `matrix_str` to parse the matrix and calculates the max sum.
+    接收字符串列表 `matrix_str` 以解析矩阵并计算最大和。
 
     >>> solution(["1 2", "3 4"])
     5

@@ -1,28 +1,23 @@
 """
 Project Euler Problem 587: https://projecteuler.net/problem=587
 
-A square is drawn around a circle as shown in the diagram below on the left.
-We shall call the blue shaded region the L-section.
-A line is drawn from the bottom left of the square to the top right
-as shown in the diagram on the right.
-We shall call the orange shaded region a concave triangle.
+如下面左图所示，在一个圆的外面画一个正方形。
+我们将蓝色阴影区域称为 L 形区域。
+如右图所示，从正方形的左下角向右上角画一条直线。
+我们将橙色阴影区域称为凹三角形。
 
-It should be clear that the concave triangle occupies exactly half of the L-section.
+显然，凹三角形恰好占 L 形区域的一半。
 
-Two circles are placed next to each other horizontally,
-a rectangle is drawn around both circles, and
-a line is drawn from the bottom left to the top right as shown in the diagram below.
+将两个圆水平相邻放置，在两个圆的外面画一个矩形，
+并如图所示从左下角向右上角画一条直线。
 
-This time the concave triangle occupies approximately 36.46% of the L-section.
+此时凹三角形约占 L 形区域的 36.46%。
 
-If n circles are placed next to each other horizontally,
-a rectangle is drawn around the n circles, and
-a line is drawn from the bottom left to the top right,
-then it can be shown that the least value of n
-for which the concave triangle occupies less than 10% of the L-section is n = 15.
+如果将 n 个圆水平相邻放置，在这 n 个圆的外面画一个矩形，
+并从左下角向右上角画一条直线，
+可以证明，使凹三角形占 L 形区域的比例小于 10% 的最小 n 值为 n = 15。
 
-What is the least value of n
-for which the concave triangle occupies less than 0.1% of the L-section?
+使凹三角形占 L 形区域的比例小于 0.1% 的最小 n 值是多少？
 """
 
 from itertools import count
@@ -31,7 +26,7 @@ from math import asin, pi, sqrt
 
 def circle_bottom_arc_integral(point: float) -> float:
     """
-    Returns integral of circle bottom arc y = 1 / 2 - sqrt(1 / 4 - (x - 1 / 2) ^ 2)
+    返回圆的下圆弧 y = 1 / 2 - sqrt(1 / 4 - (x - 1 / 2) ^ 2) 的积分。
 
     >>> circle_bottom_arc_integral(0)
     0.39269908169872414
@@ -50,7 +45,7 @@ def circle_bottom_arc_integral(point: float) -> float:
 
 def concave_triangle_area(circles_number: int) -> float:
     """
-    Returns area of concave triangle
+    返回凹三角形的面积。
 
     >>> concave_triangle_area(1)
     0.026825229575318944
@@ -74,8 +69,7 @@ def concave_triangle_area(circles_number: int) -> float:
 
 def solution(fraction: float = 1 / 1000) -> int:
     """
-    Returns least value of n
-    for which the concave triangle occupies less than fraction of the L-section
+    返回使凹三角形占 L 形区域的比例小于 fraction 的最小 n 值。
 
     >>> solution(1 / 10)
     15

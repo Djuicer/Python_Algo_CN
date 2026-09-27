@@ -45,7 +45,7 @@ class Graph:
 
     def add_edge(self, edge: EdgeT, weight: int) -> None:
         """
-        Add a new edge to the graph.
+        向图中添加一条新边。
         >>> graph = Graph({1, 2}, {(2, 1): 4})
         >>> graph.add_edge((3, 1), 5)
         >>> sorted(graph.vertices)
@@ -59,7 +59,7 @@ class Graph:
 
     def prims_algorithm(self) -> Graph:
         """
-        Run Prim's algorithm to find the minimum spanning tree.
+        运行 Prim 算法以寻找最小生成树（Minimum Spanning Tree）。
         Reference: https://en.wikipedia.org/wiki/Prim%27s_algorithm
         >>> graph = Graph({1,2,3,4},{(1,2):5, (1,3):10, (1,4):20, (2,4):30, (3,4):1})
         >>> mst = graph.prims_algorithm()

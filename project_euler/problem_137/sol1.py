@@ -1,15 +1,14 @@
 """
 Project Euler Problem 137: https://projecteuler.net/problem=137
 
-Fibonacci Golden Nuggets
+斐波那契黄金块
 
-The polynomial sequence can be rewritten in the finite form:
+该多项式数列可改写为有限形式：
 
 A_F(x) = x / (1 - x - x^2)
 
-And then the problem is to solve for it for rational x that give A_F(x) as positive
-integer. It turns out that the solution is for the n-th golden nugget is given by
-F(2n) * F(2n + 1), where F(k) is the k'th Fibonacci number.
+接下来需要求出使 A_F(x) 为正整数的有理数 x。事实证明，第 n 个黄金块由
+F(2n) * F(2n + 1) 给出，其中 F(k) 是第 k 个斐波那契数。
 
 Reference: https://oeis.org/A081018
 
@@ -18,7 +17,7 @@ Reference: https://oeis.org/A081018
 
 def solution(n: int = 15) -> int:
     """
-    It calculates fibonachi numbers 2n and 2n+1, and returns their product.
+    计算第 2n 和 2n+1 个斐波那契数，并返回其乘积。
 
     >>> solution(3)
     104

@@ -1,14 +1,12 @@
 """
 Project Euler Problem 173: https://projecteuler.net/problem=173
 
-We shall define a square lamina to be a square outline with a square "hole" so that
-the shape possesses vertical and horizontal symmetry. For example, using exactly
-thirty-two square tiles we can form two different square laminae:
+将方形薄片定义为带有方形“孔洞”的正方形边框，使其具有水平和垂直对称性。
+例如，恰好使用三十二块方砖可以形成两种不同的方形薄片：
 
-With one-hundred tiles, and not necessarily using all of the tiles at one time, it is
-possible to form forty-one different square laminae.
+使用一百块方砖（不必一次用完）可以形成四十一种不同的方形薄片。
 
-Using up to one million tiles how many different square laminae can be formed?
+最多使用一百万块方砖可以形成多少种不同的方形薄片？
 """
 
 from math import ceil, sqrt
@@ -16,8 +14,7 @@ from math import ceil, sqrt
 
 def solution(limit: int = 1000000) -> int:
     """
-    Return the number of different square laminae that can be formed using up to
-    one million tiles.
+    返回最多使用一百万块方砖时可形成的不同方形薄片数量。
     >>> solution(100)
     41
     """

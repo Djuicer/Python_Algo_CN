@@ -1,37 +1,33 @@
 """
 Project Euler Problem 136: https://projecteuler.net/problem=136
 
-Singleton Difference
+唯一解差值
 
-The positive integers, x, y, and z, are consecutive terms of an arithmetic progression.
-Given that n is a positive integer, the equation, x^2 - y^2 - z^2 = n,
-has exactly one solution when n = 20:
+正整数 x、y 和 z 是等差数列的连续项。给定正整数 n，当 n = 20 时，方程
+x^2 - y^2 - z^2 = n 恰有一个解：
                               13^2 - 10^2 - 7^2 = 20.
 
-In fact there are twenty-five values of n below one hundred for which
-the equation has a unique solution.
+事实上，一百以下共有二十五个 n 值使该方程具有唯一解。
 
-How many values of n less than fifty million have exactly one solution?
+小于五千万且恰有一个解的 n 有多少个？
 
-By change of variables
+通过变量替换
 
 x = y + delta
 z = y - delta
 
-The expression can be rewritten:
+表达式可改写为：
 
 x^2 - y^2 - z^2 = y * (4 * delta - y) = n
 
-The algorithm loops over delta and y, which is restricted in upper and lower limits,
-to count how many solutions each n has.
-In the end it is counted how many n's have one solution.
+算法遍历 delta 和 y（y 受上下界约束），统计每个 n 的解数。
+最后统计恰有一个解的 n 的数量。
 """
 
 
 def solution(n_limit: int = 50 * 10**6) -> int:
     """
-    Define n count list and loop over delta, y to get the counts, then check
-    which n has count == 1.
+    定义 n 的计数列表并遍历 delta、y 以获得计数，然后检查哪些 n 的计数为 1。
 
     >>> solution(3)
     0

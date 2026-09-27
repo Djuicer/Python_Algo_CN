@@ -4,9 +4,9 @@
 """
 
 """
-The maximum base can be 9 because all n-digit numbers < 10^n.
-Now 9**23 has 22 digits so the maximum power can be 22.
-Using these conclusions, we will calculate the result.
+最大底数可以是 9，因为所有 n 位数 < 10^n。
+由于 9**23 有 22 位，因此最大幂可以是 22。
+利用这些结论计算结果。
 """
 
 

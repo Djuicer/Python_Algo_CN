@@ -40,7 +40,7 @@ def get_totients(max_one: int) -> list[int]:
 
     for i in range(2, max_one):
         if totients[i] == i:
-            x = np.arange(i, max_one, i)  # array of indexes to select
+            x = np.arange(i, max_one, i)  # 待选择的索引数组
             totients[x] -= totients[x] // i
 
     return totients.tolist()

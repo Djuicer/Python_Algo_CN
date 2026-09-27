@@ -1,14 +1,13 @@
 """
 Project Euler Problem 187: https://projecteuler.net/problem=187
 
-A composite is a number containing at least two prime factors.
-For example, 15 = 3 x 5; 9 = 3 x 3; 12 = 2 x 2 x 3.
+合数是至少包含两个素因数的数。
+例如，15 = 3 x 5; 9 = 3 x 3; 12 = 2 x 2 x 3。
 
-There are ten composites below thirty containing precisely two,
-not necessarily distinct, prime factors: 4, 6, 9, 10, 14, 15, 21, 22, 25, 26.
+三十以下恰好包含两个（不要求互不相同）素因数的合数有十个：
+4, 6, 9, 10, 14, 15, 21, 22, 25, 26。
 
-How many composite integers, n < 10^8, have precisely two,
-not necessarily distinct, prime factors?
+有多少个合数 n < 10^8 恰好包含两个不要求互不相同的素因数？
 """
 
 from math import isqrt
@@ -16,7 +15,7 @@ from math import isqrt
 
 def slow_calculate_prime_numbers(max_number: int) -> list[int]:
     """
-    Returns prime numbers below max_number.
+    返回 max_number 以下的素数。
     See: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
     >>> slow_calculate_prime_numbers(10)
@@ -26,12 +25,12 @@ def slow_calculate_prime_numbers(max_number: int) -> list[int]:
     []
     """
 
-    # List containing a bool value for every number below max_number/2
+    # 为 max_number/2 以下的每个数保存一个布尔值的列表
     is_prime = [True] * max_number
 
     for i in range(2, isqrt(max_number - 1) + 1):
         if is_prime[i]:
-            # Mark all multiple of i as not prime
+            # 将 i 的所有倍数标记为非素数
             for j in range(i**2, max_number, i):
                 is_prime[j] = False
 
@@ -40,7 +39,7 @@ def slow_calculate_prime_numbers(max_number: int) -> list[int]:
 
 def calculate_prime_numbers(max_number: int) -> list[int]:
     """
-    Returns prime numbers below max_number.
+    返回 max_number 以下的素数。
     See: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 
     >>> calculate_prime_numbers(10)
@@ -53,15 +52,15 @@ def calculate_prime_numbers(max_number: int) -> list[int]:
     if max_number <= 2:
         return []
 
-    # List containing a bool value for every odd number below max_number/2
+    # 为 max_number/2 以下的每个奇数保存一个布尔值的列表
     is_prime = [True] * (max_number // 2)
 
     for i in range(3, isqrt(max_number - 1) + 1, 2):
         if is_prime[i // 2]:
-            # Mark all multiple of i as not prime using list slicing
+            # 使用列表切片将 i 的所有倍数标记为非素数
             is_prime[i**2 // 2 :: i] = [False] * (
-                # Same as: (max_number - (i**2)) // (2 * i) + 1
-                # but faster than len(is_prime[i**2 // 2 :: i])
+                # 等同于：(max_number - (i**2)) // (2 * i) + 1
+                # 但比 len(is_prime[i**2 // 2 :: i]) 更快
                 len(range(i**2 // 2, max_number // 2, i))
             )
 
@@ -70,8 +69,7 @@ def calculate_prime_numbers(max_number: int) -> list[int]:
 
 def slow_solution(max_number: int = 10**8) -> int:
     """
-    Returns the number of composite integers below max_number have precisely two,
-    not necessarily distinct, prime factors.
+    返回 max_number 以下恰好包含两个不要求互不相同素因数的合数数量。
 
     >>> slow_solution(30)
     10
@@ -93,8 +91,7 @@ def slow_solution(max_number: int = 10**8) -> int:
 
 def while_solution(max_number: int = 10**8) -> int:
     """
-    Returns the number of composite integers below max_number have precisely two,
-    not necessarily distinct, prime factors.
+    返回 max_number 以下恰好包含两个不要求互不相同素因数的合数数量。
 
     >>> while_solution(30)
     10
@@ -116,8 +113,7 @@ def while_solution(max_number: int = 10**8) -> int:
 
 def solution(max_number: int = 10**8) -> int:
     """
-    Returns the number of composite integers below max_number have precisely two,
-    not necessarily distinct, prime factors.
+    返回 max_number 以下恰好包含两个不要求互不相同素因数的合数数量。
 
     >>> solution(30)
     10
@@ -141,9 +137,9 @@ def solution(max_number: int = 10**8) -> int:
 
 def benchmark() -> None:
     """
-    Benchmarks
+    基准测试
     """
-    # Running performance benchmarks...
+    # 运行性能基准测试……
     # slow_solution : 108.50874730000032
     # while_sol     : 28.09581200000048
     # solution      : 25.063097400000515

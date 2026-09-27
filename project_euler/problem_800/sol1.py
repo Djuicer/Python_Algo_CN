@@ -1,13 +1,13 @@
 """
 Project Euler Problem 800: https://projecteuler.net/problem=800
 
-An integer of the form p^q q^p with prime numbers p != q is called a hybrid-integer.
-For example, 800 = 2^5 5^2 is a hybrid-integer.
+形如 p^q q^p，其中质数 p != q 的整数称为混合整数。
+例如，800 = 2^5 5^2 是一个混合整数。
 
-We define C(n) to be the number of hybrid-integers less than or equal to n.
-You are given C(800) = 2 and C(800^800) = 10790
+定义 C(n) 为小于或等于 n 的混合整数的数量。
+已知 C(800) = 2 且 C(800^800) = 10790
 
-Find C(800800^800800)
+求 C(800800^800800)
 """
 
 from math import isqrt, log2
@@ -15,7 +15,7 @@ from math import isqrt, log2
 
 def calculate_prime_numbers(max_number: int) -> list[int]:
     """
-    Returns prime numbers below max_number
+    返回小于 max_number 的质数。
 
     >>> calculate_prime_numbers(10)
     [2, 3, 5, 7]
@@ -32,7 +32,7 @@ def calculate_prime_numbers(max_number: int) -> list[int]:
 
 def solution(base: int = 800800, degree: int = 800800) -> int:
     """
-    Returns the number of hybrid-integers less than or equal to base^degree
+    返回小于或等于 base^degree 的混合整数数量。
 
     >>> solution(800, 1)
     2

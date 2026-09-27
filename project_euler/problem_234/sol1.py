@@ -1,20 +1,17 @@
 """
 https://projecteuler.net/problem=234
 
-For an integer n ≥ 4, we define the lower prime square root of n, denoted by
-lps(n), as the largest prime ≤ √n and the upper prime square root of n, ups(n),
-as the smallest prime ≥ √n.
+对于整数 n ≥ 4，将 n 的下素数平方根 lps(n) 定义为不大于 √n 的最大素数，
+将 n 的上素数平方根 ups(n) 定义为不小于 √n 的最小素数。
 
-So, for example, lps(4) = 2 = ups(4), lps(1000) = 31, ups(1000) = 37. Let us
-call an integer n ≥ 4 semidivisible, if one of lps(n) and ups(n) divides n,
-but not both.
+例如，lps(4) = 2 = ups(4), lps(1000) = 31, ups(1000) = 37。若整数 n ≥ 4
+可被 lps(n) 和 ups(n) 中的一个整除，但不能同时被二者整除，则称 n 为半可整除数。
 
-The sum of the semidivisible numbers not exceeding 15 is 30, the numbers are 8,
-10 and 12. 15 is not semidivisible because it is a multiple of both lps(15) = 3
-and ups(15) = 5. As a further example, the sum of the 92 semidivisible numbers
-up to 1000 is 34825.
+不超过 15 的半可整除数之和为 30，这些数是 8, 10 and 12。15 不是半可整除数，
+因为它同时是 lps(15) = 3 和 ups(15) = 5 的倍数。再举一例，不超过 1000 的
+92 个半可整除数之和为 34825。
 
-What is the sum of all semidivisible numbers not exceeding 999966663333 ?
+求所有不超过 999966663333 的半可整除数之和。
 """
 
 import math
@@ -22,8 +19,8 @@ import math
 
 def prime_sieve(n: int) -> list:
     """
-    Sieve of Erotosthenes
-    Function to return all the prime numbers up to a certain number
+    埃拉托斯特尼筛法（Sieve of Eratosthenes）。
+    返回小于某个数的所有素数。
     https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
     >>> prime_sieve(3)
     [2]
@@ -52,7 +49,7 @@ def prime_sieve(n: int) -> list:
 
 def solution(limit: int = 999_966_663_333) -> int:
     """
-    Computes the solution to the problem up to the specified limit
+    计算不超过指定 limit 时的问题解。
     >>> solution(1000)
     34825
 
@@ -75,40 +72,40 @@ def solution(limit: int = 999_966_663_333) -> int:
         lower_bound = last_prime**2
         upper_bound = next_prime**2
 
-        # Get numbers divisible by lps(current)
+        # 获取可被 lps(current) 整除的数
         current = lower_bound + last_prime
         while upper_bound > current <= limit:
             matches_sum += current
             current += last_prime
 
-        # Reset the upper_bound
+        # 重置 upper_bound
         while (upper_bound - next_prime) > limit:
             upper_bound -= next_prime
 
-        # Add the numbers divisible by ups(current)
+        # 加上可被 ups(current) 整除的数
         current = upper_bound - next_prime
         while current > lower_bound:
             matches_sum += current
             current -= next_prime
 
-        # Remove the numbers divisible by both ups and lps
+        # 移除同时可被 ups 和 lps 整除的数
         current = 0
         while upper_bound > current <= limit:
             if current <= lower_bound:
-                # Increment the current number
+                # 递增当前数
                 current += last_prime * next_prime
                 continue
 
             if current > limit:
                 break
 
-            # Remove twice since it was added by both ups and lps
+            # 由于该数曾被 ups 和 lps 各加入一次，因此减去两次
             matches_sum -= current * 2
 
-            # Increment the current number
+            # 递增当前数
             current += last_prime * next_prime
 
-        # Setup for next pair
+        # 为下一对进行设置
         last_prime = next_prime
         prime_index += 1
 

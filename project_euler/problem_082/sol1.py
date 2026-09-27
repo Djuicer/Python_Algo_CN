@@ -12,7 +12,7 @@ Project Euler Problem 82: https://projecteuler.net/problem=82
 
 求 matrix.txt 中从左列到右列的最小路径和
 (https://projecteuler.net/project/resources/p082_matrix.txt)
-(right click and "Save Link/Target As..."),
+（右键单击并选择 "Save Link/Target As..."），
 该文件是一个包含 80 x 80 矩阵的 31K 文本文件。
 """
 

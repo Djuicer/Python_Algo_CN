@@ -66,7 +66,7 @@ def solve(matrix: Matrix, vector: Matrix) -> Matrix:
     row = 0
     col = 0
     while row < size and col < size:
-        # pivoting
+        # 选取主元
         pivot_row = max((abs(augmented[row2][col]), row2) for row2 in range(col, size))[
             1
         ]
@@ -84,14 +84,14 @@ def solve(matrix: Matrix, vector: Matrix) -> Matrix:
         row += 1
         col += 1
 
-    # back substitution
+    # 回代
     for col in range(1, size):
         for row in range(col):
             ratio = augmented[row][col] / augmented[col][col]
             for col2 in range(col, size + 1):
                 augmented[row][col2] -= augmented[col][col2] * ratio
 
-    # round to get rid of numbers like 2.000000000000004
+    # 通过舍入消除类似 2.000000000000004 的数
     return [
         [round(augmented[row][size] / augmented[row][row], 10)] for row in range(size)
     ]

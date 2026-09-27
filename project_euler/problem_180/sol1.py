@@ -1,45 +1,39 @@
 """
 Project Euler Problem 234: https://projecteuler.net/problem=234
 
-For any integer n, consider the three functions
+对于任意整数 n，考虑以下三个函数
 
 f1,n(x,y,z) = x^(n+1) + y^(n+1) - z^(n+1)
 f2,n(x,y,z) = (xy + yz + zx)*(x^(n-1) + y^(n-1) - z^(n-1))
 f3,n(x,y,z) = xyz*(xn-2 + yn-2 - zn-2)
 
-and their combination
+以及它们的组合
 
 fn(x,y,z) = f1,n(x,y,z) + f2,n(x,y,z) - f3,n(x,y,z)
 
-We call (x,y,z) a golden triple of order k if x, y, and z are all rational numbers
-of the form a / b with 0 < a < b ≤ k and there is (at least) one integer n,
-so that fn(x,y,z) = 0.
+若 x、y 和 z 均为形如 a / b 的有理数，满足 0 < a < b ≤ k，且至少存在一个
+整数 n 使 fn(x,y,z) = 0，则称 (x,y,z) 为 k 阶黄金三元组。
 
-Let s(x,y,z) = x + y + z.
-Let t = u / v be the sum of all distinct s(x,y,z) for all golden triples
-(x,y,z) of order 35.
-All the s(x,y,z) and t must be in reduced form.
+令 s(x,y,z) = x + y + z。
+令 t = u / v 为所有 35 阶黄金三元组 (x,y,z) 对应的不同 s(x,y,z) 之和。
+所有 s(x,y,z) 和 t 均须为最简形式。
 
-Find u + v.
+求 u + v。
 
 
-Solution:
+解法：
 
-By expanding the brackets it is easy to show that
+展开括号容易证明
 fn(x, y, z) = (x + y + z) * (x^n + y^n - z^n).
 
-Since x,y,z are positive, the requirement fn(x, y, z) = 0 is fulfilled if and
-only if x^n + y^n = z^n.
+由于 x,y,z 均为正数，当且仅当 x^n + y^n = z^n 时，条件 fn(x, y, z) = 0 成立。
 
-By Fermat's Last Theorem, this means that the absolute value of n can not
-exceed 2, i.e. n is in {-2, -1, 0, 1, 2}. We can eliminate n = 0 since then the
-equation would reduce to 1 + 1 = 1, for which there are no solutions.
+根据 Fermat 最后定理，这意味着 n 的绝对值不能超过 2，即 n 属于 {-2, -1, 0, 1, 2}。
+可以排除 n = 0，因为此时方程化为 1 + 1 = 1，不存在解。
 
-So all we have to do is iterate through the possible numerators and denominators
-of x and y, calculate the corresponding z, and check if the corresponding numerator and
-denominator are integer and satisfy 0 < z_num < z_den <= 0. We use a set "uniquq_s"
-to make sure there are no duplicates, and the fractions.Fraction class to make sure
-we get the right numerator and denominator.
+因此只需遍历 x 和 y 的所有可能分子与分母，计算对应的 z，并检查相应分子和分母
+是否为整数且满足 0 < z_num < z_den <= 0。使用集合 "uniquq_s" 确保没有重复项，
+并使用 fractions.Fraction 类确保得到正确的分子和分母。
 
 Reference:
 https://en.wikipedia.org/wiki/Fermat%27s_Last_Theorem
@@ -53,7 +47,7 @@ from math import gcd, sqrt
 
 def is_sq(number: int) -> bool:
     """
-    Check if number is a perfect square.
+    检查 number 是否为完全平方数。
 
     >>> is_sq(1)
     True
@@ -70,8 +64,7 @@ def add_three(
     x_num: int, x_den: int, y_num: int, y_den: int, z_num: int, z_den: int
 ) -> tuple[int, int]:
     """
-    Given the numerators and denominators of three fractions, return the
-    numerator and denominator of their sum in lowest form.
+    给定三个分数的分子和分母，返回其和的最简分子与分母。
     >>> add_three(1, 3, 1, 3, 1, 3)
     (1, 1)
     >>> add_three(2, 5, 4, 11, 12, 3)
@@ -87,8 +80,7 @@ def add_three(
 
 def solution(order: int = 35) -> int:
     """
-    Find the sum of the numerator and denominator of the sum of all s(x,y,z) for
-    golden triples (x,y,z) of the given order.
+    对给定阶数的所有黄金三元组 (x,y,z)，求全部 s(x,y,z) 之和的分子与分母之和。
 
     >>> solution(5)
     296

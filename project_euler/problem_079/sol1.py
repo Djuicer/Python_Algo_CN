@@ -28,7 +28,7 @@ def find_secret_passcode(logins: list[str]) -> int:
     4206819
     """
 
-    # Split each login by character e.g. '319' -> ('3', '1', '9')
+    # 按字符拆分每次登录，例如 '319' -> ('3', '1', '9')
     split_logins = [tuple(login) for login in logins]
 
     unique_chars = {char for login in split_logins for char in login}

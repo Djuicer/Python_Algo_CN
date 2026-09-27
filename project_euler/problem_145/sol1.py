@@ -1,17 +1,16 @@
 """
 Project Euler problem 145: https://projecteuler.net/problem=145
 Author: Vineet Rao, Maxim Smolskiy
-Problem statement:
+题目说明：
 
-Some positive integers n have the property that the sum [ n + reverse(n) ]
-consists entirely of odd (decimal) digits.
-For instance, 36 + 63 = 99 and 409 + 904 = 1313.
-We will call such numbers reversible; so 36, 63, 409, and 904 are reversible.
-Leading zeroes are not allowed in either n or reverse(n).
+某些正整数 n 具有如下性质：和 [ n + reverse(n) ] 的所有十进制数字均为奇数。
+例如，36 + 63 = 99 且 409 + 904 = 1313。
+称这样的数为可逆数；因此 36, 63, 409, and 904 都是可逆数。
+n 和 reverse(n) 都不允许有前导零。
 
-There are 120 reversible numbers below one-thousand.
+一千以下共有 120 个可逆数。
 
-How many reversible numbers are there below one-billion (10^9)?
+十亿 (10^9) 以下有多少个可逆数？
 """
 
 EVEN_DIGITS = [0, 2, 4, 6, 8]
@@ -22,8 +21,8 @@ def slow_reversible_numbers(
     remaining_length: int, remainder: int, digits: list[int], length: int
 ) -> int:
     """
-    Count the number of reversible numbers of given length.
-    Iterate over possible digits considering parity of current sum remainder.
+    计算给定长度的可逆数数量。
+    根据当前和的余数奇偶性遍历可能的数字。
     >>> slow_reversible_numbers(1, 0, [0], 1)
     0
     >>> slow_reversible_numbers(2, 0, [0] * 2, 2)
@@ -79,7 +78,7 @@ def slow_reversible_numbers(
 
 def slow_solution(max_power: int = 9) -> int:
     """
-    To evaluate the solution, use solution()
+    要计算问题答案，请使用 solution()。
     >>> slow_solution(3)
     120
     >>> slow_solution(6)
@@ -97,8 +96,8 @@ def reversible_numbers(
     remaining_length: int, remainder: int, digits: list[int], length: int
 ) -> int:
     """
-    Count the number of reversible numbers of given length.
-    Iterate over possible digits considering parity of current sum remainder.
+    计算给定长度的可逆数数量。
+    根据当前和的余数奇偶性遍历可能的数字。
     >>> reversible_numbers(1, 0, [0], 1)
     0
     >>> reversible_numbers(2, 0, [0] * 2, 2)
@@ -106,7 +105,7 @@ def reversible_numbers(
     >>> reversible_numbers(3, 0, [0] * 3, 3)
     100
     """
-    # There exist no reversible 1, 5, 9, 13 (ie. 4k+1) digit numbers
+    # 不存在 1, 5, 9, 13 (ie. 4k+1) 位的可逆数
     if (length - 1) % 4 == 0:
         return 0
 
@@ -115,7 +114,7 @@ def reversible_numbers(
 
 def solution(max_power: int = 9) -> int:
     """
-    To evaluate the solution, use solution()
+    要计算问题答案，请使用 solution()。
     >>> solution(3)
     120
     >>> solution(6)
@@ -131,9 +130,9 @@ def solution(max_power: int = 9) -> int:
 
 def benchmark() -> None:
     """
-    Benchmarks
+    基准测试
     """
-    # Running performance benchmarks...
+    # 运行性能基准测试……
     # slow_solution : 292.9300301000003
     # solution      : 54.90970860000016
 

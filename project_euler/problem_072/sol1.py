@@ -32,12 +32,12 @@ def solution(limit: int = 1_000_000) -> int:
     304191
     """
 
-    # generating an array from -1 to limit
+    # 生成从 -1 到 limit 的数组
     phi = np.arange(-1, limit)
 
     for i in range(2, limit + 1):
         if phi[i] == i - 1:
-            ind = np.arange(2 * i, limit + 1, i)  # indexes for selection
+            ind = np.arange(2 * i, limit + 1, i)  # 待选择的索引
             phi[ind] -= phi[ind] // i
 
     return int(np.sum(phi[2 : limit + 1]))

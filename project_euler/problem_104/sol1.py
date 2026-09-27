@@ -3,7 +3,7 @@ Project Euler Problem 104 : https://projecteuler.net/problem=104
 
 斐波那契数列由以下递推关系定义：
 
-Fn = Fn-1 + Fn-2, where F1 = 1 and F2 = 1.
+Fn = Fn-1 + Fn-2，其中 F1 = 1 且 F2 = 1。
 事实证明，包含 113 位的 F541 是首个末九位为 1-9 全数字（包含数字 1 到 9，
 顺序不限）的斐波那契数。包含 575 位的 F2749 是首个前九位为 1-9 全数字的斐波那契数。
 
@@ -34,14 +34,14 @@ def check(number: int) -> bool:
     check_last = [0] * 11
     check_front = [0] * 11
 
-    # mark last 9 numbers
+    # 标记末 9 位数字
     for _ in range(9):
         check_last[int(number % 10)] = 1
         number = number // 10
-    # flag
+    # 标志
     f = True
 
-    # check last 9 numbers for pandigitality
+    # 检查末 9 位数字是否为全数字
 
     for x in range(9):
         if not check_last[x + 1]:
@@ -49,14 +49,14 @@ def check(number: int) -> bool:
     if not f:
         return f
 
-    # mark first 9 numbers
+    # 标记前 9 位数字
     number = int(str(number)[:9])
 
     for _ in range(9):
         check_front[int(number % 10)] = 1
         number = number // 10
 
-    # check first 9 numbers for pandigitality
+    # 检查前 9 位数字是否为全数字
 
     for x in range(9):
         if not check_front[x + 1]:
@@ -81,14 +81,14 @@ def check1(number: int) -> bool:
 
     check_last = [0] * 11
 
-    # mark last 9 numbers
+    # 标记末 9 位数字
     for _ in range(9):
         check_last[int(number % 10)] = 1
         number = number // 10
-    # flag
+    # 标志
     f = True
 
-    # check last 9 numbers for pandigitality
+    # 检查末 9 位数字是否为全数字
 
     for x in range(9):
         if not check_last[x + 1]:
@@ -106,14 +106,14 @@ def solution() -> int:
     a = 1
     b = 1
     c = 2
-    # temporary Fibonacci numbers
+    # 临时斐波那契数
 
     a1 = 1
     b1 = 1
     c1 = 2
-    # temporary Fibonacci numbers mod 1e9
+    # 对 1e9 取模后的临时斐波那契数
 
-    # mod m=1e9, done for fast optimisation
+    # 对 m=1e9 取模，以加快计算
     tocheck = [0] * 1000000
     m = 1000000000
 
@@ -128,9 +128,9 @@ def solution() -> int:
         c = a + b
         a = b
         b = c
-        # perform check only if in tocheck
+        # 仅当索引位于 tocheck 中时执行检查
         if tocheck[x + 3] and check(b):
-            return x + 3  # first 2 already done
+            return x + 3  # 前 2 项已处理
     return -1
 
 

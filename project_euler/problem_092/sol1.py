@@ -35,7 +35,7 @@ def solution(number: int = 10_000_000) -> int:
     8581146
     """
     num_digits = len(str(number - 1)) if number > 1 else 1
-    limit = num_digits * 81 + 1  # max possible digit-square sum + 1
+    limit = num_digits * 81 + 1  # 最大可能数字平方和 + 1
 
     def digit_square_sum(n: int) -> int:
         total = 0
@@ -44,9 +44,9 @@ def solution(number: int = 10_000_000) -> int:
             n //= 10
         return total
 
-    # Precompute whether each value 1..limit-1 eventually reaches 89.
-    # All intermediate chain values stay below limit because the digit-square
-    # sum of any k-digit number is at most k * 81 = limit - 1.
+    # 预计算 1..limit-1 中的每个值最终是否到达 89
+    # 所有中间链值都小于 limit，因为任意 k 位数的数字平方和至多为
+    # k * 81 = limit - 1
     ends_at_89 = bytearray(limit)
     for i in range(1, limit):
         n = i
@@ -54,12 +54,11 @@ def solution(number: int = 10_000_000) -> int:
             n = digit_square_sum(n)
         ends_at_89[i] = n == 89
 
-    # Digit DP over the decimal digits of (number - 1).
-    # Treating shorter numbers as zero-padded strings (e.g. 7 → "0000007")
-    # is safe because 0^2 = 0 contributes nothing to the digit-square sum.
-    # dp_tight[s] / dp_free[s] = count of digit sequences whose running
-    # digit-square sum is s and whose prefix is still ≤ / already < the
-    # corresponding prefix of (number - 1).
+    # 对 (number - 1) 的十进制数字执行数位 DP
+    # 将较短的数视为用零填充的字符串（例如 7 → "0000007"）是安全的，
+    # 因为 0^2 = 0 对数字平方和没有贡献
+    # dp_tight[s] / dp_free[s] = 当前数字平方和为 s，且其前缀相对于
+    # (number - 1) 的对应前缀仍满足 ≤ / 已满足 < 的数字序列数量
     digits = [int(d) for d in str(number - 1)] if number > 1 else [0]
 
     dp_tight: dict[int, int] = {0: 1}
@@ -86,8 +85,8 @@ def solution(number: int = 10_000_000) -> int:
 
         dp_tight, dp_free = new_tight, new_free
 
-    # Sum counts for all digit-square sums that end at 89.
-    # dss == 0 corresponds to the number 0, which is excluded.
+    # 对所有最终到达 89 的数字平方和的计数求和
+    # dss == 0 对应数字 0，应将其排除
     return sum(
         cnt
         for dss, cnt in (*dp_tight.items(), *dp_free.items())

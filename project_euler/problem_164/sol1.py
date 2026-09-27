@@ -1,12 +1,11 @@
 """
 Project Euler Problem 164: https://projecteuler.net/problem=164
 
-Three Consecutive Digital Sum Limit
+连续三个数字之和的限制
 
-How many 20 digit numbers n (without any leading zero) exist such that no three
-consecutive digits of n have a sum greater than 9?
+有多少个 20 位数 n（没有前导零），其任意三个连续数字之和都不大于 9？
 
-Brute-force recursive solution with caching of intermediate results.
+使用缓存中间结果的暴力递归解法。
 """
 
 
@@ -14,9 +13,8 @@ def solve(
     digit: int, prev1: int, prev2: int, sum_max: int, first: bool, cache: dict[str, int]
 ) -> int:
     """
-    Solve for remaining 'digit' digits, with previous 'prev1' digit, and
-    previous-previous 'prev2' digit, total sum of 'sum_max'.
-    Pass around 'cache' to store/reuse intermediate results.
+    在前一个数字为 'prev1'、前前一个数字为 'prev2'、总和上限为 'sum_max' 时，
+    求剩余 'digit' 位数字的解。传递 'cache' 以存储和复用中间结果。
 
     >>> solve(digit=1, prev1=0, prev2=0, sum_max=9, first=True, cache={})
     9
@@ -50,7 +48,7 @@ def solve(
 
 def solution(n_digits: int = 20) -> int:
     """
-    Solves the problem for n_digits number of digits.
+    求 n_digits 位数对应的问题解。
 
     >>> solution(2)
     45
