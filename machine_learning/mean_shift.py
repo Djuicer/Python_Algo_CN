@@ -21,8 +21,8 @@ Key Properties:
     - Sensitive to the `bandwidth` parameter
     - Deterministic (no random initialization)
 
-Time Complexity:  O(n² * iterations) with brute-force window search
-Space Complexity: O(n)
+时间复杂度：  O(n² * iterations) with brute-force window search
+空间复杂度： O(n)
 
 References:
     - https://en.wikipedia.org/wiki/Mean_shift
@@ -157,7 +157,7 @@ def mean_shift(
     """
     Perform Mean Shift clustering on a dataset.
 
-    Args:
+    参数：
         data:           List of n-dimensional data points.
         bandwidth:      Radius of the window used to compute the mean.
                         Must be greater than 0.
@@ -166,11 +166,11 @@ def mean_shift(
         tolerance:      Convergence threshold — stop shifting when movement
                         is smaller than this value. Must be greater than 0.
 
-    Returns:
+    返回：
         A list of integer cluster labels, one per input point.
         Cluster IDs start from 0.
 
-    Raises:
+    异常：
         ValueError: If data is empty.
         ValueError: If bandwidth is not positive.
         ValueError: If max_iterations is less than 1.

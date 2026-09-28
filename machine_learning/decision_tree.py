@@ -1,7 +1,7 @@
 """
-Implementation of a basic regression decision tree.
-Input data set: The input data set must be 1-dimensional with continuous labels.
-Output: The decision tree maps a real number input to a real number output.
+基本回归决策树的实现。
+输入数据集：输入数据集必须是一维的，并具有连续标签。
+输出：决策树将实数输入映射为实数输出。
 """
 
 import numpy as np
@@ -19,10 +19,9 @@ class DecisionTree:
     def mean_squared_error(self, labels, prediction):
         """
         mean_squared_error:
-        @param labels: a one-dimensional numpy array
-        @param prediction: a floating point value
-        return value: mean_squared_error calculates the error if prediction is used to
-            estimate the labels
+        @param labels：一维 NumPy 数组
+        @param prediction：浮点值
+        返回值：mean_squared_error 计算使用 prediction 估计 labels 时的误差
         >>> tester = DecisionTree()
         >>> test_labels = np.array([1,2,3,4,5,6,7,8,9,10])
         >>> test_prediction = float(6)
@@ -45,14 +44,14 @@ class DecisionTree:
     def train(self, x, y) -> None:
         """
         train:
-        @param x: a one-dimensional numpy array
-        @param y: a one-dimensional numpy array.
-        The contents of y are the labels for the corresponding X values
+        @param x：一维 NumPy 数组
+        @param y：一维 NumPy 数组。
+        y 的内容是对应 x 值的标签
 
-        train() does not have a return value
+        train() 没有返回值
 
-        Examples:
-        1. Try to train when x & y are of same length & 1 dimensions (No errors)
+        示例：
+        1. x 与 y 长度相同且均为一维时进行训练（无错误）
         >>> dt = DecisionTree()
         >>> dt.train(np.array([10,20,30,40,50]),np.array([0,0,0,1,1]))
 
@@ -137,9 +136,8 @@ class DecisionTree:
     def predict(self, x):
         """
         predict:
-        @param x: a floating point value to predict the label of
-        the prediction function works by recursively calling the predict function
-        of the appropriate subtrees based on the tree's decision boundary
+        @param x：要预测其标签的浮点值
+        预测函数根据树的决策边界，递归调用适当子树的 predict 函数
         """
         if self.prediction is not None:
             return self.prediction
@@ -153,7 +151,7 @@ class DecisionTree:
 
 
 class TestDecisionTree:
-    """Decision Tres test class"""
+    """决策树测试类。"""
 
     @staticmethod
     def helper_mean_squared_error_test(labels, prediction):
@@ -172,10 +170,8 @@ class TestDecisionTree:
 
 def main() -> None:
     """
-    In this demonstration we're generating a sample data set from the sin function in
-    numpy.  We then train a decision tree on the data set and use the decision tree to
-    predict the label of 10 different test values. Then the mean squared error over
-    this test is displayed.
+    此演示使用 NumPy 的 sin 函数生成样本数据集，随后在该数据集上训练决策树，
+    并预测 10 个不同测试值的标签，最后显示该测试的均方误差。
     """
     x = np.arange(-1.0, 1.0, 0.005)
     y = np.sin(x)

@@ -5,13 +5,13 @@ from scipy.optimize import Bounds, LinearConstraint, minimize
 
 def norm_squared(vector: ndarray) -> float:
     """
-    Return the squared second norm of vector
+    返回向量的二范数平方
     norm_squared(v) = sum(x * x for x in v)
 
-    Args:
+    参数：
         vector (ndarray): input vector
 
-    Returns:
+    返回：
         float: squared second norm of vector
 
     >>> int(norm_squared([1, 2]))
@@ -26,9 +26,9 @@ def norm_squared(vector: ndarray) -> float:
 
 class SVC:
     """
-    Support Vector Classifier
+    支持向量分类器
 
-    Args:
+    参数：
         kernel (str): kernel to use. Default: linear
             Possible choices:
                 - linear
@@ -79,7 +79,7 @@ class SVC:
 
     # kernels
     def __linear(self, vector1: ndarray, vector2: ndarray) -> float:
-        """Linear kernel (as if no kernel used at all)"""
+        """线性核（等同于完全不使用核函数）"""
         return np.dot(vector1, vector2)
 
     def __rbf(self, vector1: ndarray, vector2: ndarray) -> float:
@@ -89,20 +89,20 @@ class SVC:
         Note: for more information see:
             https://en.wikipedia.org/wiki/Radial_basis_function_kernel
 
-        Args:
+        参数：
             vector1 (ndarray): first vector
             vector2 (ndarray): second vector)
 
-        Returns:
+        返回：
             float: exp(-(gamma * norm_squared(vector1 - vector2)))
         """
         return np.exp(-(self.gamma * norm_squared(vector1 - vector2)))
 
     def fit(self, observations: list[ndarray], classes: ndarray) -> None:
         """
-        Fits the SVC with a set of observations.
+        使用一组观测值拟合 SVC。
 
-        Args:
+        参数：
             observations (list[ndarray]): list of observations
             classes (ndarray): classification of each observation (in {1, -1})
         """
@@ -131,7 +131,7 @@ class SVC:
             """
             Opposite of the function to maximize
 
-            Args:
+            参数：
                 candidate (ndarray): candidate array to test
 
             Return:
@@ -169,12 +169,12 @@ class SVC:
 
     def predict(self, observation: ndarray) -> int:
         """
-        Get the expected class of an observation
+        获取观测值的预期类别
 
-        Args:
+        参数：
             observation (Vector): observation
 
-        Returns:
+        返回：
             int {1, -1}: expected class
 
         >>> xs = [

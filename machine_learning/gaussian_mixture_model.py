@@ -1,25 +1,25 @@
 """
 README, Author - Md Ruman Islam (mailto:ruman23.github.io)
-Requirements:
+依赖：
   - numpy
   - matplotlib
 Python:
   - 3.8+
 Inputs:
-  - data : a 2D numpy array of features.
+  - data : a 2D numpy array of 特征.
   - n_components : number of Gaussian distributions (clusters) to fit.
   - max_iter : maximum number of EM iterations.
   - tol : convergence tolerance.
-Usage:
-  1. define 'n_components' value and 'data' features array
+用法：
+  1. define 'n_components' value and 'data' 特征 array
   2. initialize model:
         gmm = GaussianMixture(n_components=3, max_iter=100)
   3. fit model to data:
         gmm.fit(data)
   4. get cluster predictions:
         labels = gmm.predict(data)
-  5. visualize results:
-        gmm.plot_results(data)
+  5. visualize 结果:
+        gmm.plot_结果(data)
 """
 
 import warnings
@@ -36,7 +36,7 @@ TAG = "GAUSSIAN-MIXTURE/ "
 
 class GaussianMixture:
     """
-    Gaussian Mixture Model implemented using the Expectation-Maximization algorithm.
+    使用期望最大化（Expectation-Maximization, EM）算法实现的高斯混合模型。
     """
 
     def __init__(
@@ -58,7 +58,7 @@ class GaussianMixture:
         self.log_likelihoods_: list[float] = []
 
     def _initialize_parameters(self, data: NDArray[np.float64]) -> None:
-        """Randomly initialize means, covariances, and mixture weights.
+        """随机初始化均值、协方差和混合权重。
 
         Examples
         --------
@@ -85,7 +85,7 @@ class GaussianMixture:
         self.weights_ = np.ones(self.n_components) / self.n_components
 
     def _e_step(self, data: NDArray[np.float64]) -> NDArray[np.float64]:
-        """Compute responsibilities (posterior probabilities).
+        """计算责任度（后验概率）。
 
         Examples
         --------
@@ -126,7 +126,7 @@ class GaussianMixture:
         data: NDArray[np.float64],
         responsibilities: NDArray[np.float64],
     ) -> None:
-        """Update weights, means, and covariances.
+        """更新权重、均值和协方差。
 
         Note: assumes the model parameters are already initialized.
 
@@ -164,7 +164,7 @@ class GaussianMixture:
             covariances[k] += np.eye(n_features) * 1e-6
 
     def _compute_log_likelihood(self, data: NDArray[np.float64]) -> float:
-        """Compute total log-likelihood of the model.
+        """计算模型的总对数似然。
 
         Note: assumes the model parameters are already initialized.
 
@@ -199,7 +199,7 @@ class GaussianMixture:
         return log_likelihood
 
     def fit(self, data: NDArray[np.float64]) -> None:
-        """Fit the Gaussian Mixture Model to data using the EM algorithm.
+        """使用 EM 算法将高斯混合模型拟合到数据。
 
         Examples
         --------
@@ -238,7 +238,7 @@ class GaussianMixture:
         print(f"{TAG}Training complete. Final log-likelihood: {log_likelihood:.4f}")
 
     def predict(self, data: NDArray[np.float64]) -> NDArray[np.int_]:
-        """Predict cluster assignment for each data point.
+        """预测每个数据点的簇分配。
 
         Note: assumes the model parameters are already initialized.
 
@@ -258,7 +258,7 @@ class GaussianMixture:
         return np.argmax(responsibilities, axis=1)
 
     def plot_results(self, data: NDArray[np.float64]) -> None:
-        """Visualize GMM clustering results (2D only).
+        """可视化 GMM 聚类结果（仅限二维）。
 
         Note: This method assumes self.means_ is initialized.
 

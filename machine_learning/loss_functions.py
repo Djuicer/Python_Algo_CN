@@ -17,9 +17,9 @@ def binary_cross_entropy(
 
     Reference: https://en.wikipedia.org/wiki/Cross_entropy
 
-    Parameters:
+    参数：
     - y_true: True binary labels (0 or 1)
-    - y_pred: Predicted probabilities for class 1
+    - y_pred: 预测概率 for class 1
     - epsilon: Small constant to avoid numerical instability
 
     >>> true_labels = np.array([0, 1, 1, 0, 1])
@@ -61,9 +61,9 @@ def binary_focal_cross_entropy(
 
     Reference: [Lin et al., 2018](https://arxiv.org/pdf/1708.02002.pdf)
 
-    Parameters:
+    参数：
     - y_true: True binary labels (0 or 1).
-    - y_pred: Predicted probabilities for class 1.
+    - y_pred: 预测概率 for class 1.
     - gamma: Focusing parameter for modulating the loss (default: 2.0).
     - alpha: Weighting factor for class 1 (default: 0.25).
     - epsilon: Small constant to avoid numerical instability.
@@ -103,7 +103,7 @@ def categorical_cross_entropy(
 
     Reference: https://en.wikipedia.org/wiki/Cross_entropy
 
-    Parameters:
+    参数：
     - y_true: True class labels (one-hot encoded)
     - y_pred: Predicted class probabilities
     - epsilon: Small constant to avoid numerical instability
@@ -162,7 +162,7 @@ def sparse_categorical_cross_entropy(
 
     Reference: https://en.wikipedia.org/wiki/Cross_entropy
 
-    Parameters:
+    参数：
     - y_true: True class labels containing class indices.
     - y_pred: Predicted class probabilities.
     - epsilon: Small constant to avoid numerical instability.
@@ -220,14 +220,14 @@ def categorical_focal_cross_entropy(
 
     Reference: [Lin et al., 2018](https://arxiv.org/pdf/1708.02002.pdf)
 
-    Parameters:
-    - y_true: True labels in one-hot encoded form.
-    - y_pred: Predicted probabilities for each class.
+    参数：
+    - y_true: 真实标签 in one-hot encoded form.
+    - y_pred: 预测概率 for each class.
     - alpha: Array of weighting factors for each class.
     - gamma: Focusing parameter for modulating the loss (default: 2.0).
     - epsilon: Small constant to avoid numerical instability.
 
-    Returns:
+    返回：
     - The mean categorical focal cross-entropy loss.
 
     >>> true_labels = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
@@ -318,13 +318,13 @@ def gaussian_negative_log_likelihood_loss(
 
     Reference: https://pytorch.org/docs/stable/generated/torch.nn.GaussianNLLLoss.html
 
-    Parameters:
-    - y_true: True labels
+    参数：
+    - y_true: 真实标签
     - expectation_pred: Predicted expectation (μ) of the Gaussian distribution
     - var_pred: Predicted variance (σ^2) of the Gaussian distribution
     - eps: Small constant to avoid numerical instability
 
-    Examples:
+    示例：
     >>> true_labels = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
     >>> expectation = np.array([0.8, 2.1, 2.9, 4.2, 5.2])
     >>> variance = np.array([0.1, 0.2, 0.3, 0.4, 0.5])
@@ -361,13 +361,13 @@ def gaussian_negative_log_likelihood_loss(
 def hinge_loss(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """
     Calculate the mean hinge loss for between true labels and predicted probabilities
-    for training support vector machines (SVMs).
+    for 训练 support vector machines (SVMs).
 
     Hinge loss = max(0, 1 - true * pred)
 
     Reference: https://en.wikipedia.org/wiki/Hinge_loss
 
-    Args:
+    参数：
     - y_true: actual values (ground truth) encoded as -1 or 1
     - y_pred: predicted values
 
@@ -411,7 +411,7 @@ def huber_loss(y_true: np.ndarray, y_pred: np.ndarray, delta: float) -> float:
 
     Reference: https://en.wikipedia.org/wiki/Huber_loss
 
-    Parameters:
+    参数：
     - y_true: The true values (ground truth)
     - y_pred: The predicted values
 
@@ -449,7 +449,7 @@ def mean_squared_error(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 
     Reference: https://en.wikipedia.org/wiki/Mean_squared_error
 
-    Parameters:
+    参数：
     - y_true: The true values (ground truth)
     - y_pred: The predicted values
 
@@ -473,7 +473,7 @@ def mean_squared_error(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 
 def mean_absolute_error(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """
-    Calculates the Mean Absolute Error (MAE) between ground truth (observed)
+    Calculates the 平均绝对误差 (MAE) between ground truth (observed)
         and predicted values.
 
     MAE measures the absolute difference between true values and predicted values.
@@ -483,7 +483,7 @@ def mean_absolute_error(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 
     Reference: https://en.wikipedia.org/wiki/Mean_absolute_error
 
-    Parameters:
+    参数：
     - y_true: The true values (ground truth)
     - y_pred: The predicted values
 
@@ -522,7 +522,7 @@ def mean_squared_logarithmic_error(y_true: np.ndarray, y_pred: np.ndarray) -> fl
 
     Reference: https://insideaiml.com/blog/MeanSquared-Logarithmic-Error-Loss-1035
 
-    Parameters:
+    参数：
     - y_true: The true values (ground truth)
     - y_pred: The predicted values
 
@@ -557,14 +557,14 @@ def mean_absolute_percentage_error(
 
     Source: https://stephenallwright.com/good-mape-score/
 
-    Parameters:
+    参数：
     y_true (np.ndarray): Numpy array containing true/target values.
     y_pred (np.ndarray): Numpy array containing predicted values.
 
-    Returns:
+    返回：
     float: The Mean Absolute Percentage error between y_true and y_pred.
 
-    Examples:
+    示例：
     >>> y_true = np.array([10, 20, 30, 40])
     >>> y_pred = np.array([12, 18, 33, 45])
     >>> float(mean_absolute_percentage_error(y_true, y_pred))
@@ -604,12 +604,12 @@ def perplexity_loss(
     Reference:
     https://en.wikipedia.org/wiki/Perplexity
 
-    Args:
+    参数：
         y_true: Actual label encoded sentences of shape (batch_size, sentence_length)
         y_pred: Predicted sentences of shape (batch_size, sentence_length, vocab_size)
         epsilon: Small floating point number to avoid getting inf for log(0)
 
-    Returns:
+    返回：
         Perplexity loss between y_true and y_pred.
 
     >>> y_true = np.array([[1, 4], [2, 3]])
@@ -695,15 +695,15 @@ def smooth_l1_loss(y_true: np.ndarray, y_pred: np.ndarray, beta: float = 1.0) ->
     Reference:
     https://pytorch.org/docs/stable/generated/torch.nn.SmoothL1Loss.html
 
-    Args:
+    参数：
         y_true: Array of true values.
         y_pred: Array of predicted values.
         beta: Specifies the threshold at which to change between L1 and L2 loss.
 
-    Returns:
+    返回：
         The calculated Smooth L1 Loss between y_true and y_pred.
 
-    Raises:
+    异常：
         ValueError: If the length of the two arrays is not the same.
 
     >>> y_true = np.array([3, 5, 2, 7])
@@ -743,13 +743,13 @@ def kullback_leibler_divergence(y_true: np.ndarray, y_pred: np.ndarray) -> float
     and predicted probabilities.
 
     KL divergence loss quantifies dissimilarity between true labels and predicted
-    probabilities. It's often used in training generative models.
+    probabilities. It's often used in 训练 generative models.
 
     KL = Σ(y_true * ln(y_true / y_pred))
 
     Reference: https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence
 
-    Parameters:
+    参数：
     - y_true: True class probabilities
     - y_pred: Predicted class probabilities
 
@@ -794,12 +794,12 @@ def connectionist_temporal_classification_loss(
     - https://en.wikipedia.org/wiki/Connectionist_temporal_classification
     - https://pytorch.org/docs/stable/generated/torch.nn.CTCLoss.html
 
-    Parameters:
-    - y_true: True labels (containing class indices).
+    参数：
+    - y_true: 真实标签 (containing class indices).
     - y_pred: Predicted class probabilities for each input timestep.
     - blank: Index of the blank token, default: 0.
 
-    Returns:
+    返回：
     - CTC loss between y_true and y_pred.
 
     >>> y_true = np.array([1, 2, 3])
@@ -897,7 +897,7 @@ def symmetric_mean_absolute_percentage_error(
 
     Reference: https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error
 
-    Parameters:
+    参数：
     - y_true: The true values (ground truth)
     - y_pred: The predicted values
     - epsilon: Small constant to avoid division by zero

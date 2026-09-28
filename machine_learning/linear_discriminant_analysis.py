@@ -49,7 +49,7 @@ from os import name, system
 from random import gauss, seed
 
 
-# Make a training dataset drawn from a gaussian distribution
+# Make a 训练 dataset drawn from a gaussian distribution
 def gaussian_distribution(mean: float, std_dev: float, instance_count: int) -> list:
     """
     Generate gaussian distribution instances based-on given mean and standard deviation
@@ -210,7 +210,7 @@ def predict_y_values(
                     - (means[k] ** 2 / (2 * variance))
                     + log(probabilities[k])
                 )
-            # appending discriminant values of each item to 'results' list
+            # appending discriminant values of each item to '结果' list
             results.append(temp)
 
     return [result.index(max(result)) for result in results]
@@ -346,7 +346,7 @@ def main() -> None:
             print(f"Mean of class_{i} is: {user_mean}")
         print("-" * 100)
 
-        # Generating training dataset drawn from gaussian distribution
+        # Generating 训练 dataset drawn from gaussian distribution
         x = [
             gaussian_distribution(user_means[j], std_dev, counts[j])
             for j in range(n_classes)

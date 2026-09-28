@@ -1,14 +1,11 @@
 """
-The A* algorithm combines features of uniform-cost search and pure heuristic search to
-efficiently compute optimal solutions.
+A* 算法结合了一致代价搜索与纯启发式搜索的特点，能够高效地计算最优解。
 
-The A* algorithm is a best-first search algorithm in which the cost associated with a
-node is f(n) = g(n) + h(n), where g(n) is the cost of the path from the initial state to
-node n and h(n) is the heuristic estimate or the cost or a path from node n to a goal.
+A* 是一种最佳优先搜索算法，节点的代价为 f(n) = g(n) + h(n)，其中 g(n)
+是从初始状态到节点 n 的路径代价，h(n) 是从节点 n 到目标的启发式估计代价。
 
-The A* algorithm introduces a heuristic into a regular graph-searching algorithm,
-essentially planning ahead at each step so a more optimal decision is made. For this
-reason, A* is known as an algorithm with brains.
+A* 算法在常规图搜索算法中引入启发式信息，相当于在每一步进行预先规划，
+从而作出更优的决策。因此，A* 也被称为“有智慧的算法”。
 
 https://en.wikipedia.org/wiki/A*_search_algorithm
 """
@@ -18,10 +15,10 @@ import numpy as np
 
 class Cell:
     """
-    Class cell represents a cell in the world which have the properties:
-    position: represented by tuple of x and y coordinates initially set to (0,0).
-    parent: Contains the parent cell object visited before we arrived at this cell.
-    g, h, f: Parameters used when calling our heuristic function.
+    Cell 类表示网格世界中的一个单元格，具有以下属性：
+    position：由 x、y 坐标组成的元组表示，初始值为 (0,0)。
+    parent：到达此单元格之前访问的父单元格对象。
+    g, h, f：调用启发式函数时使用的参数。
     """
 
     def __init__(self) -> None:
@@ -45,9 +42,8 @@ class Cell:
 
 class Gridworld:
     """
-    Gridworld class represents the  external world here a grid M*M
-    matrix.
-    world_size: create a numpy array with the given world_size default is 5.
+    Gridworld 类以 M*M 网格矩阵表示外部世界。
+    world_size：按给定的 world_size 创建 NumPy 数组，默认值为 5。
     """
 
     def __init__(self, world_size=(5, 5)) -> None:
@@ -60,7 +56,7 @@ class Gridworld:
 
     def get_neighbours(self, cell):
         """
-        Return the neighbours of cell
+        返回单元格的相邻单元格
         """
         neughbour_cord = [
             (-1, -1),
@@ -88,10 +84,10 @@ class Gridworld:
 
 def astar(world, start, goal):
     """
-    Implementation of a start algorithm.
-    world : Object of the world object.
-    start : Object of the cell as  start position.
-    stop  : Object of the cell as goal position.
+    A* 算法的实现。
+    world：网格世界对象。
+    start：作为起始位置的单元格对象。
+    stop：作为目标位置的单元格对象。
 
     >>> p = Gridworld()
     >>> start = Cell()
@@ -135,14 +131,14 @@ def astar(world, start, goal):
 
 if __name__ == "__main__":
     world = Gridworld()
-    # Start position and goal
+    # 起始位置和目标位置
     start = Cell()
     start.position = (0, 0)
     goal = Cell()
     goal.position = (4, 4)
     print(f"path from {start.position} to {goal.position}")
     s = astar(world, start, goal)
-    #   Just for visual reasons.
+    # 仅用于可视化。
     for i in s:
         world.w[i] = 1
     print(world.w)

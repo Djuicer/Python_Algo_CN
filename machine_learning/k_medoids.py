@@ -14,10 +14,10 @@ from sklearn.datasets import load_iris
 
 def _get_data() -> tuple[ndarray, ndarray]:
     """
-    Load the Iris dataset and return features and labels.
+    Load the Iris dataset and return 特征 and labels.
 
-    Returns:
-        tuple[ndarray, ndarray]: Feature matrix and target labels.
+    返回：
+        tuple[ndarray, ndarray]: 特征矩阵和目标标签。
 
     >>> features, labels = _get_data()
     >>> features.shape
@@ -31,13 +31,13 @@ def _get_data() -> tuple[ndarray, ndarray]:
 
 def _compute_distances(data_matrix: ndarray, medoids: ndarray) -> ndarray:
     """
-    Compute pairwise distances between points and medoids.
+    计算各点与中心点之间的两两距离。
 
-    Args:
-        data_matrix: Input dataset.
+    参数：
+        data_matrix: 输入数据集.
         medoids: Indices of current medoids.
 
-    Returns:
+    返回：
         ndarray: Distance matrix of shape (n_samples, n_clusters).
 
     >>> x = np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0]])
@@ -50,12 +50,12 @@ def _compute_distances(data_matrix: ndarray, medoids: ndarray) -> ndarray:
 
 def _assign_clusters(distances: ndarray) -> ndarray:
     """
-    Assign each data point to the nearest medoid.
+    将每个数据点分配给最近的中心点。
 
-    Args:
+    参数：
         distances: Pairwise distance matrix.
 
-    Returns:
+    返回：
         ndarray: Cluster assignments.
 
     >>> d = np.array([[0.1, 0.4], [0.2, 0.3], [0.9, 0.1]])
@@ -69,14 +69,14 @@ def _initialize_medoids(
     n_samples: int, n_clusters: int, random_state: int | None = None
 ) -> ndarray:
     """
-    Randomly select initial medoids.
+    随机选择初始中心点。
 
-    Args:
+    参数：
         n_samples: Total number of samples.
         n_clusters: Number of clusters.
-        random_state: Optional random seed.
+        random_state: 可选的随机种子.
 
-    Returns:
+    返回：
         ndarray: Indices of initial medoids.
 
     >>> np.random.seed(42)
@@ -91,14 +91,14 @@ def _update_medoids(
     data_matrix: ndarray, clusters: ndarray, n_clusters: int
 ) -> ndarray:
     """
-    Update medoids by minimizing intra-cluster distances.
+    通过最小化簇内距离更新中心点。
 
-    Args:
+    参数：
         data_matrix: Dataset.
         clusters: Cluster assignments.
         n_clusters: Number of clusters.
 
-    Returns:
+    返回：
         ndarray: Updated medoid indices.
 
     >>> x = np.array([[0.0, 0.0], [1.0, 0.0], [5.0, 0.0]])
@@ -132,15 +132,15 @@ def apply_k_medoids(
     random_state: int | None = None,
 ) -> tuple[ndarray, ndarray]:
     """
-    Apply k-Medoids clustering to a dataset.
+    对数据集应用 k-Medoids 聚类。
 
-    Args:
-        data_matrix: Input dataset.
+    参数：
+        data_matrix: 输入数据集.
         n_clusters: Number of clusters.
-        max_iter: Maximum iterations.
-        random_state: Optional random seed.
+        max_iter: 最大迭代次数.
+        random_state: 可选的随机种子.
 
-    Returns:
+    返回：
         tuple[ndarray, ndarray]: Final medoids and cluster assignments.
 
     >>> features, _ = _get_data()
@@ -168,7 +168,7 @@ def apply_k_medoids(
 
 def main() -> None:
     """
-    Run k-Medoids on the Iris dataset and display results.
+    Run k-Medoids on the Iris dataset and display 结果.
 
     >>> main()  # doctest: +ELLIPSIS
     k-Medoids clustering (first 10 assignments):
@@ -183,12 +183,12 @@ def main() -> None:
     print("k-Medoids clustering (first 10 assignments):")
     print(clusters[:10])
 
-    # Optional visualization
+    # 可选的可视化
     # import matplotlib.pyplot as plt
-    # plt.scatter(features[:, 0], features[:, 1], c=clusters, cmap="viridis", s=30)
+    # plt.scatter(特征[:, 0], 特征[:, 1], c=clusters, cmap="viridis", s=30)
     # plt.scatter(
-    #     features[medoids, 0],
-    #     features[medoids, 1],
+    #     特征[medoids, 0],
+    #     特征[medoids, 1],
     #     c="red",
     #     marker="x",
     #     s=100,

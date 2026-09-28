@@ -51,7 +51,7 @@ def gradient_descent(
 ) -> np.ndarray:
     """Run gradient descent in a fully vectorized form.
 
-    :param features: dataset features
+    :param features: dataset 特征
     :param labels: dataset labels
     :param alpha: learning rate
     :param iterations: number of iterations
@@ -96,7 +96,7 @@ def main() -> None:
     dataset = collect_dataset()
 
     m = dataset.shape[0]
-    features = np.c_[np.ones(m), dataset[:, :-1]]  # add intercept term
+    features = np.c_[np.ones(m), dataset[:, :-1]]  # 添加截距项
     labels = dataset[:, -1].reshape(-1, 1)
 
     theta = gradient_descent(features, labels)

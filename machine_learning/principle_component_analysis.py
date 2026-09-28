@@ -23,7 +23,7 @@ def collect_dataset() -> tuple[np.ndarray, np.ndarray]:
 
     :return: Tuple containing feature matrix (X) and target labels (y)
 
-    Example:
+    示例：
     >>> X, y = collect_dataset()
     >>> X.shape
     (150, 4)
@@ -38,11 +38,11 @@ def apply_pca(data_x: np.ndarray, n_components: int) -> tuple[np.ndarray, np.nda
     """
     Applies Principal Component Analysis (PCA) to reduce dimensionality.
 
-    :param data_x: Original dataset (features)
+    :param data_x: Original dataset (特征)
     :param n_components: Number of principal components to retain
     :return: Tuple containing transformed dataset and explained variance ratio
 
-    Example:
+    示例：
     >>> X, _ = collect_dataset()
     >>> transformed_X, variance = apply_pca(X, 2)
     >>> transformed_X.shape
@@ -63,7 +63,7 @@ def apply_pca(data_x: np.ndarray, n_components: int) -> tuple[np.ndarray, np.nda
 
 def main() -> None:
     """
-    Driver function to execute PCA and display results.
+    Driver function to execute PCA and display 结果.
     """
     data_x, _data_y = collect_dataset()
 

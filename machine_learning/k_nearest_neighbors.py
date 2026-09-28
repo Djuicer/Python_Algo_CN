@@ -1,13 +1,9 @@
 """
-k-Nearest Neighbors (kNN) is a simple non-parametric supervised learning
-algorithm used for classification. Given some labelled training data, a given
-point is classified using its k nearest neighbours according to some distance
-metric. The most commonly occurring label among the neighbours becomes the label
-of the given point. In effect, the label of the given point is decided by a
-majority vote.
+k 近邻（k-Nearest Neighbors, kNN）是一种用于分类的简单非参数监督学习算法。
+给定带标签的训练数据后，算法根据某种距离度量，使用给定点的 k 个最近邻对其
+分类。邻居中出现次数最多的标签成为该点的标签，即通过多数表决决定标签。
 
-This implementation uses the commonly used Euclidean distance metric, but other
-distance metrics can also be used.
+本实现采用常用的欧几里得距离度量，也可以使用其他距离度量。
 
 Reference: https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
 """
@@ -29,7 +25,7 @@ class KNN:
         class_labels: list[str],
     ) -> None:
         """
-        Create a kNN classifier using the given training data and class labels
+        使用给定训练数据和类别标签创建 kNN 分类器
         """
         self.data = zip(train_data, train_target)
         self.labels = class_labels
@@ -37,7 +33,7 @@ class KNN:
     @staticmethod
     def _euclidean_distance(a: NDArray[np.float64], b: NDArray[np.float64]) -> float:
         """
-        Calculate the Euclidean distance between two points
+        计算两点之间的欧几里得距离
         >>> KNN._euclidean_distance(np.array([0, 0]), np.array([3, 4]))
         5.0
         >>> KNN._euclidean_distance(np.array([1, 2, 3]), np.array([1, 8, 11]))
@@ -47,7 +43,7 @@ class KNN:
 
     def classify(self, pred_point: NDArray[np.float64], k: int = 5) -> str:
         """
-        Classify a given point using the kNN algorithm
+        使用 kNN 算法对给定点进行分类
         >>> train_X = np.array(
         ...     [[0, 0], [1, 0], [0, 1], [0.5, 0.5], [3, 3], [2, 3], [3, 2]]
         ... )
@@ -58,16 +54,16 @@ class KNN:
         >>> knn.classify(point)
         'A'
         """
-        # Distances of all points from the point to be classified
+        # 所有点与待分类点之间的距离
         distances = (
             (self._euclidean_distance(data_point[0], pred_point), data_point[1])
             for data_point in self.data
         )
 
-        # Choosing k points with the shortest distances
+        # 选择距离最短的 k 个点
         votes = (i[1] for i in nsmallest(k, distances))
 
-        # Most commonly occurring class is the one into which the point is classified
+        # 将该点归入出现次数最多的类别
         result = Counter(votes).most_common(1)[0][0]
         return self.labels[result]
 

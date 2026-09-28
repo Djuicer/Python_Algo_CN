@@ -1,4 +1,4 @@
-# Gaussian Naive Bayes Example
+# 高斯朴素贝叶斯示例
 
 from matplotlib import pyplot as plt
 from sklearn.datasets import load_iris
@@ -9,25 +9,25 @@ from sklearn.naive_bayes import GaussianNB
 
 def main() -> None:
     """
-    Gaussian Naive Bayes Example using sklearn function.
-    Iris type dataset is used to demonstrate algorithm.
+    使用 sklearn 函数实现的高斯朴素贝叶斯示例。
+    使用 Iris 类型数据集演示该算法。
     """
-    # Load Iris dataset
+    # 加载 Iris 数据集
     iris = load_iris()
 
-    # Split dataset into train and test data
-    x = iris["data"]  # features
+    # 将数据集拆分为训练数据和测试数据
+    x = iris["data"]  # 特征
     y = iris["target"]
     x_train, x_test, y_train, y_test = train_test_split(
         x, y, test_size=0.3, random_state=1
     )
 
-    # Gaussian Naive Bayes
+    # 高斯朴素贝叶斯
     nb_model = GaussianNB()
     nb_model.fit(x_train, y_train)
-    y_pred = nb_model.predict(x_test)  # Predictions on the test set
+    y_pred = nb_model.predict(x_test)  # 对测试集进行预测
 
-    # Display Confusion Matrix
+    # 显示混淆矩阵
     ConfusionMatrixDisplay.from_estimator(
         nb_model,
         x_test,

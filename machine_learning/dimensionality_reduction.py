@@ -1,11 +1,11 @@
 #  Copyright (c) 2023 Diego Gasco (diego.gasco99@gmail.com), Diegomangasco on GitHub
 
 """
-Requirements:
+依赖：
   - numpy version 1.21
   - scipy version 1.3.3
-Notes:
-  - Each column of the features matrix corresponds to a class item
+说明：
+  - Each column of the 特征 matrix corresponds to a class item
 """
 
 import logging
@@ -96,14 +96,14 @@ def principal_component_analysis(features: np.ndarray, dimensions: int) -> np.nd
     Principal Component Analysis.
 
     For more details, see: https://en.wikipedia.org/wiki/Principal_component_analysis.
-    Parameters:
-        * features: the features extracted from the dataset
+    参数：
+        * features: the 特征 extracted from the dataset
         * dimensions: to filter the projected data for the desired dimension
 
     >>> test_principal_component_analysis()
     """
 
-    # Check if the features have been loaded
+    # Check if the 特征 have been loaded
     if features.any():
         data_mean = features.mean(1)
         # Center the dataset
@@ -130,9 +130,9 @@ def linear_discriminant_analysis(
     Linear Discriminant Analysis.
 
     For more details, see: https://en.wikipedia.org/wiki/Linear_discriminant_analysis.
-    Parameters:
-        * features: the features extracted from the dataset
-        * labels: the class labels of the features
+    参数：
+        * features: the 特征 extracted from the dataset
+        * labels: the class labels of the 特征
         * classes: the number of classes present in the dataset
         * dimensions: to filter the projected data for the desired dimension
 
@@ -142,7 +142,7 @@ def linear_discriminant_analysis(
     # Check if the dimension desired is less than the number of classes
     assert classes > dimensions
 
-    # Check if features have been already loaded
+    # Check if 特征 have been already loaded
     if features.any:
         _, eigenvectors = eigh(
             covariance_between_classes(features, labels, classes),
@@ -183,15 +183,15 @@ def t_distributed_stochastic_neighbor_embedding(
     Original paper:
     https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf
 
-    Parameters:
-        * features: Input data matrix where each column represents a data point
+    参数：
+        * features: 输入数据 matrix where each column represents a data point
         * dimensions: Number of dimensions for the output (typically 2 or 3)
         * perplexity: Controls the effective number of neighbors (typically 5-50)
         * learning_rate: Learning rate for gradient descent
         * max_iterations: Maximum number of optimization iterations
-        * random_state: Random seed for reproducible results
+        * random_state: Random seed for reproducible 结果
 
-    Returns:
+    返回：
         * projected_data: Low-dimensional representation of the input data
 
     >>> # Test with simple 3D to 2D reduction
@@ -346,7 +346,7 @@ def t_distributed_stochastic_neighbor_embedding(
 
 
 def test_linear_discriminant_analysis() -> None:
-    # Create dummy dataset with 2 classes and 3 features
+    # Create dummy dataset with 2 classes and 3 特征
     features = np.array([[1, 2, 3, 4, 5], [2, 3, 4, 5, 6], [3, 4, 5, 6, 7]])
     labels = np.array([0, 0, 0, 1, 1])
     classes = 2

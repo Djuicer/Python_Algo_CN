@@ -10,13 +10,13 @@ class GradientBoostingClassifier:
         """
         Initialize a GradientBoostingClassifier.
 
-        Parameters:
+        参数：
         - n_estimators (int): The number of weak learners to train.
-        - learning_rate (float): The learning rate for updating the model.
+        - learning_rate (float): 学习率 for updating the model.
 
-        Attributes:
+        属性：
         - n_estimators (int): The number of weak learners.
-        - learning_rate (float): The learning rate.
+        - learning_rate (float): 学习率.
         - models (list): A list to store the trained weak learners.
         """
         self.n_estimators = n_estimators
@@ -25,13 +25,13 @@ class GradientBoostingClassifier:
 
     def fit(self, features: np.ndarray, target: np.ndarray) -> None:
         """
-        Fit the GradientBoostingClassifier to the training data.
+        Fit the GradientBoostingClassifier to the 训练 data.
 
-        Parameters:
-        - features (np.ndarray): The training features.
+        参数：
+        - features (np.ndarray): The 训练 特征.
         - target (np.ndarray): The target values.
 
-        Returns:
+        返回：
         None
 
         >>> import numpy as np
@@ -57,10 +57,10 @@ class GradientBoostingClassifier:
         """
         Make predictions on input data.
 
-        Parameters:
+        参数：
         - features (np.ndarray): The input data for making predictions.
 
-        Returns:
+        返回：
         - np.ndarray: An array of binary predictions (-1 or 1).
 
         >>> import numpy as np
@@ -84,11 +84,11 @@ class GradientBoostingClassifier:
         """
         Calculate the negative gradient (pseudo-residuals) for logistic loss.
 
-        Parameters:
+        参数：
         - target (np.ndarray): The target values.
         - y_pred (np.ndarray): The predicted values.
 
-        Returns:
+        返回：
         - np.ndarray: An array of pseudo-residuals.
 
         >>> import numpy as np

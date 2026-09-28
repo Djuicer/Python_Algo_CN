@@ -26,7 +26,7 @@ def linear_regression_prediction(
 ) -> float:
     """
     First method: linear regression
-    input : training data (date, total_user, total_event) in list of float
+    input : 训练 data (date, total_user, total_event) in list of float
     output : list of total user prediction in float
     >>> n = linear_regression_prediction([2,3,4,5], [5,3,4,6], [3,1,2,4], [2,1], [2,2])
     >>> bool(abs(n - 5.0) < 1e-6)  # Checking precision because of floating point errors
@@ -43,7 +43,7 @@ def sarimax_predictor(train_user: list, train_match: list, test_match: list) -> 
     second method: Sarimax
     sarimax is a statistic method which using previous input
     and learn its pattern to predict future data
-    input : training data (total_user, with exog data = total_event) in list of float
+    input : 训练 data (total_user, with exog data = total_event) in list of float
     output : list of total user prediction in float
     >>> sarimax_predictor([4,2,6,8], [3,1,2,4], [2])
     6.6666671111109626
@@ -67,7 +67,7 @@ def support_vector_regressor(x_train: list, x_test: list, train_user: list) -> f
     it uses the same principles as the SVM for classification,
     with only a few minor differences and the only different is that
     it suits better for regression purpose
-    input : training data (date, total_user, total_event) in list of float
+    input : 训练 data (date, total_user, total_event) in list of float
     where x = list of set (date and total event)
     output : list of total user prediction in float
     >>> support_vector_regressor([[5,2],[1,5],[6,2]], [[3,2]], [2,1,4])
@@ -81,15 +81,15 @@ def support_vector_regressor(x_train: list, x_test: list, train_user: list) -> f
 
 def random_forest_regressor(x_train: list, x_test: list, train_user: list) -> float:
     """
-    Fourth method: Random Forest Regressor
+    Fourth method: 随机森林回归器
     Random Forest is an ensemble learning method for regression that operates
-    by constructing a multitude of decision trees at training time and outputting
+    by constructing a multitude of decision trees at 训练 time and outputting
     the mean prediction of the individual trees.
 
     It is more robust than a single decision tree and less prone to overfitting.
     Good for capturing nonlinear relationships in data.
 
-    input : training data (date, total_event) in list of float
+    input : 训练 data (date, total_event) in list of float
     where x = list of set (date and total event)
     output : list of total user prediction in float
 

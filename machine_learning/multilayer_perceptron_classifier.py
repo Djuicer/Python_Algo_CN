@@ -29,10 +29,10 @@ class Dataloader:
     def __init__(self, features: list[list[float]], labels: list[int]) -> None:
         """
         Initializes the Dataloader instance with feature matrix
-        features and labels labels.
+        特征 and labels labels.
 
-        Args:
-            features: Feature matrix of shape (n_samples, n_features).
+        参数：
+            features: 特征矩阵 of shape (n_samples, n_features).
             labels: List of labels of shape (n_samples,).
         """
         # random seed
@@ -44,14 +44,14 @@ class Dataloader:
         self,
     ) -> tuple[np.ndarray, list[np.ndarray], np.ndarray, list[np.ndarray]]:
         """
-        Splits the data into training and testing sets.
+        Splits the data into 训练 and testing sets.
         Here, we manually split the data.
 
-        Returns:
+        返回：
             A tuple containing:
             - Train data
             - Train labels
-            - Test data
+            - 测试数据
             - Test labels
         """
         train_data = np.array([self.X[0], self.X[1], self.X[2]])
@@ -70,10 +70,10 @@ class Dataloader:
         """
         Shuffles the data randomly.
 
-        Args:
+        参数：
             paired_data: List of tuples containing data and corresponding labels.
 
-        Returns:
+        返回：
             A shuffled list of data-label pairs.
         """
         return paired_data
@@ -89,11 +89,11 @@ class Dataloader:
         """
         Perform one-hot encoding for the given labels.
 
-        Args:
+        参数：
             labels: List of integer labels.
             num_classes: Total number of classes for encoding.
 
-        Returns:
+        返回：
             A numpy array representing one-hot encoded labels.
         """
         one_hot = np.zeros((len(labels), num_classes))
@@ -107,23 +107,23 @@ class MLP:
     A custom MLP class for implementing a simple multi-layer perceptron with
     forward propagation, backpropagation.
 
-    Attributes:
+    属性：
         learning_rate (float): Learning rate for gradient descent.
         gamma (float): Parameter to control learning rate adjustment.
-        epoch (int): Number of epochs for training.
+        epoch (int): Number of epochs for 训练.
         hidden_dim (int): Dimension of the hidden layer.
         batch_size (int): Number of samples per mini-batch.
-        train_loss (List[float]): List to store training loss for each fold.
-        train_accuracy (List[float]): List to store training accuracy for each fold.
+        train_loss (List[float]): List to store 训练 loss for each fold.
+        train_accuracy (List[float]): List to store 训练 accuracy for each fold.
         test_loss (List[float]): List to store test loss for each fold.
         test_accuracy (List[float]): List to store test accuracy for each fold.
-        dataloader (Dataloader): DataLoader object for handling training data.
+        dataloader (Dataloader): DataLoader object for handling 训练 data.
         inter_variable (dict): Dictionary to store intermediate variables
         for backpropagation.
         weights1_list (List[Tuple[np.ndarray, np.ndarray]]):
         List of weights for each fold.
 
-    Methods:
+    方法：
         get_inout_dim:obtain input dimension and output dimension.
         relu: Apply the ReLU activation function.
         relu_derivative: Compute the derivative of the ReLU function.
@@ -239,18 +239,18 @@ class MLP:
         """
         Performs a forward pass through the neural network with one hidden layer.
 
-        Args:
-            input_data: Input data, shape (batch_size, input_dim).
+        参数：
+            input_data: 输入数据, shape (batch_size, input_dim).
             w1: Weight matrix for input to hidden layer,
             shape (input_dim + 1, hidden_dim).
             w2: Weight matrix for hidden to output layer,
             shape (hidden_dim, output_dim).
             no_gradient: If True, returns output without storing intermediates.
 
-        Returns:
+        返回：
             Output of the network after forward pass, shape (batch_size, output_dim).
 
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.1, hidden_dim=2)
             >>> x = np.array([[1.0, 2.0, 1.0]])  # batch_size=1, input_dim=2 + bias
             >>> w1 = np.array([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
@@ -271,7 +271,7 @@ class MLP:
             # when predict
             return a2
         else:
-            # when training
+            # when 训练
             self.inter_variable = {"z1": z1, "a1": a1, "z2": z2, "a2": a2}
             return a2
 
@@ -281,15 +281,15 @@ class MLP:
         """
         Performs backpropagation to compute gradients for the weights.
 
-        Args:
-            input_data: Input data, shape (batch_size, input_dim).
-            true_labels: True labels, shape (batch_size, output_dim).
+        参数：
+            input_data: 输入数据, shape (batch_size, input_dim).
+            true_labels: 真实标签, shape (batch_size, output_dim).
             w2: Weight matrix for hidden to output layer,
             shape (hidden_dim, output_dim).
 
-        Returns:
+        返回：
             Tuple of gradients (grad_w1, grad_w2) for the weight matrices.
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.1, hidden_dim=2)
             >>> x = np.array([[1.0, 2.0, 1.0]])  # batch_size=1, input_dim=2 + bias
             >>> y = np.array([[0.0, 1.0]])  # batch_size=1, output_dim=2
@@ -335,7 +335,7 @@ class MLP:
         """
         Updates the weight matrices using the computed gradients and learning rate.
 
-        Args:
+        参数：
             w1: Weight matrix for input to hidden layer,
             shape (input_dim + 1, hidden_dim).
             w2: Weight matrix for hidden to output layer,
@@ -346,10 +346,10 @@ class MLP:
             shape (hidden_dim, output_dim).
             learning_rate: Learning rate for weight updates.
 
-        Returns:
+        返回：
             Updated weight matrices (w1, w2).
 
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.1)
             >>> w1 = np.array([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
             >>> w2 = np.array([[0.7, 0.8], [0.9, 1.0]])
@@ -373,13 +373,13 @@ class MLP:
         """
         Updates the learning rate by applying the decay factor gamma.
 
-        Args:
+        参数：
             learning_rate: Current learning rate.
 
-        Returns:
+        返回：
             Updated learning rate.
 
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.1, gamma=0.9)
             >>> round(mlp.update_learning_rate(0.1), 2)
             0.09
@@ -392,14 +392,14 @@ class MLP:
         """
         Computes the accuracy of predictions by comparing predicted and true labels.
 
-        Args:
-            label: True labels, shape (batch_size, num_classes).
+        参数：
+            label: 真实标签, shape (batch_size, num_classes).
             y_hat: Predicted outputs, shape (batch_size, num_classes).
 
-        Returns:
+        返回：
             Accuracy as a float between 0 and 1.
 
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.01)
             >>> label = np.array([[1, 0], [0, 1], [1, 0]])
             >>> y_hat = np.array([[0.9, 0.1], [0.2, 0.8], [0.6, 0.4]])
@@ -413,14 +413,14 @@ class MLP:
         """
         Computes the mean squared error loss between predictions and true labels.
 
-        Args:
+        参数：
             output: Predicted outputs, shape (batch_size, num_classes).
-            label: True labels, shape (batch_size, num_classes).
+            label: 真实标签, shape (batch_size, num_classes).
 
-        Returns:
+        返回：
             Mean squared error loss as a float.
 
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.1)
             >>> output = np.array([[0.9, 0.1], [0.2, 0.8]])
             >>> label = np.array([[1.0, 0.0], [0.0, 1.0]])
@@ -433,10 +433,10 @@ class MLP:
         """
         Returns the recorded test accuracy and test loss.
 
-        Returns:
+        返回：
             Tuple of (test_accuracy, test_loss) lists.
 
-        Examples:
+        示例：
             >>> mlp = MLP(None, 1, 0.1)
             >>> mlp.test_accuracy = [0.8, 0.9]
             >>> mlp.test_loss = [0.1, 0.05]
@@ -455,7 +455,7 @@ class MLP:
 
         Saves the best model parameters for each fold and records accuracy/loss.
 
-        Examples:
+        示例：
             >>> X = [[0.0, 0.0], [1.0, 1.0], [1.0, 0.0], [0.0, 1.0]]
             >>> y = [0, 1, 0, 0]
             >>> loader = Dataloader(X, y)

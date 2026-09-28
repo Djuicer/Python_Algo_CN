@@ -40,7 +40,7 @@ def main() -> None:
     model = GradientBoostingRegressor(
         n_estimators=500, max_depth=5, min_samples_split=4, learning_rate=0.01
     )
-    # training the model
+    # 训练 the model
     model.fit(x_train, y_train)
     # to see how good the model fit the data
     training_score = model.score(x_train, y_train).round(3)

@@ -9,17 +9,17 @@ using weighted least squares regression:
 where X is the design matrix, y is the response vector, and W is the diagonal
 weight matrix.
 
-This implementation calculates wᵢ, the weight of the ith training sample, using
+This implementation calculates wᵢ, the weight of the ith 训练样本, using
 the Gaussian weight:
 
 wᵢ = exp(-‖xᵢ - x‖²/(2τ²)),
 
-where xᵢ is the ith training sample, x is the prediction point, τ is the
+where xᵢ is the ith 训练样本, x is the prediction point, τ is the
 "bandwidth", and ‖x‖ is the Euclidean norm (also called the 2-norm or the L²
-norm). The bandwidth τ controls how quickly the weight of a training sample
+norm). The bandwidth τ controls how quickly the weight of a 训练样本
 decreases as its distance from the prediction point increases. One can think of
 the Gaussian weight as a bell curve centered around the prediction point: a
-training sample is weighted lower if it's farther from the center, and τ
+训练样本 is weighted lower if it's farther from the center, and τ
 controls the spread of the bell curve.
 
 Other types of locally weighted regression such as locally estimated scatterplot
@@ -37,18 +37,18 @@ import numpy as np
 
 def weight_matrix(point: np.ndarray, x_train: np.ndarray, tau: float) -> np.ndarray:
     """
-    Calculate the weight of every point in the training data around a given
+    Calculate the weight of every point in the 训练 data around a given
     prediction point
 
-    Args:
+    参数：
         point: x-value at which the prediction is being made
-        x_train: ndarray of x-values for training
-        tau: bandwidth value, controls how quickly the weight of training values
+        x_train: ndarray of x-values for 训练
+        tau: bandwidth value, controls how quickly the weight of 训练 values
             decreases as the distance from the prediction point increases
 
-    Returns:
+    返回：
         m x m weight matrix around the prediction point, where m is the size of
-        the training set
+        the 训练 set
     >>> weight_matrix(
     ...     np.array([16.99, 10.34]),
     ...     np.array([[16.99, 10.34], [21.01, 23.68], [24.59, 25.69]]),
@@ -58,7 +58,7 @@ def weight_matrix(point: np.ndarray, x_train: np.ndarray, tau: float) -> np.ndar
            [0.    , 0.0206, 0.    ],
            [0.    , 0.    , 0.0028]])
     """
-    m = len(x_train)  # Number of training samples
+    m = len(x_train)  # Number of 训练样本s
     weights = np.eye(m)  # Initialize weights as identity matrix
     for j in range(m):
         diff = point - x_train[j]
@@ -74,13 +74,13 @@ def local_weight(
     Calculate the local weights at a given prediction point using the weight
     matrix for that point
 
-    Args:
+    参数：
         point: x-value at which the prediction is being made
-        x_train: ndarray of x-values for training
-        y_train: ndarray of y-values for training
-        tau: bandwidth value, controls how quickly the weight of training values
+        x_train: ndarray of x-values for 训练
+        y_train: ndarray of y-values for 训练
+        tau: bandwidth value, controls how quickly the weight of 训练 values
             decreases as the distance from the prediction point increases
-    Returns:
+    返回：
         ndarray of local weights
     >>> local_weight(
     ...     np.array([16.99, 10.34]),
@@ -103,15 +103,15 @@ def local_weight_regression(
     x_train: np.ndarray, y_train: np.ndarray, tau: float
 ) -> np.ndarray:
     """
-    Calculate predictions for each point in the training data
+    Calculate predictions for each point in the 训练 data
 
-    Args:
-        x_train: ndarray of x-values for training
-        y_train: ndarray of y-values for training
-        tau: bandwidth value, controls how quickly the weight of training values
+    参数：
+        x_train: ndarray of x-values for 训练
+        y_train: ndarray of y-values for 训练
+        tau: bandwidth value, controls how quickly the weight of 训练 values
             decreases as the distance from the prediction point increases
 
-    Returns:
+    返回：
         ndarray of predictions
     >>> local_weight_regression(
     ...     np.array([[16.99, 10.34], [21.01, 23.68], [24.59, 25.69]]),

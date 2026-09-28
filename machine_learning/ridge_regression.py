@@ -10,7 +10,7 @@ class RidgeRegression:
         Ridge Regression Constructor
         :param alpha: Learning rate for gradient descent
         :param lambda_: Regularization parameter (L2 regularization)
-        :param iterations: Number of iterations for gradient descent
+        :param iterations: 迭代次数 for gradient descent
         """
         self.alpha = alpha
         self.lambda_ = lambda_
@@ -21,15 +21,15 @@ class RidgeRegression:
         self, features: np.ndarray
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
-        Normalize features to have mean 0 and standard deviation 1.
+        Normalize 特征 to have mean 0 and standard deviation 1.
 
-        :param features: Input features, shape (m, n)
+        :param features: Input 特征, shape (m, n)
         :return: Tuple containing:
-            - Scaled features
+            - Scaled 特征
             - Mean of each feature
             - Standard deviation of each feature
 
-        Example:
+        示例：
         >>> rr = RidgeRegression()
         >>> features = np.array([[1, 2], [2, 3], [4, 6]])
         >>> scaled_features, mean, std = rr.feature_scaling(features)
@@ -41,20 +41,20 @@ class RidgeRegression:
         mean = np.mean(features, axis=0)
         std = np.std(features, axis=0)
 
-        # Avoid division by zero for constant features (std = 0)
-        std[std == 0] = 1  # Set std=1 for constant features to avoid NaN
+        # Avoid division by zero for constant 特征 (std = 0)
+        std[std == 0] = 1  # Set std=1 for constant 特征 to avoid NaN
 
         scaled_features = (features - mean) / std
         return scaled_features, mean, std
 
     def fit(self, features: np.ndarray, target: np.ndarray) -> None:
         """
-        Fit the Ridge Regression model to the training data.
+        Fit the Ridge Regression model to the 训练 data.
 
-        :param features: Input features, shape (m, n)
-        :param target: Target values, shape (m,)
+        :param features: Input 特征, shape (m, n)
+        :param target: 目标值, shape (m,)
 
-        Example:
+        示例：
         >>> rr = RidgeRegression(alpha=0.01, lambda_=0.1, iterations=10)
         >>> features = np.array([[1, 2], [2, 3], [4, 6]])
         >>> target = np.array([1, 2, 3])
@@ -62,7 +62,7 @@ class RidgeRegression:
         >>> rr.theta is not None
         True
         """
-        # Normalize features
+        # Normalize 特征
         features_scaled, _mean, _std = self.feature_scaling(features)
         m, n = features_scaled.shape
         self.theta = np.zeros(n)  # Initialize weights to zeros
@@ -79,10 +79,10 @@ class RidgeRegression:
         """
         Predict values using the trained model.
 
-        :param features: Input features, shape (m, n)
-        :return: Predicted values, shape (m,)
+        :param features: Input 特征, shape (m, n)
+        :return: 预测值, shape (m,)
 
-        Example:
+        示例：
         >>> rr = RidgeRegression(alpha=0.01, lambda_=0.1, iterations=10)
         >>> features = np.array([[1, 2], [2, 3], [4, 6]])
         >>> target = np.array([1, 2, 3])
@@ -94,7 +94,7 @@ class RidgeRegression:
         if self.theta is None:
             raise ValueError("Model is not trained yet. Call the `fit` method first.")
 
-        # Scale features using training data
+        # Scale 特征 using 训练 data
         features_scaled, _mean, _std = self.feature_scaling(features)
         return features_scaled.dot(self.theta)
 
@@ -102,11 +102,11 @@ class RidgeRegression:
         """
         Compute the cost function with regularization.
 
-        :param features: Input features, shape (m, n)
-        :param target: Target values, shape (m,)
+        :param features: Input 特征, shape (m, n)
+        :param target: 目标值, shape (m,)
         :return: Computed cost
 
-        Example:
+        示例：
         >>> rr = RidgeRegression(alpha=0.01, lambda_=0.1, iterations=10)
         >>> features = np.array([[1, 2], [2, 3], [4, 6]])
         >>> target = np.array([1, 2, 3])
@@ -118,7 +118,7 @@ class RidgeRegression:
         if self.theta is None:
             raise ValueError("Model is not trained yet. Call the `fit` method first.")
 
-        # Scale features using training data
+        # Scale 特征 using 训练 data
         features_scaled, _mean, _std = self.feature_scaling(features)
         m = len(target)
         predictions = features_scaled.dot(self.theta)
@@ -129,13 +129,13 @@ class RidgeRegression:
 
     def mean_absolute_error(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         """
-        Compute Mean Absolute Error (MAE) between true and predicted values.
+        Compute 平均绝对误差 (MAE) between true and predicted values.
 
-        :param y_true: Actual target values, shape (m,)
+        :param y_true: 实际目标值, shape (m,)
         :param y_pred: Predicted target values, shape (m,)
         :return: MAE
 
-        Example:
+        示例：
         >>> rr = RidgeRegression(alpha=0.01, lambda_=0.1, iterations=10)
         >>> y_true = np.array([1, 2, 3])
         >>> y_pred = np.array([1.1, 2.1, 2.9])

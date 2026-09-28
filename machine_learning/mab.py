@@ -39,10 +39,10 @@ class Bandit:
         """
         Initialize the bandit with a list of probabilities for each arm.
 
-        Args:
+        参数：
             probabilities: List of probabilities for each arm.
 
-        Example:
+        示例：
             >>> bandit = Bandit([0.1, 0.5, 0.9])
             >>> bandit.num_arms
             3
@@ -54,13 +54,13 @@ class Bandit:
         """
         Pull an arm of the bandit.
 
-        Args:
+        参数：
             arm_index: The arm to pull.
 
-        Returns:
+        返回：
             The reward for the arm.
 
-        Example:
+        示例：
             >>> bandit = Bandit([0.1, 0.5, 0.9])
             >>> isinstance(bandit.pull(0), int)
             True
@@ -82,7 +82,7 @@ class Strategy(ABC):
         """
         Select an arm to pull.
 
-        Returns:
+        返回：
             The index of the arm to pull.
         """
 
@@ -91,7 +91,7 @@ class Strategy(ABC):
         """
         Update the strategy.
 
-        Args:
+        参数：
             arm_index: The index of the arm to pull.
             reward: The reward for the arm.
         """
@@ -108,7 +108,7 @@ class EpsilonGreedy(Strategy):
         """
         Initialize the Epsilon-Greedy strategy.
 
-        Args:
+        参数：
             epsilon: The probability of exploring new arms.
             num_arms: The number of arms.
         """
@@ -121,10 +121,10 @@ class EpsilonGreedy(Strategy):
         """
         Select an arm to pull.
 
-        Returns:
+        返回：
             The index of the arm to pull.
 
-        Example:
+        示例：
             >>> strategy = EpsilonGreedy(epsilon=0.1, num_arms=3)
             >>> 0 <= strategy.select_arm() < 3
             True
@@ -140,11 +140,11 @@ class EpsilonGreedy(Strategy):
         """
         Update the strategy.
 
-        Args:
+        参数：
             arm_index: The index of the arm to pull.
             reward: The reward for the arm.
 
-        Example:
+        示例：
             >>> strategy = EpsilonGreedy(epsilon=0.1, num_arms=3)
             >>> strategy.update(0, 1)
             >>> strategy.counts[0] == 1
@@ -169,7 +169,7 @@ class UCB(Strategy):
         """
         Initialize the UCB strategy.
 
-        Args:
+        参数：
             num_arms: The number of arms.
         """
         self.num_arms = num_arms
@@ -181,10 +181,10 @@ class UCB(Strategy):
         """
         Select an arm to pull.
 
-        Returns:
+        返回：
             The index of the arm to pull.
 
-        Example:
+        示例：
             >>> strategy = UCB(num_arms=3)
             >>> 0 <= strategy.select_arm() < 3
             True
@@ -198,11 +198,11 @@ class UCB(Strategy):
         """
         Update the strategy.
 
-        Args:
+        参数：
             arm_index: The index of the arm to pull.
             reward: The reward for the arm.
 
-        Example:
+        示例：
             >>> strategy = UCB(num_arms=3)
             >>> strategy.update(0, 1)
             >>> strategy.counts[0] == 1
@@ -228,7 +228,7 @@ class ThompsonSampling(Strategy):
         """
         Initialize the Thompson Sampling strategy.
 
-        Args:
+        参数：
             num_arms: The number of arms.
         """
         self.num_arms = num_arms
@@ -239,11 +239,11 @@ class ThompsonSampling(Strategy):
         """
         Select an arm to pull.
 
-        Returns:
+        返回：
             The index of the arm to pull based on the Thompson Sampling strategy
             which relies on the Beta distribution.
 
-        Example:
+        示例：
             >>> strategy = ThompsonSampling(num_arms=3)
             >>> 0 <= strategy.select_arm() < 3
             True
@@ -260,11 +260,11 @@ class ThompsonSampling(Strategy):
         """
         Update the strategy.
 
-        Args:
+        参数：
             arm_index: The index of the arm to pull.
             reward: The reward for the arm.
 
-        Example:
+        示例：
             >>> strategy = ThompsonSampling(num_arms=3)
             >>> strategy.update(0, 1)
             >>> strategy.successes[0] == 1
@@ -287,7 +287,7 @@ class RandomStrategy(Strategy):
         """
         Initialize the Random strategy.
 
-        Args:
+        参数：
             num_arms: The number of arms.
         """
         self.num_arms = num_arms
@@ -296,10 +296,10 @@ class RandomStrategy(Strategy):
         """
         Select an arm to pull.
 
-        Returns:
+        返回：
             The index of the arm to pull.
 
-        Example:
+        示例：
             >>> strategy = RandomStrategy(num_arms=3)
             >>> 0 <= strategy.select_arm() < 3
             True
@@ -311,11 +311,11 @@ class RandomStrategy(Strategy):
         """
         Update the strategy.
 
-        Args:
+        参数：
             arm_index: The index of the arm to pull.
             reward: The reward for the arm.
 
-        Example:
+        示例：
             >>> strategy = RandomStrategy(num_arms=3)
             >>> strategy.update(0, 1)
         """
@@ -334,7 +334,7 @@ class GreedyStrategy(Strategy):
         """
         Initialize the Greedy strategy.
 
-        Args:
+        参数：
             num_arms: The number of arms.
         """
         self.num_arms = num_arms
@@ -345,10 +345,10 @@ class GreedyStrategy(Strategy):
         """
         Select an arm to pull.
 
-        Returns:
+        返回：
             The index of the arm to pull.
 
-        Example:
+        示例：
             >>> strategy = GreedyStrategy(num_arms=3)
             >>> 0 <= strategy.select_arm() < 3
             True
@@ -359,11 +359,11 @@ class GreedyStrategy(Strategy):
         """
         Update the strategy.
 
-        Args:
+        参数：
             arm_index: The index of the arm to pull.
             reward: The reward for the arm.
 
-        Example:
+        示例：
             >>> strategy = GreedyStrategy(num_arms=3)
             >>> strategy.update(0, 1)
             >>> strategy.counts[0] == 1
@@ -460,7 +460,7 @@ def demo_mab_strategies() -> None:
             rewards.append(total_reward)
         results[name] = rewards
 
-    # Plotting results
+    # Plotting 结果
     plt.figure(figsize=(12, 6))
     for name, rewards in results.items():
         plt.plot(rewards, label=name)

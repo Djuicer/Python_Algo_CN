@@ -21,7 +21,7 @@ class NaiveBayesTextClassifier:
     """
     Multinomial Naive Bayes classifier for short text documents.
 
-    Args:
+    参数：
         alpha: Additive (Laplace) smoothing parameter. Must be greater than 0.
 
     >>> NaiveBayesTextClassifier(alpha=0)
@@ -55,7 +55,7 @@ class NaiveBayesTextClassifier:
 
     def fit(self, texts: list[str], labels: list[str]) -> None:
         """
-        Fit the classifier from labeled training texts.
+        Fit the classifier from labeled 训练 texts.
 
         >>> model = NaiveBayesTextClassifier()
         >>> model.fit(["cheap meds", "project meeting"], ["spam", "ham"])

@@ -20,15 +20,15 @@ def ols_regression(x_point: np.ndarray, y_point: np.ndarray) -> tuple:
     """
     Performs Ordinary Least Squares Regression (OLSR) on the given data.
 
-    Args:
+    参数：
         x: The independent variable.
         y: The dependent variable.
 
-    Returns:
+    返回：
         a (float): The intercept of the regression line.
         b (float): The slope of the regression line.
 
-    Examples:
+    示例：
     >>> x = np.array([1, 2, 3, 4, 5])
     >>> y = np.array([2, 4, 6, 8, 10])
     >>> a, b = ols_regression(x, y)

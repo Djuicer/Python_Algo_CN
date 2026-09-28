@@ -2,15 +2,15 @@
 Sequential minimal optimization (SMO) for support vector machines (SVM)
 
 Sequential minimal optimization (SMO) is an algorithm for solving the quadratic
-programming (QP) problem that arises during the training of SVMs. It was invented by
+programming (QP) problem that arises during the 训练 of SVMs. It was invented by
 John Platt in 1998.
 
-Input:
+输入：
     0: type: numpy.ndarray.
     1: first column of ndarray must be tags of samples, must be 1 or -1.
     2: rows of ndarray represent samples.
 
-Usage:
+用法：
     Command:
         python3 sequential_minimum_optimization.py
     Code:
@@ -172,7 +172,7 @@ class SmoSVM:
         # for test samples, use kernel function
         if isinstance(i2, np.ndarray):
             return self.Kernel(self.samples[i1], i2)
-        # for training samples, kernel values have been saved in matrix
+        # for 训练样本s, kernel values have been saved in matrix
         else:
             return self._K_matrix[i1, i2]
 

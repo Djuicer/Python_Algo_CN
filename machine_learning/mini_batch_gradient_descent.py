@@ -1,6 +1,6 @@
 """
 Mini-Batch Gradient Descent : https://en.wikipedia.org/wiki/Stochastic_gradient_descent
-Mini-batch gradient descent is an optimization method for training models
+Mini-batch gradient descent is an optimization method for 训练 models
 by splitting the data into small batches.
 """
 
@@ -23,10 +23,10 @@ def mini_batch_gradient_descent(
     Parameters
     ----------
     feature_matrix: Feature matrix.
-    target_values: Target values.
+    target_values: 目标值.
     learning_rate: Learning rate.
     batch_size: Size of mini-batches.
-    n_epochs: Number of training epochs.
+    n_epochs: Number of 训练 epochs.
     random_seed: Random seed for reproducibility.
 
     Returns

@@ -44,7 +44,7 @@ def sigmoid_function(z: float | np.ndarray) -> float | np.ndarray:
     @param z:  input to the function
     @returns: returns value in the range 0 to 1
 
-    Examples:
+    示例：
     >>> float(sigmoid_function(4))
     0.9820137900379085
     >>> sigmoid_function(np.array([-3, 3]))
@@ -71,10 +71,10 @@ def cost_function(h: np.ndarray, y: np.ndarray) -> float:
 
     J(θ) = (1/m) * Σ [ -y * log(hθ(x)) - (1 - y) * log(1 - hθ(x)) ]
 
-    Where:
-       - J(θ) is the cost that we want to minimize during training
-       - m is the number of training examples
-       - Σ represents the summation over all training examples
+    其中：
+       - J(θ) is the cost that we want to minimize during 训练
+       - m is the number of 训练 examples
+       - Σ represents the summation over all 训练 examples
        - y is the actual binary label (0 or 1) for a given example
        - hθ(x) is the predicted probability that x belongs to the positive class
 
@@ -83,7 +83,7 @@ def cost_function(h: np.ndarray, y: np.ndarray) -> float:
 
     @param y: the actual binary label associated with input example 'x'
 
-    Examples:
+    示例：
     >>> estimations = sigmoid_function(np.array([0.3, -4.3, 8.1]))
     >>> cost_function(h=estimations,y=np.array([1, 0, 1]))
     0.18937868932131605

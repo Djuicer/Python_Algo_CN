@@ -9,11 +9,11 @@ Key idea: Instead of using a fixed learning rate, RMSprop adapts the
 learning rate for each parameter by dividing by a running average of
 recent gradient magnitudes.
 
-Update rules:
+更新规则：
     v(t) = rho * v(t-1) + (1 - rho) * gradient^2
     param = param - (learning_rate / sqrt(v(t) + epsilon)) * gradient
 
-Where:
+其中：
     v(t)          = moving average of squared gradients
     rho           = decay factor (typically 0.9)
     learning_rate = step size

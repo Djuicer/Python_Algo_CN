@@ -8,7 +8,7 @@ import math
 class SelfOrganizingMap:
     def get_winner(self, weights: list[list[float]], sample: list[int]) -> int:
         """
-        Compute the winning vector by Euclidean distance
+        使用欧几里得距离计算获胜向量
 
         >>> SelfOrganizingMap().get_winner([[1, 2, 3], [4, 5, 6]], [1, 2, 3])
         1
@@ -25,7 +25,7 @@ class SelfOrganizingMap:
         self, weights: list[list[int | float]], sample: list[int], j: int, alpha: float
     ) -> list[list[int | float]]:
         """
-        Update the winning vector.
+        更新获胜向量。
 
         >>> SelfOrganizingMap().update([[1, 2, 3], [4, 5, 6]], [1, 2, 3], 1, 0.1)
         [[1, 2, 3], [3.7, 4.7, 6]]
@@ -35,39 +35,39 @@ class SelfOrganizingMap:
         return weights
 
 
-# Driver code
+# 驱动代码
 def main() -> None:
-    # Training Examples ( m, n )
+    # 训练样本 (m, n)
     training_samples = [[1, 1, 0, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 0, 1, 1]]
 
-    # weight initialization ( n, C )
+    # 权重初始化 (n, C)
     weights = [[0.2, 0.6, 0.5, 0.9], [0.8, 0.4, 0.7, 0.3]]
 
-    # training
+    # 训练
     self_organizing_map = SelfOrganizingMap()
     epochs = 3
     alpha = 0.5
 
     for _ in range(epochs):
         for j in range(len(training_samples)):
-            # training sample
+            # 训练样本
             sample = training_samples[j]
 
-            # Compute the winning vector
+            # 计算获胜向量
             winner = self_organizing_map.get_winner(weights, sample)
 
             # Update the winning vector
             weights = self_organizing_map.update(weights, sample, winner, alpha)
 
-    # classify test sample
+    # 对测试样本进行分类
     sample = [0, 0, 0, 1]
     winner = self_organizing_map.get_winner(weights, sample)
 
-    # results
+    # 结果
     print(f"Clusters that the test sample belongs to : {winner}")
     print(f"Weights that have been trained : {weights}")
 
 
-# running the main() function
+# 运行 main() 函数
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-# Random Forest Regressor Example
+# 随机森林回归器示例
 
 from sklearn.datasets import load_diabetes
 from sklearn.ensemble import RandomForestRegressor
@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 
 def main() -> None:
     """
-    Random Forest Regressor Example using sklearn function.
+    随机森林回归器示例 using sklearn function.
     The diabetes dataset is used to demonstrate the algorithm.
 
     Note: this example previously used the Boston house-price dataset,
@@ -16,26 +16,26 @@ def main() -> None:
     ``load_diabetes`` is a drop-in bundled alternative that ships with
     scikit-learn, so the example runs offline.
     """
-    # Load the diabetes dataset
+    # 加载糖尿病数据集
     diabetes = load_diabetes()
     print(diabetes.keys())
 
-    # Split dataset into train and test data
-    x = diabetes["data"]  # features
+    # 将数据集拆分为训练数据和测试数据
+    x = diabetes["data"]  # 特征
     y = diabetes["target"]
     x_train, x_test, y_train, y_test = train_test_split(
         x, y, test_size=0.3, random_state=1
     )
 
-    # Random Forest Regressor
+    # 随机森林回归器
     rand_for = RandomForestRegressor(random_state=42, n_estimators=300)
     rand_for.fit(x_train, y_train)
 
-    # Predict target for test data
+    # 预测测试数据的目标值
     predictions = rand_for.predict(x_test)
     predictions = predictions.reshape(len(predictions), 1)
 
-    # Error printing
+    # 打印误差
     print(f"Mean Absolute Error:\t {mean_absolute_error(y_test, predictions)}")
     print(f"Mean Square Error  :\t {mean_squared_error(y_test, predictions)}")
 

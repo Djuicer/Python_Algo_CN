@@ -15,10 +15,10 @@ import numpy as np
 """
 
 
-# Mean Absolute Error
+# 平均绝对误差
 def mae(predict, actual):
     """
-    Examples(rounded for precision):
+    示例（为保证精度已四舍五入）：
     >>> actual = [1,2,3];predict = [1,4,3]
     >>> float(np.around(mae(predict,actual),decimals = 2))
     0.67
@@ -36,10 +36,10 @@ def mae(predict, actual):
     return score
 
 
-# Mean Squared Error
+# 均方误差
 def mse(predict, actual):
     """
-    Examples(rounded for precision):
+    示例（为保证精度已四舍五入）：
     >>> actual = [1,2,3];predict = [1,4,3]
     >>> float(np.around(mse(predict,actual),decimals = 2))
     1.33
@@ -58,10 +58,10 @@ def mse(predict, actual):
     return score
 
 
-# Root Mean Squared Error
+# Root 均方误差
 def rmse(predict, actual):
     """
-    Examples(rounded for precision):
+    示例（为保证精度已四舍五入）：
     >>> actual = [1,2,3];predict = [1,4,3]
     >>> float(np.around(rmse(predict,actual),decimals = 2))
     1.15
@@ -80,10 +80,10 @@ def rmse(predict, actual):
     return score
 
 
-# Root Mean Square Logarithmic Error
+# 均方根对数误差
 def rmsle(predict, actual):
     """
-    Examples(rounded for precision):
+    示例（为保证精度已四舍五入）：
     >>> float(np.around(rmsle(predict=[10, 2, 30], actual=[10, 10, 30]), decimals=2))
     0.75
 
@@ -105,13 +105,13 @@ def rmsle(predict, actual):
     return score
 
 
-# Mean Bias Deviation
+# 平均偏差
 def mbd(predict, actual):
     """
     This value is Negative, if the model underpredicts,
     positive, if it overpredicts.
 
-    Example(rounded for precision):
+    示例（为保证精度已四舍五入）：
 
     Here the model overpredicts
     >>> actual = [1,2,3];predict = [2,3,4]

@@ -15,7 +15,7 @@ How Mel Frequency Cepstral Coefficients are Calculated:
 
 2. Fourier Transform:
    - Apply a Fast Fourier Transform (FFT) to each audio frame to convert it
-     from the time domain to the frequency domain. This results in a
+     from the time domain to the frequency domain. This 结果 in a
      representation of the audio frame as a sequence of frequency components.
 
 3. Power Spectrum:
@@ -37,7 +37,7 @@ How Mel Frequency Cepstral Coefficients are Calculated:
 6. Discrete Cosine Transform (DCT):
    - Apply the Discrete Cosine Transform to the log filterbank energies to
      obtain the MFCC coefficients. This transformation helps decorrelate the
-     filterbank energies and captures the most important features of the audio
+     filterbank energies and captures the most important 特征 of the audio
      signal.
 
 7. Feature Extraction:
@@ -77,7 +77,7 @@ def mfcc(
     """
     Calculate Mel Frequency Cepstral Coefficients (MFCCs) from an audio signal.
 
-    Args:
+    参数：
         audio: The input audio signal.
         sample_rate: The sample rate of the audio signal (in Hz).
         ftt_size: The size of the FFT window (default is 1024).
@@ -85,13 +85,13 @@ def mfcc(
         mel_filter_num: The number of Mel filters (default is 10).
         dct_filter_num: The number of DCT filters (default is 40).
 
-    Returns:
+    返回：
         A matrix of MFCCs for the input audio.
 
-    Raises:
+    异常：
         ValueError: If the input audio is empty.
 
-    Example:
+    示例：
     >>> sample_rate = 44100  # Sample rate of 44.1 kHz
     >>> duration = 2.0  # Duration of 1 second
     >>> t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
@@ -153,13 +153,13 @@ def normalize(audio: np.ndarray) -> np.ndarray:
     """
     Normalize an audio signal by scaling it to have values between -1 and 1.
 
-    Args:
+    参数：
         audio: The input audio signal.
 
-    Returns:
+    返回：
         The normalized audio signal.
 
-    Examples:
+    示例：
     >>> audio = np.array([1, 2, 3, 4, 5])
     >>> normalized_audio = normalize(audio)
     >>> float(np.max(normalized_audio))
@@ -180,16 +180,16 @@ def audio_frames(
     """
     Split an audio signal into overlapping frames.
 
-    Args:
+    参数：
         audio: The input audio signal.
         sample_rate: The sample rate of the audio signal.
         hop_length: The length of the hopping (default is 20ms).
         ftt_size: The size of the FFT window (default is 1024).
 
-    Returns:
+    返回：
         An array of overlapping frames.
 
-    Examples:
+    示例：
     >>> audio = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]*1000)
     >>> sample_rate = 8000
     >>> frames = audio_frames(audio, sample_rate, hop_length=10, ftt_size=512)
@@ -219,14 +219,14 @@ def calculate_fft(audio_windowed: np.ndarray, ftt_size: int = 1024) -> np.ndarra
     """
     Calculate the Fast Fourier Transform (FFT) of windowed audio data.
 
-    Args:
+    参数：
         audio_windowed: The windowed audio signal.
         ftt_size: The size of the FFT (default is 1024).
 
-    Returns:
+    返回：
         The FFT of the audio data.
 
-    Examples:
+    示例：
     >>> audio_windowed = np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
     >>> audio_fft = calculate_fft(audio_windowed, ftt_size=4)
     >>> bool(np.allclose(audio_fft[0], np.array([6.0+0.j, -1.5+0.8660254j,
@@ -236,7 +236,7 @@ def calculate_fft(audio_windowed: np.ndarray, ftt_size: int = 1024) -> np.ndarra
     # Transpose the audio data to have time in rows and channels in columns
     audio_transposed = np.transpose(audio_windowed)
 
-    # Initialize an array to store the FFT results
+    # Initialize an array to store the FFT 结果
     audio_fft = np.empty(
         (int(1 + ftt_size // 2), audio_transposed.shape[1]),
         dtype=np.complex64,
@@ -247,7 +247,7 @@ def calculate_fft(audio_windowed: np.ndarray, ftt_size: int = 1024) -> np.ndarra
     for n in range(audio_fft.shape[1]):
         audio_fft[:, n] = fft.fft(audio_transposed[:, n], axis=0)[: audio_fft.shape[0]]
 
-    # Transpose the FFT results back to the original shape
+    # Transpose the FFT 结果 back to the original shape
     return np.transpose(audio_fft)
 
 
@@ -255,13 +255,13 @@ def calculate_signal_power(audio_fft: np.ndarray) -> np.ndarray:
     """
     Calculate the power of the audio signal from its FFT.
 
-    Args:
+    参数：
         audio_fft: The FFT of the audio signal.
 
-    Returns:
+    返回：
         The power of the audio signal.
 
-    Examples:
+    示例：
     >>> audio_fft = np.array([1+2j, 2+3j, 3+4j, 4+5j])
     >>> power = calculate_signal_power(audio_fft)
     >>> np.allclose(power, np.array([5, 13, 25, 41]))
@@ -275,13 +275,13 @@ def freq_to_mel(freq: float) -> float:
     """
     Convert a frequency in Hertz to the mel scale.
 
-    Args:
+    参数：
         freq: The frequency in Hertz.
 
-    Returns:
+    返回：
         The frequency in mel scale.
 
-    Examples:
+    示例：
     >>> float(round(freq_to_mel(1000), 2))
     999.99
     """
@@ -293,13 +293,13 @@ def mel_to_freq(mels: float) -> float:
     """
     Convert a frequency in the mel scale to Hertz.
 
-    Args:
+    参数：
         mels: The frequency in mel scale.
 
-    Returns:
+    返回：
         The frequency in Hertz.
 
-    Examples:
+    示例：
     >>> round(mel_to_freq(999.99), 2)
     1000.01
     """
@@ -313,15 +313,15 @@ def mel_spaced_filterbank(
     """
     Create a Mel-spaced filter bank for audio processing.
 
-    Args:
+    参数：
         sample_rate: The sample rate of the audio.
         mel_filter_num: The number of mel filters (default is 10).
         ftt_size: The size of the FFT (default is 1024).
 
-    Returns:
+    返回：
         Mel-spaced filter bank.
 
-    Examples:
+    示例：
     >>> float(round(mel_spaced_filterbank(8000, 10, 1024)[0][1], 10))
     0.0004603981
     """
@@ -352,14 +352,14 @@ def get_filters(filter_points: np.ndarray, ftt_size: int) -> np.ndarray:
     """
     Generate filters for audio processing.
 
-    Args:
+    参数：
         filter_points: A list of filter points.
         ftt_size: The size of the FFT.
 
-    Returns:
+    返回：
         A matrix of filters.
 
-    Examples:
+    示例：
     >>> get_filters(np.array([0, 20, 51, 95, 161, 256], dtype=int), 512).shape
     (4, 257)
     """
@@ -390,17 +390,17 @@ def get_filter_points(
     """
     Calculate the filter points and frequencies for mel frequency filters.
 
-    Args:
+    参数：
         sample_rate: The sample rate of the audio.
         freq_min: The minimum frequency in Hertz.
         freq_high: The maximum frequency in Hertz.
         mel_filter_num: The number of mel filters (default is 10).
         ftt_size: The size of the FFT (default is 1024).
 
-    Returns:
+    返回：
         Filter points and corresponding frequencies.
 
-    Examples:
+    示例：
     >>> filter_points = get_filter_points(8000, 0, 4000, mel_filter_num=4, ftt_size=512)
     >>> filter_points[0]
     array([  0,  20,  51,  95, 161, 256])
@@ -431,14 +431,14 @@ def discrete_cosine_transform(dct_filter_num: int, filter_num: int) -> np.ndarra
     """
     Compute the Discrete Cosine Transform (DCT) basis matrix.
 
-    Args:
+    参数：
         dct_filter_num: The number of DCT filters to generate.
         filter_num: The number of the fbank filters.
 
-    Returns:
+    返回：
         The DCT basis matrix.
 
-    Examples:
+    示例：
     >>> float(round(discrete_cosine_transform(3, 5)[0][0], 5))
     0.44721
     """
@@ -458,10 +458,10 @@ def example(wav_file_path: str = "./path-to-file/sample.wav") -> np.ndarray:
     Example function to calculate Mel Frequency Cepstral Coefficients
     (MFCCs) from an audio file.
 
-    Args:
+    参数：
         wav_file_path: The path to the WAV audio file.
 
-    Returns:
+    返回：
         np.ndarray: The computed MFCCs for the audio.
     """
     from scipy.io import wavfile

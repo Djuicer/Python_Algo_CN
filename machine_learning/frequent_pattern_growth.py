@@ -7,7 +7,7 @@ efficiently constructing the FP-Tree
 
 WIKI: https://athena.ecs.csus.edu/~mei/associationcw/FpGrowth.html
 
-Examples: https://www.javatpoint.com/fp-growth-algorithm-in-data-mining
+示例： https://www.javatpoint.com/fp-growth-algorithm-in-data-mining
 """
 
 from __future__ import annotations
@@ -20,12 +20,12 @@ class TreeNode:
     """
     A node in a Frequent Pattern tree.
 
-    Args:
+    参数：
         name: The name of this node.
         num_occur: The number of occurrences of the node.
         parent_node: The parent node.
 
-    Example:
+    示例：
     >>> parent = TreeNode("Parent", 1, None)
     >>> child = TreeNode("Child", 2, parent)
     >>> child.name
@@ -56,16 +56,16 @@ def create_tree(data_set: list, min_sup: int = 1) -> tuple[TreeNode, dict]:
     """
     Create Frequent Pattern tree
 
-    Args:
+    参数：
         data_set: A list of transactions, where each transaction is a list of items.
         min_sup: The minimum support threshold.
         Items with support less than this will be pruned. Default is 1.
 
-    Returns:
+    返回：
         The root of the FP-Tree.
         header_table: The header table dictionary with item information.
 
-    Example:
+    示例：
     >>> data_set = [
     ...    ['A', 'B', 'C'],
     ...    ['A', 'C'],
@@ -129,13 +129,13 @@ def update_tree(items: list, in_tree: TreeNode, header_table: dict, count: int) 
     """
     Update the FP-Tree with a transaction.
 
-    Args:
+    参数：
         items: List of items in the transaction.
         in_tree: The current node in the FP-Tree.
         header_table: The header table dictionary with item information.
         count: The count of the transaction.
 
-    Example:
+    示例：
     >>> data_set = [
     ...    ['A', 'B', 'C'],
     ...    ['A', 'C'],
@@ -174,11 +174,11 @@ def update_header(node_to_test: TreeNode, target_node: TreeNode) -> TreeNode:
     """
     Update the header table with a node link.
 
-    Args:
+    参数：
         node_to_test: The node to be updated in the header table.
         target_node: The node to link to.
 
-    Example:
+    示例：
     >>> data_set = [
     ...    ['A', 'B', 'C'],
     ...    ['A', 'C'],
@@ -215,11 +215,11 @@ def ascend_tree(leaf_node: TreeNode, prefix_path: list[str]) -> None:
     Ascend the FP-Tree from a leaf node to its root, adding item names to the prefix
     path.
 
-    Args:
+    参数：
         leaf_node: The leaf node to start ascending from.
         prefix_path: A list to store the item as they are ascended.
 
-    Example:
+    示例：
     >>> data_set = [
     ...    ['A', 'B', 'C'],
     ...    ['A', 'C'],
@@ -244,11 +244,11 @@ def find_prefix_path(base_pat: frozenset, tree_node: TreeNode | None) -> dict:  
     """
     Find the conditional pattern base for a given base pattern.
 
-    Args:
+    参数：
         base_pat: The base pattern for which to find the conditional pattern base.
         tree_node: The node in the FP-Tree.
 
-    Example:
+    示例：
     >>> data_set = [
     ...    ['A', 'B', 'C'],
     ...    ['A', 'C'],
@@ -286,14 +286,14 @@ def mine_tree(
     """
     Mine the FP-Tree recursively to discover frequent itemsets.
 
-    Args:
+    参数：
         in_tree: The FP-Tree to mine.
         header_table: The header table dictionary with item information.
         min_sup: The minimum support threshold.
         pre_fix: A set of items as a prefix for the itemsets being mined.
         freq_item_list: A list to store the frequent itemsets.
 
-    Example:
+    示例：
     >>> data_set = [
     ...    ['A', 'B', 'C'],
     ...    ['A', 'C'],

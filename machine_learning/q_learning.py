@@ -11,20 +11,20 @@ See: [https://en.wikipedia.org/wiki/Q-learning](https://en.wikipedia.org/wiki/Q-
 import random
 from collections import defaultdict
 
-# Type alias for state
+# 状态的类型别名
 type State = tuple[int, int]
 
-# Hyperparameters for Q-Learning
+# Q-Learning 的超参数
 LEARNING_RATE = 0.1
 DISCOUNT_FACTOR = 0.97
 EPSILON = 0.2
 EPSILON_DECAY = 0.995
 EPSILON_MIN = 0.01
 
-# Global Q-table to store state-action values
+# 用于存储状态-动作值的全局 Q-table
 q_table: dict[State, dict[int, float]] = defaultdict(lambda: defaultdict(float))
 
-# Environment variables for simple grid world
+# 简单网格世界的环境变量
 SIZE = 4
 GOAL = (SIZE - 1, SIZE - 1)
 current_state = (0, 0)
@@ -152,7 +152,7 @@ def get_available_actions_env() -> list[int]:
     """
     Get available actions in the current environment state.
     """
-    return [0, 1, 2, 3]  # 0: up, 1: right, 2: down, 3: left
+    return [0, 1, 2, 3]  # 0: 上, 1: 右, 2: 下, 3: 左
 
 
 def step_env(action: int) -> tuple[State, float, bool]:
@@ -161,13 +161,13 @@ def step_env(action: int) -> tuple[State, float, bool]:
     """
     global current_state
     x, y = current_state
-    if action == 0:  # up
+    if action == 0:  # 上
         x = max(0, x - 1)
-    elif action == 1:  # right
+    elif action == 1:  # 右
         y = min(SIZE - 1, y + 1)
-    elif action == 2:  # down
+    elif action == 2:  # 下
         x = min(SIZE - 1, x + 1)
-    elif action == 3:  # left
+    elif action == 3:  # 左
         y = max(0, y - 1)
     next_state = (x, y)
     reward = 10.0 if next_state == GOAL else -1.0

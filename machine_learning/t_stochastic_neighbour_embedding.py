@@ -14,10 +14,10 @@ from sklearn.datasets import load_iris
 
 def collect_dataset() -> tuple[ndarray, ndarray]:
     """
-    Load the Iris dataset and return features and labels.
+    Load the Iris dataset and return 特征 and labels.
 
-    Returns:
-        tuple[ndarray, ndarray]: Feature matrix and target labels.
+    返回：
+        tuple[ndarray, ndarray]: 特征矩阵和目标标签。
 
     >>> features, targets = collect_dataset()
     >>> features.shape
@@ -31,13 +31,13 @@ def collect_dataset() -> tuple[ndarray, ndarray]:
 
 def compute_pairwise_affinities(data_matrix: ndarray, sigma: float = 1.0) -> ndarray:
     """
-    Compute high-dimensional affinities (P matrix) using a Gaussian kernel.
+    使用高斯核计算高维相似度（P 矩阵）。
 
-    Args:
-        data_matrix: Input data of shape (n_samples, n_features).
+    参数：
+        data_matrix: 输入数据 of shape (n_samples, n_features).
         sigma: Gaussian kernel bandwidth.
 
-    Returns:
+    返回：
         ndarray: Symmetrized probability matrix.
 
     >>> x = np.array([[0.0, 0.0], [1.0, 0.0]])
@@ -60,12 +60,12 @@ def compute_pairwise_affinities(data_matrix: ndarray, sigma: float = 1.0) -> nda
 
 def compute_low_dim_affinities(embedding_matrix: ndarray) -> tuple[ndarray, ndarray]:
     """
-    Compute low-dimensional affinities (Q matrix) using a Student-t distribution.
+    使用 Student-t 分布计算低维相似度（Q 矩阵）。
 
-    Args:
+    参数：
         embedding_matrix: Low-dimensional embedding of shape (n_samples, n_components).
 
-    Returns:
+    返回：
         tuple[ndarray, ndarray]: (Q probability matrix, numerator matrix).
 
     >>> y = np.array([[0.0, 0.0], [1.0, 0.0]])
@@ -94,15 +94,15 @@ def apply_tsne(
     n_iter: int = 500,
 ) -> ndarray:
     """
-    Apply t-SNE for dimensionality reduction.
+    应用 t-SNE 进行降维。
 
-    Args:
-        data_matrix: Original dataset (features).
+    参数：
+        data_matrix: Original dataset (特征).
         n_components: Target dimension (2D or 3D).
         learning_rate: Step size for gradient descent.
-        n_iter: Number of iterations.
+        n_iter: 迭代次数.
 
-    Returns:
+    返回：
         ndarray: Low-dimensional embedding of the data.
 
     >>> features, _ = collect_dataset()
@@ -148,7 +148,7 @@ def apply_tsne(
 
 def main() -> None:
     """
-    Run t-SNE on the Iris dataset and display the first 5 embeddings.
+    在 Iris 数据集上运行 t-SNE，并显示前 5 个嵌入结果。
 
     >>> main()  # doctest: +ELLIPSIS
     t-SNE embedding (first 5 points):
@@ -163,7 +163,7 @@ def main() -> None:
     print("t-SNE embedding (first 5 points):")
     print(embedding[:5])
 
-    # Optional visualization (Ruff/mypy compliant)
+    # 可选的可视化 (Ruff/mypy compliant)
 
     # import matplotlib.pyplot as plt
     # plt.scatter(embedding[:, 0], embedding[:, 1], c=labels, cmap="viridis")

@@ -1,9 +1,9 @@
 """
 Linear regression is the most basic type of regression commonly used for
 predictive analysis. The idea is pretty simple: we have a dataset, and we have
-features associated with it. Features should be chosen very cautiously
+特征 associated with it. Features should be chosen very cautiously
 as they determine how much our model will be able to make future predictions.
-We try to set the weight of these features, over many iterations, so that they best
+We try to set the weight of these 特征, over many iterations, so that they best
 fit our dataset. In this particular code, I used a CSGO dataset (ADR vs
 Rating). We try to best fit a line through the dataset and estimate the parameters.
 """
@@ -49,8 +49,8 @@ def run_steep_gradient_descent(data_x, data_y, len_data, alpha, theta):
     :param len_data : length of the data_
     :param alpha    : Learning rate of the model
     :param theta    : Feature vector (weights for our model)
-    ;param return    : Updated features, using
-                       curr_features - alpha_ * gradient(w.r.t. feature)
+    ;param return    : Updated 特征, using
+                       curr_特征 - alpha_ * gradient(w.r.t. feature)
     >>> import numpy as np
     >>> data_x = np.array([[1, 2], [3, 4]])
     >>> data_y = np.array([5, 6])
@@ -76,7 +76,7 @@ def sum_of_square_error(data_x, data_y, theta):
     :param theta     : contains the feature vector
     :return          : sum of square error computed from given feature's
 
-    Example:
+    示例：
     >>> vc_x = np.array([[1.1], [2.1], [3.1]])
     >>> vc_y = np.array([1.2, 2.2, 3.2])
     >>> round(sum_of_square_error(vc_x, vc_y, np.array([1])), 3)
@@ -118,7 +118,7 @@ def mean_absolute_error(predicted_y, original_y):
     """Return sum of square error for error calculation
     :param predicted_y   : contains the output of prediction (result vector)
     :param original_y    : contains values of expected outcome
-    :return          : mean absolute error computed from given features
+    :return          : mean absolute error computed from given 特征
 
     >>> predicted_y = [3, -0.5, 2, 7]
     >>> original_y = [2.5, 0.0, 2, 8]
@@ -154,7 +154,7 @@ def plot_regression(data_x, data_y, theta):
 
 def plot_loss(err):
     """
-    Plot training loss curve
+    Plot 训练 loss curve
     """
 
     plt.plot(err)

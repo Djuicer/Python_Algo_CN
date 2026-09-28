@@ -1,26 +1,25 @@
 """
-DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+DBSCAN（具有噪声的基于密度的聚类）
 
-A density-based clustering algorithm that groups together points that are
-closely packed together, while marking points in low-density regions as outliers.
+一种基于密度的聚类算法，将紧密分布的点归为一组，并将低密度区域中的点
+标记为离群点。
 
-Unlike K-Means, DBSCAN:
-- Does NOT require specifying the number of clusters in advance
-- Can find clusters of arbitrary shapes
-- Is robust to outliers (labels them as noise, cluster id = -1)
+与 K-Means 不同，DBSCAN：
+- 无需预先指定簇的数量
+- 可以发现任意形状的簇
+- 对离群点具有鲁棒性（将其标记为噪声，cluster id = -1）
 
-Key Parameters:
-    epsilon (eps): The maximum distance between two points to be considered neighbors
-    min_points: Minimum number of points to form a dense region (core point)
+关键参数：
+    epsilon (eps)：两个点被视为邻居的最大距离
+    min_points：形成稠密区域（核心点）所需的最少点数
 
-Point Types:
-    - Core point:    Has at least `min_points` neighbors within `epsilon` distance
-    - Border point:  Within `epsilon` of a core point, but has fewer than
-                     `min_points` neighbors
-    - Noise point:   Neither core nor border — labeled as -1
+点的类型：
+    - 核心点：在 `epsilon` 距离内至少有 `min_points` 个邻居
+    - 边界点：位于核心点的 `epsilon` 范围内，但邻居少于 `min_points` 个
+    - 噪声点：既不是核心点也不是边界点，标记为 -1
 
-Time Complexity:  O(n²) with brute-force neighbor search
-Space Complexity: O(n)
+时间复杂度：使用暴力邻居搜索时为 O(n²)
+空间复杂度：O(n)
 
 References:
     - https://en.wikipedia.org/wiki/DBSCAN
@@ -31,7 +30,7 @@ References:
 
 def euclidean_distance(point_a: list[float], point_b: list[float]) -> float:
     """
-    Compute the Euclidean distance between two points in n-dimensional space.
+    计算 n 维空间中两点之间的欧几里得距离。
 
     >>> euclidean_distance([0.0, 0.0], [3.0, 4.0])
     5.0
@@ -53,7 +52,7 @@ def get_neighbors(
     data: list[list[float]], point_index: int, epsilon: float
 ) -> list[int]:
     """
-    Return indices of all points within epsilon distance of data[point_index].
+    返回与 data[point_index] 的距离不超过 epsilon 的所有点的索引。
 
     >>> data = [[0.0, 0.0], [0.1, 0.1], [5.0, 5.0]]
     >>> get_neighbors(data, 0, 0.5)
@@ -76,26 +75,23 @@ def dbscan(
     min_points: int,
 ) -> list[int]:
     """
-    Perform DBSCAN clustering on a dataset.
+    对数据集执行 DBSCAN 聚类。
 
-    Args:
-        data:       List of n-dimensional data points, e.g. [[x1,y1], [x2,y2], ...]
-        epsilon:    Maximum distance between two points to be considered neighbors.
-                    Must be greater than 0.
-        min_points: Minimum number of neighbors (including self) to be a core point.
-                    Must be at least 1.
+    参数：
+        data：n 维数据点列表，例如 [[x1,y1], [x2,y2], ...]
+        epsilon：两个点被视为邻居的最大距离，必须大于 0。
+        min_points：成为核心点所需的最少邻居数（包括自身），必须至少为 1。
 
-    Returns:
-        A list of integer cluster labels, one per input point.
-        Noise points are labeled -1.
-        Cluster IDs start from 0.
+    返回：
+        整数簇标签列表，每个输入点对应一个标签。
+        噪声点标记为 -1，簇 ID 从 0 开始。
 
-    Raises:
-        ValueError: If data is empty.
-        ValueError: If epsilon is not positive.
-        ValueError: If min_points is less than 1.
+    异常：
+        ValueError：如果 data 为空。
+        ValueError：如果 epsilon 不是正数。
+        ValueError：如果 min_points 小于 1。
 
-    Example — two well-separated clusters:
+    示例——两个明显分离的簇：
     >>> data = [
     ...     [1.0, 1.0], [1.1, 1.0], [1.0, 1.1],
     ...     [9.0, 9.0], [9.1, 9.0], [9.0, 9.1],

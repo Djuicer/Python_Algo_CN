@@ -1,5 +1,5 @@
 """
-Demonstration of the Automatic Differentiation (Reverse mode).
+自动微分（Automatic Differentiation）反向模式的演示。
 
 Reference: https://en.wikipedia.org/wiki/Automatic_differentiation
 
@@ -18,7 +18,7 @@ import numpy as np
 
 class OpType(Enum):
     """
-    Class represents list of supported operations on Variable for gradient calculation.
+    表示 Variable 为计算梯度所支持的操作列表。
     """
 
     ADD = 0
@@ -32,10 +32,9 @@ class OpType(Enum):
 
 class Variable:
     """
-    Class represents n-dimensional object which is used to wrap numpy array on which
-    operations will be performed and the gradient will be calculated.
+    表示封装 NumPy 数组的 n 维对象，将在该数组上执行运算并计算梯度。
 
-    Examples:
+    示例：
     >>> Variable(5.0)
     Variable(5.0)
     >>> Variable([5.0, 2.9])
@@ -49,9 +48,9 @@ class Variable:
     def __init__(self, value: Any) -> None:
         self.value = np.array(value)
 
-        # pointers to the operations to which the Variable is input
+    # 指向以该 Variable 为输入的操作
         self.param_to: list[Operation] = []
-        # pointer to the operation of which the Variable is output of
+    # 指向以该 Variable 为输出的操作
         self.result_of: Operation = Operation(OpType.NOOP)
 
     def __repr__(self) -> str:
@@ -64,7 +63,7 @@ class Variable:
         result = Variable(self.value + other.value)
 
         with GradientTracker() as tracker:
-            # if tracker is enabled, computation graph will be updated
+        # 如果启用了跟踪器，则更新计算图
             if tracker.enabled:
                 tracker.append(OpType.ADD, params=[self, other], output=result)
         return result
@@ -128,9 +127,8 @@ class Variable:
 
 class Operation:
     """
-    Class represents operation between single or two Variable objects.
-    Operation objects contains type of operation, pointers to input Variable
-    objects and pointer to resulting Variable from the operation.
+    表示一个或两个 Variable 对象之间的运算。Operation 对象包含运算类型、
+    指向输入 Variable 对象的引用，以及指向运算结果 Variable 的引用。
     """
 
     def __init__(
@@ -153,10 +151,9 @@ class Operation:
 
 class GradientTracker:
     """
-    Class contains methods to compute partial derivatives of Variable
-    based on the computation graph.
+    包含基于计算图求 Variable 偏导数的方法。
 
-    Examples:
+    示例：
 
     >>> with GradientTracker() as tracker:
     ...     a = Variable([2.0, 5.0])
@@ -193,9 +190,7 @@ class GradientTracker:
 
     def __new__(cls) -> Self:
         """
-        Executes at the creation of class object and returns if
-        object is already created. This class follows singleton
-        design pattern.
+        创建类对象时执行；若对象已经创建则直接返回。本类采用单例设计模式。
         """
         if cls.instance is None:
             cls.instance = super().__new__(cls)
@@ -224,13 +219,12 @@ class GradientTracker:
         other_params: dict | None = None,
     ) -> None:
         """
-        Adds Operation object to the related Variable objects for
-        creating computational graph for calculating gradients.
+        将 Operation 对象添加到相关 Variable 对象，以创建用于计算梯度的计算图。
 
-        Args:
-            op_type: Operation type
-            params: Input parameters to the operation
-            output: Output variable of the operation
+        参数：
+            op_type：运算类型
+            params：运算的输入参数
+            output：运算的输出变量
         """
         operation = Operation(op_type, other_params=other_params)
         param_nodes = []
@@ -244,29 +238,26 @@ class GradientTracker:
 
     def gradient(self, target: Variable, source: Variable) -> np.ndarray | None:
         """
-        Reverse accumulation of partial derivatives to calculate gradients
-        of target variable with respect to source variable.
+        反向累积偏导数，计算目标变量相对于源变量的梯度。
 
-        Args:
-            target: target variable for which gradients are calculated.
-            source: source variable with respect to which the gradients are
-            calculated.
+        参数：
+            target：要计算梯度的目标变量。
+            source：计算梯度所参照的源变量。
 
-        Returns:
-            Gradient of the source variable with respect to the target variable
+        返回：
+            源变量相对于目标变量的梯度
         """
 
-        # partial derivatives with respect to target
+        # 相对于目标变量的偏导数
         partial_deriv: dict[Variable, np.ndarray] = {}
         partial_deriv[target] = np.ones_like(target.to_ndarray())
 
-        # iterating through each operations in the computation graph
+        # 遍历计算图中的每个操作
         operation_queue = [target.result_of]
         while len(operation_queue) > 0:
             operation = operation_queue.pop()
             for param in operation.params:
-                # as per the chain rule, multiplying partial derivatives
-                # of variables with respect to the target
+            # 根据链式法则，将变量相对于目标的偏导数相乘
                 dparam_doutput = self.derivative(param, operation)
                 dparam_dtarget = dparam_doutput * partial_deriv[operation.output]
                 partial_deriv[param] = (
@@ -281,15 +272,14 @@ class GradientTracker:
 
     def derivative(self, param: Variable, operation: Operation) -> np.ndarray:
         """
-        Compute the derivative of given operation/function
+        计算给定运算或函数的导数
 
-        Args:
-            param: variable to be differentiated
-            operation: function performed on the input variable
+        参数：
+            param：要进行求导的变量
+            operation：对输入变量执行的函数
 
-        Returns:
-            Derivative of input variable with respect to the output of
-            the operation
+        返回：
+            输入变量相对于运算输出的导数
         """
         params = operation.params
 

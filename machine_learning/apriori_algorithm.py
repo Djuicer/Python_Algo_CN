@@ -1,14 +1,13 @@
 """
-Apriori Algorithm is a Association rule mining technique, also known as market basket
-analysis, aims to discover interesting relationships or associations among a set of
-items in a transactional or relational database.
+Apriori 算法是一种关联规则挖掘技术，也称为购物篮分析，旨在发现事务型
+或关系型数据库中一组项目之间值得关注的关系或关联。
 
-For example, Apriori Algorithm states: "If a customer buys item A and item B, then they
-are likely to buy item C."  This rule suggests a relationship between items A, B, and C,
-indicating that customers who purchased A and B are more likely to also purchase item C.
+例如，Apriori 算法可以得到如下规则：“如果顾客购买了商品 A 和商品 B，
+那么他们很可能也会购买商品 C。”该规则表明商品 A、B、C 之间存在关联，
+即购买 A 和 B 的顾客更有可能同时购买 C。
 
 WIKI: https://en.wikipedia.org/wiki/Apriori_algorithm
-Examples: https://www.kaggle.com/code/earthian/apriori-association-rules-mining
+示例： https://www.kaggle.com/code/earthian/apriori-association-rules-mining
 """
 
 from collections import Counter
@@ -17,7 +16,7 @@ from itertools import combinations
 
 def load_data() -> list[list[str]]:
     """
-    Returns a sample transaction dataset.
+    返回一个事务数据集示例。
 
     >>> load_data()
     [['milk'], ['milk', 'butter'], ['milk', 'bread'], ['milk', 'bread', 'chips']]
@@ -27,13 +26,11 @@ def load_data() -> list[list[str]]:
 
 def prune(itemset: list, candidates: list, length: int) -> list:
     """
-    Prune candidate itemsets that are not frequent.
-    The goal of pruning is to filter out candidate itemsets that are not frequent.  This
-    is done by checking if all the (k-1) subsets of a candidate itemset are present in
-    the frequent itemsets of the previous iteration (valid subsequences of the frequent
-    itemsets from the previous iteration).
+    剪除非频繁候选项集。
+    剪枝的目的是过滤掉非频繁候选项集。具体做法是检查候选项集的所有
+    (k-1) 子集是否都出现在上一轮的频繁项集中（即上一轮频繁项集的有效子序列）。
 
-    Prunes candidate itemsets that are not frequent.
+    剪除非频繁候选项集。
 
     >>> itemset = ['X', 'Y', 'Z']
     >>> candidates = [['X', 'Y'], ['X', 'Z'], ['Y', 'Z']]
@@ -64,7 +61,7 @@ def prune(itemset: list, candidates: list, length: int) -> list:
 
 def apriori(data: list[list[str]], min_support: int) -> list[tuple[list[str], int]]:
     """
-    Returns a list of frequent itemsets and their support counts.
+    返回频繁项集及其支持度计数的列表。
 
     >>> data = [['A', 'B', 'C'], ['A', 'B'], ['A', 'C'], ['A', 'D'], ['B', 'C']]
     >>> apriori(data, 2)
@@ -79,17 +76,17 @@ def apriori(data: list[list[str]], min_support: int) -> list[tuple[list[str], in
     length = 1
 
     while itemset:
-        # Count itemset support
+            # 统计项集的支持度
         counts = [0] * len(itemset)
         for transaction in data:
             for j, candidate in enumerate(itemset):
                 if all(item in transaction for item in candidate):
                     counts[j] += 1
 
-        # Prune infrequent itemsets
+        # 剪除非频繁项集
         itemset = [item for i, item in enumerate(itemset) if counts[i] >= min_support]
 
-        # Append frequent itemsets (as a list to maintain order)
+        # 追加频繁项集（使用列表以保持顺序）
         for i, item in enumerate(itemset):
             frequent_itemsets.append((sorted(item), counts[i]))
 
@@ -103,17 +100,17 @@ if __name__ == "__main__":
     """
     Apriori algorithm for finding frequent itemsets.
 
-    Args:
+    参数：
         data: A list of transactions, where each transaction is a list of items.
         min_support: The minimum support threshold for frequent itemsets.
 
-    Returns:
+    返回：
         A list of frequent itemsets along with their support counts.
     """
     import doctest
 
     doctest.testmod()
 
-    # user-defined threshold or minimum support level
+    # 用户定义的阈值或最小支持度
     frequent_itemsets = apriori(data=load_data(), min_support=2)
     print("\n".join(f"{itemset}: {support}" for itemset, support in frequent_itemsets))

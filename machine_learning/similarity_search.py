@@ -18,7 +18,7 @@ from numpy.linalg import norm
 
 def euclidean(input_a: np.ndarray, input_b: np.ndarray) -> float:
     """
-    Calculates euclidean distance between two data.
+    计算两个数据之间的欧几里得距离。
     :param input_a: ndarray of first vector.
     :param input_b: ndarray of second vector.
     :return: Euclidean distance of input_a and input_b. By using math.sqrt(),
@@ -142,7 +142,7 @@ def similarity_search(
 
 def cosine_similarity(input_a: np.ndarray, input_b: np.ndarray) -> float:
     """
-    Calculates cosine similarity between two data.
+    计算两个数据之间的余弦相似度。
     :param input_a: ndarray of first vector.
     :param input_b: ndarray of second vector.
     :return: Cosine similarity of input_a and input_b. By using math.sqrt(),
