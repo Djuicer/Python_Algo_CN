@@ -6,7 +6,7 @@ from random import random
 
 class MarkovChainGraphUndirectedUnweighted:
     """
-    Undirected Unweighted Graph for running Markov Chain Algorithm
+    用于运行马尔可夫链算法的无向无权图
     """
 
     def __init__(self) -> None:
@@ -42,8 +42,8 @@ def get_transitions(
     start: str, transitions: list[tuple[str, str, float]], steps: int
 ) -> dict[str, int]:
     """
-    Running Markov Chain algorithm and calculating the number of times each node is
-    visited
+    运行马尔可夫链算法并计算每个节点被访问的次数
+    访问过
 
     >>> transitions = [
     ... ('a', 'a', 0.9),

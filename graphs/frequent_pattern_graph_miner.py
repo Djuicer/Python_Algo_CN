@@ -1,10 +1,10 @@
 """
-FP-GraphMiner - A Fast Frequent Pattern Mining Algorithm for Network Graphs
+FP-GraphMiner - 网络图的快速频繁模式挖掘算法
 
-A novel Frequent Pattern Graph Mining algorithm, FP-GraphMiner, that compactly
-represents a set of network graphs as a Frequent Pattern Graph (or FP-Graph).
-This graph can be used to efficiently mine frequent subgraphs including maximal
-frequent subgraphs and maximum common subgraphs.
+一种新颖的频繁模式图挖掘算法 FP-GraphMiner
+将一组网络图表示为频繁模式图（或FP图）。
+该图可用于有效地挖掘频繁子图，包括最大
+频繁子图和最大公共子图。
 
 URL: https://www.researchgate.net/publication/235255851
 """
@@ -26,7 +26,7 @@ edge_array = [
 
 def get_distinct_edge(edge_array):
     """
-    Return Distinct edges from edge array of multiple graphs
+    从多个图的边数组返回不同的边
     >>> sorted(get_distinct_edge(edge_array))
     ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     """
@@ -39,7 +39,7 @@ def get_distinct_edge(edge_array):
 
 def get_bitcode(edge_array, distinct_edge):
     """
-    Return bitcode of distinct_edge
+    返回distinct_edge的位码
     """
     bitcode = ["0"] * len(edge_array)
     for i, row in enumerate(edge_array):
@@ -52,7 +52,7 @@ def get_bitcode(edge_array, distinct_edge):
 
 def get_frequency_table(edge_array):
     """
-    Returns Frequency Table
+    返回频率表
     """
     distinct_edge = get_distinct_edge(edge_array)
     frequency_table = {}
@@ -63,7 +63,7 @@ def get_frequency_table(edge_array):
         # bt=''.join(bit)
         s = bit.count("1")
         frequency_table[item] = [s, bit]
-    # Store [Distinct edge, WT(Bitcode), Bitcode] in descending order
+    # 按降序存储[独特边界，WT(Bitcode)，Bitcode]
     sorted_frequency_table = [
         [k, v[0], v[1]]
         for k, v in sorted(frequency_table.items(), key=lambda v: v[1][0], reverse=True)
@@ -73,8 +73,8 @@ def get_frequency_table(edge_array):
 
 def get_nodes(frequency_table):
     """
-    Returns nodes
-    format nodes={bitcode:edges that represent the bitcode}
+    返回节点
+    格式节点={位码:表示位码的边}
     >>> get_nodes([['ab', 5, '11111'], ['ac', 5, '11111'], ['df', 5, '11111'],
     ...            ['bd', 5, '11111'], ['bc', 5, '11111']])
     {'11111': ['ab', 'ac', 'df', 'bd', 'bc']}
@@ -87,8 +87,8 @@ def get_nodes(frequency_table):
 
 def get_cluster(nodes):
     """
-    Returns cluster
-    format cluster:{WT(bitcode):nodes with same WT}
+    返回簇
+    格式簇：{WT(bitcode):具有相同WT的节点}
     """
     cluster = {}
     for key, value in nodes.items():
@@ -98,7 +98,7 @@ def get_cluster(nodes):
 
 def get_support(cluster):
     """
-    Returns support
+    返回支持
     >>> get_support({5: {'11111': ['ab', 'ac', 'df', 'bd', 'bc']},
     ...              4: {'11101': ['ef', 'eg', 'de', 'fg'], '11011': ['cd']},
     ...              3: {'11001': ['ad'], '10101': ['dg']},
@@ -129,7 +129,7 @@ def print_all() -> None:
 
 def create_edge(nodes, graph, cluster, c1) -> None:
     """
-    create edge between the nodes
+    在节点之间创建边
     """
     for i in cluster[c1]:
         count = 0
@@ -137,7 +137,7 @@ def create_edge(nodes, graph, cluster, c1) -> None:
         while c2 < max(cluster.keys()):
             for j in cluster[c2]:
                 """
-                creates edge only if the condition satisfies
+                仅当条件满足时才创建边
                 """
                 if int(i, 2) & int(j, 2) == int(i, 2):
                     if tuple(nodes[i]) in graph:
@@ -171,7 +171,7 @@ def construct_graph(cluster, nodes):
 
 def my_dfs(graph, start, end, path=None) -> None:
     """
-    find different DFS walk from given node to Header node
+    找到从给定节点到 Header 节点的不同 DFS 遍历
     """
     path = (path or []) + [start]
     if start == end:
@@ -183,7 +183,7 @@ def my_dfs(graph, start, end, path=None) -> None:
 
 def find_freq_subgraph_given_support(s, cluster, graph) -> None:
     """
-    find edges of multiple frequent subgraphs
+    查找多个频繁子图的边
     """
     k = int(s / 100 * (len(cluster) - 1))
     for i in cluster[k]:
@@ -192,7 +192,7 @@ def find_freq_subgraph_given_support(s, cluster, graph) -> None:
 
 def freq_subgraphs_edge_list(paths):
     """
-    returns Edge list for frequent subgraphs
+    返回频繁子图的边列表
     """
     freq_sub_el = []
     for edges in paths:
@@ -208,7 +208,7 @@ def freq_subgraphs_edge_list(paths):
 
 def preprocess(edge_array) -> None:
     """
-    Preprocess the edge array
+    预处理边数组
     >>> preprocess([['ab-e1', 'ac-e3', 'ad-e5', 'bc-e4', 'bd-e2', 'be-e6', 'bh-e12',
     ...              'cd-e2', 'ce-e4', 'de-e1', 'df-e8', 'dg-e5', 'dh-e10', 'ef-e3',
     ...              'eg-e2', 'fg-e6', 'gh-e6', 'hi-e3']])

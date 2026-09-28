@@ -1,4 +1,4 @@
-# Finding longest distance in Directed Acyclic Graph using KahnsAlgorithm
+# 使用Kahns算法找到有向无环的终止距离
 def longest_distance(graph) -> None:
     indegree = [0] * len(graph)
     queue = []
@@ -25,6 +25,6 @@ def longest_distance(graph) -> None:
     print(max(long_dist))
 
 
-# Adjacency list of Graph
+# 图的邻接表
 graph = {0: [2, 3, 4], 1: [2, 7], 2: [5], 3: [5, 7], 4: [7], 5: [6], 6: [7], 7: []}
 longest_distance(graph)

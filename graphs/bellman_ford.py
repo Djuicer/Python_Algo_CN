@@ -21,8 +21,8 @@ def bellman_ford(
     graph: list[dict[str, int]], vertex_count: int, edge_count: int, src: int
 ) -> list[float]:
     """
-    Returns shortest paths from a vertex src to all
-    other vertices.
+    返回从顶点 src 到所有顶点的最短路径
+    其他顶点。
     >>> edges = [(2, 1, -10), (3, 2, 3), (0, 3, 5), (0, 1, 4)]
     >>> g = [{"src": s, "dst": d, "weight": w} for s, d, w in edges]
     >>> bellman_ford(g, 4, 4, 0)

@@ -1,5 +1,5 @@
 """
-pseudo-code
+伪代码
 
 DIJKSTRA(graph G, start vertex s, destination vertex d):
 
@@ -26,21 +26,21 @@ DIJKSTRA(graph G, start vertex s, destination vertex d):
 
 // At the end, if destination d is not reachable, return -1
 
-You can think at cost as a distance where Dijkstra finds the shortest distance
-between vertices s and v in a graph G. The use of a min heap as H guarantees
-that if a vertex has already been explored there will be no other path with
-shortest distance, that happens because heapq.heappop will always return the
-next vertex with the shortest distance, considering that the heap stores not
-only the distance between previous vertex and current vertex but the entire
-distance between each vertex that makes up the path from start vertex to target
-vertex.
+您可以将代价视为 Dijkstra 找到最短距离的距离
+图G中的边s和v之间。使用最小作为堆H保证
+如果一个顶点已经被探索过，那么就没有其他路径了
+最短距离，发生这种情况是因为 heapq.heappop 将始终返回
+考虑到堆存储的不是距离最短的下一个顶点
+仅前一个顶点和当前顶点之间的距离，但整个
+构成从起始顶点到目标的路径的每个顶点之间的距离
+顶点。
 """
 
 import heapq
 
 
 def dijkstra(graph: dict[str, list[tuple[str, int]]], start: str, end: str) -> int:
-    """Return the cost of the shortest path between vertices start and end.
+    """返回顶点起点和终点之间的最短路径的代价。
 
     >>> dijkstra(G, "E", "C")
     6
@@ -51,7 +51,7 @@ def dijkstra(graph: dict[str, list[tuple[str, int]]], start: str, end: str) -> i
     """
     heap: list[tuple[int, str]] = [(0, start)]  # (cost, node)
     visited: set[str] = set()
-    costs: dict[str, int] = {start: 0}  # Store minimum costs to reach each node
+    costs: dict[str, int] = {start: 0}  # 存储到达每个节点的最低代价
 
     while heap:
         cost, u = heapq.heappop(heap)
@@ -65,7 +65,7 @@ def dijkstra(graph: dict[str, list[tuple[str, int]]], start: str, end: str) -> i
             if v in visited:
                 continue
             next_cost = cost + c
-            # Only push to heap if a cheaper path is found
+            # 仅当找到更便宜的路径时才推送到堆
             if next_cost < costs.get(v, float("inf")):
                 costs[v] = next_cost
                 heapq.heappush(heap, (next_cost, v))
@@ -83,7 +83,7 @@ G = {
 }
 
 r"""
-Layout of G2:
+G2布局：
 
 E -- 1 --> B -- 1 --> C -- 1 --> D -- 1 --> F
  \                                         /\
@@ -99,7 +99,7 @@ G2 = {
 }
 
 r"""
-Layout of G3:
+G3布局：
 
 E -- 1 --> B -- 1 --> C -- 1 --> D -- 1 --> F
  \                                         /\

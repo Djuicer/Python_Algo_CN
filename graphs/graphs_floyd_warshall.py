@@ -1,7 +1,7 @@
 # floyd_warshall.py
 """
-The problem is to find the shortest distance between all pairs of vertices in a
-weighted directed graph that can have negative edge weights.
+问题是找到一个中所有边对之间的最短距离
+可以具有负边权重的加权有向图。
 """
 
 
@@ -19,19 +19,19 @@ def _print_dist(dist, v) -> None:
 
 def floyd_warshall(graph, v):
     """
-    :param graph: 2D array calculated from weight[edge[i, j]]
-    :type graph: List[List[float]]
-    :param v: number of vertices
-    :type v: int
-    :return: shortest distance between all vertex pairs
-    distance[u][v] will contain the shortest distance from vertex u to v.
+    :param graph: 根据权重[edge[i, j]]计算的二维数组
+    ：类型图：列表[列表[浮点]]
+    :param v: 顶点数
+    ：类型 v：int
+    :return: 所有边对之间的最短距离
+    distance[u][v] 将包含从顶点 u 到 v 的最短距离。
 
     1. For all edges from v to n, distance[i][j] = weight(edge(i, j)).
     3. The algorithm then performs distance[i][j] = min(distance[i][j], distance[i][k] +
-        distance[k][j]) for each possible pair i, j of vertices.
+        distance[k][j]) 对于每个可能的顶点对 i, j 。
     4. The above is repeated for each vertex k in the graph.
     5. Whenever distance[i][j] is given a new minimum value, next vertex[i][j] is
-        updated to the next vertex[i][k].
+        更新到下一个顶点[i][k]。
 
 
     >>> graph = [
@@ -62,11 +62,11 @@ def floyd_warshall(graph, v):
         for j in range(v):
             dist[i][j] = graph[i][j]
 
-            # check vertex k against all other vertices (i, j)
+            # 检查顶点 k 与所有其他顶点 (i, j)
     for k in range(v):
-        # looping through rows of graph array
+        # 循环遍历图数组的行
         for i in range(v):
-            # looping through columns of graph array
+            # 循环遍历图数组的列
             for j in range(v):
                 if (
                     dist[i][k] != float("inf")
@@ -88,8 +88,8 @@ if __name__ == "__main__":
     for i in range(v):
         graph[i][i] = 0.0
 
-        # src and dst are indices that must be within the array size graph[e][v]
-        # failure to follow this will result in an error
+        # src 和 dst 必须安装数组大小 graph[e][v] 内的索引
+        # 不遵循此操作将导致错误
     for i in range(e):
         print("\nEdge ", i + 1)
         src = int(input("Enter source:"))
@@ -99,27 +99,27 @@ if __name__ == "__main__":
 
     floyd_warshall(graph, v)
 
-    # Example Input
-    # Enter number of vertices: 3
-    # Enter number of edges: 2
+    # 输入示例
+    # 输入顶点数：3
+    # 输入边数：2
 
-    # # generated graph from vertex and edge inputs
+    # # 从顶点和边输入生成图
     # [[inf, inf, inf], [inf, inf, inf], [inf, inf, inf]]
     # [[0.0, inf, inf], [inf, 0.0, inf], [inf, inf, 0.0]]
 
-    # specify source, destination and weight for edge #1
-    # Edge  1
-    # Enter source:1
-    # Enter destination:2
-    # Enter weight:2
+    # 指定边 #1 的源、目的地和权重
+    # 边1
+    # 输入来源：1
+    # 输入目的地：2
+    # 输入重量：2
 
-    # specify source, destination and weight for edge #2
-    # Edge  2
-    # Enter source:2
-    # Enter destination:1
-    # Enter weight:1
+    # 指定边 #2 的源、目的地和权重
+    # 边2
+    # 输入来源：2
+    # 输入目的地：1
+    # 输入重量：1
 
-    # # Expected Output from the vertice, edge and src, dst, weight inputs!!
+    # # 顶点、边和src、dst、权重输入的预期！！
     # 0		INF	INF
-    # INF	0	2
-    # INF	1	0
+    # 中核因子 0 2
+    # 中核因子 1 0

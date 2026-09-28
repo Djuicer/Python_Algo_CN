@@ -3,18 +3,18 @@ from collections import defaultdict, deque
 
 def is_bipartite_dfs(graph: dict[int, list[int]]) -> bool:
     """
-    Check if a graph is bipartite using depth-first search (DFS).
+    使用深度优先搜索（DFS）检查图是否是二分图。
 
-    Args:
-        `graph`: Adjacency list representing the graph.
+    参数：
+        `graph`：表示图的邻接表。
 
-    Returns:
-        ``True`` if bipartite, ``False`` otherwise.
+    返回：
+        如果是二分图则返回 ``True``，否则返回 ``False``。
 
-    Checks if the graph can be divided into two sets of vertices, such that no two
-    vertices within the same set are connected by an edge.
+    检查图是否可以分为两组顶点，使得没有两个顶点
+    同一集合内的顶点通过边连接。
 
-    Examples:
+    示例：
 
     >>> is_bipartite_dfs({0: [1, 2], 1: [0, 3], 2: [0, 4]})
     True
@@ -51,15 +51,15 @@ def is_bipartite_dfs(graph: dict[int, list[int]]) -> bool:
 
     def depth_first_search(node: int, color: int) -> bool:
         """
-        Perform Depth-First Search (DFS) on the graph starting from a node.
+        从节点开始对图执行深度优先搜索(DFS)。
 
-        Args:
-            node: The current node being visited.
-            color: The color assigned to the current node.
+        参数：
+            节点：当前访问的节点。
+            color：分配给当前节点的颜色。
 
-        Returns:
-            True if the graph is bipartite starting from the current node,
-            False otherwise.
+        返回：
+            如果图是从当前节点开始的二分图，则为true，
+            否则为假。
         """
         if visited[node] == -1:
             visited[node] = color
@@ -79,18 +79,18 @@ def is_bipartite_dfs(graph: dict[int, list[int]]) -> bool:
 
 def is_bipartite_bfs(graph: dict[int, list[int]]) -> bool:
     """
-    Check if a graph is bipartite using a breadth-first search (BFS).
+    使用广度优先搜索（BFS）检查图是否是二分图。
 
-    Args:
-        `graph`: Adjacency list representing the graph.
+    参数：
+        `graph`：表示图的邻接表。
 
-    Returns:
-        ``True`` if bipartite, ``False`` otherwise.
+    返回：
+        如果是二分图则返回 ``True``，否则返回 ``False``。
 
-    Check if the graph can be divided into two sets of vertices, such that no two
-    vertices within the same set are connected by an edge.
+    检查图是否可以分为两组顶点，使得没有两个顶点
+    同一集合内的顶点通过边连接。
 
-    Examples:
+    示例：
 
     >>> is_bipartite_bfs({0: [1, 2], 1: [0, 3], 2: [0, 4]})
     True

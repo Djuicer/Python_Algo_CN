@@ -1,48 +1,41 @@
-"""Hopcroft-Karp algorithm for finding maximum cardinality matching in bipartite graphs.
+"""Hopcroft-Karp 算法用于在二分图中查找最大基数匹配。
 
 Reference:
     https://en.wikipedia.org/wiki/Hopcroft%E2%80%93Karp_algorithm
 
-The Hopcroft-Karp algorithm finds a maximum cardinality matching in an unweighted
-bipartite graph in O(|E| * sqrt(|V|)) time.
+Hopcroft-Karp 算法能以 O(|E| * sqrt(|V|)) 的时间复杂度，找出无权
+二分图中的最大基数匹配。
 
-Key Concepts and Conditions:
-1. Bipartite Condition:
-   A graph G = (U union V, E) is bipartite if its vertices can be partitioned into
-   two disjoint sets U (left partition) and V (right partition) such that every
-   edge connects a vertex in U to a vertex in V. No edges may exist between two
-   vertices within the same partition (U intersect V = empty set). Vertices cannot
-   be None.
+主要概念和条件：
+1. 二分条件：
+   若图 G = (U union V, E) 的顶点可以划分为两个不相交的集合 U（左部）
+   和 V（右部），且每条边均连接 U 与 V 中的顶点，则该图是二分图。
+   同一部分内部不能存在边，且顶点不能为 None。
 
-2. Matching Condition:
-   A matching M is a subset of edges such that no two edges share a common vertex.
-   A vertex is 'free' (unmatched) if it is not incident to any edge in M.
+2. 匹配条件：
+   匹配 M 是边的子集，使得没有两条边共享公共顶点。
+   如果一个顶点不与 M 中的任何边相交，则该顶点是“自由”（不匹配）的。
 
-3. Alternating and Augmenting Paths:
-   - Alternating path: A path whose edges alternate between unmatched edges
-     (not in M) and matched edges (in M).
-   - Augmenting path: An alternating path that starts and ends at distinct free
-     vertices.
-   - Berge's Lemma: A matching is of maximum cardinality if and only if no
-     augmenting paths exist.
+3. 交替路径与增广路径：
+   - 交替路径：边在非匹配边（不在 M 中）与匹配边（在 M 中）之间交替的路径。
+   - 增广路径：起点和终点是不同自由顶点的交替路径。
+   - Berge 引理：当且仅当不存在增广路径时，匹配具有最大基数。
 
-4. Hopcroft-Karp Layering and Augmentation Conditions:
-   Instead of searching for augmenting paths one-by-one (O(|V| * |E|)), Hopcroft-Karp
-   operates in phases:
-   - BFS Phase (Layering): Simultaneously searches from all free vertices in U to
-     find the length of the shortest augmenting paths. It builds a layered DAG of
-     alternating levels. If no free vertex in V is reachable, the algorithm terminates.
-   - DFS Phase (Augmentation): Discovers a maximal set of vertex-disjoint augmenting
-     paths of the shortest length found by BFS. It only traverses edges satisfying:
-     distance_map[matched_left] == distance_map[curr_left] + 1.
-   - Symmetric Difference: Matching edges along each augmenting path are flipped
-     (unmatched becomes matched, matched becomes unmatched).
-   - Iterative DFS: The DFS phase is implemented iteratively using an explicit stack
-     to prevent RecursionError on graphs with large alternating path diameters.
+4. Hopcroft-Karp 分层与增广条件：
+   Hopcroft-Karp 不会逐一搜索增广路径，而是分阶段运行：
+   - BFS 阶段（分层）：同时从 U 中的所有自由顶点开始搜索，以找出最短
+     增广路径的长度，并构建交替层次的分层 DAG。若无法到达 V 中的自由
+     顶点，算法终止。
+   - DFS 阶段（增广）：找出一组数量最多、顶点互不相交且长度为 BFS 所得
+     最短长度的增广路径。它只遍历满足以下条件的边：
+     distance_map[matched_left] == distance_map[curr_left] + 1。
+   - 对称差：翻转每条增广路径上的匹配状态（非匹配变为匹配，匹配变为非匹配）。
+   - 迭代 DFS：DFS 阶段使用显式栈迭代实现，避免交替路径直径较大时出现
+     RecursionError。
 
-Complexity:
-    Time Complexity:  O(|E| * sqrt(|V|))
-    Space Complexity: O(|V| + |E|)
+复杂度：
+    时间复杂度：O(|E| * sqrt(|V|))
+    空间复杂度：O(|V| + |E|)
 """
 
 from __future__ import annotations
@@ -54,7 +47,7 @@ _NIL = object()
 
 
 class HopcroftKarp[T]:
-    """Class implementing the Hopcroft-Karp maximum bipartite matching algorithm.
+    """实现 Hopcroft-Karp 最大二分匹配算法的类。
 
     >>> hk = HopcroftKarp({"u1": ["v1", "v2"], "u2": ["v1"], "u3": ["v2", "v3"]})
     >>> hk.maximum_matching()
@@ -62,9 +55,9 @@ class HopcroftKarp[T]:
     """
 
     def __init__(self, graph: dict[T, list[T]]) -> None:
-        """Initialize bipartite partitions and match pairing dictionaries.
+        """初始化二分分区并匹配配对字典。
 
-        Raises:
+        异常：
             ValueError: If partitions overlap or if any vertex is None.
 
         >>> hk = HopcroftKarp({"u1": ["v1"]})
@@ -106,19 +99,19 @@ class HopcroftKarp[T]:
             )
             raise ValueError(msg)
 
-        # pair_left[u] stores matched vertex in V for u in U (or _NIL if free)
+        # pair_left[u] 将 u 的顶点存储在 V 中（或者 _NIL 如果闲置）
         self.pair_left: dict[T, T | object] = dict.fromkeys(self.left_vertices, _NIL)
-        # pair_right[v] stores matched vertex in U for v in V (or _NIL if free)
+        # pair_right[v] 将 v 中的 v 的对应顶点存储在 U 中（如果闲置则为 _NIL）
         self.pair_right: dict[T, T | object] = dict.fromkeys(self.right_vertices, _NIL)
-        # distance_map stores the BFS level from free vertices in U
+        # distance_map 存储 U 中自由顶点的 BFS 级别
         self.distance_map: dict[T | object, float] = {}
 
     def breadth_first_search(self) -> bool:
-        """BFS Phase: Layer the graph and find shortest augmenting path length.
+        """BFS 阶段：对图进行分层并找到最短增广路径长度。
 
-        Returns:
-            True if at least one augmenting path to a free vertex in V exists,
-            False otherwise (termination condition).
+        返回：
+            如果存在至少一条到 V 中自由顶点的增广路径，则为 True，
+            否则为 False（终止条件）。
 
         >>> hk = HopcroftKarp({"u1": ["v1"]})
         >>> hk.breadth_first_search()
@@ -130,7 +123,7 @@ class HopcroftKarp[T]:
         """
         queue: deque[T] = deque()
 
-        # Enqueue all free vertices in the left partition at level 0
+        # 将左侧分区中的所有空闲顶点排入级别 0 的队列
         for left_vertex in self.left_vertices:
             if self.pair_left[left_vertex] is _NIL:
                 self.distance_map[left_vertex] = 0.0
@@ -138,7 +131,7 @@ class HopcroftKarp[T]:
             else:
                 self.distance_map[left_vertex] = math.inf
 
-        # distance_map[_NIL] represents distance to a free vertex in right partition
+        # distance_map[_NIL]表示到右下部中自由上部的距离
         self.distance_map[_NIL] = math.inf
 
         while queue:
@@ -156,16 +149,16 @@ class HopcroftKarp[T]:
         return self.distance_map[_NIL] != math.inf
 
     def depth_first_search(self, start_left: T) -> bool:
-        """DFS Phase: Find and augment along shortest augmenting paths iteratively.
+        """DFS 阶段：沿着最短增广路径迭代查找并增广。
 
-        Implemented iteratively with an explicit stack to prevent RecursionError
-        on graphs with deep alternating paths (diameter > 1000).
+        使用显式堆栈迭代实现以防止 RecursionError
+        在具有深度交替路径的图上（直径 > 1000）。
 
-        Parameters:
-            start_left: The free vertex in the left partition to start the search from.
+        参数：
+            start_left：左侧分区中开始搜索的自由顶点。
 
-        Returns:
-            True if an augmenting path was found and augmented, False otherwise.
+        返回：
+            如果找到并增强了增广路径，则为 True，否则为 False。
 
         >>> hk = HopcroftKarp({"u1": ["v1"]})
         >>> _ = hk.breadth_first_search()
@@ -190,7 +183,7 @@ class HopcroftKarp[T]:
                 right_vertex = neighbors[idx]
                 matched_left = self.pair_right[right_vertex]
 
-                # Augmentation Condition: Only step along shortest layer paths
+                # 增强条件：仅沿着最短层路径步进
                 if (
                     self.distance_map.get(matched_left, math.inf)
                     == self.distance_map[curr_left] + 1.0
@@ -199,7 +192,7 @@ class HopcroftKarp[T]:
                     path.append((curr_left, right_vertex))
 
                     if matched_left is _NIL:
-                        # Reached a free right vertex: augment matching along path
+                        # 到达自由右顶点：沿路径增强匹配
                         for path_left, path_right in path:
                             self.pair_right[path_right] = path_left
                             self.pair_left[path_left] = path_right
@@ -211,7 +204,7 @@ class HopcroftKarp[T]:
                     break
 
             if not found_next:
-                # Dead end: prune curr_left from this phase
+                # 死胡同：阶段台阶 curr_left
                 self.distance_map[curr_left] = math.inf
                 stack.pop()
                 neighbor_indices.pop()
@@ -221,7 +214,7 @@ class HopcroftKarp[T]:
         return False
 
     def maximum_matching(self) -> dict[T, T]:
-        """Compute and return the maximum cardinality matching.
+        """计算并返回最大基数匹配。
 
         >>> hk = HopcroftKarp({"u1": ["v1"], "u2": ["v1"]})
         >>> hk.maximum_matching()
@@ -240,21 +233,21 @@ class HopcroftKarp[T]:
 
 
 def hopcroft_karp[T](graph: dict[T, list[T]]) -> dict[T, T]:
-    """Find a maximum cardinality matching in a bipartite graph using Hopcroft-Karp.
+    """使用 Hopcroft-Karp 在二部图中查找最大基数匹配。
 
-    Parameters:
-        graph: An adjacency list mapping each vertex in the left partition (U) to
-            a list of adjacent vertices in the right partition (V). The two
-            partitions must be disjoint, and vertices cannot be None.
+    参数：
+        图：将左分区 (U) 中的每个顶点映射到的邻接列表
+            右分区 (V) 中相邻顶点的列表。两人
+            分区必须不相交，并且顶点不能为 None。
 
-    Returns:
-        A dictionary representing the matching, mapping each matched vertex in
-        the left partition to its matched partner in the right partition.
+    返回：
+        表示匹配的字典，将每个匹配的顶点映射到
+        左分区到右分区中的匹配伙伴。
 
-    Raises:
+    异常：
         ValueError: If any vertex appears in both partitions or if any vertex is None.
 
-    Examples:
+    示例：
         >>> # Standard bipartite matching
         >>> graph = {"u1": ["v1", "v2"], "u2": ["v1"], "u3": ["v2", "v3"]}
         >>> hopcroft_karp(graph)
@@ -297,7 +290,7 @@ def hopcroft_karp[T](graph: dict[T, list[T]]) -> dict[T, T]:
 
 
 def test_hopcroft_karp() -> None:
-    """Pytest test function to verify maximum bipartite matching functionality.
+    """Pytest 测试函数用于验证最大二分匹配功能。
 
     >>> test_hopcroft_karp()
     """
@@ -313,7 +306,7 @@ def test_hopcroft_karp() -> None:
         {"u1": ["v1", "v2"], "u2": ["v2", "v3"], "u3": ["v3", "v1"]}
     ) == {"u1": "v1", "u2": "v2", "u3": "v3"}
 
-    # Test deep alternating path to ensure no RecursionError occurs
+    # 深度测试交替路径以保证不会发生RecursionError
     chain_length = 1500
     chain_graph = {f"u{i}": [f"v{i}", f"v{i + 1}"] for i in range(chain_length)}
     assert len(hopcroft_karp(chain_graph)) == chain_length

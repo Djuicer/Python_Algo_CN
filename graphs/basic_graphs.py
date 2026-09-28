@@ -67,11 +67,11 @@ if __name__ == "__main__":
 
 """
 --------------------------------------------------------------------------------
-    Depth First Search.
-        Args :  G - Dictionary of edges
-                s - Starting Node
-        Vars :  vis - Set of visited nodes
-                S - Traversal Stack
+    深度优先搜索。
+        Args : G - 边字典
+                s - 起始节点
+        Vars : vis - 访问过的节点集
+                S - 遍历堆栈
 --------------------------------------------------------------------------------
 """
 
@@ -102,11 +102,11 @@ def dfs(g, s) -> None:
 
 """
 --------------------------------------------------------------------------------
-    Breadth First Search.
-        Args :  G - Dictionary of edges
-                s - Starting Node
-        Vars :  vis - Set of visited nodes
-                Q - Traversal Stack
+    广度优先搜索。
+        Args : G - 边字典
+                s - 起始节点
+        Vars : vis - 访问过的节点集
+                Q - 遍历堆栈
 --------------------------------------------------------------------------------
 """
 
@@ -136,12 +136,12 @@ def bfs(g, s) -> None:
 
 """
 --------------------------------------------------------------------------------
-    Dijkstra's shortest path Algorithm
-        Args :  G - Dictionary of edges
-                s - Starting Node
-        Vars :  dist - Dictionary storing shortest distance from s to every other node
-                known - Set of knows nodes
-                path - Preceding node in path
+    Dijkstra最短路径算法
+        Args : G - 边字典
+                s - 起始节点
+        Vars : dist - 存储从 s 到每个其他节点的最短距离的字典
+                已知 - 已知节点集
+                path - 路径中的前一个节点
 --------------------------------------------------------------------------------
 """
 
@@ -183,14 +183,14 @@ def dijk(g, s) -> None:
 
 """
 --------------------------------------------------------------------------------
-    Topological Sort
+    拓扑排序
 --------------------------------------------------------------------------------
 """
 
 
 def topo(g, ind=None, q=None) -> None:
     """
-    Perform a topological sort on a directed acyclic graph.
+    对有向无环图执行拓扑排序。
 
     >>> topo({1: [2, 3], 2: [4], 3: [4], 4: []})
     1
@@ -201,7 +201,7 @@ def topo(g, ind=None, q=None) -> None:
     if q is None:
         q = [1]
     if ind is None:
-        ind = [0] * (len(g) + 1)  # SInce oth Index is ignored
+        ind = [0] * (len(g) + 1)  # 由于其他索引被忽略
         for u in g:
             for v in g[u]:
                 ind[v] += 1
@@ -222,22 +222,22 @@ def topo(g, ind=None, q=None) -> None:
 
 """
 --------------------------------------------------------------------------------
-    Reading an Adjacency matrix
+    读取邻接矩阵
 --------------------------------------------------------------------------------
 """
 
 
 def adjm():
     r"""
-    Reading an Adjacency matrix
+    读取邻接矩阵
 
-    Parameters:
+    参数：
         None
 
-    Returns:
-        tuple: A tuple containing a list of edges and number of edges
+    返回：
+        tuple：包含边列表和边数的元组
 
-    Example:
+    例子：
     >>> # Simulate user input for 3 nodes
     >>> input_data = "4\n0 1 0 1\n1 0 1 0\n0 1 0 1\n1 0 1 0\n"
     >>> import sys,io
@@ -256,12 +256,12 @@ def adjm():
 
 """
 --------------------------------------------------------------------------------
-    Floyd Warshall's algorithm
-        Args :  G - Dictionary of edges
-                s - Starting Node
-        Vars :  dist - Dictionary storing shortest distance from s to every other node
-                known - Set of knows nodes
-                path - Preceding node in path
+    弗洛伊德·沃歇尔算法
+        Args : G - 边字典
+                s - 起始节点
+        Vars : dist - 存储从 s 到每个其他节点的最短距离的字典
+                已知 - 已知节点集
+                path - 路径中的前一个节点
 
 --------------------------------------------------------------------------------
 """
@@ -269,14 +269,14 @@ def adjm():
 
 def floyd_warshall(a_and_n) -> None:
     """
-    Floyd-Warshall algorithm to compute all-pairs shortest paths.
+    用于计算所有对最短路径的 Floyd-Warshall 算法。
 
-    Parameters:
-        a_and_n (tuple): A tuple (a, n) where
-            a is an N x N adjacency matrix (list of lists),
-            n is the number of nodes.
+    参数：
+        a_and_n（元组）：元组 (a, n)，其中
+            a 是一个 N x N 邻接矩阵（列表的列表），
+            n 是节点数。
 
-    Example:
+    例子：
     >>> floyd_warshall(([
     ...     [0, 5, float('inf')],
     ...     [50, 0, 10],
@@ -286,7 +286,7 @@ def floyd_warshall(a_and_n) -> None:
     """
 
     (a, n) = a_and_n
-    dist = [row[:] for row in a]  # create a deep copy of matrix a
+    dist = [row[:] for row in a]  # 创建矩阵一个最重要的副本
     path = [[0] * n for i in range(n)]
 
     for k in range(n):
@@ -294,19 +294,19 @@ def floyd_warshall(a_and_n) -> None:
             for j in range(n):
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
-                    path[i][k] = k  # possible error
+                    path[i][k] = k  # 可能的错误
 
     print(dist)
 
 
 """
 --------------------------------------------------------------------------------
-    Prim's MST Algorithm
-        Args :  G - Dictionary of edges
-                s - Starting Node
-        Vars :  dist - Dictionary storing shortest distance from s to nearest node
-                known - Set of knows nodes
-                path - Preceding node in path
+    Prim 的 MST 算法
+        Args : G - 边字典
+                s - 起始节点
+        Vars : dist - 存储从 s 到最近节点的最短距离的字典
+                已知 - 已知节点集
+                path - 路径中的前一个节点
 --------------------------------------------------------------------------------
 """
 
@@ -331,26 +331,26 @@ def prim(g, s):
 
 """
 --------------------------------------------------------------------------------
-    Accepting Edge list
-        Vars :  n - Number of nodes
-                m - Number of edges
-        Returns : l - Edge list
-                n - Number of Nodes
+    接受边列表
+        变量：n - 节点数
+                m - 边数
+        返回：l - 边列表
+                n - 节点数
 --------------------------------------------------------------------------------
 """
 
 
 def edglist():
     r"""
-    Get the edges and number of edges from the user
+    从用户处获取边和边数
 
-    Parameters:
+    参数：
         None
 
-    Returns:
-        tuple: A tuple containing a list of edges and number of edges
+    返回：
+        tuple：包含边列表和边数的元组
 
-    Example:
+    例子：
     >>> # Simulate user input for 3 edges and 4 vertices: (1, 2), (2, 3), (3, 4)
     >>> input_data = "4 3\n1 2\n2 3\n3 4\n"
     >>> import sys,io
@@ -369,17 +369,17 @@ def edglist():
 
 """
 --------------------------------------------------------------------------------
-    Kruskal's MST Algorithm
-        Args :  E - Edge list
-                n - Number of Nodes
-        Vars :  s - Set of all nodes as unique disjoint sets (initially)
+    Kruskal 的 MST 算法
+        参数：E - 边列表
+                n - 节点数
+        Vars : s - 所有节点的集合作为唯一的不相交集合（最初）
 --------------------------------------------------------------------------------
 """
 
 
 def krusk(e_and_n) -> None:
     """
-    Sort edges on the basis of distance
+    根据距离对边进行排序
     """
     (e, n) = e_and_n
     e.sort(reverse=True, key=lambda x: x[2])
@@ -403,15 +403,15 @@ def krusk(e_and_n) -> None:
 
 def find_isolated_nodes(graph):
     """
-    Find the isolated node in the graph
+    找到图中的孤立节点
 
-    Parameters:
-    graph (dict): A dictionary representing a graph.
+    参数：
+    graph (dict)：表示图的字典。
 
-    Returns:
-    list: A list of isolated nodes.
+    返回：
+    list：孤立节点的列表。
 
-    Examples:
+    示例：
     >>> graph1 = {1: [2, 3], 2: [1, 3], 3: [1, 2], 4: []}
     >>> find_isolated_nodes(graph1)
     [4]

@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 DIRECTIONS = [
-    [-1, 0],  # left
-    [0, -1],  # down
-    [1, 0],  # right
-    [0, 1],  # up
+    [-1, 0],  # 左
+    [0, -1],  # 下
+    [1, 0],  # 右
+    [0, 1],  # 上
 ]
 
 
-# function to search the path
+# 搜索路径的函数
 def search(
     grid: list[list[int]],
     init: list[int],
@@ -17,7 +17,7 @@ def search(
     heuristic: list[list[int]],
 ) -> tuple[list[list[int]], list[list[int]]]:
     """
-    Search for a path on a grid avoiding obstacles.
+    在网格中搜索一条避开障碍物的路径。
     >>> grid = [[0, 1, 0, 0, 0, 0],
     ...         [0, 1, 0, 0, 0, 0],
     ...         [0, 1, 0, 0, 0, 0],
@@ -43,25 +43,25 @@ def search(
     """
     closed = [
         [0 for col in range(len(grid[0]))] for row in range(len(grid))
-    ]  # the reference grid
+    ]  # 参考网格
     closed[init[0]][init[1]] = 1
     action = [
         [0 for col in range(len(grid[0]))] for row in range(len(grid))
-    ]  # the action grid
+    ]  # 动作网格
 
     x = init[0]
     y = init[1]
     g = 0
-    f = g + heuristic[x][y]  # cost from starting cell to destination cell
+    f = g + heuristic[x][y]  # 从起始单元格到目标单元格的代价
     cell = [[f, g, x, y]]
 
-    found = False  # flag that is set when search is complete
-    resign = False  # flag set if we can't find expand
+    found = False  # 搜索完成时设置的标志
+    resign = False  # 无法找到可扩展节点时设置的标志
 
     while not found and not resign:
         if len(cell) == 0:
             raise ValueError("Algorithm is unable to find solution")
-        # to choose the least costliest action so as to move closer to the goal
+        # 选择代价最小的动作，以便向目标靠近
         cell.sort()
         cell.reverse()
         next_cell = cell.pop()
@@ -72,7 +72,7 @@ def search(
         if x == goal[0] and y == goal[1]:
             found = True
         else:
-            for i in range(len(DIRECTIONS)):  # to try out different valid actions
+            for i in range(len(DIRECTIONS)):  # 尝试不同的有效动作
                 x2 = x + DIRECTIONS[i][0]
                 y2 = y + DIRECTIONS[i][1]
                 if (
@@ -91,7 +91,7 @@ def search(
     invpath = []
     x = goal[0]
     y = goal[1]
-    invpath.append([x, y])  # we get the reverse path from here
+    invpath.append([x, y])  # 从这里得到反向路径
     while x != init[0] or y != init[1]:
         x2 = x - DIRECTIONS[action[x][y]][0]
         y2 = y - DIRECTIONS[action[x][y]][1]
@@ -108,24 +108,24 @@ def search(
 if __name__ == "__main__":
     grid = [
         [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],  # 0 are free path whereas 1's are obstacles
+        [0, 1, 0, 0, 0, 0],  # 0 表示可通行路径，1 表示障碍物
         [0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 1, 0],
         [0, 0, 0, 0, 1, 0],
     ]
 
     init = [0, 0]
-    # all coordinates are given in format [y,x]
+    # 所有坐标均采用 [y,x] 格式
     goal = [len(grid) - 1, len(grid[0]) - 1]
     cost = 1
 
-    # the cost map which pushes the path closer to the goal
+    # 促使路径靠近目标的代价图
     heuristic = [[0 for row in range(len(grid[0]))] for col in range(len(grid))]
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             heuristic[i][j] = abs(i - goal[0]) + abs(j - goal[1])
             if grid[i][j] == 1:
-                # added extra penalty in the heuristic map
+                # 在启发式图中加入额外惩罚
                 heuristic[i][j] = 99
 
     path, action = search(grid, init, goal, cost, heuristic)

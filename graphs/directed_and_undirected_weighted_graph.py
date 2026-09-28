@@ -3,7 +3,7 @@ from math import floor
 from random import random
 from time import time
 
-# the default weight is 1 if not assigned but all the implementation is weighted
+# 如果未分配，则默认权重为 1，但所有实现均已加权
 
 
 class DirectedGraph:
@@ -12,10 +12,10 @@ class DirectedGraph:
 
     def add_pair(self, u, v, w=1) -> None:
         """
-        Adds a directed edge u->v with weight w.
-        Add vertices and edges
-        Add the weight is optional
-        Handle repetition
+        添加权重为 w 的有向边 u->v。
+        添加顶点和边
+        添加重量是可选的
+        处理重复
 
         >>> dg = DirectedGraph()
         >>> dg.add_pair(-1,2)
@@ -37,7 +37,7 @@ class DirectedGraph:
 
     def all_nodes(self):
         """
-        Returns list of all nodes in the graph.
+        返回图中所有节点的列表。
         >>> dg = DirectedGraph()
         >>> dg.all_nodes()
         []
@@ -50,10 +50,10 @@ class DirectedGraph:
         """
         return list(self.graph)
 
-    # handles if the input does not exist
+    # 如果输入不存在则处理
     def remove_pair(self, u, v) -> None:
         """
-        Removes all edges u->v if it exists.
+        删除所有边 u->v（如果存在）。
         >>> dg = DirectedGraph()
         >>> dg.remove_pair(1,2) # silently exits
         >>> dg.add_pair(0,5,2)
@@ -71,12 +71,12 @@ class DirectedGraph:
                 if _[1] == v:
                     self.graph[u].remove(_)
 
-    # if no destination is meant the default value is -1
+    # 如果没有指定目的地，则默认值为 -1
     def dfs(self, s=-2, d=-1):
         """
-        Performs depth first search from s to find d.
-        Returns the path s->d as a list.
-        Returns dfs from s if d is not found
+        从 s 执行深度优先搜索以找到 d。
+        以列表形式返回路径s->d。
+        如果未找到 d，则从 s 返回 dfs
         >>> dg = DirectedGraph()
         >>> dg.dfs()
         []
@@ -108,30 +108,30 @@ class DirectedGraph:
             elif len(self.graph) > 0:
                 s = next(iter(self.graph))
             else:
-                return []  # Graph empty
+                return []  # 图为空
         stack.append(s)
 
-        # Run dfs
+        # 运行dfs
         while len(stack) > 0:
             s = stack.pop()
             visited.append(s)
-            # If reached d, return
+            # 如果到达，则返回
             if s == d:
                 break
 
-            # add not visited child nodes to stack
+            # 将未访问过的子节点添加到堆栈中
             for _, ss in self.graph[s]:
                 if visited.count(ss) < 1:
                     stack.append(ss)
         return visited
 
-    # c is the count of nodes you want and if you leave it or pass -1 to the function
-    # the count will be random from 10 to 10000
+    # c 是你想要的节点数，如果你保留它或者将 -1 传递给函数
+    # 计数将从 10 到 10000 随机
     def fill_graph_randomly(self, c=-1) -> None:
         if c == -1:
             c = floor(random() * 10000) + 10
         for i in range(c):
-            # every vertex has max 100 edges
+            # 每个顶点最多有 100 条边
             for _ in range(floor(random() * 102) + 1):
                 n = floor(random() * c) + 1
                 if n != i:
@@ -139,8 +139,8 @@ class DirectedGraph:
 
     def bfs(self, s=-2):
         """
-        Performs breadth first search from s
-        Returns list.
+        从 s 执行广度优先搜索
+        返回列表。
         >>> dg = DirectedGraph()
         >>> dg.bfs()
         []
@@ -170,10 +170,10 @@ class DirectedGraph:
             elif len(self.graph) > 0:
                 s = next(iter(self.graph))
             else:
-                return []  # Graph empty
+                return []  # 图为空
         d.append(s)
         visited.append(s)
-        # Run bfs
+        # 运行bfs
         while d:
             s = d.popleft()
             if len(self.graph[s]) != 0:
@@ -205,7 +205,7 @@ class DirectedGraph:
         sorted_nodes = []
 
         while True:
-            # check if there is any non isolated nodes
+            # 检查是否存在非孤立节点
             if len(self.graph[s]) != 0:
                 ss = s
                 for node in self.graph[s]:
@@ -215,7 +215,7 @@ class DirectedGraph:
                         ss = node[1]
                         break
 
-            # check if all the children are visited
+            # 检查是否所有的孩子都被访问过
             if s == ss:
                 sorted_nodes.append(stack.pop())
                 if len(stack) != 0:
@@ -223,7 +223,7 @@ class DirectedGraph:
             else:
                 s = ss
 
-            # check if se have reached the starting point
+            # 检查是否已经到达起点
             if len(stack) == 0:
                 return sorted_nodes
 
@@ -240,7 +240,7 @@ class DirectedGraph:
         anticipating_nodes = set()
 
         while True:
-            # check if there is any non isolated nodes
+            # 检查是否存在非孤立节点
             if len(self.graph[s]) != 0:
                 ss = s
                 for node in self.graph[s]:
@@ -263,7 +263,7 @@ class DirectedGraph:
                         ss = node[1]
                         break
 
-            # check if all the children are visited
+            # 检查是否所有的孩子都被访问过
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
@@ -275,7 +275,7 @@ class DirectedGraph:
                 parent = s
                 s = ss
 
-            # check if se have reached the starting point
+            # 检查是否已经到达起点
             if len(stack) == 0:
                 return list(anticipating_nodes)
 
@@ -292,7 +292,7 @@ class DirectedGraph:
         anticipating_nodes = set()
 
         while True:
-            # check if there is any non isolated nodes
+            # 检查是否存在非孤立节点
             if len(self.graph[s]) != 0:
                 ss = s
                 for node in self.graph[s]:
@@ -314,7 +314,7 @@ class DirectedGraph:
                         ss = node[1]
                         break
 
-            # check if all the children are visited
+            # 检查是否所有的孩子都被访问过
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
@@ -326,7 +326,7 @@ class DirectedGraph:
                 parent = s
                 s = ss
 
-            # check if se have reached the starting point
+            # 检查是否已经到达起点
             if len(stack) == 0:
                 return False
 
@@ -347,45 +347,45 @@ class Graph:
     def __init__(self) -> None:
         self.graph = {}
 
-    # adding vertices and edges
-    # adding the weight is optional
-    # handles repetition
+    # 添加顶点和边
+    # 添加重量是可选的
+    # 处理重复
     def add_pair(self, u, v, w=1) -> None:
-        # check if the u exists
+        # 检查 u 是否存在
         if self.graph.get(u):
-            # if there already is a edge
+            # 如果已经有边
             if self.graph[u].count([w, v]) == 0:
                 self.graph[u].append([w, v])
         else:
-            # if u does not exist
+            # 如果你不存在
             self.graph[u] = [[w, v]]
-        # add the other way
+        # 添加另一种方式
         if self.graph.get(v):
-            # if there already is a edge
+            # 如果已经有边
             if self.graph[v].count([w, u]) == 0:
                 self.graph[v].append([w, u])
         else:
-            # if u does not exist
+            # 如果你不存在
             self.graph[v] = [[w, u]]
 
-    # handles if the input does not exist
+    # 如果输入不存在则处理
     def remove_pair(self, u, v) -> None:
         if self.graph.get(u):
             for _ in self.graph[u]:
                 if _[1] == v:
                     self.graph[u].remove(_)
-        # the other way round
+        # 反过来
         if self.graph.get(v):
             for _ in self.graph[v]:
                 if _[1] == u:
                     self.graph[v].remove(_)
 
-    # if no destination is meant the default value is -1
+    # 如果没有指定目的地，则默认值为 -1
     def dfs(self, s=-2, d=-1):
         """
-        Performs depth first search from s to find d.
-        Returns the path s->d as a list.
-        Returns dfs from s if d is not found
+        从 s 执行深度优先搜索以找到 d。
+        以列表形式返回路径s->d。
+        如果未找到 d，则从 s 返回 dfs
         >>> ug = Graph()
         >>> ug.dfs()
         []
@@ -417,32 +417,32 @@ class Graph:
             elif len(self.graph) > 0:
                 s = next(iter(self.graph))
             else:
-                return []  # Graph empty
+                return []  # 图为空
         stack.append(s)
 
-        # Run dfs
+        # 运行dfs
         while len(stack) > 0:
             s = stack.pop()
             if visited.count(s) == 1:
                 continue
             visited.append(s)
-            # If reached d, return
+            # 如果到达，则返回
             if s == d:
                 break
 
-            # add not visited child nodes to stack
+            # 将未访问过的子节点添加到堆栈中
             for _, ss in self.graph[s]:
                 if visited.count(ss) < 1:
                     stack.append(ss)
         return visited
 
-    # c is the count of nodes you want and if you leave it or pass -1 to the function
-    # the count will be random from 10 to 10000
+    # c 是你想要的节点数，如果你保留它或者将 -1 传递给函数
+    # 计数将从 10 到 10000 随机
     def fill_graph_randomly(self, c=-1) -> None:
         if c == -1:
             c = floor(random() * 10000) + 10
         for i in range(c):
-            # every vertex has max 100 edges
+            # 每个顶点最多有 100 条边
             for _ in range(floor(random() * 102) + 1):
                 n = floor(random() * c) + 1
                 if n != i:
@@ -450,8 +450,8 @@ class Graph:
 
     def bfs(self, s=-2):
         """
-        Performs breadth first search from s
-        Returns list.
+        从 s 执行广度优先搜索
+        返回列表。
         >>> ug = Graph()
         >>> ug.bfs()
         []
@@ -481,7 +481,7 @@ class Graph:
             elif len(self.graph) > 0:
                 s = next(iter(self.graph))
             else:
-                return []  # Graph empty
+                return []  # 图为空
         d.append(s)
         visited.append(s)
         while d:
@@ -509,7 +509,7 @@ class Graph:
         anticipating_nodes = set()
 
         while True:
-            # check if there is any non isolated nodes
+            # 检查是否存在非孤立节点
             if len(self.graph[s]) != 0:
                 ss = s
                 for node in self.graph[s]:
@@ -532,7 +532,7 @@ class Graph:
                         ss = node[1]
                         break
 
-            # check if all the children are visited
+            # 检查是否所有的孩子都被访问过
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
@@ -544,7 +544,7 @@ class Graph:
                 parent = s
                 s = ss
 
-            # check if se have reached the starting point
+            # 检查是否已经到达起点
             if len(stack) == 0:
                 return list(anticipating_nodes)
 
@@ -561,7 +561,7 @@ class Graph:
         anticipating_nodes = set()
 
         while True:
-            # check if there is any non isolated nodes
+            # 检查是否存在非孤立节点
             if len(self.graph[s]) != 0:
                 ss = s
                 for node in self.graph[s]:
@@ -583,7 +583,7 @@ class Graph:
                         ss = node[1]
                         break
 
-            # check if all the children are visited
+            # 检查是否所有的孩子都被访问过
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
@@ -595,7 +595,7 @@ class Graph:
                 parent = s
                 s = ss
 
-            # check if se have reached the starting point
+            # 检查是否已经到达起点
             if len(stack) == 0:
                 return False
 

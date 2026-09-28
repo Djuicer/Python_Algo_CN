@@ -1,7 +1,7 @@
 def min_path_sum(grid: list) -> int:
     """
-    Find the path from top left to bottom right of array of numbers
-    with the lowest possible sum and return the sum along this path.
+    找到数字数组从左上角到右下角的路径
+    具有尽可能低的总和并沿着这条路径返回总和。
     >>> min_path_sum([
     ...     [1, 3, 1],
     ...     [1, 5, 1],

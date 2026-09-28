@@ -34,7 +34,7 @@ TEST_GRIDS = [
     ],
 ]
 
-delta = ([-1, 0], [0, -1], [1, 0], [0, 1])  # up, left, down, right
+delta = ([-1, 0], [0, -1], [1, 0], [0, 1])  # 上、左、下、右
 
 
 class Node:
@@ -73,8 +73,8 @@ class Node:
 
     def calculate_heuristic(self) -> float:
         """
-        The heuristic here is the Manhattan Distance
-        Could elaborate to offer more than one choice
+        这里的启发式是曼哈顿距离
+        可以详细说明提供不止一种选择
         """
         dx = abs(self.pos_x - self.goal_x)
         dy = abs(self.pos_y - self.goal_y)
@@ -118,11 +118,11 @@ class GreedyBestFirst:
 
     def search(self) -> Path | None:
         """
-        Search for the path,
-        if a path is not found, only the starting position is returned
+        寻找路径，
+        如果未找到路径，则只返回起始位置
         """
         while self.open_nodes:
-            # Open Nodes are sorted using __lt__
+            # 开放节点使用__lt__排序
             self.open_nodes.sort()
             current_node = self.open_nodes.pop(0)
 
@@ -146,7 +146,7 @@ class GreedyBestFirst:
 
     def get_successors(self, parent: Node) -> list[Node]:
         """
-        Returns a list of successors (both in the grid and free spaces)
+        返回后继者列表（在网格和自由空间中）
         """
         return [
             Node(
@@ -167,7 +167,7 @@ class GreedyBestFirst:
 
     def retrace_path(self, node: Node | None) -> Path:
         """
-        Retrace the path from parents to parents until start node
+        回溯从父节点到父节点的路径，直到起始节点
         """
         current_node = node
         path = []

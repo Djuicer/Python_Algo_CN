@@ -1,7 +1,7 @@
 """
 * Author: Manuel Di Lullo (https://github.com/manueldilullo)
 * Description: Approximization algorithm for minimum vertex cover problem.
-               Greedy Approach. Uses graphs represented with an adjacency list
+               贪婪方法。使用以邻接列表表示的图
 URL: https://mathworld.wolfram.com/MinimumVertexCover.html
 URL: https://cs.stackexchange.com/questions/129017/greedy-algorithm-for-vertex-cover
 """
@@ -11,46 +11,46 @@ import heapq
 
 def greedy_min_vertex_cover(graph: dict) -> set[int]:
     """
-    Greedy APX Algorithm for min Vertex Cover
-    @input: graph (graph stored in an adjacency list where each vertex
-            is represented with an integer)
-    @example:
+    最小顶点覆盖的贪心 APX 算法
+    @input：图（存储在邻接列表中的图，其中每个顶点
+            用整数表示）
+    @例子：
     >>> graph = {0: [1, 3], 1: [0, 3], 2: [0, 3, 4], 3: [0, 1, 2], 4: [2, 3]}
     >>> greedy_min_vertex_cover(graph)
     {0, 1, 2, 4}
     """
-    # queue used to store nodes and their rank
+    # 队列用于存储节点及其排名
     queue: list[list] = []
 
-    # for each node and his adjacency list add them and the rank of the node to queue
-    # using heapq module the queue will be filled like a Priority Queue
-    # heapq works with a min priority queue, so I used -1*len(v) to build it
+    # 对于每个节点及其邻接列表，添加它们以及要排队的节点的排名
+    # 使用 heapq 模块，队列将像优先级队列一样被填充
+    # heapq 使用最小优先级队列，因此我使用 -1*len(v) 来构建它
     for key, value in graph.items():
-        # O(log(n))
+        # O(log(n)）
         heapq.heappush(queue, [-1 * len(value), (key, value)])
 
-    # chosen_vertices = set of chosen vertices
+    # chosen_vertices = 首选顶点的集合
     chosen_vertices = set()
 
-    # while queue isn't empty and there are still edges
+    # 当队列不为空并且仍然有边时
     #   (queue[0][0] is the rank of the node with max rank)
     while queue and queue[0][0] != 0:
-        # extract vertex with max rank from queue and add it to chosen_vertices
+        # 从队列中取出排名最高的顶点并将其添加到chosen_vertices
         argmax = heapq.heappop(queue)[1][0]
         chosen_vertices.add(argmax)
 
-        # Remove all arcs adjacent to argmax
+        # 删除与 argmax 后续的所有弧
         for elem in queue:
-            # if v haven't adjacent node, skip
+            # 如果 v 没有相邻节点，则跳过
             if elem[0] == 0:
                 continue
-            # if argmax is reachable from elem
-            # remove argmax from elem's adjacent list and update his rank
+            # 如果argmax可以从elem到达
+            # 从 elem 的顺序列表中删除 argmax 并更新他的排名
             if argmax in elem[1][1]:
                 index = elem[1][1].index(argmax)
                 del elem[1][1][index]
                 elem[0] += 1
-        # re-order the queue
+        # 重新排序队列
         heapq.heapify(queue)
     return chosen_vertices
 

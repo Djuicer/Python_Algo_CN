@@ -1,4 +1,4 @@
-# Finding Articulation Points in Undirected Graph
+# 寻找无向图中的连接点
 def compute_ap(graph) -> None:
     n = len(graph)
     out_edge_count = 0
@@ -19,10 +19,10 @@ def compute_ap(graph) -> None:
                 out_edge_count = dfs(root, to, at, out_edge_count)
                 low[at] = min(low[at], low[to])
 
-                # AP found via bridge
+                # 通过桥接发现AP
                 if at < low[to]:
                     is_art[at] = True
-                # AP found via cycle
+                # 通过循环找到AP
                 if at == low[to]:
                     is_art[at] = True
             else:
@@ -40,7 +40,7 @@ def compute_ap(graph) -> None:
             print(x)
 
 
-# Adjacency list of graph
+# 图的邻接表
 graph = {
     0: [1, 2],
     1: [0, 2],

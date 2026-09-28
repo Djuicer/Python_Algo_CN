@@ -1,12 +1,12 @@
 """
-Bidirectional Search Algorithm.
+双向搜索算法。
 
-This algorithm searches from both the source and target nodes simultaneously,
-meeting somewhere in the middle. This approach can significantly reduce the
-search space compared to a traditional one-directional search.
+该算法同时从源节点和目标节点进行搜索，
+在中间的某个地方相遇。这种方法可以显着减少
+搜索空间与传统的单向搜索相比。
 
-Time Complexity: O(b^(d/2)) where b is the branching factor and d is the depth
-Space Complexity: O(b^(d/2))
+时间复杂度：O(b^(d/2))，其中b 是方向因子，d 是深度
+空间复杂度：O(b^(d/2))
 
 https://en.wikipedia.org/wiki/Bidirectional_search
 """
@@ -31,7 +31,7 @@ def expand_search(
         parents[neighbor] = current
         queue.append(neighbor)
 
-        # Check if this creates an intersection
+        # 检查这是否会创建交叉点
         if neighbor in opposite_direction_parents:
             return neighbor
 
@@ -50,17 +50,17 @@ def bidirectional_search(
     graph: dict[int, list[int]], start: int, goal: int
 ) -> list[int] | None:
     """
-    Perform bidirectional search on a graph to find the shortest path.
+    在图上执行双向搜索以找到最短路径。
 
-    Args:
-        graph: A dictionary where keys are nodes and values are lists of adjacent nodes
-        start: The starting node
-        goal: The target node
+    参数：
+        图：字典，其中键是节点，值是相邻节点的列表
+        start：起始节点
+        目标：目标节点
 
-    Returns:
-        A list representing the path from start to goal, or None if no path exists
+    返回：
+        表示从起点到目标的路径的列表，如果不存在路径则为 None
 
-    Examples:
+    示例：
         >>> graph = {
         ...     0: [1, 2],
         ...     1: [0, 3, 4],
@@ -92,25 +92,25 @@ def bidirectional_search(
     if start == goal:
         return [start]
 
-    # Check if start and goal are in the graph
+    # 检查开始和目标是否在图表中
     if start not in graph or goal not in graph:
         return None
 
-    # Initialize forward and backward search dictionaries
-    # Each maps a node to its parent in the search
+    # 初始化向前和向后搜索字典
+    # 每个节点在搜索中将一个节点映射到其父节点
     forward_parents: dict[int, int | None] = {start: None}
     backward_parents: dict[int, int | None] = {goal: None}
 
-    # Initialize forward and backward search queues
+    # 初始化向前和向后搜索队列
     forward_queue = deque([start])
     backward_queue = deque([goal])
 
-    # Intersection node (where the two searches meet)
+    # 交叉点（两个搜索相遇的地方）
     intersection = None
 
-    # Continue until both queues are empty or an intersection is found
+    # 继续，直到两个队列都为空或找到交叉点
     while forward_queue and backward_queue and intersection is None:
-        # Expand forward search
+        # 扩大向前搜索
         intersection = expand_search(
             graph=graph,
             queue=forward_queue,
@@ -118,7 +118,7 @@ def bidirectional_search(
             opposite_direction_parents=backward_parents,
         )
 
-        # If no intersection found, expand backward search
+        # 如果没有找到交集，则向后扩展搜索
         if intersection is not None:
             break
 
@@ -129,36 +129,36 @@ def bidirectional_search(
             opposite_direction_parents=forward_parents,
         )
 
-    # If no intersection found, there's no path
+    # 如果没有找到交叉点，则没有路径
     if intersection is None:
         return None
 
-    # Construct path from start to intersection
+    # 构造从起点到交叉点的路径
     forward_path: list[int] = construct_path(
         current=intersection, parents=forward_parents
     )
     forward_path.reverse()
 
-    # Construct path from intersection to goal
+    # 构建从交叉点到目标的路径
     backward_path: list[int] = construct_path(
         current=backward_parents[intersection], parents=backward_parents
     )
 
-    # Return the complete path
+    # 返回完整路径
     return forward_path + backward_path
 
 
 def main() -> None:
     """
-    Run example of bidirectional search algorithm.
+    运行双向搜索算法的示例。
 
-    Examples:
+    示例：
         >>> main()  # doctest: +NORMALIZE_WHITESPACE
         Path from 0 to 11: [0, 1, 3, 7, 11]
         Path from 5 to 5: [5]
         Path from 0 to 3: None
     """
-    # Example graph represented as an adjacency list
+    # 表示为邻接列表的示例图
     example_graph = {
         0: [1, 2],
         1: [0, 3, 4],
@@ -174,17 +174,17 @@ def main() -> None:
         11: [7, 8, 9, 10],
     }
 
-    # Test case 1: Path exists
+    # 测试用例 1：路径存在
     start, goal = 0, 11
     path = bidirectional_search(graph=example_graph, start=start, goal=goal)
     print(f"Path from {start} to {goal}: {path}")
 
-    # Test case 2: Start and goal are the same
+    # 测试用例 2：开始和目标相同
     start, goal = 5, 5
     path = bidirectional_search(graph=example_graph, start=start, goal=goal)
     print(f"Path from {start} to {goal}: {path}")
 
-    # Test case 3: No path exists (disconnected graph)
+    # 测试用例 3：不存在路径（断开的图）
     disconnected_graph = {
         0: [1, 2],
         1: [0],

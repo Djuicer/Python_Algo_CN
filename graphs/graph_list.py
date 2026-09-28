@@ -2,7 +2,7 @@
 
 # Author: OMKAR PATHAK, Nwachukwu Chidiebere
 
-# Use a Python dictionary to construct the graph.
+# 使用Python字典构建图表。
 from __future__ import annotations
 
 from pprint import pformat
@@ -13,10 +13,10 @@ T = TypeVar("T")
 
 class GraphAdjacencyList[T]:
     """
-    Adjacency List type Graph Data Structure that accounts for directed and undirected
-    Graphs.  Initialize graph object indicating whether it's directed or undirected.
+    邻接表类型图数据结构，考虑有向和无向
+    图表。  初始化图对象，指示它是有向的还是无向的。
 
-    Directed graph example:
+    有向图示例：
     >>> d_graph = GraphAdjacencyList()
     >>> print(d_graph)
     {}
@@ -74,72 +74,72 @@ class GraphAdjacencyList[T]:
 
     def __init__(self, directed: bool = True) -> None:
         """
-        Parameters:
-        directed: (bool) Indicates if graph is directed or undirected. Default is True.
+        参数：
+        direct: (bool) 指示图是有向的还是无向的。默认为 True。
         """
 
-        self.adj_list: dict[T, list[T]] = {}  # dictionary of lists
+        self.adj_list: dict[T, list[T]] = {}  # 列表字典
         self.directed = directed
 
     def add_edge(
         self, source_vertex: T, destination_vertex: T
     ) -> GraphAdjacencyList[T]:
         """
-        Connects vertices together. Creates and Edge from source vertex to destination
-        vertex.
-        Vertices will be created if not found in graph
+        将顶点连接在一起。创建从源顶点到目标的边
+        顶点。
+        如果在图中找不到顶点，将创建顶点
         """
 
-        if not self.directed:  # For undirected graphs
-            # if both source vertex and destination vertex are both present in the
-            # adjacency list, add destination vertex to source vertex list of adjacent
-            # vertices and add source vertex to destination vertex list of adjacent
-            # vertices.
+        if not self.directed:  # 对于无向图
+            # 如果源顶点和目标顶点都存在于
+            # 邻接列表，将目标顶点添加到相邻的源顶点列表中
+            # 顶点并将源顶点添加到相邻顶点的目标顶点列表中
+            # 顶点。
             if source_vertex in self.adj_list and destination_vertex in self.adj_list:
                 self.adj_list[source_vertex].append(destination_vertex)
                 self.adj_list[destination_vertex].append(source_vertex)
-            # if only source vertex is present in adjacency list, add destination vertex
-            # to source vertex list of adjacent vertices, then create a new vertex with
-            # destination vertex as key and assign a list containing the source vertex
-            # as it's first adjacent vertex.
+            # 如果邻接列表中仅存在源顶点，则添加目标顶点
+            # 获取相邻顶点的顶点列表，然后使用以下命令创建一个新顶点
+            # 目标顶点作为键并分配包含源顶点的列表
+            # 因为它是第一个相邻顶点。
             elif source_vertex in self.adj_list:
                 self.adj_list[source_vertex].append(destination_vertex)
                 self.adj_list[destination_vertex] = [source_vertex]
-            # if only destination vertex is present in adjacency list, add source vertex
-            # to destination vertex list of adjacent vertices, then create a new vertex
-            # with source vertex as key and assign a list containing the source vertex
-            # as it's first adjacent vertex.
+            # 如果邻接列表中仅存在目标顶点，则添加源顶点
+            # 到相邻顶点的目标顶点列表，然后创建一个新顶点
+            # 以源顶点为键并分配包含源顶点的列表
+            # 因为它是第一个相邻顶点。
             elif destination_vertex in self.adj_list:
                 self.adj_list[destination_vertex].append(source_vertex)
                 self.adj_list[source_vertex] = [destination_vertex]
-            # if both source vertex and destination vertex are not present in adjacency
-            # list, create a new vertex with source vertex as key and assign a list
-            # containing the destination vertex as it's first adjacent vertex also
-            # create a new vertex with destination vertex as key and assign a list
-            # containing the source vertex as it's first adjacent vertex.
+            # 如果源顶点和目标顶点都不相邻
+            # 列表，以源顶点为键创建一个新顶点并分配一个列表
+            # 也包含目标顶点作为它的第一个相邻顶点
+            # 创建一个以目标顶点为键的新顶点并分配一个列表
+            # 包含源顶点作为它的第一个相邻顶点。
             else:
                 self.adj_list[source_vertex] = [destination_vertex]
                 self.adj_list[destination_vertex] = [source_vertex]
-        # For directed graphs
-        # if both source vertex and destination vertex are present in adjacency
-        # list, add destination vertex to source vertex list of adjacent vertices.
+        # 对于有向图
+        # 如果源顶点和目标顶点都相邻
+        # list，将目标顶点添加到顶点顶点的源顶点列表中。
         elif source_vertex in self.adj_list and destination_vertex in self.adj_list:
             self.adj_list[source_vertex].append(destination_vertex)
-        # if only source vertex is present in adjacency list, add destination
-        # vertex to source vertex list of adjacent vertices and create a new vertex
-        # with destination vertex as key, which has no adjacent vertex
+        # 如果邻接列表中仅存在源顶点，则添加目标顶点
+        # 顶点到相邻顶点的源顶点列表并创建一个新顶点
+        # 以目标顶点为键，没有相邻顶点
         elif source_vertex in self.adj_list:
             self.adj_list[source_vertex].append(destination_vertex)
             self.adj_list[destination_vertex] = []
-        # if only destination vertex is present in adjacency list, create a new
-        # vertex with source vertex as key and assign a list containing destination
-        # vertex as first adjacent vertex
+        # 如果邻接列表中仅存在目标顶点，则创建一个新的
+        # 以源顶点为键的顶点并分配包含目标的列表
+        # 顶点作为第一个相邻顶点
         elif destination_vertex in self.adj_list:
             self.adj_list[source_vertex] = [destination_vertex]
-        # if both source vertex and destination vertex are not present in adjacency
-        # list, create a new vertex with source vertex as key and a list containing
-        # destination vertex as it's first adjacent vertex. Then create a new vertex
-        # with destination vertex as key, which has no adjacent vertex
+        # 如果源顶点和目标顶点都不相邻
+        # 列表，创建一个以源顶点为键的新顶点和一个包含以下内容的列表
+        # 目标顶点作为它的第一个相邻顶点。然后创建一个新的顶点
+        # 以目标顶点为键，没有相邻顶点
         else:
             self.adj_list[source_vertex] = [destination_vertex]
             self.adj_list[destination_vertex] = []

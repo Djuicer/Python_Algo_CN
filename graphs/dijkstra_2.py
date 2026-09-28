@@ -1,6 +1,6 @@
 def print_dist(dist, v) -> None:
     """
-    Print vertex distances.
+    打印顶点距离。
     >>> print_dist([0.0, 5.0, 8.0, 9.0], 4)
     Vertex Distance
     0    0
@@ -25,8 +25,8 @@ def print_dist(dist, v) -> None:
 
 def min_dist(mdist, vset, v):
     """
-    Returns the vertex with the minimum distance from the source vertex
-    that has not yet been visited.
+    返回与源顶点距离最小的顶点
+    尚未访问过。
 
     >>> min_dist([0, 4, 2, float('inf')], [True, False, False, False], 4)
     2
@@ -50,10 +50,10 @@ def min_dist(mdist, vset, v):
 
 def dijkstra(graph, v, src) -> None:
     """
-    Runs Dijkstra's algorithm and prints distances.
+    运行 Dijkstra 算法并打印距离。
 
-    Calculate the shortest path from source to all other vertices
-    using Dijkstra's algorithm.
+    计算从源到所有其他顶点的最短路径
+    使用 Dijkstra 算法。
 
     >>> g = [
     ...     [0.0, 5.0, float('inf'), 10.0],

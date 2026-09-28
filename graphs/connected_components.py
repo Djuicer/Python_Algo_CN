@@ -1,7 +1,7 @@
 """
 https://en.wikipedia.org/wiki/Component_(graph_theory)
 
-Finding connected components in graph
+查找图中的连通分量
 
 """
 
@@ -12,8 +12,8 @@ test_graph_2 = {0: [1, 2, 3], 1: [0, 3], 2: [0], 3: [0, 1], 4: [], 5: []}
 
 def dfs(graph: dict, vert: int, visited: list) -> list:
     """
-    Use depth first search to find all vertices
-    being in the same component as initial vertex
+    使用深度优先搜索查找所有顶点
+    与初始顶点位于同一组件中
     >>> dfs(test_graph_1, 0, 5 * [False])
     [0, 1, 3, 2]
     >>> dfs(test_graph_2, 0, 6 * [False])
@@ -32,8 +32,8 @@ def dfs(graph: dict, vert: int, visited: list) -> list:
 
 def connected_components(graph: dict) -> list:
     """
-    This function takes graph as a parameter
-    and then returns the list of connected components
+    该函数以图作为参数
+    然后返回连接组件的列表
     >>> connected_components(test_graph_1)
     [[0, 1, 3, 2], [4, 5, 6]]
     >>> connected_components(test_graph_2)

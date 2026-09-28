@@ -1,23 +1,23 @@
-# Eulerian Path is a path in graph that visits every edge exactly once.
-# Eulerian Circuit is an Eulerian Path which starts and ends on the same
-# vertex.
-# time complexity is O(V+E)
-# space complexity is O(VE)
+# 欧拉路径是图中的一条路径，它只访问每条边一次。
+# 欧拉回路是一条欧拉路径，其起点和终点相同
+# 顶点。
+# 时间复杂度为O(V+E)
+# 空间复杂度为O(VE)
 
 
 def dfs(u, graph, visited_edge, path=None):
     """
-    Using dfs for finding eulerian path traversal
-    Args:
-        u: The start_node
-        graph: The graph to check
-        visited_edge: Specify if a node has been visited or not
-        path: Optional path parameter
+    使用 dfs 寻找欧拉路径
+    参数：
+        u：start_node
+        graph：要检查的图表
+        visited_edge：指定节点是否被访问过
+        路径：可选路径参数
 
-    Returns:
-        Path
+    返回：
+        小路
 
-    Example:
+    例子：
         >>> visited_edge = [[False] * 11 for _ in range(11)]
         >>> dfs(1, {1: [2, 3], 2: [1, 3], 3: [1, 2]}, visited_edge)
         [1, 2, 3, 1]
@@ -40,16 +40,16 @@ def dfs(u, graph, visited_edge, path=None):
 
 def check_circuit_or_path(graph, max_node):
     """
-    For checking in graph has euler path or circuit
+    用于检查图中是否有欧拉路径或电路
 
-    Args:
-        graph: The graph to check
-        max_node: The maximum node to check
+    参数：
+        graph：要检查的图表
+        max_node：要检查的最大节点
 
-    Returns:
-        Type of graph, and its circuit or path
+    返回：
+        图的类型及其电路或路径
 
-    Example:
+    例子：
         >>> check_circuit_or_path({1: [2, 3], 2: [1, 3], 3: [1, 2]}, 10)
         (1, -1)
         >>> check_circuit_or_path({1: [2, 3, 4], 2: [], 3: [1, 2], 4: [], 5: [4]}, 10)
@@ -78,11 +78,11 @@ def check_circuit_or_path(graph, max_node):
 
 def check_euler(graph, max_node) -> None:
     """
-    Args:
-        graph: The graph to check
-        max_node: The maximum node to check
+    参数：
+        graph：要检查的图表
+        max_node：要检查的最大节点
 
-    Example:
+    例子：
         >>> check_euler({1: [2, 3], 2: [1, 3], 3: [1, 2]}, 10)
         graph has a Euler cycle
         [1, 2, 3, 1]
@@ -123,7 +123,7 @@ def main() -> None:
     g5 = {
         1: [],
         2: [],
-        # all degree is zero
+        # 所有度数均为零
     }
     max_node = 10
     check_euler(g1, max_node)

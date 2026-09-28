@@ -20,7 +20,7 @@ grid = [
     [0, 0, 0, 0, 1, 0, 0],
 ]
 
-delta = [[-1, 0], [0, -1], [1, 0], [0, 1]]  # up, left, down, right
+delta = [[-1, 0], [0, -1], [1, 0], [0, 1]]  # 上、左、下、右
 
 TPosition = tuple[int, int]
 
@@ -62,7 +62,7 @@ class Node:
 
     def calculate_heuristic(self) -> float:
         """
-        Heuristic for the A*
+        A*的启发式
         """
         dy = self.pos_x - self.goal_x
         dx = self.pos_y - self.goal_y
@@ -102,7 +102,7 @@ class AStar:
 
     def search(self) -> list[TPosition]:
         while self.open_nodes:
-            # Open Nodes are sorted using __lt__
+            # 开放节点使用__lt__排序
             self.open_nodes.sort()
             current_node = self.open_nodes.pop(0)
 
@@ -119,7 +119,7 @@ class AStar:
                 if child_node not in self.open_nodes:
                     self.open_nodes.append(child_node)
                 else:
-                    # retrieve the best current path
+                    # 检索当前最佳路径
                     better_node = self.open_nodes.pop(self.open_nodes.index(child_node))
 
                     if child_node.g_cost < better_node.g_cost:
@@ -131,7 +131,7 @@ class AStar:
 
     def get_successors(self, parent: Node) -> list[Node]:
         """
-        Returns a list of successors (both in the grid and free spaces)
+        返回后继者列表（在网格和自由空间中）
         """
         successors = []
         for action in delta:
@@ -157,7 +157,7 @@ class AStar:
 
     def retrace_path(self, node: Node | None) -> list[TPosition]:
         """
-        Retrace the path from parents to parents until start node
+        回溯从父节点到父节点的路径，直到起始节点
         """
         current_node = node
         path = []
@@ -217,7 +217,7 @@ class BidirectionalAStar:
                     if child_node not in astar.open_nodes:
                         astar.open_nodes.append(child_node)
                     else:
-                        # retrieve the best current path
+                        # 检索当前最佳路径
                         better_node = astar.open_nodes.pop(
                             astar.open_nodes.index(child_node)
                         )
@@ -241,7 +241,7 @@ class BidirectionalAStar:
 
 
 if __name__ == "__main__":
-    # all coordinates are given in format [y,x]
+    # 所有坐标均以 [y,x] 格式给出
     init = (0, 0)
     goal = (len(grid) - 1, len(grid[0]) - 1)
     for elem in grid:

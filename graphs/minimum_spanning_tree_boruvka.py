@@ -1,6 +1,6 @@
 class Graph:
     """
-    Data structure to store graphs (based on adjacency lists)
+    存储图的数据结构（基于邻接表）
     """
 
     def __init__(self) -> None:
@@ -10,7 +10,7 @@ class Graph:
 
     def add_vertex(self, vertex) -> None:
         """
-        Adds a vertex to the graph
+        向图添加一个顶点
 
         """
         if vertex not in self.adjacency:
@@ -19,7 +19,7 @@ class Graph:
 
     def add_edge(self, head, tail, weight) -> None:
         """
-        Adds an edge to the graph
+        向图添加一条边
 
         """
 
@@ -34,8 +34,8 @@ class Graph:
 
     def distinct_weight(self) -> None:
         """
-        For Boruvks's algorithm the weights should be distinct
-        Converts the weights to be distinct
+        对于 Boruvks 的算法，权重应该不同
+        将权重转换为不同的权重
 
         """
         edges = self.get_edges()
@@ -56,7 +56,7 @@ class Graph:
 
     def __str__(self) -> str:
         """
-        Returns string representation of the graph
+        返回图表的字符串表示形式
         """
         string = ""
         for tail in self.adjacency:
@@ -67,7 +67,7 @@ class Graph:
 
     def get_edges(self):
         """
-        Returna all edges in the graph
+        返回图中的所有边
         """
         output = []
         for tail in self.adjacency:
@@ -77,14 +77,14 @@ class Graph:
 
     def get_vertices(self):
         """
-        Returns all vertices in the graph
+        返回图中的所有顶点
         """
         return self.adjacency.keys()
 
     @staticmethod
     def build(vertices=None, edges=None):
         """
-        Builds a graph from the given set of vertices and edges
+        从给定的一组顶点和边构建图
 
         """
         g = Graph()
@@ -100,7 +100,7 @@ class Graph:
 
     class UnionFind:
         """
-        Disjoint set Union and Find for Boruvka's algorithm
+        Boruvka 算法的不相交集并集和查找
         """
 
         def __init__(self) -> None:
@@ -149,7 +149,7 @@ class Graph:
     @staticmethod
     def boruvka_mst(graph):
         """
-        Implementation of Boruvka's algorithm
+        Boruvka算法的实现
         >>> g = Graph()
         >>> g = Graph.build([0, 1, 2, 3], [[0, 1, 1], [0, 2, 1],[2, 3, 1]])
         >>> g.distinct_weight()

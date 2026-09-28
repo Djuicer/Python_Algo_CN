@@ -9,16 +9,16 @@ class Dinic:
         self.adj = [[] for _ in range(n)]
 
     """
-    Here we will add our edges containing with the following parameters:
-    vertex closest to source, vertex closest to sink and flow capacity
-    through that edge ...
+    在这里，我们将添加包含以下参数的边：
+    最接近源的顶点、最接近汇的顶点和流量
+    穿过那个边...
     """
 
     def add_edge(self, a, b, c, rcap=0) -> None:
         self.adj[a].append([b, len(self.adj[b]), c, 0])
         self.adj[b].append([a, len(self.adj[a]) - 1, rcap, 0])
 
-    # This is a sample depth first search to be used at max_flow
+    # 这是在 max_flow 中使用的深度优先搜索示例
     def depth_first_search(self, vertex, sink, flow):
         if vertex == sink or not flow:
             return flow
@@ -34,7 +34,7 @@ class Dinic:
             self.ptr[vertex] = self.ptr[vertex] + 1
         return 0
 
-    # Here we calculate the flow that reaches the sink
+    # 这里我们计算到达水槽的流量
     def max_flow(self, source, sink):
         flow, self.q[0] = 0, source
         for l in range(31):  # l = 30 maybe faster for random data  # noqa: E741
@@ -61,34 +61,34 @@ class Dinic:
         return flow
 
 
-# Example to use
+# 使用示例
 
 """
-Will be a bipartite graph, than it has the vertices near the source(4)
-and the vertices near the sink(4)
+将是一个二部图，它的顶点靠近源（4）
+和水槽附近的顶点(4)
 """
-# Here we make a graphs with 10 vertex(source and sink includes)
+# 这里我们制作一个有10个顶点的图（包括源和汇）
 graph = Dinic(10)
 source = 0
 sink = 9
 """
-Now we add the vertices next to the font in the font with 1 capacity in this edge
+现在我们将字体旁边的顶点添加到该边的容量为 1 的字体中
 (source -> source vertices)
 """
 for vertex in range(1, 5):
     graph.add_edge(source, vertex, 1)
 """
-We will do the same thing for the vertices near the sink, but from vertex to sink
+我们将对水槽附近的顶点执行相同的操作，但从顶点到水槽
 (sink vertices -> sink)
 """
 for vertex in range(5, 9):
     graph.add_edge(vertex, sink, 1)
 """
-Finally we add the verices near the sink to the vertices near the source.
+最后，我们将接收器附近的顶点添加到源附近的顶点。
 (source vertices -> sink vertices)
 """
 for vertex in range(1, 5):
     graph.add_edge(vertex, vertex + 4, 1)
 
-# Now we can know that is the maximum flow(source -> sink)
+# 现在我们可以知道这是最大流量（源->汇）
 print(graph.max_flow(source, sink))

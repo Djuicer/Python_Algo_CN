@@ -1,6 +1,6 @@
-"""Prim's Algorithm.
+"""普里姆算法。
 
-Determines the minimum spanning tree(MST) of a graph using the Prim's Algorithm.
+使用Prim算法确定图的最小生成树（MST）。
 
 Details: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 """
@@ -11,15 +11,15 @@ from collections.abc import Iterator
 
 
 class Vertex:
-    """Class Vertex."""
+    """类顶点。"""
 
     def __init__(self, id_) -> None:
         """
-        Arguments:
-            id - input an id to identify the vertex
-        Attributes:
-            neighbors - a list of the vertices it is linked to
-            edges     - a dict to store the edges's weight
+        论据：
+            id - 输入一个 id 来标识
+        属性：
+            邻居 - 它链接到的顶点列表
+            Edges - 存储边权重的字典
         """
         self.id = str(id_)
         self.key = None
@@ -28,42 +28,42 @@ class Vertex:
         self.edges = {}  # {vertex:distance}
 
     def __lt__(self, other):
-        """Comparison rule to < operator."""
+        """与 < 运算符的比较规则。"""
         return self.key < other.key
 
     def __repr__(self) -> str:
-        """Return the vertex id."""
+        """返回顶点ID。"""
         return self.id
 
     def add_neighbor(self, vertex) -> None:
-        """Add a pointer to a vertex at neighbor's list."""
+        """在邻居列表中添加一个指向顶点的指针。"""
         self.neighbors.append(vertex)
 
     def add_edge(self, vertex, weight) -> None:
-        """Destination vertex and weight."""
+        """目标顶点和权重。"""
         self.edges[vertex.id] = weight
 
 
 def connect(graph, a, b, edge) -> None:
-    # add the neighbors:
+    # 添加邻居：
     graph[a - 1].add_neighbor(graph[b - 1])
     graph[b - 1].add_neighbor(graph[a - 1])
-    # add the edges:
+    # 添加边：
     graph[a - 1].add_edge(graph[b - 1], edge)
     graph[b - 1].add_edge(graph[a - 1], edge)
 
 
 def prim(graph: list, root: Vertex) -> list:
-    """Prim's Algorithm.
+    """普里姆算法。
 
-    Runtime:
+    运行时间：
         O(mn) with `m` edges and `n` vertices
 
-    Return:
-        List with the edges of a Minimum Spanning Tree
+    返回：
+        具有最小生成树边的列表
 
-    Usage:
-        prim(graph, graph[0])
+    用法：
+        prim(图，图[0])
     """
     a = []
     for u in graph:
@@ -84,16 +84,16 @@ def prim(graph: list, root: Vertex) -> list:
 
 
 def prim_heap(graph: list, root: Vertex) -> Iterator[tuple]:
-    """Prim's Algorithm with min heap.
+    """带最小堆的 Prim 算法。
 
-    Runtime:
+    运行时间：
         O((m + n)log n) with `m` edges and `n` vertices
 
-    Yield:
-        Edges of a Minimum Spanning Tree
+    屈服：
+        最小生成树的边
 
-    Usage:
-        prim(graph, graph[0])
+    用法：
+        prim(图，图[0])
     """
     for u in graph:
         u.key = math.inf
@@ -117,7 +117,7 @@ def prim_heap(graph: list, root: Vertex) -> Iterator[tuple]:
 
 def test_vector() -> None:
     """
-    # Creates a list to store x vertices.
+    # 创建一个列表来存储 x 顶点。
     >>> x = 5
     >>> G = [Vertex(n) for n in range(x)]
 

@@ -2,7 +2,7 @@ from collections import deque
 
 
 class BlossomAuxData:
-    """Class to hold auxiliary data during the blossom algorithm's execution."""
+    """在花算法执行期间保存辅助数据的类。"""
 
     def __init__(
         self,
@@ -14,15 +14,15 @@ class BlossomAuxData:
         in_queue: list[bool],
     ) -> None:
         """
-        Initializes the BlossomAuxData instance.
+        初始化 BlossomAuxData 实例。
 
-        Args:
-            queue: A deque for BFS processing.
-            parent: List of parent vertices in the augmenting path.
-            base: List of base vertices for each vertex.
-            in_blossom: Boolean list indicating if a vertex is in a blossom.
-            match: List of matched vertices.
-            in_queue: Boolean list indicating if a vertex is in the queue.
+        参数：
+            队列：用于BFS处理的双端队列。
+            父节点：增广路径中的父节点列表。
+            base：每个顶点的基顶点列表。
+            in_blossom：布尔列表，指示顶点是否花状态。
+            match：匹配顶点的列表。
+            in_queue：布尔列表，指示顶点是否在队列中。
         """
         self.queue = queue
         self.parent = parent
@@ -33,7 +33,7 @@ class BlossomAuxData:
 
 
 class BlossomData:
-    """Class to encapsulate data related to a blossom in the graph."""
+    """用于封装与图中花朵相关的数据的类。"""
 
     def __init__(
         self,
@@ -43,13 +43,13 @@ class BlossomData:
         lowest_common_ancestor: int,
     ) -> None:
         """
-        Initializes the BlossomData instance.
+        初始化 BlossomData 实例。
 
-        Args:
-            aux_data: The auxiliary data related to the blossom.
-            vertex_u: One vertex in the blossom.
-            vertex_v: The other vertex in the blossom.
-            lowest_common_ancestor: The lowest common ancestor of vertex_u and vertex_v.
+        参数：
+            aux_data：与花相关的辅助数据。
+            vertex_u： 葡萄在一个顶点。
+            vertex_v：花中的另一个顶点。
+            lowest_common_ancestor：vertex_u和vertex_v的最低共同祖先。
         """
         self.aux_data = aux_data
         self.vertex_u = vertex_u
@@ -58,87 +58,87 @@ class BlossomData:
 
 
 class EdmondsBlossomAlgorithm:
-    UNMATCHED = -1  # Constant to represent unmatched vertices
+    UNMATCHED = -1  # 表示不匹配顶点的常量
 
     @staticmethod
     def maximum_matching(edges: list[list[int]], vertex_count: int) -> list[list[int]]:
         """
-        Finds the maximum matching in a graph using the Edmonds Blossom Algorithm.
+        使用 Edmonds Blossom 算法找到最佳匹配。
 
-        Args:
-            edges: A list of edges represented as pairs of vertices.
-            vertex_count: The total number of vertices in the graph.
+        参数：
+            边：表示为顶点对的边列表。
+            vertex_count：顶点的顶点。
 
-        Returns:
-            A list of matched pairs in the form of a list of lists.
+        返回：
+            列表列表形式的匹配对的列表。
         """
-        # Create an adjacency list for the graph
+        # 为图创建邻接表
         graph: list[list[int]] = [[] for _ in range(vertex_count)]
 
-        # Populate the graph with the edges
+        # 用边填充图
         for edge in edges:
             u, v = edge
             graph[u].append(v)
             graph[v].append(u)
 
-        # All vertices are initially unmatched
+        # 所有顶点最初都是不匹配的
         match: list[int] = [EdmondsBlossomAlgorithm.UNMATCHED] * vertex_count
         parent: list[int] = [EdmondsBlossomAlgorithm.UNMATCHED] * vertex_count
-        # Each vertex is its own base initially
+        # 每个顶点最初都是它自己的基础
         base: list[int] = list(range(vertex_count))
         in_blossom: list[bool] = [False] * vertex_count
-        # Tracks vertices in the BFS queue
+        # 跟踪 BFS 队列中的边
         in_queue: list[bool] = [False] * vertex_count
 
-        # Main logic for finding maximum matching
+        # 寻找最大匹配的主要逻辑
         for u in range(vertex_count):
-            # Only consider unmatched vertices
+            # 只考虑不匹配的顶点
             if match[u] == EdmondsBlossomAlgorithm.UNMATCHED:
-                # BFS initialization
+                # 广度优先搜索初始化
                 parent = [EdmondsBlossomAlgorithm.UNMATCHED] * vertex_count
                 base = list(range(vertex_count))
                 in_blossom = [False] * vertex_count
                 in_queue = [False] * vertex_count
 
-                queue = deque([u])  # Start BFS from the unmatched vertex
+                queue = deque([u])  # 从不匹配的顶点开始BFS
                 in_queue[u] = True
 
                 augmenting_path_found = False
 
-                # BFS to find augmenting paths
+                # BFS寻找增广路径
                 while queue and not augmenting_path_found:
-                    current = queue.popleft()  # Get the current vertex
-                    for y in graph[current]:  # Explore adjacent vertices
-                        # Skip if we're looking at the current match
+                    current = queue.popleft()  # 获取当前顶点
+                    for y in graph[current]:  # 探索相邻顶点
+                        # 如果我们正在查看当前比赛，则跳过
                         if match[current] == y:
                             continue
 
-                        if base[current] == base[y]:  # Avoid self-loops
+                        if base[current] == base[y]:  # 避免自循环
                             continue
 
                         if parent[y] == EdmondsBlossomAlgorithm.UNMATCHED:
-                            # Case 1: y is unmatched;
-                            # we've found an augmenting path
+                            # 情况1：y不匹配；
+                            # 我们找到了一条增广路径
                             if match[y] == EdmondsBlossomAlgorithm.UNMATCHED:
-                                parent[y] = current  # Update the parent
+                                parent[y] = current  # 更新父级
                                 augmenting_path_found = True
-                                # Augment along this path
+                                # 沿着这条路增强
                                 EdmondsBlossomAlgorithm.update_matching(
                                     match, parent, y
                                 )
                                 break
 
-                            # Case 2: y is matched;
-                            # add y's match to the queue
+                            # 情况2：y匹配；
+                            # 将 y 的匹配添加到队列中
                             z = match[y]
                             parent[y] = current
                             parent[z] = y
-                            if not in_queue[z]:  # If z is not already in the queue
+                            if not in_queue[z]:  # 如果 z 尚未在队列中
                                 queue.append(z)
                                 in_queue[z] = True
                         else:
-                            # Case 3: Both current and y have a parent;
-                            # check for a cycle/blossom
+                            # 情况3：现在有父节点；
+                            # 检查周期/花
                             base_u = EdmondsBlossomAlgorithm.find_base(
                                 base, parent, current, y
                             )
@@ -159,12 +159,12 @@ class EdmondsBlossomAlgorithm:
                                     )
                                 )
 
-        # Create result list of matched pairs
+        # 创建匹配对的结果列表
         matching_result: list[list[int]] = []
         for v in range(vertex_count):
             if (
                 match[v] != EdmondsBlossomAlgorithm.UNMATCHED and v < match[v]
-            ):  # Ensure pairs are unique
+            ):  # 确保对是唯一的
                 matching_result.append([v, match[v]])
 
         return matching_result
@@ -174,53 +174,53 @@ class EdmondsBlossomAlgorithm:
         match: list[int], parent: list[int], matched_vertex: int
     ) -> None:
         """
-        Updates the matching based on the augmenting path found.
+        根据找到的增广路径更新匹配。
 
-        Args:
-            match: The current match list.
-            parent: The parent list from BFS traversal.
-            matched_vertex: The vertex where the augmenting path ends.
+        参数：
+            match：当前的匹配列表。
+            Parent：BFS遍历的父列表。
+            matched_vertex：增广路径结束的顶点。
         """
         while matched_vertex != EdmondsBlossomAlgorithm.UNMATCHED:
-            v = parent[matched_vertex]  # Get the parent vertex
-            next_match = match[v]  # Store the next match
-            match[v] = matched_vertex  # Update match for v
-            match[matched_vertex] = v  # Update match for matched_vertex
-            matched_vertex = next_match  # Move to the next vertex
+            v = parent[matched_vertex]  # 获取父顶点
+            next_match = match[v]  # 存储下一场比赛
+            match[v] = matched_vertex  # 更新 v 的匹配
+            match[matched_vertex] = v  # 更新 matched_vertex 的匹配
+            matched_vertex = next_match  # 移动到下一个顶点
 
     @staticmethod
     def find_base(
         base: list[int], parent: list[int], vertex_u: int, vertex_v: int
     ) -> int:
         """
-        Finds the base of the blossom.
+        找到花朵的基部。
 
-        Args:
-            base: The base array for each vertex.
-            parent: The parent array from BFS.
-            vertex_u: One endpoint of the blossom.
-            vertex_v: The other endpoint of the blossom.
+        参数：
+            base：每个顶点的基础数据库。
+            Parent：来自BFS的父备份。
+            vertex_u：花的一个终点。
+            vertex_v：花的另一个端点。
 
-        Returns:
-            The lowest common ancestor of vertex_u and vertex_v in the blossom.
+        返回：
+            vertex_u和vertex_v的最低共同祖先在花。
         """
         visited: list[bool] = [False] * len(base)
 
-        # Mark ancestors of vertex_u
+        # 标记vertex_u的祖先
         current_vertex_u = vertex_u
         while True:
             current_vertex_u = base[current_vertex_u]
-            # Mark this base as visited
+            # 将此基地标记为已访问
             visited[current_vertex_u] = True
             if parent[current_vertex_u] == EdmondsBlossomAlgorithm.UNMATCHED:
                 break
             current_vertex_u = parent[current_vertex_u]
 
-        # Find the common ancestor of vertex_v
+        # 找到vertex_v的共同祖先
         current_vertex_v = vertex_v
         while True:
             current_vertex_v = base[current_vertex_v]
-            # Check if we've already visited this base
+            # 检查我们是否已经访问过这个基地
             if visited[current_vertex_v]:
                 return current_vertex_v
             current_vertex_v = parent[current_vertex_v]
@@ -228,12 +228,12 @@ class EdmondsBlossomAlgorithm:
     @staticmethod
     def contract_blossom(blossom_data: BlossomData) -> None:
         """
-        Contracts a blossom found during the matching process.
+        契约匹配过程中发现的花朵。
 
-        Args:
-            blossom_data: The data related to the blossom to be contracted.
+        参数：
+            blossom_data：与要承包商的相关数据。
         """
-        # Mark vertices in the blossom
+        # 标记花中的顶点
         for x in range(
             blossom_data.vertex_u,
             blossom_data.aux_data.base[blossom_data.vertex_u]
@@ -241,7 +241,7 @@ class EdmondsBlossomAlgorithm:
         ):
             base_x = blossom_data.aux_data.base[x]
             match_base_x = blossom_data.aux_data.base[blossom_data.aux_data.match[x]]
-            # Mark the base as in a blossom
+            # 将底座标记为盛开的花朵
             blossom_data.aux_data.in_blossom[base_x] = True
             blossom_data.aux_data.in_blossom[match_base_x] = True
 
@@ -252,16 +252,16 @@ class EdmondsBlossomAlgorithm:
         ):
             base_x = blossom_data.aux_data.base[x]
             match_base_x = blossom_data.aux_data.base[blossom_data.aux_data.match[x]]
-            # Mark the base as in a blossom
+            # 将底座标记为盛开的花朵
             blossom_data.aux_data.in_blossom[base_x] = True
             blossom_data.aux_data.in_blossom[match_base_x] = True
 
-        # Update the base for all marked vertices
+        # 更新所有标记顶点的基础
         for i in range(len(blossom_data.aux_data.base)):
             if blossom_data.aux_data.in_blossom[blossom_data.aux_data.base[i]]:
-                # Contract to the lowest common ancestor
+                # 与最低共同祖先的契约
                 blossom_data.aux_data.base[i] = blossom_data.lowest_common_ancestor
                 if not blossom_data.aux_data.in_queue[i]:
-                    # Add to queue if not already present
+                    # 添加到队列（如果尚不存在）
                     blossom_data.aux_data.queue.append(i)
                     blossom_data.aux_data.in_queue[i] = True

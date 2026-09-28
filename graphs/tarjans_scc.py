@@ -3,22 +3,22 @@ from collections import deque
 
 def tarjan(g: list[list[int]]) -> list[list[int]]:
     """
-    Tarjan's algo for finding strongly connected components in a directed graph
+    用于在有向图中找到强估计的 Tarjan 算法
 
-    Uses two main attributes of each node to track reachability, the index of that node
-    within a component(index), and the lowest index reachable from that node(lowlink).
+    使用每个节点的两个主要属性来跟踪可达性，即该节点的索引
+    组件内（索引），以及从该节点可到达的最低索引（低链接）。
 
-    We then perform a dfs of the each component making sure to update these parameters
-    for each node and saving the nodes we visit on the way.
+    然后我们对每个组件执行 dfs，确保更新这些参数
+并保存沿途访问的节点。
 
-    If ever we find that the lowest reachable node from a current node is equal to the
-    index of the current node then it must be the root of a strongly connected
-    component and so we save it and it's equireachable vertices as a strongly
-    connected component.
+    如果我们发现当前节点的最低可达节点等于
+    当前节点的索引，那么它一定是强连通的根
+    组件，所以我们保存它，并且它的等可达顶点作为强
+    连接的组件。
 
-    Complexity: strong_connect() is called at most once for each node and has a
-    complexity of O(|E|) as it is DFS.
-    Therefore this has complexity O(|V| + |E|) for a graph G = (V, E)
+    复杂性：每个节点最多调用strong_connect()一次，并且有一个
+    O(|E|) 的复杂度，因为它是 DFS。
+    因此，对于图 G = (V, E) 来说，其复杂度为 O(|V| + |E|)
 
     >>> tarjan([[2, 3, 4], [2, 3, 4], [0, 1, 3], [0, 1, 2], [1]])
     [[4, 3, 1, 2, 0]]
@@ -43,8 +43,8 @@ def tarjan(g: list[list[int]]) -> list[list[int]]:
     lowlink_of = index_of[:]
 
     def strong_connect(v: int, index: int, components: list[list[int]]) -> int:
-        index_of[v] = index  # the number when this node is seen
-        lowlink_of[v] = index  # lowest rank node reachable from here
+        index_of[v] = index  # 看到该节点时的编号
+        lowlink_of[v] = index  # 从这里可以到达的最低等级节点
         index += 1
         stack.append(v)
         on_stack[v] = True
@@ -96,7 +96,7 @@ def create_graph(n: int, edges: list[tuple[int, int]]) -> list[list[int]]:
 
 
 if __name__ == "__main__":
-    # Test
+    # 测试
     n_vertices = 7
     source = [0, 0, 1, 2, 3, 3, 4, 4, 6]
     target = [1, 3, 2, 0, 1, 4, 5, 6, 5]

@@ -1,13 +1,13 @@
 """
-LeetCode 133. Clone Graph
+LeetCode 133.克隆图
 https://leetcode.com/problems/clone-graph/
 
-Given a reference of a node in a connected undirected graph.
+给定连通无向图中节点的引用。
 
-Return a deep copy (clone) of the graph.
+返回图的深层副本（克隆）。
 
-Each node in the graph contains a value (int) and a list (List[Node]) of its
-neighbors.
+那么每个节点都包含一个值(int)及其List(List[Node])
+邻居。
 """
 
 from dataclasses import dataclass
@@ -35,7 +35,7 @@ class Node:
 
 def clone_graph(node: Node | None) -> Node | None:
     """
-    This function returns a clone of a connected undirected graph.
+    此函数返回连通无向图的克隆。
     >>> clone_graph(Node(1))
     Node(value=1, neighbors=[])
     >>> clone_graph(Node(1, [Node(2)]))
@@ -46,7 +46,7 @@ def clone_graph(node: Node | None) -> Node | None:
     if not node:
         return None
 
-    originals_to_clones = {}  # map nodes to clones
+    originals_to_clones = {}  # 将节点映射到克隆
 
     stack = [node]
 

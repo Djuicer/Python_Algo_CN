@@ -1,16 +1,16 @@
 """
-You are given a tree(a simple connected graph with no cycles). The tree has N
-nodes numbered from 1 to N and is rooted at node 1.
+给你一棵树（一个没有循环的简单图示）。这棵树有N个
+节点编号从 1 到 N，以节点 1 为根。
 
-Find the maximum number of edges you can remove from the tree to get a forest
-such that each connected component of the forest contains an even number of
-nodes.
+找出可以从树上删除以获得森林的最大边数
+这样森林的每个连通部分都包含偶数个
+节点。
 
-Constraints
+约束条件
 2 <= 2 <= 100
 
-Note: The tree input will be such that it can always be decomposed into
-components containing an even number of nodes.
+注意：树的输入总是可以分解为
+包含偶数个节点的组件。
 """
 
 # pylint: disable=invalid-name
@@ -18,7 +18,7 @@ from collections import defaultdict
 
 
 def dfs(start: int) -> int:
-    """DFS traversal"""
+    """DFS遍历"""
     # pylint: disable=redefined-outer-name
     ret = 1
     visited[start] = True
@@ -41,7 +41,7 @@ def even_tree() -> None:
     8 6
     9 8
     10 8
-    On removing edges (1,3) and (1,6), we can get the desired result 2.
+    删除边 (1,3) 和 (1,6)，我们可以获得所需的结果 2。
     """
     dfs(1)
 

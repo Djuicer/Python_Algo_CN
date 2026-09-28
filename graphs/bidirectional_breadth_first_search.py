@@ -18,7 +18,7 @@ grid = [
     [0, 0, 0, 0, 1, 0, 0],
 ]
 
-delta = [[-1, 0], [0, -1], [1, 0], [0, 1]]  # up, left, down, right
+delta = [[-1, 0], [0, -1], [1, 0], [0, 1]]  # 上、左、下、右
 
 
 class Node:
@@ -35,9 +35,9 @@ class Node:
 
 class BreadthFirstSearch:
     """
-    # Comment out slow pytests...
-    # 9.15s call     graphs/bidirectional_breadth_first_search.py:: \
-    #                graphs.bidirectional_breadth_first_search.BreadthFirstSearch
+    # 注释掉缓慢的 pytests...
+    # 9.15s 调用图/bidirectional_breadth_first_search.py:: \
+    # graphs.bidirectional_breadth_first_search.BreadthFirstSearch
     # >>> bfs = BreadthFirstSearch((0, 0), (len(grid) - 1, len(grid[0]) - 1))
     # >>> (bfs.start.pos_y + delta[3][0], bfs.start.pos_x + delta[3][1])
     (0, 1)
@@ -78,7 +78,7 @@ class BreadthFirstSearch:
 
     def get_successors(self, parent: Node) -> list[Node]:
         """
-        Returns a list of successors (both in the grid and free spaces)
+        返回后继者列表（在网格和自由空间中）
         """
         successors = []
         for action in delta:
@@ -97,7 +97,7 @@ class BreadthFirstSearch:
 
     def retrace_path(self, node: Node | None) -> Path:
         """
-        Retrace the path from parents to parents until start node
+        回溯从父节点到父节点的路径，直到起始节点
         """
         current_node = node
         path = []
@@ -164,7 +164,7 @@ class BidirectionalBreadthFirstSearch:
 
 
 if __name__ == "__main__":
-    # all coordinates are given in format [y,x]
+    # 所有坐标均以 [y,x] 格式给出
     import doctest
 
     doctest.testmod()

@@ -1,11 +1,11 @@
 """
-An edge is a bridge if, after removing it count of connected components in graph will
-be increased by one. Bridges represent vulnerabilities in a connected network and are
-useful for designing reliable networks. For example, in a wired computer network, an
-articulation point indicates the critical computers and a bridge indicates the critical
-wires or connections.
+一条边是一座桥，如果在删除它之后，图中的连接组件的计数将
+增加一。网桥代表互联网络中的漏洞，
+对于设计可靠的网络很有用。例如，在有线计算机网络中，
+铰接点表示关键计算机，桥表示关键计算机
+电线或连接。
 
-For more details, refer this article:
+更详细的内容可以参考这篇文章：
 https://www.geeksforgeeks.org/bridge-in-a-graph/
 """
 
@@ -59,7 +59,7 @@ def __get_demo_graph(index):
 
 def compute_bridges(graph: dict[int, list[int]]) -> list[tuple[int, int]]:
     """
-    Return the list of undirected graph bridges [(a1, b1), ..., (ak, bk)]; ai <= bi
+    返回无向图桥列表 [(a1, b1), ..., (ak, bk)]；艾 <= 双
     >>> compute_bridges(__get_demo_graph(0))
     [(3, 4), (2, 3), (2, 5)]
     >>> compute_bridges(__get_demo_graph(1))
@@ -73,7 +73,7 @@ def compute_bridges(graph: dict[int, list[int]]) -> list[tuple[int, int]]:
     """
 
     id_ = 0
-    n = len(graph)  # No of vertices in graph
+    n = len(graph)  # 图中的顶点数
     low = [0] * n
     visited = [False] * n
 
@@ -90,7 +90,7 @@ def compute_bridges(graph: dict[int, list[int]]) -> list[tuple[int, int]]:
                 if id_ <= low[to]:
                     bridges.append((at, to) if at < to else (to, at))
             else:
-                # This edge is a back edge and cannot be a bridge
+                # 该边是后边，不能是桥
                 low[at] = min(low[at], low[to])
 
     bridges: list[tuple[int, int]] = []

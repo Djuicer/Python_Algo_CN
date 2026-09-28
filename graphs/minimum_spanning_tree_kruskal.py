@@ -35,7 +35,7 @@ def kruskal(
     return minimum_spanning_tree
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":  # 编译指示：无覆盖
     num_nodes, num_edges = list(map(int, input().strip().split()))
     edges = []
 

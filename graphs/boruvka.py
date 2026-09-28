@@ -1,26 +1,21 @@
-"""Borůvka's algorithm.
+"""Borůvka 算法。
 
-Determines the minimum spanning tree (MST) of a graph using the Borůvka's algorithm.
-Borůvka's algorithm is a greedy algorithm for finding a minimum spanning tree in a
-connected graph, or a minimum spanning forest if a graph that is not connected.
+使用Borůvka算法确定图的最小生成树（Minimum Spanning Tree, MST）。
+Borůvka算法是一种贪心算法，用于替换图的最小生成树；若图不替换，
+则查找最小生成森林。
 
-The time complexity of this algorithm is O(ELogV), where E represents the number
-of edges, while V represents the number of nodes.
+该算法的时间复杂度为O(ELogV)，其中E表示边数，V表示节点数。
 O(number_of_edges Log number_of_nodes)
 
-The space complexity of this algorithm is O(V + E), since we have to keep a couple
-of lists whose sizes are equal to the number of nodes, as well as keep all the
-edges of a graph inside of the data structure itself.
+该算法的空间复杂度为O(V + E)，因为需要维护多个正确节点数的链表，
+并在数据结构中保存图的所有边。
 
-Borůvka's algorithm gives us pretty much the same result as other MST Algorithms -
-they all find the minimum spanning tree, and the time complexity is approximately
-the same.
+Borůvka算法与其他MST算法的结果基本相同：它们都是活动最小生成树，
+时间复杂度也大致相同。
 
-One advantage that Borůvka's algorithm has compared to the alternatives is that it
-doesn't need to presort the edges or maintain a priority queue in order to find the
-minimum spanning tree.
-Even though that doesn't help its complexity, since it still passes the edges logE
-times, it is a bit simpler to code.
+与其他算法相比，Borůvka算法的一个优点是不需要预先对边排序，也不需要维护
+优先队列可以找到最小生成树。虽然它仍然要遍历边logE次，复杂度逐渐增加
+改善，但实现起来稍简单一些。
 
 Details: https://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm
 """
@@ -33,13 +28,12 @@ from typing import Any
 class Graph:
     def __init__(self, num_of_nodes: int) -> None:
         """
-        Arguments:
-            num_of_nodes - the number of nodes in the graph
-        Attributes:
-            m_num_of_nodes - the number of nodes in the graph.
-            m_edges - the list of edges.
-            m_component - the dictionary which stores the index of the component which
-            a node belongs to.
+        参数：
+            num_of_nodes - 话题的节点数
+        属性：
+            m_num_of_nodes - 图中的节点数。
+            m_edges - 边列表。
+            m_component - 存储节点共享索引的字典。
         """
 
         self.m_num_of_nodes = num_of_nodes
@@ -47,28 +41,27 @@ class Graph:
         self.m_component: dict[int, int] = {}
 
     def add_edge(self, u_node: int, v_node: int, weight: int) -> None:
-        """Adds an edge in the format [first, second, edge weight] to graph."""
+        """向图中添加格式为 [first, second, edge weight] 的边。"""
 
         self.m_edges.append([u_node, v_node, weight])
 
     def find_component(self, u_node: int) -> int:
-        """Propagates a new component throughout a given component."""
+        """在给定分量中传播新的分量编号。"""
 
         if self.m_component[u_node] == u_node:
             return u_node
         return self.find_component(self.m_component[u_node])
 
     def set_component(self, u_node: int) -> None:
-        """Finds the component index of a given node"""
+        """查找给定节点的分量索引。"""
 
         if self.m_component[u_node] != u_node:
             for k in self.m_component:
                 self.m_component[k] = self.find_component(k)
 
     def union(self, component_size: list[int], u_node: int, v_node: int) -> None:
-        """Union finds the roots of components for two nodes, compares the components
-        in terms of size, and attaches the smaller one to the larger one to form
-        single component"""
+        """查找两个节点所在分量的根，比较分量大小，并将较小分量连接到
+        较大分量以形成单个分量。"""
 
         if component_size[u_node] <= component_size[v_node]:
             self.m_component[u_node] = v_node
@@ -81,15 +74,15 @@ class Graph:
             self.set_component(v_node)
 
     def boruvka(self) -> None:
-        """Performs Borůvka's algorithm to find MST."""
+        """执行 Borůvka 算法以查找 MST。"""
 
-        # Initialize additional lists required to algorithm.
+        # 初始化算法所需的附加列表。
         component_size = []
         mst_weight = 0
 
         minimum_weight_edge: list[Any] = [-1] * self.m_num_of_nodes
 
-        # A list of components (initialized to all of the nodes)
+        # 分量列表（初始化为所有节点）
         for node in range(self.m_num_of_nodes):
             self.m_component.update({node: node})
             component_size.append(1)
@@ -104,15 +97,15 @@ class Graph:
                 v_component = self.m_component[v]
 
                 if u_component != v_component:
-                    """If the current minimum weight edge of component u doesn't
-                    exist (is -1), or if it's greater than the edge we're
-                    observing right now, we will assign the value of the edge
-                    we're observing to it.
+                    """如果分量 u 的当前最小权重边不
+                    存在（为-1），或者如果它大于我们的边
+                    现在观察，我们将分配边的值
+                    我们正在观察它。
 
-                    If the current minimum weight edge of component v doesn't
-                    exist (is -1), or if it's greater than the edge we're
-                    observing right now, we will assign the value of the edge
-                    we're observing to it"""
+                    如果分量 v 的当前最小权重边不
+                    存在（为-1），或者如果它大于我们的边
+                    现在观察，我们将分配边的值
+                    我们正在观察它"""
 
                     for component in (u_component, v_component):
                         if (

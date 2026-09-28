@@ -1,43 +1,43 @@
 """
-Lanczos Method for Finding Eigenvalues and Eigenvectors of a Graph.
+用于查找图的特征值和特征分析的 Lanczos 方法。
 
-This module demonstrates the Lanczos method to approximate the largest eigenvalues
-and corresponding eigenvectors of a symmetric matrix represented as a graph's
-adjacency list. The method efficiently handles large, sparse matrices by converting
-the graph to a tridiagonal matrix, whose eigenvalues and eigenvectors are then
-computed.
+该练习模块估计了 Lanczos 方法的最大特征值
+以及表示为图的对称矩阵的相应特征向量
+邻接表。该方法通过转换来有效地处理大型稀疏矩阵
+该图为三对角矩阵，其特征值和特征向量为
+计算出来的。
 
-Key Functions:
+主要功能：
 - `find_lanczos_eigenvectors`: Computes the k largest eigenvalues and vectors.
 - `lanczos_iteration`: Constructs the tridiagonal matrix and orthonormal basis vectors.
 - `multiply_matrix_vector`: Multiplies an adjacency list graph with a vector.
 
-Complexity:
+复杂：
 - Time: O(k * n), where k is the number of eigenvalues and n is the matrix size.
 - Space: O(n), due to sparse representation and tridiagonal matrix structure.
 
-Further Reading:
+进一步阅读：
 - Lanczos Algorithm: https://en.wikipedia.org/wiki/Lanczos_algorithm
 - Eigenvector Centrality: https://en.wikipedia.org/wiki/Eigenvector_centrality
 
-Example Usage:
-Given a graph represented by an adjacency list, the `find_lanczos_eigenvectors`
-function returns the largest eigenvalues and eigenvectors. This can be used to
-analyze graph centrality.
+用法示例：
+给定一个由邻接表表示的图，`find_lanczos_eigenvectors`
+函数返回最大特征值和特征向量。这可以用来
+分析图的中心性。
 """
 
 import numpy as np
 
 
 def validate_adjacency_list(graph: list[list[int | None]]) -> None:
-    """Validates the adjacency list format for the graph.
+    """验证图的邻接列表格式。
 
-    Args:
-        graph: A list of lists where each sublist contains the neighbors of a node.
+    参数：
+        图：列表的列表，其中每个子列表包含节点的邻居。
 
-    Raises:
+    异常：
         ValueError: If the graph is not a list of lists, or if any node has
-                    invalid neighbors (e.g., out-of-range or non-integer values).
+                    无效的邻居（例如，超出范围或非整数值）。
 
     >>> validate_adjacency_list([[1, 2], [0], [0, 1]])
     >>> validate_adjacency_list([[]])  # No neighbors, valid case
@@ -71,24 +71,24 @@ def validate_adjacency_list(graph: list[list[int | None]]) -> None:
 def lanczos_iteration(
     graph: list[list[int | None]], num_eigenvectors: int
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Constructs the tridiagonal matrix and orthonormal basis vectors using the
-    Lanczos method.
+    """使用以下函数构造三对角矩阵和正交基向量
+    兰佐斯法。
 
-    Args:
-        graph: The graph represented as a list of adjacency lists.
-        num_eigenvectors: The number of largest eigenvalues and eigenvectors
-                          to approximate.
+    参数：
+        graph：表示为邻接列表列表的图。
+        num_eigenvectors：最大特征值和特征提供的数量
+                          来近似。
 
-    Returns:
-        A tuple containing:
+    返回：
+        一个元组包含：
             - tridiagonal_matrix: A (num_eigenvectors x num_eigenvectors) symmetric
-                                  matrix.
+                                  矩阵。
             - orthonormal_basis: A (num_nodes x num_eigenvectors) matrix of orthonormal
-                                 basis vectors.
+                                 基向量。
 
-    Raises:
+    异常：
         ValueError: If num_eigenvectors is less than 1 or greater than the number of
-                    nodes.
+                    节点。
 
     >>> graph = [[1, 2], [0, 2], [0, 1]]
     >>> T, Q = lanczos_iteration(graph, 2)
@@ -133,18 +133,18 @@ def lanczos_iteration(
 def multiply_matrix_vector(
     graph: list[list[int | None]], vector: np.ndarray
 ) -> np.ndarray:
-    """Performs multiplication of a graph's adjacency list representation with a vector.
+    """执行图的邻接列表表示与向量的乘法。
 
-    Args:
-        graph: The adjacency list of the graph.
-        vector: A 1D numpy array representing the vector to multiply.
+    参数：
+        图：图的邻接表。
+        向量：表示要相乘的向量的一维numpy内存。
 
-    Returns:
-        A numpy array representing the product of the adjacency list and the vector.
+    返回：
+        表示邻接列表和正在处理的乘积的 numpy 数组。
 
-    Raises:
+    异常：
         ValueError: If the vector's length does not match the number of nodes in the
-                    graph.
+                    图。
 
     >>> multiply_matrix_vector([[1, 2], [0, 2], [0, 1]], np.array([1, 1, 1]))
     array([2., 2., 2.])
@@ -165,20 +165,20 @@ def multiply_matrix_vector(
 def find_lanczos_eigenvectors(
     graph: list[list[int | None]], num_eigenvectors: int
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Computes the largest eigenvalues and their corresponding eigenvectors using the
-    Lanczos method.
+    """使用以下公式计算最大特征值及其相应的特征向量
+    兰佐斯法。
 
-    Args:
-        graph: The graph as a list of adjacency lists.
-        num_eigenvectors: Number of largest eigenvalues and eigenvectors to compute.
+    参数：
+        图：作为邻接表列表的图。
+        num_eigenvectors：要计算最大特征值和特征向量的数量。
 
-    Returns:
-        A tuple containing:
+    返回：
+        一个元组包含：
             - eigenvalues: 1D array of the largest eigenvalues in descending order.
             - eigenvectors: 2D array where each column is an eigenvector corresponding
-                            to an eigenvalue.
+                            到一个特征值。
 
-    Raises:
+    异常：
         ValueError: If the graph format is invalid or num_eigenvectors is out of bounds.
 
     >>> eigenvalues, eigenvectors = find_lanczos_eigenvectors(
@@ -195,7 +195,7 @@ def find_lanczos_eigenvectors(
 
 def main() -> None:
     """
-    Main driver function for testing the implementation with doctests.
+    用于使用doctests测试实现的主要驱动程序函数。
     """
     import doctest
 

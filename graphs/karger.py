@@ -1,12 +1,12 @@
 """
-An implementation of Karger's Algorithm for partitioning a graph.
+用于划分图的Karger算法的实现。
 """
 
 from __future__ import annotations
 
 import random
 
-# Adjacency list representation of this graph:
+# 该图的邻接列表表示：
 # https://en.wikipedia.org/wiki/File:Single_run_of_Karger%E2%80%99s_Mincut_algorithm.svg
 TEST_GRAPH = {
     "1": ["2", "3", "4", "5"],
@@ -24,34 +24,34 @@ TEST_GRAPH = {
 
 def partition_graph(graph: dict[str, list[str]]) -> set[tuple[str, str]]:
     """
-    Partitions a graph using Karger's Algorithm. Implemented from
-    pseudocode found here:
+    使用 Karger 算法对图进行分区。实施自
+    伪代码在这里找到：
     https://en.wikipedia.org/wiki/Karger%27s_algorithm.
-    This function involves random choices, meaning it will not give
-    consistent outputs.
+    该函数涉及随机选择，这意味着它不会给出
+    一致的输出。
 
-    Args:
-        graph: A dictionary containing adacency lists for the graph.
-            Nodes must be strings.
+    参数：
+        graph：包含图表邻接列表的字典。
+            节点必须是字符串。
 
-    Returns:
-        The cutset of the cut found by Karger's Algorithm.
+    返回：
+        Karger 算法找到了切割的切割集。
 
     >>> graph = {'0':['1'], '1':['0']}
     >>> partition_graph(graph)
     {('0', '1')}
     """
-    # Dict that maps contracted nodes to a list of all the nodes it "contains."
+    # 将契约节点映射到它“包含”的所有节点的列表的字典。
     contracted_nodes = {node: {node} for node in graph}
 
     graph_copy = {node: graph[node][:] for node in graph}
 
     while len(graph_copy) > 2:
-        # Choose a random edge.
+        # 选择随机边。
         u = random.choice(list(graph_copy.keys()))
         v = random.choice(graph_copy[u])
 
-        # Contract edge (u, v) to new node uv
+        # 将边 (u, v) 收缩到新节点 uv
         uv = u + v
         uv_neighbors = list(set(graph_copy[u] + graph_copy[v]))
         uv_neighbors.remove(u)
@@ -62,7 +62,7 @@ def partition_graph(graph: dict[str, list[str]]) -> set[tuple[str, str]]:
 
         contracted_nodes[uv] = set(contracted_nodes[u].union(contracted_nodes[v]))
 
-        # Remove nodes u and v.
+        # 删除节点u和v。
         del graph_copy[u]
         del graph_copy[v]
         for neighbor in uv_neighbors:
@@ -71,7 +71,7 @@ def partition_graph(graph: dict[str, list[str]]) -> set[tuple[str, str]]:
             if v in graph_copy[neighbor]:
                 graph_copy[neighbor].remove(v)
 
-    # Find cutset.
+    # 求割集。
     groups = [contracted_nodes[node] for node in graph_copy]
     return {
         (node, neighbor)

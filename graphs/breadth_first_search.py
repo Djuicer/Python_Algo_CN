@@ -13,7 +13,7 @@ class Graph:
 
     def print_graph(self) -> None:
         """
-        prints adjacency list representation of graaph
+        打印图的邻接表表示
         >>> g = Graph()
         >>> g.print_graph()
         >>> g.add_edge(0, 1)
@@ -25,7 +25,7 @@ class Graph:
 
     def add_edge(self, from_vertex: int, to_vertex: int) -> None:
         """
-        adding the edge between two vertices
+        添加两个顶点之间的边
         >>> g = Graph()
         >>> g.print_graph()
         >>> g.add_edge(0, 1)
@@ -50,20 +50,20 @@ class Graph:
         >>> sorted(g.bfs(2))
         [0, 1, 2, 3]
         """
-        # initialize set for storing already visited vertices
+        # 初始化集合以存储已访问过的顶点
         visited = set()
 
-        # create a first in first out queue to store all the vertices for BFS
+        # 创建一个先进的先出队列来存储BFS的所有边界
         queue: Queue = Queue()
 
-        # mark the source node as visited and enqueue it
+        # 将源节点标记为已访问并将其放入队列
         visited.add(start_vertex)
         queue.put(start_vertex)
 
         while not queue.empty():
             vertex = queue.get()
 
-            # loop through all adjacent vertex and enqueue it if not yet visited
+            # 循环遍历所有相邻顶点，如果尚未访问，则将其排队
             for adjacent_vertex in self.vertices[vertex]:
                 if adjacent_vertex not in visited:
                     queue.put(adjacent_vertex)

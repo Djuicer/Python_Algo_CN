@@ -25,8 +25,8 @@ class PriorityQueue:
             heapq.heappush(self.elements, (priority, item))
             self.set.add(item)
         else:
-            # update
-            # print("update", item)
+            # 更新
+            # 打印（“更新”，项目）
             temp = []
             (pri, x) = heapq.heappop(self.elements)
             while x != item:
@@ -57,19 +57,19 @@ class PriorityQueue:
 
 
 def consistent_heuristic(p: TPos, goal: TPos):
-    # euclidean distance
+    # 欧氏距离
     a = np.array(p)
     b = np.array(goal)
     return np.linalg.norm(a - b)
 
 
 def heuristic_2(p: TPos, goal: TPos):
-    # integer division by time variable
+    # 整数除以时间变量
     return consistent_heuristic(p, goal) // t
 
 
 def heuristic_1(p: TPos, goal: TPos):
-    # manhattan distance
+    # 曼哈顿距离
     return abs(p[0] - goal[0]) + abs(p[1] - goal[1])
 
 
@@ -93,7 +93,7 @@ def do_something(back_pointer, goal, start) -> None:
     x = back_pointer[goal]
     while x != start:
         (x_c, y_c) = x
-        # print(x)
+        # 打印（x）
         grid[(n - 1) - y_c][x_c] = "-"
         x = back_pointer[x]
     grid[(n - 1)][0] = "-"
@@ -138,8 +138,8 @@ def expand_state(
 ) -> None:
     for itera in range(n_heuristic):
         open_list[itera].remove_element(s)
-    # print("s", s)
-    # print("j", j)
+    # 打印（“s”，s）
+    # 打印（“j”，j）
     (x, y) = s
     left = (x - 1, y)
     right = (x + 1, y)
@@ -149,7 +149,7 @@ def expand_state(
     for neighbours in [left, right, up, down]:
         if neighbours not in blocks:
             if valid(neighbours) and neighbours not in visited:
-                # print("neighbour", neighbours)
+                # print("neighbor", neighbor)
                 visited.add(neighbours)
                 back_pointer[neighbours] = -1
                 g_function[neighbours] = float("inf")
@@ -182,7 +182,7 @@ def make_common_ground():
         for y in range(1, 15):
             some_list.append((x, y))
 
-    # L block
+    # L型块
     for x in range(1, 4):
         for y in range(12, 19):
             some_list.append((x, y))
@@ -220,13 +220,13 @@ blocks_all = make_common_ground()
 
 
 blocks = blocks_blk
-# hyper parameters
+# 超参数
 W1 = 1
 W2 = 1
 n = 20
-n_heuristic = 3  # one consistent and two other inconsistent
+n_heuristic = 3  # 一个一致，另外两个不一致
 
-# start and end destination
+# 起点和终点目的地
 start = (0, 0)
 goal = (n - 1, n - 1)
 

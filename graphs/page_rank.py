@@ -3,12 +3,12 @@ Author: https://github.com/bhushan-borole
 """
 
 """
-The input graph for the algorithm is:
+该算法的输入图为：
 
-  A B C
-A 0 1 1
-B 0 0 1
-C 1 0 0
+  ABC
+一个 0 1 1
+乙 0 0 1
+1 0 0
 
 """
 

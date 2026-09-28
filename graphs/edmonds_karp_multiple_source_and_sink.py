@@ -8,7 +8,7 @@ class FlowNetwork:
         self.vertices_count = len(graph)
         self.maximum_flow_algorithm = None
 
-    # make only one source and one sink
+    # 只制作一个源和一个汇
     def _normalize_graph(self, sources, sinks) -> None:
         if sources is int:
             sources = [sources]
@@ -21,8 +21,8 @@ class FlowNetwork:
         self.source_index = sources[0]
         self.sink_index = sinks[0]
 
-        # make fake vertex if there are more
-        # than one source or sink
+        # 如果有更多则制作假顶点
+        # 多于一个源或汇
         if len(sources) > 1 or len(sinks) > 1:
             max_input_flow = 0
             for i in sources:
@@ -63,8 +63,8 @@ class FlowNetworkAlgorithmExecutor:
         self.verticies_count = flow_network.verticesCount
         self.source_index = flow_network.sourceIndex
         self.sink_index = flow_network.sinkIndex
-        # it's just a reference, so you shouldn't change
-        # it in your algorithms, use deep copy before doing that
+        # 这只是一个参考，所以你不应该改变
+        # 在你的算法中，在这样做之前使用深度复制
         self.graph = flow_network.graph
         self.executed = False
 
@@ -73,7 +73,7 @@ class FlowNetworkAlgorithmExecutor:
             self._algorithm()
             self.executed = True
 
-    # You should override it
+    # 你应该覆盖它
     def _algorithm(self) -> None:
         pass
 
@@ -81,7 +81,7 @@ class FlowNetworkAlgorithmExecutor:
 class MaximumFlowAlgorithmExecutor(FlowNetworkAlgorithmExecutor):
     def __init__(self, flow_network) -> None:
         super().__init__(flow_network)
-        # use this to save your result
+        # 用它来保存你的结果
         self.maximum_flow = -1
 
     def get_maximum_flow(self):
@@ -103,28 +103,28 @@ class PushRelabelExecutor(MaximumFlowAlgorithmExecutor):
     def _algorithm(self) -> None:
         self.heights[self.source_index] = self.verticies_count
 
-        # push some substance to graph
+        # 将一些内容推入图表
         for nextvertex_index, bandwidth in enumerate(self.graph[self.source_index]):
             self.preflow[self.source_index][nextvertex_index] += bandwidth
             self.preflow[nextvertex_index][self.source_index] -= bandwidth
             self.excesses[nextvertex_index] += bandwidth
 
-        # Relabel-to-front selection rule
+        # 重新标记到前面的选择规则
         vertices_list = [
             i
             for i in range(self.verticies_count)
             if i not in {self.source_index, self.sink_index}
         ]
 
-        # move through list
+        # 浏览列表
         i = 0
         while i < len(vertices_list):
             vertex_index = vertices_list[i]
             previous_height = self.heights[vertex_index]
             self.process_vertex(vertex_index)
             if self.heights[vertex_index] > previous_height:
-                # if it was relabeled, swap elements
-                # and start from 0 index
+                # 如果被重新标记，则交换元素
+                # 并从0索引开始
                 vertices_list.insert(0, vertices_list.pop(i))
                 i = 0
             else:
@@ -135,7 +135,7 @@ class PushRelabelExecutor(MaximumFlowAlgorithmExecutor):
     def process_vertex(self, vertex_index) -> None:
         while self.excesses[vertex_index] > 0:
             for neighbour_index in range(self.verticies_count):
-                # if it's neighbour and current vertex is higher
+                # 如果它的邻居和当前顶点更高
                 if (
                     self.graph[vertex_index][neighbour_index]
                     - self.preflow[vertex_index][neighbour_index]
@@ -173,7 +173,7 @@ class PushRelabelExecutor(MaximumFlowAlgorithmExecutor):
 if __name__ == "__main__":
     entrances = [0]
     exits = [3]
-    # graph = [
+    # 图 = [
     #     [0, 0, 4, 6, 0, 0],
     #     [0, 0, 5, 2, 0, 0],
     #     [0, 0, 0, 0, 4, 4],
@@ -183,11 +183,11 @@ if __name__ == "__main__":
     # ]
     graph = [[0, 7, 0, 0], [0, 0, 6, 0], [0, 0, 0, 8], [9, 0, 0, 0]]
 
-    # prepare our network
+    # 准备我们的网络
     flow_network = FlowNetwork(graph, entrances, exits)
-    # set algorithm
+    # 设定算法
     flow_network.set_maximum_flow_algorithm(PushRelabelExecutor)
-    # and calculate
+    # 并计算
     maximum_flow = flow_network.find_maximum_flow()
 
     print(f"maximum flow is {maximum_flow}")

@@ -1,9 +1,7 @@
 """
-Use an ant colony optimization algorithm to solve the travelling salesman problem (TSP)
-which asks the following question:
-"Given a list of cities and the distances between each pair of cities, what is the
- shortest possible route that visits each city exactly once and returns to the origin
- city?"
+使用芋群优化算法进行初始旅行商问题（TSP）。该问题提出：
+“给定一组城市以及每对城市之间的距离，恰好访问每座城市一次并返回
+起始城市的最短路线是什么？”
 
 https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
 https://en.wikipedia.org/wiki/Travelling_salesman_problem
@@ -33,10 +31,10 @@ def main(
     pheromone_evaporation: float,
     alpha: float,
     beta: float,
-    q: float,  # Pheromone system parameters Q, which is a constant
+    q: float,  # 信息素系统参数 Q，它是一个常量
 ) -> tuple[list[int], float]:
     """
-    Ant colony algorithm main function
+    蚁群算法的主函数
     >>> main(cities=cities, ants_num=10, iterations_num=20,
     ...      pheromone_evaporation=0.7, alpha=1.0, beta=5.0, q=10)
     ([0, 1, 2, 3, 4, 5, 6, 7, 0], 37.909778143828696)
@@ -66,7 +64,7 @@ def main(
     ...      pheromone_evaporation=0, alpha=1.0, beta=5.0, q=10)
     ([0, 1, 0], 5.656854249492381)
     """
-    # Initialize the pheromone matrix
+    # 初始化信息素矩阵
     cities_num = len(cities)
     pheromone = [[1.0] * cities_num] * cities_num
 
@@ -101,7 +99,7 @@ def main(
 
 def distance(city1: list[int], city2: list[int]) -> float:
     """
-    Calculate the distance between two coordinate points
+    计算两个坐标点之间的距离
     >>> distance([0, 0], [3, 4] )
     5.0
     >>> distance([0, 0], [-3, 4] )
@@ -117,12 +115,12 @@ def pheromone_update(
     cities: dict[int, list[int]],
     pheromone_evaporation: float,
     ants_route: list[list[int]],
-    q: float,  # Pheromone system parameters Q, which is a constant
+    q: float,  # 信息素系统参数 Q，它是一个常量
     best_path: list[int],
     best_distance: float,
 ) -> tuple[list[list[float]], list[int], float]:
     """
-    Update pheromones on the route and update the best route
+    更新路线上的信息素及最佳路线
     >>>
     >>> pheromone_update(pheromone=[[1.0, 1.0], [1.0, 1.0]],
     ...                  cities={0: [0,0], 1: [2,2]}, pheromone_evaporation=0.7,
@@ -144,15 +142,15 @@ def pheromone_update(
       ...
     KeyError: 0
     """
-    for a in range(len(cities)):  # Update the volatilization of pheromone on all routes
+    for a in range(len(cities)):  # 更新所有路线上的信息素挥发量
         for b in range(len(cities)):
             pheromone[a][b] *= pheromone_evaporation
     for ant_route in ants_route:
         total_distance = 0.0
-        for i in range(len(ant_route) - 1):  # Calculate total distance
+        for i in range(len(ant_route) - 1):  # 计算总距离
             total_distance += distance(cities[ant_route[i]], cities[ant_route[i + 1]])
         delta_pheromone = q / total_distance
-        for i in range(len(ant_route) - 1):  # Update pheromones
+        for i in range(len(ant_route) - 1):  # 更新信息素
             pheromone[ant_route[i]][ant_route[i + 1]] += delta_pheromone
             pheromone[ant_route[i + 1]][ant_route[i]] = pheromone[ant_route[i]][
                 ant_route[i + 1]
@@ -173,7 +171,7 @@ def city_select(
     beta: float,
 ) -> tuple[dict[int, list[int]], dict[int, list[int]]]:
     """
-    Choose the next city for ants
+    为蚂蚁选择下一座城市
     >>> city_select(pheromone=[[1.0, 1.0], [1.0, 1.0]], current_city={0: [0, 0]},
     ...             unvisited_cities={1: [2, 2]}, alpha=1.0, beta=5.0)
     ({1: [2, 2]}, {})

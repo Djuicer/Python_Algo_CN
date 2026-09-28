@@ -1,13 +1,13 @@
-"""Non recursive implementation of a DFS algorithm."""
+"""DFS 算法的非循环实现。"""
 
 from __future__ import annotations
 
 
 def depth_first_search(graph: dict, start: str) -> set[str]:
-    """Depth First Search on Graph
-    :param graph: directed graph in dictionary format
-    :param start: starting vertex as a string
-    :returns: the trace of the search
+    """图上的深度优先搜索
+    :param graph: 字典格式的有向图
+    :param start:作为字符串的起始顶点
+    :return: 搜索结果
     >>> input_G = { "A": ["B", "C", "D"], "B": ["A", "D", "E"],
     ... "C": ["A", "F"], "D": ["B", "D"], "E": ["B", "F"],
     ... "F": ["C", "E", "G"], "G": ["F"] }
@@ -22,7 +22,7 @@ def depth_first_search(graph: dict, start: str) -> set[str]:
     while stack:
         v = stack.pop()
         explored.add(v)
-        # Differences from BFS:
+        # 与BFS的区别：
         # 1) pop last element instead of first one
         # 2) add adjacent elements to stack without exploring them
         for adj in reversed(graph[v]):

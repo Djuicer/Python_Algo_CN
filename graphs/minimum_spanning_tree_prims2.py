@@ -1,10 +1,10 @@
 """
-Prim's (also known as Jarník's) algorithm is a greedy algorithm that finds a minimum
-spanning tree for a weighted undirected graph. This means it finds a subset of the
-edges that forms a tree that includes every vertex, where the total weight of all the
-edges in the tree is minimized. The algorithm operates by building this tree one vertex
-at a time, from an arbitrary starting vertex, at each step adding the cheapest possible
-connection from the tree to another vertex.
+Prim 算法（也称为 Jarník 算法）是一种贪心算法，可找到最小值
+加权无向图的生成树。这意味着它找到了
+形成包含每个顶点的树的边，其中所有顶点的总权重
+树中的边被最小化。该算法通过构建这棵树的一个顶点来运行
+一次，从任意起始顶点，在每一步添加尽可能便宜的
+从树到另一个顶点的连接。
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ T = TypeVar("T")
 
 def get_parent_position(position: int) -> int:
     """
-    heap helper function get the position of the parent of the current node
+    堆辅助函数获取当前节点父节点的位置
 
     >>> get_parent_position(1)
     0
@@ -29,7 +29,7 @@ def get_parent_position(position: int) -> int:
 
 def get_child_left_position(position: int) -> int:
     """
-    heap helper function get the position of the left child of the current node
+    堆辅助函数获取当前节点左子节点的位置
 
     >>> get_child_left_position(0)
     1
@@ -39,7 +39,7 @@ def get_child_left_position(position: int) -> int:
 
 def get_child_right_position(position: int) -> int:
     """
-    heap helper function get the position of the right child of the current node
+    堆辅助函数获取当前节点右子节点的位置
 
     >>> get_child_right_position(0)
     2
@@ -49,19 +49,19 @@ def get_child_right_position(position: int) -> int:
 
 class MinPriorityQueue[T]:
     """
-    Minimum Priority Queue Class
+    最低优先级队列类别
 
-    Functions:
-    is_empty: function to check if the priority queue is empty
-    push: function to add an element with given priority to the queue
-    extract_min: function to remove and return the element with lowest weight (highest
-                 priority)
-    update_key: function to update the weight of the given key
-    _bubble_up: helper function to place a node at the proper position (upward
-                movement)
-    _bubble_down: helper function to place a node at the proper position (downward
-                movement)
-    _swap_nodes: helper function to swap the nodes at the given positions
+    功能：
+    is_empty：检查优先级队列是否为空的函数
+    Push：将具有给定优先级的元素添加到队列的函数
+    extract_min：删除并返回权重最低（最高）的元素的函数
+                 优先事项）
+    update_key：更新给定密钥权重的函数
+    _bubble_up：帮助函数将节点放置在正确的位置（向上
+                移动）
+    _bubble_down：帮助函数将节点放置在正确的位置（向下
+                移动）
+    _swap_nodes：交换给定位置节点的辅助函数
 
     >>> queue = MinPriorityQueue()
 
@@ -95,18 +95,18 @@ class MinPriorityQueue[T]:
         return str(self.heap)
 
     def is_empty(self) -> bool:
-        # Check if the priority queue is empty
+        # 检查优先级队列是否为空
         return self.elements == 0
 
     def push(self, elem: T, weight: int) -> None:
-        # Add an element with given priority to the queue
+        # 将具有给定优先级的元素添加到队列中
         self.heap.append((elem, weight))
         self.position_map[elem] = self.elements
         self.elements += 1
         self._bubble_up(elem)
 
     def extract_min(self) -> T:
-        # Remove and return the element with lowest weight (highest priority)
+        # 删除并返回权重最低的元素（优先级最高）
         if self.elements > 1:
             self._swap_nodes(0, self.elements - 1)
         elem, _ = self.heap.pop()
@@ -118,7 +118,7 @@ class MinPriorityQueue[T]:
         return elem
 
     def update_key(self, elem: T, weight: int) -> None:
-        # Update the weight of the given key
+        # 更新给定密钥的权重
         position = self.position_map[elem]
         self.heap[position] = (elem, weight)
         if position > 0:
@@ -132,8 +132,8 @@ class MinPriorityQueue[T]:
             self._bubble_down(elem)
 
     def _bubble_up(self, elem: T) -> None:
-        # Place a node at the proper position (upward movement) [to be used internally
-        # only]
+        # 将节点放置在合适的位置（向上移动）【内部使用
+        # 仅有的]
         curr_pos = self.position_map[elem]
         if curr_pos == 0:
             return None
@@ -146,8 +146,8 @@ class MinPriorityQueue[T]:
         return None
 
     def _bubble_down(self, elem: T) -> None:
-        # Place a node at the proper position (downward movement) [to be used
-        # internally only]
+        # 将节点放置在适当的位置（向下移动）【待使用
+        # 仅限内部]
         curr_pos = self.position_map[elem]
         _, weight = self.heap[curr_pos]
         child_left_position = get_child_left_position(curr_pos)
@@ -173,7 +173,7 @@ class MinPriorityQueue[T]:
         return None
 
     def _swap_nodes(self, node1_pos: int, node2_pos: int) -> None:
-        # Swap the nodes at the given positions
+        # 交换给定位置的节点
         node1_elem = self.heap[node1_pos][0]
         node2_elem = self.heap[node2_pos][0]
         self.heap[node1_pos], self.heap[node2_pos] = (
@@ -186,11 +186,11 @@ class MinPriorityQueue[T]:
 
 class GraphUndirectedWeighted[T]:
     """
-    Graph Undirected Weighted Class
+    图无向加权类
 
-    Functions:
-    add_node: function to add a node in the graph
-    add_edge: function to add an edge between 2 nodes in the graph
+    功能：
+    add_node：在图中添加节点的函数
+    add_edge：在图中的2个节点之间添加边的函数
     """
 
     def __init__(self) -> None:
@@ -204,13 +204,13 @@ class GraphUndirectedWeighted[T]:
         return self.nodes
 
     def add_node(self, node: T) -> None:
-        # Add a node in the graph if it is not in the graph
+        # 如果图中没有节点，则添加该节点
         if node not in self.connections:
             self.connections[node] = {}
             self.nodes += 1
 
     def add_edge(self, node1: T, node2: T, weight: int) -> None:
-        # Add an edge between 2 nodes in the graph
+        # 在图中的 2 个节点之间添加一条边
         self.add_node(node1)
         self.add_node(node2)
         self.connections[node1][node2] = weight
@@ -238,7 +238,7 @@ def prims_algo[T](
     >>> abs(dist["a"] - dist["c"])
     13
     """
-    # prim's algorithm for minimum spanning tree
+    # prim 最小生成树算法
     dist: dict[T, int] = dict.fromkeys(graph.connections, maxsize)
     parent: dict[T, T | None] = dict.fromkeys(graph.connections)
 
@@ -249,7 +249,7 @@ def prims_algo[T](
     if priority_queue.is_empty():
         return dist, parent
 
-    # initialization
+    # 初始化
     node = priority_queue.extract_min()
     dist[node] = 0
     for neighbour in graph.connections[node]:
@@ -258,7 +258,7 @@ def prims_algo[T](
             priority_queue.update_key(neighbour, dist[neighbour])
             parent[neighbour] = node
 
-    # running prim's algorithm
+    # 运行 prim 算法
     while not priority_queue.is_empty():
         node = priority_queue.extract_min()
         for neighbour in graph.connections[node]:

@@ -38,7 +38,7 @@ class Heap:
 
                 self.top_to_bottom(heap, smallest_child, size, positions)
 
-    # Update function if value of any node in min-heap decreases
+    # 如果最小堆中任何节点的值减少，则更新函数
     def bottom_to_top(self, val, index, heap, position) -> None:
         temp = position[index]
 
@@ -87,10 +87,10 @@ def prisms_algorithm(adjacency_list):
     heap = Heap()
 
     visited = [0] * len(adjacency_list)
-    nbr_tv = [-1] * len(adjacency_list)  # Neighboring Tree Vertex of selected vertex
-    # Minimum Distance of explored vertex with neighboring vertex of partial tree
-    # formed in graph
-    distance_tv = []  # Heap of Distance of vertices from their neighboring vertex
+    nbr_tv = [-1] * len(adjacency_list)  # 所选顶点的相邻树顶点
+    # 部分树的探索顶点与相邻顶点的最小距离
+    # 形成图
+    distance_tv = []  # 顶点与其相邻顶点的距离堆
     positions = []
 
     for vertex in range(len(adjacency_list)):
@@ -124,7 +124,7 @@ def prisms_algorithm(adjacency_list):
     return tree_edges
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":  # 编译指示：无覆盖
     # < --------- Prims Algorithm --------- >
     edges_number = int(input("Enter number of edges: ").strip())
     adjacency_list = defaultdict(list)

@@ -1,7 +1,7 @@
 """
 * Author: Manuel Di Lullo (https://github.com/manueldilullo)
 * Description: Random graphs generator.
-               Uses graphs represented with an adjacency list.
+               使用以邻接列表表示的图。
 
 URL: https://en.wikipedia.org/wiki/Random_graph
 """
@@ -13,12 +13,12 @@ def random_graph(
     vertices_number: int, probability: float, directed: bool = False
 ) -> dict:
     """
-    Generate a random graph
-    @input: vertices_number (number of vertices),
-            probability (probability that a generic edge (u,v) exists),
-            directed (if True: graph will be a directed graph,
-                      otherwise it will be an undirected graph)
-    @examples:
+    生成随机图
+    @输入：vertices_number（顶点数），
+            概率（通用边 (u,v) 存在的概率），
+            有向（如果为真：图将是有向图，
+                      否则它将是一个无向图）
+    @例子：
     >>> random.seed(1)
     >>> random_graph(4, 0.5)
     {0: [1], 1: [0, 2, 3], 2: [1, 3], 3: [1, 2]}
@@ -28,31 +28,31 @@ def random_graph(
     """
     graph: dict = {i: [] for i in range(vertices_number)}
 
-    # if probability is greater or equal than 1, then generate a complete graph
+    # 如果概率大于或等于1，则生成完整图
     if probability >= 1:
         return complete_graph(vertices_number)
-    # if probability is lower or equal than 0, then return a graph without edges
+    # 如果概率低于或等于 0，则返回没有边的图
     if probability <= 0:
         return graph
 
-    # for each couple of nodes, add an edge from u to v
-    # if the number randomly generated is greater than probability probability
+    # 对于每对节点，添加一条从 u 到 v 的边
+    # 如果随机生成的数字大于概率概率
     for i in range(vertices_number):
         for j in range(i + 1, vertices_number):
             if random.random() < probability:
                 graph[i].append(j)
                 if not directed:
-                    # if the graph is undirected, add an edge in from j to i, either
+                    # 如果图是无向的，则添加一条从 j 到 i 的边
                     graph[j].append(i)
     return graph
 
 
 def complete_graph(vertices_number: int) -> dict:
     """
-    Generate a complete graph with vertices_number vertices.
-    @input: vertices_number (number of vertices),
-            directed (False if the graph is undirected, True otherwise)
-    @example:
+    生成具有vertices_number顶点的完整图。
+    @输入：vertices_number（顶点数），
+            有向（如果图无向则为False，否则为True）
+    @例子：
     >>> complete_graph(3)
     {0: [1, 2], 1: [0, 2], 2: [0, 1]}
     """

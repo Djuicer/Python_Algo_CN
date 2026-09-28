@@ -19,8 +19,8 @@ def _collect_nodes_and_edges(graph: adjacency) -> tuple[list[Node], list[edge]]:
 
 def _bellman_ford(nodes: list[Node], edges: list[edge]) -> dict[Node, float]:
     """
-    Bellman-Ford relaxation to compute potentials h[v] for all vertices.
-    Raises ValueError if a negative weight cycle exists.
+    Bellman-Ford 松弛计算所有顶点的势 h[v]。
+    如果存在负权重循环，则引发ValueError。
     """
     dist: dict[Node, float] = dict.fromkeys(nodes, 0.0)
     n = len(nodes)
@@ -47,8 +47,8 @@ def _dijkstra(
     potentials: dict[Node, float],
 ) -> dict[Node, float]:
     """
-    Dijkstra over reweighted graph, using potentials h to make weights non-negative.
-    Returns distances from start in the reweighted space.
+    Dijkstra在重新加权图上，利用势使权重非负。
+    返回重新加权空间中距起点的距离。
     """
     inf = float("inf")
     dist: dict[Node, float] = dict.fromkeys(nodes, inf)
@@ -74,21 +74,21 @@ def _dijkstra(
 
 def johnson(graph: adjacency) -> dict[Node, dict[Node, float]]:
     """
-    Compute all-pairs shortest paths using Johnson's algorithm.
+    使用约翰逊算法计算所有对的最短路径。
 
     Reference:
         https://en.wikipedia.org/wiki/Johnson%27s_algorithm
 
-    Args:
-        graph: adjacency list {u: [(v, weight), ...], ...}
+    参数：
+        图：邻接表 {u: [(v, 权重), ...], ...}
 
-    Returns:
-        dict of dicts: dist[u][v] = shortest distance from u to v
+    返回：
+        字典的字典： dist[u][v] = 从 u 到 v 的最短距离
 
-    Raises:
-        ValueError: if a negative weight cycle is detected
+    异常：
+        ValueError：如果检测到负权环
 
-    Example:
+    例子：
     >>> g = {
     ...     0: [(1, 3), (2, 8), (4, -4)],
     ...     1: [(3, 1), (4, 7)],

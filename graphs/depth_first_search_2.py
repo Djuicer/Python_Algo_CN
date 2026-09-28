@@ -7,12 +7,12 @@ class Graph:
     def __init__(self) -> None:
         self.vertex = {}
 
-    # for printing the Graph vertices
+    # 用于打印图顶点
     def print_graph(self) -> None:
         """
-        Print the graph vertices.
+        打印图顶点。
 
-        Example:
+        例子：
         >>> g = Graph()
         >>> g.add_edge(0, 1)
         >>> g.add_edge(0, 2)
@@ -31,15 +31,15 @@ class Graph:
         for i in self.vertex:
             print(i, " -> ", " -> ".join([str(j) for j in self.vertex[i]]))
 
-    # for adding the edge between two vertices
+    # 用于在两个顶点之间添加边
     def add_edge(self, from_vertex: int, to_vertex: int) -> None:
         """
-        Add an edge between two vertices.
+        在两个顶点之间添加一条边。
 
-        :param from_vertex: The source vertex.
-        :param to_vertex: The destination vertex.
+        :param from_vertex：源顶点。
+        :param to_vertex: 目标顶点。
 
-        Example:
+        例子：
         >>> g = Graph()
         >>> g.add_edge(0, 1)
         >>> g.add_edge(0, 2)
@@ -47,19 +47,19 @@ class Graph:
         {0: [1, 2]}
         0  ->  1 -> 2
         """
-        # check if vertex is already present,
+        # 检查顶点是否已经存在，
         if from_vertex in self.vertex:
             self.vertex[from_vertex].append(to_vertex)
         else:
-            # else make a new vertex
+            # 否则创建一个新顶点
             self.vertex[from_vertex] = [to_vertex]
 
     def dfs(self) -> None:
         """
-        Perform depth-first search (DFS) traversal on the graph
-        and print the visited vertices.
+        对图执行深度优先搜索（DFS）遍历
+        并打印访问过的顶点。
 
-        Example:
+        例子：
         >>> g = Graph()
         >>> g.add_edge(0, 1)
         >>> g.add_edge(0, 2)
@@ -70,22 +70,22 @@ class Graph:
         >>> g.dfs()
         0 1 2 3
         """
-        # visited array for storing already visited nodes
+        # 已访问数组，用于存储已访问过的节点
         visited = [False] * len(self.vertex)
 
-        # call the recursive helper function
+        # 调用递归辅助函数
         for i in range(len(self.vertex)):
             if not visited[i]:
                 self.dfs_recursive(i, visited)
 
     def dfs_recursive(self, start_vertex: int, visited: list) -> None:
         """
-        Perform a recursive depth-first search (DFS) traversal on the graph.
+        对图执行梯度深度优先搜索 (DFS) 遍历。
 
-        :param start_vertex: The starting vertex for the traversal.
-        :param visited: A list to track visited vertices.
+        :param start_vertex:进入的起始顶点。
+        :param Visited：跟踪访问过的顶点的列表。
 
-        Example:
+        例子：
         >>> g = Graph()
         >>> g.add_edge(0, 1)
         >>> g.add_edge(0, 2)
@@ -97,12 +97,12 @@ class Graph:
         >>> g.dfs_recursive(0, visited)
         0 1 2 3
         """
-        # mark start vertex as visited
+        # 将起始顶点标记为已访问
         visited[start_vertex] = True
 
         print(start_vertex, end="")
 
-        # Recur for all the vertices that are adjacent to this node
+        # 对与该节点相邻的所有顶点进行递归
         for i in self.vertex:
             if not visited[i]:
                 print(" ", end="")

@@ -28,18 +28,18 @@ class Graph:
         self, distances_from_source: list[int], visited: list[bool]
     ) -> int:
         """
-        A utility function to find the vertex with minimum distance value, from the set
-        of vertices not yet included in shortest path tree.
+        用于从集合中查找具有最小距离值的顶点的实用函数
+        尚未包含在最短路径树中的顶点数。
 
         >>> Graph(3).minimum_distance([1, 2, 3], [False, False, True])
         0
         """
 
-        # Initialize minimum distance for next node
+        # 初始化下一个节点的最小距离
         minimum = 1e7
         min_index = 0
 
-        # Search not nearest vertex not in the shortest path tree
+        # 搜索不在最短路径树中的最近顶点
         for vertex in range(self.vertices):
             if distances_from_source[vertex] < minimum and visited[vertex] is False:
                 minimum = distances_from_source[vertex]
@@ -48,8 +48,8 @@ class Graph:
 
     def dijkstra(self, source: int) -> None:
         """
-        Function that implements Dijkstra's single source shortest path algorithm for a
-        graph represented using adjacency matrix representation.
+        实现Dijkstra的单源最短路径算法的函数
+        使用邻接矩阵表示的图。
 
         >>> Graph(4).dijkstra(1)  # doctest: +NORMALIZE_WHITESPACE
         Vertex  Distance from Source
@@ -59,7 +59,7 @@ class Graph:
         3 		 10000000
         """
 
-        distances = [int(1e7)] * self.vertices  # distances from the source
+        distances = [int(1e7)] * self.vertices  # 距源的距离
         distances[source] = 0
         visited = [False] * self.vertices
 
@@ -67,10 +67,10 @@ class Graph:
             u = self.minimum_distance(distances, visited)
             visited[u] = True
 
-            # Update dist value of the adjacent vertices
-            # of the picked vertex only if the current
-            # distance is greater than new distance and
-            # the vertex in not in the shortest path tree
+            # 更新边界 边界的距离值
+            # 仅当当前
+            # 距离大于新距离并且
+            # 不在最短路径树中的顶点
             for v in range(self.vertices):
                 if (
                     self.graph[u][v] > 0

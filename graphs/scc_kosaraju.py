@@ -36,12 +36,12 @@ def kosaraju():
 
 
 if __name__ == "__main__":
-    # n - no of nodes, m - no of edges
+    # n - 节点数，m - 边数
     n, m = list(map(int, input().strip().split()))
 
-    graph: list[list[int]] = [[] for _ in range(n)]  # graph
-    reversed_graph: list[list[int]] = [[] for i in range(n)]  # reversed graph
-    # input graph data (edges)
+    graph: list[list[int]] = [[] for _ in range(n)]  # 图
+    reversed_graph: list[list[int]] = [[] for i in range(n)]  # 反转图
+    # 输入图数据（边）
     for _ in range(m):
         u, v = list(map(int, input().strip().split()))
         graph[u].append(v)

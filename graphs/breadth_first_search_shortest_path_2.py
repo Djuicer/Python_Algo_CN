@@ -1,7 +1,7 @@
-"""Breadth-first search the shortest path implementations.
+"""广度优先搜索最短路径的实现。
 doctest:
 python -m doctest -v breadth_first_search_shortest_path_2.py
-Manual test:
+手动测试：
 python breadth_first_search_shortest_path_2.py
 """
 
@@ -19,15 +19,15 @@ demo_graph = {
 
 
 def bfs_shortest_path(graph: dict, start, goal) -> list[str]:
-    """Find the shortest path between `start` and `goal` nodes.
-    Args:
-        graph (dict): node/list of neighboring nodes key/value pairs.
-        start: start node.
-        goal: target node.
-    Returns:
-        Shortest path between `start` and `goal` nodes as a string of nodes.
-        'Not found' string if no path found.
-    Example:
+    """求 `start` 和 `goal` 节点之间的最短路径。
+    参数：
+        graph (dict)：节点/相邻节点键/值对的列表。
+        start：起始节点。
+        目标：目标节点。
+    返回：
+        `start` 和 `goal` 节点之间作为节点链的最短节点。
+        如果未找到路径，则返回空列表。
+    例子：
         >>> bfs_shortest_path(demo_graph, "G", "D")
         ['G', 'C', 'A', 'B', 'D']
         >>> bfs_shortest_path(demo_graph, "G", "G")
@@ -35,50 +35,50 @@ def bfs_shortest_path(graph: dict, start, goal) -> list[str]:
         >>> bfs_shortest_path(demo_graph, "G", "Unknown")
         []
     """
-    # keep track of explored nodes
+    # 跟踪探索的节点
     explored = set()
-    # keep track of all the paths to be checked
+    # 跟踪所有要检查的路径
     queue = deque([[start]])
 
-    # return path if start is goal
+    # 如果起点是目标则返回路径
     if start == goal:
         return [start]
 
-    # keeps looping until all possible paths have been checked
+    # 不断循环，直到检查完所有可能的路径
     while queue:
-        # pop the first path from the queue
+        # 从队列中弹出第一个路径
         path = queue.popleft()
-        # get the last node from the path
+        # 获取路径中的最后一个节点
         node = path[-1]
         if node not in explored:
             neighbours = graph[node]
-            # go through all neighbour nodes, construct a new path and
-            # push it into the queue
+            # 遍历所有邻居节点，构建一条新路径
+            # 将其推入队列
             for neighbour in neighbours:
                 new_path = list(path)
                 new_path.append(neighbour)
                 queue.append(new_path)
-                # return path if neighbour is goal
+                # 如果邻居是目标则返回路径
                 if neighbour == goal:
                     return new_path
 
-            # mark node as explored
+            # 将节点标记为已探索
             explored.add(node)
 
-    # in case there's no path between the 2 nodes
+    # 如果两个节点之间没有路径
     return []
 
 
 def bfs_shortest_path_distance(graph: dict, start, target) -> int:
-    """Find the shortest path distance between `start` and `target` nodes.
-    Args:
-        graph: node/list of neighboring nodes key/value pairs.
-        start: node to start search from.
-        target: node to search for.
-    Returns:
-        Number of edges in the shortest path between `start` and `target` nodes.
+    """求 `start` 和 `target` 节点之间的最短路径距离。
+    参数：
+        图：相邻节点键/值对的节点/列表。
+        start：开始搜索的节点。
+        target：要搜索的节点。
+    返回：
+        `start` 和 `target` 节点之间的最短路径中的边数。
         -1 if no path exists.
-    Example:
+    例子：
         >>> bfs_shortest_path_distance(demo_graph, "G", "D")
         4
         >>> bfs_shortest_path_distance(demo_graph, "A", "A")
@@ -92,7 +92,7 @@ def bfs_shortest_path_distance(graph: dict, start, target) -> int:
         return 0
     queue = deque([start])
     visited = set(start)
-    # Keep tab on distances from `start` node.
+    # 密切关注与`start` 节点的距离。
     dist = {start: 0, target: -1}
     while queue:
         node = queue.popleft()
@@ -109,5 +109,5 @@ def bfs_shortest_path_distance(graph: dict, start, target) -> int:
 
 
 if __name__ == "__main__":
-    print(bfs_shortest_path(demo_graph, "G", "D"))  # returns ['G', 'C', 'A', 'B', 'D']
-    print(bfs_shortest_path_distance(demo_graph, "G", "D"))  # returns 4
+    print(bfs_shortest_path(demo_graph, "G", "D"))  # 返回 ['G', 'C', 'A', 'B', 'D']
+    print(bfs_shortest_path_distance(demo_graph, "G", "D"))  # 返回 4

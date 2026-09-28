@@ -2,15 +2,15 @@
 """
 Author: Vikram Nithyanandam
 
-Description:
-The following implementation is a robust unweighted Graph data structure
-implemented using an adjacency matrix. This vertices and edges of this graph can be
-effectively initialized and modified while storing your chosen generic
-value in each vertex.
+描述：
+以下实现是一个健壮的未加权图数据结构
+使用邻接矩阵实现。该图的顶点和边可以是
+有效地初始化和修改，同时存储您选择的通用
+每个顶点的值。
 
 Adjacency Matrix: https://mathworld.wolfram.com/AdjacencyMatrix.html
 
-Potential Future Ideas:
+未来潜在的想法：
 - Add a flag to set edge weights on and set edge weights
 - Make edge weights and vertex values customizable to store whatever the client wants
 - Support multigraph functionality if the client wants it
@@ -33,19 +33,19 @@ class GraphAdjacencyMatrix[T]:
         self, vertices: list[T], edges: list[list[T]], directed: bool = True
     ) -> None:
         """
-        Parameters:
+        参数：
         - vertices: (list[T]) The list of vertex names the client wants to
-        pass in. Default is empty.
+        传入。默认为空。
         - edges: (list[list[T]]) The list of edges the client wants to
-        pass in. Each edge is a 2-element list. Default is empty.
+        传入。每条边都是一个 2 元素列表。默认为空。
         - directed: (bool) Indicates if graph is directed or undirected.
-        Default is True.
+        默认为 True。
         """
         self.directed = directed
         self.vertex_to_index: dict[T, int] = {}
         self.adj_matrix: list[list[int]] = []
 
-        # Falsey checks
+        # 虚假检查
         edges = edges or []
         vertices = vertices or []
 
@@ -60,9 +60,9 @@ class GraphAdjacencyMatrix[T]:
 
     def add_edge(self, source_vertex: T, destination_vertex: T) -> None:
         """
-        Creates an edge from source vertex to destination vertex. If any
-        given vertex doesn't exist or the edge already exists, a ValueError
-        will be thrown.
+        创建从源顶点到目标顶点的边。如果有的话
+        给定的顶点不存在或者边已经存在，一个 ValueError
+        将被抛出。
         """
         if not (
             self.contains_vertex(source_vertex)
@@ -80,7 +80,7 @@ class GraphAdjacencyMatrix[T]:
             )
             raise ValueError(msg)
 
-        # Get the indices of the corresponding vertices and set their edge value to 1.
+        # 获取相应顶点的索引并将其边值设置为 1。
         u: int = self.vertex_to_index[source_vertex]
         v: int = self.vertex_to_index[destination_vertex]
         self.adj_matrix[u][v] = 1
@@ -89,8 +89,8 @@ class GraphAdjacencyMatrix[T]:
 
     def remove_edge(self, source_vertex: T, destination_vertex: T) -> None:
         """
-        Removes the edge between the two vertices. If any given vertex
-        doesn't exist or the edge does not exist, a ValueError will be thrown.
+        删除两个顶点之间的边。如果任意给定的顶点
+        不存在或者边不存在，将会抛出 ValueError 。
         """
         if not (
             self.contains_vertex(source_vertex)
@@ -108,7 +108,7 @@ class GraphAdjacencyMatrix[T]:
             )
             raise ValueError(msg)
 
-        # Get the indices of the corresponding vertices and set their edge value to 0.
+        # 获取相应顶点的索引并将其边值设置为 0。
         u: int = self.vertex_to_index[source_vertex]
         v: int = self.vertex_to_index[destination_vertex]
         self.adj_matrix[u][v] = 0
@@ -117,45 +117,45 @@ class GraphAdjacencyMatrix[T]:
 
     def add_vertex(self, vertex: T) -> None:
         """
-        Adds a vertex to the graph. If the given vertex already exists,
-        a ValueError will be thrown.
+        向图添加一个顶点。如果给定的顶点已经存在，
+        将抛出 ValueError。
         """
         if self.contains_vertex(vertex):
             msg = f"Incorrect input: {vertex} already exists in this graph."
             raise ValueError(msg)
 
-        # build column for vertex
+        # 为顶点构建列
         for row in self.adj_matrix:
             row.append(0)
 
-        # build row for vertex and update other data structures
+        # 为顶点构建行并更新其他数据结构
         self.adj_matrix.append([0] * (len(self.adj_matrix) + 1))
         self.vertex_to_index[vertex] = len(self.adj_matrix) - 1
 
     def remove_vertex(self, vertex: T) -> None:
         """
-        Removes the given vertex from the graph and deletes all incoming and
-        outgoing edges from the given vertex as well. If the given vertex
-        does not exist, a ValueError will be thrown.
+        从图中删除给定的顶点并删除所有传入和
+        以及来自给定顶点的传出边。如果给定的顶点
+        不存在，则会抛出 ValueError。
         """
         if not self.contains_vertex(vertex):
             msg = f"Incorrect input: {vertex} does not exist in this graph."
             raise ValueError(msg)
 
-        # first slide up the rows by deleting the row corresponding to
-        # the vertex being deleted.
+        # 首先通过删除对应的行来向上滑动行
+        # 被删除的顶点。
         start_index = self.vertex_to_index[vertex]
         self.adj_matrix.pop(start_index)
 
-        # next, slide the columns to the left by deleting the values in
-        # the column corresponding to the vertex being deleted
+        # 接下来，通过删除中的值将列向左滑动
+        # 被删除的顶点对应的列
         for lst in self.adj_matrix:
             lst.pop(start_index)
 
-        # final clean up
+        # 最后清理
         self.vertex_to_index.pop(vertex)
 
-        # decrement indices for vertices shifted by the deleted vertex in the adj matrix
+        # 减少 adj 矩阵中被去除顶点移动的顶点索引
         for inner_vertex in self.vertex_to_index:
             if self.vertex_to_index[inner_vertex] >= start_index:
                 self.vertex_to_index[inner_vertex] = (
@@ -164,15 +164,14 @@ class GraphAdjacencyMatrix[T]:
 
     def contains_vertex(self, vertex: T) -> bool:
         """
-        Returns True if the graph contains the vertex, False otherwise.
+        如果图包含顶点，则返回 True，否则返回 False。
         """
         return vertex in self.vertex_to_index
 
     def contains_edge(self, source_vertex: T, destination_vertex: T) -> bool:
         """
-        Returns True if the graph contains the edge from the source_vertex to the
-        destination_vertex, False otherwise. If any given vertex doesn't exist, a
-        ValueError will be thrown.
+        如果图包含从 source_vertex 到 destination_vertex 的边，则返回 True，
+        否则返回 False。如果任一给定顶点不存在，则抛出 ValueError。
         """
         if not (
             self.contains_vertex(source_vertex)
@@ -190,7 +189,7 @@ class GraphAdjacencyMatrix[T]:
 
     def clear_graph(self) -> None:
         """
-        Clears all vertices and edges.
+        清除所有顶点和边。
         """
         self.vertex_to_index = {}
         self.adj_matrix = []
@@ -268,7 +267,7 @@ class TestGraphMatrix(unittest.TestCase):
                 "range between min_val and max_val or decrease vertex count"
             )
 
-        # generate graph input
+        # 生成图输入
         random_vertices: list[int] = random.sample(
             range(min_val, max_val + 1), vertex_count
         )
@@ -276,7 +275,7 @@ class TestGraphMatrix(unittest.TestCase):
             random_vertices, edge_pick_count
         )
 
-        # build graphs
+        # 构建图表
         undirected_graph = GraphAdjacencyMatrix(
             vertices=random_vertices, edges=random_edges, directed=False
         )
@@ -294,7 +293,7 @@ class TestGraphMatrix(unittest.TestCase):
             random_edges,
         ) = self.__generate_graphs(20, 0, 100, 4)
 
-        # test graph initialization with vertices and edges
+        # 使用顶点和边测试图初始化
         for num in random_vertices:
             self.__assert_graph_vertex_exists_check(
                 undirected_graph, directed_graph, num
@@ -311,7 +310,7 @@ class TestGraphMatrix(unittest.TestCase):
     def test_contains_vertex(self) -> None:
         random_vertices: list[int] = random.sample(range(101), 20)
 
-        # Build graphs WITHOUT edges
+        # 构建没有边的图
         undirected_graph = GraphAdjacencyMatrix(
             vertices=random_vertices, edges=[], directed=False
         )
@@ -319,7 +318,7 @@ class TestGraphMatrix(unittest.TestCase):
             vertices=random_vertices, edges=[], directed=True
         )
 
-        # Test contains_vertex
+        # 测试contains_vertex
         for num in range(101):
             assert (num in random_vertices) == undirected_graph.contains_vertex(num)
             assert (num in random_vertices) == directed_graph.contains_vertex(num)
@@ -327,7 +326,7 @@ class TestGraphMatrix(unittest.TestCase):
     def test_add_vertices(self) -> None:
         random_vertices: list[int] = random.sample(range(101), 20)
 
-        # build empty graphs
+        # 构建空图
         undirected_graph: GraphAdjacencyMatrix = GraphAdjacencyMatrix(
             vertices=[], edges=[], directed=False
         )
@@ -335,14 +334,14 @@ class TestGraphMatrix(unittest.TestCase):
             vertices=[], edges=[], directed=True
         )
 
-        # run add_vertex
+        # 运行add_vertex
         for num in random_vertices:
             undirected_graph.add_vertex(num)
 
         for num in random_vertices:
             directed_graph.add_vertex(num)
 
-        # test add_vertex worked
+        # 测试add_vertex有效
         for num in random_vertices:
             self.__assert_graph_vertex_exists_check(
                 undirected_graph, directed_graph, num
@@ -351,7 +350,7 @@ class TestGraphMatrix(unittest.TestCase):
     def test_remove_vertices(self) -> None:
         random_vertices: list[int] = random.sample(range(101), 20)
 
-        # build graphs WITHOUT edges
+        # 构建没有边的图
         undirected_graph = GraphAdjacencyMatrix(
             vertices=random_vertices, edges=[], directed=False
         )
@@ -359,7 +358,7 @@ class TestGraphMatrix(unittest.TestCase):
             vertices=random_vertices, edges=[], directed=True
         )
 
-        # test remove_vertex worked
+        # 测试remove_vertex有效
         for num in random_vertices:
             self.__assert_graph_vertex_exists_check(
                 undirected_graph, directed_graph, num
@@ -376,7 +375,7 @@ class TestGraphMatrix(unittest.TestCase):
         random_vertices1: list[int] = random.sample(range(51), 20)
         random_vertices2: list[int] = random.sample(range(51, 101), 20)
 
-        # build graphs WITHOUT edges
+        # 构建没有边的图
         undirected_graph = GraphAdjacencyMatrix(
             vertices=random_vertices1, edges=[], directed=False
         )
@@ -384,7 +383,7 @@ class TestGraphMatrix(unittest.TestCase):
             vertices=random_vertices1, edges=[], directed=True
         )
 
-        # test adding and removing vertices
+        # 测试添加和删除顶点
         for i, _ in enumerate(random_vertices1):
             undirected_graph.add_vertex(random_vertices2[i])
             directed_graph.add_vertex(random_vertices2[i])
@@ -400,7 +399,7 @@ class TestGraphMatrix(unittest.TestCase):
                 undirected_graph, directed_graph, random_vertices1[i]
             )
 
-        # remove all vertices
+        # 删除所有顶点
         for i, _ in enumerate(random_vertices1):
             undirected_graph.remove_vertex(random_vertices2[i])
             directed_graph.remove_vertex(random_vertices2[i])
@@ -410,7 +409,7 @@ class TestGraphMatrix(unittest.TestCase):
             )
 
     def test_contains_edge(self) -> None:
-        # generate graphs and graph input
+        # 生成图和图输入
         vertex_count = 20
         (
             undirected_graph,
@@ -419,22 +418,22 @@ class TestGraphMatrix(unittest.TestCase):
             random_edges,
         ) = self.__generate_graphs(vertex_count, 0, 100, 4)
 
-        # generate all possible edges for testing
+        # 生成所有可能的边进行测试
         all_possible_edges: list[list[int]] = []
         for i in range(vertex_count - 1):
             for j in range(i + 1, vertex_count):
                 all_possible_edges.append([random_vertices[i], random_vertices[j]])
                 all_possible_edges.append([random_vertices[j], random_vertices[i]])
 
-        # test contains_edge function
+        # 测试contains_edge功能
         for edge in all_possible_edges:
             if edge in random_edges:
                 self.__assert_graph_edge_exists_check(
                     undirected_graph, directed_graph, edge
                 )
             elif [edge[1], edge[0]] in random_edges:
-                # since this edge exists for undirected but the reverse may
-                # not exist for directed
+                # 因为这条边存在无向，但反之亦然
+                # 不存在定向
                 self.__assert_graph_edge_exists_check(
                     undirected_graph, directed_graph, [edge[1], edge[0]]
                 )
@@ -444,11 +443,11 @@ class TestGraphMatrix(unittest.TestCase):
                 )
 
     def test_add_edge(self) -> None:
-        # generate graph input
+        # 生成图输入
         random_vertices: list[int] = random.sample(range(101), 15)
         random_edges: list[list[int]] = self.__generate_random_edges(random_vertices, 4)
 
-        # build graphs WITHOUT edges
+        # 构建没有边的图
         undirected_graph = GraphAdjacencyMatrix(
             vertices=random_vertices, edges=[], directed=False
         )
@@ -456,7 +455,7 @@ class TestGraphMatrix(unittest.TestCase):
             vertices=random_vertices, edges=[], directed=True
         )
 
-        # run and test add_edge
+        # 运行并测试add_edge
         for edge in random_edges:
             undirected_graph.add_edge(edge[0], edge[1])
             directed_graph.add_edge(edge[0], edge[1])
@@ -465,7 +464,7 @@ class TestGraphMatrix(unittest.TestCase):
             )
 
     def test_remove_edge(self) -> None:
-        # generate graph input and graphs
+        # 生成图输入和图
         (
             undirected_graph,
             directed_graph,
@@ -473,7 +472,7 @@ class TestGraphMatrix(unittest.TestCase):
             random_edges,
         ) = self.__generate_graphs(20, 0, 100, 4)
 
-        # run and test remove_edge
+        # 运行并测试remove_edge
         for edge in random_edges:
             self.__assert_graph_edge_exists_check(
                 undirected_graph, directed_graph, edge
@@ -492,7 +491,7 @@ class TestGraphMatrix(unittest.TestCase):
             random_edges,
         ) = self.__generate_graphs(20, 0, 100, 4)
 
-        # make some more edge options!
+        # 做一些更多的边选项！
         more_random_edges: list[list[int]] = []
 
         while len(more_random_edges) != len(random_edges):

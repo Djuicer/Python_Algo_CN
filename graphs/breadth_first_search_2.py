@@ -1,6 +1,6 @@
 """
 https://en.wikipedia.org/wiki/Breadth-first_search
-pseudo-code:
+伪代码（原始代码保持不变）：
 breadth_first_search(graph G, start vertex s):
 // all nodes initially unexplored
 mark s as explored
@@ -31,7 +31,7 @@ G = {
 
 def breadth_first_search(graph: dict, start: str) -> list[str]:
     """
-    Implementation of breadth first search using queue.Queue.
+    使用queue.Queue实现广度优先搜索。
 
     >>> ''.join(breadth_first_search(G, 'A'))
     'ABCDEF'
@@ -52,7 +52,7 @@ def breadth_first_search(graph: dict, start: str) -> list[str]:
 
 def breadth_first_search_with_deque(graph: dict, start: str) -> list[str]:
     """
-    Implementation of breadth first search using collection.queue.
+    使用collection.queue实现广度优先搜索。
 
     >>> ''.join(breadth_first_search_with_deque(G, 'A'))
     'ABCDEF'
@@ -84,5 +84,5 @@ if __name__ == "__main__":
 
     benchmark_function("breadth_first_search")
     benchmark_function("breadth_first_search_with_deque")
-    # breadth_first_search                finished 10000 runs in 0.20999 seconds
-    # breadth_first_search_with_deque     finished 10000 runs in 0.01421 seconds
+    # breadth_first_search 在 0.20999 秒内完成 10000 次运行
+    # breadth_first_search_with_deque 在 0.01421 秒内完成 10000 次运行

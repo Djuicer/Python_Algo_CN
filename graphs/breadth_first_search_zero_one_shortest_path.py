@@ -1,5 +1,5 @@
 """
-Finding the shortest path in 0-1-graph in O(E + V) which is faster than dijkstra.
+在O(E + V)中寻找0-1图的最短路径，比dijkstra更快。
 0-1-graph is the weighted graph with the weights equal to 0 or 1.
 Link: https://codeforces.com/blog/entry/22276
 """
@@ -13,21 +13,21 @@ from dataclasses import dataclass
 
 @dataclass
 class Edge:
-    """Weighted directed graph edge."""
+    """加权有向图边。"""
 
     destination_vertex: int
     weight: int
 
 
 class AdjacencyList:
-    """Graph adjacency list."""
+    """图邻接表。"""
 
     def __init__(self, size: int) -> None:
         self._graph: list[list[Edge]] = [[] for _ in range(size)]
         self._size = size
 
     def __getitem__(self, vertex: int) -> Iterator[Edge]:
-        """Get all the vertices adjacent to the given one."""
+        """获取与给定顶点相邻的所有顶点。"""
         return iter(self._graph[vertex])
 
     @property
@@ -62,14 +62,14 @@ class AdjacencyList:
 
     def get_shortest_path(self, start_vertex: int, finish_vertex: int) -> int | None:
         """
-        Return the shortest distance from start_vertex to finish_vertex in 0-1-graph.
+        返回 0-1 从 start_vertex 到 finish_vertex 的最短距离。
               1                  1         1
          0--------->3        6--------7>------->8
          |          ^        ^        ^         |1
          |          |        |        |0        v
         0|          |0      1|        9-------->10
          |          |        |        ^    1
-         v          |        |        |0
+         v |        |        |0
          1--------->2<-------4------->5
               0         1        1
         >>> g = AdjacencyList(11)

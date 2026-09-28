@@ -1,9 +1,9 @@
 """
-Bi-directional Dijkstra's algorithm.
+我们 Dijkstra 算法。
 
-A bi-directional approach is an efficient and
-less time consuming optimization for Dijkstra's
-searching algorithm
+双向方法是一种高效且
+Dijkstra 优化运行时间更少
+搜索算法
 
 Reference: shorturl.at/exHM7
 """
@@ -48,13 +48,13 @@ def bidirectional_dij(
     source: str, destination: str, graph_forward: dict, graph_backward: dict
 ) -> int:
     """
-    Bi-directional Dijkstra's algorithm.
+    我们 Dijkstra 算法。
 
-    Returns:
-        shortest_path_distance (int): length of the shortest path.
+    返回：
+        shortest_path_distance (int)：最短路径的长度。
 
-    Warnings:
-        If the destination is not reachable, function returns -1
+    警告：
+        如果目的地不可到达，函数返回-1
 
     >>> bidirectional_dij("E", "F", graph_fwd, graph_bwd)
     3

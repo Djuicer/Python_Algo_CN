@@ -5,13 +5,13 @@ def stable_matching(
     donor_pref: list[list[int]], recipient_pref: list[list[int]]
 ) -> list[int]:
     """
-    Finds the stable match in any bipartite graph, i.e a pairing where no 2 objects
-    prefer each other over their partner.  The function accepts the preferences of
-    oegan donors and recipients (where both are assigned numbers from 0 to n-1) and
-    returns a list where the index position corresponds to the donor and value at the
-    index is the organ recipient.
+    找到任何二分图中的稳定匹配，即没有 2 个对象的配对
+    比起伴侣更喜欢对方。  该功能接受的偏好
+    oegan 转让者和接受者（两者都分配有从 0 到 n-1 的编号）以及
+    返回一个列表，其中索引位置对应于捐赠者和值
+    索引是器官接受者。
 
-    To better understand the algorithm, see also:
+    为了更好地理解该算法，另请参阅：
     https://github.com/akashvshroff/Gale_Shapley_Stable_Matching (README).
     https://www.youtube.com/watch?v=Qcv1IqHWAzg&t=13s (Numberphile YouTube).
 
@@ -24,8 +24,8 @@ def stable_matching(
 
     n = len(donor_pref)
     unmatched_donors = list(range(n))
-    donor_record = [-1] * n  # who the donor has donated to
-    rec_record = [-1] * n  # who the recipient has received from
+    donor_record = [-1] * n  # 捐赠者捐赠给了谁
+    rec_record = [-1] * n  # 收件人从谁那里收到的
     num_donations = [0] * n
 
     while unmatched_donors:
