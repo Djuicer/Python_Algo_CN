@@ -1,6 +1,6 @@
 def permute_recursive(nums: list[int]) -> list[list[int]]:
     """
-    Return all permutations.
+    返回所有 permutations。
 
     >>> permute_recursive([1, 2, 3])
     [[3, 2, 1], [2, 3, 1], [1, 3, 2], [3, 1, 2], [2, 1, 3], [1, 2, 3]]
@@ -20,7 +20,7 @@ def permute_recursive(nums: list[int]) -> list[list[int]]:
 
 def permute_backtrack(nums: list[int]) -> list[list[int]]:
     """
-    Return all permutations of the given list.
+    返回所有 permutations 的 给定 列表。
 
     >>> permute_backtrack([1, 2, 3])
     [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
@@ -33,7 +33,7 @@ def permute_backtrack(nums: list[int]) -> list[list[int]]:
             for i in range(start, len(nums)):
                 nums[start], nums[i] = nums[i], nums[start]
                 backtrack(start + 1)
-                nums[start], nums[i] = nums[i], nums[start]  # backtrack
+                nums[start], nums[i] = nums[i], nums[start]  # 回溯
 
     output: list[list[int]] = []
     backtrack(0)

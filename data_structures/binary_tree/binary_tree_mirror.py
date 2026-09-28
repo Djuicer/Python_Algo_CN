@@ -1,6 +1,6 @@
 """
 Problem Description:
-Given a binary tree, return its mirror.
+给定一棵二叉树，返回 其 镜像。
 """
 
 

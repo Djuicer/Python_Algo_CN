@@ -5,16 +5,16 @@ from collections.abc import Iterator
 
 class RedBlackTree:
     """
-    A Red-Black tree, which is a self-balancing BST (binary search
-    tree).
-    This tree has similar performance to AVL trees, but the balancing is
-    less strict, so it will perform faster for writing/deleting nodes
-    and slower for reading in the average case, though, because they're
-    both balanced binary search trees, both will get the same asymptotic
+    红色-黑色 树，其 是 self-balancing BST (binary 搜索
+    树)。
+    此 树 具有 similar performance 到 AVL 树，但是 balancing 是
+    较小 strict，因此 它 将 执行 faster 用于 writing/deleting 节点
+    并且 slower 用于 reading 在 平均情况，though，因为 they're
+    两者 balanced binary 搜索 树，两者 将 获取 相同 asymptotic
     performance.
     To read more about them, https://en.wikipedia.org/wiki/Red-black_tree
-    Unless otherwise specified, all asymptotic runtimes are specified in
-    terms of the size of the tree.
+    Unless 否则 指定，所有 asymptotic runtimes 是 指定 在
+    terms 的 大小 的树。
     """
 
     def __init__(
@@ -25,12 +25,12 @@ class RedBlackTree:
         left: RedBlackTree | None = None,
         right: RedBlackTree | None = None,
     ) -> None:
-        """Initialize a new Red-Black Tree node with the given values:
-        label: The value associated with this node
-        color: 0 if black, 1 if red
-        parent: The parent to this node
-        left: This node's left child
-        right: This node's right child
+        """初始化 新 红色-黑色 树 节点 带有 给定 值：
+        标签: 该值 associated 带有 此 节点
+        color: 0 如果 黑色，1 如果 红色
+        父节点: 父节点 到 此 节点
+        左: 此 节点's 左子节点
+        右: 此 节点's 右子节点
         """
         self.label = label
         self.parent = parent
@@ -38,12 +38,12 @@ class RedBlackTree:
         self.right = right
         self.color = color
 
-    # Here are functions which are specific to red-black trees
+    # 此处 是 函数 其 是 specific 到 红色-黑色 树
 
     def rotate_left(self) -> RedBlackTree:
-        """Rotate the subtree rooted at this node to the left and
-        returns the new root to this subtree.
-        Performing one rotation can be done in O(1).
+        """旋转 子树 rooted 在 此 节点 到 左 并且
+        返回值 新 根节点 到 此 子树。
+        Performing 一个 旋转 可以 为 done 在 O(1)。
         """
         parent = self.parent
         right = self.right
@@ -63,9 +63,9 @@ class RedBlackTree:
         return right
 
     def rotate_right(self) -> RedBlackTree:
-        """Rotate the subtree rooted at this node to the right and
-        returns the new root to this subtree.
-        Performing one rotation can be done in O(1).
+        """旋转 子树 rooted 在 此 节点 到 右 并且
+        返回值 新 根节点 到 此 子树。
+        Performing 一个 旋转 可以 为 done 在 O(1)。
         """
         if self.left is None:
             return self
@@ -85,13 +85,13 @@ class RedBlackTree:
         return left
 
     def insert(self, label: int) -> RedBlackTree:
-        """Inserts label into the subtree rooted at self, performs any
-        rotations necessary to maintain balance, and then returns the
-        new root to this subtree (likely self).
-        This is guaranteed to run in O(log(n)) time.
+        """Inserts 标签 到 子树 rooted 在 self，执行 任意
+        rotations necessary 到 maintain balance，并且 则 返回值
+        新 根节点 到 此 子树 (likely self)。
+        此 是 保证 到 运行 在 O(log(n)) 时间。
         """
         if self.label is None:
-            # Only possible with an empty tree
+            # 仅 可能 带有 空树
             self.label = label
             return self
         if self.label == label:
@@ -110,12 +110,12 @@ class RedBlackTree:
         return self.parent or self
 
     def _insert_repair(self) -> None:
-        """Repair the coloring from inserting into a tree."""
+        """Repair coloring 从 inserting 到 树。"""
         if self.parent is None:
-            # This node is the root, so it just needs to be black
+            # 此 节点 是 根节点，因此 它 仅 needs 到 为 黑色
             self.color = 0
         elif color(self.parent) == 0:
-            # If the parent is black, then it just needs to be red
+            # 如果 父节点 是 黑色，则 它 仅 needs 到 为 红色
             self.color = 1
         else:
             uncle = self.parent.sibling
@@ -148,35 +148,35 @@ class RedBlackTree:
                     self.grandparent._insert_repair()
 
     def remove(self, label: int) -> RedBlackTree:
-        """Remove label from this tree."""
+        """移除 标签 从 此 树。"""
         if self.label == label:
             if self.left and self.right:
-                # It's easier to balance a node with at most one child,
-                # so we replace this node with the greatest one less than
-                # it and remove that.
+                # 它's easier 到 balance 一个节点 带有 在 most 一个 子节点,
+                # 因此 我们 replace 此 节点 带有 greatest 一个 较小 比
+                # 它 并且 移除 该。
                 value = self.left.get_max()
                 if value is not None:
                     self.label = value
                     self.left.remove(value)
             else:
-                # This node has at most one non-None child, so we don't
-                # need to replace
+                # 此 节点 具有 在 most 一个 非-None 子节点，因此 我们 don't
+                # need 到 replace
                 child = self.left or self.right
                 if self.color == 1:
-                    # This node is red, and its child is black
-                    # The only way this happens to a node with one child
-                    # is if both children are None leaves.
-                    # We can just remove this node and call it a day.
+                    # 此 节点 是 红色，并且 其 子节点 是 黑色
+                    # 仅 way 此 happens 到 一个节点 带有 一个 子节点
+                    # 是 如果 两者 子节点 是 None 叶节点。
+                    # 我们 可以 仅 移除 此 节点 并且 call 它 day。
                     if self.parent:
                         if self.is_left():
                             self.parent.left = None
                         else:
                             self.parent.right = None
-                # The node is black
+                # 该节点 是 黑色
                 elif child is None:
-                    # This node and its child are black
+                    # 此 节点 并且 其 子节点 是 黑色
                     if self.parent is None:
-                        # The tree is now empty
+                        # 该树 是 现在 空
                         return RedBlackTree(None)
                     else:
                         self._remove_repair()
@@ -186,8 +186,8 @@ class RedBlackTree:
                             self.parent.right = None
                         self.parent = None
                 else:
-                    # This node is black and its child is red
-                    # Move the child node here and make it black
+                    # 此 节点 是 黑色 并且 其 子节点 是 红色
+                    # 移动 子节点 此处 并且 使 它 黑色
                     self.label = child.label
                     self.left = child.left
                     self.right = child.right
@@ -203,7 +203,7 @@ class RedBlackTree:
         return self.parent or self
 
     def _remove_repair(self) -> None:
-        """Repair the coloring of the tree that may have been messed up."""
+        """Repair coloring 的树 该 may 具有 been messed 向上。"""
         if (
             self.parent is None
             or self.sibling is None
@@ -276,41 +276,41 @@ class RedBlackTree:
             self.parent.sibling.color = 0
 
     def check_color_properties(self) -> bool:
-        """Check the coloring of the tree, and return True iff the tree
-        is colored in a way which matches these five properties:
+        """检查 coloring 的树，并且 返回 True iff 该树
+        是 colored 在 way 其 matches 这些 five properties：
         (wording stolen from wikipedia article)
-         1. Each node is either red or black.
-         2. The root node is black.
-         3. All leaves are black.
-         4. If a node is red, then both its children are black.
-         5. Every path from any node to all of its descendent NIL nodes
-            has the same number of black nodes.
-        This function runs in O(n) time, because properties 4 and 5 take
-        that long to check.
+         1. 每个节点 是 任一 红色 或 黑色。
+         2. 根节点 是 黑色。
+         3. 所有 叶节点 是 黑色。
+         4. 如果 一个节点 是 红色，则 两者 其 子节点 是 黑色。
+         5. 每个 路径 从 任意 节点 到 所有 的 其 descendent NIL 节点
+            具有 相同 数 的 黑色 节点。
+        此函数 runs 在 O(n) 时间，因为 properties 4 并且 5 take
+        该 long 到 检查。
         """
-        # I assume property 1 to hold because there is nothing that can
-        # make the color be anything other than 0 or 1.
-        # Property 2
+        # I assume property 1 到 hold 因为 其中 是 nothing 该 可以
+        # 使 color 为 anything 另一个 比 0 或 1。
+        # 性质 2
         if self.color:
-            # The root was red
+            # 根节点 曾是 红色
             print("Property 2")
             return False
-        # Property 3 does not need to be checked, because None is assumed
-        # to be black and is all the leaves.
-        # Property 4
+        # Property 3 does 不 need 到 为 checked，因为 None 是 assumed
+        # 到 为 黑色 并且 是 所有 叶节点。
+        # 性质 4
         if not self.check_coloring():
             print("Property 4")
             return False
-        # Property 5
+        # 性质 5
         if self.black_height() is None:
             print("Property 5")
             return False
-        # All properties were met
+        # 所有 properties were met
         return True
 
     def check_coloring(self) -> bool:
-        """A helper function to recursively check Property 4 of a
-        Red-Black Tree. See check_color_properties for more info.
+        """helper 函数 到 递归地 检查 Property 4 的
+        红色-黑色 树. See check_color_properties 用于 更多 info。
         """
         if self.color == 1 and 1 in (color(self.left), color(self.right)):
             return False
@@ -319,38 +319,38 @@ class RedBlackTree:
         return not (self.right and not self.right.check_coloring())
 
     def black_height(self) -> int | None:
-        """Returns the number of black nodes from this node to the
-        leaves of the tree, or None if there isn't one such value (the
-        tree is color incorrectly).
+        """返回以下对象的数量： 黑色 节点 从 此 节点 到
+        叶节点 的树，或 None 如果 其中 isn't 一个 such 值 (
+        树 是 color incorrectly)。
         """
         if self is None or self.left is None or self.right is None:
-            # If we're already at a leaf, there is no path
+            # 如果 我们're 已经 在 叶节点，其中 是 没有 路径
             return 1
         left = RedBlackTree.black_height(self.left)
         right = RedBlackTree.black_height(self.right)
         if left is None or right is None:
-            # There are issues with coloring below children nodes
+            # 其中 是 issues 带有 coloring 下方 子节点 节点
             return None
         if left != right:
-            # The two children have unequal depths
+            # 两个 子节点 具有 unequal depths
             return None
-        # Return the black depth of children, plus one if this node is
-        # black
+        # 返回 黑色 深度 的 子节点，plus 一个 如果 此 节点 是
+        # 黑色
         return left + (1 - self.color)
 
-    # Here are functions which are general to all binary search trees
+    # 此处 是 函数 其 是 general 到 所有 binary 搜索 树
 
     def __contains__(self, label: int) -> bool:
-        """Search through the tree for label, returning True iff it is
-        found somewhere in the tree.
-        Guaranteed to run in O(log(n)) time.
+        """搜索 通过 该树 用于 标签，returning True iff 它 是
+        找到 somewhere 在 该树。
+        保证 到 运行 在 O(log(n)) 时间。
         """
         return self.search(label) is not None
 
     def search(self, label: int) -> RedBlackTree | None:
-        """Search through the tree for label, returning its node if
-        it's found, and None otherwise.
-        This method is guaranteed to run in O(log(n)) time.
+        """搜索 通过 该树 用于 标签，returning 其 节点 如果
+        它's 找到，并且 None 否则。
+        此方法 是 保证 到 运行 在 O(log(n)) 时间。
         """
         if self.label == label:
             return self
@@ -365,8 +365,8 @@ class RedBlackTree:
             return self.left.search(label)
 
     def floor(self, label: int) -> int | None:
-        """Returns the largest element in this tree which is at most label.
-        This method is guaranteed to run in O(log(n)) time."""
+        """返回值 最大 元素 在 此 树 其 是 在 most 标签。
+        此方法 是 保证 到 运行 在 O(log(n)) 时间。"""
         if self.label == label:
             return self.label
         elif self.label is not None and self.label > label:
@@ -382,8 +382,8 @@ class RedBlackTree:
             return self.label
 
     def ceil(self, label: int) -> int | None:
-        """Returns the smallest element in this tree which is at least label.
-        This method is guaranteed to run in O(log(n)) time.
+        """返回值 最小 元素 在 此 树 其 是 在 least 标签。
+        此方法 是 保证 到 运行 在 O(log(n)) 时间。
         """
         if self.label == label:
             return self.label
@@ -400,28 +400,28 @@ class RedBlackTree:
             return self.label
 
     def get_max(self) -> int | None:
-        """Returns the largest element in this tree.
-        This method is guaranteed to run in O(log(n)) time.
+        """返回值 最大 元素 在 此 树。
+        此方法 是 保证 到 运行 在 O(log(n)) 时间。
         """
         if self.right:
-            # Go as far right as possible
+            # 前进 作为 far 右 作为 可能
             return self.right.get_max()
         else:
             return self.label
 
     def get_min(self) -> int | None:
-        """Returns the smallest element in this tree.
-        This method is guaranteed to run in O(log(n)) time.
+        """返回值 最小 元素 在 此 树。
+        此方法 是 保证 到 运行 在 O(log(n)) 时间。
         """
         if self.left:
-            # Go as far left as possible
+            # 前进 作为 far 左 作为 可能
             return self.left.get_min()
         else:
             return self.label
 
     @property
     def grandparent(self) -> RedBlackTree | None:
-        """Get the current node's grandparent, or None if it doesn't exist."""
+        """获取 当前节点's grandparent，或 None 如果 它 doesn't exist。"""
         if self.parent is None:
             return None
         else:
@@ -429,7 +429,7 @@ class RedBlackTree:
 
     @property
     def sibling(self) -> RedBlackTree | None:
-        """Get the current node's sibling, or None if it doesn't exist."""
+        """获取 当前节点's sibling，或 None 如果 它 doesn't exist。"""
         if self.parent is None:
             return None
         elif self.parent.left is self:
@@ -438,13 +438,13 @@ class RedBlackTree:
             return self.parent.left
 
     def is_left(self) -> bool:
-        """Returns true iff this node is the left child of its parent."""
+        """返回值 true iff 此 节点 是 左子节点 的 其 父节点。"""
         if self.parent is None:
             return False
         return self.parent.left is self
 
     def is_right(self) -> bool:
-        """Returns true iff this node is the right child of its parent."""
+        """返回值 true iff 此 节点 是 右子节点 的 其 父节点。"""
         if self.parent is None:
             return False
         return self.parent.right is self
@@ -454,7 +454,7 @@ class RedBlackTree:
 
     def __len__(self) -> int:
         """
-        Return the number of nodes in this tree.
+        返回以下对象的数量： 节点 在 此 树。
         """
         ln = 1
         if self.left:
@@ -500,7 +500,7 @@ class RedBlackTree:
         )
 
     def __eq__(self, other: object) -> bool:
-        """Test if two trees are equal."""
+        """测试 如果 两个 树 是 等于。"""
         if not isinstance(other, RedBlackTree):
             return NotImplemented
         if self.label == other.label:
@@ -510,7 +510,7 @@ class RedBlackTree:
 
 
 def color(node: RedBlackTree | None) -> int:
-    """Returns the color of a node, allowing for None leaves."""
+    """返回值 color 的 一个节点，allowing 用于 None 叶节点。"""
     if node is None:
         return 0
     else:
@@ -524,8 +524,8 @@ functions of the red-black tree.
 
 
 def test_rotations() -> bool:
-    """Test that the rotate_left and rotate_right functions work."""
-    # Make a tree to test on
+    """测试 该 rotate_left 并且 rotate_right 函数 work。"""
+    # 使 树 到 测试 在
     tree = RedBlackTree(0)
     tree.left = RedBlackTree(-10, parent=tree)
     tree.right = RedBlackTree(10, parent=tree)
@@ -533,7 +533,7 @@ def test_rotations() -> bool:
     tree.left.right = RedBlackTree(-5, parent=tree.left)
     tree.right.left = RedBlackTree(5, parent=tree.right)
     tree.right.right = RedBlackTree(20, parent=tree.right)
-    # Make the right rotation
+    # 使 右 旋转
     left_rot = RedBlackTree(10)
     left_rot.left = RedBlackTree(0, parent=left_rot)
     left_rot.left.left = RedBlackTree(-10, parent=left_rot.left)
@@ -546,7 +546,7 @@ def test_rotations() -> bool:
         return False
     tree = tree.rotate_right()
     tree = tree.rotate_right()
-    # Make the left rotation
+    # 使 左 旋转
     right_rot = RedBlackTree(-10)
     right_rot.left = RedBlackTree(-20, parent=right_rot)
     right_rot.right = RedBlackTree(0, parent=right_rot)
@@ -558,8 +558,8 @@ def test_rotations() -> bool:
 
 
 def test_insertion_speed() -> bool:
-    """Test that the tree balances inserts to O(log(n)) by doing a lot
-    of them.
+    """测试 该 该树 balances inserts 到 O(log(n)) 通过 doing lot
+    的 它们。
     """
     tree = RedBlackTree(-1)
     for i in range(300000):
@@ -568,8 +568,8 @@ def test_insertion_speed() -> bool:
 
 
 def test_insert() -> bool:
-    """Test the insert() method of the tree correctly balances, colors,
-    and inserts.
+    """测试 插入() 方法 的树 correctly balances，colors,
+    并且 inserts。
     """
     tree = RedBlackTree(0)
     tree.insert(8)
@@ -589,7 +589,7 @@ def test_insert() -> bool:
 
 
 def test_insert_and_search() -> bool:
-    """Tests searching through the tree for values."""
+    """测试 搜索 通过 该树 用于 值。"""
     tree = RedBlackTree(0)
     tree.insert(8)
     tree.insert(-8)
@@ -598,15 +598,15 @@ def test_insert_and_search() -> bool:
     tree.insert(10)
     tree.insert(11)
     if any(i in tree for i in (5, -6, -10, 13)):
-        # Found something not in there
+        # 找到 something 不 在 其中
         return False
-    # Find all these things in there
+    # 查找所有 这些 things 在 其中
     return all(i in tree for i in (11, 12, -8, 0))
 
 
 def test_insert_delete() -> bool:
-    """Test the insert() and delete() method of the tree, verifying the
-    insertion and removal of elements, and the balancing of the tree.
+    """测试 插入() 并且 删除() 方法 的树，verifying
+    插入 并且 removal 的 元素，并且 balancing 的树。
     """
     tree = RedBlackTree(0)
     tree = tree.insert(-12)
@@ -627,7 +627,7 @@ def test_insert_delete() -> bool:
 
 
 def test_floor_ceil() -> bool:
-    """Tests the floor and ceiling functions in the tree."""
+    """测试 floor 并且 ceiling 函数 在 该树。"""
     tree = RedBlackTree(0)
     tree.insert(-16)
     tree.insert(16)
@@ -643,7 +643,7 @@ def test_floor_ceil() -> bool:
 
 
 def test_min_max() -> bool:
-    """Tests the min and max functions in the tree."""
+    """测试 最小值 并且 最大值 函数 在 该树。"""
     tree = RedBlackTree(0)
     tree.insert(-16)
     tree.insert(16)
@@ -655,7 +655,7 @@ def test_min_max() -> bool:
 
 
 def test_tree_traversal() -> bool:
-    """Tests the three different tree traversal functions."""
+    """测试 three 不同 树 遍历 函数。"""
     tree = RedBlackTree(0)
     tree = tree.insert(-16)
     tree.insert(16)
@@ -671,7 +671,7 @@ def test_tree_traversal() -> bool:
 
 
 def test_tree_chaining() -> bool:
-    """Tests the three different tree chaining functions."""
+    """测试 three 不同 树 chaining 函数。"""
     tree = RedBlackTree(0)
     tree = tree.insert(-16).insert(16).insert(8).insert(24).insert(20).insert(22)
     if list(tree.inorder_traverse()) != [-16, 0, 8, 16, 20, 22, 24]:

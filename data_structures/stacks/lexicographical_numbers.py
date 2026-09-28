@@ -3,7 +3,7 @@ from collections.abc import Iterator
 
 def lexical_order(max_number: int) -> Iterator[int]:
     """
-    Generate numbers in lexical order from 1 to max_number.
+    生成 数 在 lexical 顺序 从 1 到 max_number。
 
     >>> " ".join(map(str, lexical_order(13)))
     '1 10 11 12 13 2 3 4 5 6 7 8 9'

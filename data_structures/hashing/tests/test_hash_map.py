@@ -53,11 +53,11 @@ _access_absent_items = [
 ]
 
 _add_with_resize_up = [
-    *[_set(x, x) for x in range(5)],  # guaranteed upsize
+    *[_set(x, x) for x in range(5)],  # 保证 upsize
 ]
 
 _add_with_resize_down = [
-    *[_set(x, x) for x in range(5)],  # guaranteed upsize
+    *[_set(x, x) for x in range(5)],  # 保证 upsize
     *[_del(x) for x in range(5)],
     _set("key_a", "val_b"),
 ]

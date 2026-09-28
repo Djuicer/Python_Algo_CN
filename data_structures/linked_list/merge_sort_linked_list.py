@@ -5,11 +5,11 @@ from dataclasses import dataclass
 @dataclass(order=True)
 class Node:
     """
-    A class representing a node in a linked list.
+    类 表示 一个节点 在 链表。
 
-    Attributes:
-        data: The data stored in the node.
-        next: A reference to the next node in the linked list.
+    属性：
+        数据: 数据 存储 在 该节点。
+        下一个: 引用 到 下一个节点 在 链表。
     """
 
     data: int
@@ -18,15 +18,15 @@ class Node:
 
 def iter_linked_list(head: Node | None) -> Iterable[Node]:
     """
-    Iterate over the nodes of a linked list.
+    迭代 超过 节点 的 链表。
 
-    Parameters:
-        head: The head node of the linked list.
+    参数：
+        头节点: 头节点 节点 的 链表。
 
     Yields:
-        Each node in the linked list, one by one.
+        每个节点 在 链表，一个 通过 一个。
 
-    Example:
+    示例：
     >>> head = Node(3, Node(1, Node(2)))
     >>> head  # dataclasses provide a nice .__repr__().
     Node(data=3, next=Node(data=1, next=Node(data=2, next=None)))
@@ -41,17 +41,17 @@ def iter_linked_list(head: Node | None) -> Iterable[Node]:
 
 def get_middle(head: Node | None) -> Node | None:
     """
-    Find the node before the middle of the linked list
-    using the slow and fast pointer technique.
+    查找 节点 之前 middle 的 链表
+    使用 慢 并且 fast 指针 technique。
 
-    Parameters:
-        head: The head node of the linked list.
+    参数：
+        头节点: 头节点 节点 的 链表。
 
-    Returns:
-        The node before the middle of the linked list,
-        or None if the list has fewer than 2 nodes.
+    返回值：
+        该节点 之前 middle 的 链表,
+        或 None 如果 该列表 具有 fewer 比 2 节点。
 
-    Example:
+    示例：
     >>> head = Node(1)
     >>> head.next = Node(2)
     >>> head.next.next = Node(3)
@@ -76,16 +76,16 @@ def get_middle(head: Node | None) -> Node | None:
 
 def merge(left: Node | None, right: Node | None) -> Node | None:
     """
-    Merge two sorted linked lists into one sorted linked list.
+    合并两个 已排序 连接 列表 到 一个 已排序 链表。
 
-    Parameters:
-        left: The head of the first sorted linked list.
-        right: The head of the second sorted linked list.
+    参数：
+        左: 头节点 的 第一个 已排序 链表。
+        右: 头节点 的 第二个 已排序 链表。
 
-    Returns:
-        The head of the merged sorted linked list.
+    返回值：
+        头节点 的 合并后 已排序 链表。
 
-    Example:
+    示例：
     >>> left = Node(1)
     >>> left.next = Node(3)
     >>> tuple(iter_linked_list(left))
@@ -116,15 +116,15 @@ def merge(left: Node | None, right: Node | None) -> Node | None:
 
 def merge_sort_linked_list(head: Node | None) -> Node | None:
     """
-    Sort a linked list using the Merge Sort algorithm.
+    排序 链表 使用 合并 排序 算法。
 
-    Parameters:
-        head: The head node of the linked list to be sorted.
+    参数：
+        头节点: 头节点 节点 的 链表 到 为 已排序。
 
-    Returns:
-        The head node of the sorted linked list.
+    返回值：
+        头节点 节点 的 已排序 链表。
 
-    Example:
+    示例：
     >>> head = Node(4)
     >>> head.next = Node(2)
     >>> head.next.next = Node(1)
@@ -136,23 +136,23 @@ def merge_sort_linked_list(head: Node | None) -> Node | None:
     (1, 2, 3, 4)
     """
 
-    # Base Case: 0 or 1 node
+    # 基本情况: 0 或 1 节点
     if head is None or head.next is None:
         return head
 
-    # Split the linked list into two halves
+    # 拆分 链表 到 两个 halves
     middle = get_middle(head)
     if middle is None or middle.next is None:
         return head
 
     next_to_middle = middle.next
-    middle.next = None  # Split the list into two parts
+    middle.next = None  # 拆分 该列表 到 两个 parts
 
-    # Recursively sort both halves
+    # 递归地 排序 两者 halves
     left = merge_sort_linked_list(head)
     right = merge_sort_linked_list(next_to_middle)
 
-    # Merge sorted halves
+    # 合并 已排序 halves
     return merge(left, right)
 
 

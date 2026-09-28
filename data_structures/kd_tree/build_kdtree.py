@@ -1,9 +1,9 @@
 #  Created by: Ramy-Badr-Ahmed (https://github.com/Ramy-Badr-Ahmed)
-#  in Pull Request: #11532
+#  在 Pull Request: #11532
 #  https://github.com/TheAlgorithms/Python/pull/11532
 #
-#  Please mention me (@Ramy-Badr-Ahmed) in any issue or pull request
-#  addressing bugs/corrections to this file.
+#  Please mention me (@Ramy-Badr-Ahmed) 在 任意 问题 或 pull request
+#  寻址 bugs/corrections 到 此 文件。
 #  Thank you!
 
 from data_structures.kd_tree.kd_node import KDNode
@@ -11,28 +11,28 @@ from data_structures.kd_tree.kd_node import KDNode
 
 def build_kdtree(points: list[list[float]], depth: int = 0) -> KDNode | None:
     """
-    Builds a KD-Tree from a list of points.
+    构建一个 KD-树 从 一个列表 的 点。
 
-    Args:
-        points: The list of points to build the KD-Tree from.
-        depth: The current depth in the tree
+    参数：
+        点: 该列表 的 点 到 构建 KD-树 从。
+        深度: 当前 深度 在 该树
                      (used to determine axis for splitting).
 
-    Returns:
-        The root node of the KD-Tree,
-                       or None if no points are provided.
+    返回值：
+        根节点 的 KD-树,
+                       或 None 如果 没有 点 是 给定。
     """
     if not points:
         return None
 
-    k = len(points[0])  # Dimensionality of the points
+    k = len(points[0])  # Dimensionality 的 点
     axis = depth % k
 
-    # Sort point list and choose median as pivot element
+    # 排序 点 列表 并且 choose 中位数 作为 枢轴 元素
     points.sort(key=lambda point: point[axis])
     median_idx = len(points) // 2
 
-    # Create node and construct subtrees
+    # 创建 节点 并且 construct 子树
     left_points = points[:median_idx]
     right_points = points[median_idx + 1 :]
 

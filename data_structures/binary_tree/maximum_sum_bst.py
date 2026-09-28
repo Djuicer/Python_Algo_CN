@@ -16,10 +16,10 @@ class TreeNode:
 
 def max_sum_bst(root: TreeNode | None) -> int:
     """
-    The solution traverses a binary tree to find the maximum sum of
-    keys in any subtree that is a Binary Search Tree (BST). It uses
-    recursion to validate BST properties and calculates sums, returning
-    the highest sum found among all valid BST subtrees.
+    解 traverses 二叉树 到 查找 最大值 和 的
+    键 在 任意 子树 该 是 二叉搜索树 (BST). 它 使用
+    recursion 到 validate BST properties 并且 calculates sums，returning
+    最高 和 找到 among 所有 有效 BST 子树。
 
     >>> t1 = TreeNode(4)
     >>> t1.left = TreeNode(3)
@@ -48,7 +48,7 @@ def max_sum_bst(root: TreeNode | None) -> int:
 
     def solver(node: TreeNode | None) -> tuple[bool, int, int, int]:
         """
-        Returns the maximum sum by making recursive calls
+        返回值 最大值 和 通过 making 递归 calls
         >>> t1 = TreeNode(1)
         >>> print(solver(t1))
         1
@@ -56,7 +56,7 @@ def max_sum_bst(root: TreeNode | None) -> int:
         nonlocal ans
 
         if not node:
-            return True, INT_MAX, INT_MIN, 0  # Valid BST, min, max, sum
+            return True, INT_MAX, INT_MIN, 0  # 有效 BST，最小值，最大值，和
 
         is_left_valid, min_left, max_left, sum_left = solver(node.left)
         is_right_valid, min_right, max_right, sum_right = solver(node.right)
@@ -66,7 +66,7 @@ def max_sum_bst(root: TreeNode | None) -> int:
             ans = max(ans, total_sum)
             return True, min(min_left, node.val), max(max_right, node.val), total_sum
 
-        return False, -1, -1, -1  # Not a valid BST
+        return False, -1, -1, -1  # 不 有效 BST
 
     solver(root)
     return ans

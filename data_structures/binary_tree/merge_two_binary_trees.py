@@ -1,9 +1,9 @@
 #!/usr/local/bin/python3
 """
-Problem Description: Given two binary tree, return the merged tree.
-The rule for merging is that if two nodes overlap, then put the value sum of
-both nodes to the new value of the merged node. Otherwise, the NOT null node
-will be used as the node of new tree.
+Problem Description: 给定 两个 二叉树，返回 合并后 树。
+rule 用于 merging 是 该 如果 两个 节点 overlap，则 put 该值 和 的
+两者 节点 到 新 值 的 合并后 节点. 否则，不 null 节点
+将 为 使用 作为 该节点 的 新 树。
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from __future__ import annotations
 
 class Node:
     """
-    A binary node has value variable and pointers to its left and right node.
+    binary 节点 具有 值 变量 并且 指针 到 其 左 并且 右 节点。
     """
 
     def __init__(self, value: int = 0) -> None:
@@ -22,7 +22,7 @@ class Node:
 
 def merge_two_binary_trees(tree1: Node | None, tree2: Node | None) -> Node | None:
     """
-    Returns root node of the merged tree.
+    返回值 根节点 的 合并后 树。
 
     >>> tree1 = Node(5)
     >>> tree1.left = Node(6)
@@ -55,7 +55,7 @@ def merge_two_binary_trees(tree1: Node | None, tree2: Node | None) -> Node | Non
 
 def print_preorder(root: Node | None) -> None:
     """
-    Print pre-order traversal of the tree.
+    打印 前序遍历 的 该树。
 
     >>> root = Node(1)
     >>> root.left = Node(2)

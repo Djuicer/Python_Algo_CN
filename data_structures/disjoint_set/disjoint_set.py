@@ -1,5 +1,5 @@
 """
-Disjoint set.
+并查集。
 Reference: https://en.wikipedia.org/wiki/Disjoint-set_data_structure
 """
 
@@ -15,7 +15,7 @@ class Node:
 
 def make_set(x: Node) -> None:
     """
-    Make x as a set.
+    使 x 作为 集合。
 
     >>> node = Node(1)
     >>> make_set(node)
@@ -26,17 +26,17 @@ def make_set(x: Node) -> None:
     >>> node.data
     1
     """
-    # rank is the distance from x to its' parent
-    # root's rank is 0
+    # rank 是 距离 从 x 到 其' 父节点
+    # 根节点's rank 是 0
     x.rank = 0
     x.parent = x
 
 
 def union_set(x: Node, y: Node) -> None:
     """
-    Union of two sets.
-    set with bigger rank should be parent, so that the
-    disjoint set tree will be more flat.
+    Union 的 两个 sets。
+    集合 带有 bigger rank 应 为 父节点，因此 该
+    并查集 树 将 为 更多 flat。
 
     >>> node1 = Node(1)
     >>> node2 = Node(2)
@@ -68,7 +68,7 @@ def union_set(x: Node, y: Node) -> None:
 
 def find_set(x: Node) -> Node:
     """
-    Return the parent of x
+    返回 父节点 的 x
 
     >>> node = Node(1)
     >>> make_set(node)
@@ -95,7 +95,7 @@ def find_set(x: Node) -> Node:
 
 def find_python_set(node: Node) -> set:
     """
-    Return a Python Standard Library set that contains i.
+    返回 Python Standard Library 集合 该 包含 i。
 
     >>> node = Node(1)
     >>> find_python_set(node)
@@ -119,8 +119,8 @@ def find_python_set(node: Node) -> set:
 
 def test_disjoint_set() -> None:
     """
-    Test the disjoint set operations with a comprehensive example.
-    Creates two disjoint sets: {0, 1, 2} and {3, 4, 5}
+    测试 并查集 操作 带有 comprehensive 示例。
+    Creates 两个 disjoint sets: {0，1，2} 并且 {3，4，5}
 
     >>> test_disjoint_set()
     """

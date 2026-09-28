@@ -1,17 +1,17 @@
 """
 See https://en.wikipedia.org/wiki/Bloom_filter
 
-The use of this data structure is to test membership in a set.
-Compared to Python's built-in set() it is more space-efficient.
-In the following example, only 8 bits of memory will be used:
+使用 的 此 数据 结构 是 到 测试 membership 在 集合。
+Compared 到 Python's built-在 集合() 它 是 更多 空间-efficient。
+在 following 示例，仅 8 bits 的 memory 将 为 使用：
 >>> bloom = Bloom(size=8)
 
-Initially, the filter contains all zeros:
+Initially，filter 包含 所有 zeros：
 >>> bloom.bitstring
 '00000000'
 
-When an element is added, two bits are set to 1
-since there are 2 hash functions in this implementation:
+当 元素 是 added，两个 bits 是 集合 到 1
+since 其中 是 2 哈希 函数 在 此 实现：
 >>> "Titanic" in bloom
 False
 >>> bloom.add("Titanic")
@@ -20,8 +20,8 @@ False
 >>> "Titanic" in bloom
 True
 
-However, sometimes only one bit is added
-because both hash functions return the same value
+However，sometimes 仅 一个 bit 是 added
+因为 两者 哈希 函数 返回 相同 值
 >>> bloom.add("Avatar")
 >>> "Avatar" in bloom
 True
@@ -30,7 +30,7 @@ True
 >>> bloom.bitstring
 '01100100'
 
-Not added elements should return False ...
+不 added 元素 应 返回 False ..。
 >>> not_present_films = ("The Godfather", "Interstellar", "Parasite", "Pulp Fiction")
 >>> {
 ...   film: bloom.format_hash(film) for film in not_present_films
@@ -42,14 +42,14 @@ Not added elements should return False ...
 >>> any(film in bloom for film in not_present_films)
 False
 
-but sometimes there are false positives:
+但是 sometimes 其中 是 false positives：
 >>> "Ratatouille" in bloom
 True
 >>> bloom.format_hash("Ratatouille")
 '01100000'
 
-The probability increases with the number of elements added.
-The probability decreases with the number of bits in the bitarray.
+probability increases 带有 元素数量 added。
+probability decreases 带有 数 的 bits 在 bitarray。
 >>> bloom.estimated_error_rate
 0.140625
 >>> bloom.add("The Godfather")

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-Given an array of integers and an integer req_sum, find the number of pairs of array
-elements whose sum is equal to req_sum.
+给定一个数组 的 整数 并且 整数 req_sum，查找 数 的 对 的 数组
+元素 whose 和 是 等于 到 req_sum。
 
 https://practice.geeksforgeeks.org/problems/count-pairs-with-given-sum5022/0
 """
@@ -12,7 +12,7 @@ from itertools import combinations
 
 def pairs_with_sum(arr: list, req_sum: int) -> int:
     """
-    Return the no. of pairs with sum "sum"
+    返回 没有. 的 对 带有 和 "和"
     >>> pairs_with_sum([1, 5, 7, 1], 6)
     2
     >>> pairs_with_sum([1, 1, 1, 1, 1, 1, 1, 1], 2)

@@ -93,7 +93,7 @@ class QueueByTwoStacks[T]:
         IndexError: Queue is empty
         """
 
-        # To reduce number of attribute look-ups in `while` loop.
+        # 到 reduce 数 的 attribute look-ups 在 `当` 循环。
         stack1_pop = self._stack1.pop
         stack2_append = self._stack2.append
 

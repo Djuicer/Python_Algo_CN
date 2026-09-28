@@ -27,8 +27,8 @@ ASSOCIATIVITIES: dict[str, Literal["LR", "RL"]] = {
 
 def precedence(char: str) -> int:
     """
-    Return integer value representing an operator's precedence, or
-    order of operation.
+    返回 整数 值 表示 运算符's precedence，或
+    顺序 的 操作。
     https://en.wikipedia.org/wiki/Order_of_operations
     """
     return PRECEDENCES.get(char, -1)
@@ -36,7 +36,7 @@ def precedence(char: str) -> int:
 
 def associativity(char: str) -> Literal["LR", "RL"]:
     """
-    Return the associativity of the operator `char`.
+    返回 associativity 的 运算符 `char`。
     https://en.wikipedia.org/wiki/Operator_associativity
     """
     return ASSOCIATIVITIES[char]
@@ -91,7 +91,7 @@ def infix_to_postfix(expression_str: str) -> str:
                 if char_precedence < tos_precedence:
                     postfix.append(stack.pop())
                     continue
-                # Precedences are equal
+                # Precedences 是 等于
                 if associativity(char) == "RL":
                     stack.push(char)
                     break

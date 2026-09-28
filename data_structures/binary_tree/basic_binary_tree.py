@@ -41,7 +41,7 @@ class BinaryTree:
     @classmethod
     def small_tree(cls) -> BinaryTree:
         """
-        Return a small binary tree with 3 nodes.
+        返回 small 二叉树 带有 3 节点。
         >>> binary_tree = BinaryTree.small_tree()
         >>> len(binary_tree)
         3
@@ -56,7 +56,7 @@ class BinaryTree:
     @classmethod
     def medium_tree(cls) -> BinaryTree:
         """
-        Return a medium binary tree with 3 nodes.
+        返回 medium 二叉树 带有 3 节点。
         >>> binary_tree = BinaryTree.medium_tree()
         >>> len(binary_tree)
         7
@@ -74,7 +74,7 @@ class BinaryTree:
 
     def depth(self) -> int:
         """
-        Returns the depth of the tree
+        返回值 深度 的 该树
 
         >>> BinaryTree(Node(1)).depth()
         1
@@ -92,7 +92,7 @@ class BinaryTree:
 
     def is_full(self) -> bool:
         """
-        Returns True if the tree is full
+        若满足以下条件则返回 True： 该树 是 已满
 
         >>> BinaryTree(Node(1)).is_full()
         True

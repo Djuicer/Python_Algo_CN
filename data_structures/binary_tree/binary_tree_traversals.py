@@ -15,7 +15,7 @@ class Node:
 
 def make_tree() -> Node | None:
     r"""
-    The below tree
+    下方 树
         1
        / \
       2   3
@@ -32,7 +32,7 @@ def make_tree() -> Node | None:
 
 def preorder(root: Node | None) -> Generator[int]:
     """
-    Pre-order traversal visits root node, left subtree, right subtree.
+    前序遍历 visits 根节点，左子树，右子树。
     >>> list(preorder(make_tree()))
     [1, 2, 4, 5, 3]
     """
@@ -45,7 +45,7 @@ def preorder(root: Node | None) -> Generator[int]:
 
 def postorder(root: Node | None) -> Generator[int]:
     """
-    Post-order traversal visits left subtree, right subtree, root node.
+    后序遍历 visits 左子树，右子树，根节点。
     >>> list(postorder(make_tree()))
     [4, 5, 2, 3, 1]
     """
@@ -58,7 +58,7 @@ def postorder(root: Node | None) -> Generator[int]:
 
 def inorder(root: Node | None) -> Generator[int]:
     """
-    In-order traversal visits left subtree, root node, right subtree.
+    中序遍历 visits 左子树，根节点，右子树。
     >>> list(inorder(make_tree()))
     [4, 2, 5, 1, 3]
     """
@@ -71,7 +71,7 @@ def inorder(root: Node | None) -> Generator[int]:
 
 def reverse_inorder(root: Node | None) -> Generator[int]:
     """
-    Reverse in-order traversal visits right subtree, root node, left subtree.
+    反转 中序遍历 visits 右子树，根节点，左子树。
     >>> list(reverse_inorder(make_tree()))
     [3, 1, 5, 2, 4]
     """
@@ -84,7 +84,7 @@ def reverse_inorder(root: Node | None) -> Generator[int]:
 
 def height(root: Node | None) -> int:
     """
-    Recursive function for calculating the height of the binary tree.
+    递归 函数 用于 calculating 高度 的 二叉树。
     >>> height(None)
     0
     >>> height(make_tree())
@@ -95,8 +95,8 @@ def height(root: Node | None) -> int:
 
 def level_order(root: Node | None) -> Generator[int]:
     """
-    Returns a list of nodes value from a whole binary tree in Level Order Traverse.
-    Level Order traverse: Visit nodes of the tree level-by-level.
+    返回值 一个列表 的 节点 值 从 whole 二叉树 在 层级 顺序 遍历。
+    层级 顺序 遍历: Visit 节点 的树 层级-通过-层级。
     >>> list(level_order(make_tree()))
     [1, 2, 3, 4, 5]
     """
@@ -118,8 +118,8 @@ def level_order(root: Node | None) -> Generator[int]:
 
 def get_nodes_from_left_to_right(root: Node | None, level: int) -> Generator[int]:
     """
-    Returns a list of nodes value from a particular level:
-    Left to right direction of the binary tree.
+    返回值 一个列表 的 节点 值 从 particular 层级：
+    左 到 右 方向 的 二叉树。
     >>> list(get_nodes_from_left_to_right(make_tree(), 1))
     [1]
     >>> list(get_nodes_from_left_to_right(make_tree(), 2))
@@ -140,8 +140,8 @@ def get_nodes_from_left_to_right(root: Node | None, level: int) -> Generator[int
 
 def get_nodes_from_right_to_left(root: Node | None, level: int) -> Generator[int]:
     """
-    Returns a list of nodes value from a particular level:
-    Right to left direction of the binary tree.
+    返回值 一个列表 的 节点 值 从 particular 层级：
+    右 到 左 方向 的 二叉树。
     >>> list(get_nodes_from_right_to_left(make_tree(), 1))
     [1]
     >>> list(get_nodes_from_right_to_left(make_tree(), 2))
@@ -162,8 +162,8 @@ def get_nodes_from_right_to_left(root: Node | None, level: int) -> Generator[int
 
 def zigzag(root: Node | None) -> Generator[int]:
     """
-    ZigZag traverse:
-    Returns a list of nodes value from left to right and right to left, alternatively.
+    ZigZag 遍历：
+    返回值 一个列表 的 节点 值 从左到右 并且 右 到 左，alternatively。
     >>> list(zigzag(make_tree()))
     [1, 3, 2, 4, 5]
     """
@@ -182,11 +182,11 @@ def zigzag(root: Node | None) -> Generator[int]:
             flag = 0
 
 
-def main() -> None:  # Main function for testing.
-    # Create binary tree.
+def main() -> None:  # Main 函数 用于 testing。
+    # 创建 二叉树。
     root = make_tree()
 
-    # All Traversals of the binary are as follows:
+    # 所有 Traversals 的 binary 是 作为 follows：
     print(f"In-order Traversal: {list(inorder(root))}")
     print(f"Reverse In-order Traversal: {list(reverse_inorder(root))}")
     print(f"Pre-order Traversal: {list(preorder(root))}")

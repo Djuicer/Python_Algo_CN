@@ -1,22 +1,22 @@
 """
-Retrieves the value of an 0-indexed 1D index from a 2D array.
-There are two ways to retrieve value(s):
+Retrieves 该值 的 0-indexed 1D 索引 从 2D 数组。
+其中 是 两个 ways 到 retrieve 值(s)：
 
-1. Index2DArrayIterator(matrix) -> Iterator[int]
-This iterator allows you to iterate through a 2D array by passing in the matrix and
-calling next(your_iterator). You can also use the iterator in a loop.
-Examples:
-list(Index2DArrayIterator(matrix))
-set(Index2DArrayIterator(matrix))
-tuple(Index2DArrayIterator(matrix))
-sum(Index2DArrayIterator(matrix))
--5 in Index2DArrayIterator(matrix)
+1. Index2DArrayIterator(矩阵) -> 迭代器[int]
+此 迭代器 允许 you 到 迭代 通过 2D 数组 通过 passing 在 矩阵 并且
+calling 下一个(your_iterator). You 可以 也 使用 迭代器 在 循环。
+示例：
+列表(Index2DArrayIterator(矩阵))
+集合(Index2DArrayIterator(矩阵))
+元组(Index2DArrayIterator(矩阵))
+和(Index2DArrayIterator(矩阵))
+-5 在 Index2DArrayIterator(矩阵)
 
-2. index_2d_array_in_1d(array: list[int], index: int) -> int
-This function allows you to provide a 2D array and a 0-indexed 1D integer index,
-and retrieves the integer value at that index.
+2. index_2d_array_in_1d(数组: 列表[int]，索引: int) -> int
+此函数 允许 you 到 提供 2D 数组 并且 0-indexed 1D 整数 索引,
+并且 retrieves 整数 值 在 该 索引。
 
-Python doctests can be run using this command:
+Python doctests 可以 为 运行 使用 此 命令：
 python3 -m doctest -v index_2d_array_in_1d.py
 """
 
@@ -61,17 +61,17 @@ class Index2DArrayIterator:
 
 def index_2d_array_in_1d(array: list[list[int]], index: int) -> int:
     """
-    Retrieves the value of the one-dimensional index from a two-dimensional array.
+    Retrieves 该值 的 一个-dimensional 索引 从 两个-dimensional 数组。
 
-    Args:
-        array: A 2D array of integers where all rows are the same size and all
-               columns are the same size.
-        index: A 1D index.
+    参数：
+        数组: 2D 数组 的 整数 其中 所有 rows 是 相同 大小 并且 所有
+               columns 是 相同 大小。
+        索引: 1D 索引。
 
-    Returns:
-        int: The 0-indexed value of the 1D index in the array.
+    返回值：
+        int: 0-indexed 值 的 1D 索引 在 该数组。
 
-    Examples:
+    示例：
     >>> index_2d_array_in_1d([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]], 5)
     5
     >>> index_2d_array_in_1d([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]], -1)

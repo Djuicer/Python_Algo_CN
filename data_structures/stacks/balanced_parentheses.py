@@ -2,7 +2,7 @@ from .stack import Stack
 
 
 def balanced_parentheses(parentheses: str) -> bool:
-    """Use a stack to check if a string of parentheses is balanced.
+    """使用 栈 到 检查是否 字符串 的 parentheses 是 balanced。
     >>> balanced_parentheses("([]{})")
     True
     >>> balanced_parentheses("[()]{}{[()()]()}")

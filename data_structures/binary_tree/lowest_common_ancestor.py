@@ -8,7 +8,7 @@ from queue import Queue
 
 def swap(a: int, b: int) -> tuple[int, int]:
     """
-    Return a tuple (b, a) when given two integers a and b
+    返回 元组 (b，) 当 给定 两个 整数 并且 b
     >>> swap(2,3)
     (3, 2)
     >>> swap(3,4)
@@ -26,7 +26,7 @@ def swap(a: int, b: int) -> tuple[int, int]:
 
 def create_sparse(max_node: int, parent: list[list[int]]) -> list[list[int]]:
     """
-    creating sparse table which saves each nodes 2^i-th parent
+    creating sparse table 其 saves 每个 节点 2^i-th 父节点
     >>> max_node = 6
     >>> parent = [[0, 0, 1, 1, 2, 2, 3]] + [[0] * 7 for _ in range(19)]
     >>> parent = create_sparse(max_node=max_node, parent=parent)
@@ -53,12 +53,12 @@ def create_sparse(max_node: int, parent: list[list[int]]) -> list[list[int]]:
     return parent
 
 
-# returns lca of node u,v
+# 返回值 lca 的 节点 u,v
 def lowest_common_ancestor(
     u: int, v: int, level: list[int], parent: list[list[int]]
 ) -> int:
     """
-    Return the lowest common ancestor between u and v
+    返回 lowest common ancestor 之间 u 并且 v
 
     >>> level = [-1, 0, 1, 1, 2, 2, 2]
     >>> parent = [[0, 0, 1, 1, 2, 2, 3],[0, 0, 0, 0, 1, 1, 1]] + \
@@ -72,25 +72,25 @@ def lowest_common_ancestor(
     >>> lowest_common_ancestor(u=6, v=6, level=level, parent=parent)
     6
     """
-    # u must be deeper in the tree than v
+    # u 必须 为 deeper 在 该树 比 v
     if level[u] < level[v]:
         u, v = swap(u, v)
-    # making depth of u same as depth of v
+    # making 深度 的 u 相同 作为 深度 的 v
     for i in range(18, -1, -1):
         if level[u] - (1 << i) >= level[v]:
             u = parent[i][u]
-    # at the same depth if u==v that mean lca is found
+    # 在 相同 深度 如果 u==v 该 mean lca 是 找到
     if u == v:
         return u
-    # moving both nodes upwards till lca in found
+    # moving 两者 节点 upwards till lca 在 找到
     for i in range(18, -1, -1):
         if parent[i][u] not in [0, parent[i][v]]:
             u, v = parent[i][u], parent[i][v]
-    # returning longest common ancestor of u,v
+    # returning longest common ancestor 的 u,v
     return parent[0][u]
 
 
-# runs a breadth first search from root node of the tree
+# runs breadth 第一个 搜索 从 根节点 的树
 def breadth_first_search(
     level: list[int],
     parent: list[list[int]],
@@ -99,9 +99,9 @@ def breadth_first_search(
     root: int = 1,
 ) -> tuple[list[int], list[list[int]]]:
     """
-    sets every nodes direct parent
-    parent of root node is set to 0
-    calculates depth of each node from root node
+    sets 每个 节点 direct 父节点
+    父节点 的 根节点 是 集合 到 0
+    calculates 深度 的 每个节点 从 根节点
     >>> level = [-1] * 7
     >>> parent = [[0] * 7 for _ in range(20)]
     >>> graph = {1: [2, 3], 2: [4, 5], 3: [6], 4: [], 5: [], 6: []}
@@ -138,9 +138,9 @@ def breadth_first_search(
 
 def main() -> None:
     max_node = 13
-    # initializing with 0
+    # initializing 带有 0
     parent = [[0 for _ in range(max_node + 10)] for _ in range(20)]
-    # initializing with -1 which means every node is unvisited
+    # initializing 带有 -1 其 表示 每个 节点 是 unvisited
     level = [-1 for _ in range(max_node + 10)]
     graph: dict[int, list[int]] = {
         1: [2, 3, 4],

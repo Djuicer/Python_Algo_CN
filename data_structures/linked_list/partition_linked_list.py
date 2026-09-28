@@ -51,16 +51,16 @@ class LinkedList:
 
     def add(self, item: Any, position: int = 0) -> None:
         """
-        Add an item to the LinkedList at the specified position.
-        Default position is 0 (the head).
+        添加 元素 到 LinkedList 在 指定 位置。
+        Default 位置 是 0 (头节点)。
 
-        Args:
-            item (Any): The item to add to the LinkedList.
-            position (int, optional): The position at which to add the item.
-                Defaults to 0.
+        参数：
+            元素 (任意): 元素 到 添加 到 LinkedList。
+            位置 (int，可选): 位置 在 其 到 添加 元素。
+                默认值 到 0。
 
-        Raises:
-            ValueError: If the position is negative or out of bounds.
+        抛出异常：
+            ValueError: 如果 位置 是 负 或 out 的 bounds。
 
         >>> linked_list = LinkedList()
         >>> linked_list.add(1)
@@ -70,13 +70,13 @@ class LinkedList:
         >>> print(linked_list)
         3 --> 2 --> 4 --> 1
 
-        # Test adding to a negative position
+        # 测试 添加 到 负 位置
         >>> linked_list.add(5, -3)
         Traceback (most recent call last):
             ...
         ValueError: Position must be non-negative
 
-        # Test adding to an out-of-bounds position
+        # 测试 添加 到 out-的-bounds 位置
         >>> linked_list.add(5,7)
         Traceback (most recent call last):
             ...
@@ -103,9 +103,9 @@ class LinkedList:
 
     def partition_liked_list(self, value: int) -> None:
         """
-        Partition the linked list based on node elements in order.
-        All nodes with elements less than value should occur on the left,
-        while those greater than or equal to value should occur on the right.
+        Partition 链表 基于 在 节点 元素 在 顺序。
+        所有节点 带有 元素 较小 比 值 应 occur 在 左,
+        当 those 更大 比 或 等于 到 值 应 occur 在 右。
 
         >>> linked_list = LinkedList()
         >>> linked_list.add(1)

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-module to operations with prime numbers
+module 到 操作 带有 prime 数
 """
 
 import math
 
 
 def is_prime(number: int) -> bool:
-    """Checks to see if a number is a prime in O(sqrt(n)).
+    """Checks 到 see 如果一个 数 是 prime 在 O(sqrt(n))。
 
-    A number is prime if it has exactly two factors: 1 and itself.
+    数 是 prime 如果 它 具有 exactly 两个 factors: 1 并且 自身。
 
     >>> is_prime(0)
     False
@@ -31,16 +31,16 @@ def is_prime(number: int) -> bool:
     False
     """
 
-    # precondition
+    # 前置条件
     assert isinstance(number, int) and (number >= 0), (
         "'number' must been an int and positive"
     )
 
     if 1 < number < 4:
-        # 2 and 3 are primes
+        # 2 并且 3 是 primes
         return True
     elif number < 2 or not number % 2:
-        # Negatives, 0, 1 and all even numbers are not primes
+        # Negatives，0，1 并且 所有 偶数 数 是 不 primes
         return False
 
     odd_numbers = range(3, int(math.sqrt(number) + 1), 2)

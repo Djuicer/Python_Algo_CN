@@ -1,9 +1,9 @@
 #  Created by: Ramy-Badr-Ahmed (https://github.com/Ramy-Badr-Ahmed)
-#  in Pull Request: #11554
+#  在 Pull Request: #11554
 #  https://github.com/TheAlgorithms/Python/pull/11554
 #
-#  Please mention me (@Ramy-Badr-Ahmed) in any issue or pull request
-#  addressing bugs/corrections to this file.
+#  Please mention me (@Ramy-Badr-Ahmed) 在 任意 问题 或 pull request
+#  寻址 bugs/corrections 到 此 文件。
 #  Thank you!
 
 from data_structures.suffix_tree.suffix_tree_node import SuffixTreeNode
@@ -12,10 +12,10 @@ from data_structures.suffix_tree.suffix_tree_node import SuffixTreeNode
 class SuffixTree:
     def __init__(self, text: str) -> None:
         """
-        Initializes the suffix tree with the given text.
+        Initializes 后缀 树 带有 给定 文本。
 
-        Args:
-            text (str): The text for which the suffix tree is to be built.
+        参数：
+            文本 (str): 文本 用于 其 后缀 树 是 到 为 built。
         """
         self.text: str = text
         self.root: SuffixTreeNode = SuffixTreeNode()
@@ -23,7 +23,7 @@ class SuffixTree:
 
     def build_suffix_tree(self) -> None:
         """
-        Builds the suffix tree for the given text by adding all suffixes.
+        Builds 后缀 树 用于 给定 文本 通过 添加 所有 suffixes。
         """
         text = self.text
         n = len(text)
@@ -33,11 +33,11 @@ class SuffixTree:
 
     def _add_suffix(self, suffix: str, index: int) -> None:
         """
-        Adds a suffix to the suffix tree.
+        Adds 后缀 到 后缀 树。
 
-        Args:
-            suffix (str): The suffix to add.
-            index (int): The starting index of the suffix in the original text.
+        参数：
+            后缀 (str): 后缀 到 添加。
+            索引 (int): 起始 索引 的 后缀 在 原始 文本。
         """
         node = self.root
         for char in suffix:
@@ -50,13 +50,13 @@ class SuffixTree:
 
     def search(self, pattern: str) -> bool:
         """
-        Searches for a pattern in the suffix tree.
+        搜索 模式 在 后缀 树。
 
-        Args:
-            pattern (str): The pattern to search for.
+        参数：
+            模式 (str): 模式 到 搜索。
 
-        Returns:
-            bool: True if the pattern is found, False otherwise.
+        返回值：
+            bool: True 如果 模式 是 找到，False 否则。
         """
         node = self.root
         for char in pattern:

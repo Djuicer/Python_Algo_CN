@@ -5,7 +5,7 @@ from .hash_table import HashTable
 
 class QuadraticProbing(HashTable):
     """
-    Basic Hash Table example with open addressing using Quadratic Probing
+    Basic 哈希表 示例 带有 开放 寻址 使用 Quadratic Probing
     """
 
     def __init__(self, *args, **kwargs) -> None:
@@ -13,18 +13,18 @@ class QuadraticProbing(HashTable):
 
     def _collision_resolution(self, key, data=None):  # noqa: ARG002
         """
-        Quadratic probing is an open addressing scheme used for resolving
-        collisions in hash table.
+        Quadratic probing 是 开放 寻址 scheme 使用 用于 resolving
+        collisions 在 哈希表。
 
-        It works by taking the original hash index and adding successive
-        values of an arbitrary quadratic polynomial until open slot is found.
+        它 works 通过 taking 原始 哈希 索引 并且 添加 successive
+        值 的 arbitrary quadratic polynomial until 开放 slot 是 找到。
 
-        Hash + 1², Hash + 2², Hash + 3² .... Hash + n²
+        哈希 + 1²，哈希 + 2²，哈希 + 3² .... 哈希 + n²
 
-        reference:
+        引用：
             - https://en.wikipedia.org/wiki/Quadratic_probing
         e.g:
-        1. Create hash table with size 7
+        1. 创建 哈希表 带有 大小 7
         >>> qp = QuadraticProbing(7)
         >>> qp.insert_data(90)
         >>> qp.insert_data(340)
@@ -36,7 +36,7 @@ class QuadraticProbing(HashTable):
         >>> qp.keys()
         {11: 45, 14: 99, 7: 24, 0: 340, 5: 73, 6: 90, 8: 7}
 
-        2. Create hash table with size 8
+        2. 创建 哈希表 带有 大小 8
         >>> qp = QuadraticProbing(8)
         >>> qp.insert_data(0)
         >>> qp.insert_data(999)
@@ -44,7 +44,7 @@ class QuadraticProbing(HashTable):
         >>> qp.keys()
         {0: 0, 7: 999, 3: 111}
 
-        3. Try to add three data elements when the size is two
+        3. Try 到 添加 three 数据 元素 当 大小 是 两个
         >>> qp =  QuadraticProbing(2)
         >>> qp.insert_data(0)
         >>> qp.insert_data(999)
@@ -52,7 +52,7 @@ class QuadraticProbing(HashTable):
         >>> qp.keys()
         {0: 0, 4: 999, 1: 111}
 
-        4. Try to add three data elements when the size is one
+        4. Try 到 添加 three 数据 元素 当 大小 是 一个
         >>> qp =  QuadraticProbing(1)
         >>> qp.insert_data(0)
         >>> qp.insert_data(999)

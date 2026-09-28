@@ -14,13 +14,13 @@ class TreeNode:
 class GetMaxPathSum:
     r"""
 
-    GetMaxPathSum takes root node of a tree as initial argument.
-    Upon calling max_path_sum(), it returns maximum path
-    sum from the tree.
+    GetMaxPathSum takes 根节点 的 树 作为 初始 argument。
+    Upon calling max_path_sum()，它 返回值 最大值 路径
+    和 从 该树。
 
-    # Test
+    # 测试
 
-    The below tree looks like this
+    下方 树 看起来 类似 此
           10
          /  \
         5   -3
@@ -29,8 +29,8 @@ class GetMaxPathSum:
      / \   \
     3  -2   1
 
-    Result will be calculated like : 3 -> 3 -> 5 -> 10 -> -3 -> 11
-    As it is the maximum path possible.
+    结果 将 为 计算得出 类似 : 3 -> 3 -> 5 -> 10 -> -3 -> 11
+    作为 它 是 最大值 路径 可能。
 
 
     >>> root = TreeNode(10)
@@ -53,11 +53,11 @@ class GetMaxPathSum:
 
     def traverse(self, root: TreeNode | None) -> int:
         """
-        Returns maximum path sum by recursively taking max_path_sum from left
-        and max_path_sum from right if current Node has a left or right Node.
+        返回值 最大值 路径 和 通过 递归地 taking max_path_sum 从 左
+        并且 max_path_sum 从 右 如果 当前节点 具有 左 或 右 节点。
 
-        :param root -> tree root:
-        :return int:
+        :param 根节点 -> 树 根节点：
+        :返回 int：
         """
 
         if root is None:
@@ -73,8 +73,8 @@ class GetMaxPathSum:
 
     def max_path_sum(self) -> int:
         """
-        Driver method to get max_path_sum by calling traverse method.
-        :return max_path_sum:
+        Driver 方法 到 获取 max_path_sum 通过 calling 遍历 方法。
+        :返回 max_path_sum：
         """
         self.traverse(self.root)
         return self.sum
@@ -82,7 +82,7 @@ class GetMaxPathSum:
 
 def construct_tree() -> TreeNode:
     r"""
-    The below tree
+    下方 树
        -10
        / \
       9   20

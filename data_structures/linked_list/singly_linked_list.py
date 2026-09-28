@@ -8,7 +8,7 @@ from typing import Any
 @dataclass
 class Node:
     """
-    Create and initialize Node class instance.
+    创建 并且 初始化 节点 类 instance。
     >>> Node(20)
     Node(20)
     >>> Node("Hello, world!")
@@ -24,7 +24,7 @@ class Node:
 
     def __repr__(self) -> str:
         """
-        Get the string representation of this node.
+        获取 字符串 表示 的 此 节点。
         >>> Node(10).__repr__()
         'Node(10)'
         >>> repr(Node(10))
@@ -40,7 +40,7 @@ class Node:
 class LinkedList:
     def __init__(self) -> None:
         """
-        Create and initialize LinkedList class instance.
+        创建 并且 初始化 LinkedList 类 instance。
         >>> linked_list = LinkedList()
         >>> linked_list.head is None
         True
@@ -49,8 +49,8 @@ class LinkedList:
 
     def __iter__(self) -> Iterator[Any]:
         """
-        This function is intended for iterators to access
-        and iterate through data inside linked list.
+        此函数 是 intended 用于 迭代器 到 access
+        并且 迭代 通过 数据 inside 链表。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("tail")
         >>> linked_list.insert_tail("tail_1")
@@ -68,7 +68,7 @@ class LinkedList:
 
     def __len__(self) -> int:
         """
-        Return length of linked list i.e. number of nodes
+        返回 长度 的 链表 i.e. 节点数量
         >>> linked_list = LinkedList()
         >>> len(linked_list)
         0
@@ -89,7 +89,7 @@ class LinkedList:
 
     def __repr__(self) -> str:
         """
-        String representation/visualization of a Linked Lists
+        字符串 表示/visualization 的 连接 列表
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail(1)
         >>> linked_list.insert_tail(3)
@@ -107,7 +107,7 @@ class LinkedList:
 
     def __getitem__(self, index: int) -> Any:
         """
-        Indexing Support. Used to get a node at particular position
+        Indexing Support. 使用 到 获取 一个节点 在 particular 位置
         >>> linked_list = LinkedList()
         >>> for i in range(0, 10):
         ...     linked_list.insert_nth(i, i)
@@ -129,7 +129,7 @@ class LinkedList:
                 return node
         return None
 
-    # Used to change the data of a particular node
+    # 使用 到 更改 数据 的 particular 节点
     def __setitem__(self, index: int, data: Any) -> None:
         """
         >>> linked_list = LinkedList()
@@ -161,7 +161,7 @@ class LinkedList:
 
     def insert_tail(self, data: Any) -> None:
         """
-        Insert data to the end of linked list.
+        插入 数据 到 末尾 的 链表。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("tail")
         >>> linked_list
@@ -177,7 +177,7 @@ class LinkedList:
 
     def insert_head(self, data: Any) -> None:
         """
-        Insert data to the beginning of linked list.
+        插入 数据 到 开头 的 链表。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_head("head")
         >>> linked_list
@@ -193,7 +193,7 @@ class LinkedList:
 
     def insert_nth(self, index: int, data: Any) -> None:
         """
-        Insert data at given index.
+        插入 数据 在 给定 索引。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("first")
         >>> linked_list.insert_tail("second")
@@ -213,7 +213,7 @@ class LinkedList:
         if self.head is None:
             self.head = new_node
         elif index == 0:
-            new_node.next_node = self.head  # link new_node to head
+            new_node.next_node = self.head  # 链接 new_node 到 头节点
             self.head = new_node
         else:
             temp = self.head
@@ -224,9 +224,9 @@ class LinkedList:
             new_node.next_node = temp.next_node
             temp.next_node = new_node
 
-    def print_list(self) -> None:  # print every node data
+    def print_list(self) -> None:  # 打印 每个 节点 数据
         """
-        This method prints every node data.
+        此方法 打印 每个 节点 数据。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("first")
         >>> linked_list.insert_tail("second")
@@ -238,8 +238,8 @@ class LinkedList:
 
     def delete_head(self) -> Any:
         """
-        Delete the first node and return the
-        node's data.
+        删除 第一个节点 并且 返回
+        节点's 数据。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("first")
         >>> linked_list.insert_tail("second")
@@ -263,10 +263,10 @@ class LinkedList:
         """
         return self.delete_nth(0)
 
-    def delete_tail(self) -> Any:  # delete from tail
+    def delete_tail(self) -> Any:  # 删除 从 尾节点
         """
-        Delete the tail end node and return the
-        node's data.
+        删除 尾节点 末尾 节点 并且 返回
+        节点's 数据。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("first")
         >>> linked_list.insert_tail("second")
@@ -292,8 +292,8 @@ class LinkedList:
 
     def delete_nth(self, index: int = 0) -> Any:
         """
-        Delete node at given index and return the
-        node's data.
+        删除 节点 在 给定 索引 并且 返回
+        节点's 数据。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("first")
         >>> linked_list.insert_tail("second")
@@ -313,9 +313,9 @@ class LinkedList:
             ...
         IndexError: List index out of range.
         """
-        if not 0 <= index <= len(self) - 1:  # test if index is valid
+        if not 0 <= index <= len(self) - 1:  # 测试 如果 索引 是 有效
             raise IndexError("List index out of range.")
-        delete_node = self.head  # default first node
+        delete_node = self.head  # default 第一个节点
         if index == 0:
             self.head = self.head.next_node
         else:
@@ -331,7 +331,7 @@ class LinkedList:
 
     def is_empty(self) -> bool:
         """
-        Check if linked list is empty.
+        检查是否 链表 为空。
         >>> linked_list = LinkedList()
         >>> linked_list.is_empty()
         True
@@ -343,7 +343,7 @@ class LinkedList:
 
     def reverse(self) -> None:
         """
-        This reverses the linked list order.
+        此 反转 链表 顺序。
         >>> linked_list = LinkedList()
         >>> linked_list.insert_tail("first")
         >>> linked_list.insert_tail("second")
@@ -358,15 +358,15 @@ class LinkedList:
         current = self.head
 
         while current:
-            # Store the current node's next node.
+            # 存储 当前节点's 下一个节点。
             next_node = current.next_node
-            # Make the current node's next_node point backwards
+            # 使 当前节点's next_node 点 backwards
             current.next_node = prev
-            # Make the previous node be the current node
+            # 使 上一个节点 为 当前节点
             prev = current
-            # Make the current node the next_node node (to progress iteration)
+            # 使 当前节点 next_node 节点 (到 progress 迭代)
             current = next_node
-        # Return prev in order to put the head at the end
+        # 返回 prev 在 顺序 到 put 头节点 在 末尾
         self.head = prev
 
 
@@ -380,15 +380,15 @@ def test_singly_linked_list() -> None:
 
     try:
         linked_list.delete_head()
-        raise AssertionError  # This should not happen.
+        raise AssertionError  # 此 应 不 发生。
     except IndexError:
-        assert True  # This should happen.
+        assert True  # 此 应 发生。
 
     try:
         linked_list.delete_tail()
-        raise AssertionError  # This should not happen.
+        raise AssertionError  # 此 应 不 发生。
     except IndexError:
-        assert True  # This should happen.
+        assert True  # 此 应 发生。
 
     for i in range(10):
         assert len(linked_list) == i
@@ -417,7 +417,7 @@ def test_singly_linked_list() -> None:
 
 def test_singly_linked_list_2() -> None:
     """
-    This section of the test used varying data types for input.
+    此 section 的 测试 使用 varying 数据 types 用于 输入。
     >>> test_singly_linked_list_2()
     """
     test_input = [
@@ -441,7 +441,7 @@ def test_singly_linked_list_2() -> None:
     for i in test_input:
         linked_list.insert_tail(i)
 
-    # Check if it's empty or not
+    # 检查是否 它's 空 或 不
     assert linked_list.is_empty() is False
     assert (
         str(linked_list)
@@ -449,7 +449,7 @@ def test_singly_linked_list_2() -> None:
         "0 -> -192.55555 -> Hello, world! -> 77.9 -> Node(10) -> None -> None -> 12.2"
     )
 
-    # Delete the head
+    # 删除 头节点
     result = linked_list.delete_head()
     assert result == -9
     assert (
@@ -457,7 +457,7 @@ def test_singly_linked_list_2() -> None:
         "-192.55555 -> Hello, world! -> 77.9 -> Node(10) -> None -> None -> 12.2"
     )
 
-    # Delete the tail
+    # 删除 尾节点
     result = linked_list.delete_tail()
     assert result == 12.2
     assert (
@@ -465,7 +465,7 @@ def test_singly_linked_list_2() -> None:
         "-192.55555 -> Hello, world! -> 77.9 -> Node(10) -> None -> None"
     )
 
-    # Delete a node in specific location in linked list
+    # 删除一个 节点 在 specific location 在 链表
     result = linked_list.delete_nth(10)
     assert result is None
     assert (
@@ -473,7 +473,7 @@ def test_singly_linked_list_2() -> None:
         "-192.55555 -> Hello, world! -> 77.9 -> Node(10) -> None"
     )
 
-    # Add a Node instance to its head
+    # 添加 一个节点 instance 到 其 头节点
     linked_list.insert_head(Node("Hello again, world!"))
     assert (
         str(linked_list)
@@ -481,7 +481,7 @@ def test_singly_linked_list_2() -> None:
         "7 -> 5555 -> 0 -> -192.55555 -> Hello, world! -> 77.9 -> Node(10) -> None"
     )
 
-    # Add None to its tail
+    # 添加 None 到 其 尾节点
     linked_list.insert_tail(None)
     assert (
         str(linked_list)
@@ -489,7 +489,7 @@ def test_singly_linked_list_2() -> None:
         "5555 -> 0 -> -192.55555 -> Hello, world! -> 77.9 -> Node(10) -> None -> None"
     )
 
-    # Reverse the linked list
+    # 反转 链表
     linked_list.reverse()
     assert (
         str(linked_list)

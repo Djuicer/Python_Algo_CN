@@ -1,7 +1,7 @@
 """
-Segment_tree creates a segment tree with a given array and function,
-allowing queries to be done later in log(N) time
-function takes 2 values and returns a same type value
+Segment_tree 创建一个 线段树 带有 给定 数组 并且 函数,
+allowing queries 到 为 done later 在 log(N) 时间
+函数 takes 2 值 并且 返回值 相同 类型 值
 """
 
 from collections.abc import Sequence
@@ -135,9 +135,9 @@ class SegmentTree:
 
     def update(self, i, val) -> None:
         """
-        Update an element in log(N) time
-        :param i: position to be update
-        :param val: new value
+        更新 元素 在 log(N) 时间
+        :param i: 位置 到 为 更新
+        :param val: 新 值
         >>> import operator
         >>> num_arr = SegmentTree([2, 1, 5, 3, 4], operator.add)
         >>> num_arr.update(1, 5)
@@ -148,10 +148,10 @@ class SegmentTree:
 
     def query_range(self, i, j):
         """
-        Get range query value in log(N) time
-        :param i: left element index
-        :param j: right element index
-        :return: element combined in the range [i, j]
+        获取 范围 查询 值 在 log(N) 时间
+        :param i: 左 元素 索引
+        :param j: 右 元素 索引
+        :返回: 元素 combined 在 范围 [i，j]
         >>> import operator
         >>> num_arr = SegmentTree([2, 1, 5, 3, 4], operator.add)
         >>> num_arr.update(1, 5)
@@ -189,16 +189,16 @@ class SegmentTree:
 
         if i <= node.mid:
             if j <= node.mid:
-                # range in left child tree
+                # 范围 在 左子节点 树
                 return self._query_range(node.left, i, j)
             else:
-                # range in left child tree and right child tree
+                # 范围 在 左子节点 树 并且 右子节点 树
                 return self.fn(
                     self._query_range(node.left, i, node.mid),
                     self._query_range(node.right, node.mid + 1, j),
                 )
         else:
-            # range in right child tree
+            # 范围 在 右子节点 树
             return self._query_range(node.right, i, j)
 
     def traverse(self):

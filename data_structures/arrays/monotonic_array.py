@@ -1,7 +1,7 @@
 # https://leetcode.com/problems/monotonic-array/
 def is_monotonic(nums: list[int]) -> bool:
     """
-    Check if a list is monotonic.
+    检查是否 一个列表 是 monotonic。
 
     >>> is_monotonic([1, 2, 2, 3])
     True
@@ -25,12 +25,12 @@ def is_monotonic(nums: list[int]) -> bool:
     )
 
 
-# Test the function with your examples
+# 测试 函数 带有 your 示例
 if __name__ == "__main__":
-    # Test the function with your examples
-    print(is_monotonic([1, 2, 2, 3]))  # Output: True
-    print(is_monotonic([6, 5, 4, 4]))  # Output: True
-    print(is_monotonic([1, 3, 2]))  # Output: False
+    # 测试 函数 带有 your 示例
+    print(is_monotonic([1, 2, 2, 3]))  # 输出: True
+    print(is_monotonic([6, 5, 4, 4]))  # 输出: True
+    print(is_monotonic([1, 3, 2]))  # 输出: False
 
     import doctest
 

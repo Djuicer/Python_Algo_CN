@@ -2,19 +2,19 @@ from typing import NamedTuple
 
 
 class GasStation(NamedTuple):
-    gas: int  # Amount of gas available at this gas station
-    cost: int  # Cost of gas required to drive to the next station
+    gas: int  # Amount 的 燃料 可用 在 此 燃料 station
+    cost: int  # Cost 的 燃料 所需 到 drive 到 下一个 station
 
 
 def can_complete_circuit(gas_stations: list[GasStation]) -> int:
     """
-    Finds the starting station index to complete the circuit,
-    or returns -1 if not possible.
-    Args:
-      gas_stations (List[GasStation]): List of gas stations with gas and cost.
-    Returns:
-      The index of the starting station, or -1 if no solution exists.
-    Examples:
+    查找 起始 station 索引 到 complete circuit,
+    或 返回值 -1 如果 不 可能。
+    参数：
+      gas_stations (列表[GasStation]): 列表 的 燃料 stations 带有 燃料 并且 cost。
+    返回值：
+      该索引 的 起始 station，或 -1 如果 没有 解 存在。
+    示例：
     >>> GS = GasStation
     >>> test_stations = (
     ...     [GS(1, 3), GS(2, 4), GS(3, 5), GS(4, 1), GS(5, 2)],
@@ -43,7 +43,7 @@ def can_complete_circuit(gas_stations: list[GasStation]) -> int:
     return start_station
 
 
-# Example usage with doctests
+# 示例 usage 带有 doctests
 if __name__ == "__main__":
     import doctest
 

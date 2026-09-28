@@ -1,12 +1,12 @@
 """
-Sparse table is a data structure that allows answering range queries on
-a static number list, i.e. the elements do not change throughout all the queries.
+Sparse table 是 数据 结构 该 允许 answering 范围 queries 在
+static 数 列表，i.e. 元素 do 不 更改 throughout 所有 queries。
 
-The implementation below will solve the problem of Range Minimum Query:
-Finding the minimum value of a subset [L..R] of a static number list.
+实现 下方 将 solve problem 的 范围 最小值 查询：
+Finding 最小值 值 的 子集 [L..R] 的 static 数 列表。
 
-Overall time complexity: O(nlogn)
-Overall space complexity: O(nlogn)
+Overall 时间复杂度: O(nlogn)
+Overall 空间复杂度: O(nlogn)
 
 Wikipedia link: https://en.wikipedia.org/wiki/Range_minimum_query
 """
@@ -16,8 +16,8 @@ from math import log2
 
 def build_sparse_table(number_list: list[int]) -> list[list[int]]:
     """
-    Precompute range minimum queries with power of two length and store the precomputed
-    values in a table.
+    Precompute 范围 最小值 queries 带有 power 的 两个 长度 并且 存储 precomputed
+    值 在 table。
 
     >>> build_sparse_table([8, 1, 0, 3, 4, 9, 3])
     [[8, 1, 0, 3, 4, 9, 3], [1, 0, 0, 3, 4, 3, 0], [0, 0, 0, 3, 0, 0, 0]]
@@ -32,24 +32,24 @@ def build_sparse_table(number_list: list[int]) -> list[list[int]]:
         raise ValueError("empty number list not allowed")
 
     length = len(number_list)
-    # Initialise sparse_table -- sparse_table[j][i] represents the minimum value of the
-    # subset of length (2 ** j) of number_list, starting from index i.
+    # 初始化 sparse_table -- sparse_table[j][i] 表示 最小值 值 的
+    # 子集 的 长度 (2 ** j) 的 number_list，起始 从 索引 i。
 
-    # smallest power of 2 subset length that fully covers number_list
+    # 最小 power 的 2 子集 长度 该 fully covers number_list
     row = int(log2(length)) + 1
     sparse_table = [[0 for i in range(length)] for j in range(row)]
 
-    # minimum of subset of length 1 is that value itself
+    # 最小值 的 子集 的 长度 1 是 该 值 自身
     for i, value in enumerate(number_list):
         sparse_table[0][i] = value
     j = 1
 
-    # compute the minimum value for all intervals with size (2 ** j)
+    # 计算 最小值 值 用于 所有 区间 带有 大小 (2 ** j)
     while (1 << j) <= length:
         i = 0
-        # while subset starting from i still have at least (2 ** j) elements
+        # 当 子集 起始 从 i 仍然 具有 在 least (2 ** j) 元素
         while (i + (1 << j) - 1) < length:
-            # split range [i, i + 2 ** j] and find minimum of 2 halves
+            # 拆分 范围 [i，i + 2 ** j] 并且 查找 最小值 的 2 halves
             sparse_table[j][i] = min(
                 sparse_table[j - 1][i + (1 << (j - 1))], sparse_table[j - 1][i]
             )
@@ -80,11 +80,11 @@ def query(sparse_table: list[list[int]], left_bound: int, right_bound: int) -> i
     if left_bound < 0 or right_bound >= len(sparse_table[0]):
         raise IndexError("list index out of range")
 
-    # highest subset length of power of 2 that is within range [left_bound, right_bound]
+    # 最高 子集 长度 的 power 的 2 该 是 之内 范围 [left_bound，right_bound]
     j = int(log2(right_bound - left_bound + 1))
 
-    # minimum of 2 overlapping smaller subsets:
-    # [left_bound, left_bound + 2 ** j - 1] and [right_bound - 2 ** j + 1, right_bound]
+    # 最小值 的 2 重叠 更小 subsets：
+    # [left_bound，left_bound + 2 ** j - 1] 并且 [right_bound - 2 ** j + 1，right_bound]
     return min(sparse_table[j][right_bound - (1 << j) + 1], sparse_table[j][left_bound])
 
 

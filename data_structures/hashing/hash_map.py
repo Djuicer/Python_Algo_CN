@@ -76,8 +76,8 @@ class HashMap(MutableMapping[KEY, VAL]):
         """
         stored = self._buckets[ind]
         if not stored:
-            # A falsy item means that bucket was never used (None)
-            # or was deleted (_deleted).
+            # falsy 元素 表示 该 桶 曾是 从不 使用 (None)
+            # 或 曾是 已删除 (_deleted)。
             self._buckets[ind] = _Item(key, val)
             self._len += 1
             return True

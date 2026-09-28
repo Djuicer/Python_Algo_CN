@@ -11,13 +11,13 @@ class Node:
 
 def print_linked_list(head: Node | None) -> None:
     """
-        Print the entire linked list iteratively.
+        打印 整个 链表 迭代地。
 
-        This function prints the elements of a linked list separated by '->'.
+        此函数 打印 元素 的 链表 separated 通过 '->'。
 
-        Parameters:
-            head (Node | None): The head of the linked list to be printed,
-    or None if the linked list is empty.
+        参数：
+            头节点 (节点 | None): 头节点 的 链表 到 为 printed,
+    或 None 如果 链表 为空。
 
         >>> head = insert_node(None, 0)
         >>> head = insert_node(head, 2)
@@ -39,14 +39,14 @@ def print_linked_list(head: Node | None) -> None:
 
 def insert_node(head: Node | None, data: int) -> Node:
     """
-    Insert a new node at the end of a linked list and return the new head.
+    插入一个 新节点 在 末尾 的 链表 并且 返回 新 头节点。
 
-    Parameters:
-        head (Node | None): The head of the linked list.
-        data (int): The data to be inserted into the new node.
+    参数：
+        头节点 (节点 | None): 头节点 的 链表。
+        数据 (int): 数据 到 为 已插入 到 新节点。
 
-    Returns:
-        Node: The new head of the linked list.
+    返回值：
+        节点: 新 头节点 的 链表。
 
     >>> head = insert_node(None, 10)
     >>> head = insert_node(head, 9)
@@ -55,7 +55,7 @@ def insert_node(head: Node | None, data: int) -> Node:
     10->9->8
     """
     new_node = Node(data)
-    # If the linked list is empty, the new_node becomes the head
+    # 如果 链表 为空，new_node 变为 头节点
     if head is None:
         return new_node
 
@@ -69,14 +69,14 @@ def insert_node(head: Node | None, data: int) -> Node:
 
 def rotate_to_the_right(head: Node, places: int) -> Node:
     """
-    Rotate a linked list to the right by places times.
+    旋转 链表 到 右 通过 位置 times。
 
-    Parameters:
-        head: The head of the linked list.
-        places: The number of places to rotate.
+    参数：
+        头节点: 头节点 的 链表。
+        位置: 数 的 位置 到 旋转。
 
-    Returns:
-        Node: The head of the rotated linked list.
+    返回值：
+        节点: 头节点 的 rotated 链表。
 
     >>> rotate_to_the_right(None, places=1)
     Traceback (most recent call last):
@@ -94,36 +94,36 @@ def rotate_to_the_right(head: Node, places: int) -> Node:
     >>> print_linked_list(new_head)
     4->5->1->2->3
     """
-    # Check if the list is empty or has only one element
+    # 检查是否 该列表 为空 或 具有 仅 一个 元素
     if not head:
         raise ValueError("The linked list is empty.")
 
     if head.next_node is None:
         return head
 
-    # Calculate the length of the linked list
+    # 计算 长度 的 链表
     length = 1
     temp_node = head
     while temp_node.next_node is not None:
         length += 1
         temp_node = temp_node.next_node
 
-    # Adjust the value of places to avoid places longer than the list.
+    # Adjust 该值 的 位置 到 avoid 位置 longer 比 该列表。
     places %= length
 
     if places == 0:
-        return head  # As no rotation is needed.
+        return head  # 作为 没有 旋转 是 需要。
 
-    # Find the new head position after rotation.
+    # 查找 新 头节点 位置 之后 旋转。
     new_head_index = length - places
 
-    # Traverse to the new head position
+    # 遍历 到 新 头节点 位置
     temp_node = head
     for _ in range(new_head_index - 1):
         assert temp_node.next_node
         temp_node = temp_node.next_node
 
-    # Update pointers to perform rotation
+    # 更新 指针 到 执行 旋转
     assert temp_node.next_node
     new_head = temp_node.next_node
     temp_node.next_node = None

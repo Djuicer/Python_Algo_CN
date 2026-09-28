@@ -1,5 +1,5 @@
 """
-Given the root of a binary tree, mirror the tree, and return its root.
+给定 根节点 的 二叉树，镜像 该树，并且 返回 其 根节点。
 
 Leetcode problem reference: https://leetcode.com/problems/mirror-binary-tree/
 """
@@ -13,7 +13,7 @@ from dataclasses import dataclass
 @dataclass
 class Node:
     """
-    A Node has value variable and pointers to Nodes to its left and right.
+    一个节点 具有 值 变量 并且 指针 到 节点 到 其 左 并且 右。
     """
 
     value: int
@@ -32,7 +32,7 @@ class Node:
 
     def mirror(self) -> Node:
         """
-        Mirror the binary tree rooted at this node by swapping left and right children.
+        镜像 二叉树 rooted 在 此 节点 通过 swapping 左 并且 右 子节点。
 
         >>> tree = Node(0)
         >>> list(tree)
@@ -55,7 +55,7 @@ class Node:
 
 def make_tree_seven() -> Node:
     r"""
-    Return a binary tree with 7 nodes that looks like this:
+    返回 二叉树 带有 7 节点 该 看起来 类似 此：
     ::
 
            1
@@ -82,7 +82,7 @@ def make_tree_seven() -> Node:
 
 def make_tree_nine() -> Node:
     r"""
-    Return a binary tree with 9 nodes that looks like this:
+    返回 二叉树 带有 9 节点 该 看起来 类似 此：
     ::
 
             1
@@ -113,7 +113,7 @@ def make_tree_nine() -> Node:
 
 def main() -> None:
     r"""
-    Mirror binary trees with the given root and returns the root
+    镜像 binary 树 带有 给定 根节点 并且 返回值 根节点
 
     >>> tree = make_tree_nine()
     >>> tuple(tree)
@@ -131,7 +131,7 @@ def main() -> None:
        / \   \
       7   8   9
 
-    The mirrored tree looks like this::
+    mirrored 树 看起来 类似 此:：
 
           1
          / \

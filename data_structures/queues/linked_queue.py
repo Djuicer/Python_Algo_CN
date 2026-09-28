@@ -1,4 +1,4 @@
-"""A Queue using a linked list like structure"""
+"""队列 使用 链表 类似 结构"""
 
 from __future__ import annotations
 

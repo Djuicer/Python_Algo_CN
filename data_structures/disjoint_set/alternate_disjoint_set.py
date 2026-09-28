@@ -1,14 +1,14 @@
 """
-Implements a disjoint set using Lists and some added heuristics for efficiency
-Union by Rank Heuristic and Path Compression
+Implements 并查集 使用 列表 并且 some added heuristics 用于 efficiency
+Union 通过 Rank Heuristic 并且 路径压缩
 """
 
 
 class DisjointSet:
     def __init__(self, set_counts: list) -> None:
         """
-        Initialize with a list of the number of items in each set
-        and with rank = 1 for each set
+        初始化 带有 一个列表 的 数 的 元素 在 每个 集合
+        并且 带有 rank = 1 对于每个 集合
         """
         self.set_counts = set_counts
         self.max_set = max(set_counts)
@@ -18,9 +18,9 @@ class DisjointSet:
 
     def merge(self, src: int, dst: int) -> bool:
         """
-        Merge two sets together using Union by rank heuristic
-        Return True if successful
-        Merge two disjoint sets
+        合并两个 sets together 使用 Union 通过 rank heuristic
+        若满足以下条件则返回 True： successful
+        合并两个 disjoint sets
         >>> A = DisjointSet([1, 1, 1])
         >>> A.merge(1, 2)
         True
@@ -53,7 +53,7 @@ class DisjointSet:
 
     def get_parent(self, disj_set: int) -> int:
         """
-        Find the Parent of a given set
+        查找 父节点 的 给定 集合
         >>> A = DisjointSet([1, 1, 1])
         >>> A.merge(1, 2)
         True

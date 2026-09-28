@@ -6,11 +6,11 @@ import math
 class SegmentTree:
     def __init__(self, size: int) -> None:
         self.size = size
-        # approximate the overall size of segment tree with given value
+        # approximate overall 大小 的 线段树 带有 给定 值
         self.segment_tree = [0 for i in range(4 * size)]
-        # create array to store lazy update
+        # 创建 数组 到 存储 lazy 更新
         self.lazy = [0 for i in range(4 * size)]
-        self.flag = [0 for i in range(4 * size)]  # flag for lazy update
+        self.flag = [0 for i in range(4 * size)]  # flag 用于 lazy 更新
 
     def left(self, idx: int) -> int:
         """
@@ -53,10 +53,10 @@ class SegmentTree:
         self, idx: int, left_element: int, right_element: int, a: int, b: int, val: int
     ) -> bool:
         """
-        update with O(lg n) (Normal segment tree without lazy update will take O(nlg n)
-        for each update)
+        更新 带有 O(lg n) (Normal 线段树 不使用 lazy 更新 将 take O(nlg n)
+        对于每个 更新)
 
-        update(1, 1, size, a, b, v) for update val v to [a,b]
+        更新(1，1，大小，，b，v) 用于 更新 val v 到 [,b]
         """
         if self.flag[idx] is True:
             self.segment_tree[idx] = self.lazy[idx]
@@ -85,12 +85,12 @@ class SegmentTree:
         )
         return True
 
-    # query with O(lg n)
+    # 查询 带有 O(lg n)
     def query(
         self, idx: int, left_element: int, right_element: int, a: int, b: int
     ) -> int | float:
         """
-        query(1, 1, size, a, b) for query max of [a,b]
+        查询(1，1，大小，，b) 用于 查询 最大值 的 [,b]
         >>> A = [1, 2, -4, 7, 3, -5, 6, 11, -20, 9, 14, 15, 5, 2, -8]
         >>> segment_tree = SegmentTree(15)
         >>> segment_tree.build(1, 1, 15, A)

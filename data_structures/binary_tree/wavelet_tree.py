@@ -1,8 +1,8 @@
 """
-Wavelet tree is a data-structure designed to efficiently answer various range queries
-for arrays. Wavelets trees are different from other binary trees in the sense that
-the nodes are split based on the actual values of the elements and not on indices,
-such as the with segment trees or fenwick trees. You can read more about them here:
+Wavelet 树 是 数据-结构 designed 到 efficiently answer various 范围 queries
+用于 数组. Wavelets 树 是 不同 从 另一个 binary 树 在 sense 该
+节点 是 拆分 基于 在 actual 值 的 元素 并且 不 在 索引,
+such 作为 带有 segment 树 或 fenwick 树. You 可以 read 更多 about 它们 此处：
 1. https://users.dcc.uchile.cl/~jperez/papers/ioiconf16.pdf
 2. https://www.youtube.com/watch?v=4aSv9PcecDw&t=811s
 3. https://www.youtube.com/watch?v=CybAgVF-MMc&t=1178s
@@ -34,15 +34,15 @@ class Node:
 
 def build_tree(arr: list[int]) -> Node | None:
     """
-    Builds the tree for arr and returns the root
-    of the constructed tree
+    Builds 该树 用于 arr 并且 返回值 根节点
+    的 constructed 树
 
     >>> build_tree(test_array)
     Node(min_value=0 max_value=9)
     """
     root = Node(len(arr))
     root.minn, root.maxx = min(arr), max(arr)
-    # Leaf node case where the node contains only one unique value
+    # 叶节点 情况 其中 该节点 包含 仅 一个 唯一 值
     if root.minn == root.maxx:
         return root
     """
@@ -69,7 +69,7 @@ def build_tree(arr: list[int]) -> Node | None:
 
 def rank_till_index(node: Node | None, num: int, index: int) -> int:
     """
-    Returns the number of occurrences of num in interval [0, index] in the list
+    返回以下对象的数量： occurrences 的 num 在 区间 [0，索引] 在 该列表
 
     >>> root = build_tree(test_array)
     >>> rank_till_index(root, 6, 6)
@@ -85,21 +85,21 @@ def rank_till_index(node: Node | None, num: int, index: int) -> int:
     """
     if index < 0 or node is None:
         return 0
-    # Leaf node cases
+    # 叶节点 情况
     if node.minn == node.maxx:
         return index + 1 if node.minn == num else 0
     pivot = (node.minn + node.maxx) // 2
     if num <= pivot:
-        # go the left subtree and map index to the left subtree
+        # 前进 左子树 并且 map 索引 到 左子树
         return rank_till_index(node.left, num, node.map_left[index] - 1)
     else:
-        # go to the right subtree and map index to the right subtree
+        # 前进 到 右子树 并且 map 索引 到 右子树
         return rank_till_index(node.right, num, index - node.map_left[index])
 
 
 def rank(node: Node | None, num: int, start: int, end: int) -> int:
     """
-    Returns the number of occurrences of num in interval [start, end] in the list
+    返回以下对象的数量： occurrences 的 num 在 区间 [开始，末尾] 在 该列表
 
     >>> root = build_tree(test_array)
     >>> rank(root, 6, 3, 13)
@@ -120,8 +120,8 @@ def rank(node: Node | None, num: int, start: int, end: int) -> int:
 
 def quantile(node: Node | None, index: int, start: int, end: int) -> int:
     """
-    Returns the index'th smallest element in interval [start, end] in the list
-    index is 0-indexed
+    返回值 该索引'th 最小 元素 在 区间 [开始，末尾] 在 该列表
+    索引 是 0-indexed
 
     >>> root = build_tree(test_array)
     >>> quantile(root, 2, 2, 5)
@@ -135,10 +135,10 @@ def quantile(node: Node | None, index: int, start: int, end: int) -> int:
     """
     if index > (end - start) or start > end or node is None:
         return -1
-    # Leaf node case
+    # 叶节点 情况
     if node.minn == node.maxx:
         return node.minn
-    # Number of elements in the left subtree in interval [start, end]
+    # 元素数量 在 左子树 在 区间 [开始，末尾]
     num_elements_in_left_tree = node.map_left[end] - (
         node.map_left[start - 1] if start else 0
     )
@@ -162,8 +162,8 @@ def range_counting(
     node: Node | None, start: int, end: int, start_num: int, end_num: int
 ) -> int:
     """
-    Returns the number of elements in range [start_num, end_num]
-    in interval [start, end] in the list
+    返回以下对象的数量： 元素 在 范围 [start_num，end_num]
+    在 区间 [开始，末尾] 在 该列表
 
     >>> root = build_tree(test_array)
     >>> range_counting(root, 1, 10, 3, 7)

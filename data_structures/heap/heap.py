@@ -111,16 +111,16 @@ class Heap[T: Comparable]:
             violation: int = index
             left_child = self.left_child_idx(index)
             right_child = self.right_child_idx(index)
-            # check which child is larger than its parent
+            # 检查 其 子节点 是 larger 比 其 父节点
             if left_child is not None and self.h[left_child] > self.h[violation]:
                 violation = left_child
             if right_child is not None and self.h[right_child] > self.h[violation]:
                 violation = right_child
-            # if violation indeed exists
+            # 如果 violation indeed 存在
             if violation != index:
-                # swap to fix the violation
+                # 交换 到 fix violation
                 self.h[violation], self.h[index] = self.h[index], self.h[violation]
-                # fix the subsequent violation recursively if any
+                # fix subsequent violation 递归地 如果 任意
                 self.max_heapify(violation)
 
     def build_max_heap(self, collection: Iterable[T]) -> None:
@@ -150,7 +150,7 @@ class Heap[T: Comparable]:
         self.h = list(collection)
         self.heap_size = len(self.h)
         if self.heap_size > 1:
-            # max_heapify from right to left but exclude leaves (last level)
+            # max_heapify 从右到左 但是 exclude 叶节点 (最后一个 层级)
             for i in range(self.heap_size // 2 - 1, -1, -1):
                 self.max_heapify(i)
 
@@ -235,7 +235,7 @@ if __name__ == "__main__":
 
     doctest.testmod()
 
-    # demo
+    # 演示
     for unsorted in [
         [0],
         [2],

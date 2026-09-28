@@ -146,7 +146,7 @@ class DoublyLinkedList:
 
         if not 0 <= index <= length - 1:
             raise IndexError("list index out of range")
-        delete_node = self.head  # default first node
+        delete_node = self.head  # default 第一个节点
         if length == 1:
             self.head = self.tail = None
         elif index == 0:
@@ -177,10 +177,10 @@ class DoublyLinkedList:
         current = self.head
         assert current is not None
 
-        while current.data != data:  # Find the position to delete
+        while current.data != data:  # 查找 位置 到 删除
             if current.next:
                 current = current.next
-            else:  # We have reached the end an no value matches
+            else:  # 我们 具有 reached 末尾 没有 值 matches
                 raise ValueError("No data matching given value")
 
         if current == self.head:
@@ -189,7 +189,7 @@ class DoublyLinkedList:
         elif current == self.tail:
             self.delete_tail()
 
-        else:  # Before: 1 <--> 2(current) <--> 3
+        else:  # 之前: 1 <--> 2(当前) <--> 3
             assert current.previous is not None
             assert current.next is not None
             current.previous.next = current.next  # 1 --> 3
@@ -218,15 +218,15 @@ def test_doubly_linked_list() -> None:
 
     try:
         linked_list.delete_head()
-        raise AssertionError  # This should not happen.
+        raise AssertionError  # 此 应 不 发生。
     except IndexError:
-        assert True  # This should happen.
+        assert True  # 此 应 发生。
 
     try:
         linked_list.delete_tail()
-        raise AssertionError  # This should not happen.
+        raise AssertionError  # 此 应 不 发生。
     except IndexError:
-        assert True  # This should happen.
+        assert True  # 此 应 发生。
 
     for i in range(10):
         assert len(linked_list) == i

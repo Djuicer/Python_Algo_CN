@@ -1,6 +1,6 @@
 class MaxFenwickTree:
     """
-    Maximum Fenwick Tree
+    最大值 树状数组
 
     More info: https://cp-algorithms.com/data_structures/fenwick.html
     ---------
@@ -38,12 +38,12 @@ class MaxFenwickTree:
 
     def __init__(self, size: int) -> None:
         """
-        Create empty Maximum Fenwick Tree with specified size
+        创建 空 最大值 树状数组 带有 指定 大小
 
-        Parameters:
-            size: size of Array
+        参数：
+            大小: 大小 的 数组
 
-        Returns:
+        返回值：
             None
         """
         self.size = size
@@ -53,26 +53,26 @@ class MaxFenwickTree:
     @staticmethod
     def get_next(index: int) -> int:
         """
-        Get next index in O(1)
+        获取 下一个 索引 在 O(1)
         """
         return index | (index + 1)
 
     @staticmethod
     def get_prev(index: int) -> int:
         """
-        Get previous index in O(1)
+        获取 上一个 索引 在 O(1)
         """
         return (index & (index + 1)) - 1
 
     def update(self, index: int, value: int) -> None:
         """
-        Set index to value in O(lg^2 N)
+        集合 索引 到 值 在 O(lg^2 N)
 
-        Parameters:
-            index: index to update
-            value: value to set
+        参数：
+            索引: 索引 到 更新
+            值: 值 到 集合
 
-        Returns:
+        返回值：
             None
         """
         self.arr[index] = value
@@ -86,16 +86,16 @@ class MaxFenwickTree:
 
     def query(self, left: int, right: int) -> int:
         """
-        Answer the query of maximum range [l, r) in O(lg^2 N)
+        Answer 查询 的 最大值 范围 [l，r) 在 O(lg^2 N)
 
-        Parameters:
-            left: left index of query range (inclusive)
-            right: right index of query range (exclusive)
+        参数：
+            左: 左 索引 的 查询 范围 (inclusive)
+            右: 右 索引 的 查询 范围 (exclusive)
 
-        Returns:
-            Maximum value of range [left, right)
+        返回值：
+            最大值 值 的 范围 [左，右)
         """
-        right -= 1  # Because of right is exclusive
+        right -= 1  # 因为 的 右 是 exclusive
         result = 0
         while left <= right:
             current_left = self.get_prev(right)

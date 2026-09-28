@@ -11,15 +11,15 @@ class ListNode:
 
 def is_palindrome(head: ListNode | None) -> bool:
     """
-    Check if a linked list is a palindrome.
+    检查是否 链表 是 回文。
 
-    Args:
-        head: The head of the linked list.
+    参数：
+        头节点: 头节点 的 链表。
 
-    Returns:
-        bool: True if the linked list is a palindrome, False otherwise.
+    返回值：
+        bool: True 如果 链表 是 回文，False 否则。
 
-    Examples:
+    示例：
         >>> is_palindrome(None)
         True
 
@@ -37,26 +37,26 @@ def is_palindrome(head: ListNode | None) -> bool:
     """
     if not head:
         return True
-    # split the list to two parts
+    # 拆分 该列表 到 两个 parts
     fast: ListNode | None = head.next_node
     slow: ListNode | None = head
     while fast and fast.next_node:
         fast = fast.next_node.next_node
         slow = slow.next_node if slow else None
     if slow:
-        # slow will always be defined,
+        # 慢 将 始终 为 定义,
         # adding this check to resolve mypy static check
         second = slow.next_node
-        slow.next_node = None  # Don't forget here! But forget still works!
-    # reverse the second part
+        slow.next_node = None  # Don't forget 此处! 但是 forget 仍然 works!
+    # 反转 第二个 part
     node: ListNode | None = None
     while second:
         nxt = second.next_node
         second.next_node = node
         node = second
         second = nxt
-    # compare two parts
-    # second part has the same or one less node
+    # 比较 两个 parts
+    # 第二个 part 具有 相同 或 一个 较小 节点
     while node and head:
         if node.val != head.val:
             return False
@@ -67,15 +67,15 @@ def is_palindrome(head: ListNode | None) -> bool:
 
 def is_palindrome_stack(head: ListNode | None) -> bool:
     """
-    Check if a linked list is a palindrome using a stack.
+    检查是否 链表 是 回文 使用 栈。
 
-    Args:
-        head (ListNode): The head of the linked list.
+    参数：
+        头节点 (ListNode): 头节点 的 链表。
 
-    Returns:
-        bool: True if the linked list is a palindrome, False otherwise.
+    返回值：
+        bool: True 如果 链表 是 回文，False 否则。
 
-    Examples:
+    示例：
         >>> is_palindrome_stack(None)
         True
 
@@ -94,24 +94,24 @@ def is_palindrome_stack(head: ListNode | None) -> bool:
     if not head or not head.next_node:
         return True
 
-    # 1. Get the midpoint (slow)
+    # 1. 获取 midpoint (慢)
     slow: ListNode | None = head
     fast: ListNode | None = head
     while fast and fast.next_node:
         fast = fast.next_node.next_node
         slow = slow.next_node if slow else None
 
-    # slow will always be defined,
+    # 慢 将 始终 为 定义,
     # adding this check to resolve mypy static check
     if slow:
         stack = [slow.val]
 
-        # 2. Push the second half into the stack
+        # 2. 压入 第二个 half 到 该栈
         while slow.next_node:
             slow = slow.next_node
             stack.append(slow.val)
 
-        # 3. Comparison
+        # 3. 比较
         cur: ListNode | None = head
         while stack and cur:
             if stack.pop() != cur.val:
@@ -123,15 +123,15 @@ def is_palindrome_stack(head: ListNode | None) -> bool:
 
 def is_palindrome_dict(head: ListNode | None) -> bool:
     """
-    Check if a linked list is a palindrome using a dictionary.
+    检查是否 链表 是 回文 使用 dictionary。
 
-    Args:
-        head (ListNode): The head of the linked list.
+    参数：
+        头节点 (ListNode): 头节点 的 链表。
 
-    Returns:
-        bool: True if the linked list is a palindrome, False otherwise.
+    返回值：
+        bool: True 如果 链表 是 回文，False 否则。
 
-    Examples:
+    示例：
         >>> is_palindrome_dict(None)
         True
 

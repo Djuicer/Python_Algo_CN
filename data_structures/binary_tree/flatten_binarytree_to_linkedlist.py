@@ -1,10 +1,10 @@
 """
-Binary Tree Flattening Algorithm
+二叉树 Flattening 算法
 
-This code defines an algorithm to flatten a binary tree into a linked list
-represented using the right pointers of the tree nodes. It uses in-place
-flattening and demonstrates the flattening process along with a display
-function to visualize the flattened linked list.
+此 代码 defines 算法 到 flatten 二叉树 到 链表
+表示 使用 右 指针 的树 节点. 它 使用 在-位置
+flattening 并且 demonstrates flattening process along 带有 显示
+函数 到 visualize flattened 链表。
 https://www.geeksforgeeks.org/flatten-a-binary-tree-into-linked-list
 
 Author: Arunkumar A
@@ -16,8 +16,8 @@ from __future__ import annotations
 
 class TreeNode:
     """
-    A TreeNode has data variable and pointers to TreeNode objects
-    for its left and right children.
+    TreeNode 具有 数据 变量 并且 指针 到 TreeNode objects
+    用于 其 左 并且 右 子节点。
     """
 
     def __init__(self, data: int) -> None:
@@ -28,12 +28,12 @@ class TreeNode:
 
 def build_tree() -> TreeNode:
     """
-    Build and return a sample binary tree.
+    构建 并且 返回 sample 二叉树。
 
-    Returns:
-        TreeNode: The root of the binary tree.
+    返回值：
+        TreeNode: 根节点 的 二叉树。
 
-    Examples:
+    示例：
         >>> root = build_tree()
         >>> root.data
         1
@@ -59,13 +59,13 @@ def build_tree() -> TreeNode:
 
 def flatten(root: TreeNode | None) -> None:
     """
-    Flatten a binary tree into a linked list in-place, where the linked list is
-    represented using the right pointers of the tree nodes.
+    Flatten 二叉树 到 链表 在-位置，其中 链表 是
+    表示 使用 右 指针 的树 节点。
 
-    Args:
-        root (TreeNode): The root of the binary tree to be flattened.
+    参数：
+        根节点 (TreeNode): 根节点 的 二叉树 到 为 flattened。
 
-    Examples:
+    示例：
         >>> root = TreeNode(1)
         >>> root.left = TreeNode(2)
         >>> root.right = TreeNode(5)
@@ -84,36 +84,36 @@ def flatten(root: TreeNode | None) -> None:
     if not root:
         return
 
-    # Flatten the left subtree
+    # Flatten 左子树
     flatten(root.left)
 
-    # Save the right subtree
+    # Save 右子树
     right_subtree = root.right
 
-    # Make the left subtree the new right subtree
+    # 使 左子树 新 右子树
     root.right = root.left
     root.left = None
 
-    # Find the end of the new right subtree
+    # 查找 末尾 的 新 右子树
     current = root
     while current.right:
         current = current.right
 
-    # Append the original right subtree to the end
+    # 追加 原始 右子树 到 末尾
     current.right = right_subtree
 
-    # Flatten the updated right subtree
+    # Flatten updated 右子树
     flatten(right_subtree)
 
 
 def display_linked_list(root: TreeNode | None) -> None:
     """
-    Display the flattened linked list.
+    显示 flattened 链表。
 
-    Args:
-        root (TreeNode | None): The root of the flattened linked list.
+    参数：
+        根节点 (TreeNode | None): 根节点 的 flattened 链表。
 
-    Examples:
+    示例：
         >>> root = TreeNode(1)
         >>> root.right = TreeNode(2)
         >>> root.right.right = TreeNode(3)

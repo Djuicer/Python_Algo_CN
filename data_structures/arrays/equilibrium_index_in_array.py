@@ -1,30 +1,30 @@
 """
-Find the Equilibrium Index of an Array.
+查找 平衡 索引 的 一个数组。
 
-Reference:
+引用：
 https://www.geeksforgeeks.org/equilibrium-index-of-an-array
 
-Python doctest can be run with:
+Python doctest 可以 为 运行 带有：
 
 python -m doctest -v equilibrium_index_in_array.py
 
-Given an array arr of size n, return an equilibrium index
-if one exists; otherwise return -1.
+给定一个数组 arr 的 大小 n，返回 平衡 索引
+如果 一个 存在; 否则 返回 -1。
 
-An equilibrium index is an index where the sum of all
-elements to the left equals the sum of all elements
-to the right.
+平衡 索引 是 一个索引 其中 和 的 所有
+元素 到 左 equals 和 的 所有元素
+到 右。
 """
 
 
 def equilibrium_index(arr: list[int]) -> int:
     """
-    Find the first equilibrium index of an array.
-    Args:
-        arr: The input array of integers.
-    Returns:
-        The first equilibrium index, or -1 if none exists.
-    Examples:
+    查找 第一个 平衡 索引 的 一个数组。
+    参数：
+        arr: 输入 数组 的 整数。
+    返回值：
+        第一个 平衡 索引，或 -1 如果 none 存在。
+    示例：
         >>> equilibrium_index([])
         -1
         >>> equilibrium_index([5])
@@ -44,11 +44,11 @@ def equilibrium_index(arr: list[int]) -> int:
         >>> equilibrium_index([1, -1, 0])
         2
 
-    Time Complexity:
-        O(n), where n is the length of the array.
+    时间复杂度：
+        O(n)，其中 n 是 长度 的 该数组。
 
-    Space Complexity:
-        O(1), using only constant extra space.
+    空间复杂度：
+        O(1)，使用 仅 constant extra 空间。
     """
     total_sum = sum(arr)
     left_sum = 0

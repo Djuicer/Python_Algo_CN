@@ -170,15 +170,15 @@ def test_stack() -> None:
 
     try:
         _ = stack.pop()
-        raise AssertionError  # This should not happen
+        raise AssertionError  # 此 应 不 发生
     except StackUnderflowError:
-        assert True  # This should happen
+        assert True  # 此 应 发生
 
     try:
         _ = stack.peek()
-        raise AssertionError  # This should not happen
+        raise AssertionError  # 此 应 不 发生
     except StackUnderflowError:
-        assert True  # This should happen
+        assert True  # 此 应 发生
 
     for i in range(10):
         assert stack.size() == i
@@ -196,9 +196,9 @@ def test_stack() -> None:
 
     try:
         stack.push(200)
-        raise AssertionError  # This should not happen
+        raise AssertionError  # 此 应 不 发生
     except StackOverflowError:
-        assert True  # This should happen
+        assert True  # 此 应 发生
 
     assert not stack.is_empty()
     assert stack.size() == 10

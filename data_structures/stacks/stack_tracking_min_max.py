@@ -10,7 +10,7 @@ elements of the stack in constant time
 
 class StackData:
     """
-    Object stored on the stack
+    对象 存储 在 该栈
     """
 
     def __init__(
@@ -23,7 +23,7 @@ class StackData:
 
 class MinMaxStack:
     """
-    Main stack implementation
+    Main 栈 实现
     """
 
     def __init__(self, max_stack_size: int = 10) -> None:
@@ -32,7 +32,7 @@ class MinMaxStack:
 
     def push_value(self, value: float) -> bool:
         """
-        Push new value on top of stack
+        压入 新 值 在 顶部 的 栈
 
         >>> test_stack = MinMaxStack(3)
         >>> test_stack.push_value(1)
@@ -64,7 +64,7 @@ class MinMaxStack:
 
     def pop_value(self) -> float:
         """
-        Remove the top value from the stack.
+        移除 顶部 值 从 该栈。
 
         >>> test_stack = MinMaxStack()
         >>> test_stack.push_value(1)
@@ -87,7 +87,7 @@ class MinMaxStack:
 
     def get_current_max(self) -> float:
         """
-        Get the highest value on the stack in constant time
+        获取 最高 值 在 该栈 在 constant 时间
 
         >>> test_stack = MinMaxStack(3)
         >>> test_stack.push_value(-450.45)
@@ -119,7 +119,7 @@ class MinMaxStack:
 
     def get_current_min(self) -> float:
         """
-        Get the lowest value on the stack in constant time
+        获取 lowest 值 在 该栈 在 constant 时间
 
         >>> test_stack = MinMaxStack(3)
         >>> test_stack.push_value(123)
@@ -151,7 +151,7 @@ class MinMaxStack:
 
     def stack_is_valid(self) -> bool:
         """
-        Validate stack is not empty
+        Validate 栈 非空
 
         >>> test_stack = MinMaxStack(3)
         >>> test_stack.stack_is_valid()

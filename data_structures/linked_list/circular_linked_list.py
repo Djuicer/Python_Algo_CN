@@ -13,14 +13,14 @@ class Node:
 
 @dataclass
 class CircularLinkedList:
-    head: Node | None = None  # Reference to the head (first node)
-    tail: Node | None = None  # Reference to the tail (last node)
+    head: Node | None = None  # 引用 到 头节点 (第一个节点)
+    tail: Node | None = None  # 引用 到 尾节点 (最后一个节点)
 
     def __iter__(self) -> Iterator[Any]:
         """
-        Iterate through all nodes in the Circular Linked List yielding their data.
+        迭代 通过 所有节点 在 循环链表 yielding 它们的 数据。
         Yields:
-            The data of each node in the linked list.
+            数据 的 每个节点 在 链表。
         """
         node = self.head
         while node:
@@ -31,49 +31,49 @@ class CircularLinkedList:
 
     def __len__(self) -> int:
         """
-        Get the length (number of nodes) in the Circular Linked List.
+        获取 长度 (节点数量) 在 循环链表。
         """
         return sum(1 for _ in self)
 
     def __repr__(self) -> str:
         """
-        Generate a string representation of the Circular Linked List.
-        Returns:
-            A string of the format "1->2->....->N".
+        生成 字符串 表示 的 循环链表。
+        返回值：
+            字符串 的 格式 "1->2->....->N"。
         """
         return "->".join(str(item) for item in iter(self))
 
     def insert_tail(self, data: Any) -> None:
         """
-        Insert a node with the given data at the end of the Circular Linked List.
+        插入一个 节点 带有 给定 数据 在 末尾 的 循环链表。
         """
         self.insert_nth(len(self), data)
 
     def insert_head(self, data: Any) -> None:
         """
-        Insert a node with the given data at the beginning of the Circular Linked List.
+        插入一个 节点 带有 给定 数据 在 开头 的 循环链表。
         """
         self.insert_nth(0, data)
 
     def insert_nth(self, index: int, data: Any) -> None:
         """
-        Insert the data of the node at the nth pos in the Circular Linked List.
-        Args:
-            index: The index at which the data should be inserted.
-            data: The data to be inserted.
+        插入 数据 的节点 在 nth pos 在 循环链表。
+        参数：
+            索引: 该索引 在 其 数据 应 为 已插入。
+            数据: 数据 到 为 已插入。
 
-        Raises:
-            IndexError: If the index is out of range.
+        抛出异常：
+            IndexError: 如果 该索引 是 超出范围。
         """
         if index < 0 or index > len(self):
             raise IndexError("list index out of range.")
         new_node: Node = Node(data)
         if self.head is None:
-            new_node.next_node = new_node  # First node points to itself
+            new_node.next_node = new_node  # 第一个节点 点 到 自身
             self.tail = self.head = new_node
-        elif index == 0:  # Insert at the head
+        elif index == 0:  # 插入 在 头节点
             new_node.next_node = self.head
-            assert self.tail is not None  # List is not empty, tail exists
+            assert self.tail is not None  # 列表 非空，尾节点 存在
             self.head = self.tail.next_node = new_node
         else:
             temp: Node | None = self.head
@@ -83,36 +83,36 @@ class CircularLinkedList:
             assert temp is not None
             new_node.next_node = temp.next_node
             temp.next_node = new_node
-            if index == len(self) - 1:  # Insert at the tail
+            if index == len(self) - 1:  # 插入 在 尾节点
                 self.tail = new_node
 
     def delete_front(self) -> Any:
         """
-        Delete and return the data of the node at the front of the Circular Linked List.
-        Raises:
-            IndexError: If the list is empty.
+        删除 并且 返回 数据 的节点 在队首 的 循环链表。
+        抛出异常：
+            IndexError: 如果 该列表 为空。
         """
         return self.delete_nth(0)
 
     def delete_tail(self) -> Any:
         """
-        Delete and return the data of the node at the end of the Circular Linked List.
-        Returns:
-            Any: The data of the deleted node.
-        Raises:
-            IndexError: If the index is out of range.
+        删除 并且 返回 数据 的节点 在 末尾 的 循环链表。
+        返回值：
+            任意: 数据 的 已删除 节点。
+        抛出异常：
+            IndexError: 如果 该索引 是 超出范围。
         """
         return self.delete_nth(len(self) - 1)
 
     def delete_nth(self, index: int = 0) -> Any:
         """
-        Delete and return the data of the node at the nth pos in Circular Linked List.
-        Args:
-            index (int): The index of the node to be deleted. Defaults to 0.
-        Returns:
-            Any: The data of the deleted node.
-        Raises:
-            IndexError: If the index is out of range.
+        删除 并且 返回 数据 的节点 在 nth pos 在 循环链表。
+        参数：
+            索引 (int): 该索引 的节点 到 为 已删除. 默认值 到 0。
+        返回值：
+            任意: 数据 的 已删除 节点。
+        抛出异常：
+            IndexError: 如果 该索引 是 超出范围。
         """
         if not 0 <= index < len(self):
             raise IndexError("list index out of range.")
@@ -120,9 +120,9 @@ class CircularLinkedList:
         assert self.head is not None
         assert self.tail is not None
         delete_node: Node = self.head
-        if self.head == self.tail:  # Just one node
+        if self.head == self.tail:  # 仅 一个 节点
             self.head = self.tail = None
-        elif index == 0:  # Delete head node
+        elif index == 0:  # 删除 头节点 节点
             assert self.tail.next_node is not None
             self.tail.next_node = self.tail.next_node.next_node
             self.head = self.head.next_node
@@ -135,22 +135,22 @@ class CircularLinkedList:
             assert temp.next_node is not None
             delete_node = temp.next_node
             temp.next_node = temp.next_node.next_node
-            if index == len(self) - 1:  # Delete at tail
+            if index == len(self) - 1:  # 删除 在 尾节点
                 self.tail = temp
         return delete_node.data
 
     def is_empty(self) -> bool:
         """
-        Check if the Circular Linked List is empty.
-        Returns:
-            bool: True if the list is empty, False otherwise.
+        检查是否 循环链表 为空。
+        返回值：
+            bool: True 如果 该列表 为空，False 否则。
         """
         return len(self) == 0
 
 
 def test_circular_linked_list() -> None:
     """
-    Test cases for the CircularLinkedList class.
+    测试 情况 用于 CircularLinkedList 类。
     >>> test_circular_linked_list()
     """
     circular_linked_list = CircularLinkedList()
@@ -160,15 +160,15 @@ def test_circular_linked_list() -> None:
 
     try:
         circular_linked_list.delete_front()
-        raise AssertionError  # This should not happen
+        raise AssertionError  # 此 应 不 发生
     except IndexError:
-        assert True  # This should happen
+        assert True  # 此 应 发生
 
     try:
         circular_linked_list.delete_tail()
-        raise AssertionError  # This should not happen
+        raise AssertionError  # 此 应 不 发生
     except IndexError:
-        assert True  # This should happen
+        assert True  # 此 应 发生
 
     try:
         circular_linked_list.delete_nth(-1)

@@ -7,13 +7,13 @@ class SegmentTree:
         self.N = len(self.A)
         self.st = [0] * (
             4 * self.N
-        )  # approximate the overall size of segment tree with array N
+        )  # approximate overall 大小 的 线段树 带有 数组 N
         if self.N:
             self.build(1, 0, self.N - 1)
 
     def left(self, idx) -> int:
         """
-        Returns the left child index for a given index in a binary tree.
+        返回值 左子节点 索引 用于 给定 索引 在 二叉树。
 
         >>> s = SegmentTree([1, 2, 3])
         >>> s.left(1)
@@ -25,7 +25,7 @@ class SegmentTree:
 
     def right(self, idx) -> int:
         """
-        Returns the right child index for a given index in a binary tree.
+        返回值 右子节点 索引 用于 给定 索引 在 二叉树。
 
         >>> s = SegmentTree([1, 2, 3])
         >>> s.right(1)
@@ -46,7 +46,7 @@ class SegmentTree:
 
     def update(self, a, b, val) -> bool:
         """
-        Update the values in the segment tree in the range [a,b] with the given value.
+        更新 值 在 线段树 在 范围 [,b] 带有 给定 值。
 
         >>> s = SegmentTree([1, 2, 3, 4, 5])
         >>> s.update(2, 4, 10)
@@ -58,7 +58,7 @@ class SegmentTree:
 
     def update_recursive(self, idx, left, right, a, b, val) -> bool:
         """
-        update(1, 1, N, a, b, v) for update val v to [a,b]
+        更新(1，1，N，，b，v) 用于 更新 val v 到 [,b]
         """
         if right < a or left > b:
             return True
@@ -73,7 +73,7 @@ class SegmentTree:
 
     def query(self, a, b) -> float:
         """
-        Query the maximum value in the range [a,b].
+        查询 最大值 值 在 范围 [,b]。
 
         >>> s = SegmentTree([1, 2, 3, 4, 5])
         >>> s.query(1, 3)
@@ -85,7 +85,7 @@ class SegmentTree:
 
     def query_recursive(self, idx, left, right, a, b) -> float:
         """
-        query(1, 1, N, a, b) for query max of [a,b]
+        查询(1，1，N，，b) 用于 查询 最大值 的 [,b]
         """
         if right < a or left > b:
             return -math.inf

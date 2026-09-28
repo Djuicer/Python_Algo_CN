@@ -1,8 +1,8 @@
 """
-Implementation of an auto-balanced binary tree!
-For doctests run following command:
+实现 的 auto-balanced 二叉树!
+用于 doctests 运行 following 命令：
 python3 -m doctest -v avl_tree.py
-For testing run:
+用于 testing 运行：
 python avl_tree.py
 """
 
@@ -88,12 +88,12 @@ def right_rotation(node: MyNode) -> MyNode:
     r"""
             A                      B
            / \                    / \
-          B   C                  Bl  A
+          B   C                  Bl
          / \       -->          /   / \
         Bl  Br                 UB Br  C
        /
      UB
-    UB = unbalanced node
+    UB = unbalanced 节点
     """
     print("left rotation node:", node.get_data())
     ret = node.get_left()
@@ -109,7 +109,7 @@ def right_rotation(node: MyNode) -> MyNode:
 
 def left_rotation(node: MyNode) -> MyNode:
     """
-    a mirror symmetry rotation of the left_rotation
+    镜像 symmetry 旋转 的 left_rotation
     """
     print("right rotation node:", node.get_data())
     ret = node.get_right()
@@ -125,9 +125,9 @@ def left_rotation(node: MyNode) -> MyNode:
 
 def lr_rotation(node: MyNode) -> MyNode:
     r"""
-            A              A                    Br
+            Br
            / \            / \                  /  \
-          B   C    LR    Br  C       RR       B    A
+          B   C    LR    Br  C       RR       B
          / \       -->  /  \         -->    /     / \
         Bl  Br         B   UB              Bl    UB  C
              \        /
@@ -154,12 +154,12 @@ def insert_node(node: MyNode | None, data: Any) -> MyNode | None:
         node.set_left(insert_node(node.get_left(), data))
         if (
             get_height(node.get_left()) - get_height(node.get_right()) == 2
-        ):  # an unbalance detected
+        ):  # 检测到不平衡
             left_child = node.get_left()
             assert left_child is not None
             if (
                 data < left_child.get_data()
-            ):  # new node is the left child of the left child
+            ):  # 新节点 是 左子节点 的 左子节点
                 node = right_rotation(node)
             else:
                 node = lr_rotation(node)
@@ -215,13 +215,13 @@ def del_node(root: MyNode, data: Any) -> MyNode | None:
             return root
         else:
             root.set_left(del_node(left_child, data))
-    # root.get_data() < data
+    # 根节点.get_data() < 数据
     elif right_child is None:
         return root
     else:
         root.set_right(del_node(right_child, data))
 
-    # Re-fetch left_child and right_child references
+    # Re-fetch left_child 并且 right_child 引用
     left_child = root.get_left()
     right_child = root.get_right()
 
@@ -244,8 +244,8 @@ def del_node(root: MyNode, data: Any) -> MyNode | None:
 
 class AVLtree:
     """
-    An AVL tree doctest
-    Examples:
+    AVL 树 doctest
+    示例：
     >>> t = AVLtree()
     >>> t.insert(4)
     insert:4
@@ -295,7 +295,7 @@ class AVLtree:
 
     def __str__(
         self,
-    ) -> str:  # a level traversale, gives a more intuitive look on the tree
+    ) -> str:  # 层级 traversale，gives 更多 intuitive look 在 该树
         output = ""
         q = MyQueue()
         q.push(self.root)

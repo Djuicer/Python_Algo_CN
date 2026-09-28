@@ -1,7 +1,7 @@
 """
-Given the root of a binary tree and an integer target,
-find the number of paths where the sum of the values
-along the path equals target.
+给定 根节点 的 二叉树 并且 整数 target,
+查找 数 的 paths 其中 和 的 值
+along 路径 equals target。
 
 
 Leetcode reference: https://leetcode.com/problems/path-sum-iii/
@@ -12,7 +12,7 @@ from __future__ import annotations
 
 class Node:
     """
-    A Node has value variable and pointers to Nodes to its left and right.
+    一个节点 具有 值 变量 并且 指针 到 节点 到 其 左 并且 右。
     """
 
     def __init__(self, value: int) -> None:
@@ -23,7 +23,7 @@ class Node:
 
 class BinaryTreePathSum:
     r"""
-    The below tree looks like this
+    下方 树 看起来 类似 此
           10
          /  \
         5   -3
@@ -55,7 +55,7 @@ class BinaryTreePathSum:
     >>> BinaryTreePathSum().path_sum(tree, 0)
     0
 
-    The second tree looks like this
+    第二个 树 看起来 类似 此
           0
          / \
         5   5

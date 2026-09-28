@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Double hashing is a collision resolving technique in Open Addressed Hash tables.
-Double hashing uses the idea of applying a second hash function to key when a collision
-occurs. The advantage of Double hashing is that it is one of the best form of  probing,
-producing a uniform distribution of records throughout a hash table. This technique
-does not yield any clusters. It is one of effective method for resolving collisions.
+Double hashing 是 collision resolving technique 在 开放 Addressed 哈希 tables。
+Double hashing 使用 idea 的 applying 第二个 哈希 函数 到 键 当 collision
+occurs. advantage 的 Double hashing 是 该 它 是 一个 的 best form 的  probing,
+producing uniform distribution 的 records throughout 哈希表. 此 technique
+does 不 yield 任意 clusters. 它 是 一个 的 effective 方法 用于 resolving collisions。
 
-Double hashing can be done using: (hash1(key) + i * hash2(key)) % TABLE_SIZE
-Where hash1() and hash2() are hash functions and TABLE_SIZE is size of hash table.
+Double hashing 可以 为 done 使用: (hash1(键) + i * hash2(键)) % TABLE_SIZE
+其中 hash1() 并且 hash2() 是 哈希 函数 并且 TABLE_SIZE 是 大小 的 哈希表。
 
 Reference: https://en.wikipedia.org/wiki/Double_hashing
 """
@@ -18,7 +18,7 @@ from .number_theory.prime_numbers import is_prime, next_prime
 
 class DoubleHash(HashTable):
     """
-    Hash Table example with open addressing and Double Hash
+    哈希表 示例 带有 开放 寻址 并且 Double 哈希
     """
 
     def __init__(self, *args, **kwargs) -> None:
@@ -29,7 +29,7 @@ class DoubleHash(HashTable):
             next_prime(value % self.size_table)
             if not is_prime(value % self.size_table)
             else value % self.size_table
-        )  # gt = bigger than
+        )  # gt = bigger 比
         return next_prime_gt - (data % next_prime_gt)
 
     def __hash_double_function(self, key, data, increment):
@@ -37,9 +37,9 @@ class DoubleHash(HashTable):
 
     def _collision_resolution(self, key, data=None):
         """
-        Examples:
+        示例：
 
-        1. Try to add three data elements when the size is three
+        1. Try 到 添加 three 数据 元素 当 大小 是 three
         >>> dh = DoubleHash(3)
         >>> dh.insert_data(10)
         >>> dh.insert_data(20)
@@ -47,7 +47,7 @@ class DoubleHash(HashTable):
         >>> dh.keys()
         {1: 10, 2: 20, 0: 30}
 
-        2. Try to add three data elements when the size is two
+        2. Try 到 添加 three 数据 元素 当 大小 是 两个
         >>> dh = DoubleHash(2)
         >>> dh.insert_data(10)
         >>> dh.insert_data(20)
@@ -55,7 +55,7 @@ class DoubleHash(HashTable):
         >>> dh.keys()
         {10: 10, 9: 20, 8: 30}
 
-        3. Try to add three data elements when the size is four
+        3. Try 到 添加 three 数据 元素 当 大小 是 four
         >>> dh = DoubleHash(4)
         >>> dh.insert_data(10)
         >>> dh.insert_data(20)

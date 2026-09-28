@@ -18,7 +18,7 @@ class PersistentSegmentTree:
 
     def _build(self, arr: list[int], start: int, end: int) -> Node:
         """
-        Builds a segment tree from the provided array.
+        构建一个 线段树 从 给定 数组。
 
         >>> pst = PersistentSegmentTree([1, 2, 3, 4])
         >>> root = pst._build([1, 2, 3, 4], 0, 3)
@@ -38,7 +38,7 @@ class PersistentSegmentTree:
 
     def update(self, version: int, index: int, value: int) -> int:
         """
-        Updates the value at the given index and returns the new version.
+        更新 值 在 给定 索引 并且 返回值 新 version。
 
         >>> pst = PersistentSegmentTree([1, 2, 3, 4])
         >>> version_1 = pst.update(0, 1, 5)  # Update index 1 to 5
@@ -56,7 +56,7 @@ class PersistentSegmentTree:
 
     def _update(self, node: Node, start: int, end: int, index: int, value: int) -> Node:
         """
-        Update the node for the specified index and value and return the new node.
+        更新 节点 用于 指定索引 并且 值 并且 返回 新节点。
 
         >>> pst = PersistentSegmentTree([1, 2, 3, 4])
         >>> old_root = pst.roots[0]
@@ -78,9 +78,9 @@ class PersistentSegmentTree:
 
         if index <= mid:
             new_node.left = self._update(node.left, start, mid, index, value)
-            new_node.right = node.right  # Ensure right node is the same as the original
+            new_node.right = node.right  # 确保 右 节点 是 相同 作为 原始
         else:
-            new_node.left = node.left  # Ensure left node is the same as the original
+            new_node.left = node.left  # 确保 左 节点 是 相同 作为 原始
             new_node.right = self._update(node.right, mid + 1, end, index, value)
 
         new_node.value = new_node.left.value + (
@@ -91,7 +91,7 @@ class PersistentSegmentTree:
 
     def query(self, version: int, left: int, right: int) -> int:
         """
-        Queries the sum in the given range for the specified version.
+        Queries 和 在 给定 范围 用于 指定 version。
 
         >>> pst = PersistentSegmentTree([1, 2, 3, 4])
         >>> pst.query(0, 0, 3)  # Sum of all elements in original version
@@ -108,7 +108,7 @@ class PersistentSegmentTree:
 
     def _query(self, node: Node, start: int, end: int, left: int, right: int) -> int:
         """
-        Queries the sum of values in the range [left, right] for the given node.
+        Queries 和 的 值 在 范围 [左，右] 用于 给定 节点。
 
         >>> pst = PersistentSegmentTree([1, 2, 3, 4])
         >>> root = pst.roots[0]
@@ -129,7 +129,7 @@ class PersistentSegmentTree:
         )
 
 
-# Running the doctests
+# 运行 doctest
 if __name__ == "__main__":
     import doctest
 

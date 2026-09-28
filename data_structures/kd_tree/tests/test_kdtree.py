@@ -1,9 +1,9 @@
 #  Created by: Ramy-Badr-Ahmed (https://github.com/Ramy-Badr-Ahmed)
-#  in Pull Request: #11532
+#  在 Pull Request: #11532
 #  https://github.com/TheAlgorithms/Python/pull/11532
 #
-#  Please mention me (@Ramy-Badr-Ahmed) in any issue or pull request
-#  addressing bugs/corrections to this file.
+#  Please mention me (@Ramy-Badr-Ahmed) 在 任意 问题 或 pull request
+#  寻址 bugs/corrections 到 此 文件。
 #  Thank you!
 
 import numpy as np
@@ -18,21 +18,21 @@ from data_structures.kd_tree.nearest_neighbour_search import nearest_neighbour_s
 @pytest.mark.parametrize(
     ("num_points", "cube_size", "num_dimensions", "depth", "expected_result"),
     [
-        (0, 10.0, 2, 0, None),  # Empty points list
-        (10, 10.0, 2, 2, KDNode),  # Depth = 2, 2D points
-        (10, 10.0, 3, -2, KDNode),  # Depth = -2, 3D points
+        (0, 10.0, 2, 0, None),  # 空 点 列表
+        (10, 10.0, 2, 2, KDNode),  # 深度 = 2，2D 点
+        (10, 10.0, 3, -2, KDNode),  # 深度 = -2，3D 点
     ],
 )
 def test_build_kdtree(
     num_points, cube_size, num_dimensions, depth, expected_result
 ) -> None:
     """
-    Test that KD-Tree is built correctly.
+    测试 该 KD-树 是 built correctly。
 
-    Cases:
-        - Empty points list.
-        - Positive depth value.
-        - Negative depth value.
+    情况：
+        - 空 点 列表。
+        - 正 深度 值。
+        - 负 深度 值。
     """
     points = (
         hypercube_points(num_points, cube_size, num_dimensions).tolist()
@@ -43,18 +43,18 @@ def test_build_kdtree(
     kdtree = build_kdtree(points, depth=depth)
 
     if expected_result is None:
-        # Empty points list case
+        # 空 点 列表 情况
         assert kdtree is None, f"Expected None for empty points list, got {kdtree}"
     else:
-        # Check if root node is not None
+        # 检查是否 根节点 是 不 None
         assert kdtree is not None, "Expected a KDNode, got None"
 
-        # Check if root has correct dimensions
+        # 检查是否 根节点 具有 correct dimensions
         assert len(kdtree.point) == num_dimensions, (
             f"Expected point dimension {num_dimensions}, got {len(kdtree.point)}"
         )
 
-        # Check that the tree is balanced to some extent (simplistic check)
+        # 检查 该 该树 是 balanced 到 some extent (simplistic 检查)
         assert isinstance(kdtree, KDNode), (
             f"Expected KDNode instance, got {type(kdtree)}"
         )
@@ -62,7 +62,7 @@ def test_build_kdtree(
 
 def test_nearest_neighbour_search() -> None:
     """
-    Test the nearest neighbor search function.
+    测试 最近 邻居 搜索 函数。
     """
     num_points = 10
     cube_size = 10.0
@@ -77,28 +77,28 @@ def test_nearest_neighbour_search() -> None:
         kdtree, query_point
     )
 
-    # Check that nearest point is not None
+    # 检查 该 最近 点 是 不 None
     assert nearest_point is not None
 
-    # Check that distance is a non-negative number
+    # 检查 该 距离 是 非-负 数
     assert nearest_dist >= 0
 
-    # Check that nodes visited is a non-negative integer
+    # 检查 该 节点 visited 是 非-负 整数
     assert nodes_visited >= 0
 
 
 def test_edge_cases() -> None:
     """
-    Test edge cases such as an empty KD-Tree.
+    测试 edge 情况 such 作为 空 KD-树。
     """
     empty_kdtree = build_kdtree([])
-    query_point = [0.0] * 2  # Using a default 2D query point
+    query_point = [0.0] * 2  # 使用 default 2D 查询 点
 
     nearest_point, nearest_dist, nodes_visited = nearest_neighbour_search(
         empty_kdtree, query_point
     )
 
-    # With an empty KD-Tree, nearest_point should be None
+    # 带有 空 KD-树，nearest_point 应 为 None
     assert nearest_point is None
     assert nearest_dist == float("inf")
     assert nodes_visited == 0

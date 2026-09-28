@@ -1,15 +1,15 @@
 def merge_sorted_arrays(nums1: list[int], nums2: list[int]) -> list[int]:
     """
-    Merge two sorted arrays into one sorted array.
+    合并两个 已排序 数组 到 一个 有序数组。
 
-    Args:
-        nums1: The first sorted array.
-        nums2: The second sorted array.
+    参数：
+        nums1: 第一个 有序数组。
+        nums2: 第二个 有序数组。
 
-    Returns:
-        A single merged and sorted array.
+    返回值：
+        single 合并后 并且 有序数组。
 
-    Examples:
+    示例：
         >>> merge_sorted_arrays([1, 3, 5], [2, 4, 6])
         [1, 2, 3, 4, 5, 6]
 
@@ -45,13 +45,13 @@ def merge_sorted_arrays(nums1: list[int], nums2: list[int]) -> list[int]:
         if list(nums) != sorted(nums):
             msg = f"{nums = } is not sorted"
             raise ValueError(msg)
-    # If one array is empty, simply return the other.
+    # 如果 一个 数组 为空，simply 返回 另一个。
     if not nums1:
         return nums2
     if not nums2:
         return nums1
 
-    # Two-pointer approach to merge both sorted arrays.
+    # 双指针方法 到 合并 两者 已排序 数组。
     i, j = 0, 0
     merged = []
 
@@ -63,7 +63,7 @@ def merge_sorted_arrays(nums1: list[int], nums2: list[int]) -> list[int]:
             merged.append(nums2[j])
             j += 1
 
-    # Append remaining elements if any.
+    # 追加 剩余 元素 如果 任意。
     merged.extend(nums1[i:])
     merged.extend(nums2[j:])
 

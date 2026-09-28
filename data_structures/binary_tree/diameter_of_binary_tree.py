@@ -1,6 +1,6 @@
 """
-The diameter/width of a tree is defined as the number of nodes on the longest path
-between two end nodes.
+diameter/width 的 树 是 定义 作为 节点数量 在 longest 路径
+之间 两个 末尾 节点。
 """
 
 from __future__ import annotations

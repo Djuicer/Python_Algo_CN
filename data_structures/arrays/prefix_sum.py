@@ -2,7 +2,7 @@
 Author  : Alexander Pantyukhin
 Date    : November 3, 2022
 
-Implement the class of prefix sum with useful functions based on it.
+Implement 类 的 前缀 和 带有 useful 函数 基于 在 它。
 
 """
 
@@ -20,9 +20,9 @@ class PrefixSum:
 
     def get_sum(self, start: int, end: int) -> int:
         """
-        The function returns the sum of array from the start to the end indexes.
-        Runtime : O(1)
-        Space: O(1)
+        该函数返回 和 的 数组 从 开始 到 末尾 indexes。
+        运行时间 : O(1)
+        空间: O(1)
 
         >>> PrefixSum([1,2,3]).get_sum(0, 2)
         6
@@ -60,11 +60,11 @@ class PrefixSum:
 
     def contains_sum(self, target_sum: int) -> bool:
         """
-        The function returns True if array contains the target_sum,
-        False otherwise.
+        该函数返回 True 如果 数组 包含 target_sum,
+        False 否则。
 
-        Runtime : O(n)
-        Space: O(n)
+        运行时间 : O(n)
+        空间: O(n)
 
         >>> PrefixSum([1,2,3]).contains_sum(6)
         True

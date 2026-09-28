@@ -1,7 +1,7 @@
 """
 Please do not modify this file!  It is published at https://norvig.com/sudoku.html with
-only minimal changes to work with modern versions of Python.  If you have improvements,
-please make them in a separate file.
+仅 minimal changes 到 work 带有 modern versions 的 Python.  如果 you 具有 improvements,
+please 使 它们 在 separate 文件。
 """
 
 import random
@@ -10,7 +10,7 @@ import time
 
 def cross(items_a, items_b):
     """
-    Cross product of elements in A and elements in B.
+    Cross 乘积 的 元素 在 并且 元素 在 B。
 
     >>> cross('AB', '12')
     ['A1', 'A2', 'B1', 'B2']
@@ -42,7 +42,7 @@ peers = {s: {x for u in units[s] for x in u} - {s} for s in squares}
 
 
 def test() -> None:
-    """A set of unit tests."""
+    """集合 的 unit 测试。"""
     assert len(squares) == 81
     assert len(unitlist) == 27
     assert all(len(units[s]) == 3 for s in squares)
@@ -63,20 +63,20 @@ def test() -> None:
 
 def parse_grid(grid):
     """
-    Convert grid to a dict of possible values, {square: digits}, or
-    return False if a contradiction is detected.
+    Convert grid 到 dict 的 可能 值，{方格: digits}，或
+    若满足以下条件则返回 False： contradiction 是 detected。
     """
-    ## To start, every square can be any digit; then assign values from the grid.
+    ## 到 开始，每个 方格 可以 为 任意 digit; 则 assign 值 从 grid。
     values = dict.fromkeys(squares, digits)
     for s, d in grid_values(grid).items():
         if d in digits and not assign(values, s, d):
-            return False  ## (Fail if we can't assign d to square s.)
+            return False  ## (Fail 如果 我们 可以't assign d 到 方格 s.)
     return values
 
 
 def grid_values(grid):
     """
-    Convert grid into a dict of {square: char} with '0' or '.' for empties.
+    Convert grid 到 dict 的 {方格: char} 带有 '0' 或 '.' 用于 empties。
     """
     chars = [c for c in grid if c in digits or c in "0."]
     assert len(chars) == 81
@@ -85,8 +85,8 @@ def grid_values(grid):
 
 def assign(values, s, d):
     """
-    Eliminate all the other values (except d) from values[s] and propagate.
-    Return values, except return False if a contradiction is detected.
+    Eliminate 所有 另一个 值 (except d) 从 值[s] 并且 propagate。
+    返回 值，except 若满足以下条件则返回 False： contradiction 是 detected。
     """
     other_values = values[s].replace(d, "")
     if all(eliminate(values, s, d2) for d2 in other_values):
@@ -97,25 +97,25 @@ def assign(values, s, d):
 
 def eliminate(values, s, d):
     """
-    Eliminate d from values[s]; propagate when values or places <= 2.
-    Return values, except return False if a contradiction is detected.
+    Eliminate d 从 值[s]; propagate 当 值 或 位置 <= 2。
+    返回 值，except 若满足以下条件则返回 False： contradiction 是 detected。
     """
     if d not in values[s]:
-        return values  ## Already eliminated
+        return values  ## 已经 eliminated
     values[s] = values[s].replace(d, "")
-    ## (1) If a square s is reduced to one value d2, then eliminate d2 from the peers.
+    ## (1) 如果一个 方格 s 是 reduced 到 一个 值 d2，则 eliminate d2 从 peers。
     if len(values[s]) == 0:
-        return False  ## Contradiction: removed last value
+        return False  ## Contradiction: removed 最后一个 值
     elif len(values[s]) == 1:
         d2 = values[s]
         if not all(eliminate(values, s2, d2) for s2 in peers[s]):
             return False
-    ## (2) If a unit u is reduced to only one place for a value d, then put it there.
+    ## (2) 如果一个 unit u 是 reduced 到 仅 一个 位置 用于 一个值 d，则 put 它 其中。
     for u in units[s]:
         dplaces = [s for s in u if d in values[s]]
         if len(dplaces) == 0:
-            return False  ## Contradiction: no place for this value
-        # d can only be in one place in unit; assign it there
+            return False  ## Contradiction: 没有 位置 用于 此 值
+        # d 可以 仅 为 在 一个 位置 在 unit; assign 它 其中
         elif len(dplaces) == 1 and not assign(values, dplaces[0], d):
             return False
     return values
@@ -123,7 +123,7 @@ def eliminate(values, s, d):
 
 def display(values) -> None:
     """
-    Display these values as a 2-D grid.
+    显示 这些 值 作为 2-D grid。
     """
     width = 1 + max(len(values[s]) for s in squares)
     line = "+".join(["-" * (width * 3)] * 3)
@@ -140,13 +140,13 @@ def display(values) -> None:
 
 def solve(grid):
     """
-    Solve the grid.
+    Solve grid.
     """
     return search(parse_grid(grid))
 
 
 def some(seq):
-    """Return some element of seq that is true."""
+    """返回 some 元素 的 seq 该 是 true。"""
     for e in seq:
         if e:
             return e
@@ -155,29 +155,29 @@ def some(seq):
 
 def search(values):
     """
-    Using depth-first search and propagation, try all possible values.
+    使用 深度-第一个 搜索 并且 propagation，try 所有 可能 值。
     """
     if values is False:
-        return False  ## Failed earlier
+        return False  ## 前面已失败
     if all(len(values[s]) == 1 for s in squares):
-        return values  ## Solved!
-    ## Chose the unfilled square s with the fewest possibilities
+        return values  ## 已求解！
+    ## Chose unfilled 方格 s 带有 fewest possibilities
     _n, s = min((len(values[s]), s) for s in squares if len(values[s]) > 1)
     return some(search(assign(values.copy(), s, d)) for d in values[s])
 
 
 def solve_all(grids, name="", showif=0.0) -> None:
     """
-    Attempt to solve a sequence of grids. Report results.
-    When showif is a number of seconds, display puzzles that take longer.
-    When showif is None, don't display any puzzles.
+    Attempt 到 solve 序列 的 grids. Report results。
+    当 showif 是 数 的 seconds，显示 puzzles 该 take longer。
+    当 showif 是 None，don't 显示 任意 puzzles。
     """
 
     def time_solve(grid):
         start = time.monotonic()
         values = solve(grid)
         t = time.monotonic() - start
-        ## Display puzzles that take long enough
+        ## 显示 puzzles 该 take long enough
         if showif is not None and t > showif:
             display(grid_values(grid))
             if values:
@@ -195,7 +195,7 @@ def solve_all(grids, name="", showif=0.0) -> None:
 
 def solved(values):
     """
-    A puzzle is solved if each unit is a permutation of the digits 1 to 9.
+    puzzle 是 solved 如果 每个 unit 是 permutation 的 digits 1 到 9。
     """
 
     def unitsolved(unit):
@@ -205,16 +205,16 @@ def solved(values):
 
 
 def from_file(filename, sep="\n"):
-    "Parse a file into a list of strings, separated by sep."
+    "Parse 文件 到 一个列表 的 字符串，separated 通过 sep。"
     with open(filename) as file:
         return file.read().strip().split(sep)
 
 
 def random_puzzle(assignments=17):
     """
-    Make a random puzzle with N or more assignments. Restart on contradictions.
-    Note the resulting puzzle is not guaranteed to be solvable, but empirically
-    about 99.8% of them are solvable. Some have multiple solutions.
+    使 随机 puzzle 带有 N 或 更多 assignments. Restart 在 contradictions。
+    Note 得到 puzzle 是 不 保证 到 为 solvable，但是 empirically
+    about 99.8% 的 它们 是 solvable. Some 具有 multiple solutions。
     """
     values = dict.fromkeys(squares, digits)
     for s in shuffled(squares):
@@ -223,12 +223,12 @@ def random_puzzle(assignments=17):
         ds = [values[s] for s in squares if len(values[s]) == 1]
         if len(ds) >= assignments and len(set(ds)) >= 8:
             return "".join(values[s] if len(values[s]) == 1 else "." for s in squares)
-    return random_puzzle(assignments)  ## Give up and make a new puzzle
+    return random_puzzle(assignments)  ## Give 向上 并且 使 新 puzzle
 
 
 def shuffled(seq):
     """
-    Return a randomly shuffled copy of the input sequence.
+    返回 randomly shuffled 副本 的 输入 序列。
     """
     seq = list(seq)
     random.shuffle(seq)
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     # solve_all(from_file("top95.txt"), "hard", None)
     # solve_all(from_file("hardest.txt"), "hardest", None)
     solve_all([random_puzzle() for _ in range(99)], "random", 100.0)
-    for puzzle in (grid1, grid2):  # , hard1):  # Takes 22 sec to solve on my M1 Mac.
+    for puzzle in (grid1, grid2):  # ，hard1):  # Takes 22 sec 到 solve 在 my M1 Mac。
         display(parse_grid(puzzle))
         start = time.monotonic()
         solve(puzzle)

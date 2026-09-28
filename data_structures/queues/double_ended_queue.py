@@ -1,5 +1,5 @@
 """
-Implementation of double ended queue.
+实现 的 double ended 队列。
 """
 
 from __future__ import annotations
@@ -11,26 +11,26 @@ from typing import Any
 
 class Deque:
     """
-    Deque data structure.
-    Operations
+    双端队列 数据 结构。
+    操作
     ----------
-    append(val: Any) -> None
-    appendleft(val: Any) -> None
-    extend(iterable: Iterable) -> None
-    extendleft(iterable: Iterable) -> None
-    pop() -> Any
-    popleft() -> Any
+    追加(val: 任意) -> None
+    appendleft(val: 任意) -> None
+    extend(可迭代对象: 可迭代对象) -> None
+    extendleft(可迭代对象: 可迭代对象) -> None
+    弹出() -> 任意
+    popleft() -> 任意
     Observers
     ---------
     is_empty() -> bool
-    Attributes
+    属性
     ----------
     _front: _Node
-        front of the deque a.k.a. the first element
+        前端 的 双端队列 .k.. 第一个元素
     _back: _Node
-        back of the element a.k.a. the last element
+        后端 的 元素 .k.. 最后一个元素
     _len: int
-        the number of nodes
+        节点数量
     """
 
     __slots__ = ("_back", "_front", "_len")
@@ -38,8 +38,8 @@ class Deque:
     @dataclass
     class _Node:
         """
-        Representation of a node.
-        Contains a value and a pointer to the next node as well as to the previous one.
+        表示 的 一个节点。
+        包含 一个值 并且 指针 到 下一个节点 作为 well 作为 到 上一个。
         """
 
         val: Any = None
@@ -48,11 +48,11 @@ class Deque:
 
     class _Iterator:
         """
-        Helper class for iteration. Will be used to implement iteration.
-        Attributes
+        Helper 类 用于 迭代. 将 为 使用 到 implement 迭代。
+        属性
         ----------
         _cur: _Node
-            the current node of the iteration.
+            当前节点 的 迭代。
         """
 
         __slots__ = ("_cur",)
@@ -79,7 +79,7 @@ class Deque:
             3
             """
             if self._cur is None:
-                # finished iterating
+                # 迭代完成
                 raise StopIteration
             val = self._cur.val
             self._cur = self._cur.next_node
@@ -92,14 +92,14 @@ class Deque:
         self._len: int = 0
 
         if iterable is not None:
-            # append every value to the deque
+            # 追加 每个 值 到 双端队列
             for val in iterable:
                 self.append(val)
 
     def append(self, val: Any) -> None:
         """
-        Adds val to the end of the deque.
-        Time complexity: O(1)
+        Adds val 到 末尾 的 双端队列。
+        时间复杂度: O(1)
         >>> our_deque_1 = Deque([1, 2, 3])
         >>> our_deque_1.append(4)
         >>> our_deque_1
@@ -124,24 +124,24 @@ class Deque:
         """
         node = self._Node(val, None, None)
         if self.is_empty():
-            # front = back
+            # 前端 = 后端
             self._front = self._back = node
             self._len = 1
         else:
-            # connect nodes
+            # connect 节点
             self._back.next_node = node
             node.prev_node = self._back
-            self._back = node  # assign new back to the new node
+            self._back = node  # assign 新 后端 到 新节点
 
             self._len += 1
 
-            # make sure there were no errors
+            # 使 确保 其中 were 没有 errors
             assert not self.is_empty(), "Error on appending value."
 
     def appendleft(self, val: Any) -> None:
         """
-        Adds val to the beginning of the deque.
-        Time complexity: O(1)
+        Adds val 到 开头 的 双端队列。
+        时间复杂度: O(1)
         >>> our_deque_1 = Deque([2, 3])
         >>> our_deque_1.appendleft(1)
         >>> our_deque_1
@@ -166,24 +166,24 @@ class Deque:
         """
         node = self._Node(val, None, None)
         if self.is_empty():
-            # front = back
+            # 前端 = 后端
             self._front = self._back = node
             self._len = 1
         else:
-            # connect nodes
+            # connect 节点
             node.next_node = self._front
             self._front.prev_node = node
-            self._front = node  # assign new front to the new node
+            self._front = node  # assign 新 前端 到 新节点
 
             self._len += 1
 
-            # make sure there were no errors
+            # 使 确保 其中 were 没有 errors
             assert not self.is_empty(), "Error on appending value."
 
     def extend(self, iterable: Iterable[Any]) -> None:
         """
-        Appends every value of iterable to the end of the deque.
-        Time complexity: O(n)
+        Appends 每个 值 的 可迭代对象 到 末尾 的 双端队列。
+        时间复杂度: O(n)
         >>> our_deque_1 = Deque([1, 2, 3])
         >>> our_deque_1.extend([4, 5])
         >>> our_deque_1
@@ -211,8 +211,8 @@ class Deque:
 
     def extendleft(self, iterable: Iterable[Any]) -> None:
         """
-        Appends every value of iterable to the beginning of the deque.
-        Time complexity: O(n)
+        Appends 每个 值 的 可迭代对象 到 开头 的 双端队列。
+        时间复杂度: O(n)
         >>> our_deque_1 = Deque([1, 2, 3])
         >>> our_deque_1.extendleft([0, -1])
         >>> our_deque_1
@@ -240,9 +240,9 @@ class Deque:
 
     def pop(self) -> Any:
         """
-        Removes the last element of the deque and returns it.
-        Time complexity: O(1)
-        @returns topop.val: the value of the node to pop.
+        移除 最后一个元素 的 双端队列 并且 返回值 它。
+        时间复杂度: O(1)
+        @返回值 topop.val: 该值 的节点 到 弹出。
         >>> our_deque1 = Deque([1])
         >>> our_popped1 = our_deque1.pop()
         >>> our_popped1
@@ -269,18 +269,18 @@ class Deque:
         >>> our_popped2 == collections_popped
         True
         """
-        # make sure the deque has elements to pop
+        # 使 确保 双端队列 具有 元素 到 弹出
         assert not self.is_empty(), "Deque is empty."
 
         topop = self._back
-        # if only one element in the queue: point the front and back to None
-        # else remove one element from back
+        # 如果 仅 一个 元素 在 该队列: 点 前端 并且 后端 到 None
+        # 否则 移除 一个 元素 从 后端
         if self._front == self._back:
             self._front = None
             self._back = None
         else:
-            self._back = self._back.prev_node  # set new back
-            # drop the last node, python will deallocate memory automatically
+            self._back = self._back.prev_node  # 集合 新 后端
+            # drop 最后一个节点，python 将 deallocate memory automatically
             self._back.next_node = None
 
         self._len -= 1
@@ -289,9 +289,9 @@ class Deque:
 
     def popleft(self) -> Any:
         """
-        Removes the first element of the deque and returns it.
-        Time complexity: O(1)
-        @returns topop.val: the value of the node to pop.
+        移除 第一个元素 的 双端队列 并且 返回值 它。
+        时间复杂度: O(1)
+        @返回值 topop.val: 该值 的节点 到 弹出。
         >>> our_deque1 = Deque([1])
         >>> our_popped1 = our_deque1.pop()
         >>> our_popped1
@@ -316,17 +316,17 @@ class Deque:
         >>> our_popped2 == collections_popped
         True
         """
-        # make sure the deque has elements to pop
+        # 使 确保 双端队列 具有 元素 到 弹出
         assert not self.is_empty(), "Deque is empty."
 
         topop = self._front
-        # if only one element in the queue: point the front and back to None
-        # else remove one element from front
+        # 如果 仅 一个 元素 在 该队列: 点 前端 并且 后端 到 None
+        # 否则 移除 一个 元素 从 前端
         if self._front == self._back:
             self._front = None
             self._back = None
         else:
-            self._front = self._front.next_node  # set new front and drop the first node
+            self._front = self._front.next_node  # 集合 新 前端 并且 drop 第一个节点
             self._front.prev_node = None
 
         self._len -= 1
@@ -335,8 +335,8 @@ class Deque:
 
     def is_empty(self) -> bool:
         """
-        Checks if the deque is empty.
-        Time complexity: O(1)
+        检查是否 双端队列 为空。
+        时间复杂度: O(1)
         >>> our_deque = Deque([1, 2, 3])
         >>> our_deque.is_empty()
         False
@@ -352,8 +352,8 @@ class Deque:
 
     def __len__(self) -> int:
         """
-        Implements len() function. Returns the length of the deque.
-        Time complexity: O(1)
+        Implements len() 函数. 返回值 长度 的 双端队列。
+        时间复杂度: O(1)
         >>> our_deque = Deque([1, 2, 3])
         >>> len(our_deque)
         3
@@ -374,8 +374,8 @@ class Deque:
 
     def __eq__(self, other: object) -> bool:
         """
-        Implements "==" operator. Returns if *self* is equal to *other*.
-        Time complexity: O(n)
+        Implements "==" 运算符. 返回值 如果 *self* 是 等于 到 *另一个*。
+        时间复杂度: O(n)
         >>> our_deque_1 = Deque([1, 2, 3])
         >>> our_deque_2 = Deque([1, 2, 3])
         >>> our_deque_1 == our_deque_2
@@ -403,12 +403,12 @@ class Deque:
         me = self._front
         oth = other._front
 
-        # if the length of the dequeues are not the same, they are not equal
+        # 如果 长度 的 dequeues 是 不 相同，they 是 不 等于
         if len(self) != len(other):
             return False
 
         while me is not None and oth is not None:
-            # compare every value
+            # 比较 每个 值
             if me.val != oth.val:
                 return False
             me = me.next_node
@@ -418,8 +418,8 @@ class Deque:
 
     def __iter__(self) -> Deque._Iterator:
         """
-        Implements iteration.
-        Time complexity: O(1)
+        Implements 迭代。
+        时间复杂度: O(1)
         >>> our_deque = Deque([1, 2, 3])
         >>> for v in our_deque:
         ...     print(v)
@@ -438,9 +438,9 @@ class Deque:
 
     def __repr__(self) -> str:
         """
-        Implements representation of the deque.
-        Represents it as a list, with its values between '[' and ']'.
-        Time complexity: O(n)
+        Implements 表示 的 双端队列。
+        表示 它 作为 一个列表，带有 其 值 之间 '[' 并且 ']'。
+        时间复杂度: O(n)
         >>> our_deque = Deque([1, 2, 3])
         >>> our_deque
         [1, 2, 3]
@@ -448,7 +448,7 @@ class Deque:
         values_list = []
         aux = self._front
         while aux is not None:
-            # append the values in a list to display
+            # 追加 值 在 一个列表 到 显示
             values_list.append(aux.val)
             aux = aux.next_node
 

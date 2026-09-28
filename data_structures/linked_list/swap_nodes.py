@@ -42,15 +42,15 @@ class LinkedList:
 
     def push(self, new_data: Any) -> None:
         """
-        Add a new node with the given data to the beginning of the Linked List.
+        添加 新节点 带有 给定 数据 到 开头 的 链表。
 
-        Args:
-            new_data (Any): The data to be added to the new node.
+        参数：
+            new_data (任意): 数据 到 为 added 到 新节点。
 
-        Returns:
+        返回值：
             None
 
-        Examples:
+        示例：
             >>> linked_list = LinkedList()
             >>> linked_list.push(5)
             >>> linked_list.push(4)
@@ -66,18 +66,18 @@ class LinkedList:
 
     def swap_nodes(self, node_data_1: Any, node_data_2: Any) -> None:
         """
-        Swap the positions of two nodes in the Linked List based on their data values.
+        交换 位置 的 两个 节点 在 链表 基于 在 它们的 数据 值。
 
-        Args:
-            node_data_1: Data value of the first node to be swapped.
-            node_data_2: Data value of the second node to be swapped.
+        参数：
+            node_data_1: 数据 值 的 第一个节点 到 为 swapped。
+            node_data_2: 数据 值 的 第二个 节点 到 为 swapped。
 
 
         Note:
-            If either of the specified data values isn't found then, no swapping occurs.
+            如果 任一 的 指定 数据 值 isn't 找到 则，没有 swapping occurs。
 
-        Examples:
-        When both values are present in a linked list.
+        示例：
+        当 两者 值 是 存在 在 链表。
             >>> linked_list = LinkedList()
             >>> linked_list.push(5)
             >>> linked_list.push(4)
@@ -90,7 +90,7 @@ class LinkedList:
             >>> tuple(linked_list)
             (5, 2, 3, 4, 1)
 
-        When one value is present and the other isn't in the linked list.
+        当 一个 值 是 存在 并且 另一个 isn't 在 链表。
             >>> second_list = LinkedList()
             >>> second_list.push(6)
             >>> second_list.push(7)
@@ -99,7 +99,7 @@ class LinkedList:
             >>> second_list.swap_nodes(1, 6) is None
             True
 
-        When both values are absent in the linked list.
+        当 两者 值 是 absent 在 链表。
             >>> second_list = LinkedList()
             >>> second_list.push(10)
             >>> second_list.push(9)
@@ -108,12 +108,12 @@ class LinkedList:
             >>> second_list.swap_nodes(1, 3) is None
             True
 
-        When linkedlist is empty.
+        当 linkedlist 为空。
             >>> second_list = LinkedList()
             >>> second_list.swap_nodes(1, 3) is None
             True
 
-        Returns:
+        返回值：
             None
         """
         if node_data_1 == node_data_2:
@@ -127,7 +127,7 @@ class LinkedList:
             node_2 = node_2.next_node
         if node_1 is None or node_2 is None:
             return
-        # Swap the data values of the two nodes
+        # 交换 数据 值 的 两个 节点
         node_1.data, node_2.data = node_2.data, node_1.data
 
 

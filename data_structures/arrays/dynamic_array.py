@@ -1,15 +1,15 @@
 class DynamicArray:
     def __init__(self) -> None:
-        self.size = 0  # Number of elements in the array
-        self.capacity = 1  # Initial capacity of the array
-        self.array = [None] * self.capacity  # Create an array with initial capacity
+        self.size = 0  # 数组中的元素数量
+        self.capacity = 1  # 初始容量 的 该数组
+        self.array = [None] * self.capacity  # 创建一个 数组 带有 初始容量
 
     def append(self, item: int) -> None:
         """
-        The function adds an item to the end of the dynamic array.
+        该函数添加 元素 到 末尾 的 动态数组。
 
-        Runtime : O(1) amortized
-        Space: O(1) amortized
+        运行时间 : O(1) 均摊
+        空间: O(1) 均摊
 
         >>> arr = DynamicArray()
         >>> arr.append(1)
@@ -25,17 +25,17 @@ class DynamicArray:
         [1, 2, 3, 4, 5]
         """
         if self.size == self.capacity:
-            self._resize(2 * self.capacity)  # Double the capacity
+            self._resize(2 * self.capacity)  # Double 容量
 
         self.array[self.size] = item
         self.size += 1
 
     def _resize(self, new_capacity: int) -> None:
         """
-        Resizes the array to the new capacity.
+        Resizes 该数组 到 新容量。
 
-        Runtime : O(n)
-        Space: O(n)
+        运行时间 : O(n)
+        空间: O(n)
 
         >>> arr = DynamicArray()
         >>> arr.append(1)
@@ -54,10 +54,10 @@ class DynamicArray:
 
     def get(self, index: int) -> int:
         """
-        The function returns the item at the specified index.
+        该函数返回 元素 在 指定索引。
 
-        Runtime : O(1)
-        Space: O(1)
+        运行时间 : O(1)
+        空间: O(1)
 
         >>> arr = DynamicArray()
         >>> arr.append(1)
@@ -86,10 +86,10 @@ class DynamicArray:
 
     def __len__(self) -> int:
         """
-        Returns the number of elements in the dynamic array.
+        返回以下对象的数量： 元素 在 动态数组。
 
-        Runtime : O(1)
-        Space: O(1)
+        运行时间 : O(1)
+        空间: O(1)
 
         >>> arr = DynamicArray()
         >>> arr.append(1)
@@ -106,7 +106,7 @@ class DynamicArray:
 
     def __str__(self) -> str:
         """
-        Returns a string representation of the dynamic array.
+        返回以下对象的字符串表示： 动态数组。
 
         >>> arr = DynamicArray()
         >>> arr.append(1)

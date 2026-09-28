@@ -1,4 +1,4 @@
-# Implementation of Circular Queue using linked lists
+# 实现 的 Circular 队列 使用 连接 列表
 # https://en.wikipedia.org/wiki/Circular_buffer
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ from typing import Any
 
 class CircularQueueLinkedList:
     """
-    Circular FIFO list with the given capacity (default queue length : 6)
+    Circular FIFO 列表 带有 给定 容量 (default 队列 长度 : 6)
 
     >>> cq = CircularQueueLinkedList(2)
     >>> cq.enqueue('a')
@@ -39,7 +39,7 @@ class CircularQueueLinkedList:
 
     def is_empty(self) -> bool:
         """
-        Checks whether the queue is empty or not
+        Checks 是否 该队列 为空 或 不
         >>> cq = CircularQueueLinkedList()
         >>> cq.is_empty()
         True
@@ -60,7 +60,7 @@ class CircularQueueLinkedList:
 
     def first(self) -> Any | None:
         """
-        Returns the first element of the queue
+        返回值 第一个元素 的 该队列
         >>> cq = CircularQueueLinkedList()
         >>> cq.first()
         Traceback (most recent call last):
@@ -85,7 +85,7 @@ class CircularQueueLinkedList:
 
     def enqueue(self, data: Any) -> None:
         """
-        Saves data at the end of the queue
+        Saves 数据 在 末尾 的队列
 
         >>> cq = CircularQueueLinkedList()
         >>> cq.enqueue('a')
@@ -110,7 +110,7 @@ class CircularQueueLinkedList:
 
     def dequeue(self) -> Any:
         """
-        Removes and retrieves the first element of the queue
+        Removes 并且 retrieves 第一个元素 的队列
 
         >>> cq = CircularQueueLinkedList()
         >>> cq.dequeue()

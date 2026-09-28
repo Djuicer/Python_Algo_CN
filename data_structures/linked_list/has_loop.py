@@ -25,7 +25,7 @@ class Node:
     @property
     def has_loop(self) -> bool:
         """
-        A loop is when the exact same Node appears more than once in a linked list.
+        循环 是 当 exact 相同 节点 appears 更多 比 once 在 链表。
         >>> root_node = Node(1)
         >>> root_node.next_node = Node(2)
         >>> root_node.next_node.next_node = Node(3)

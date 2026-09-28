@@ -1,5 +1,5 @@
 """
-Given an array of integers and an integer k, find the kth largest element in the array.
+给定一个数组 的 整数 并且 整数 k，查找 kth 最大 元素 在 该数组。
 
 https://stackoverflow.com/questions/251781
 """
@@ -7,21 +7,21 @@ https://stackoverflow.com/questions/251781
 
 def partition(arr: list[int], low: int, high: int) -> int:
     """
-    Partitions list based on the pivot element.
+    Partitions 列表 基于 在 枢轴 元素。
 
-    This function rearranges the elements in the input list 'elements' such that
-    all elements greater than or equal to the chosen pivot are on the right side
-    of the pivot, and all elements smaller than the pivot are on the left side.
+    此函数 rearranges 元素 在 输入 列表 '元素' such 该
+    所有元素 更大 比 或 等于 到 chosen 枢轴 是 在 右 一侧
+    的 枢轴，并且 所有元素 更小 比 枢轴 是 在 左 一侧。
 
-    Args:
-        arr: The list to be partitioned
-        low: The lower index of the list
-        high: The higher index of the list
+    参数：
+        arr: 该列表 到 为 partitioned
+        low: lower 索引 的列表
+        high: higher 索引 的列表
 
-    Returns:
-        int: The index of pivot element after partitioning
+    返回值：
+        int: 该索引 的 枢轴 元素 之后 partitioning
 
-        Examples:
+        示例：
         >>> partition([3, 1, 4, 5, 9, 2, 6, 5, 3, 5], 0, 9)
         4
         >>> partition([7, 1, 4, 5, 9, 2, 6, 5, 8], 0, 8)
@@ -43,21 +43,21 @@ def partition(arr: list[int], low: int, high: int) -> int:
 
 def kth_largest_element(arr: list[int], position: int) -> int:
     """
-    Finds the kth largest element in a list.
-    Should deliver similar results to:
+    查找 kth 最大 元素 在 一个列表。
+    应 deliver similar results 到：
     ```python
-    def kth_largest_element(arr, position):
-        return sorted(arr)[-position]
+    def kth_largest_element(arr，位置)：
+        返回 已排序(arr)[-位置]
     ```
 
-    Args:
-        nums: The list of numbers.
-        k: The position of the desired kth largest element.
+    参数：
+        nums: 该列表 的 数。
+        k: 位置 的 所需 kth 最大 元素。
 
-    Returns:
-        int: The kth largest element.
+    返回值：
+        int: kth 最大 元素。
 
-    Examples:
+    示例：
         >>> kth_largest_element([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], 3)
         5
         >>> kth_largest_element([2, 5, 6, 1, 9, 3, 8, 4, 7, 3, 5], 1)

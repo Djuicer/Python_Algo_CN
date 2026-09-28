@@ -1,11 +1,11 @@
 """
-Sum of all nodes in a binary tree.
+和 的 所有节点 在 二叉树。
 
-Python implementation:
-    O(n) time complexity - Recurses through :meth:`depth_first_search`
-                            with each element.
-    O(n) space complexity - At any point in time maximum number of stack
-                            frames that could be in memory is `n`
+Python 实现：
+    O(n) 时间复杂度 - Recurses 通过 :meth:`depth_first_search`
+                            带有 每个元素。
+    O(n) 空间复杂度 - 在 任意 点 在 时间 最大值 数 的 栈
+                            frames 该 could 为 在 memory 是 `n`
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ from collections.abc import Iterator
 
 class Node:
     """
-    A Node has a value variable and pointers to Nodes to its left and right.
+    一个节点 具有 一个值 变量 并且 指针 到 节点 到 其 左 并且 右。
     """
 
     def __init__(self, value: int) -> None:
@@ -26,7 +26,7 @@ class Node:
 
 class BinaryTreeNodeSum:
     r"""
-    The below tree looks like this
+    下方 树 看起来 类似 此
         10
        /  \
       5   -3

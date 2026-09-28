@@ -1,5 +1,5 @@
 """
-Program to evaluate a prefix expression.
+Program 到 evaluate 前缀 表达式。
 https://en.wikipedia.org/wiki/Polish_notation
 """
 
@@ -13,7 +13,7 @@ operators = {
 
 def is_operand(c) -> bool:
     """
-    Return True if the given char c is an operand, e.g. it is a number
+    若满足以下条件则返回 True： 给定 char c 是 操作数，e.g. 它 是 数
 
     >>> is_operand("1")
     True
@@ -25,8 +25,8 @@ def is_operand(c) -> bool:
 
 def evaluate(expression) -> float:
     """
-    Evaluate a given expression in prefix notation.
-    Asserts that the given expression is valid.
+    Evaluate 给定 表达式 在 前缀 notation。
+    Asserts 该 给定 表达式 是 有效。
 
     >>> evaluate("+ 9 * 2 6")
     21
@@ -39,15 +39,15 @@ def evaluate(expression) -> float:
     """
     stack = []
 
-    # iterate over the string in reverse order
+    # 迭代 超过 字符串 在 反转 顺序
     for c in expression.split()[::-1]:
-        # push operand to stack
+        # 压入 操作数 到 栈
         if is_operand(c):
             stack.append(int(c))
 
         else:
-            # pop values from stack can calculate the result
-            # push the result onto the stack again
+            # 弹出 值 从 栈 可以 计算 结果
+            # 压入 结果 到 该栈 again
             o1 = stack.pop()
             o2 = stack.pop()
             stack.append(operators[c](o1, o2))
@@ -57,7 +57,7 @@ def evaluate(expression) -> float:
 
 def evaluate_recursive(expression: list[str]) -> float:
     """
-    Alternative recursive implementation
+    Alternative 递归 实现
 
     >>> evaluate_recursive(['2'])
     2
@@ -83,7 +83,7 @@ def evaluate_recursive(expression: list[str]) -> float:
     return operation(a, b)
 
 
-# Driver code
+# Driver 代码
 if __name__ == "__main__":
     test_expression = "+ 9 * 2 6"
     print(evaluate(test_expression))

@@ -1,15 +1,15 @@
 """
-Implementing Deque using DoublyLinkedList ...
-Operations:
-    1. insertion in the front -> O(1)
-    2. insertion in the end -> O(1)
-    3. remove from the front -> O(1)
-    4. remove from the end -> O(1)
+Implementing 双端队列 使用 DoublyLinkedList ..。
+操作：
+    1. 插入 在 前端 -> O(1)
+    2. 插入 在 末尾 -> O(1)
+    3. 移除 从 前端 -> O(1)
+    4. 移除 从 末尾 -> O(1)
 """
 
 
 class _DoublyLinkedBase:
-    """A Private class (to be inherited)"""
+    """Private 类 (到 为 inherited)"""
 
     class _Node:
         __slots__ = "_data", "_next", "_prev"
@@ -38,8 +38,8 @@ class _DoublyLinkedBase:
         return self.__len__() == 0
 
     def _insert(self, predecessor, e, successor):
-        # Create new_node by setting it's prev.link -> header
-        # setting it's next.link -> trailer
+        # 创建 new_node 通过 setting 它's prev.链接 -> header
+        # setting 它's 下一个.链接 -> trailer
         new_node = self._Node(predecessor, e, successor)
         predecessor._next = new_node
         successor._prev = new_node
@@ -61,7 +61,7 @@ class _DoublyLinkedBase:
 
 class LinkedDeque(_DoublyLinkedBase):
     def first(self):
-        """return first element
+        """返回 第一个元素
         >>> d = LinkedDeque()
         >>> d.add_first('A').first()
         'A'
@@ -73,7 +73,7 @@ class LinkedDeque(_DoublyLinkedBase):
         return self._header._next._data
 
     def last(self):
-        """return last element
+        """返回 最后一个元素
         >>> d = LinkedDeque()
         >>> d.add_last('A').last()
         'A'
@@ -84,26 +84,26 @@ class LinkedDeque(_DoublyLinkedBase):
             raise Exception("List is empty")
         return self._trailer._prev._data
 
-    # DEque Insert Operations (At the front, At the end)
+    # 双端队列 插入 操作 (在队首，在 末尾)
 
     def add_first(self, element):
-        """insertion in the front
+        """插入 在 前端
         >>> LinkedDeque().add_first('AV').first()
         'AV'
         """
         return self._insert(self._header, element, self._header._next)
 
     def add_last(self, element):
-        """insertion in the end
+        """插入 在 末尾
         >>> LinkedDeque().add_last('B').last()
         'B'
         """
         return self._insert(self._trailer._prev, element, self._trailer)
 
-    # DEqueu Remove Operations (At the front, At the end)
+    # DEqueu 移除 操作 (在队首，在 末尾)
 
     def remove_first(self):
-        """removal from the front
+        """removal 从 前端
         >>> d = LinkedDeque()
         >>> d.is_empty()
         True
@@ -123,7 +123,7 @@ class LinkedDeque(_DoublyLinkedBase):
         return self._delete(self._header._next)
 
     def remove_last(self):
-        """removal in the end
+        """removal 在 末尾
         >>> d = LinkedDeque()
         >>> d.is_empty()
         True

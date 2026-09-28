@@ -6,20 +6,20 @@ expect = [-5, 0, 5, 5.1, 11, 13, 21, -1, 4, -1, -10, -5, -1, 0, -1]
 
 def next_greatest_element_slow(arr: list[float]) -> list[float]:
     """
-    Get the Next Greatest Element (NGE) for each element in the array
-    by checking all subsequent elements to find the next greater one.
+    获取 下一个 Greatest 元素 (NGE) 用于 每个元素 在 该数组
+    通过 checking 所有 subsequent 元素 到 查找 下一个 更大 一个。
 
-    This is a brute-force implementation, and it has a time complexity
-    of O(n^2), where n is the size of the array.
+    此 是 brute-force 实现，并且 它 具有 时间复杂度
+    的 O(n^2)，其中 n 是 大小 的 该数组。
 
-    Args:
-        arr: List of numbers for which the NGE is calculated.
+    参数：
+        arr: 列表 的 数 用于 其 NGE 是 计算得出。
 
-    Returns:
-        List containing the next greatest elements. If no
-        greater element is found, -1 is placed in the result.
+    返回值：
+        列表 包含 下一个 greatest 元素. 如果 没有
+        更大 元素 是 找到，-1 是 placed 在 结果。
 
-    Example:
+    示例：
     >>> next_greatest_element_slow(arr) == expect
     True
     """
@@ -39,21 +39,21 @@ def next_greatest_element_slow(arr: list[float]) -> list[float]:
 
 def next_greatest_element_fast(arr: list[float]) -> list[float]:
     """
-    Find the Next Greatest Element (NGE) for each element in the array
-    using a more readable approach. This implementation utilizes
-    enumerate() for the outer loop and slicing for the inner loop.
+    查找 下一个 Greatest 元素 (NGE) 用于 每个元素 在 该数组
+    使用 更多 readable 方法. 此 实现 utilizes
+    enumerate() 用于 outer 循环 并且 slicing 用于 inner 循环。
 
-    While this improves readability over next_greatest_element_slow(),
-    it still has a time complexity of O(n^2).
+    当 此 improves readability 超过 next_greatest_element_slow(),
+    它 仍然 具有 时间复杂度 的 O(n^2)。
 
-    Args:
-        arr: List of numbers for which the NGE is calculated.
+    参数：
+        arr: 列表 的 数 用于 其 NGE 是 计算得出。
 
-    Returns:
-        List containing the next greatest elements. If no
-        greater element is found, -1 is placed in the result.
+    返回值：
+        列表 包含 下一个 greatest 元素. 如果 没有
+        更大 元素 是 找到，-1 是 placed 在 结果。
 
-    Example:
+    示例：
     >>> next_greatest_element_fast(arr) == expect
     True
     """
@@ -70,23 +70,23 @@ def next_greatest_element_fast(arr: list[float]) -> list[float]:
 
 def next_greatest_element(arr: list[float]) -> list[float]:
     """
-    Efficient solution to find the Next Greatest Element (NGE) for all elements
-    using a stack. The time complexity is reduced to O(n), making it suitable
-    for larger arrays.
+    Efficient 解 到 查找 下一个 Greatest 元素 (NGE) 用于 所有元素
+    使用 栈. 时间复杂度 是 reduced 到 O(n)，making 它 suitable
+    用于 larger 数组。
 
-    The stack keeps track of elements for which the next greater element hasn't
-    been found yet. By iterating through the array in reverse (from the last
-    element to the first), the stack is used to efficiently determine the next
-    greatest element for each element.
+    该栈 保持 track 的 元素 用于 其 下一个 更大 元素 hasn't
+    been 找到 yet. 通过 iterating 通过 该数组 在 反转 (从 最后一个
+    元素 到 第一个)，该栈 是 使用 到 efficiently determine 下一个
+    greatest 元素 用于 每个元素。
 
-    Args:
-        arr: List of numbers for which the NGE is calculated.
+    参数：
+        arr: 列表 的 数 用于 其 NGE 是 计算得出。
 
-    Returns:
-        List containing the next greatest elements. If no
-        greater element is found, -1 is placed in the result.
+    返回值：
+        列表 包含 下一个 greatest 元素. 如果 没有
+        更大 元素 是 找到，-1 是 placed 在 结果。
 
-    Example:
+    示例：
     >>> next_greatest_element(arr) == expect
     True
     """

@@ -1,12 +1,12 @@
 """
-Illustrate how to implement inorder traversal in binary search tree.
+Illustrate how 到 implement 中序 遍历 在 二叉搜索树。
 Author: Gurneet Singh
 https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 """
 
 
 class BinaryTreeNode:
-    """Defining the structure of BinaryTreeNode"""
+    """Defining 结构 的 BinaryTreeNode"""
 
     def __init__(self, data: int) -> None:
         self.data = data
@@ -16,7 +16,7 @@ class BinaryTreeNode:
 
 def insert(node: BinaryTreeNode | None, new_value: int) -> BinaryTreeNode | None:
     """
-    If the binary search tree is empty, make a new node and declare it as root.
+    如果 二叉搜索树 为空，使 新节点 并且 declare 它 作为 根节点。
     >>> node_a = BinaryTreeNode(12345)
     >>> node_b = insert(node_a, 67890)
     >>> node_a.left_child == node_b.left_child
@@ -30,20 +30,20 @@ def insert(node: BinaryTreeNode | None, new_value: int) -> BinaryTreeNode | None
         node = BinaryTreeNode(new_value)
         return node
 
-    # binary search tree is not empty,
-    # so we will insert it into the tree
-    # if new_value is less than value of data in node,
-    #  add it to left subtree and proceed recursively
+    # 二叉搜索树 非空,
+    # 因此 我们 将 插入 它 到 该树
+    # 如果 new_value 是 较小 比 值 的 数据 在 节点,
+    #  添加 它 到 左子树 并且 proceed 递归地
     if new_value < node.data:
         node.left_child = insert(node.left_child, new_value)
     else:
-        # if new_value is greater than value of data in node,
-        #  add it to right subtree and proceed recursively
+        # 如果 new_value 是 更大 比 值 的 数据 在 节点,
+        #  添加 它 到 右子树 并且 proceed 递归地
         node.right_child = insert(node.right_child, new_value)
     return node
 
 
-def inorder(node: BinaryTreeNode | None) -> list[int]:  # if node is None,return
+def inorder(node: BinaryTreeNode | None) -> list[int]:  # 如果 节点 是 None,返回
     """
     >>> inorder(make_tree())
     [6, 10, 14, 15, 20, 25, 60]
@@ -69,7 +69,7 @@ def make_tree() -> BinaryTreeNode | None:
 
 
 def main() -> None:
-    # main function
+    # main 函数
     root = make_tree()
     print("Printing values of binary search tree in Inorder Traversal.")
     inorder(root)

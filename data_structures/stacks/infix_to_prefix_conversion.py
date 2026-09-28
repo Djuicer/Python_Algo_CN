@@ -1,17 +1,17 @@
 """
-Output:
+输出：
 
-Enter an Infix Equation = a + b ^c
- Symbol  |  Stack  | Postfix
+Enter Infix Equation = + b ^c
+ Symbol  |  栈  | 后缀表达式
 ----------------------------
    c     |         | c
    ^     | ^       | c
    b     | ^       | cb
    +     | +       | cb^
-   a     | +       | cb^a
-         |         | cb^a+
+   | +       | cb^
+         |         | cb^+
 
-         a+b^c (Infix) ->  +a^bc (Prefix)
+         +b^c (Infix) ->  +^bc (前缀)
 """
 
 
@@ -71,10 +71,10 @@ def infix_2_postfix(infix: str) -> str:
         "%": 2,
         "+": 1,
         "-": 1,
-    }  # Priority of each operator
+    }  # 优先级 的 每个 运算符
     print_width = max(len(infix), 7)
 
-    # Print table header for output
+    # 打印 table header 用于 输出
     print(
         "Symbol".center(8),
         "Stack".center(print_width),
@@ -85,43 +85,43 @@ def infix_2_postfix(infix: str) -> str:
 
     for x in infix:
         if x.isalpha() or x.isdigit():
-            post_fix.append(x)  # if x is Alphabet / Digit, add it to Postfix
+            post_fix.append(x)  # 如果 x 是 Alphabet / Digit，添加 它 到 后缀表达式
         elif x == "(":
-            stack.append(x)  # if x is "(" push to Stack
-        elif x == ")":  # if x is ")" pop stack until "(" is encountered
-            if len(stack) == 0:  # close bracket without open bracket
+            stack.append(x)  # 如果 x 是 "(" 压入 到 栈
+        elif x == ")":  # 如果 x 是 ")" 弹出 栈 until "(" 是 遇到
+            if len(stack) == 0:  # close bracket 不使用 开放 bracket
                 raise IndexError("list index out of range")
 
             while stack[-1] != "(":
-                post_fix.append(stack.pop())  # Pop stack & add the content to Postfix
+                post_fix.append(stack.pop())  # 弹出 栈 & 添加 content 到 后缀表达式
             stack.pop()
         elif len(stack) == 0:
-            stack.append(x)  # If stack is empty, push x to stack
-        else:  # while priority of x is not > priority of element in the stack
+            stack.append(x)  # 如果 栈 为空，压入 x 到 栈
+        else:  # 当 优先级 的 x 是 不 > 优先级 的 元素 在 该栈
             while stack and stack[-1] != "(" and priority[x] <= priority[stack[-1]]:
-                post_fix.append(stack.pop())  # pop stack & add to Postfix
-            stack.append(x)  # push x to stack
+                post_fix.append(stack.pop())  # 弹出 栈 & 添加 到 后缀表达式
+            stack.append(x)  # 压入 x 到 栈
 
         print(
             x.center(8),
             ("".join(stack)).ljust(print_width),
             ("".join(post_fix)).ljust(print_width),
             sep=" | ",
-        )  # Output in tabular format
+        )  # 输出 在 表格形式 格式
 
-    while len(stack) > 0:  # while stack is not empty
-        if stack[-1] == "(":  # open bracket with no close bracket
+    while len(stack) > 0:  # 当 栈 非空
+        if stack[-1] == "(":  # 开放 bracket 带有 没有 close bracket
             raise ValueError("invalid expression")
 
-        post_fix.append(stack.pop())  # pop stack & add to Postfix
+        post_fix.append(stack.pop())  # 弹出 栈 & 添加 到 后缀表达式
         print(
             " ".center(8),
             ("".join(stack)).ljust(print_width),
             ("".join(post_fix)).ljust(print_width),
             sep=" | ",
-        )  # Output in tabular format
+        )  # 输出 在 表格形式 格式
 
-    return "".join(post_fix)  # return Postfix as str
+    return "".join(post_fix)  # 返回 后缀表达式 作为 str
 
 
 def infix_2_prefix(infix: str) -> str:
@@ -170,15 +170,15 @@ def infix_2_prefix(infix: str) -> str:
         ...
     ValueError: invalid expression
     """
-    reversed_infix = list(infix[::-1])  # reverse the infix equation
+    reversed_infix = list(infix[::-1])  # 反转 infix equation
 
     for i in range(len(reversed_infix)):
         if reversed_infix[i] == "(":
-            reversed_infix[i] = ")"  # change "(" to ")"
+            reversed_infix[i] = ")"  # 更改 "(" 到 ")"
         elif reversed_infix[i] == ")":
-            reversed_infix[i] = "("  # change ")" to "("
+            reversed_infix[i] = "("  # 更改 ")" 到 "("
 
-    # call infix_2_postfix on Infix, return reverse of Postfix
+    # call infix_2_postfix 在 Infix，返回 反转 的 后缀表达式
     return (infix_2_postfix("".join(reversed_infix)))[::-1]
 
 
@@ -187,6 +187,6 @@ if __name__ == "__main__":
 
     testmod()
 
-    Infix = input("\nEnter an Infix Equation = ")  # Input an Infix equation
-    Infix = "".join(Infix.split())  # Remove spaces from the input
+    Infix = input("\nEnter an Infix Equation = ")  # 输入 Infix equation
+    Infix = "".join(Infix.split())  # 移除 spaces 从 输入
     print("\n\t", Infix, "(Infix) -> ", infix_2_prefix(Infix), "(Prefix)")

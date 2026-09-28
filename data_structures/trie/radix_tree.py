@@ -1,6 +1,6 @@
 """
-A Radix Tree is a data structure that represents a space-optimized
-trie (prefix tree) in which each node that is the only child is merged
+Radix 树 是 数据 结构 该 表示 空间-optimized
+trie (前缀 树) 在 其 每个节点 该 是 仅 子节点 是 合并后
 with its parent [https://en.wikipedia.org/wiki/Radix_tree]
 """
 
@@ -9,21 +9,21 @@ import unittest
 
 class RadixNode:
     def __init__(self, prefix: str = "", is_leaf: bool = False) -> None:
-        # Mapping from the first character of the prefix of the node
+        # Mapping 从 第一个 字符 的 前缀 的节点
         self.nodes: dict[str, RadixNode] = {}
 
-        # A node will be a leaf if the tree contains its word
+        # 一个节点 将 为 叶节点 如果 该树 包含 其 单词
         self.is_leaf = is_leaf
 
         self.prefix = prefix
 
     def match(self, word: str) -> tuple[str, str, str]:
-        """Compute the common substring of the prefix of the node and a word
+        """计算 common substring 的 前缀 的节点 并且 单词
 
-        Args:
-            word (str): word to compare
+        参数：
+            单词 (str): 单词 到 比较
 
-        Returns:
+        返回值：
             (str, str, str): common substring, remaining prefix, remaining word
 
         >>> RadixNode("myprefix").match("mystring")
@@ -39,10 +39,10 @@ class RadixNode:
         return self.prefix[:x], self.prefix[x:], word[x:]
 
     def insert_many(self, words: list[str]) -> None:
-        """Insert many words in the tree
+        """插入 many 单词 在 该树
 
-        Args:
-            words (list[str]): list of words
+        参数：
+            单词 (列表[str]): 列表 的 单词
 
         >>> RadixNode("myprefix").insert_many(["mystring", "hello"])
         """
@@ -50,10 +50,10 @@ class RadixNode:
             self.insert(word)
 
     def insert(self, word: str) -> None:
-        """Insert a word into the tree
+        """插入一个 单词 到 该树
 
-        Args:
-            word (str): word to insert
+        参数：
+            单词 (str): 单词 到 插入
 
         >>> RadixNode("myprefix").insert("mystring")
 
@@ -64,19 +64,19 @@ class RadixNode:
         -- A   (leaf)
         --- A   (leaf)
         """
-        ## Handle the Case where the word is empty by using an if branch
+        ## Handle 情况 其中 单词 为空 通过 使用 如果 branch
         if word == "":
             self.is_leaf = True
             return
 
-        # Case 1: If the word is the prefix of the node
-        # Solution: We set the current node as leaf
+        # 情况 1: 如果 单词 是 前缀 的节点
+        # 解: 我们 设置 当前节点 作为 叶节点
         if self.prefix == word and not self.is_leaf:
             self.is_leaf = True
 
-        # Case 2: The node has no edges that have a prefix to the word
-        # Solution: We create an edge from the current node to a new one
-        # containing the word
+        # 情况 2: 该节点 具有 没有 edges 该 具有 前缀 到 单词
+        # 解: 我们 创建一个 edge 从 当前节点 到 新 一个
+        # 包含 单词
         elif word[0] not in self.nodes:
             self.nodes[word[0]] = RadixNode(prefix=word, is_leaf=True)
 
@@ -86,14 +86,14 @@ class RadixNode:
                 word
             )
 
-            # Case 3: The node prefix is equal to the matching
-            # Solution: We insert the remaining word on the next node
+            # 情况 3: 该节点 前缀 是 等于 到 matching
+            # 解: 我们 插入 剩余 单词 在 下一个节点
             if remaining_prefix == "":
                 self.nodes[matching_string[0]].insert(remaining_word)
 
-            # Case 4: The word is greater than or equal to the matching
-            # Solution: Create a node in between both nodes, change
-            # prefixes and add the new node for the remaining word
+            # 情况 4: 单词 是 更大 比 或 等于 到 matching
+            # 解: 创建一个 节点 在 之间 两者 节点，更改
+            # prefixes 并且 添加 新节点 用于 剩余 单词
             else:
                 incoming_node.prefix = remaining_prefix
 
@@ -107,13 +107,13 @@ class RadixNode:
                     self.nodes[matching_string[0]].insert(remaining_word)
 
     def find(self, word: str) -> bool:
-        """Returns whether the word is on the tree
+        """返回值 是否 单词 是 在 该树
 
-        Args:
-            word (str): word to check
+        参数：
+            单词 (str): 单词 到 检查
 
-        Returns:
-            bool: True if the word appears on the tree
+        返回值：
+            bool: True 如果 单词 appears 在 该树
 
         >>> RadixNode("myprefix").find("mystring")
         False
@@ -125,24 +125,24 @@ class RadixNode:
             _matching_string, remaining_prefix, remaining_word = incoming_node.match(
                 word
             )
-            # If there is remaining prefix, the word can't be on the tree
+            # 如果 其中 是 剩余 前缀，单词 可以't 为 在 该树
             if remaining_prefix != "":
                 return False
-            # This applies when the word and the prefix are equal
+            # 此 applies 当 单词 并且 前缀 是 等于
             elif remaining_word == "":
                 return incoming_node.is_leaf
-            # We have word remaining so we check the next node
+            # 我们 具有 单词 剩余 因此 我们 检查 下一个节点
             else:
                 return incoming_node.find(remaining_word)
 
     def delete(self, word: str) -> bool:
-        """Deletes a word from the tree if it exists
+        """删除一个 单词 从 该树 如果 它 存在
 
-        Args:
-            word (str): word to be deleted
+        参数：
+            单词 (str): 单词 到 为 已删除
 
-        Returns:
-            bool: True if the word was found and deleted. False if word is not found
+        返回值：
+            bool: True 如果 单词 曾是 找到 并且 已删除. False 如果 单词 是 未找到
 
         >>> RadixNode("myprefix").delete("mystring")
         False
@@ -154,29 +154,29 @@ class RadixNode:
             _matching_string, remaining_prefix, remaining_word = incoming_node.match(
                 word
             )
-            # If there is remaining prefix, the word can't be on the tree
+            # 如果 其中 是 剩余 前缀，单词 可以't 为 在 该树
             if remaining_prefix != "":
                 return False
-            # We have word remaining so we check the next node
+            # 我们 具有 单词 剩余 因此 我们 检查 下一个节点
             elif remaining_word != "":
                 return incoming_node.delete(remaining_word)
-            # If it is not a leaf, we don't have to delete
+            # 如果 它 是 不 叶节点，我们 don't 具有 到 删除
             elif not incoming_node.is_leaf:
                 return False
             else:
-                # We delete the nodes if no edges go from it
+                # 我们 删除 节点 如果 没有 edges 前进 从 它
                 if len(incoming_node.nodes) == 0:
                     del self.nodes[word[0]]
-                    # We merge the current node with its only child
+                    # 我们 合并 当前节点 带有 其 仅 子节点
                     if len(self.nodes) == 1 and not self.is_leaf:
                         merging_node = next(iter(self.nodes.values()))
                         self.is_leaf = merging_node.is_leaf
                         self.prefix += merging_node.prefix
                         self.nodes = merging_node.nodes
-                # If there is more than 1 edge, we just mark it as non-leaf
+                # 如果 其中 是 更多 比 1 edge，我们 仅 mark 它 作为 非-叶节点
                 elif len(incoming_node.nodes) > 1:
                     incoming_node.is_leaf = False
-                # If there is 1 edge, we merge it with its child
+                # 如果 其中 是 1 edge，我们 合并 它 带有 其 子节点
                 else:
                     merging_node = next(iter(incoming_node.nodes.values()))
                     incoming_node.is_leaf = merging_node.is_leaf
@@ -186,10 +186,10 @@ class RadixNode:
                 return True
 
     def print_tree(self, height: int = 0) -> None:
-        """Print the tree
+        """打印 树
 
-        Args:
-            height (int, optional): Height of the printed node
+        参数：
+            高度 (int，可选): 高度 的 printed 节点
         """
         if self.prefix != "":
             print("-" * height, self.prefix, "  (leaf)" if self.is_leaf else "")
@@ -230,9 +230,9 @@ class TestRadixNode(unittest.TestCase):
 
     def test_trie_2(self) -> None:
         """
-        Now add a new test case that inserts
-        foobbb, fooaaa, foo in the given order and checks
-        for different assertions
+        现在 添加 新 测试 情况 该 inserts
+        foobbb，fooaaa，foo 在 给定 顺序 并且 checks
+        用于 不同 assertions
         """
         words = "foobbb fooaaa foo".split()
         root = RadixNode()

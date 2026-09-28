@@ -1,12 +1,12 @@
 """
-Splay Tree - a self-adjusting binary search tree.
+Splay 树 - self-adjusting 二叉搜索树。
 
-A splay tree is a binary search tree with the additional property that
-recently accessed elements are quick to access again.  Every access (search,
-insert or delete) moves the target node to the root through a sequence of
-rotations called "splaying".  This gives an amortized time complexity of
-O(log n) per operation and makes the tree very efficient when the access
-pattern has locality of reference (a small subset of keys is touched often).
+splay 树 是 二叉搜索树 带有 additional property 该
+recently accessed 元素 是 quick 到 access again.  每个 access (搜索,
+插入 或 删除) 移动 target 节点 到 根节点 通过 序列 的
+rotations called "splaying".  此 gives 均摊 时间复杂度 的
+O(log n) per 操作 并且 makes 该树 very efficient 当 access
+模式 具有 locality 的 引用 (small 子集 的 键 是 touched often)。
 
 Reference: https://en.wikipedia.org/wiki/Splay_tree
 """
@@ -20,10 +20,10 @@ from dataclasses import dataclass, field
 @dataclass
 class Node:
     """
-    A single node of a splay tree.
+    单个节点 的 splay 树。
 
-    The ``left`` and ``right`` children are excluded from ``repr`` so that a
-    node prints compactly instead of recursively dumping the whole subtree.
+    ``左`` 并且 ``右`` 子节点 是 excluded 从 ``repr`` 因此 该
+    节点 打印 compactly instead 的 递归地 dumping whole 子树。
 
     >>> Node(10)
     Node(key=10)
@@ -36,7 +36,7 @@ class Node:
 
 class SplayTree:
     """
-    A self-adjusting binary search tree.
+    self-adjusting 二叉搜索树。
 
     >>> tree = SplayTree()
     >>> tree.insert(10)
@@ -59,11 +59,11 @@ class SplayTree:
 
     def _rotate_right(self, node: Node) -> Node:
         """
-        Perform a right rotation around ``node`` and return the new subtree root.
+        执行 右 旋转 around ``节点`` 并且 返回 新 子树 根节点。
 
-            node            left
+            节点            左
            /    \\          /    \\
-         left    c   -->   a     node
+         左    c   -->   节点
         /   \\                   /    \\
        a     b                 b      c
         """
@@ -75,11 +75,11 @@ class SplayTree:
 
     def _rotate_left(self, node: Node) -> Node:
         """
-        Perform a left rotation around ``node`` and return the new subtree root.
+        执行 左 旋转 around ``节点`` 并且 返回 新 子树 根节点。
 
-           node                 right
+           节点                 右
           /    \\               /     \\
-         a     right   -->    node     c
+         右   -->    节点     c
               /     \\        /    \\
              b       c       a      b
         """
@@ -91,9 +91,9 @@ class SplayTree:
 
     def _splay(self, root: Node | None, key: int) -> Node | None:
         """
-        Splay the node with ``key`` (or the last node on the search path if
-        ``key`` is absent) to the root of the subtree and return the new root.
-        This uses the classic bottom-up recursive formulation.
+        Splay 该节点 带有 ``键`` (或 最后一个节点 在 搜索 路径 如果
+        ``键`` 是 absent) 到 根节点 的 子树 并且 返回 新 根节点。
+        此 使用 classic 底部-向上 递归 formulation。
         """
         if root is None or root.key == key:
             return root
@@ -102,11 +102,11 @@ class SplayTree:
             if root.left is None:
                 return root
             if key < root.left.key:
-                # Zig-Zig (left left)
+                # Zig-Zig (左 左)
                 root.left.left = self._splay(root.left.left, key)
                 root = self._rotate_right(root)
             elif key > root.left.key:
-                # Zig-Zag (left right)
+                # Zig-Zag (左 右)
                 root.left.right = self._splay(root.left.right, key)
                 if root.left.right is not None:
                     root.left = self._rotate_left(root.left)
@@ -115,11 +115,11 @@ class SplayTree:
             if root.right is None:
                 return root
             if key > root.right.key:
-                # Zig-Zig (right right)
+                # Zig-Zig (右 右)
                 root.right.right = self._splay(root.right.right, key)
                 root = self._rotate_left(root)
             elif key < root.right.key:
-                # Zig-Zag (right left)
+                # Zig-Zag (右 左)
                 root.right.left = self._splay(root.right.left, key)
                 if root.right.left is not None:
                     root.right = self._rotate_right(root.right)
@@ -127,7 +127,7 @@ class SplayTree:
 
     def insert(self, key: int) -> None:
         """
-        Insert ``key`` into the tree and splay it to the root.
+        插入 ``键`` 到 该树 并且 splay 它 到 根节点。
 
         >>> tree = SplayTree()
         >>> for key in (5, 3, 8, 3):  # duplicate keys are ignored
@@ -144,7 +144,7 @@ class SplayTree:
         self.root = self._splay(self.root, key)
         assert self.root is not None
         if self.root.key == key:
-            return  # key already present, it is now at the root
+            return  # 键 已经 存在，它 是 现在 在 根节点
 
         node = Node(key)
         if key < self.root.key:
@@ -159,7 +159,7 @@ class SplayTree:
 
     def search(self, key: int) -> bool:
         """
-        Return whether ``key`` is present and splay the last accessed node.
+        返回 是否 ``键`` 是 存在 并且 splay 最后一个 accessed 节点。
 
         >>> tree = SplayTree()
         >>> tree.search(1)
@@ -176,7 +176,7 @@ class SplayTree:
 
     def delete(self, key: int) -> None:
         """
-        Remove ``key`` from the tree if it is present.
+        移除 ``键`` 从 该树 如果 它 是 存在。
 
         >>> tree = SplayTree()
         >>> for key in (10, 20, 30, 40):
@@ -198,14 +198,14 @@ class SplayTree:
         self.root = self._splay(self.root, key)
         assert self.root is not None
         if self.root.key != key:
-            return  # key not found
+            return  # 键 未找到
 
         left, right = self.root.left, self.root.right
         if left is None:
             self.root = right
         else:
-            # Splay the maximum of the left subtree to its root; it has no
-            # right child, so the right subtree can be attached there.
+            # Splay 最大值 的 左子树 到 其 根节点; 它 具有 没有
+            # 右子节点，因此 右子树 可以 为 attached 其中。
             left = self._splay(left, key)
             assert left is not None
             left.right = right
@@ -213,7 +213,7 @@ class SplayTree:
 
     def __iter__(self) -> Iterator[int]:
         """
-        Yield the keys of the tree in ascending (in-order) order.
+        Yield 键 的树 在 ascending (在-顺序) 顺序。
 
         >>> tree = SplayTree()
         >>> for key in (7, 2, 9, 4, 1):

@@ -1,15 +1,15 @@
 def rotate_array(arr: list[int], steps: int) -> list[int]:
     """
-    Rotates a list to the right by steps positions.
+    旋转一个 列表 到 右 通过 步骤 位置。
 
-    Parameters:
-    arr (List[int]): The list of integers to rotate.
-    steps (int): Number of positions to rotate. Can be negative for left rotation.
+    参数：
+    arr (列表[int]): 该列表 的 整数 到 旋转。
+    步骤 (int): 数 的 位置 到 旋转. 可以 为 负 用于 左 旋转。
 
-    Returns:
-    List[int]: Rotated list.
+    返回值：
+    列表[int]: Rotated 列表。
 
-    Examples:
+    示例：
     >>> rotate_array([1, 2, 3, 4, 5], 2)
     [4, 5, 1, 2, 3]
     >>> rotate_array([1, 2, 3, 4, 5], -2)
@@ -31,16 +31,16 @@ def rotate_array(arr: list[int], steps: int) -> list[int]:
 
     def reverse(start: int, end: int) -> None:
         """
-        Reverses a portion of the list in place from index start to end.
+        Reverses portion 的列表 原地 从 索引 开始 到 末尾。
 
-        Parameters:
-        start (int): Starting index of the portion to reverse.
-        end (int): Ending index of the portion to reverse.
+        参数：
+        开始 (int): 起始 索引 的 portion 到 反转。
+        末尾 (int): Ending 索引 的 portion 到 反转。
 
-        Returns:
+        返回值：
         None
 
-        Examples:
+        示例：
         >>> example = [1, 2, 3, 4, 5]
         >>> def reverse_test(arr, start, end):
         ...     while start < end:

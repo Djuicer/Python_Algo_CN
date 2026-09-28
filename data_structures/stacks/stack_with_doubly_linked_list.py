@@ -1,5 +1,5 @@
-# A complete working Python program to demonstrate all
-# stack operations using a doubly linked list
+# complete working Python program 到 demonstrate 所有
+# 栈 操作 使用 双向链表
 
 from __future__ import annotations
 
@@ -10,9 +10,9 @@ T = TypeVar("T")
 
 class Node[T]:
     def __init__(self, data: T) -> None:
-        self.data = data  # Assign data
-        self.next: Node[T] | None = None  # Initialize next as null
-        self.prev: Node[T] | None = None  # Initialize prev as null
+        self.data = data  # Assign 数据
+        self.next: Node[T] | None = None  # 初始化 下一个 作为 null
+        self.prev: Node[T] | None = None  # 初始化 prev 作为 null
 
 
 class Stack[T]:
@@ -90,41 +90,41 @@ class Stack[T]:
             temp = temp.next
 
 
-# Code execution starts here
+# 代码 execution starts 此处
 if __name__ == "__main__":
-    # Start with the empty stack
+    # 开始 带有 空栈
     stack: Stack[int] = Stack()
 
-    # Insert 4 at the beginning. So stack becomes 4->None
+    # 插入 4 在 开头. 因此 栈 变为 4->None
     print("Stack operations using Doubly LinkedList")
     stack.push(4)
 
-    # Insert 5 at the beginning. So stack becomes 4->5->None
+    # 插入 5 在 开头. 因此 栈 变为 4->5->None
     stack.push(5)
 
-    # Insert 6 at the beginning. So stack becomes 4->5->6->None
+    # 插入 6 在 开头. 因此 栈 变为 4->5->6->None
     stack.push(6)
 
-    # Insert 7 at the beginning. So stack becomes 4->5->6->7->None
+    # 插入 7 在 开头. 因此 栈 变为 4->5->6->7->None
     stack.push(7)
 
-    # Print the stack
+    # 打印 栈
     stack.print_stack()
 
-    # Print the top element
+    # 打印 顶部 元素
     print("\nTop element is ", stack.top())
 
-    # Print the stack size
+    # 打印 栈 大小
     print("Size of the stack is ", len(stack))
 
-    # pop the top element
+    # 弹出 顶部 元素
     stack.pop()
 
-    # pop the top element
+    # 弹出 顶部 元素
     stack.pop()
 
-    # two elements have now been popped off
+    # 两个 元素 具有 现在 been popped off
     stack.print_stack()
 
-    # Print True if the stack is empty else False
+    # 打印 True 如果 该栈 为空 否则 False
     print("\nstack is empty:", stack.is_empty())

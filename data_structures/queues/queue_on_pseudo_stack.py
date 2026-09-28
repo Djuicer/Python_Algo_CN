@@ -1,4 +1,4 @@
-"""Queue represented by a pseudo stack (represented by a list with pop and append)"""
+"""队列 表示 通过 pseudo 栈 (表示 通过 一个列表 带有 弹出 并且 追加)"""
 
 from typing import Any
 

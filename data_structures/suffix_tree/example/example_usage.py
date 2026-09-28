@@ -1,9 +1,9 @@
 #  Created by: Ramy-Badr-Ahmed (https://github.com/Ramy-Badr-Ahmed)
-#  in Pull Request: #11554
+#  在 Pull Request: #11554
 #  https://github.com/TheAlgorithms/Python/pull/11554
 #
-#  Please mention me (@Ramy-Badr-Ahmed) in any issue or pull request
-#  addressing bugs/corrections to this file.
+#  Please mention me (@Ramy-Badr-Ahmed) 在 任意 问题 或 pull request
+#  寻址 bugs/corrections 到 此 文件。
 #  Thank you!
 
 from data_structures.suffix_tree.suffix_tree import SuffixTree
@@ -11,18 +11,18 @@ from data_structures.suffix_tree.suffix_tree import SuffixTree
 
 def main() -> None:
     """
-    Demonstrate the usage of the SuffixTree class.
+    Demonstrate usage 的 SuffixTree 类。
 
-    - Initializes a SuffixTree with a predefined text.
-    - Defines a list of patterns to search for within the suffix tree.
-    - Searches for each pattern in the suffix tree.
+    - Initializes SuffixTree 带有 predefined 文本。
+    - Defines 一个列表 的 patterns 到 搜索 之内 后缀 树。
+    - 搜索 每个 模式 在 后缀 树。
 
     Patterns tested:
-        - "ana" (found) --> True
-        - "ban" (found) --> True
-        - "na" (found) --> True
-        - "xyz" (not found) --> False
-        - "mon" (found) --> True
+        - "ana" (找到) --> True
+        - "ban" (找到) --> True
+        - "na" (找到) --> True
+        - "xyz" (未找到) --> False
+        - "mon" (找到) --> True
     """
     text = "monkey banana"
     suffix_tree = SuffixTree(text)

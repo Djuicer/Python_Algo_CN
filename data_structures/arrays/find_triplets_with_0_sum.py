@@ -3,12 +3,12 @@ from itertools import combinations
 
 def find_triplets_with_0_sum(nums: list[int]) -> list[list[int]]:
     """
-    Given a list of integers, return elements a, b, c such that a + b + c = 0.
-    Args:
-        nums: list of integers
-    Returns:
-        list of lists of integers where sum(each_list) == 0
-    Examples:
+    给定一个整数列表，返回 元素，b，c such 该 + b + c = 0。
+    参数：
+        nums: 列表 的 整数
+    返回值：
+        列表 的 列表 的 整数 其中 和(each_list) == 0
+    示例：
         >>> find_triplets_with_0_sum([-1, 0, 1, 2, -1, -4])
         [[-1, -1, 2], [-1, 0, 1]]
         >>> find_triplets_with_0_sum([])
@@ -26,15 +26,15 @@ def find_triplets_with_0_sum(nums: list[int]) -> list[list[int]]:
 
 def find_triplets_with_0_sum_hashing(arr: list[int]) -> list[list[int]]:
     """
-    Function for finding the triplets with a given sum in the array using hashing.
+    函数 用于 finding triplets 带有 给定 和 在 该数组 使用哈希。
 
-    Given a list of integers, return elements a, b, c such that a + b + c = 0.
+    给定一个整数列表，返回 元素，b，c such 该 + b + c = 0。
 
-    Args:
-        nums: list of integers
-    Returns:
-        list of lists of integers where sum(each_list) == 0
-    Examples:
+    参数：
+        nums: 列表 的 整数
+    返回值：
+        列表 的 列表 的 整数 其中 和(each_list) == 0
+    示例：
         >>> find_triplets_with_0_sum_hashing([-1, 0, 1, 2, -1, -4])
         [[-1, 0, 1], [-1, -1, 2]]
         >>> find_triplets_with_0_sum_hashing([])
@@ -44,54 +44,54 @@ def find_triplets_with_0_sum_hashing(arr: list[int]) -> list[list[int]]:
         >>> find_triplets_with_0_sum_hashing([1, 2, 3, 0, -1, -2, -3])
         [[-1, 0, 1], [-3, 1, 2], [-2, 0, 2], [-2, -1, 3], [-3, 0, 3]]
 
-    Time complexity: O(N^2)
-    Auxiliary Space: O(N)
+    时间复杂度: O(N^2)
+    辅助空间: O(N)
 
     """
     target_sum = 0
 
-    # Initialize the final output array with blank.
+    # 初始化 最终 输出 数组 带有 blank。
     output_arr = []
 
-    # Set the initial element as arr[i].
+    # 设置 初始 元素 作为 arr[i]。
     for index, item in enumerate(arr[:-2]):
-        # to store second elements that can complement the final sum.
+        # 到 存储 第二个 元素 该 可以 complement 最终 和。
         set_initialize = set()
 
-        # current sum needed for reaching the target sum
+        # 当前 和 需要 用于 reaching 目标和
         current_sum = target_sum - item
 
-        # Traverse the subarray arr[i+1:].
+        # 遍历 subarray arr[i+1:]。
         for other_item in arr[index + 1 :]:
-            # required value for the second element
+            # 所需 值 用于 第二个 元素
             required_value = current_sum - other_item
 
-            # Verify if the desired value exists in the set.
+            # Verify 如果 所需 值 存在 在 集合。
             if required_value in set_initialize:
-                # finding triplet elements combination.
+                # finding triplet 元素 combination。
                 combination_array = sorted([item, other_item, required_value])
                 if combination_array not in output_arr:
                     output_arr.append(combination_array)
 
-            # Include the current element in the set
-            # for subsequent complement verification.
+            # Include 当前元素 在 集合
+            # 用于 subsequent complement verification。
             set_initialize.add(other_item)
 
-    # Return all the triplet combinations.
+    # 返回所有 triplet combinations。
     return output_arr
 
 
 def find_triplets_with_0_sum_two_pointers(nums: list[int]) -> list[list[int]]:
     """
-    Finds all unique triplets in the array which gives the sum of zero
-    using the two-pointer technique.
+    查找所有 唯一 triplets 在 该数组 其 gives 和 的 zero
+    使用双指针技术。
 
-    Args:
-        nums: list of integers
-    Returns:
-        list of lists of integers where sum(each_list) == 0
+    参数：
+        nums: 列表 的 整数
+    返回值：
+        列表 的 列表 的 整数 其中 和(each_list) == 0
 
-    Examples:
+    示例：
         >>> find_triplets_with_0_sum_two_pointers([-1, 0, 1, 2, -1, -4])
         [[-1, -1, 2], [-1, 0, 1]]
         >>> find_triplets_with_0_sum_two_pointers([])
@@ -99,8 +99,8 @@ def find_triplets_with_0_sum_two_pointers(nums: list[int]) -> list[list[int]]:
         >>> find_triplets_with_0_sum_two_pointers([0, 0, 0, 0])
         [[0, 0, 0]]
 
-    Time Complexity: O(N^2)
-    Auxiliary Space: O(1) (excluding output)
+    时间复杂度: O(N^2)
+    辅助空间: O(1) (不包括 输出)
     """
     nums.sort()
     result = []

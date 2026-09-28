@@ -1,9 +1,9 @@
 r"""
-Problem: Given root of a binary tree, return the:
-1. binary-tree-right-side-view
-2. binary-tree-left-side-view
-3. binary-tree-top-side-view
-4. binary-tree-bottom-side-view
+Problem: 给定 根节点 的 二叉树，返回：
+1. binary-树-右-一侧-视图
+2. binary-树-左-一侧-视图
+3. binary-树-顶部-一侧-视图
+4. binary-树-底部-一侧-视图
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ def make_tree() -> TreeNode:
 
 def binary_tree_right_side_view(root: TreeNode) -> list[int]:
     r"""
-    Function returns the right side view of binary tree.
+    函数 返回值 右 一侧 视图 的 二叉树。
 
        3       <-  3
      / \
@@ -47,8 +47,8 @@ def binary_tree_right_side_view(root: TreeNode) -> list[int]:
         root: TreeNode | None, depth: int, right_view: list[int]
     ) -> None:
         """
-        A depth first search preorder traversal to append the values at
-        right side of tree.
+        深度 第一个 搜索 前序 遍历 到 追加 值 在
+        右 一侧 的 树。
         """
         if not root:
             return
@@ -69,7 +69,7 @@ def binary_tree_right_side_view(root: TreeNode) -> list[int]:
 
 def binary_tree_left_side_view(root: TreeNode) -> list[int]:
     r"""
-    Function returns the left side view of binary tree.
+    函数 返回值 左 一侧 视图 的 二叉树。
 
     3  ->    3
             / \
@@ -87,8 +87,8 @@ def binary_tree_left_side_view(root: TreeNode) -> list[int]:
         root: TreeNode | None, depth: int, left_view: list[int]
     ) -> None:
         """
-        A depth first search preorder traversal to append the values
-        at left side of tree.
+        深度 第一个 搜索 前序 遍历 到 追加 值
+        在 左 一侧 的 树。
         """
         if not root:
             return
@@ -109,7 +109,7 @@ def binary_tree_left_side_view(root: TreeNode) -> list[int]:
 
 def binary_tree_top_side_view(root: TreeNode) -> list[int]:
     r"""
-    Function returns the top side view of binary tree.
+    函数 返回值 顶部 一侧 视图 的 二叉树。
 
     9 3 20 7
     ⬇ ⬇ ⬇  ⬇
@@ -128,8 +128,8 @@ def binary_tree_top_side_view(root: TreeNode) -> list[int]:
 
     def breadth_first_search(root: TreeNode, top_view: list[int]) -> None:
         """
-        A breadth first search traversal with defaultdict ds to append
-        the values of tree from top view
+        breadth 第一个 搜索 遍历 带有 defaultdict ds 到 追加
+        值 的 树 从 顶部 视图
         """
         queue = [(root, 0)]
         lookup = defaultdict(list)
@@ -158,7 +158,7 @@ def binary_tree_top_side_view(root: TreeNode) -> list[int]:
 
 def binary_tree_bottom_side_view(root: TreeNode) -> list[int]:
     r"""
-    Function returns the bottom side view of binary tree
+    函数 返回值 底部 一侧 视图 的 二叉树
 
       3
      / \
@@ -177,8 +177,8 @@ def binary_tree_bottom_side_view(root: TreeNode) -> list[int]:
 
     def breadth_first_search(root: TreeNode, bottom_view: list[int]) -> None:
         """
-        A breadth first search traversal with defaultdict ds to append
-        the values of tree from bottom view
+        breadth 第一个 搜索 遍历 带有 defaultdict ds 到 追加
+        值 的 树 从 底部 视图
         """
         queue = [(root, 0)]
         lookup = defaultdict(list)

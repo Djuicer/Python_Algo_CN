@@ -7,12 +7,12 @@ from dataclasses import dataclass
 @dataclass
 class TreeNode:
     """
-    A binary tree node has a value, left child, and right child.
+    二叉树 节点 具有 一个值，左子节点，并且 右子节点。
 
     Props:
-        value: The value of the node.
-        left: The left child of the node.
-        right: The right child of the node.
+        值: 该值 的 该节点。
+        左: 左子节点 的 该节点。
+        右: 右子节点 的 该节点。
     """
 
     value: int = 0
@@ -25,10 +25,10 @@ class TreeNode:
 
     def __iter__(self) -> Iterator[TreeNode]:
         """
-        Iterate through the tree in preorder.
+        迭代 通过 该树 在 前序。
 
-        Returns:
-            An iterator of the tree nodes.
+        返回值：
+            迭代器 的树 节点。
 
         >>> list(TreeNode(1))
         [1,null,null]
@@ -41,10 +41,10 @@ class TreeNode:
 
     def __len__(self) -> int:
         """
-        Count the number of nodes in the tree.
+        Count 节点数量 在 该树。
 
-        Returns:
-            The number of nodes in the tree.
+        返回值：
+            节点数量 在 该树。
 
         >>> len(TreeNode(1))
         1
@@ -55,10 +55,10 @@ class TreeNode:
 
     def __repr__(self) -> str:
         """
-        Represent the tree as a string.
+        Represent 该树 作为 字符串。
 
-        Returns:
-            A string representation of the tree.
+        返回值：
+            字符串 表示 的 该树。
 
         >>> repr(TreeNode(1))
         '1,null,null'
@@ -85,13 +85,13 @@ class TreeNode:
 
 def deserialize(data: str) -> TreeNode | None:
     """
-    Deserialize a string to a binary tree.
+    Deserialize 字符串 到 二叉树。
 
-    Args:
-        data(str): The serialized string.
+    参数：
+        数据(str): serialized 字符串。
 
-    Returns:
-        The root of the binary tree.
+    返回值：
+        根节点 的 二叉树。
 
     >>> root = TreeNode.five_tree()
     >>> serialzed_data = repr(root)
@@ -116,19 +116,19 @@ def deserialize(data: str) -> TreeNode | None:
     if not data:
         raise ValueError("Data cannot be empty.")
 
-    # Split the serialized string by a comma to get node values
+    # 拆分 serialized 字符串 通过 comma 到 获取 节点 值
     nodes = data.split(",")
 
     def build_tree() -> TreeNode | None:
-        # Get the next value from the list
+        # 获取 下一个 值 从 该列表
         value = nodes.pop(0)
 
         if value == "null":
             return None
 
         node = TreeNode(int(value))
-        node.left = build_tree()  # Recursively build left subtree
-        node.right = build_tree()  # Recursively build right subtree
+        node.left = build_tree()  # 递归地 构建 左子树
+        node.right = build_tree()  # 递归地 构建 右子树
         return node
 
     return build_tree()

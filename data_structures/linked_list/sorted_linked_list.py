@@ -7,11 +7,11 @@ from dataclasses import dataclass
 @dataclass(order=True)
 class Node:
     """
-    A class representing a node in a linked list.
+    类 表示 一个节点 在 链表。
 
-    Attributes:
-        data: The data stored in the node.
-        next: A reference to the next node in the linked list.
+    属性：
+        数据: 数据 存储 在 该节点。
+        下一个: 引用 到 下一个节点 在 链表。
 
     >>> Node(1, Node(2, Node(3)))
     Node(data=1, next=Node(data=2, next=Node(data=3, next=None)))
@@ -22,11 +22,11 @@ class Node:
 
 
 class SortedLinkedList:
-    """This class  represents a sorted linked list."""
+    """此 类  表示 已排序 链表。"""
 
     def __init__(self) -> None:
         """
-        Create and initialize LinkedList class instance.
+        创建 并且 初始化 LinkedList 类 instance。
         >>> linked_list = SortedLinkedList()
         >>> linked_list.head is None
         True
@@ -35,7 +35,7 @@ class SortedLinkedList:
         self.tail: Node | None = None
 
     def __iter__(self) -> Iterator[int]:
-        """Iterate over the data of the nodes in the linked list.
+        """迭代 超过 数据 的 节点 在 链表。
 
         >>> linked_list = SortedLinkedList()
         >>> linked_list.insert(3)
@@ -50,7 +50,7 @@ class SortedLinkedList:
             current = current.next
 
     def __len__(self) -> int:
-        """Return the number of nodes in the linked list.
+        """返回以下对象的数量： 节点 在 链表。
 
         >>> linked_list = SortedLinkedList()
         >>> len(linked_list)
@@ -66,7 +66,7 @@ class SortedLinkedList:
         return len(tuple(self))
 
     def __contains__(self, data: int) -> bool:
-        """Check if a node with the given data exists in the linked list.
+        """检查是否 一个节点 带有 给定 数据 存在 在 链表。
 
         >>> linked_list = SortedLinkedList()
         >>> linked_list.insert(3)
@@ -78,12 +78,12 @@ class SortedLinkedList:
         return data in tuple(self)
 
     def insert(self, data: int) -> None:
-        """Inserts a node in its sorted position
-        This function can be rewritten for any data type, but
-        the comparator here must be changed
+        """插入一个 节点 在 其 已排序 位置
+        此函数 可以 为 rewritten 用于 任意 数据 类型，但是
+        comparator 此处 必须 为 changed
 
-        Args:
-            data (int): the data of the linked list
+        参数：
+            数据 (int): 数据 的 链表
 
         Doctests
         >>> linked_list = SortedLinkedList()
@@ -111,17 +111,17 @@ class SortedLinkedList:
                     self.tail = new_node
 
     def delete(self, data: int) -> bool:
-        """This Function deletes first appearance of node with
-        data from it's sorted position
+        """此函数 deletes 第一个 appearance 的 节点 带有
+        数据 从 它's 已排序 位置
 
-        This function can be re written for any data type but
-        the comparator her must have to be changed
+        此函数 可以 为 re written 用于 任意 数据 类型 但是
+        comparator her 必须 具有 到 为 changed
 
-        Args:
-            data (int): the data of the node that is needed to be deleted
+        参数：
+            数据 (int): 数据 的节点 该 是 需要 到 为 已删除
 
-        Returns:
-            bool: status whether the node got deleted or not
+        返回值：
+            bool: status 是否 该节点 got 已删除 或 不
 
         Doctests
 
@@ -158,14 +158,14 @@ class SortedLinkedList:
         return False
 
     def search(self, data: int) -> bool:
-        """This function searches the data given input from user
-        and return whether the data exists or not
+        """此函数 searches 数据 给定 输入 从 user
+        并且 返回 是否 数据 存在 或 不
 
-        Args:
-            data (int): Data to be searched
+        参数：
+            数据 (int): 数据 到 为 已搜索
 
-        Returns:
-            bool: flag indicating whether data exists or not
+        返回值：
+            bool: flag indicating 是否 数据 存在 或 不
 
         Doctests
         >>> linkedList=SortedLinkedList()
@@ -182,10 +182,10 @@ class SortedLinkedList:
         return data in self
 
     def is_empty(self) -> bool:
-        """This function will check whether the list is empty or not
+        """此函数 将 检查 是否 该列表 为空 或 不
 
-        Returns:
-            bool: flag indicating whether list is empty or not
+        返回值：
+            bool: flag indicating 是否 列表 为空 或 不
 
         Doctests
 
@@ -201,10 +201,10 @@ class SortedLinkedList:
         return not self
 
     def min_value(self) -> int | None:
-        """This function will return minimum value
+        """此函数 将 返回 最小值 值
 
-        Returns:
-            int | None: min value or None if list is empty
+        返回值：
+            int | None: 最小值 值 或 None 如果 列表 为空
 
         Doctests
 
@@ -220,11 +220,11 @@ class SortedLinkedList:
         return min(self) if self.head else None
 
     def max_value(self) -> int | None:
-        """This function  will return maximum value
+        """此函数  将 返回 最大值 值
 
 
-        Returns:
-            int | None: max value or None if list is empty
+        返回值：
+            int | None: 最大值 值 或 None 如果 列表 为空
 
         Doctests
 
@@ -241,7 +241,7 @@ class SortedLinkedList:
 
     def remove_duplicates(self) -> None:
         """
-        This Function will remove the duplicates from the list
+        此函数 将 移除 重复项 从 该列表
 
         Doctests
 
@@ -265,10 +265,10 @@ class SortedLinkedList:
                 temp = temp.next
 
     def merge(self, other_list: SortedLinkedList) -> None:
-        """This Function will merge the input list with current list
+        """此函数 将 合并 输入 列表 带有 当前 列表
 
-        Args:
-            other_list (SortedLinkedList): The list to be merged
+        参数：
+            other_list (SortedLinkedList): 该列表 到 为 合并后
 
         Doctests
 

@@ -1,13 +1,13 @@
 """
-Set Matrix Zeroes Algorithm
+集合 矩阵 Zeroes 算法
 ---------------------------
-If an element in an m x n matrix is 0, set its entire row and column to 0.
+如果 元素 在 m x n 矩阵 是 0，集合 其 整个 row 并且 column 到 0。
 
 Explanation:
-We use the first row and first column as markers to track which rows and
-columns should be zeroed, avoiding extra space usage (O(1) space complexity).
+我们 使用 第一个 row 并且 第一个 column 作为 markers 到 track 其 rows 并且
+columns 应 为 zeroed，avoiding extra 空间 usage (O(1) 空间复杂度)。
 
-References:
+引用：
 https://leetcode.com/problems/set-matrix-zeroes/
 
 Doctest:
@@ -28,20 +28,20 @@ Doctest:
 
 def set_matrix_zeroes(matrix: list[list[int]]) -> None:
     """
-    Modify the matrix in-place such that if an element is 0,
-    its entire row and column are set to 0.
+    Modify 矩阵 在-位置 such 该 如果 元素 是 0,
+    其 整个 row 并且 column 是 集合 到 0。
 
-    :param matrix: 2D list of integers
-    :return: None (modifies matrix in-place)
+    :param 矩阵: 2D 列表 的 整数
+    :返回: None (modifies 矩阵 在-位置)
 
-    Time Complexity: O(m * n)
-    Space Complexity: O(1)
+    时间复杂度: O(m * n)
+    空间复杂度: O(1)
     """
     rows = len(matrix)
     cols = len(matrix[0])
     col0 = 1
 
-    # Step 1: Mark rows and columns that need to be zeroed
+    # 步骤 1: Mark rows 并且 columns 该 need 到 为 zeroed
     for i in range(rows):
         if matrix[i][0] == 0:
             col0 = 0
@@ -50,18 +50,18 @@ def set_matrix_zeroes(matrix: list[list[int]]) -> None:
                 matrix[i][0] = 0
                 matrix[0][j] = 0
 
-    # Step 2: Update the inner matrix cells
+    # 步骤 2: 更新 inner 矩阵 cells
     for i in range(1, rows):
         for j in range(1, cols):
             if matrix[i][0] == 0 or matrix[0][j] == 0:
                 matrix[i][j] = 0
 
-    # Step 3: Handle the first row
+    # 步骤 3: Handle 第一个 row
     if matrix[0][0] == 0:
         for j in range(cols):
             matrix[0][j] = 0
 
-    # Step 4: Handle the first column
+    # 步骤 4: Handle 第一个 column
     if col0 == 0:
         for i in range(rows):
             matrix[i][0] = 0

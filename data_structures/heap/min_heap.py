@@ -1,5 +1,5 @@
-# Min heap data structure
-# with decrease key functionality - in O(log(n)) time
+# 最小值 堆 数据 结构
+# 带有 decrease 键 functionality - 在 O(log(n)) 时间
 
 
 class Node:
@@ -63,7 +63,7 @@ class MinHeap:
             self.sift_down(i, array)
         return array
 
-    # this is min-heapify method
+    # 此 是 最小值-heapify 方法
     def sift_down(self, idx, array) -> None:
         while True:
             left = self.get_left_child_idx(idx)
@@ -132,7 +132,7 @@ class MinHeap:
         self.sift_up(self.idx_of_element[node])
 
 
-# USAGE
+# 用法
 
 r = Node("R", -1)
 b = Node("B", 6)
@@ -140,19 +140,19 @@ a = Node("A", 3)
 x = Node("X", 1)
 e = Node("E", 4)
 
-# Use one of these two ways to generate Min-Heap
+# 使用 一个 的 这些 两个 ways 到 生成 最小值-堆
 
-# Generating Min-Heap from array
+# Generating 最小值-堆 从 数组
 my_min_heap = MinHeap([r, b, a, x, e])
 
-# Generating Min-Heap by Insert method
-# myMinHeap.insert(a)
-# myMinHeap.insert(b)
-# myMinHeap.insert(x)
-# myMinHeap.insert(r)
-# myMinHeap.insert(e)
+# Generating 最小值-堆 通过 插入 方法
+# myMinHeap.插入()
+# myMinHeap.插入(b)
+# myMinHeap.插入(x)
+# myMinHeap.插入(r)
+# myMinHeap.插入(e)
 
-# Before
+# 之前
 print("Min Heap - before decrease key")
 for i in my_min_heap.heap:
     print(i)
@@ -160,7 +160,7 @@ for i in my_min_heap.heap:
 print("Min Heap - After decrease key of node [B -> -17]")
 my_min_heap.decrease_key(b, -17)
 
-# After
+# 之后
 for i in my_min_heap.heap:
     print(i)
 

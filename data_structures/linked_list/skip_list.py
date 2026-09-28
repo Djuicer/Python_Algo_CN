@@ -133,28 +133,28 @@ class SkipList[KT, VT]:
                  given node.
         """
 
-        # Nodes with refer or should refer to output node
+        # 节点 带有 refer 或 应 refer 到 输出 节点
         update_vector = []
 
         node = self.head
 
         for i in reversed(range(self.level)):
-            # i < node.level - When node level is lesser than `i` decrement `i`.
-            # node.forward[i].key < key - Jumping to node with key value higher
-            #                             or equal to searched key would result
-            #                             in skipping searched key.
+            # i < 节点.层级 - 当 节点 层级 是 lesser 比 `i` decrement `i`。
+            # 节点.向前[i].键 < 键 - Jumping 到 节点 带有 键 值 higher
+            #                             或 等于 到 已搜索 键 would 结果
+            #                             在 skipping 已搜索 键。
             while i < node.level and node.forward[i].key < key:
                 node = node.forward[i]
-            # Each leftmost node (relative to searched node) will potentially have to
-            # be updated.
+            # 每个 leftmost 节点 (relative 到 已搜索 节点) 将 potentially 具有 到
+            # 为 updated。
             update_vector.append(node)
 
-        update_vector.reverse()  # Note that we were inserting values in reverse order.
+        update_vector.reverse()  # Note 该 我们 were inserting 值 在 反转 顺序。
 
-        # len(node.forward) != 0 - If current node doesn't contain any further
-        #                          references then searched key is not present.
-        # node.forward[0].key == key - Next node key should be equal to search key
-        #                              if key is present.
+        # len(节点.向前) != 0 - 如果 当前节点 doesn't 包含 任意 further
+        #                          引用 则 已搜索 键 是 不 存在。
+        # 节点.向前[0].键 == 键 - 下一个节点 键 应 为 等于 到 搜索 键
+        #                              如果 键 是 存在。
         if len(node.forward) != 0 and node.forward[0].key == key:
             return node.forward[0], update_vector
         else:
@@ -179,7 +179,7 @@ class SkipList[KT, VT]:
 
         if node is not None:
             for i, update_node in enumerate(update_vector):
-                # Remove or replace all references to removed node.
+                # 移除 或 replace 所有 引用 到 removed 节点。
                 if update_node.level > i and update_node.forward[i].key == key:
                     if node.level > i:
                         update_node.forward[i] = node.forward[i]
@@ -206,7 +206,7 @@ class SkipList[KT, VT]:
             level = self.random_level()
 
             if level > self.level:
-                # After level increase we have to add additional nodes to head.
+                # 之后 层级 increase 我们 具有 到 添加 additional 节点 到 头节点。
                 for _ in range(self.level - 1, level):
                     update_vector.append(self.head)
                 self.level = level
@@ -214,7 +214,7 @@ class SkipList[KT, VT]:
             new_node = Node(key, value)
 
             for i, update_node in enumerate(update_vector[:level]):
-                # Change references to pass through new node.
+                # 更改 引用 到 pass 通过 新节点。
                 if update_node.level > i:
                     new_node.forward.append(update_node.forward[i])
 
@@ -407,8 +407,8 @@ def test_iter_always_yields_sorted_values() -> None:
 
 def pytests() -> None:
     for _ in range(100):
-        # Repeat test 100 times due to the probabilistic nature of skip list
-        # random values == random bugs
+        # Repeat 测试 100 times due 到 probabilistic nature 的 skip 列表
+        # 随机 值 == 随机 bugs
         test_insert()
         test_insert_overrides_existing_value()
 

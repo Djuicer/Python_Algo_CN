@@ -1,13 +1,13 @@
-# Implementation of Circular Queue (using Python lists)
+# 实现 的 Circular 队列 (使用 Python 列表)
 
 
 class CircularQueue:
-    """Circular FIFO queue with a fixed capacity"""
+    """Circular FIFO 队列 带有 fixed 容量"""
 
     def __init__(self, n: int) -> None:
         self.n = n
         self.array = [None] * self.n
-        self.front = 0  # index of the first element
+        self.front = 0  # 索引 的 第一个元素
         self.rear = 0
         self.size = 0
 
@@ -27,7 +27,7 @@ class CircularQueue:
 
     def is_empty(self) -> bool:
         """
-        Checks whether the queue is empty or not
+        Checks 是否 该队列 为空 或 不
         >>> cq = CircularQueue(5)
         >>> cq.is_empty()
         True
@@ -38,7 +38,7 @@ class CircularQueue:
 
     def first(self):
         """
-        Returns the first element of the queue
+        返回值 第一个元素 的 该队列
         >>> cq = CircularQueue(5)
         >>> cq.first()
         False
@@ -49,8 +49,8 @@ class CircularQueue:
 
     def enqueue(self, data) -> "CircularQueue":
         """
-        This function inserts an element at the end of the queue using self.rear value
-        as an index.
+        此函数 inserts 元素 在 末尾 的队列 使用 self.rear 值
+        作为 一个索引。
 
         >>> cq = CircularQueue(5)
         >>> cq.enqueue("A")  # doctest: +ELLIPSIS
@@ -80,8 +80,8 @@ class CircularQueue:
 
     def dequeue(self):
         """
-        This function removes an element from the queue using on self.front value as an
-        index and returns it
+        此函数 removes 元素 从 该队列 使用 在 self.前端 值 作为
+        索引 并且 返回值 它
 
         >>> cq = CircularQueue(5)
         >>> cq.dequeue()

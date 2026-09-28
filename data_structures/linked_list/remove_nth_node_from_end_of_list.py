@@ -20,7 +20,7 @@ class LinkedList:
     def __init__(self) -> None:
         self.head: Node | None = None
 
-    # pulled from middle_element_of_linked_list
+    # pulled 从 middle_element_of_linked_list
     def append(self, new_data: int) -> int:
         """
         >>> link = LinkedList()
@@ -89,8 +89,8 @@ class LinkedList:
         Node()
         >>>
         """
-        # want to have two pointers, one at the start and the other k nodes forward
-        # We could complete this in one pass if we stored a self.size variable
+        # want 到 具有 两个 指针，一个 在 开始 并且 另一个 k 节点 向前
+        # 我们 could complete 此 在 一个 pass 如果 我们 存储 self.大小 变量
         if not self.head:
             raise IndexError("No element found.")
 
@@ -109,8 +109,8 @@ class LinkedList:
             if first:
                 first = first.next
 
-        # This condition checks if position_from_end is equal to the size of the list.
-        # If it is, then we simply delete the head node of the list.
+        # 此 condition 检查是否 position_from_end 是 等于 到 大小 的列表。
+        # 如果 它 是，则 我们 simply 删除 头节点 节点 的列表。
         if not first:
             self.head = self.head.next if self.head else None
             return self.head

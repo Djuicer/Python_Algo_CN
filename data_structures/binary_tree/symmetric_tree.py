@@ -1,5 +1,5 @@
 """
-Given the root of a binary tree, check whether it is a mirror of itself
+给定 根节点 的 二叉树，检查 是否 它 是 镜像 的 自身
 (i.e., symmetric around its center).
 
 Leetcode reference: https://leetcode.com/problems/symmetric-tree/
@@ -13,14 +13,14 @@ from dataclasses import dataclass
 @dataclass
 class Node:
     """
-    A Node represents an element of a binary tree, which contains:
+    一个节点 表示 元素 的 二叉树，其 包含：
 
-    Attributes:
-    data: The value stored in the node (int).
-    left: Pointer to the left child node (Node or None).
-    right: Pointer to the right child node (Node or None).
+    属性：
+    数据: 该值 存储 在 该节点 (int)。
+    左: 指针 到 左 子节点 (节点 或 None)。
+    右: 指针 到 右子节点 节点 (节点 或 None)。
 
-    Example:
+    示例：
     >>> node = Node(1, Node(2), Node(3))
     >>> node.data
     1
@@ -37,19 +37,19 @@ class Node:
 
 def make_symmetric_tree() -> Node:
     r"""
-    Create a symmetric tree for testing.
+    创建一个 对称 树 用于 testing。
 
-    The tree looks like this:
+    该树 看起来 类似 此：
            1
          /   \
         2     2
       / \    / \
      3   4   4  3
 
-    Returns:
-    Node: Root node of a symmetric tree.
+    返回值：
+    节点: 根节点 的 对称 树。
 
-    Example:
+    示例：
     >>> tree = make_symmetric_tree()
     >>> tree.data
     1
@@ -70,19 +70,19 @@ def make_symmetric_tree() -> Node:
 
 def make_asymmetric_tree() -> Node:
     r"""
-    Create an asymmetric tree for testing.
+    创建一个 asymmetric 树 用于 testing。
 
-    The tree looks like this:
+    该树 看起来 类似 此：
            1
          /   \
         2     2
       / \    / \
      3   4   3  4
 
-    Returns:
-    Node: Root node of an asymmetric tree.
+    返回值：
+    节点: 根节点 的 asymmetric 树。
 
-    Example:
+    示例：
     >>> tree = make_asymmetric_tree()
     >>> tree.data
     1
@@ -103,15 +103,15 @@ def make_asymmetric_tree() -> Node:
 
 def is_symmetric_tree(tree: Node) -> bool:
     """
-    Check if a binary tree is symmetric (i.e., a mirror of itself).
+    检查是否 二叉树 是 对称 (i.e.，镜像 的 自身)。
 
-    Parameters:
-    tree: The root node of the binary tree.
+    参数：
+    树: 根节点 的 二叉树。
 
-    Returns:
-    bool: True if the tree is symmetric, False otherwise.
+    返回值：
+    bool: True 如果 该树 是 对称，False 否则。
 
-    Example:
+    示例：
     >>> is_symmetric_tree(make_symmetric_tree())
     True
     >>> is_symmetric_tree(make_asymmetric_tree())
@@ -119,21 +119,21 @@ def is_symmetric_tree(tree: Node) -> bool:
     """
     if tree:
         return is_mirror(tree.left, tree.right)
-    return True  # An empty tree is considered symmetric.
+    return True  # 空树 是 considered 对称。
 
 
 def is_mirror(left: Node | None, right: Node | None) -> bool:
     """
-    Check if two subtrees are mirror images of each other.
+    检查是否 两个 子树 是 镜像 images 的 每个 另一个。
 
-    Parameters:
-    left: The root node of the left subtree.
-    right: The root node of the right subtree.
+    参数：
+    左: 根节点 的 左子树。
+    右: 根节点 的 右子树。
 
-    Returns:
-    bool: True if the two subtrees are mirrors of each other, False otherwise.
+    返回值：
+    bool: True 如果 两个 子树 是 mirrors 的 每个 另一个，False 否则。
 
-    Example:
+    示例：
     >>> tree1 = make_symmetric_tree()
     >>> is_mirror(tree1.left, tree1.right)
     True
@@ -142,13 +142,13 @@ def is_mirror(left: Node | None, right: Node | None) -> bool:
     False
     """
     if left is None and right is None:
-        # Both sides are empty, which is symmetric.
+        # 两者 sides 是 空，其 是 对称。
         return True
     if left is None or right is None:
-        # One side is empty while the other is not, which is not symmetric.
+        # 一个 一侧 为空 当 另一个 是 不，其 是 不 对称。
         return False
     if left.data == right.data:
-        # The values match, so check the subtrees recursively.
+        # 值 match，因此 检查 子树 递归地。
         return is_mirror(left.left, right.right) and is_mirror(left.right, right.left)
     return False
 

@@ -1,6 +1,6 @@
 """
-Is a binary tree a sum tree where the value of every non-leaf node is equal to the sum
-of the values of its left and right subtrees?
+是 二叉树 和 树 其中 该值 的 每个 非-叶节点 是 等于 到 和
+的 值 的 其 左 并且 右 子树?
 https://www.geeksforgeeks.org/check-if-a-given-binary-tree-is-sumtree
 """
 
@@ -56,7 +56,7 @@ class Node:
         True
         """
         if not self.left and not self.right:
-            return True  # leaf nodes are considered sum nodes
+            return True  # 叶节点 节点 是 considered 和 节点
         left_sum = sum(self.left) if self.left else 0
         right_sum = sum(self.right) if self.right else 0
         return all(
@@ -88,7 +88,7 @@ class BinaryTree:
 
     def __str__(self) -> str:
         """
-        Returns a string representation of the inorder traversal of the binary tree.
+        返回以下对象的字符串表示： 中序 遍历 的 二叉树。
 
         >>> str(list(BinaryTree.build_a_tree()))
         '[1, 2, 7, 11, 15, 29, 35, 40]'
@@ -108,7 +108,7 @@ class BinaryTree:
     @classmethod
     def build_a_tree(cls) -> BinaryTree:
         r"""
-        Create a binary tree with the specified structure:
+        创建一个 二叉树 带有 指定 结构：
               11
            /     \
           2       29
@@ -133,7 +133,7 @@ class BinaryTree:
     @classmethod
     def build_a_sum_tree(cls) -> BinaryTree:
         r"""
-        Create a binary tree with the specified structure:
+        创建一个 二叉树 带有 指定 结构：
              26
             /  \
           10    3

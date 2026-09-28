@@ -1,7 +1,7 @@
 r"""
-A binary search Tree
+二叉搜索树
 
-Example
+示例
               8
              / \
             3   10
@@ -34,7 +34,7 @@ Traceback (most recent call last):
     ...
 IndexError: Warning: Tree is empty! please use another.
 
-Other example:
+另一个 示例：
 
 >>> testlist = (8, 3, 6, 1, 10, 14, 13, 4, 7)
 >>> t = BinarySearchTree()
@@ -50,11 +50,11 @@ BinarySearchTree(root={'8': ({'3': (1, 6)}, {'10': (None, {'14': (13, None)})})}
 BinarySearchTree(root={'8': ({'3': (1, {'6': (4, None)})}, {'10': (None, {'14': ...
 BinarySearchTree(root={'8': ({'3': (1, {'6': (4, 7)})}, {'10': (None, {'14': (13, ...
 
-Prints all the elements of the list in order traversal
+打印 所有 元素 的列表 在 顺序 遍历
 >>> print(t)
 {'8': ({'3': (1, {'6': (4, 7)})}, {'10': (None, {'14': (13, None)})})}
 
-Test existence
+测试 existence
 >>> t.search(6) is not None
 True
 >>> 6 in t
@@ -101,7 +101,7 @@ class Node:
     value: int
     left: Node | None = None
     right: Node | None = None
-    parent: Node | None = None  # Added in order to delete a node easier
+    parent: Node | None = None  # Added 在 顺序 到 删除一个 节点 easier
 
     def __iter__(self) -> Iterator[int]:
         """
@@ -138,15 +138,15 @@ class BinarySearchTree:
 
     def __str__(self) -> str:
         """
-        Return a string of all the Nodes using in order traversal
+        返回 字符串 的 所有 节点 使用 在 顺序 遍历
         """
         return str(self.root)
 
     def __reassign_nodes(self, node: Node, new_children: Node | None) -> None:
-        if new_children is not None:  # reset its kids
+        if new_children is not None:  # reset 其 kids
             new_children.parent = node.parent
-        if node.parent is not None:  # reset its parent
-            if node.is_right:  # If it is the right child
+        if node.parent is not None:  # reset 其 父节点
+            if node.is_right:  # 如果 它 是 右子节点
                 node.parent.right = new_children
             else:
                 node.parent.left = new_children
@@ -155,8 +155,8 @@ class BinarySearchTree:
 
     def empty(self) -> bool:
         """
-        Returns True if the tree does not have any element(s).
-        False if the tree has element(s).
+        若满足以下条件则返回 True： 该树 does 不 具有 任意 元素(s)。
+        False 如果 该树 具有 元素(s)。
 
         >>> BinarySearchTree().empty()
         True
@@ -169,19 +169,19 @@ class BinarySearchTree:
 
     def __insert(self, value) -> None:
         """
-        Insert a new node in Binary Search Tree with value label
+        插入一个 新节点 在 二叉搜索树 带有 值 标签
         """
-        new_node = Node(value)  # create a new Node
-        if self.empty():  # if Tree is empty
-            self.root = new_node  # set its root
-        else:  # Tree is not empty
-            parent_node = self.root  # from root
+        new_node = Node(value)  # 创建一个 新节点
+        if self.empty():  # 如果 树 为空
+            self.root = new_node  # 集合 其 根节点
+        else:  # 树 非空
+            parent_node = self.root  # 从 根节点
             if parent_node is None:
                 return
-            while True:  # While we don't get to a leaf
-                if value < parent_node.value:  # We go left
+            while True:  # 当 我们 don't 获取 到 叶节点
+                if value < parent_node.value:  # 我们 前进 左
                     if parent_node.left is None:
-                        parent_node.left = new_node  # We insert the new node in a leaf
+                        parent_node.left = new_node  # 我们 插入 新节点 在 叶节点
                         break
                     parent_node = parent_node.left
                 elif parent_node.right is None:
@@ -224,14 +224,14 @@ class BinarySearchTree:
         if self.empty():
             raise IndexError("Warning: Tree is empty! please use another.")
         node = self.root
-        # use lazy evaluation here to avoid NoneType Attribute error
+        # 使用 lazy evaluation 此处 到 avoid NoneType Attribute error
         while node is not None and node.value is not value:
             node = node.left if value < node.value else node.right
         return node
 
     def get_max(self, node: Node | None = None) -> Node | None:
         """
-        We go deep on the right branch
+        我们 前进 deep 在 右 branch
 
         >>> BinarySearchTree().insert(10, 20, 30, 40, 50).get_max()
         50
@@ -254,7 +254,7 @@ class BinarySearchTree:
 
     def get_min(self, node: Node | None = None) -> Node | None:
         """
-        We go deep on the left branch
+        我们 前进 deep 在 左 branch
 
         >>> BinarySearchTree().insert(10, 20, 30, 40, 50).get_min()
         {'10': (None, {'20': (None, {'30': (None, {'40': (None, 50)})})})}
@@ -276,37 +276,37 @@ class BinarySearchTree:
         return node
 
     def remove(self, value: int) -> None:
-        # Look for the node with that label
+        # Look 用于 该节点 带有 该 标签
         node = self.search(value)
         if node is None:
             msg = f"Value {value} not found"
             raise ValueError(msg)
 
-        if node.left is None and node.right is None:  # If it has no children
+        if node.left is None and node.right is None:  # 如果 它 具有 没有 子节点
             self.__reassign_nodes(node, None)
-        elif node.left is None:  # Has only right children
+        elif node.left is None:  # 具有 仅 右 子节点
             self.__reassign_nodes(node, node.right)
-        elif node.right is None:  # Has only left children
+        elif node.right is None:  # 具有 仅 左 子节点
             self.__reassign_nodes(node, node.left)
         else:
             predecessor = self.get_max(
                 node.left
-            )  # Gets the max value of the left branch
+            )  # 获取 最大值 值 的 左 branch
             self.remove(predecessor.value)  # type: ignore[union-attr]
             node.value = (
                 predecessor.value  # type: ignore[union-attr]
-            )  # Assigns the value to the node to delete and keep tree structure
+            )  # Assigns 该值 到 该节点 到 删除 并且 保持 树 结构
 
     def preorder_traverse(self, node: Node | None) -> Iterable:
         if node is not None:
-            yield node  # Preorder Traversal
+            yield node  # 前序 遍历
             yield from self.preorder_traverse(node.left)
             yield from self.preorder_traverse(node.right)
 
     def traversal_tree(self, traversal_function=None) -> Any:
         """
-        This function traversal the tree.
-        You can pass a function to traversal the tree as needed by client code
+        此函数 遍历 该树。
+        You 可以 pass 函数 到 遍历 该树 作为 需要 通过 client 代码
         """
         if traversal_function is None:
             return self.preorder_traverse(self.root)
@@ -314,23 +314,23 @@ class BinarySearchTree:
             return traversal_function(self.root)
 
     def inorder(self, arr: list, node: Node | None) -> None:
-        """Perform an inorder traversal and append values of the nodes to
-        a list named arr"""
+        """执行 中序 遍历 并且 追加 值 的 节点 到
+        一个列表 named arr"""
         if node:
             self.inorder(arr, node.left)
             arr.append(node.value)
             self.inorder(arr, node.right)
 
     def find_kth_smallest(self, k: int, node: Node) -> int:
-        """Return the kth smallest element in a binary search tree"""
+        """返回 kth 最小 元素 在 二叉搜索树"""
         arr: list[int] = []
-        self.inorder(arr, node)  # append all values to list using inorder traversal
+        self.inorder(arr, node)  # 追加 所有 值 到 列表 使用 中序 遍历
         return arr[k - 1]
 
 
 def inorder(curr_node: Node | None) -> list[Node]:
     """
-    inorder (left, self, right)
+    中序 (左，self，右)
     """
     node_list = []
     if curr_node is not None:
@@ -340,7 +340,7 @@ def inorder(curr_node: Node | None) -> list[Node]:
 
 def postorder(curr_node: Node | None) -> list[Node]:
     """
-    postOrder (left, right, self)
+    postOrder (左，右，self)
     """
     node_list = []
     if curr_node is not None:

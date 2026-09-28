@@ -1,10 +1,10 @@
 """
-This is a python3 implementation of binary search tree using recursion
+此 是 python3 实现 的 二叉搜索树 使用 recursion
 
-To run tests:
+到 运行 测试：
 python -m unittest binary_search_tree_recursive.py
 
-To run an example:
+到 运行 示例：
 python binary_search_tree_recursive.py
 """
 
@@ -30,7 +30,7 @@ class BinarySearchTree:
 
     def empty(self) -> None:
         """
-        Empties the tree
+        Empties 该树
 
         >>> t = BinarySearchTree()
         >>> assert t.root is None
@@ -41,7 +41,7 @@ class BinarySearchTree:
 
     def is_empty(self) -> bool:
         """
-        Checks if the tree is empty
+        检查是否 该树 为空
 
         >>> t = BinarySearchTree()
         >>> t.is_empty()
@@ -54,7 +54,7 @@ class BinarySearchTree:
 
     def put(self, label: int) -> None:
         """
-        Put a new node in the tree
+        Put 新节点 在 该树
 
         >>> t = BinarySearchTree()
         >>> t.put(8)
@@ -86,7 +86,7 @@ class BinarySearchTree:
 
     def search(self, label: int) -> Node:
         """
-        Searches a node in the tree
+        Searches 一个节点 在 该树
 
         >>> t = BinarySearchTree()
         >>> t.put(8)
@@ -114,7 +114,7 @@ class BinarySearchTree:
 
     def remove(self, label: int) -> None:
         """
-        Removes a node in the tree
+        Removes 一个节点 在 该树
 
         >>> t = BinarySearchTree()
         >>> t.put(8)
@@ -166,7 +166,7 @@ class BinarySearchTree:
 
     def exists(self, label: int) -> bool:
         """
-        Checks if a node exists in the tree
+        检查是否 一个节点 存在 在 该树
 
         >>> t = BinarySearchTree()
         >>> t.put(8)
@@ -185,7 +185,7 @@ class BinarySearchTree:
 
     def get_max_label(self) -> int:
         """
-        Gets the max label inserted in the tree
+        获取 最大值 标签 已插入 在 该树
 
         >>> t = BinarySearchTree()
         >>> t.get_max_label()
@@ -209,7 +209,7 @@ class BinarySearchTree:
 
     def get_min_label(self) -> int:
         """
-        Gets the min label inserted in the tree
+        获取 最小值 标签 已插入 在 该树
 
         >>> t = BinarySearchTree()
         >>> t.get_min_label()
@@ -233,7 +233,7 @@ class BinarySearchTree:
 
     def inorder_traversal(self) -> Iterator[Node]:
         """
-        Return the inorder traversal of the tree
+        返回 中序 遍历 的树
 
         >>> t = BinarySearchTree()
         >>> [i.label for i in t.inorder_traversal()]
@@ -255,7 +255,7 @@ class BinarySearchTree:
 
     def preorder_traversal(self) -> Iterator[Node]:
         """
-        Return the preorder traversal of the tree
+        返回 前序 遍历 的树
 
         >>> t = BinarySearchTree()
         >>> [i.label for i in t.preorder_traversal()]
@@ -545,7 +545,7 @@ class BinarySearchTreeTest(unittest.TestCase):
 
 def binary_search_tree_example() -> None:
     r"""
-    Example
+    示例
                   8
                  / \
                 3   10
@@ -556,7 +556,7 @@ def binary_search_tree_example() -> None:
                 \
                 5
 
-    Example After Deletion
+    示例 之后 删除
                   4
                  / \
                 1   7
@@ -596,18 +596,18 @@ def binary_search_tree_example() -> None:
     print("Label -1 exists:", t.exists(-1))
     print("Label 12 exists:", t.exists(12))
 
-    # Prints all the elements of the list in inorder traversal
+    # 打印 所有 元素 的列表 在 中序 遍历
     inorder_traversal_nodes = [i.label for i in t.inorder_traversal()]
     print("Inorder traversal:", inorder_traversal_nodes)
 
-    # Prints all the elements of the list in preorder traversal
+    # 打印 所有 元素 的列表 在 前序 遍历
     preorder_traversal_nodes = [i.label for i in t.preorder_traversal()]
     print("Preorder traversal:", preorder_traversal_nodes)
 
     print("Max. label:", t.get_max_label())
     print("Min. label:", t.get_min_label())
 
-    # Delete elements
+    # 删除 元素
     print("\nDeleting elements 13, 10, 8, 3, 6, 14")
     print(
         """
@@ -625,11 +625,11 @@ def binary_search_tree_example() -> None:
     t.remove(6)
     t.remove(14)
 
-    # Prints all the elements of the list in inorder traversal after delete
+    # 打印 所有 元素 的列表 在 中序 遍历 之后 删除
     inorder_traversal_nodes = [i.label for i in t.inorder_traversal()]
     print("Inorder traversal after delete:", inorder_traversal_nodes)
 
-    # Prints all the elements of the list in preorder traversal after delete
+    # 打印 所有 元素 的列表 在 前序 遍历 之后 删除
     preorder_traversal_nodes = [i.label for i in t.preorder_traversal()]
     print("Preorder traversal after delete:", preorder_traversal_nodes)
 

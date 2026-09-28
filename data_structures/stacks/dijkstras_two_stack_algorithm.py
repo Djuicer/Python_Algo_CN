@@ -3,31 +3,31 @@ Author: Alexander Joslin
 GitHub: github.com/echoaj
 
 Explanation:  https://medium.com/@haleesammar/implemented-in-js-dijkstras-2-stack-
-              algorithm-for-evaluating-mathematical-expressions-fc0837dae1ea
+              算法-用于-evaluating-mathematical-expressions-fc0837dae1ea
 
-We can use Dijkstra's two stack algorithm to solve an equation
-such as: (5 + ((4 * 2) * (2 + 3)))
+我们 可以 使用 Dijkstra's 两个 栈 算法 到 solve equation
+such 作为: (5 + ((4 * 2) * (2 + 3)))
 
-THESE ARE THE ALGORITHM'S RULES:
-RULE 1: Scan the expression from left to right. When an operand is encountered,
-        push it onto the operand stack.
+这些 是 算法'S RULES：
+RULE 1: Scan 表达式 从左到右. 当 操作数 是 遇到,
+        压入 它 到 操作数 栈。
 
-RULE 2: When an operator is encountered in the expression,
-        push it onto the operator stack.
+RULE 2: 当 运算符 是 遇到 在 表达式,
+        压入 它 到 运算符 栈。
 
-RULE 3: When a left parenthesis is encountered in the expression, ignore it.
+RULE 3: 当 左 parenthesis 是 遇到 在 表达式，ignore 它。
 
-RULE 4: When a right parenthesis is encountered in the expression,
-        pop an operator off the operator stack.  The two operands it must
-        operate on must be the last two operands pushed onto the operand stack.
-        We therefore pop the operand stack twice, perform the operation,
-        and push the result back onto the operand stack so it will be available
-        for use as an operand of the next operator popped off the operator stack.
+RULE 4: 当 右 parenthesis 是 遇到 在 表达式,
+        弹出 运算符 off 运算符 栈.  两个 operands 它 必须
+        operate 在 必须 为 最后一个 两个 operands pushed 到 操作数 栈。
+        我们 therefore 弹出 操作数 栈 twice，执行 操作,
+        并且 压入 结果 后端 到 操作数 栈 因此 它 将 为 可用
+        用于 使用 作为 操作数 的 下一个 运算符 popped off 运算符 栈。
 
-RULE 5: When the entire infix expression has been scanned, the value left on
-        the operand stack represents the value of the expression.
+RULE 5: 当 整个 infix 表达式 具有 been scanned，该值 左 在
+        操作数 栈 表示 该值 的 表达式。
 
-NOTE:   It only works with whole numbers.
+NOTE:   它 仅 works 带有 whole 数。
 """
 
 __author__ = "Alexander Joslin"
@@ -47,8 +47,8 @@ def dijkstras_two_stack_algorithm(equation: str) -> int:
     >>> dijkstras_two_stack_algorithm("((((3 - 2) - (2 + 3)) + (2 - 4)) + 3)")
     -3
 
-    :param equation: a string
-    :return: result: an integer
+    :param equation: 字符串
+    :返回: 结果: 整数
     """
     operators = {"*": op.mul, "/": op.truediv, "+": op.add, "-": op.sub}
 
@@ -57,13 +57,13 @@ def dijkstras_two_stack_algorithm(equation: str) -> int:
 
     for i in equation:
         if i.isdigit():
-            # RULE 1
+            # 规则 1
             operand_stack.push(int(i))
         elif i in operators:
-            # RULE 2
+            # 规则 2
             operator_stack.push(i)
         elif i == ")":
-            # RULE 4
+            # 规则 4
             opr = operator_stack.peek()
             operator_stack.pop()
             num1 = operand_stack.peek()
@@ -74,7 +74,7 @@ def dijkstras_two_stack_algorithm(equation: str) -> int:
             total = operators[opr](num2, num1)
             operand_stack.push(total)
 
-    # RULE 5
+    # 规则 5
     return operand_stack.peek()
 
 

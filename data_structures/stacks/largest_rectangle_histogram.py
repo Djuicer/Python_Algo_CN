@@ -1,7 +1,7 @@
 def largest_rectangle_area(heights: list[int]) -> int:
     """
-    Inputs an array of integers representing the heights of bars,
-    and returns the area of the largest rectangle that can be formed
+    Inputs 一个数组 的 整数 表示 heights 的 bars,
+    并且 返回值 area 的 最大 rectangle 该 可以 为 formed
 
     >>> largest_rectangle_area([2, 1, 5, 6, 2, 3])
     10
@@ -17,15 +17,15 @@ def largest_rectangle_area(heights: list[int]) -> int:
     """
     stack: list[int] = []
     max_area = 0
-    heights = [*heights, 0]  # make a new list by appending the sentinel 0
+    heights = [*heights, 0]  # 使 新 列表 通过 appending sentinel 0
     n = len(heights)
 
     for i in range(n):
-        # make sure the stack remains in increasing order
+        # 使 确保 该栈 remains 在 increasing 顺序
         while stack and heights[i] < heights[stack[-1]]:
-            h = heights[stack.pop()]  # height of the bar
-            # if stack is empty, it means entire width can be taken from index 0 to i-1
-            w = i if not stack else i - stack[-1] - 1  # calculate width
+            h = heights[stack.pop()]  # 高度 的 bar
+            # 如果 栈 为空，它 表示 整个 width 可以 为 taken 从 索引 0 到 i-1
+            w = i if not stack else i - stack[-1] - 1  # 计算 width
             max_area = max(max_area, h * w)
 
         stack.append(i)

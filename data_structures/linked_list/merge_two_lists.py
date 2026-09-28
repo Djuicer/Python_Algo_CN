@@ -1,5 +1,5 @@
 """
-Algorithm that merges two sorted linked lists into one sorted linked list.
+算法 该 合并两个 已排序 连接 列表 到 一个 已排序 链表。
 """
 
 from __future__ import annotations

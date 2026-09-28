@@ -150,7 +150,7 @@ class SkewHeap[T: bool]:
         while self:
             result.append(self.pop())
 
-        # Pushing items back to the heap not to clear it.
+        # Pushing 元素 后端 到 该堆 不 到 clear 它。
         for item in result:
             self.insert(item)
 

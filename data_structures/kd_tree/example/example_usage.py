@@ -1,9 +1,9 @@
 #  Created by: Ramy-Badr-Ahmed (https://github.com/Ramy-Badr-Ahmed)
-#  in Pull Request: #11532
+#  在 Pull Request: #11532
 #  https://github.com/TheAlgorithms/Python/pull/11532
 #
-#  Please mention me (@Ramy-Badr-Ahmed) in any issue or pull request
-#  addressing bugs/corrections to this file.
+#  Please mention me (@Ramy-Badr-Ahmed) 在 任意 问题 或 pull request
+#  寻址 bugs/corrections 到 此 文件。
 #  Thank you!
 
 import numpy as np
@@ -15,27 +15,27 @@ from data_structures.kd_tree.nearest_neighbour_search import nearest_neighbour_s
 
 def main() -> None:
     """
-    Demonstrates the use of KD-Tree by building it from random points
-    in a 10-dimensional hypercube and performing a nearest neighbor search.
+    Demonstrates 使用 的 KD-树 通过 building 它 从 随机 点
+    在 10-dimensional hypercube 并且 performing 最近 邻居 搜索。
     """
     num_points: int = 5000
-    cube_size: float = 10.0  # Size of the hypercube (edge length)
+    cube_size: float = 10.0  # 大小 的 hypercube (edge 长度)
     num_dimensions: int = 10
 
-    # Generate random points within the hypercube
+    # 生成 随机 点 之内 hypercube
     points: np.ndarray = hypercube_points(num_points, cube_size, num_dimensions)
     hypercube_kdtree = build_kdtree(points.tolist())
 
-    # Generate a random query point within the same space
+    # 生成 随机 查询 点 之内 相同 空间
     rng = np.random.default_rng()
     query_point: list[float] = rng.random(num_dimensions).tolist()
 
-    # Perform nearest neighbor search
+    # 执行 最近 邻居 搜索
     nearest_point, nearest_dist, nodes_visited = nearest_neighbour_search(
         hypercube_kdtree, query_point
     )
 
-    # Print the results
+    # 打印 results
     print(f"Query point: {query_point}")
     print(f"Nearest point: {nearest_point}")
     print(f"Distance: {nearest_dist:.4f}")

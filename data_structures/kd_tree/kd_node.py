@@ -1,9 +1,9 @@
 #  Created by: Ramy-Badr-Ahmed (https://github.com/Ramy-Badr-Ahmed)
-#  in Pull Request: #11532
+#  在 Pull Request: #11532
 #  https://github.com/TheAlgorithms/Python/pull/11532
 #
-#  Please mention me (@Ramy-Badr-Ahmed) in any issue or pull request
-#  addressing bugs/corrections to this file.
+#  Please mention me (@Ramy-Badr-Ahmed) 在 任意 问题 或 pull request
+#  寻址 bugs/corrections 到 此 文件。
 #  Thank you!
 
 from __future__ import annotations
@@ -11,12 +11,12 @@ from __future__ import annotations
 
 class KDNode:
     """
-    Represents a node in a KD-Tree.
+    表示 一个节点 在 KD-树。
 
-    Attributes:
-        point: The point stored in this node.
-        left: The left child node.
-        right: The right child node.
+    属性：
+        点: 点 存储 在 此 节点。
+        左: 左 子节点。
+        右: 右子节点 节点。
     """
 
     def __init__(
@@ -26,12 +26,12 @@ class KDNode:
         right: KDNode | None = None,
     ) -> None:
         """
-        Initializes a KDNode with the given point and child nodes.
+        Initializes KDNode 带有 给定 点 并且 子节点 节点。
 
-        Args:
-            point (list[float]): The point stored in this node.
-            left (Optional[KDNode]): The left child node.
-            right (Optional[KDNode]): The right child node.
+        参数：
+            点 (列表[浮点数]): 点 存储 在 此 节点。
+            左 (可选[KDNode]): 左 子节点。
+            右 (可选[KDNode]): 右子节点 节点。
         """
         self.point = point
         self.left = left

@@ -1,17 +1,17 @@
 """
-Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+给定 根节点 的 二叉树，判断是否 它 是 有效 二叉搜索树 (BST)。
 
-A valid binary search tree is defined as follows:
-- The left subtree of a node contains only nodes with keys less than the node's key.
-- The right subtree of a node contains only nodes with keys greater than the node's key.
-- Both the left and right subtrees must also be binary search trees.
+有效 二叉搜索树 是 定义 作为 follows：
+- 左子树 的 一个节点 包含 仅 节点 带有 键 较小 比 该节点's 键。
+- 右子树 的 一个节点 包含 仅 节点 带有 键 更大 比 该节点's 键。
+- 两者 左 并且 右 子树 必须 也 为 binary 搜索 树。
 
-In effect, a binary tree is a valid BST if its nodes are sorted in ascending order.
+在 effect，二叉树 是 有效 BST 如果 其 节点 是 已排序 在 升序。
 leetcode: https://leetcode.com/problems/validate-binary-search-tree/
 
-If n is the number of nodes in the tree then:
-Runtime: O(n)
-Space: O(1)
+如果 n 是 节点数量 在 该树 则：
+运行时间: O(n)
+空间: O(1)
 """
 
 from __future__ import annotations

@@ -1,8 +1,8 @@
 """
-Hey, we are going to find an exciting number called Catalan number which is use to find
-the number of possible binary search trees from tree of a given number of nodes.
+Hey，我们 是 going 到 查找 exciting 数 called Catalan 数 其 是 使用 到 查找
+数 的 可能 binary 搜索 树 从 树 的 给定 节点数量。
 
-We will use the formula: t(n) = SUMMATION(i = 1 to n)t(i-1)t(n-i)
+我们 将 使用 formula: t(n) = SUMMATION(i = 1 到 n)t(i-1)t(n-i)
 
 Further details at Wikipedia: https://en.wikipedia.org/wiki/Catalan_number
 """
@@ -19,20 +19,20 @@ Basically we Create the 2 function:
 
 def binomial_coefficient(n: int, k: int) -> int:
     """
-    Since Here we Find the Binomial Coefficient:
+    Since 此处 我们 查找 Binomial Coefficient：
     https://en.wikipedia.org/wiki/Binomial_coefficient
     C(n,k) = n! / k!(n-k)!
-    :param n: 2 times of Number of nodes
-    :param k: Number of nodes
-    :return:  Integer Value
+    :param n: 2 times 的 节点数量
+    :param k: 节点数量
+    :返回:  整数 值
 
     >>> binomial_coefficient(4, 2)
     6
     """
-    result = 1  # To kept the Calculated Value
+    result = 1  # 到 kept 计算得出 值
     # Since C(n, k) = C(n, n-k)
     k = min(k, n - k)
-    # Calculate C(n,k)
+    # 计算 C(n,k)
     for i in range(k):
         result *= n - i
         result //= i + 1
@@ -41,12 +41,12 @@ def binomial_coefficient(n: int, k: int) -> int:
 
 def catalan_number(node_count: int) -> int:
     """
-    We can find Catalan number many ways but here we use Binomial Coefficient because it
-    does the job in O(n)
+    我们 可以 查找 Catalan 数 many ways 但是 此处 我们 使用 Binomial Coefficient 因为 它
+    does job 在 O(n)
 
-    return the Catalan number of n using 2nCn/(n+1).
-    :param n: number of nodes
-    :return: Catalan number of n nodes
+    返回 Catalan 数 的 n 使用 2nCn/(n+1)。
+    :param n: 节点数量
+    :返回: Catalan 数 的 n 节点
 
     >>> catalan_number(5)
     42
@@ -58,9 +58,9 @@ def catalan_number(node_count: int) -> int:
 
 def factorial(n: int) -> int:
     """
-    Return the factorial of a number.
-    :param n: Number to find the Factorial of.
-    :return: Factorial of n.
+    返回 factorial 的 数。
+    :param n: 数 到 查找 Factorial 的。
+    :返回: Factorial 的 n。
 
     >>> import math
     >>> all(factorial(i) == math.factorial(i) for i in range(10))
@@ -80,9 +80,9 @@ def factorial(n: int) -> int:
 
 def binary_tree_count(node_count: int) -> int:
     """
-    Return the number of possible of binary trees.
-    :param n: number of nodes
-    :return: Number of possible binary trees
+    返回以下对象的数量： 可能 的 binary 树。
+    :param n: 节点数量
+    :返回: 数 的 可能 binary 树
 
     >>> binary_tree_count(5)
     5040

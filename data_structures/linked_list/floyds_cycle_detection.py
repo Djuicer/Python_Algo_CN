@@ -1,11 +1,11 @@
 """
-Floyd's cycle detection algorithm is a popular algorithm used to detect cycles
-in a linked list. It uses two pointers, a slow pointer and a fast pointer,
-to traverse the linked list. The slow pointer moves one node at a time while the fast
-pointer moves two nodes at a time. If there is a cycle in the linked list,
-the fast pointer will eventually catch up to the slow pointer and they will
-meet at the same node. If there is no cycle, the fast pointer will reach the end of
-the linked list and the algorithm will terminate.
+Floyd's 环 detection 算法 是 popular 算法 使用 到 detect cycles
+在 链表. 它 使用 两个 指针，慢 指针 并且 fast 指针,
+到 遍历 链表. 慢 指针 移动 一个 节点 在 时间 当 fast
+指针 移动 两个 节点 在 时间. 如果 其中 是 环 在 链表,
+fast 指针 将 eventually catch 向上 到 慢 指针 并且 they 将
+meet 在 相同 节点. 如果 其中 是 没有 环，fast 指针 将 reach 末尾 的
+链表 并且 算法 将 terminate。
 
 For more information: https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare
 """
@@ -18,7 +18,7 @@ from typing import Any, Self
 @dataclass
 class Node:
     """
-    A class representing a node in a singly linked list.
+    类 表示 一个节点 在 单向链表。
     """
 
     data: Any
@@ -28,19 +28,19 @@ class Node:
 @dataclass
 class LinkedList:
     """
-    A class representing a singly linked list.
+    类 表示 单向链表。
     """
 
     head: Node | None = None
 
     def __iter__(self) -> Iterator:
         """
-        Iterates through the linked list.
+        Iterates 通过 链表。
 
-        Returns:
-            Iterator: An iterator over the linked list.
+        返回值：
+            迭代器: 迭代器 超过 链表。
 
-        Examples:
+        示例：
         >>> linked_list = LinkedList()
         >>> list(linked_list)
         []
@@ -51,7 +51,7 @@ class LinkedList:
         visited = []
         node = self.head
         while node:
-            # Avoid infinite loop in there's a cycle
+            # Avoid infinite 循环 在 其中's 环
             if node in visited:
                 return
             visited.append(node)
@@ -60,12 +60,12 @@ class LinkedList:
 
     def add_node(self, data: Any) -> None:
         """
-        Adds a new node to the end of the linked list.
+        Adds 新节点 到 末尾 的 链表。
 
-        Args:
-            data (Any): The data to be stored in the new node.
+        参数：
+            数据 (任意): 数据 到 为 存储 在 新节点。
 
-        Examples:
+        示例：
         >>> linked_list = LinkedList()
         >>> linked_list.add_node(1)
         >>> linked_list.add_node(2)
@@ -88,13 +88,13 @@ class LinkedList:
 
     def detect_cycle(self) -> bool:
         """
-        Detects if there is a cycle in the linked list using
-        Floyd's cycle detection algorithm.
+        Detects 如果 其中 是 环 在 链表 使用
+        Floyd's 环 detection 算法。
 
-        Returns:
-            bool: True if there is a cycle, False otherwise.
+        返回值：
+            bool: True 如果 其中 是 环，False 否则。
 
-        Examples:
+        示例：
         >>> linked_list = LinkedList()
         >>> linked_list.add_node(1)
         >>> linked_list.add_node(2)
@@ -104,7 +104,7 @@ class LinkedList:
         >>> linked_list.detect_cycle()
         False
 
-        # Create a cycle in the linked list
+        # 创建一个 环 在 链表
         >>> linked_list.head.next_node.next_node.next_node = linked_list.head.next_node
 
         >>> linked_list.detect_cycle()
@@ -136,9 +136,9 @@ if __name__ == "__main__":
     linked_list.add_node(3)
     linked_list.add_node(4)
 
-    # Create a cycle in the linked list
-    # It first checks if the head, next_node, and next_node.next_node attributes of the
-    # linked list are not None to avoid any potential type errors.
+    # 创建一个 环 在 链表
+    # 它 第一个 检查是否 头节点，next_node，并且 next_node.next_node 属性 的
+    # 链表 是 不 None 到 avoid 任意 potential 类型 errors。
     if (
         linked_list.head
         and linked_list.head.next_node
@@ -147,4 +147,4 @@ if __name__ == "__main__":
         linked_list.head.next_node.next_node.next_node = linked_list.head.next_node
 
     has_cycle = linked_list.detect_cycle()
-    print(has_cycle)  # Output: True
+    print(has_cycle)  # 输出: True

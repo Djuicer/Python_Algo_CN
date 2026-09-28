@@ -1,21 +1,21 @@
 """
-Calculate the Product Sum from a Special Array.
+计算 乘积 和 从 Special 数组。
 reference: https://dev.to/sfrasica/algorithms-product-sum-from-an-array-dc6
 
-Python doctests can be run with the following command:
+Python doctests 可以 为 运行 带有 following 命令：
 python -m doctest -v product_sum.py
 
-Calculate the product sum of a "special" array which can contain integers or nested
-arrays. The product sum is obtained by adding all elements and multiplying by their
+计算 乘积 和 的 "special" 数组 其 可以 包含 整数 或 嵌套
+数组. 乘积 和 是 obtained 通过 添加 所有元素 并且 multiplying 通过 它们的
 respective depths.
 
-For example, in the array [x, y], the product sum is (x + y). In the array [x, [y, z]],
-the product sum is x + 2 * (y + z). In the array [x, [y, [z]]],
-the product sum is x + 2 * (y + 3z).
+用于 示例，在 该数组 [x，y]，乘积 和 是 (x + y). 在 该数组 [x，[y，z]],
+乘积 和 是 x + 2 * (y + z). 在 该数组 [x，[y，[z]]],
+乘积 和 是 x + 2 * (y + 3z)。
 
-Example Input:
+示例 输入：
 [5, 2, [-7, 1], 3, [6, [-13, 8], 4]]
-Output: -12
+输出: -12
 
 """
 
@@ -24,20 +24,20 @@ from timeit import timeit
 
 def product_sum(arr: list[int | list], depth: int) -> int:
     """
-    Recursively calculates the product sum of an array.
+    递归地 计算 乘积 和 的 一个数组。
 
-    The product sum of an array is defined as the sum of its elements multiplied by
-    their respective depths.  If an element is a list, its product sum is calculated
-    recursively by multiplying the sum of its elements with its depth plus one.
+    乘积 和 的 一个数组 是 定义 作为 和 的 其 元素 multiplied 通过
+    它们的 respective depths.  如果 元素 是 一个列表，其 乘积 和 是 计算得出
+    递归地 通过 multiplying 和 的 其 元素 带有 其 深度 plus 一个。
 
-    Args:
-        arr: The array of integers and nested lists.
-        depth: The current depth level.
+    参数：
+        arr: 该数组 的 整数 并且 嵌套 列表。
+        深度: 当前 深度 层级。
 
-    Returns:
-        int: The product sum of the array.
+    返回值：
+        int: 乘积 和 的数组。
 
-    Examples:
+    示例：
         >>> product_sum([1, 2, 3], 1)
         6
         >>> product_sum([-1, 2, [-3, 4]], 2)
@@ -68,15 +68,15 @@ def product_sum(arr: list[int | list], depth: int) -> int:
 
 def product_sum_array(array: list[int | list]) -> int:
     """
-    Calculates the product sum of an array.
+    计算 乘积 和 的 一个数组。
 
-    Args:
-        array (List[Union[int, List]]): The array of integers and nested lists.
+    参数：
+        数组 (列表[Union[int，列表]]): 该数组 的 整数 并且 嵌套 列表。
 
-    Returns:
-        int: The product sum of the array.
+    返回值：
+        int: 乘积 和 的数组。
 
-    Examples:
+    示例：
         >>> product_sum_array([1, 2, 3])
         6
         >>> product_sum_array([1, [2, 3]])
@@ -96,74 +96,74 @@ def product_sum_array(array: list[int | list]) -> int:
 
 def product_sum_iterative(arr: list[int | list]) -> int:
     """
-    It Calculates the product sum of an array using iterative approach.
-    It's similar to BFS algorithm (Breadth first search algorithm).
-    It's won't run into stack overflow as compared to recursion approach
+    它 计算 乘积 和 的 一个数组 使用 迭代 方法。
+    它's similar 到 BFS 算法 (Breadth 第一个 搜索 算法)。
+    它's won't 运行 到 栈 overflow 作为 compared 到 recursion 方法
 
-    Args:
-        array(List[Union[int, List]]): The array of integers/lists
+    参数：
+        数组(列表[Union[int，列表]]): 该数组 的 整数/列表
 
-    Returns:
-        int: The product sum of the array.
+    返回值：
+        int: 乘积 和 的数组。
 
     Logic :
-        1. Initialize a queue which stores the list, current
-            depth and it's multiplication factor
-            eg. queue -> [(arr, depth, multiplication_factor)]
+        1. 初始化 队列 其 存储 该列表，当前
+            深度 并且 它's 乘法 因子
+            eg. 队列 -> [(arr，深度，multiplication_factor)]
 
-        2. Loop until queue is empty
-            1. Take front item from Queue and pop it
-            2. Iterate on front element
-                If current element is nested list
-                    - then add that into queue with updated depth
-                      and multiplication factor
-                Else if current element is not nested
-                    - then update product sum variable by multiplying
-                      current element with multiplicaton factor
+        2. 循环 until 队列 为空
+            1. Take 前端 元素 从 队列 并且 弹出 它
+            2. 迭代 在 前端 元素
+                如果 当前元素 是 嵌套 列表
+                    - 则 添加 该 到 队列 带有 updated 深度
+                      并且 乘法 因子
+                否则 如果 当前元素 是 不 嵌套
+                    - 则 更新 乘积 和 变量 通过 multiplying
+                      当前元素 带有 multiplicaton 因子
 
-    Algorithm flow example ->
-        Input list - [5, 2, [-7, 1], 3, [6, [-13, 8], 4]]
+    算法 flow 示例 ->
+        输入 列表 - [5，2，[-7，1]，3，[6，[-13，8]，4]]
 
-        Initialize queue - [([5, 2, [-7, 1], 3, [6, [-13, 8], 4]], 1, 1)]
+        初始化 队列 - [([5，2，[-7，1]，3，[6，[-13，8]，4]]，1，1)]
 
-        Step 0
-            Queue - [([5, 2, [-7, 1], 3, [6, [-13, 8], 4]], 1, 1)]
-            Queue front item -
-                List - [5, 2, [-7, 1], 3, [6, [-13, 8], 4]]
-                depth - 1
-                multiplication factor - 1
+        步骤 0
+            队列 - [([5，2，[-7，1]，3，[6，[-13，8]，4]]，1，1)]
+            队列 前端 元素 -
+                列表 - [5，2，[-7，1]，3，[6，[-13，8]，4]]
+                深度 - 1
+                乘法 因子 - 1
 
-            product sum = 0 (previous) + 5 * 1 + 2 * 1 + 3 * 1 = 10
+            乘积 和 = 0 (上一个) + 5 * 1 + 2 * 1 + 3 * 1 = 10
         -------------------------------------------------------
-        Step 1
-            Queue - [([-7, 1], 2, 2), ([6, [-13, 8], 4], 2, 2)]
-            Queue front item -
-                List - [-7, 1]
-                depth - 2
-                multiplication factor - 2
+        步骤 1
+            队列 - [([-7，1]，2，2)，([6，[-13，8]，4]，2，2)]
+            队列 前端 元素 -
+                列表 - [-7，1]
+                深度 - 2
+                乘法 因子 - 2
 
-            product sum = 10 (previous) +  (-7) * 2 + 1 * 2 = -2
+            乘积 和 = 10 (上一个) +  (-7) * 2 + 1 * 2 = -2
         -------------------------------------------------------
-        Step 2
-            Queue - [([6, [-13, 8], 4], 2, 2)]
-            Queue front item -
-                List - [6, [-13, 8], 4]
-                depth - 2
-                multiplication factor - 2
+        步骤 2
+            队列 - [([6，[-13，8]，4]，2，2)]
+            队列 前端 元素 -
+                列表 - [6，[-13，8]，4]
+                深度 - 2
+                乘法 因子 - 2
 
-            product sum = -2 (previous) + 6 * 2 +  4 * 2 = 18
+            乘积 和 = -2 (上一个) + 6 * 2 +  4 * 2 = 18
         -------------------------------------------------------
-        Step 3
-            Queue - [([-13, 8], 3, 6)]
-            Queue front item -
-                List - [-13, 8]
-                depth - 3
-                multiplication factor - 6
+        步骤 3
+            队列 - [([-13，8]，3，6)]
+            队列 前端 元素 -
+                列表 - [-13，8]
+                深度 - 3
+                乘法 因子 - 6
 
-            product sum = 18 (previous) + (-13) * 6 + 8 * 6 = -12
+            乘积 和 = 18 (上一个) + (-13) * 6 + 8 * 6 = -12
         -------------------------------------------------------
 
-    Examples:
+    示例：
         >>> product_sum_array([1, 2, 3])
         6
         >>> product_sum_array([1, [2, 3]])
@@ -178,7 +178,7 @@ def product_sum_iterative(arr: list[int | list]) -> int:
         -1
     """
 
-    # Initialize queue with depth and multiplication factor
+    # 初始化 队列 带有 深度 并且 乘法 因子
     queue = [(arr, 1, 1)]
 
     product_sum = 0
@@ -197,7 +197,7 @@ def product_sum_iterative(arr: list[int | list]) -> int:
 
 def benchmark() -> None:
     """
-    Benchmark code comparing different version.
+    Benchmark 代码 comparing 不同 version。
     """
 
     setup = "from __main__ import product_sum_array, product_sum_iterative"

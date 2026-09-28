@@ -1,9 +1,9 @@
 """
-In a binary search tree (BST):
-* The floor of key 'k' is the maximum value that is smaller than or equal to 'k'.
-* The ceiling of key 'k' is the minimum value that is greater than or equal to 'k'.
+在 二叉搜索树 (BST)：
+* floor 的 键 'k' 是 最大值 值 该 是 更小 比 或 等于 到 'k'。
+* ceiling 的 键 'k' 是 最小值 值 该 是 更大 比 或 等于 到 'k'。
 
-Reference:
+引用：
 https://bit.ly/46uB0a2
 
 Author : Arunkumar
@@ -35,16 +35,16 @@ class Node:
 
 def floor_ceiling(root: Node | None, key: int) -> tuple[int | None, int | None]:
     """
-    Find the floor and ceiling values for a given key in a Binary Search Tree (BST).
+    查找 floor 并且 ceiling 值 用于 给定 键 在 二叉搜索树 (BST)。
 
-    Args:
-        root: The root of the binary search tree.
-        key: The key for which to find the floor and ceiling.
+    参数：
+        根节点: 根节点 的 二叉搜索树。
+        键: 该键 用于 其 到 查找 floor 并且 ceiling。
 
-    Returns:
-        A tuple containing the floor and ceiling values, respectively.
+    返回值：
+        元组 包含 floor 并且 ceiling 值，respectively。
 
-    Examples:
+    示例：
         >>> root = Node(10)
         >>> root.left = Node(5)
         >>> root.right = Node(20)

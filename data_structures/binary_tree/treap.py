@@ -5,8 +5,8 @@ from random import random
 
 class Node:
     """
-    Treap's node
-    Treap is a binary tree by value and heap by priority
+    Treap's 节点
+    Treap 是 二叉树 通过 值 并且 堆 通过 优先级
     """
 
     def __init__(self, value: int | None = None) -> None:
@@ -34,12 +34,12 @@ class Node:
 
 def split(root: Node | None, value: int) -> tuple[Node | None, Node | None]:
     """
-    We split current tree into 2 trees with value:
+    我们 拆分 当前 树 到 2 树 带有 值：
 
-    Left tree contains all values less than split value.
-    Right tree contains all values greater or equal, than split value
+    左 树 包含 所有 值 较小 比 拆分 值。
+    右 树 包含 所有 值 更大 或 等于，比 拆分 值
     """
-    if root is None or root.value is None:  # None tree is split into 2 Nones
+    if root is None or root.value is None:  # None 树 是 拆分 到 2 Nones
         return None, None
     elif value <= root.value:
         """
@@ -60,10 +60,10 @@ def split(root: Node | None, value: int) -> tuple[Node | None, Node | None]:
 
 def merge(left: Node | None, right: Node | None) -> Node | None:
     """
-    We merge 2 trees into one.
-    Note: all left tree's values must be less than all right tree's
+    我们 合并 2 树 到 一个。
+    Note: 所有 左 树's 值 必须 为 较小 比 所有 右 树's
     """
-    if (not left) or (not right):  # If one node is None, return the other
+    if (not left) or (not right):  # 如果 一个 节点 是 None，返回 另一个
         return left or right
     elif left.prior > right.prior:
         """
@@ -82,11 +82,11 @@ def merge(left: Node | None, right: Node | None) -> Node | None:
 
 def insert(root: Node | None, value: int) -> Node | None:
     """
-    Insert element
+    插入 元素
 
-    Split current tree with a value into left, right,
-    Insert new node into the middle
-    Merge left, node, right into root
+    拆分 当前 树 带有 一个值 到 左，右,
+    插入 新节点 到 middle
+    合并 左，节点，右 到 根节点
     """
     node = Node(value)
     left, right = split(root, value)
@@ -95,11 +95,11 @@ def insert(root: Node | None, value: int) -> Node | None:
 
 def erase(root: Node | None, value: int) -> Node | None:
     """
-    Erase element
+    Erase 元素
 
-    Split all nodes with values less into left,
-    Split all nodes with values greater into right.
-    Merge left, right
+    拆分 所有节点 带有 值 较小 到 左,
+    拆分 所有节点 带有 值 更大 到 右。
+    合并 左，右
     """
     left, right = split(root, value)
     _, right = split(right, value + 1)
@@ -108,7 +108,7 @@ def erase(root: Node | None, value: int) -> Node | None:
 
 def inorder(root: Node | None) -> None:
     """
-    Just recursive print of a tree
+    仅 递归 打印 的 树
     """
     if not root:  # None
         return
@@ -121,8 +121,8 @@ def inorder(root: Node | None) -> None:
 def interact_treap(root: Node | None, args: str) -> Node | None:
     """
     Commands:
-    + value to add value into treap
-    - value to erase all nodes with value
+    + 值 到 添加 值 到 treap
+    - 值 到 erase 所有节点 带有 值
 
         >>> root = interact_treap(None, "+1")
         >>> inorder(root)
@@ -156,7 +156,7 @@ def interact_treap(root: Node | None, args: str) -> Node | None:
 
 
 def main() -> None:
-    """After each command, program prints treap"""
+    """之后 每个 命令，program 打印 treap"""
     root = None
     print(
         "enter numbers to create a tree, + value to add value into treap, "

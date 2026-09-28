@@ -1,6 +1,6 @@
 """
-Recursive Program to create a Linked List from a sequence and
-print a string representation of it.
+递归 Program 到 创建一个 链表 从 序列 并且
+打印 字符串 表示 的 它。
 """
 
 
@@ -10,7 +10,7 @@ class Node:
         self.next = None
 
     def __repr__(self) -> str:
-        """Returns a visual representation of the node and all its following nodes."""
+        """返回值 visual 表示 的节点 并且 所有 其 following 节点。"""
         string_rep = ""
         temp = self
         while temp:
@@ -22,7 +22,7 @@ class Node:
 
 def make_linked_list(elements_list: list | tuple) -> Node:
     """
-    Creates a Linked List from the elements of the given sequence
+    创建一个 链表 从 元素 的 给定 序列
     (list/tuple) and returns the head of the Linked List.
 
     >>> make_linked_list([])
@@ -43,14 +43,14 @@ def make_linked_list(elements_list: list | tuple) -> Node:
     <1> ---> <3> ---> <5> ---> <32> ---> <44> ---> <12> ---> <43> ---> <END>
     """
 
-    # if elements_list is empty
+    # 如果 elements_list 为空
     if not elements_list:
         raise ValueError("The Elements List is empty")
 
-    # Set first element as Head
+    # 集合 第一个元素 作为 头节点
     head = Node(elements_list[0])
     current = head
-    # Loop through elements from position 1
+    # 循环 通过 元素 从 位置 1
     for data in elements_list[1:]:
         current.next = Node(data)
         current = current.next

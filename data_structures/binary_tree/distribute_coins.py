@@ -3,38 +3,38 @@ Author  : Alexander Pantyukhin
 Date    : November 7, 2022
 
 Task:
-You are given a tree root of a binary tree with n nodes, where each node has
-node.data coins. There are exactly n coins in whole tree.
+You 是 给定 树 根节点 的 二叉树 带有 n 节点，其中 每个节点 具有
+节点.数据 coins. 其中 是 exactly n coins 在 whole 树。
 
-In one move, we may choose two adjacent nodes and move one coin from one node
-to another. A move may be from parent to child, or from child to parent.
+在 一个 移动，我们 may choose 两个 adjacent 节点 并且 移动 一个 coin 从 一个 节点
+到 另一个. 移动 may 为 从 父节点 到 子节点，或 从 子节点 到 父节点。
 
-Return the minimum number of moves required to make every node have exactly one coin.
+返回 最小值 数 的 移动 所需 到 使 每个 节点 具有 exactly 一个 coin。
 
-Example 1:
+示例 1：
 
    3
   / \
  0   0
 
-Result: 2
+结果: 2
 
-Example 2:
+示例 2：
 
    0
   / \
  3   0
 
-Result 3
+结果 3
 
 leetcode: https://leetcode.com/problems/distribute-coins-in-binary-tree/
 
-Implementation notes:
-User depth-first search approach.
+实现 notes：
+User 深度-第一个 搜索 方法。
 
-Let n is the number of nodes in tree
-Runtime: O(n)
-Space: O(1)
+Let n 是 节点数量 在 树
+运行时间: O(n)
+空间: O(1)
 """
 
 from __future__ import annotations
@@ -78,7 +78,7 @@ def distribute_coins(root: TreeNode | None) -> int:
     if root is None:
         return 0
 
-    # Validation
+    # 验证
     def count_nodes(node: TreeNode | None) -> int:
         """
         >>> count_nodes(None)
@@ -102,7 +102,7 @@ def distribute_coins(root: TreeNode | None) -> int:
     if count_nodes(root) != count_coins(root):
         raise ValueError("The nodes number should be same as the number of coins")
 
-    # Main calculation
+    # 主要计算
     def get_distrib(node: TreeNode | None) -> CoinsDistribResult:
         """
         >>> get_distrib(None)

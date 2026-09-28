@@ -75,7 +75,7 @@ class LinkedList:
 
     def reverse_k_nodes(self, group_size: int) -> None:
         """
-        reverse nodes within groups of size k
+        反转 节点 之内 groups 的 大小 k
         >>> ll = LinkedList([1, 2, 3, 4, 5])
         >>> ll.reverse_k_nodes(2)
         >>> tuple(ll)
